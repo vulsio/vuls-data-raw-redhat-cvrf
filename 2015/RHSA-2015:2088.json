@@ -1,0 +1,496 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: openssh security, bug fix, and enhancement update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2015:2088"
+		},
+		"Status": "Final",
+		"Version": "6",
+		"revisionhistory": {
+			"revision": {
+				"Number": "6",
+				"Date": "2015-11-19T03:38:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2015-11-19T03:38:00Z",
+		"CurrentReleaseDate": "2015-11-19T03:38:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:42:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated openssh packages that fix multiple security issues, several bugs,\nand add various enhancements are now available for Red Hat Enterprise\nLinux 7.\n\nRed Hat Product Security has rated this update as having Moderate security\nimpact. Common Vulnerability Scoring System (CVSS) base scores, which give\ndetailed severity ratings, are available for each vulnerability from the\nCVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nOpenSSH is OpenBSD's SSH (Secure Shell) protocol implementation. These\npackages include the core files necessary for both the OpenSSH client and\nserver.\n\nA flaw was found in the way OpenSSH handled PAM authentication when using\nprivilege separation. An attacker with valid credentials on the system and\nable to fully compromise a non-privileged pre-authentication process using\na different flaw could use this flaw to authenticate as other users.\n(CVE-2015-6563)\n\nA use-after-free flaw was found in OpenSSH. An attacker able to fully\ncompromise a non-privileged pre-authentication process using a different\nflaw could possibly cause sshd to crash or execute arbitrary code with\nroot privileges. (CVE-2015-6564)\n\nIt was discovered that the OpenSSH sshd daemon did not check the list of\nkeyboard-interactive authentication methods for duplicates. A remote\nattacker could use this flaw to bypass the MaxAuthTries limit, making it\neasier to perform password guessing attacks. (CVE-2015-5600)\n\nIt was found that the OpenSSH ssh-agent, a program to hold private keys\nused for public key authentication, was vulnerable to password guessing\nattacks. An attacker able to connect to the agent could use this flaw to\nconduct a brute-force attack to unlock keys in the ssh-agent. (BZ#1238238)\n\nThis update fixes the following bugs:\n\n* Previously, the sshd_config(5) man page was misleading and could thus\nconfuse the user. This update improves the man page text to clearly\ndescribe the AllowGroups feature. (BZ#1150007)\n\n* The limit for the function for restricting the number of files listed using the wildcard character (*) that prevents the Denial of Service (DoS) for both server and client was previously set too low. Consequently, the user reaching the limit was prevented from listing a directory with a large number of files over Secure File Transfer Protocol (SFTP). This update increases the aforementioned limit, thus fixing this bug. (BZ#1160377)\n\n* When the ForceCommand option with a pseudoterminal was used and the\nMaxSession option was set to \"2\", multiplexed SSH connections did not work\nas expected. After the user attempted to open a second multiplexed\nconnection, the attempt failed if the first connection was still open. This\nupdate modifies OpenSSH to issue only one audit message per session, and\nthe user is thus able to open two multiplexed connections in this\nsituation. (BZ#1199112)\n\n* The ssh-copy-id utility failed if the account on the remote server did\nnot use an sh-like shell. Remote commands have been modified to run in an\nsh-like shell, and ssh-copy-id now works also with non-sh-like shells.\n(BZ#1201758)\n\n* Due to a race condition between auditing messages and answers when using\nControlMaster multiplexing, one session in the shared connection randomly\nand unexpectedly exited the connection. This update fixes the race\ncondition in the auditing code, and multiplexing connections now work as\nexpected even with a number of sessions created at once. (BZ#1240613)\n\nIn addition, this update adds the following enhancements:\n\n* As not all Lightweight Directory Access Protocol (LDAP) servers possess\na default schema, as expected by the ssh-ldap-helper program, this update\nprovides the user with an ability to adjust the LDAP query to get public\nkeys from servers with a different schema, while the default functionality\nstays untouched. (BZ#1201753)\n\n* With this enhancement update, the administrator is able to set\npermissions for files uploaded using Secure File Transfer Protocol (SFTP).\n(BZ#1197989)\n\n* This update provides the LDAP schema in LDAP Data Interchange Format (LDIF) format as a complement to the old schema previously accepted\nby OpenLDAP. (BZ#1184938)\n\n* With this update, the user can selectively disable the Generic Security\nServices API (GSSAPI) key exchange algorithms as any normal key exchange.\n(BZ#1253062)\n\nUsers of openssh are advised to upgrade to these updated packages, which\ncorrect these issues and add these enhancements.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2015:2088",
+				"Description": "https://access.redhat.com/errata/RHSA-2015:2088"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "openssh: MaxAuthTries limit bypass via duplicates in KbdInteractiveDevices",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-07-16T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-5600",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:2088"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://kingcope.wordpress.com/2015/07/16/openssh-keyboard-interactive-authentication-brute-force-vulnerability-maxauthtries-bypass/",
+						"Description": "https://kingcope.wordpress.com/2015/07/16/openssh-keyboard-interactive-authentication-brute-force-vulnerability-maxauthtries-bypass/"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-5600",
+						"Description": "CVE-2015-5600"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1245969",
+						"Description": "bz#1245969: CVE-2015-5600 openssh: MaxAuthTries limit bypass via duplicates in KbdInteractiveDevices"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2015-07-16T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-optional:openssh-0:6.6.1p1-22.el7",
+						"7Client:openssh-0:6.6.1p1-22.el7",
+						"7ComputeNode-optional:openssh-0:6.6.1p1-22.el7",
+						"7ComputeNode:openssh-0:6.6.1p1-22.el7",
+						"7Server-optional:openssh-0:6.6.1p1-22.el7",
+						"7Server:openssh-0:6.6.1p1-22.el7",
+						"7Workstation-optional:openssh-0:6.6.1p1-22.el7",
+						"7Workstation:openssh-0:6.6.1p1-22.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "openssh: Privilege separation weakness related to PAM support",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-08-11T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-6563",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:2088"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "http://www.openssh.com/txt/release-7.0",
+						"Description": "http://www.openssh.com/txt/release-7.0"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-6563",
+						"Description": "CVE-2015-6563"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1252844",
+						"Description": "bz#1252844: CVE-2015-6563 openssh: Privilege separation weakness related to PAM support"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-08-11T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-optional:openssh-0:6.6.1p1-22.el7",
+						"7Client:openssh-0:6.6.1p1-22.el7",
+						"7ComputeNode-optional:openssh-0:6.6.1p1-22.el7",
+						"7ComputeNode:openssh-0:6.6.1p1-22.el7",
+						"7Server-optional:openssh-0:6.6.1p1-22.el7",
+						"7Server:openssh-0:6.6.1p1-22.el7",
+						"7Workstation-optional:openssh-0:6.6.1p1-22.el7",
+						"7Workstation:openssh-0:6.6.1p1-22.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.2",
+					"Vector": "AV:L/AC:H/Au:N/C:C/I:C/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "openssh: Use-after-free bug related to PAM support",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-08-11T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-6564",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:2088"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "http://www.openssh.com/txt/release-7.0",
+						"Description": "http://www.openssh.com/txt/release-7.0"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-6564",
+						"Description": "CVE-2015-6564"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1252852",
+						"Description": "bz#1252852: CVE-2015-6564 openssh: Use-after-free bug related to PAM support"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-08-11T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-optional:openssh-0:6.6.1p1-22.el7",
+						"7Client:openssh-0:6.6.1p1-22.el7",
+						"7ComputeNode-optional:openssh-0:6.6.1p1-22.el7",
+						"7ComputeNode:openssh-0:6.6.1p1-22.el7",
+						"7Server-optional:openssh-0:6.6.1p1-22.el7",
+						"7Server:openssh-0:6.6.1p1-22.el7",
+						"7Workstation-optional:openssh-0:6.6.1p1-22.el7",
+						"7Workstation:openssh-0:6.6.1p1-22.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.0",
+					"Vector": "AV:N/AC:H/Au:N/C:P/I:P/A:N"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Client (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Client (v. 7)",
+							"productid": "7Client",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Client Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Client Optional (v. 7)",
+							"productid": "7Client-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ComputeNode (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ComputeNode (v. 7)",
+							"productid": "7ComputeNode",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+							"productid": "7ComputeNode-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 7)",
+							"productid": "7Server",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional (v. 7)",
+							"productid": "7Server-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 7)",
+							"productid": "7Workstation",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation Optional (v. 7)",
+							"productid": "7Workstation-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "openssh-0:6.6.1p1-22.el7",
+				"fullproductname": {
+					"text": "openssh-6.6.1p1-22.el7.src.rpm",
+					"productid": "openssh-0:6.6.1p1-22.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "openssh-0:6.6.1p1-22.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client",
+				"fullproductname": {
+					"text": "openssh-0:6.6.1p1-22.el7 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"productid": "7Client:openssh-0:6.6.1p1-22.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "openssh-0:6.6.1p1-22.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-optional",
+				"fullproductname": {
+					"text": "openssh-0:6.6.1p1-22.el7 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"productid": "7Client-optional:openssh-0:6.6.1p1-22.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "openssh-0:6.6.1p1-22.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode",
+				"fullproductname": {
+					"text": "openssh-0:6.6.1p1-22.el7 as a component of Red Hat Enterprise Linux ComputeNode (v. 7)",
+					"productid": "7ComputeNode:openssh-0:6.6.1p1-22.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "openssh-0:6.6.1p1-22.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-optional",
+				"fullproductname": {
+					"text": "openssh-0:6.6.1p1-22.el7 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"productid": "7ComputeNode-optional:openssh-0:6.6.1p1-22.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "openssh-0:6.6.1p1-22.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server",
+				"fullproductname": {
+					"text": "openssh-0:6.6.1p1-22.el7 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server:openssh-0:6.6.1p1-22.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "openssh-0:6.6.1p1-22.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-optional",
+				"fullproductname": {
+					"text": "openssh-0:6.6.1p1-22.el7 as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"productid": "7Server-optional:openssh-0:6.6.1p1-22.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "openssh-0:6.6.1p1-22.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation",
+				"fullproductname": {
+					"text": "openssh-0:6.6.1p1-22.el7 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"productid": "7Workstation:openssh-0:6.6.1p1-22.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "openssh-0:6.6.1p1-22.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-optional",
+				"fullproductname": {
+					"text": "openssh-0:6.6.1p1-22.el7 as a component of Red Hat Enterprise Linux Workstation Optional (v. 7)",
+					"productid": "7Workstation-optional:openssh-0:6.6.1p1-22.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			}
+		]
+	}
+}

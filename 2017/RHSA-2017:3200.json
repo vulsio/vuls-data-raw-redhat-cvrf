@@ -1,0 +1,484 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: kernel security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2017:3200"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2017-11-14T20:34:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2017-11-14T20:34:00Z",
+		"CurrentReleaseDate": "2017-11-14T20:34:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:38:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nAn update for kernel is now available for Red Hat Enterprise Linux 6.\n\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe kernel packages contain the Linux kernel, the core of any Linux operating system.\n\nSecurity Fix(es):\n\n* A race condition issue leading to a use-after-free flaw was found in the way the raw packet sockets are implemented in the Linux kernel networking subsystem handling synchronization. A local user able to open a raw packet socket (requires the CAP_NET_RAW capability) could use this flaw to elevate their privileges on the system. (CVE-2017-1000111, Important)\n\n* An exploitable memory corruption flaw was found in the Linux kernel. The append path can be erroneously switched from UFO to non-UFO in ip_ufo_append_data() when building an UFO packet with MSG_MORE option. If unprivileged user namespaces are available, this flaw can be exploited to gain root privileges. (CVE-2017-1000112, Important)\n\n* A divide-by-zero vulnerability was found in the __tcp_select_window function in the Linux kernel. This can result in a kernel panic causing a local denial of service. (CVE-2017-14106, Moderate)\n\nRed Hat would like to thank Willem de Bruijn for reporting CVE-2017-1000111 and Andrey Konovalov for reporting CVE-2017-1000112.\n\nBug Fix(es):\n\n* When the operating system was booted with Red Hat Enterprise Virtualization, and the eh_deadline sysfs parameter was set to 10s, the Storage Area Network (SAN) issues caused eh_deadline to trigger with no handler. Consequently, a kernel panic occurred. This update fixes the lpfc driver, thus preventing the kernel panic under described circumstances. (BZ#1487220)\n\n* When an NFS server returned the NFS4ERR_BAD_SEQID error to an OPEN request, the open-owner was removed from the state_owners rbtree. Consequently, NFS4 client infinite loop that required a reboot to recover occurred. This update changes NFS4ERR_BAD_SEQID handling to leave the open-owner in the state_owners rbtree by updating the create_time parameter so that it looks like a new open-owner. As a result, an NFS4 client is now able to recover without falling into the infinite recovery loop after receiving NFS4ERR_BAD_SEQID. (BZ#1491123)\n\n* If an NFS client attempted to mount NFSv3 shares from an NFS server exported directly to the client's IP address, and this NFS client had already mounted other shares that originated from the same server but were exported to the subnetwork which this client was part of, the auth.unix.ip cache expiration was not handled correctly. Consequently, the client received the 'stale file handle' errors when trying to mount the share. This update fixes handling of the cache expiration, and the NFSv3 shares now mount as expected without producing the 'stale file handle' errors. (BZ#1497976)\n\n* When running a script that raised the tx ring count to its maximum value supported by the Solarflare Network Interface Controller (NIC) driver, the EF10 family NICs allowed the settings exceeding the hardware's capability. Consequently, the Solarflare hardware became unusable with Red Hat Entepripse Linux 6. This update fixes the sfc driver, so that the tx ring can have maximum 2048 entries for all EF10 NICs. As a result, the Solarflare hardware no longer becomes unusable with Red Hat Entepripse Linux 6 due to this bug. (BZ#1498019)\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2017:3200",
+				"Description": "https://access.redhat.com/errata/RHSA-2017:3200"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: Divide-by-zero in __tcp_select_window",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2017-09-01T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2017-14106",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2017:3200"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2017-14106",
+						"Description": "CVE-2017-14106"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1487295",
+						"Description": "bz#1487295: CVE-2017-14106 kernel: Divide-by-zero in __tcp_select_window"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2017-08-31T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.9.z:kernel-0:2.6.32-696.16.1.el6",
+						"6Client-optional-6.9.z:kernel-0:2.6.32-696.16.1.el6",
+						"6ComputeNode-6.9.z:kernel-0:2.6.32-696.16.1.el6",
+						"6ComputeNode-optional-6.9.z:kernel-0:2.6.32-696.16.1.el6",
+						"6Server-6.9.z:kernel-0:2.6.32-696.16.1.el6",
+						"6Server-optional-6.9.z:kernel-0:2.6.32-696.16.1.el6",
+						"6Workstation-6.9.z:kernel-0:2.6.32-696.16.1.el6",
+						"6Workstation-optional-6.9.z:kernel-0:2.6.32-696.16.1.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: Heap out-of-bounds read in AF_PACKET sockets",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2017-08-10T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2017-1000111",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2017:3200"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2017-1000111",
+						"Description": "CVE-2017-1000111"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1479304",
+						"Description": "bz#1479304: CVE-2017-1000111 kernel: Heap out-of-bounds read in AF_PACKET sockets"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2017-08-04T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.9.z:kernel-0:2.6.32-696.16.1.el6",
+						"6Client-optional-6.9.z:kernel-0:2.6.32-696.16.1.el6",
+						"6ComputeNode-6.9.z:kernel-0:2.6.32-696.16.1.el6",
+						"6ComputeNode-optional-6.9.z:kernel-0:2.6.32-696.16.1.el6",
+						"6Server-6.9.z:kernel-0:2.6.32-696.16.1.el6",
+						"6Server-optional-6.9.z:kernel-0:2.6.32-696.16.1.el6",
+						"6Workstation-6.9.z:kernel-0:2.6.32-696.16.1.el6",
+						"6Workstation-optional-6.9.z:kernel-0:2.6.32-696.16.1.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank Willem de Bruijn for reporting this issue."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: Exploitable memory corruption due to UFO to non-UFO path switch",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2017-08-10T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2017-1000112",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2017:3200"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2017-1000112",
+						"Description": "CVE-2017-1000112"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1479307",
+						"Description": "bz#1479307: CVE-2017-1000112 kernel: Exploitable memory corruption due to UFO to non-UFO path switch"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2017-08-04T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.9.z:kernel-0:2.6.32-696.16.1.el6",
+						"6Client-optional-6.9.z:kernel-0:2.6.32-696.16.1.el6",
+						"6ComputeNode-6.9.z:kernel-0:2.6.32-696.16.1.el6",
+						"6ComputeNode-optional-6.9.z:kernel-0:2.6.32-696.16.1.el6",
+						"6Server-6.9.z:kernel-0:2.6.32-696.16.1.el6",
+						"6Server-optional-6.9.z:kernel-0:2.6.32-696.16.1.el6",
+						"6Workstation-6.9.z:kernel-0:2.6.32-696.16.1.el6",
+						"6Workstation-optional-6.9.z:kernel-0:2.6.32-696.16.1.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank Andrey Konovalov for reporting this issue."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 6)",
+							"productid": "6Client-6.9.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+							"productid": "6Client-optional-6.9.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node (v. 6)",
+							"productid": "6ComputeNode-6.9.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+							"productid": "6ComputeNode-optional-6.9.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 6)",
+							"productid": "6Server-6.9.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional (v. 6)",
+							"productid": "6Server-optional-6.9.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 6)",
+							"productid": "6Workstation-6.9.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+							"productid": "6Workstation-optional-6.9.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-0:2.6.32-696.16.1.el6",
+				"fullproductname": {
+					"text": "kernel-2.6.32-696.16.1.el6.src.rpm",
+					"productid": "kernel-0:2.6.32-696.16.1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "kernel-0:2.6.32-696.16.1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-6.9.z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-696.16.1.el6 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"productid": "6Client-6.9.z:kernel-0:2.6.32-696.16.1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.32-696.16.1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-optional-6.9.z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-696.16.1.el6 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"productid": "6Client-optional-6.9.z:kernel-0:2.6.32-696.16.1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.32-696.16.1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-6.9.z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-696.16.1.el6 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"productid": "6ComputeNode-6.9.z:kernel-0:2.6.32-696.16.1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.32-696.16.1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-optional-6.9.z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-696.16.1.el6 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"productid": "6ComputeNode-optional-6.9.z:kernel-0:2.6.32-696.16.1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.32-696.16.1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-6.9.z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-696.16.1.el6 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"productid": "6Server-6.9.z:kernel-0:2.6.32-696.16.1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.32-696.16.1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-optional-6.9.z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-696.16.1.el6 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"productid": "6Server-optional-6.9.z:kernel-0:2.6.32-696.16.1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.32-696.16.1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-6.9.z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-696.16.1.el6 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"productid": "6Workstation-6.9.z:kernel-0:2.6.32-696.16.1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.32-696.16.1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-optional-6.9.z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-696.16.1.el6 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"productid": "6Workstation-optional-6.9.z:kernel-0:2.6.32-696.16.1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			}
+		]
+	}
+}

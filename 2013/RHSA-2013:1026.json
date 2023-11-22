@@ -1,0 +1,497 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: kernel security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2013:1026"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2013-07-09T15:04:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2013-07-09T15:03:00Z",
+		"CurrentReleaseDate": "2013-07-09T15:04:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:34:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated kernel packages that fix multiple security issues and several bugs\nare now available for Red Hat Enterprise Linux 6.2 Extended Update Support.\n\nThe Red Hat Security Response Team has rated this update as having\nimportant security impact. Common Vulnerability Scoring System (CVSS) base\nscores, which give detailed severity ratings, are available for each\nvulnerability from the CVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe kernel packages contain the Linux kernel, the core of any Linux\noperating system.\n\nThis update fixes the following security issues:\n\n* A buffer overflow flaw was found in the way UTF-8 characters were\nconverted to UTF-16 in the utf8s_to_utf16s() function of the Linux kernel's\nFAT file system implementation. A local user able to mount a FAT file\nsystem with the \"utf8=1\" option could use this flaw to crash the system or,\npotentially, to escalate their privileges. (CVE-2013-1773, Important)\n\n* A flaw was found in the way KVM (Kernel-based Virtual Machine) handled\nguest time updates when the buffer the guest registered by writing to the\nMSR_KVM_SYSTEM_TIME machine state register (MSR) crossed a page boundary. A\nprivileged guest user could use this flaw to crash the host or,\npotentially, escalate their privileges, allowing them to execute arbitrary\ncode at the host kernel level. (CVE-2013-1796, Important)\n\n* A potential use-after-free flaw was found in the way KVM handled guest\ntime updates when the GPA (guest physical address) the guest registered by\nwriting to the MSR_KVM_SYSTEM_TIME machine state register (MSR) fell into a\nmovable or removable memory region of the hosting user-space process (by\ndefault, QEMU-KVM) on the host. If that memory region is deregistered from\nKVM using KVM_SET_USER_MEMORY_REGION and the allocated virtual memory\nreused, a privileged guest user could potentially use this flaw to escalate\ntheir privileges on the host. (CVE-2013-1797, Important)\n\n* A flaw was found in the way KVM emulated IOAPIC (I/O Advanced\nProgrammable Interrupt Controller). A missing validation check in the\nioapic_read_indirect() function could allow a privileged guest user to\ncrash the host, or read a substantial portion of host kernel memory.\n(CVE-2013-1798, Important)\n\n* A format string flaw was found in the ext3_msg() function in the Linux\nkernel's ext3 file system implementation. A local user who is able to mount\nan ext3 file system could use this flaw to cause a denial of service or,\npotentially, escalate their privileges. (CVE-2013-1848, Low)\n\nRed Hat would like to thank Andrew Honig of Google for reporting\nCVE-2013-1796, CVE-2013-1797, and CVE-2013-1798.\n\nThis update also fixes several bugs. Documentation for these changes will\nbe available shortly from the Technical Notes document linked to in the\nReferences section.\n\nUsers should upgrade to these updated packages, which contain backported\npatches to correct these issues. The system must be rebooted for this\nupdate to take effect.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2013:1026",
+				"Description": "https://access.redhat.com/errata/RHSA-2013:1026"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/site/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/6.2_Technical_Notes/kernel.html",
+				"Description": "https://access.redhat.com/site/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/6.2_Technical_Notes/kernel.html"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: VFAT slab-based buffer overflow",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-12-09T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-1773",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/site/articles/11258\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:1026"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-1773",
+						"Description": "CVE-2013-1773"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=916115",
+						"Description": "bz#916115: CVE-2013-1773 kernel: VFAT slab-based buffer overflow"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2013-02-26T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-6.2.EUS:kernel-0:2.6.32-220.39.1.el6",
+						"6Server-optional-6.2.EUS:kernel-0:2.6.32-220.39.1.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.2",
+					"Vector": "AV:L/AC:H/Au:N/C:C/I:C/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: kvm: buffer overflow in handling of MSR_KVM_SYSTEM_TIME",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-03-20T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-1796",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/site/articles/11258\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:1026"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-1796",
+						"Description": "CVE-2013-1796"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=917012",
+						"Description": "bz#917012: CVE-2013-1796 kernel: kvm: buffer overflow in handling of MSR_KVM_SYSTEM_TIME"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2013-02-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-6.2.EUS:kernel-0:2.6.32-220.39.1.el6",
+						"6Server-optional-6.2.EUS:kernel-0:2.6.32-220.39.1.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.5",
+					"Vector": "AV:A/AC:H/Au:S/C:C/I:C/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: kvm: after free issue with the handling of MSR_KVM_SYSTEM_TIME",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-03-20T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-1797",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/site/articles/11258\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:1026"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-1797",
+						"Description": "CVE-2013-1797"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=917013",
+						"Description": "bz#917013: CVE-2013-1797 kernel: kvm: after free issue with the handling of MSR_KVM_SYSTEM_TIME"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2013-02-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-6.2.EUS:kernel-0:2.6.32-220.39.1.el6",
+						"6Server-optional-6.2.EUS:kernel-0:2.6.32-220.39.1.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.5",
+					"Vector": "AV:A/AC:H/Au:S/C:C/I:C/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: kvm: out-of-bounds access in ioapic indirect register reads",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-03-20T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-1798",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/site/articles/11258\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:1026"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-1798",
+						"Description": "CVE-2013-1798"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=917017",
+						"Description": "bz#917017: CVE-2013-1798 kernel: kvm: out-of-bounds access in ioapic indirect register reads"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2013-02-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-6.2.EUS:kernel-0:2.6.32-220.39.1.el6",
+						"6Server-optional-6.2.EUS:kernel-0:2.6.32-220.39.1.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.9",
+					"Vector": "AV:A/AC:H/Au:S/C:C/I:N/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: ext3: format string issues",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-03-18T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-1848",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/site/articles/11258\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:1026"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-1848",
+						"Description": "CVE-2013-1848"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=920783",
+						"Description": "bz#920783: CVE-2013-1848 kernel: ext3: format string issues"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2013-03-11T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-6.2.EUS:kernel-0:2.6.32-220.39.1.el6",
+						"6Server-optional-6.2.EUS:kernel-0:2.6.32-220.39.1.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.0",
+					"Vector": "AV:L/AC:H/Au:S/C:C/I:C/A:C"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server EUS (v. 6.2)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server EUS (v. 6.2)",
+							"productid": "6Server-6.2.EUS",
+							"cpe": "cpe:/o:redhat:rhel_eus:6.2::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional EUS (v. 6.2)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional EUS (v. 6.2)",
+							"productid": "6Server-optional-6.2.EUS",
+							"cpe": "cpe:/o:redhat:rhel_eus:6.2::server"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-0:2.6.32-220.39.1.el6",
+				"fullproductname": {
+					"text": "kernel-2.6.32-220.39.1.el6.src.rpm",
+					"productid": "kernel-0:2.6.32-220.39.1.el6",
+					"cpe": "cpe:/o:redhat:rhel_eus:6.2::server"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "kernel-0:2.6.32-220.39.1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-6.2.EUS",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-220.39.1.el6 as a component of Red Hat Enterprise Linux Server EUS (v. 6.2)",
+					"productid": "6Server-6.2.EUS:kernel-0:2.6.32-220.39.1.el6",
+					"cpe": "cpe:/o:redhat:rhel_eus:6.2::server"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.32-220.39.1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-optional-6.2.EUS",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-220.39.1.el6 as a component of Red Hat Enterprise Linux Server Optional EUS (v. 6.2)",
+					"productid": "6Server-optional-6.2.EUS:kernel-0:2.6.32-220.39.1.el6",
+					"cpe": "cpe:/o:redhat:rhel_eus:6.2::server"
+				}
+			}
+		]
+	}
+}

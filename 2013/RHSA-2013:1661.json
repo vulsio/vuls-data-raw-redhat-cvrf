@@ -1,0 +1,1134 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: RDMA stack security, bug fix, and enhancement update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2013:1661"
+		},
+		"Status": "Final",
+		"Version": "2",
+		"revisionhistory": {
+			"revision": {
+				"Number": "2",
+				"Date": "2013-11-20T16:53:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2013-11-20T16:45:00Z",
+		"CurrentReleaseDate": "2013-11-20T16:53:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:36:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated rdma, libibverbs, libmlx4, librdmacm, qperf, perftest, openmpi,\ncompat-openmpi, infinipath-psm, mpitests, and rds-tools packages that fix\ntwo security issues, several bugs, and add various enhancements are now\navailable for Red Hat Enterprise Linux 6.\n\nThe Red Hat Security Response Team has rated this update as having moderate\nsecurity impact. Common Vulnerability Scoring System (CVSS) base scores,\nwhich give detailed severity ratings, are available for each vulnerability\nfrom the CVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nRed Hat Enterprise Linux includes a collection of Infiniband and iWARP\nutilities, libraries and development packages for writing applications that\nuse Remote Direct Memory Access (RDMA) technology.\n\nA flaw was found in the way ibutils handled temporary files. A local\nattacker could use this flaw to cause arbitrary files to be overwritten as\nthe root user via a symbolic link attack. (CVE-2013-2561)\n\nIt was discovered that librdmacm used a static port to connect to the\nib_acm service. A local attacker able to run a specially crafted ib_acm\nservice on that port could use this flaw to provide incorrect address\nresolution information to librmdacm applications. (CVE-2012-4516)\n\nThe CVE-2012-4516 issue was discovered by Florian Weimer of the Red Hat\nProduct Security Team.\n\nThis advisory updates the following packages to the latest upstream\nreleases, providing a number of bug fixes and enhancements over the\nprevious versions:\n\n* libibverbs-1.1.7\n* libmlx4-1.0.5\n* librdmacm-1.0.17\n* mstflint-3.0\n* perftest-2.0\n* qperf-0.4.9\n* rdma-3.10\n\nSeveral bugs have been fixed in the openmpi, mpitests, ibutils, and\ninfinipath-psm packages.\n\nThe most notable changes in these updated packages from the RDMA stack are\nthe following:\n\n* Multiple bugs in the Message Passing Interface (MPI) test packages were\nresolved, allowing more of the mpitest applications to pass on the\nunderlying MPI implementations.\n\n* The libmlx4 package now includes dracut module files to ensure that any\nnecessary custom configuration of mlx4 port types is included in the\ninitramfs dracut builds.\n\n* Multiple test programs in the perftest and qperf packages now work\nproperly over RoCE interfaces, or when specifying the use of rdmacm\nqueue pairs.\n\n* The mstflint package has been updated to the latest upstream version,\nwhich is now capable of burning firmware on newly released Mellanox\nConnect-IB hardware.\n\n* A compatibility problem between the openmpi and infinipath-psm packages\nhas been resolved with new builds of these packages.\n\nAll RDMA users are advised to upgrade to these updated packages, which\ncontain backported patches to correct these issues and add\nthese enhancements.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2013:1661",
+				"Description": "https://access.redhat.com/errata/RHSA-2013:1661"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "librdmacm: Tried to connect to port 6125 if ibacm.port was not found",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-10-08T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-4516",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/site/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:1661"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-4516",
+						"Description": "CVE-2012-4516"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=865483",
+						"Description": "bz#865483: CVE-2012-4516 librdmacm: Tried to connect to port 6125 if ibacm.port was not found"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2012-10-10T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional:infinipath-psm-0:3.0.1-115.1015_open.2.el6",
+						"6Client-optional:libibverbs-0:1.1.7-1.el6",
+						"6Client-optional:libmlx4-0:1.0.5-4.el6.1",
+						"6Client-optional:librdmacm-0:1.0.17-1.el6",
+						"6Client-optional:openmpi-0:1.5.4-2.el6",
+						"6Client-optional:rdma-0:3.10-3.el6",
+						"6Client:infinipath-psm-0:3.0.1-115.1015_open.2.el6",
+						"6Client:libibverbs-0:1.1.7-1.el6",
+						"6Client:librdmacm-0:1.0.17-1.el6",
+						"6Client:openmpi-0:1.5.4-2.el6",
+						"6ComputeNode-optional:ibutils-0:1.5.7-8.el6",
+						"6ComputeNode-optional:infinipath-psm-0:3.0.1-115.1015_open.2.el6",
+						"6ComputeNode-optional:libibverbs-0:1.1.7-1.el6",
+						"6ComputeNode-optional:libmlx4-0:1.0.5-4.el6.1",
+						"6ComputeNode-optional:librdmacm-0:1.0.17-1.el6",
+						"6ComputeNode-optional:mpitests-0:3.2-9.el6",
+						"6ComputeNode:ibutils-0:1.5.7-8.el6",
+						"6ComputeNode:infinipath-psm-0:3.0.1-115.1015_open.2.el6",
+						"6ComputeNode:libibverbs-0:1.1.7-1.el6",
+						"6ComputeNode:libmlx4-0:1.0.5-4.el6.1",
+						"6ComputeNode:librdmacm-0:1.0.17-1.el6",
+						"6ComputeNode:mpitests-0:3.2-9.el6",
+						"6ComputeNode:mstflint-0:3.0-0.6.g6961daa.1.el6",
+						"6ComputeNode:openmpi-0:1.5.4-2.el6",
+						"6ComputeNode:perftest-0:2.0-2.el6",
+						"6ComputeNode:qperf-0:0.4.9-1.el6",
+						"6ComputeNode:rdma-0:3.10-3.el6",
+						"6Server-optional:ibutils-0:1.5.7-8.el6",
+						"6Server-optional:infinipath-psm-0:3.0.1-115.1015_open.2.el6",
+						"6Server-optional:libibverbs-0:1.1.7-1.el6",
+						"6Server-optional:libmlx4-0:1.0.5-4.el6.1",
+						"6Server-optional:librdmacm-0:1.0.17-1.el6",
+						"6Server-optional:mpitests-0:3.2-9.el6",
+						"6Server:ibutils-0:1.5.7-8.el6",
+						"6Server:infinipath-psm-0:3.0.1-115.1015_open.2.el6",
+						"6Server:libibverbs-0:1.1.7-1.el6",
+						"6Server:libmlx4-0:1.0.5-4.el6.1",
+						"6Server:librdmacm-0:1.0.17-1.el6",
+						"6Server:mpitests-0:3.2-9.el6",
+						"6Server:mstflint-0:3.0-0.6.g6961daa.1.el6",
+						"6Server:openmpi-0:1.5.4-2.el6",
+						"6Server:perftest-0:2.0-2.el6",
+						"6Server:qperf-0:0.4.9-1.el6",
+						"6Server:rdma-0:3.10-3.el6",
+						"6Workstation-optional:ibutils-0:1.5.7-8.el6",
+						"6Workstation-optional:infinipath-psm-0:3.0.1-115.1015_open.2.el6",
+						"6Workstation-optional:libibverbs-0:1.1.7-1.el6",
+						"6Workstation-optional:libmlx4-0:1.0.5-4.el6.1",
+						"6Workstation-optional:librdmacm-0:1.0.17-1.el6",
+						"6Workstation-optional:mpitests-0:3.2-9.el6",
+						"6Workstation:ibutils-0:1.5.7-8.el6",
+						"6Workstation:infinipath-psm-0:3.0.1-115.1015_open.2.el6",
+						"6Workstation:libibverbs-0:1.1.7-1.el6",
+						"6Workstation:libmlx4-0:1.0.5-4.el6.1",
+						"6Workstation:librdmacm-0:1.0.17-1.el6",
+						"6Workstation:mpitests-0:3.2-9.el6",
+						"6Workstation:mstflint-0:3.0-0.6.g6961daa.1.el6",
+						"6Workstation:openmpi-0:1.5.4-2.el6",
+						"6Workstation:perftest-0:2.0-2.el6",
+						"6Workstation:qperf-0:0.4.9-1.el6",
+						"6Workstation:rdma-0:3.10-3.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "1.2",
+					"Vector": "AV:L/AC:H/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "ibutils: insecure handling of files in the /tmp directory",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-03-06T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-2561",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/site/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:1661"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-2561",
+						"Description": "CVE-2013-2561"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=927430",
+						"Description": "bz#927430: CVE-2013-2561 ibutils: insecure handling of files in the /tmp directory"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2013-03-06T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional:infinipath-psm-0:3.0.1-115.1015_open.2.el6",
+						"6Client-optional:libibverbs-0:1.1.7-1.el6",
+						"6Client-optional:libmlx4-0:1.0.5-4.el6.1",
+						"6Client-optional:librdmacm-0:1.0.17-1.el6",
+						"6Client-optional:openmpi-0:1.5.4-2.el6",
+						"6Client-optional:rdma-0:3.10-3.el6",
+						"6Client:infinipath-psm-0:3.0.1-115.1015_open.2.el6",
+						"6Client:libibverbs-0:1.1.7-1.el6",
+						"6Client:librdmacm-0:1.0.17-1.el6",
+						"6Client:openmpi-0:1.5.4-2.el6",
+						"6ComputeNode-optional:ibutils-0:1.5.7-8.el6",
+						"6ComputeNode-optional:infinipath-psm-0:3.0.1-115.1015_open.2.el6",
+						"6ComputeNode-optional:libibverbs-0:1.1.7-1.el6",
+						"6ComputeNode-optional:libmlx4-0:1.0.5-4.el6.1",
+						"6ComputeNode-optional:librdmacm-0:1.0.17-1.el6",
+						"6ComputeNode-optional:mpitests-0:3.2-9.el6",
+						"6ComputeNode:ibutils-0:1.5.7-8.el6",
+						"6ComputeNode:infinipath-psm-0:3.0.1-115.1015_open.2.el6",
+						"6ComputeNode:libibverbs-0:1.1.7-1.el6",
+						"6ComputeNode:libmlx4-0:1.0.5-4.el6.1",
+						"6ComputeNode:librdmacm-0:1.0.17-1.el6",
+						"6ComputeNode:mpitests-0:3.2-9.el6",
+						"6ComputeNode:mstflint-0:3.0-0.6.g6961daa.1.el6",
+						"6ComputeNode:openmpi-0:1.5.4-2.el6",
+						"6ComputeNode:perftest-0:2.0-2.el6",
+						"6ComputeNode:qperf-0:0.4.9-1.el6",
+						"6ComputeNode:rdma-0:3.10-3.el6",
+						"6Server-optional:ibutils-0:1.5.7-8.el6",
+						"6Server-optional:infinipath-psm-0:3.0.1-115.1015_open.2.el6",
+						"6Server-optional:libibverbs-0:1.1.7-1.el6",
+						"6Server-optional:libmlx4-0:1.0.5-4.el6.1",
+						"6Server-optional:librdmacm-0:1.0.17-1.el6",
+						"6Server-optional:mpitests-0:3.2-9.el6",
+						"6Server:ibutils-0:1.5.7-8.el6",
+						"6Server:infinipath-psm-0:3.0.1-115.1015_open.2.el6",
+						"6Server:libibverbs-0:1.1.7-1.el6",
+						"6Server:libmlx4-0:1.0.5-4.el6.1",
+						"6Server:librdmacm-0:1.0.17-1.el6",
+						"6Server:mpitests-0:3.2-9.el6",
+						"6Server:mstflint-0:3.0-0.6.g6961daa.1.el6",
+						"6Server:openmpi-0:1.5.4-2.el6",
+						"6Server:perftest-0:2.0-2.el6",
+						"6Server:qperf-0:0.4.9-1.el6",
+						"6Server:rdma-0:3.10-3.el6",
+						"6Workstation-optional:ibutils-0:1.5.7-8.el6",
+						"6Workstation-optional:infinipath-psm-0:3.0.1-115.1015_open.2.el6",
+						"6Workstation-optional:libibverbs-0:1.1.7-1.el6",
+						"6Workstation-optional:libmlx4-0:1.0.5-4.el6.1",
+						"6Workstation-optional:librdmacm-0:1.0.17-1.el6",
+						"6Workstation-optional:mpitests-0:3.2-9.el6",
+						"6Workstation:ibutils-0:1.5.7-8.el6",
+						"6Workstation:infinipath-psm-0:3.0.1-115.1015_open.2.el6",
+						"6Workstation:libibverbs-0:1.1.7-1.el6",
+						"6Workstation:libmlx4-0:1.0.5-4.el6.1",
+						"6Workstation:librdmacm-0:1.0.17-1.el6",
+						"6Workstation:mpitests-0:3.2-9.el6",
+						"6Workstation:mstflint-0:3.0-0.6.g6961daa.1.el6",
+						"6Workstation:openmpi-0:1.5.4-2.el6",
+						"6Workstation:perftest-0:2.0-2.el6",
+						"6Workstation:qperf-0:0.4.9-1.el6",
+						"6Workstation:rdma-0:3.10-3.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.0",
+					"Vector": "AV:L/AC:H/Au:N/C:N/I:C/A:N"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 6)",
+							"productid": "6Client",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+							"productid": "6Client-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node (v. 6)",
+							"productid": "6ComputeNode",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+							"productid": "6ComputeNode-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 6)",
+							"productid": "6Server",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional (v. 6)",
+							"productid": "6Server-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 6)",
+							"productid": "6Workstation",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+							"productid": "6Workstation-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "ibutils-0:1.5.7-8.el6",
+				"fullproductname": {
+					"text": "ibutils-1.5.7-8.el6.src.rpm",
+					"productid": "ibutils-0:1.5.7-8.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "infinipath-psm-0:3.0.1-115.1015_open.2.el6",
+				"fullproductname": {
+					"text": "infinipath-psm-3.0.1-115.1015_open.2.el6.src.rpm",
+					"productid": "infinipath-psm-0:3.0.1-115.1015_open.2.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libibverbs-0:1.1.7-1.el6",
+				"fullproductname": {
+					"text": "libibverbs-1.1.7-1.el6.src.rpm",
+					"productid": "libibverbs-0:1.1.7-1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libmlx4-0:1.0.5-4.el6.1",
+				"fullproductname": {
+					"text": "libmlx4-1.0.5-4.el6.1.src.rpm",
+					"productid": "libmlx4-0:1.0.5-4.el6.1",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "librdmacm-0:1.0.17-1.el6",
+				"fullproductname": {
+					"text": "librdmacm-1.0.17-1.el6.src.rpm",
+					"productid": "librdmacm-0:1.0.17-1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "mpitests-0:3.2-9.el6",
+				"fullproductname": {
+					"text": "mpitests-3.2-9.el6.src.rpm",
+					"productid": "mpitests-0:3.2-9.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "mstflint-0:3.0-0.6.g6961daa.1.el6",
+				"fullproductname": {
+					"text": "mstflint-3.0-0.6.g6961daa.1.el6.src.rpm",
+					"productid": "mstflint-0:3.0-0.6.g6961daa.1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openmpi-0:1.5.4-2.el6",
+				"fullproductname": {
+					"text": "openmpi-1.5.4-2.el6.src.rpm",
+					"productid": "openmpi-0:1.5.4-2.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "perftest-0:2.0-2.el6",
+				"fullproductname": {
+					"text": "perftest-2.0-2.el6.src.rpm",
+					"productid": "perftest-0:2.0-2.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "qperf-0:0.4.9-1.el6",
+				"fullproductname": {
+					"text": "qperf-0.4.9-1.el6.src.rpm",
+					"productid": "qperf-0:0.4.9-1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rdma-0:3.10-3.el6",
+				"fullproductname": {
+					"text": "rdma-3.10-3.el6.src.rpm",
+					"productid": "rdma-0:3.10-3.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "infinipath-psm-0:3.0.1-115.1015_open.2.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client",
+				"fullproductname": {
+					"text": "infinipath-psm-0:3.0.1-115.1015_open.2.el6 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"productid": "6Client:infinipath-psm-0:3.0.1-115.1015_open.2.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "libibverbs-0:1.1.7-1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client",
+				"fullproductname": {
+					"text": "libibverbs-0:1.1.7-1.el6 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"productid": "6Client:libibverbs-0:1.1.7-1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "librdmacm-0:1.0.17-1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client",
+				"fullproductname": {
+					"text": "librdmacm-0:1.0.17-1.el6 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"productid": "6Client:librdmacm-0:1.0.17-1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "openmpi-0:1.5.4-2.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client",
+				"fullproductname": {
+					"text": "openmpi-0:1.5.4-2.el6 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"productid": "6Client:openmpi-0:1.5.4-2.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "infinipath-psm-0:3.0.1-115.1015_open.2.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-optional",
+				"fullproductname": {
+					"text": "infinipath-psm-0:3.0.1-115.1015_open.2.el6 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"productid": "6Client-optional:infinipath-psm-0:3.0.1-115.1015_open.2.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "libibverbs-0:1.1.7-1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-optional",
+				"fullproductname": {
+					"text": "libibverbs-0:1.1.7-1.el6 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"productid": "6Client-optional:libibverbs-0:1.1.7-1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "libmlx4-0:1.0.5-4.el6.1",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-optional",
+				"fullproductname": {
+					"text": "libmlx4-0:1.0.5-4.el6.1 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"productid": "6Client-optional:libmlx4-0:1.0.5-4.el6.1",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "librdmacm-0:1.0.17-1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-optional",
+				"fullproductname": {
+					"text": "librdmacm-0:1.0.17-1.el6 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"productid": "6Client-optional:librdmacm-0:1.0.17-1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "openmpi-0:1.5.4-2.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-optional",
+				"fullproductname": {
+					"text": "openmpi-0:1.5.4-2.el6 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"productid": "6Client-optional:openmpi-0:1.5.4-2.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "rdma-0:3.10-3.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-optional",
+				"fullproductname": {
+					"text": "rdma-0:3.10-3.el6 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"productid": "6Client-optional:rdma-0:3.10-3.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "ibutils-0:1.5.7-8.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode",
+				"fullproductname": {
+					"text": "ibutils-0:1.5.7-8.el6 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"productid": "6ComputeNode:ibutils-0:1.5.7-8.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "infinipath-psm-0:3.0.1-115.1015_open.2.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode",
+				"fullproductname": {
+					"text": "infinipath-psm-0:3.0.1-115.1015_open.2.el6 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"productid": "6ComputeNode:infinipath-psm-0:3.0.1-115.1015_open.2.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "libibverbs-0:1.1.7-1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode",
+				"fullproductname": {
+					"text": "libibverbs-0:1.1.7-1.el6 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"productid": "6ComputeNode:libibverbs-0:1.1.7-1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "libmlx4-0:1.0.5-4.el6.1",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode",
+				"fullproductname": {
+					"text": "libmlx4-0:1.0.5-4.el6.1 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"productid": "6ComputeNode:libmlx4-0:1.0.5-4.el6.1",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "librdmacm-0:1.0.17-1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode",
+				"fullproductname": {
+					"text": "librdmacm-0:1.0.17-1.el6 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"productid": "6ComputeNode:librdmacm-0:1.0.17-1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "mpitests-0:3.2-9.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode",
+				"fullproductname": {
+					"text": "mpitests-0:3.2-9.el6 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"productid": "6ComputeNode:mpitests-0:3.2-9.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "mstflint-0:3.0-0.6.g6961daa.1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode",
+				"fullproductname": {
+					"text": "mstflint-0:3.0-0.6.g6961daa.1.el6 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"productid": "6ComputeNode:mstflint-0:3.0-0.6.g6961daa.1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "openmpi-0:1.5.4-2.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode",
+				"fullproductname": {
+					"text": "openmpi-0:1.5.4-2.el6 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"productid": "6ComputeNode:openmpi-0:1.5.4-2.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "perftest-0:2.0-2.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode",
+				"fullproductname": {
+					"text": "perftest-0:2.0-2.el6 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"productid": "6ComputeNode:perftest-0:2.0-2.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "qperf-0:0.4.9-1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode",
+				"fullproductname": {
+					"text": "qperf-0:0.4.9-1.el6 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"productid": "6ComputeNode:qperf-0:0.4.9-1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "rdma-0:3.10-3.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode",
+				"fullproductname": {
+					"text": "rdma-0:3.10-3.el6 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"productid": "6ComputeNode:rdma-0:3.10-3.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "ibutils-0:1.5.7-8.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-optional",
+				"fullproductname": {
+					"text": "ibutils-0:1.5.7-8.el6 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"productid": "6ComputeNode-optional:ibutils-0:1.5.7-8.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "infinipath-psm-0:3.0.1-115.1015_open.2.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-optional",
+				"fullproductname": {
+					"text": "infinipath-psm-0:3.0.1-115.1015_open.2.el6 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"productid": "6ComputeNode-optional:infinipath-psm-0:3.0.1-115.1015_open.2.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "libibverbs-0:1.1.7-1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-optional",
+				"fullproductname": {
+					"text": "libibverbs-0:1.1.7-1.el6 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"productid": "6ComputeNode-optional:libibverbs-0:1.1.7-1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "libmlx4-0:1.0.5-4.el6.1",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-optional",
+				"fullproductname": {
+					"text": "libmlx4-0:1.0.5-4.el6.1 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"productid": "6ComputeNode-optional:libmlx4-0:1.0.5-4.el6.1",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "librdmacm-0:1.0.17-1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-optional",
+				"fullproductname": {
+					"text": "librdmacm-0:1.0.17-1.el6 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"productid": "6ComputeNode-optional:librdmacm-0:1.0.17-1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "mpitests-0:3.2-9.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-optional",
+				"fullproductname": {
+					"text": "mpitests-0:3.2-9.el6 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"productid": "6ComputeNode-optional:mpitests-0:3.2-9.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "ibutils-0:1.5.7-8.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server",
+				"fullproductname": {
+					"text": "ibutils-0:1.5.7-8.el6 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"productid": "6Server:ibutils-0:1.5.7-8.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "infinipath-psm-0:3.0.1-115.1015_open.2.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server",
+				"fullproductname": {
+					"text": "infinipath-psm-0:3.0.1-115.1015_open.2.el6 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"productid": "6Server:infinipath-psm-0:3.0.1-115.1015_open.2.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "libibverbs-0:1.1.7-1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server",
+				"fullproductname": {
+					"text": "libibverbs-0:1.1.7-1.el6 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"productid": "6Server:libibverbs-0:1.1.7-1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "libmlx4-0:1.0.5-4.el6.1",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server",
+				"fullproductname": {
+					"text": "libmlx4-0:1.0.5-4.el6.1 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"productid": "6Server:libmlx4-0:1.0.5-4.el6.1",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "librdmacm-0:1.0.17-1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server",
+				"fullproductname": {
+					"text": "librdmacm-0:1.0.17-1.el6 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"productid": "6Server:librdmacm-0:1.0.17-1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "mpitests-0:3.2-9.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server",
+				"fullproductname": {
+					"text": "mpitests-0:3.2-9.el6 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"productid": "6Server:mpitests-0:3.2-9.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "mstflint-0:3.0-0.6.g6961daa.1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server",
+				"fullproductname": {
+					"text": "mstflint-0:3.0-0.6.g6961daa.1.el6 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"productid": "6Server:mstflint-0:3.0-0.6.g6961daa.1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "openmpi-0:1.5.4-2.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server",
+				"fullproductname": {
+					"text": "openmpi-0:1.5.4-2.el6 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"productid": "6Server:openmpi-0:1.5.4-2.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "perftest-0:2.0-2.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server",
+				"fullproductname": {
+					"text": "perftest-0:2.0-2.el6 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"productid": "6Server:perftest-0:2.0-2.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "qperf-0:0.4.9-1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server",
+				"fullproductname": {
+					"text": "qperf-0:0.4.9-1.el6 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"productid": "6Server:qperf-0:0.4.9-1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "rdma-0:3.10-3.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server",
+				"fullproductname": {
+					"text": "rdma-0:3.10-3.el6 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"productid": "6Server:rdma-0:3.10-3.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "ibutils-0:1.5.7-8.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-optional",
+				"fullproductname": {
+					"text": "ibutils-0:1.5.7-8.el6 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"productid": "6Server-optional:ibutils-0:1.5.7-8.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "infinipath-psm-0:3.0.1-115.1015_open.2.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-optional",
+				"fullproductname": {
+					"text": "infinipath-psm-0:3.0.1-115.1015_open.2.el6 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"productid": "6Server-optional:infinipath-psm-0:3.0.1-115.1015_open.2.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "libibverbs-0:1.1.7-1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-optional",
+				"fullproductname": {
+					"text": "libibverbs-0:1.1.7-1.el6 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"productid": "6Server-optional:libibverbs-0:1.1.7-1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "libmlx4-0:1.0.5-4.el6.1",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-optional",
+				"fullproductname": {
+					"text": "libmlx4-0:1.0.5-4.el6.1 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"productid": "6Server-optional:libmlx4-0:1.0.5-4.el6.1",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "librdmacm-0:1.0.17-1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-optional",
+				"fullproductname": {
+					"text": "librdmacm-0:1.0.17-1.el6 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"productid": "6Server-optional:librdmacm-0:1.0.17-1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "mpitests-0:3.2-9.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-optional",
+				"fullproductname": {
+					"text": "mpitests-0:3.2-9.el6 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"productid": "6Server-optional:mpitests-0:3.2-9.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "ibutils-0:1.5.7-8.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation",
+				"fullproductname": {
+					"text": "ibutils-0:1.5.7-8.el6 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"productid": "6Workstation:ibutils-0:1.5.7-8.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			},
+			{
+				"productreference": "infinipath-psm-0:3.0.1-115.1015_open.2.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation",
+				"fullproductname": {
+					"text": "infinipath-psm-0:3.0.1-115.1015_open.2.el6 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"productid": "6Workstation:infinipath-psm-0:3.0.1-115.1015_open.2.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			},
+			{
+				"productreference": "libibverbs-0:1.1.7-1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation",
+				"fullproductname": {
+					"text": "libibverbs-0:1.1.7-1.el6 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"productid": "6Workstation:libibverbs-0:1.1.7-1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			},
+			{
+				"productreference": "libmlx4-0:1.0.5-4.el6.1",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation",
+				"fullproductname": {
+					"text": "libmlx4-0:1.0.5-4.el6.1 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"productid": "6Workstation:libmlx4-0:1.0.5-4.el6.1",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			},
+			{
+				"productreference": "librdmacm-0:1.0.17-1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation",
+				"fullproductname": {
+					"text": "librdmacm-0:1.0.17-1.el6 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"productid": "6Workstation:librdmacm-0:1.0.17-1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			},
+			{
+				"productreference": "mpitests-0:3.2-9.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation",
+				"fullproductname": {
+					"text": "mpitests-0:3.2-9.el6 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"productid": "6Workstation:mpitests-0:3.2-9.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			},
+			{
+				"productreference": "mstflint-0:3.0-0.6.g6961daa.1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation",
+				"fullproductname": {
+					"text": "mstflint-0:3.0-0.6.g6961daa.1.el6 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"productid": "6Workstation:mstflint-0:3.0-0.6.g6961daa.1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			},
+			{
+				"productreference": "openmpi-0:1.5.4-2.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation",
+				"fullproductname": {
+					"text": "openmpi-0:1.5.4-2.el6 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"productid": "6Workstation:openmpi-0:1.5.4-2.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			},
+			{
+				"productreference": "perftest-0:2.0-2.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation",
+				"fullproductname": {
+					"text": "perftest-0:2.0-2.el6 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"productid": "6Workstation:perftest-0:2.0-2.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			},
+			{
+				"productreference": "qperf-0:0.4.9-1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation",
+				"fullproductname": {
+					"text": "qperf-0:0.4.9-1.el6 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"productid": "6Workstation:qperf-0:0.4.9-1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			},
+			{
+				"productreference": "rdma-0:3.10-3.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation",
+				"fullproductname": {
+					"text": "rdma-0:3.10-3.el6 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"productid": "6Workstation:rdma-0:3.10-3.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			},
+			{
+				"productreference": "ibutils-0:1.5.7-8.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-optional",
+				"fullproductname": {
+					"text": "ibutils-0:1.5.7-8.el6 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"productid": "6Workstation-optional:ibutils-0:1.5.7-8.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			},
+			{
+				"productreference": "infinipath-psm-0:3.0.1-115.1015_open.2.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-optional",
+				"fullproductname": {
+					"text": "infinipath-psm-0:3.0.1-115.1015_open.2.el6 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"productid": "6Workstation-optional:infinipath-psm-0:3.0.1-115.1015_open.2.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			},
+			{
+				"productreference": "libibverbs-0:1.1.7-1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-optional",
+				"fullproductname": {
+					"text": "libibverbs-0:1.1.7-1.el6 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"productid": "6Workstation-optional:libibverbs-0:1.1.7-1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			},
+			{
+				"productreference": "libmlx4-0:1.0.5-4.el6.1",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-optional",
+				"fullproductname": {
+					"text": "libmlx4-0:1.0.5-4.el6.1 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"productid": "6Workstation-optional:libmlx4-0:1.0.5-4.el6.1",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			},
+			{
+				"productreference": "librdmacm-0:1.0.17-1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-optional",
+				"fullproductname": {
+					"text": "librdmacm-0:1.0.17-1.el6 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"productid": "6Workstation-optional:librdmacm-0:1.0.17-1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			},
+			{
+				"productreference": "mpitests-0:3.2-9.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-optional",
+				"fullproductname": {
+					"text": "mpitests-0:3.2-9.el6 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"productid": "6Workstation-optional:mpitests-0:3.2-9.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			}
+		]
+	}
+}

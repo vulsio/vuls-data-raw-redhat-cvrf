@@ -1,0 +1,192 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: openstack-tripleo-common and openstack-tripleo-heat-templates update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2018:0602"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2018-03-28T17:11:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2018-03-28T17:11:00Z",
+		"CurrentReleaseDate": "2018-03-28T17:11:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:38:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nAn update for openstack-tripleo-common and openstack-tripleo-heat-templates is now available for Red Hat OpenStack Platform 12.0 (Pike).\n\nRed Hat Product Security has rated this update as having a security impact of Moderate. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nopenstack-tripleo-common contains the python library for code common to the Red Hat OpenStack Platform director CLI and GUI (codename tripleo).\n\nopenstack-tripleo-heat-templates is a collection of OpenStack Orchestration templates and tools (codename heat), which can be used to help deploy OpenStack.\n\nSecurity Fix(es):\n\n* openstack-tripleo-heat-templates: Ceph client keyring is world-readable when deployed by director (CVE-2017-12155)\n\nFor more details about the security issue(s), including the impact, a CVSS score, and other related information, refer to the CVE page(s) listed in the References section.\n\nRed Hat would like to thank Katuya Kawakami (NEC) for reporting this issue.\n\nBug Fix(es):\n\n* All Compute and Controller nodes have bridge-mappings configured and therefore are eligible to schedule routers. However, if you scheduled a router on a Compute node that doesn't have a connection to an external network, connectivity with the external network fails. This fix adds the ability to configure bridge-mappings in TripleO and in the director according to roles so that you can now exclude Compute nodes from router scheduling and maintain external network connectivity. (BZ#1510879)\n\n* Previously, the CephPools parameter value was incorrectly consumed as a string list instead of as a JSON object. This prevented creating additional Ceph pools during the overcloud deployment, because attempting to pass a JSON object failed. This fix updates the CephPools parameter so that it now accepts any JSON object that describes additional pools to create in the Ceph cluster. Note: The JSON object structure must conform to ceph-ansible conventions. (BZ#1516389)\n\n* There is currently a known issue with LDAP integration for Red Hat OpenStack Platform. The `keystone_domain_confg` tag is missing currently from `keystone.yaml`, preventing Puppet from properly applying the required configuration files. Consequently, LDAP integration with Red Hat OpenStack Platform will not be properly configured. As a workaround, you must manually edit `keystone.yaml` and add the missing tag. There are two ways to do this:\n\n1. Edit the file directly:\n  a. Log into the undercloud as the stack user.\n  b. Open the keystone.yaml in the editor of your choice. For example:\n       `sudo vi /usr/share/openstack-tripleo-heat-templates/docker/services/keystone.yaml`\n  c. Append the missing puppet tag, `keystone_domain_confg`, to line 94. For example:\n      `puppet_tags: keystone_config`\n        Changes to:\n      `puppet_tags: keystone_config,keystone_domain_confg`\n  d. Save and close `keystone.yaml`.\n  e. Verify you see the missing tag in the `keystone.yaml` file. The following command should return '1':\n    `cat /usr/share/openstack-tripleo-heat-templates/docker/sercies/keystone.yaml | grep 'puppet_tags: keystone_config,keystone_domain_config' | wc -l`\n\n2. Or, use sed to edit the file inline:\n  a. Login to the undercloud as the stack user.\n  b. Run the following command to add the missing puppet tag:\n     `sed -i 's/puppet_tags\\: keystone_config/puppet_tags\\: keystone_config,keystone_domain_config/' /usr/share/openstack-tripleo-heat-templates/docker/services/keystone.yaml`\n  c. Verify you see the missing tag in the keystone.yaml file The following command should return '1':\n    `cat /usr/share/openstack-tripleo-heat-templates/docker/sercies/keystone.yaml | grep 'puppet_tags: keystone_config,keystone_domain_config' | wc -l` (BZ#1519057)\n\n* It is only possible to deploy Ceph storage servers if their disk devices are homogeneous. (BZ#1520004)\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2018:0602",
+				"Description": "https://access.redhat.com/errata/RHSA-2018:0602"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "openstack-tripleo-heat-templates: Ceph client keyring is world-readable when deployed by director",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2017-09-19T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2017-12155",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2018:0602"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2017-12155",
+						"Description": "CVE-2017-12155"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1489360",
+						"Description": "bz#1489360: CVE-2017-12155 openstack-tripleo-heat-templates: Ceph client keyring is world-readable when deployed by director"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2017-06-19T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-RH7-RHOS-12.0:openstack-tripleo-heat-templates-0:7.0.9-8.el7ost"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank Katuya Kawakami (NEC) for reporting this issue."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat OpenStack Platform",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat OpenStack Platform 12.0",
+						"fullproductname": {
+							"text": "Red Hat OpenStack Platform 12.0",
+							"productid": "7Server-RH7-RHOS-12.0",
+							"cpe": "cpe:/a:redhat:openstack:12::el7"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "openstack-tripleo-heat-templates-0:7.0.9-8.el7ost",
+				"fullproductname": {
+					"text": "openstack-tripleo-heat-templates-7.0.9-8.el7ost.src.rpm",
+					"productid": "openstack-tripleo-heat-templates-0:7.0.9-8.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:12::el7"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "openstack-tripleo-heat-templates-0:7.0.9-8.el7ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOS-12.0",
+				"fullproductname": {
+					"text": "openstack-tripleo-heat-templates-0:7.0.9-8.el7ost as a component of Red Hat OpenStack Platform 12.0",
+					"productid": "7Server-RH7-RHOS-12.0:openstack-tripleo-heat-templates-0:7.0.9-8.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:12::el7"
+				}
+			}
+		]
+	}
+}

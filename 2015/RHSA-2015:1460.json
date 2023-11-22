@@ -1,0 +1,912 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: wireshark security, bug fix, and enhancement update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2015:1460"
+		},
+		"Status": "Final",
+		"Version": "3",
+		"revisionhistory": {
+			"revision": {
+				"Number": "3",
+				"Date": "2015-07-21T10:14:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2015-07-21T10:14:00Z",
+		"CurrentReleaseDate": "2015-07-21T10:14:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:34:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated wireshark packages that fix multiple security issues, several bugs,\nand add various enhancements are now available for Red Hat Enterprise\nLinux 6.\n\nRed Hat Product Security has rated this update as having Moderate security\nimpact. Common Vulnerability Scoring System (CVSS) base scores, which give\ndetailed severity ratings, are available for each vulnerability from the\nCVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nWireshark, previously known as Ethereal, is a network protocol analyzer,\nwhich is used to capture and browse the traffic running on a computer\nnetwork.\n\nSeveral denial of service flaws were found in Wireshark. Wireshark could\ncrash or stop responding if it read a malformed packet off a network, or\nopened a malicious dump file. (CVE-2014-8714, CVE-2014-8712, CVE-2014-8713,\nCVE-2014-8711, CVE-2014-8710, CVE-2015-0562, CVE-2015-0564, CVE-2015-2189,\nCVE-2015-2191)\n\nThis update also fixes the following bugs:\n\n* Previously, the Wireshark tool did not support Advanced Encryption\nStandard Galois/Counter Mode (AES-GCM) cryptographic algorithm. As a\nconsequence, AES-GCM was not decrypted. Support for AES-GCM has been added\nto Wireshark, and AES-GCM is now correctly decrypted. (BZ#1095065)\n\n* Previously, when installing the system using the kickstart method, a\ndependency on the shadow-utils packages was missing from the wireshark\npackages, which could cause the installation to fail with a \"bad scriptlet\"\nerror message. With this update, shadow-utils are listed as required in the\nwireshark packages spec file, and kickstart installation no longer fails.\n(BZ#1121275)\n\n* Prior to this update, the Wireshark tool could not decode types of\nelliptic curves in Datagram Transport Layer Security (DTLS) Client Hello.\nConsequently, Wireshark incorrectly displayed elliptic curves types as\ndata. A patch has been applied to address this bug, and Wireshark now\ndecodes elliptic curves types properly. (BZ#1131203)\n\n* Previously, a dependency on the gtk2 packages was missing from the\nwireshark packages. As a consequence, the Wireshark tool failed to start\nunder certain circumstances due to an unresolved symbol,\n\"gtk_combo_box_text_new_with_entry\", which was added in gtk version 2.24.\nWith this update, a dependency on gtk2 has been added, and Wireshark now\nalways starts as expected. (BZ#1160388)\n\nIn addition, this update adds the following enhancements:\n\n* With this update, the Wireshark tool supports process substitution, which\nfeeds the output of a process (or processes) into the standard input of\nanother process using the \"<(command_list)\" syntax. When using process\nsubstitution with large files as input, Wireshark failed to decode such\ninput. (BZ#1104210)\n\n* Wireshark has been enhanced to enable capturing packets with nanosecond\ntime stamp precision, which allows better analysis of recorded network\ntraffic. (BZ#1146578)\n\nAll wireshark users are advised to upgrade to these updated packages, which\ncontain backported patches to correct these issues and add these\nenhancements. All running instances of Wireshark must be restarted for the\nupdate to take effect.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2015:1460",
+				"Description": "https://access.redhat.com/errata/RHSA-2015:1460"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "wireshark: SigComp dissector crash (wnpa-sec-2014-20)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-11-04T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-8710",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1460"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.wireshark.org/security/wnpa-sec-2014-20.html",
+						"Description": "https://www.wireshark.org/security/wnpa-sec-2014-20.html"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-8710",
+						"Description": "CVE-2014-8710"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1163584",
+						"Description": "bz#1163584: CVE-2014-8710 wireshark: SigComp dissector crash (wnpa-sec-2014-20)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-11-12T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional:wireshark-0:1.8.10-17.el6",
+						"6Client:wireshark-0:1.8.10-17.el6",
+						"6Server-optional:wireshark-0:1.8.10-17.el6",
+						"6Server:wireshark-0:1.8.10-17.el6",
+						"6Workstation-optional:wireshark-0:1.8.10-17.el6",
+						"6Workstation:wireshark-0:1.8.10-17.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "wireshark: AMQP dissector crash (wnpa-sec-2014-21)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-10-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-8711",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1460"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.wireshark.org/security/wnpa-sec-2014-21.html",
+						"Description": "https://www.wireshark.org/security/wnpa-sec-2014-21.html"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-8711",
+						"Description": "CVE-2014-8711"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1163583",
+						"Description": "bz#1163583: CVE-2014-8711 wireshark: AMQP dissector crash (wnpa-sec-2014-21)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-11-12T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional:wireshark-0:1.8.10-17.el6",
+						"6Client:wireshark-0:1.8.10-17.el6",
+						"6Server-optional:wireshark-0:1.8.10-17.el6",
+						"6Server:wireshark-0:1.8.10-17.el6",
+						"6Workstation-optional:wireshark-0:1.8.10-17.el6",
+						"6Workstation:wireshark-0:1.8.10-17.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "wireshark: NCP dissector crashes (wnpa-sec-2014-22)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-10-09T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-8712",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1460"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.wireshark.org/security/wnpa-sec-2014-22.html",
+						"Description": "https://www.wireshark.org/security/wnpa-sec-2014-22.html"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-8712",
+						"Description": "CVE-2014-8712"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1163582",
+						"Description": "bz#1163582: CVE-2014-8712 CVE-2014-8713 wireshark: NCP dissector crashes (wnpa-sec-2014-22)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-11-12T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional:wireshark-0:1.8.10-17.el6",
+						"6Client:wireshark-0:1.8.10-17.el6",
+						"6Server-optional:wireshark-0:1.8.10-17.el6",
+						"6Server:wireshark-0:1.8.10-17.el6",
+						"6Workstation-optional:wireshark-0:1.8.10-17.el6",
+						"6Workstation:wireshark-0:1.8.10-17.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "wireshark: NCP dissector crashes (wnpa-sec-2014-22)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-10-09T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-8713",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1460"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.wireshark.org/security/wnpa-sec-2014-22.html",
+						"Description": "https://www.wireshark.org/security/wnpa-sec-2014-22.html"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-8713",
+						"Description": "CVE-2014-8713"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1163582",
+						"Description": "bz#1163582: CVE-2014-8712 CVE-2014-8713 wireshark: NCP dissector crashes (wnpa-sec-2014-22)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-11-12T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional:wireshark-0:1.8.10-17.el6",
+						"6Client:wireshark-0:1.8.10-17.el6",
+						"6Server-optional:wireshark-0:1.8.10-17.el6",
+						"6Server:wireshark-0:1.8.10-17.el6",
+						"6Workstation-optional:wireshark-0:1.8.10-17.el6",
+						"6Workstation:wireshark-0:1.8.10-17.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "wireshark: TN5250 infinite loop (wnpa-sec-2014-23)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-10-20T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-8714",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1460"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.wireshark.org/security/wnpa-sec-2014-23.html",
+						"Description": "https://www.wireshark.org/security/wnpa-sec-2014-23.html"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-8714",
+						"Description": "CVE-2014-8714"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1163581",
+						"Description": "bz#1163581: CVE-2014-8714 wireshark: TN5250 infinite loop (wnpa-sec-2014-23)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-11-12T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional:wireshark-0:1.8.10-17.el6",
+						"6Client:wireshark-0:1.8.10-17.el6",
+						"6Server-optional:wireshark-0:1.8.10-17.el6",
+						"6Server:wireshark-0:1.8.10-17.el6",
+						"6Workstation-optional:wireshark-0:1.8.10-17.el6",
+						"6Workstation:wireshark-0:1.8.10-17.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "6",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "wireshark: DEC DNA Routing Protocol dissector crash (wnpa-sec-2015-03)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-01-07T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-0562",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1460"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.wireshark.org/security/wnpa-sec-2015-03.html",
+						"Description": "https://www.wireshark.org/security/wnpa-sec-2015-03.html"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-0562",
+						"Description": "CVE-2015-0562"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1180182",
+						"Description": "bz#1180182: CVE-2015-0562 wireshark: DEC DNA Routing Protocol dissector crash (wnpa-sec-2015-03)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-01-08T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional:wireshark-0:1.8.10-17.el6",
+						"6Client:wireshark-0:1.8.10-17.el6",
+						"6Server-optional:wireshark-0:1.8.10-17.el6",
+						"6Server:wireshark-0:1.8.10-17.el6",
+						"6Workstation-optional:wireshark-0:1.8.10-17.el6",
+						"6Workstation:wireshark-0:1.8.10-17.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "7",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "wireshark: TLS/SSL decryption crash (wnpa-sec-2015-05)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-01-07T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-0564",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1460"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.wireshark.org/security/wnpa-sec-2015-05.html",
+						"Description": "https://www.wireshark.org/security/wnpa-sec-2015-05.html"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-0564",
+						"Description": "CVE-2015-0564"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1180197",
+						"Description": "bz#1180197: CVE-2015-0564 wireshark: TLS/SSL decryption crash (wnpa-sec-2015-05)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-01-08T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional:wireshark-0:1.8.10-17.el6",
+						"6Client:wireshark-0:1.8.10-17.el6",
+						"6Server-optional:wireshark-0:1.8.10-17.el6",
+						"6Server:wireshark-0:1.8.10-17.el6",
+						"6Workstation-optional:wireshark-0:1.8.10-17.el6",
+						"6Workstation:wireshark-0:1.8.10-17.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "8",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "wireshark: The pcapng file parser could crash (wnpa-sec-2015-08)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-03-04T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-2189",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1460"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-2189",
+						"Description": "CVE-2015-2189"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1199165",
+						"Description": "bz#1199165: CVE-2015-2189 wireshark: The pcapng file parser could crash (wnpa-sec-2015-08)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2015-03-05T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional:wireshark-0:1.8.10-17.el6",
+						"6Client:wireshark-0:1.8.10-17.el6",
+						"6Server-optional:wireshark-0:1.8.10-17.el6",
+						"6Server:wireshark-0:1.8.10-17.el6",
+						"6Workstation-optional:wireshark-0:1.8.10-17.el6",
+						"6Workstation:wireshark-0:1.8.10-17.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.9",
+					"Vector": "AV:A/AC:M/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "9",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "wireshark: The TNEF dissector could go into an infinite loop on 32-bit architectures (wnpa-sec-2015-10)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-03-04T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-2191",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1460"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-2191",
+						"Description": "CVE-2015-2191"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1199167",
+						"Description": "bz#1199167: CVE-2015-2191 wireshark: The TNEF dissector could go into an infinite loop on 32-bit architectures (wnpa-sec-2015-10)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2015-03-05T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional:wireshark-0:1.8.10-17.el6",
+						"6Client:wireshark-0:1.8.10-17.el6",
+						"6Server-optional:wireshark-0:1.8.10-17.el6",
+						"6Server:wireshark-0:1.8.10-17.el6",
+						"6Workstation-optional:wireshark-0:1.8.10-17.el6",
+						"6Workstation:wireshark-0:1.8.10-17.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.9",
+					"Vector": "AV:A/AC:M/Au:N/C:N/I:N/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 6)",
+							"productid": "6Client",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+							"productid": "6Client-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 6)",
+							"productid": "6Server",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional (v. 6)",
+							"productid": "6Server-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 6)",
+							"productid": "6Workstation",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+							"productid": "6Workstation-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "wireshark-0:1.8.10-17.el6",
+				"fullproductname": {
+					"text": "wireshark-1.8.10-17.el6.src.rpm",
+					"productid": "wireshark-0:1.8.10-17.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "wireshark-0:1.8.10-17.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client",
+				"fullproductname": {
+					"text": "wireshark-0:1.8.10-17.el6 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"productid": "6Client:wireshark-0:1.8.10-17.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "wireshark-0:1.8.10-17.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-optional",
+				"fullproductname": {
+					"text": "wireshark-0:1.8.10-17.el6 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"productid": "6Client-optional:wireshark-0:1.8.10-17.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "wireshark-0:1.8.10-17.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server",
+				"fullproductname": {
+					"text": "wireshark-0:1.8.10-17.el6 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"productid": "6Server:wireshark-0:1.8.10-17.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "wireshark-0:1.8.10-17.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-optional",
+				"fullproductname": {
+					"text": "wireshark-0:1.8.10-17.el6 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"productid": "6Server-optional:wireshark-0:1.8.10-17.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "wireshark-0:1.8.10-17.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation",
+				"fullproductname": {
+					"text": "wireshark-0:1.8.10-17.el6 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"productid": "6Workstation:wireshark-0:1.8.10-17.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			},
+			{
+				"productreference": "wireshark-0:1.8.10-17.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-optional",
+				"fullproductname": {
+					"text": "wireshark-0:1.8.10-17.el6 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"productid": "6Workstation-optional:wireshark-0:1.8.10-17.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			}
+		]
+	}
+}

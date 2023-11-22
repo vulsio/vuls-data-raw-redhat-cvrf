@@ -1,0 +1,351 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: openstack-glance security update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2015:1897"
+		},
+		"Status": "Final",
+		"Version": "2",
+		"revisionhistory": {
+			"revision": {
+				"Number": "2",
+				"Date": "2015-10-15T12:29:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2015-10-15T12:29:00Z",
+		"CurrentReleaseDate": "2015-10-15T12:29:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:39:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated openstack-glance packages that fix two security issues are now\navailable for Red Hat Enterprise Linux OpenStack Platform 5.0, 6.0, and 7.0.\n\nRed Hat Product Security has rated this update as having Moderate security\nimpact. Common Vulnerability Scoring System (CVSS) base scores, which give\ndetailed severity ratings, are available for each vulnerability from the\nCVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nOpenStack Image service (glance) provides discovery, registration, and\ndelivery services for disk and server images. It provides the ability to\ncopy or snapshot a server image, and immediately store it away. Stored\nimages can be used as a template to get new servers up and running quickly\nand more consistently than installing a server operating system and\nindividually configuring additional services.\n\nA flaw was discovered in the OpenStack Image service where a\ntenant could manipulate the status of their images by submitting an\nHTTP PUT request together with an 'x-image-meta-status' header. A\nmalicious tenant could exploit this flaw to reactivate disabled images,\nbypass storage quotas, and in some cases replace image contents (where\nthey have owner access). Setups using the Image service's v1 API could\nallow the illegal modification of image status. Additionally, setups\nwhich also use the v2 API could allow a subsequent re-upload of image\ncontents. (CVE-2015-5251)\n\nA race-condition flaw was discovered in the OpenStack Image service.\nWhen images in the upload state were deleted using a token close to\nexpiration, untracked image data could accumulate in the back end.\nBecause untracked data does not count towards the storage quota, an\nattacker could use this flaw to cause a denial of service through\nresource exhaustion. (CVE-2015-5286)\n\nRed Hat would like to thank the OpenStack project for reporting these\nissues. Upstream acknowledges Hemanth Makkapati of Rackspace as the\noriginal reporter of CVE-2015-5251, and Mike Fedosin and Alexei Galkin of\nMirantis as the original reporters of CVE-2015-5286.\n\nAll openstack-glance users are advised to upgrade to these updated\npackages, which correct these issues. After installing the updated\npackages, running Image service services will be restarted\nautomatically.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2015:1897",
+				"Description": "https://access.redhat.com/errata/RHSA-2015:1897"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "openstack-glance allows illegal modification of image status",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-09-22T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-5251",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1897"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-5251",
+						"Description": "CVE-2015-5251"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1263511",
+						"Description": "bz#1263511: CVE-2015-5251 openstack-glance allows illegal modification of image status"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-09-15T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-RH6-RHOS-5.0:openstack-glance-0:2014.1.5-3.el6ost",
+						"7Server-RH7-RHOS-5.0:openstack-glance-0:2014.1.5-3.el7ost",
+						"7Server-RH7-RHOS-6.0:openstack-glance-0:2014.2.3-3.el7ost",
+						"7Server-RH7-RHOS-7.0:openstack-glance-0:2015.1.1-3.el7ost"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.0",
+					"Vector": "AV:N/AC:M/Au:S/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "openstack-glance: Storage overrun by deleting images",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-10-01T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-5286",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1897"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-5286",
+						"Description": "CVE-2015-5286"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1267516",
+						"Description": "bz#1267516: CVE-2015-5286 openstack-glance: Storage overrun by deleting images"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-09-25T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-RH6-RHOS-5.0:openstack-glance-0:2014.1.5-3.el6ost",
+						"7Server-RH7-RHOS-5.0:openstack-glance-0:2014.1.5-3.el7ost",
+						"7Server-RH7-RHOS-6.0:openstack-glance-0:2014.2.3-3.el7ost",
+						"7Server-RH7-RHOS-7.0:openstack-glance-0:2015.1.1-3.el7ost"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.0",
+					"Vector": "AV:N/AC:L/Au:N/C:N/I:N/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat OpenStack Platform",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux OpenStack Platform 5.0 (Icehouse) for RHEL 6",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux OpenStack Platform 5.0 (Icehouse) for RHEL 6",
+							"productid": "6Server-RH6-RHOS-5.0",
+							"cpe": "cpe:/a:redhat:openstack:5::el6"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux OpenStack Platform 5.0 (Icehouse) for RHEL 7",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux OpenStack Platform 5.0 (Icehouse) for RHEL 7",
+							"productid": "7Server-RH7-RHOS-5.0",
+							"cpe": "cpe:/a:redhat:openstack:5::el7"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux OpenStack Platform 6.0 (Juno) for RHEL 7",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux OpenStack Platform 6.0 (Juno) for RHEL 7",
+							"productid": "7Server-RH7-RHOS-6.0",
+							"cpe": "cpe:/a:redhat:openstack:6::el7"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux OpenStack Platform 7.0 (Kilo) for RHEL 7",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux OpenStack Platform 7.0 (Kilo) for RHEL 7",
+							"productid": "7Server-RH7-RHOS-7.0",
+							"cpe": "cpe:/a:redhat:openstack:7::el7"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "openstack-glance-0:2014.1.5-3.el6ost",
+				"fullproductname": {
+					"text": "openstack-glance-2014.1.5-3.el6ost.src.rpm",
+					"productid": "openstack-glance-0:2014.1.5-3.el6ost",
+					"cpe": "cpe:/a:redhat:openstack:5::el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openstack-glance-0:2014.1.5-3.el7ost",
+				"fullproductname": {
+					"text": "openstack-glance-2014.1.5-3.el7ost.src.rpm",
+					"productid": "openstack-glance-0:2014.1.5-3.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:5::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openstack-glance-0:2014.2.3-3.el7ost",
+				"fullproductname": {
+					"text": "openstack-glance-2014.2.3-3.el7ost.src.rpm",
+					"productid": "openstack-glance-0:2014.2.3-3.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:6::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openstack-glance-0:2015.1.1-3.el7ost",
+				"fullproductname": {
+					"text": "openstack-glance-2015.1.1-3.el7ost.src.rpm",
+					"productid": "openstack-glance-0:2015.1.1-3.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:7::el7"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "openstack-glance-0:2014.1.5-3.el6ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RH6-RHOS-5.0",
+				"fullproductname": {
+					"text": "openstack-glance-0:2014.1.5-3.el6ost as a component of Red Hat Enterprise Linux OpenStack Platform 5.0 (Icehouse) for RHEL 6",
+					"productid": "6Server-RH6-RHOS-5.0:openstack-glance-0:2014.1.5-3.el6ost",
+					"cpe": "cpe:/a:redhat:openstack:5::el6"
+				}
+			},
+			{
+				"productreference": "openstack-glance-0:2014.1.5-3.el7ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOS-5.0",
+				"fullproductname": {
+					"text": "openstack-glance-0:2014.1.5-3.el7ost as a component of Red Hat Enterprise Linux OpenStack Platform 5.0 (Icehouse) for RHEL 7",
+					"productid": "7Server-RH7-RHOS-5.0:openstack-glance-0:2014.1.5-3.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:5::el7"
+				}
+			},
+			{
+				"productreference": "openstack-glance-0:2014.2.3-3.el7ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOS-6.0",
+				"fullproductname": {
+					"text": "openstack-glance-0:2014.2.3-3.el7ost as a component of Red Hat Enterprise Linux OpenStack Platform 6.0 (Juno) for RHEL 7",
+					"productid": "7Server-RH7-RHOS-6.0:openstack-glance-0:2014.2.3-3.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:6::el7"
+				}
+			},
+			{
+				"productreference": "openstack-glance-0:2015.1.1-3.el7ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOS-7.0",
+				"fullproductname": {
+					"text": "openstack-glance-0:2015.1.1-3.el7ost as a component of Red Hat Enterprise Linux OpenStack Platform 7.0 (Kilo) for RHEL 7",
+					"productid": "7Server-RH7-RHOS-7.0:openstack-glance-0:2015.1.1-3.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:7::el7"
+				}
+			}
+		]
+	}
+}

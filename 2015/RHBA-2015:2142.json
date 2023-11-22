@@ -1,0 +1,327 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Bug Fix Advisory: pcre bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHBA-2015:2142"
+		},
+		"Status": "Final",
+		"Version": "7",
+		"revisionhistory": {
+			"revision": {
+				"Number": "7",
+				"Date": "2016-04-27T07:56:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2015-11-19T00:00:00Z",
+		"CurrentReleaseDate": "2016-04-27T07:56:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.12.2",
+			"Date": "2023-03-24T15:53:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated pcre packages that fix several bugs are now available for Red Hat Enterprise Linux 7.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nPCRE is a Perl-compatible regular expression library. \n\nThis update fixes the following bugs:\n\n* Previously, non-matched groups within capturing groups up to a forced match were not being properly reset by PCRE, causing the library to incorrectly match some groups. With this update, non-matched groups within capturing groups up to a forced match are being properly marked as non-matching. (BZ#1161597)\n\n* Compiling zero-repeated groups with recursive back references no longer causes PCRE to crash. (BZ#1119356)\n\n* A bug in PCRE was causing it to match the wrong substring in regular expressions with empty-matching possessive zero-repeat groups. This problem has been fixed and matching these groups now behaves as expected. (BZ#1119320)\n\n* PCRE previously did not correctly evaluate regular expressions with literal quotations inside character class. For example, the expression \"/[\\Qa]\\E]+/\" was not matching the string \"a\", although it should. The problem has been fixed and regular expressions with literal quotations inside character class are now being evaluated correctly. (BZ#1111091)\n\n* An error in first character optimization was causing PCRE to incorrectly evaluate regular expressions where a start-anchored character with more than once case follows circumflex in multi-line UTF-8 mode. This update resolves the problem and PCRE now properly evaluates these regular expressions. (BZ#1110621)\n\n* Linking an application to the static PCRE library using the libpcre module for pkg-config was failing due to missing pthread symbols. The pkg-config modules for PCRE libraries have been updated to declare private libraries properly, and the \"pkg-config --static --libs libpcre\" command can now be used to link the static pcre library to an application. (BZ#1217111)\n\n* The pcredemo.c file, which is described in the pcresample(3) man page as containing code examples for PCRE, was missing from the pcre-devel package. The example file has been added to the pcre-devel package and can now be found in the /usr/share/doc/pcre-devel-8.32/ directory. (BZ#1217118)\n\nUsers of pcre are advised to upgrade to these updated packages, which fix these bugs.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2023 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHBA-2015:2142",
+				"Description": "https://access.redhat.com/errata/RHBA-2015:2142"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "PCRE before 8.36 mishandles the /(((a\\2)|(a*)\\g<-1>))*/ pattern and related patterns with certain internal recursive back references, which allows remote attackers to cause a denial of service (segmentation fault) or possibly have unspecified other impact via a crafted regular expression, as demonstrated by a JavaScript RegExp object encountered by Konqueror.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-07-11T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-2327",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHBA-2015:2142"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-2327",
+						"Description": "CVE-2015-2327"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1285408",
+						"Description": "bz#1285408: CVE-2015-2327 pcre: infinite recursion compiling pattern with zero-repeated groups that include recursive back reference (8.36/19)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-11-25T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-optional:pcre-0:8.32-15.el7",
+						"7Client:pcre-0:8.32-15.el7",
+						"7ComputeNode-optional:pcre-0:8.32-15.el7",
+						"7ComputeNode:pcre-0:8.32-15.el7",
+						"7Server-optional:pcre-0:8.32-15.el7",
+						"7Server:pcre-0:8.32-15.el7",
+						"7Workstation-optional:pcre-0:8.32-15.el7",
+						"7Workstation:pcre-0:8.32-15.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Client (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Client (v. 7)",
+							"productid": "7Client",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Client Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Client Optional (v. 7)",
+							"productid": "7Client-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ComputeNode (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ComputeNode (v. 7)",
+							"productid": "7ComputeNode",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+							"productid": "7ComputeNode-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 7)",
+							"productid": "7Server",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional (v. 7)",
+							"productid": "7Server-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 7)",
+							"productid": "7Workstation",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation Optional (v. 7)",
+							"productid": "7Workstation-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcre-0:8.32-15.el7",
+				"fullproductname": {
+					"text": "pcre-8.32-15.el7.src.rpm",
+					"productid": "pcre-0:8.32-15.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "pcre-0:8.32-15.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client",
+				"fullproductname": {
+					"text": "pcre-0:8.32-15.el7 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"productid": "7Client:pcre-0:8.32-15.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "pcre-0:8.32-15.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-optional",
+				"fullproductname": {
+					"text": "pcre-0:8.32-15.el7 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"productid": "7Client-optional:pcre-0:8.32-15.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "pcre-0:8.32-15.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode",
+				"fullproductname": {
+					"text": "pcre-0:8.32-15.el7 as a component of Red Hat Enterprise Linux ComputeNode (v. 7)",
+					"productid": "7ComputeNode:pcre-0:8.32-15.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "pcre-0:8.32-15.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-optional",
+				"fullproductname": {
+					"text": "pcre-0:8.32-15.el7 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"productid": "7ComputeNode-optional:pcre-0:8.32-15.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "pcre-0:8.32-15.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server",
+				"fullproductname": {
+					"text": "pcre-0:8.32-15.el7 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server:pcre-0:8.32-15.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "pcre-0:8.32-15.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-optional",
+				"fullproductname": {
+					"text": "pcre-0:8.32-15.el7 as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"productid": "7Server-optional:pcre-0:8.32-15.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "pcre-0:8.32-15.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation",
+				"fullproductname": {
+					"text": "pcre-0:8.32-15.el7 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"productid": "7Workstation:pcre-0:8.32-15.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "pcre-0:8.32-15.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-optional",
+				"fullproductname": {
+					"text": "pcre-0:8.32-15.el7 as a component of Red Hat Enterprise Linux Workstation Optional (v. 7)",
+					"productid": "7Workstation-optional:pcre-0:8.32-15.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			}
+		]
+	}
+}

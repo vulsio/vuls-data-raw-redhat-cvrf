@@ -1,0 +1,615 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: jbossweb security update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2012:0077"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2012-01-31T23:03:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2012-01-31T22:57:00Z",
+		"CurrentReleaseDate": "2012-01-31T23:03:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:34:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nAn update for JBoss Enterprise Web Platform 5.1.2 that fixes multiple\nsecurity issues is now available from the Red Hat Customer Portal.\n\nThe Red Hat Security Response Team has rated this update as having\nimportant security impact. Common Vulnerability Scoring System (CVSS) base\nscores, which give detailed severity ratings, are available for each\nvulnerability from the CVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nJBoss Web is a web container based on Apache Tomcat. It provides a single\ndeployment platform for the JavaServer Pages (JSP) and Java Servlet\ntechnologies.\n\nA flaw was found in the way JBoss Web handled UTF-8 surrogate pair\ncharacters. If JBoss Web was hosting an application with UTF-8 character\nencoding enabled, or that included user-supplied UTF-8 strings in a\nresponse, a remote attacker could use this flaw to cause a denial of\nservice (infinite loop) on the JBoss Web server. (CVE-2011-4610)\n\nIt was found that the Java hashCode() method implementation was susceptible\nto predictable hash collisions. A remote attacker could use this flaw to\ncause JBoss Web to use an excessive amount of CPU time by sending an HTTP\nrequest with a large number of parameters whose names map to the same hash\nvalue. This update introduces a limit on the number of parameters and\nheaders processed per request to mitigate this issue. The default limit is\n512 for parameters and 128 for headers. These defaults can be changed by\nsetting the \"-Dorg.apache.tomcat.util.http.Parameters.MAX_COUNT=x\" and\n\"-Dorg.apache.tomcat.util.http.MimeHeaders.MAX_COUNT=x\" system properties\nas JAVA_OPTS entries in \"jboss-as-web/bin/run.conf\". (CVE-2011-4858)\n\nIt was found that JBoss Web did not handle large numbers of parameters and\nlarge parameter values efficiently. A remote attacker could make a JBoss\nWeb server use an excessive amount of CPU time by sending an HTTP request\ncontaining a large number of parameters or large parameter values. This\nupdate introduces limits on the number of parameters and headers processed\nper request to address this issue. Refer to the CVE-2011-4858 description\nfor information about the org.apache.tomcat.util.http.Parameters.MAX_COUNT\nand org.apache.tomcat.util.http.MimeHeaders.MAX_COUNT system properties.\n(CVE-2012-0022)\n\nMultiple flaws were found in the way JBoss Web handled HTTP DIGEST\nauthentication. These flaws weakened the JBoss Web HTTP DIGEST\nauthentication implementation, subjecting it to some of the weaknesses of\nHTTP BASIC authentication, for example, allowing remote attackers to\nperform session replay attacks. (CVE-2011-1184, CVE-2011-5062,\nCVE-2011-5063, CVE-2011-5064)\n\nA flaw was found in the way JBoss Web handled sendfile request attributes\nwhen using the HTTP APR (Apache Portable Runtime) or NIO (Non-Blocking I/O)\nconnector. A malicious web application running on a JBoss Web instance\ncould use this flaw to bypass security manager restrictions and gain access\nto files it would otherwise be unable to access, or possibly terminate the\nJava Virtual Machine (JVM). (CVE-2011-2526)\n\nRed Hat would like to thank NTT OSSC for reporting CVE-2011-4610; oCERT for\nreporting CVE-2011-4858; and the Apache Tomcat project for reporting\nCVE-2011-2526. oCERT acknowledges Julian Wälde and Alexander Klink as the\noriginal reporters of CVE-2011-4858.\n\nWarning: Before applying this update, back up your JBoss Enterprise Web\nPlatform's \"jboss-as-web/server/[PROFILE]/deploy/\" directory and any other\ncustomized configuration files.\n\nAll users of JBoss Enterprise Web Platform 5.1.2 as provided from the Red\nHat Customer Portal are advised to install this update.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2012:0077",
+				"Description": "https://access.redhat.com/errata/RHSA-2012:0077"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/jbossnetwork/restricted/listSoftware.html?product=enterpriseweb.platform&downloadType=securityPatches&version=5.1.2",
+				"Description": "https://access.redhat.com/jbossnetwork/restricted/listSoftware.html?product=enterpriseweb.platform&downloadType=securityPatches&version=5.1.2"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "tomcat: Multiple weaknesses in HTTP DIGEST authentication",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2011-09-26T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2011-1184",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThe References section of this erratum contains a download link (you must\nlog in to download the update).\n\nThe JBoss server process must be restarted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:0077"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2011-1184",
+						"Description": "CVE-2011-1184"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=741401",
+						"Description": "bz#741401: CVE-2011-1184 CVE-2011-5062 CVE-2011-5063 CVE-2011-5064 tomcat: Multiple weaknesses in HTTP DIGEST authentication"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2011-09-26T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "tomcat: security manager restrictions bypass",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2011-07-13T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2011-2526",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThe References section of this erratum contains a download link (you must\nlog in to download the update).\n\nThe JBoss server process must be restarted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:0077"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2011-2526",
+						"Description": "CVE-2011-2526"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=720948",
+						"Description": "bz#720948: CVE-2011-2526 tomcat: security manager restrictions bypass"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2011-07-12T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.6",
+					"Vector": "AV:L/AC:H/Au:N/C:P/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "JBoss Web remote denial of service when surrogate pair character is placed at buffer boundary",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-01-31T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2011-4610",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThe References section of this erratum contains a download link (you must\nlog in to download the update).\n\nThe JBoss server process must be restarted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:0077"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2011-4610",
+						"Description": "CVE-2011-4610"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=767871",
+						"Description": "bz#767871: CVE-2011-4610 JBoss Web remote denial of service when surrogate pair character is placed at buffer boundary"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2011-12-13T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.0",
+					"Vector": "AV:N/AC:L/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "tomcat: hash table collisions CPU usage DoS (oCERT-2011-003)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2011-12-28T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2011-4858",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThe References section of this erratum contains a download link (you must\nlog in to download the update).\n\nThe JBoss server process must be restarted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:0077"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2011-4858",
+						"Description": "CVE-2011-4858"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=750521",
+						"Description": "bz#750521: CVE-2011-4858 tomcat: hash table collisions CPU usage DoS (oCERT-2011-003)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2011-11-01T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.0",
+					"Vector": "AV:N/AC:L/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "tomcat: Multiple weaknesses in HTTP DIGEST authentication",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2011-09-26T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2011-5062",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThe References section of this erratum contains a download link (you must\nlog in to download the update).\n\nThe JBoss server process must be restarted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:0077"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2011-5062",
+						"Description": "CVE-2011-5062"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=741401",
+						"Description": "bz#741401: CVE-2011-1184 CVE-2011-5062 CVE-2011-5063 CVE-2011-5064 tomcat: Multiple weaknesses in HTTP DIGEST authentication"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2011-09-26T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "6",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "tomcat: Multiple weaknesses in HTTP DIGEST authentication",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2011-09-26T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2011-5063",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThe References section of this erratum contains a download link (you must\nlog in to download the update).\n\nThe JBoss server process must be restarted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:0077"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2011-5063",
+						"Description": "CVE-2011-5063"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=741401",
+						"Description": "bz#741401: CVE-2011-1184 CVE-2011-5062 CVE-2011-5063 CVE-2011-5064 tomcat: Multiple weaknesses in HTTP DIGEST authentication"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2011-09-26T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "7",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "tomcat: Multiple weaknesses in HTTP DIGEST authentication",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2011-09-26T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2011-5064",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThe References section of this erratum contains a download link (you must\nlog in to download the update).\n\nThe JBoss server process must be restarted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:0077"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2011-5064",
+						"Description": "CVE-2011-5064"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=741401",
+						"Description": "bz#741401: CVE-2011-1184 CVE-2011-5062 CVE-2011-5063 CVE-2011-5064 tomcat: Multiple weaknesses in HTTP DIGEST authentication"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2011-09-26T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "8",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "tomcat: large number of parameters DoS",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-01-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-0022",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThe References section of this erratum contains a download link (you must\nlog in to download the update).\n\nThe JBoss server process must be restarted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:0077"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-0022",
+						"Description": "CVE-2012-0022"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=783359",
+						"Description": "bz#783359: CVE-2012-0022 tomcat: large number of parameters DoS"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2012-01-17T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.0",
+					"Vector": "AV:N/AC:L/Au:N/C:N/I:N/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {}
+}

@@ -1,0 +1,352 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: kernel security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2014:0740"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2014-06-10T20:44:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2014-06-10T20:44:00Z",
+		"CurrentReleaseDate": "2014-06-10T20:44:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:34:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated kernel packages that fix three security issues and several bugs are\nnow available for Red Hat Enterprise Linux 5.\n\nThe Red Hat Security Response Team has rated this update as having\nImportant security impact. Common Vulnerability Scoring System (CVSS) base\nscores, which give detailed severity ratings, are available for each\nvulnerability from the CVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe kernel packages contain the Linux kernel, the core of any Linux\noperating system.\n\n* A flaw was found in the way the Linux kernel's floppy driver handled user\nspace provided data in certain error code paths while processing FDRAWCMD\nIOCTL commands. A local user with write access to /dev/fdX could use this\nflaw to free (using the kfree() function) arbitrary kernel memory.\n(CVE-2014-1737, Important)\n\n* It was found that the Linux kernel's floppy driver leaked internal kernel\nmemory addresses to user space during the processing of the FDRAWCMD IOCTL\ncommand. A local user with write access to /dev/fdX could use this flaw to\nobtain information about the kernel heap arrangement. (CVE-2014-1738, Low)\n\nNote: A local user with write access to /dev/fdX could use these two flaws\n(CVE-2014-1737 in combination with CVE-2014-1738) to escalate their\nprivileges on the system.\n\n* A NULL pointer dereference flaw was found in the rds_ib_laddr_check()\nfunction in the Linux kernel's implementation of Reliable Datagram Sockets\n(RDS). A local, unprivileged user could use this flaw to crash the system.\n(CVE-2013-7339, Moderate)\n\nRed Hat would like to thank Matthew Daley for reporting CVE-2014-1737 and\nCVE-2014-1738.\n\nThis update also fixes the following bugs:\n\n* A bug in the futex system call could result in an overflow when passing\na very large positive timeout. As a consequence, the FUTEX_WAIT operation\ndid not work as intended and the system call was timing out immediately.\nA backported patch fixes this bug by limiting very large positive timeouts\nto the maximal supported value. (BZ#1091832)\n\n* A new Linux Security Module (LSM) functionality related to the setrlimit\nhooks should produce a warning message when used by a third party module\nthat could not cope with it. However, due to a programming error, the\nkernel could print this warning message when a process was setting rlimits\nfor a different process, or if rlimits were modified by another than the\nmain thread even though there was no incompatible third party module. This\nupdate fixes the relevant code and ensures that the kernel handles this\nwarning message correctly. (BZ#1092869)\n\n* Previously, the kernel was unable to detect KVM on system boot if the\nHyper-V emulation was enabled. A patch has been applied to ensure that\nboth KVM and Hyper-V hypervisors are now correctly detected during system\nboot. (BZ#1094152)\n\n* A function in the RPC code responsible for verifying whether cached\ncredentials match the current process did not perform the check correctly.\nThe code checked only whether the groups in the current process\ncredentials appear in the same order as in the cached credentials but did\nnot ensure that no other groups are present in the cached credentials. As\na consequence, when accessing files in NFS mounts, a process with the same\nUID and GID as the original process but with a non-matching group list\ncould have been granted an unauthorized access to a file, or under certain\ncircumstances, the process could have been wrongly prevented from\naccessing the file. The incorrect test condition has been fixed and the\nproblem can no longer occur. (BZ#1095062)\n\n* When being under heavy load, some Fibre Channel storage devices, such as\nHitachi and HP Open-V series, can send a logout (LOGO) message to the\nhost system. However, due to a bug in the lpfc driver, this could result\nin a loss of active paths to the storage and the paths could not be\nrecovered without manual intervention. This update corrects the lpfc\ndriver to ensure automatic recovery of the lost paths to the storage in\nthis scenario. (BZ#1096061)\n\nAll kernel users are advised to upgrade to these updated packages, which\ncontain backported patches to correct these issues. The system must be\nrebooted for this update to take effect.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2014:0740",
+				"Description": "https://access.redhat.com/errata/RHSA-2014:0740"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: net: rds: dereference of a NULL device in rds_ib_laddr_check()",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-12-19T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-7339",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to use the\nRed Hat Network to apply this update are available at\nhttps://access.redhat.com/site/articles/11258\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not use\n\"rpm -Uvh\" as that will remove the running kernel binaries from your\nsystem. You may use \"rpm -e\" to remove old kernels after determining that\nthe new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2014:0740"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-7339",
+						"Description": "CVE-2013-7339"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1079214",
+						"Description": "bz#1079214: CVE-2013-7339 kernel: net: rds: dereference of a NULL device in rds_ib_laddr_check()"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-03-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-5.10.Z:kernel-0:2.6.18-371.9.1.el5",
+						"5Server-5.10.Z:kernel-0:2.6.18-371.9.1.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.7",
+					"Vector": "AV:L/AC:M/Au:N/C:N/I:N/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: block: floppy: privilege escalation via FDRAWCMD floppy ioctl command",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-05-07T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-1737",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to use the\nRed Hat Network to apply this update are available at\nhttps://access.redhat.com/site/articles/11258\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not use\n\"rpm -Uvh\" as that will remove the running kernel binaries from your\nsystem. You may use \"rpm -e\" to remove old kernels after determining that\nthe new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2014:0740"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-1737",
+						"Description": "CVE-2014-1737"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1094299",
+						"Description": "bz#1094299: CVE-2014-1737 CVE-2014-1738 kernel: block: floppy: privilege escalation via FDRAWCMD floppy ioctl command"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2014-04-28T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-5.10.Z:kernel-0:2.6.18-371.9.1.el5",
+						"5Server-5.10.Z:kernel-0:2.6.18-371.9.1.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.6",
+					"Vector": "AV:L/AC:M/Au:S/C:C/I:C/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: block: floppy: privilege escalation via FDRAWCMD floppy ioctl command",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-05-07T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-1738",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to use the\nRed Hat Network to apply this update are available at\nhttps://access.redhat.com/site/articles/11258\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not use\n\"rpm -Uvh\" as that will remove the running kernel binaries from your\nsystem. You may use \"rpm -e\" to remove old kernels after determining that\nthe new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2014:0740"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-1738",
+						"Description": "CVE-2014-1738"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1094299",
+						"Description": "bz#1094299: CVE-2014-1737 CVE-2014-1738 kernel: block: floppy: privilege escalation via FDRAWCMD floppy ioctl command"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2014-04-28T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-5.10.Z:kernel-0:2.6.18-371.9.1.el5",
+						"5Server-5.10.Z:kernel-0:2.6.18-371.9.1.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.6",
+					"Vector": "AV:L/AC:M/Au:S/C:C/I:C/A:C"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+							"productid": "5Client-5.10.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux (v. 5 server)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux (v. 5 server)",
+							"productid": "5Server-5.10.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-0:2.6.18-371.9.1.el5",
+				"fullproductname": {
+					"text": "kernel-2.6.18-371.9.1.el5.src.rpm",
+					"productid": "kernel-0:2.6.18-371.9.1.el5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "kernel-0:2.6.18-371.9.1.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Client-5.10.Z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.18-371.9.1.el5 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"productid": "5Client-5.10.Z:kernel-0:2.6.18-371.9.1.el5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.18-371.9.1.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-5.10.Z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.18-371.9.1.el5 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"productid": "5Server-5.10.Z:kernel-0:2.6.18-371.9.1.el5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+				}
+			}
+		]
+	}
+}

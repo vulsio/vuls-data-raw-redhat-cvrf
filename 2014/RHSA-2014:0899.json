@@ -1,0 +1,261 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: openstack-neutron security, bug fix, and enhancement update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2014:0899"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2014-07-17T04:28:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2014-07-17T04:28:00Z",
+		"CurrentReleaseDate": "2014-07-17T04:28:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:35:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated openstack-neutron packages that fix two security issues, several bugs, and add various enhancements are now available for Red Hat Enterprise Linux OpenStack Platform 4.0.\n\nThe Red Hat Security Response Team has rated this update as having Moderate security impact. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available from the CVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe openstack-neutron packages provide Openstack Networking (neutron), the virtual network service.\n\nOpenStack Networking (neutron) is a pluggable, scalable, and API-driven system that provisions networking services to virtual machines. Its main function is to manage connectivity to and from virtual machines.\n\nIt was discovered that an authenticated user could add a security group rule with an invalid CIDR causing the openvswitch-agent process to fail and prevent further rules from being applied. (CVE-2014-0187)\n\nIt was discovered that an authenticated user could add an IPv6 private subnet to an L3 router causing L3-agent to break in a way that prevents further IPv4 addresses from being attached. Removal of the faulty network can only be done directly at the database level. Only Neutron setups using IPv6 and L3-agent are affected by this issue. (CVE-2014-4167)\n\nThis update also fixes several bugs and adds enhancements:\n\n* Previously, running 'cloud-init' resulted in each instance sending requests to the metadata agent, which in turn queried Networking server.\nConsequently, booting multiple concurrent instances resulted in metadata agent queries producing heavy load for 'neutron-server'.\nThis update addresses this issue by implementing a short lifetime cache for the metadata agent. Metadata agent now only queries Networking when data is not present in its cache, with the result of decreased load on Networking server during 'cloud-init' within instances. (BZ#1101494).\n\n* With this update, Networking (neutron) packages now update the '/etc/sudoers.d/neutron' file. Consequently, any local changes have been relocated to the '/etc/sudoers.d/neutron.rpmsave' file, and will need to be merged back manually.\nTo avoid the need for manual updates in future, please apply local changes in a separate 'sudoers.d' file. (BZ#1115406)\n\n* Previously, Networking would fail to reliably communicate with Qpid. This behavior was due to an incorrect message subject set in the Qpid layer used by Networking.\nThis update addresses this issue by setting a correct subject when sending a Qpid message. As a result, Networking now works reliably with the new Qpid server. (BZ#1108549)\n\nAll openstack-neutron users are advised to upgrade to these updated packages, which correct these issues and add these enhancements.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2014:0899",
+				"Description": "https://access.redhat.com/errata/RHSA-2014:0899"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "openstack-neutron: security groups bypass through invalid CIDR",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-04-22T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-0187",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/site/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2014:0899"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-0187",
+						"Description": "CVE-2014-0187"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1090132",
+						"Description": "bz#1090132: CVE-2014-0187 openstack-neutron: security groups bypass through invalid CIDR"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-04-22T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-RHOS-4.0:openstack-neutron-0:2013.2.3-14.el6ost"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.0",
+					"Vector": "AV:N/AC:L/Au:S/C:N/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "openstack-neutron: L3-agent denial of service through IPv6 subnet",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-04-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-4167",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/site/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2014:0899"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-4167",
+						"Description": "CVE-2014-4167"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1110139",
+						"Description": "bz#1110139: CVE-2014-4167 openstack-neutron: L3-agent denial of service through IPv6 subnet"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-06-16T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-RHOS-4.0:openstack-neutron-0:2013.2.3-14.el6ost"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.0",
+					"Vector": "AV:N/AC:L/Au:S/C:N/I:N/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat OpenStack Platform",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux OpenStack Platform 4.0",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux OpenStack Platform 4.0",
+							"productid": "6Server-RHOS-4.0",
+							"cpe": "cpe:/a:redhat:openstack:4::el6"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "openstack-neutron-0:2013.2.3-14.el6ost",
+				"fullproductname": {
+					"text": "openstack-neutron-2013.2.3-14.el6ost.src.rpm",
+					"productid": "openstack-neutron-0:2013.2.3-14.el6ost",
+					"cpe": "cpe:/a:redhat:openstack:4::el6"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "openstack-neutron-0:2013.2.3-14.el6ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RHOS-4.0",
+				"fullproductname": {
+					"text": "openstack-neutron-0:2013.2.3-14.el6ost as a component of Red Hat Enterprise Linux OpenStack Platform 4.0",
+					"productid": "6Server-RHOS-4.0:openstack-neutron-0:2013.2.3-14.el6ost",
+					"cpe": "cpe:/a:redhat:openstack:4::el6"
+				}
+			}
+		]
+	}
+}

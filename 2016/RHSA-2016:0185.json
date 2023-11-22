@@ -1,0 +1,408 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: kernel security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2016:0185"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2016-02-16T11:15:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2016-02-16T11:15:00Z",
+		"CurrentReleaseDate": "2016-02-16T11:15:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:54:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated kernel packages that fix two security issues and several bugs are\nnow available for Red Hat Enterprise Linux 7.\n\nRed Hat Product Security has rated this update as having Important security\nimpact. Common Vulnerability Scoring System (CVSS) base scores, which give\ndetailed severity ratings, are available for each vulnerability from the\nCVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe kernel packages contain the Linux kernel, the core of any Linux\noperating system.\n\n* It was found that the Linux kernel's keys subsystem did not correctly\ngarbage collect uninstantiated keyrings. A local attacker could use this\nflaw to crash the system or, potentially, escalate their privileges on the\nsystem. (CVE-2015-7872, Important)\n\n* A flaw was found in the way the Linux kernel handled IRET faults during\nthe processing of NMIs. An unprivileged, local user could use this flaw to\ncrash the system or, potentially (although highly unlikely), escalate their\nprivileges on the system. (CVE-2015-5157, Moderate)\n\nThis update also fixes the following bugs:\n\n* Previously, processing packets with a lot of different IPv6 source\naddresses caused the kernel to return warnings concerning soft-lockups due\nto high lock contention and latency increase. With this update, lock\ncontention is reduced by backing off concurrent waiting threads on the\nlock. As a result, the kernel no longer issues warnings in the described\nscenario. (BZ#1285370)\n\n* Prior to this update, block device readahead was artificially limited.\nAs a consequence, the read performance was poor, especially on RAID\ndevices. Now, per-device readahead limits are used for each device instead\nof a global limit. As a result, read performance has improved, especially\non RAID devices. (BZ#1287550)\n\n* After injecting an EEH error, the host was previously not recovering and\nobserving I/O hangs in HTX tool logs. This update makes sure that when one\nor both of EEH_STATE_MMIO_ACTIVE and EEH_STATE_MMIO_ENABLED flags is marked\nin the PE state, the PE's IO path is regarded as enabled as well. As a\nresult, the host no longer hangs and recovers as expected. (BZ#1289101)\n\n* The genwqe device driver was previously using the GFP_ATOMIC flag for\nallocating consecutive memory pages from the kernel's atomic memory pool,\neven in non-atomic situations. This could lead to allocation failures\nduring memory pressure. With this update, the genwqe driver's memory\nallocations use the GFP_KERNEL flag, and the driver can allocate memory\neven during memory pressure situations. (BZ#1289450)\n\n* The nx842 co-processor for IBM Power Systems could in some circumstances\nprovide invalid data due to a data corruption bug during uncompression.\nWith this update, all compression and uncompression calls to the nx842\nco-processor contain a cyclic redundancy check (CRC) flag, which forces all\ncompression and uncompression operations to check data integrity and\nprevents the co-processor from providing corrupted data. (BZ#1289451)\n\n* A failed \"updatepp\" operation on the little-endian variant of IBM Power\nSystems could previously cause a wrong hash value to be used for the next\nhash insert operation in the page table. This could result in a missing\nhash pte update or invalidate operation, potentially causing memory\ncorruption. With this update, the hash value is always recalculated after a\nfailed \"updatepp\" operation, avoiding memory corruption. (BZ#1289452)\n\n* Large Receive Offload (LRO) flag disabling was not being propagated\ndownwards from above devices in vlan and bond hierarchy, breaking the flow\nof traffic. This problem has been fixed and LRO flags now propagate\ncorrectly. (BZ#1292072)\n\n* Due to rounding errors in the CPU frequency of the intel_pstate driver,\nthe CPU frequency never reached the value requested by the user. A kernel\npatch has been applied to fix these rounding errors. (BZ#1296276)\n\n* When running several containers (up to 100), reports of hung tasks were\npreviously reported. This update fixes the AB-BA deadlock in the\ndm_destroy() function, and the hung reports no longer occur. (BZ#1296566)\n\nAll kernel users are advised to upgrade to these updated packages, which\ncontain backported patches to correct these issues. The system must be\nrebooted for this update to take effect.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2016:0185",
+				"Description": "https://access.redhat.com/errata/RHSA-2016:0185"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: x86-64: IRET faults during NMIs processing",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-07-22T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-5157",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2016:0185"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-5157",
+						"Description": "CVE-2015-5157"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1259577",
+						"Description": "bz#1259577: CVE-2015-5157 kernel: x86-64: IRET faults during NMIs processing"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-07-14T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-7.2.Z:kernel-0:3.10.0-327.10.1.el7",
+						"7Client-optional-7.2.Z:kernel-0:3.10.0-327.10.1.el7",
+						"7ComputeNode-7.2.Z:kernel-0:3.10.0-327.10.1.el7",
+						"7ComputeNode-optional-7.2.Z:kernel-0:3.10.0-327.10.1.el7",
+						"7Server-7.2.Z:kernel-0:3.10.0-327.10.1.el7",
+						"7Server-optional-7.2.Z:kernel-0:3.10.0-327.10.1.el7",
+						"7Workstation-7.2.Z:kernel-0:3.10.0-327.10.1.el7",
+						"7Workstation-optional-7.2.Z:kernel-0:3.10.0-327.10.1.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.2",
+					"Vector": "AV:L/AC:H/Au:N/C:C/I:C/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: Keyrings crash triggerable by unprivileged user",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-10-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-7872",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2016:0185"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-7872",
+						"Description": "CVE-2015-7872"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1272371",
+						"Description": "bz#1272371: CVE-2015-7872 kernel: Keyrings crash triggerable by unprivileged user"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2015-10-15T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-7.2.Z:kernel-0:3.10.0-327.10.1.el7",
+						"7Client-optional-7.2.Z:kernel-0:3.10.0-327.10.1.el7",
+						"7ComputeNode-7.2.Z:kernel-0:3.10.0-327.10.1.el7",
+						"7ComputeNode-optional-7.2.Z:kernel-0:3.10.0-327.10.1.el7",
+						"7Server-7.2.Z:kernel-0:3.10.0-327.10.1.el7",
+						"7Server-optional-7.2.Z:kernel-0:3.10.0-327.10.1.el7",
+						"7Workstation-7.2.Z:kernel-0:3.10.0-327.10.1.el7",
+						"7Workstation-optional-7.2.Z:kernel-0:3.10.0-327.10.1.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "7.2",
+					"Vector": "AV:L/AC:L/Au:N/C:C/I:C/A:C"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Client (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Client (v. 7)",
+							"productid": "7Client-7.2.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Client Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Client Optional (v. 7)",
+							"productid": "7Client-optional-7.2.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ComputeNode (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ComputeNode (v. 7)",
+							"productid": "7ComputeNode-7.2.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+							"productid": "7ComputeNode-optional-7.2.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 7)",
+							"productid": "7Server-7.2.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional (v. 7)",
+							"productid": "7Server-optional-7.2.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 7)",
+							"productid": "7Workstation-7.2.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation Optional (v. 7)",
+							"productid": "7Workstation-optional-7.2.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-0:3.10.0-327.10.1.el7",
+				"fullproductname": {
+					"text": "kernel-3.10.0-327.10.1.el7.src.rpm",
+					"productid": "kernel-0:3.10.0-327.10.1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "kernel-0:3.10.0-327.10.1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-7.2.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-327.10.1.el7 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"productid": "7Client-7.2.Z:kernel-0:3.10.0-327.10.1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-327.10.1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-optional-7.2.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-327.10.1.el7 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"productid": "7Client-optional-7.2.Z:kernel-0:3.10.0-327.10.1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-327.10.1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-7.2.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-327.10.1.el7 as a component of Red Hat Enterprise Linux ComputeNode (v. 7)",
+					"productid": "7ComputeNode-7.2.Z:kernel-0:3.10.0-327.10.1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-327.10.1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-optional-7.2.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-327.10.1.el7 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"productid": "7ComputeNode-optional-7.2.Z:kernel-0:3.10.0-327.10.1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-327.10.1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-7.2.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-327.10.1.el7 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server-7.2.Z:kernel-0:3.10.0-327.10.1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-327.10.1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-optional-7.2.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-327.10.1.el7 as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"productid": "7Server-optional-7.2.Z:kernel-0:3.10.0-327.10.1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-327.10.1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-7.2.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-327.10.1.el7 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"productid": "7Workstation-7.2.Z:kernel-0:3.10.0-327.10.1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-327.10.1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-optional-7.2.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-327.10.1.el7 as a component of Red Hat Enterprise Linux Workstation Optional (v. 7)",
+					"productid": "7Workstation-optional-7.2.Z:kernel-0:3.10.0-327.10.1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			}
+		]
+	}
+}

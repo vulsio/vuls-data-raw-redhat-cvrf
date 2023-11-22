@@ -1,0 +1,252 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: kernel security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2018:0399"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2018-03-06T19:38:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2018-03-06T19:38:00Z",
+		"CurrentReleaseDate": "2018-03-06T19:38:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:43:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated kernel packages that fix six bugs are now available for Red Hat Enterprise Linux 7.3 Extended Update Support.\n\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe kernel packages contain the Linux kernel, the core of any Linux\noperating system.\n\nSecurity Fix(es):\n\n* kernel: Use-after-free vulnerability in DCCP socket (CVE-2017-8824, Important)\n\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\n\nBug Fix(es):\n\n* Previously, there were cases where the ethtool kernel code called the vzalloc() function, which allocates virtually contiguous memory with zero fill, with a size of zero. Consequently, running the ethtool -d command to query hardware registers led to the following dmesg error:\n\n    ethtool: vmalloc: allocation failure: 0 bytes, mode:0x24080c2(GFP_KERNEL|__GFP_HIGHMEM|__GFP_ZERO)\n\nWith this update, the kernel code has been fixed to avoid the invalid vzalloc call, and the dmesg error no longer occurs. (BZ#1530128)\n\n* Previously, if an NFSv4 mount operation encountered an NFS client structure that has not completed initialization, the trunking detection logic waited for the operation to complete. Consequently, if a concurrent NFSv4 mount operation added another item to the list of NFS client structures, this client was not able to begin initialization, because it was waiting on the mutex held by the other process, and a deadlock occurred. This update fixes NFS to wait until the NFS client structure initialization is completed before adding a new structure to the list. As a result, the deadlock no longer occurs, and the NFS client can now initialize as expected under the described circumstances. (BZ#1530134)\n\n* If the Extensible Firmware Interface (EFI) created a new set of page tables and mapped a segment of code at a low address, the operating system (OS) failed to boot. This update fixes the EFI code, and the OS now boots as expected under the described circumstances. (BZ#1535880)\n\n* The Return Trampoline (Retpoline) mechanism mitigates the branch target injection, also known as the Spectre variant 2 vulnerability. With this update, Retpoline has been implemented into the Red Hat Enterprise Linux kernel. (BZ#1539648)\n\n* This update adds a new line to the /proc/cpuinfo file to show all available facilities that are reported by the stfle instruction on IBM z systems. (BZ#1540088)\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2018:0399",
+				"Description": "https://access.redhat.com/errata/RHSA-2018:0399"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: Use-after-free vulnerability in DCCP socket",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2017-12-05T05:43:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2017-8824",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2018:0399"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2017-8824",
+						"Description": "CVE-2017-8824"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1519591",
+						"Description": "bz#1519591: CVE-2017-8824 kernel: Use-after-free vulnerability in DCCP socket"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2017-11-30T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7ComputeNode-7.3.EUS:kernel-0:3.10.0-514.44.1.el7",
+						"7ComputeNode-optional-7.3.EUS:kernel-0:3.10.0-514.44.1.el7",
+						"7Server-7.3.EUS:kernel-0:3.10.0-514.44.1.el7",
+						"7Server-optional-7.3.EUS:kernel-0:3.10.0-514.44.1.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank Mohamed Ghannam for reporting this issue."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ComputeNode EUS (v. 7.3)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ComputeNode EUS (v. 7.3)",
+							"productid": "7ComputeNode-7.3.EUS",
+							"cpe": "cpe:/o:redhat:rhel_eus:7.3::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ComputeNode Optional EUS (v. 7.3)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ComputeNode Optional EUS (v. 7.3)",
+							"productid": "7ComputeNode-optional-7.3.EUS",
+							"cpe": "cpe:/o:redhat:rhel_eus:7.3::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server EUS (v. 7.3)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server EUS (v. 7.3)",
+							"productid": "7Server-7.3.EUS",
+							"cpe": "cpe:/o:redhat:rhel_eus:7.3::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional EUS (v. 7.3)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional EUS (v. 7.3)",
+							"productid": "7Server-optional-7.3.EUS",
+							"cpe": "cpe:/o:redhat:rhel_eus:7.3::server"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-0:3.10.0-514.44.1.el7",
+				"fullproductname": {
+					"text": "kernel-3.10.0-514.44.1.el7.src.rpm",
+					"productid": "kernel-0:3.10.0-514.44.1.el7",
+					"cpe": "cpe:/o:redhat:rhel_eus:7.3::computenode"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "kernel-0:3.10.0-514.44.1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-7.3.EUS",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-514.44.1.el7 as a component of Red Hat Enterprise Linux ComputeNode EUS (v. 7.3)",
+					"productid": "7ComputeNode-7.3.EUS:kernel-0:3.10.0-514.44.1.el7",
+					"cpe": "cpe:/o:redhat:rhel_eus:7.3::computenode"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-514.44.1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-optional-7.3.EUS",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-514.44.1.el7 as a component of Red Hat Enterprise Linux ComputeNode Optional EUS (v. 7.3)",
+					"productid": "7ComputeNode-optional-7.3.EUS:kernel-0:3.10.0-514.44.1.el7",
+					"cpe": "cpe:/o:redhat:rhel_eus:7.3::computenode"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-514.44.1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-7.3.EUS",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-514.44.1.el7 as a component of Red Hat Enterprise Linux Server EUS (v. 7.3)",
+					"productid": "7Server-7.3.EUS:kernel-0:3.10.0-514.44.1.el7",
+					"cpe": "cpe:/o:redhat:rhel_eus:7.3::server"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-514.44.1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-optional-7.3.EUS",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-514.44.1.el7 as a component of Red Hat Enterprise Linux Server Optional EUS (v. 7.3)",
+					"productid": "7Server-optional-7.3.EUS:kernel-0:3.10.0-514.44.1.el7",
+					"cpe": "cpe:/o:redhat:rhel_eus:7.3::server"
+				}
+			}
+		]
+	}
+}

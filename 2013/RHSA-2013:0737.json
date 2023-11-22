@@ -1,0 +1,601 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: subversion security update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2013:0737"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2013-04-11T17:47:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2013-04-11T17:46:00Z",
+		"CurrentReleaseDate": "2013-04-11T17:47:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:33:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated subversion packages that fix multiple security issues are now\navailable for Red Hat Enterprise Linux 5 and 6.\n\nThe Red Hat Security Response Team has rated this update as having moderate\nsecurity impact. Common Vulnerability Scoring System (CVSS) base scores,\nwhich give detailed severity ratings, are available for each vulnerability\nfrom the CVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nSubversion (SVN) is a concurrent version control system which enables one\nor more users to collaborate in developing and maintaining a hierarchy of\nfiles and directories while keeping a history of all changes. The\nmod_dav_svn module is used with the Apache HTTP Server to allow access to\nSubversion repositories via HTTP.\n\nA NULL pointer dereference flaw was found in the way the mod_dav_svn module\nhandled PROPFIND requests on activity URLs. A remote attacker could use\nthis flaw to cause the httpd process serving the request to crash.\n(CVE-2013-1849)\n\nA flaw was found in the way the mod_dav_svn module handled large numbers\nof properties (such as those set with the \"svn propset\" command). A\nmalicious, remote user could use this flaw to cause the httpd process\nserving the request to consume an excessive amount of system memory.\n(CVE-2013-1845)\n\nTwo NULL pointer dereference flaws were found in the way the mod_dav_svn\nmodule handled LOCK requests on certain types of URLs. A malicious, remote\nuser could use these flaws to cause the httpd process serving the request\nto crash. (CVE-2013-1846, CVE-2013-1847)\n\nNote: The CVE-2013-1849, CVE-2013-1846, and CVE-2013-1847 issues only\ncaused a temporary denial of service, as the Apache HTTP Server started a\nnew process to replace the crashed child process. When using prefork MPM,\nthe crash only affected the attacker. When using worker (threaded) MPM, the\nconnections of other users may have been interrupted.\n\nRed Hat would like to thank the Apache Subversion project for reporting\nthese issues. Upstream acknowledges Alexander Klink as the original\nreporter of CVE-2013-1845; Ben Reser as the original reporter of\nCVE-2013-1846; and Philip Martin and Ben Reser as the original reporters of\nCVE-2013-1847.\n\nAll subversion users should upgrade to these updated packages, which\ncontain backported patches to correct these issues. After installing the\nupdated packages, you must restart the httpd daemon, if you are using\nmod_dav_svn, for the update to take effect.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2013:0737",
+				"Description": "https://access.redhat.com/errata/RHSA-2013:0737"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			},
+			{
+				"type": "External",
+				"URL": "http://subversion.apache.org/security/CVE-2013-1849-advisory.txt",
+				"Description": "http://subversion.apache.org/security/CVE-2013-1849-advisory.txt"
+			},
+			{
+				"type": "External",
+				"URL": "http://subversion.apache.org/security/CVE-2013-1845-advisory.txt",
+				"Description": "http://subversion.apache.org/security/CVE-2013-1845-advisory.txt"
+			},
+			{
+				"type": "External",
+				"URL": "http://subversion.apache.org/security/CVE-2013-1846-advisory.txt",
+				"Description": "http://subversion.apache.org/security/CVE-2013-1846-advisory.txt"
+			},
+			{
+				"type": "External",
+				"URL": "http://subversion.apache.org/security/CVE-2013-1847-advisory.txt",
+				"Description": "http://subversion.apache.org/security/CVE-2013-1847-advisory.txt"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Subversion (mod_dav_svn): DoS (excessive memory use) when large number of properties are set or deleted",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-04-04T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-1845",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:0737"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "http://subversion.apache.org/security/CVE-2013-1845-advisory.txt",
+						"Description": "http://subversion.apache.org/security/CVE-2013-1845-advisory.txt"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-1845",
+						"Description": "CVE-2013-1845"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=929082",
+						"Description": "bz#929082: CVE-2013-1845 Subversion (mod_dav_svn): DoS (excessive memory use) when large number of properties are set or deleted"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2013-03-29T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-Workstation-5.9.Z:subversion-0:1.6.11-11.el5_9",
+						"5Server-5.9.Z:subversion-0:1.6.11-11.el5_9",
+						"6Client-optional-6.4.z:subversion-0:1.6.11-9.el6_4",
+						"6ComputeNode-optional-6.4.z:subversion-0:1.6.11-9.el6_4",
+						"6Server-6.4.z:subversion-0:1.6.11-9.el6_4",
+						"6Server-optional-6.4.z:subversion-0:1.6.11-9.el6_4",
+						"6Workstation-6.4.z:subversion-0:1.6.11-9.el6_4",
+						"6Workstation-optional-6.4.z:subversion-0:1.6.11-9.el6_4"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "3.5",
+					"Vector": "AV:N/AC:M/Au:S/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Subversion (mod_dav_svn): DoS (crash) via LOCK requests against an activity URL",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-04-04T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-1846",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:0737"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "http://subversion.apache.org/security/CVE-2013-1846-advisory.txt",
+						"Description": "http://subversion.apache.org/security/CVE-2013-1846-advisory.txt"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-1846",
+						"Description": "CVE-2013-1846"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=929087",
+						"Description": "bz#929087: CVE-2013-1846 Subversion (mod_dav_svn): DoS (crash) via LOCK requests against an activity URL"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2013-03-29T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-Workstation-5.9.Z:subversion-0:1.6.11-11.el5_9",
+						"5Server-5.9.Z:subversion-0:1.6.11-11.el5_9",
+						"6Client-optional-6.4.z:subversion-0:1.6.11-9.el6_4",
+						"6ComputeNode-optional-6.4.z:subversion-0:1.6.11-9.el6_4",
+						"6Server-6.4.z:subversion-0:1.6.11-9.el6_4",
+						"6Server-optional-6.4.z:subversion-0:1.6.11-9.el6_4",
+						"6Workstation-6.4.z:subversion-0:1.6.11-9.el6_4",
+						"6Workstation-optional-6.4.z:subversion-0:1.6.11-9.el6_4"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "3.5",
+					"Vector": "AV:N/AC:M/Au:S/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Subversion (mod_dav_svn): DoS (crash) via LOCK requests against a non-existent URL",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-04-04T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-1847",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:0737"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "http://subversion.apache.org/security/CVE-2013-1847-advisory.txt",
+						"Description": "http://subversion.apache.org/security/CVE-2013-1847-advisory.txt"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-1847",
+						"Description": "CVE-2013-1847"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=929090",
+						"Description": "bz#929090: CVE-2013-1847 Subversion (mod_dav_svn): DoS (crash) via LOCK requests against a non-existent URL"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2013-03-29T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-Workstation-5.9.Z:subversion-0:1.6.11-11.el5_9",
+						"5Server-5.9.Z:subversion-0:1.6.11-11.el5_9",
+						"6Client-optional-6.4.z:subversion-0:1.6.11-9.el6_4",
+						"6ComputeNode-optional-6.4.z:subversion-0:1.6.11-9.el6_4",
+						"6Server-6.4.z:subversion-0:1.6.11-9.el6_4",
+						"6Server-optional-6.4.z:subversion-0:1.6.11-9.el6_4",
+						"6Workstation-6.4.z:subversion-0:1.6.11-9.el6_4",
+						"6Workstation-optional-6.4.z:subversion-0:1.6.11-9.el6_4"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "3.5",
+					"Vector": "AV:N/AC:M/Au:S/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Subversion (mod_dav_svn): DoS (crash) via PROPFIND request made against activity URLs",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-03-05T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-1849",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:0737"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-1849",
+						"Description": "CVE-2013-1849"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=929093",
+						"Description": "bz#929093: CVE-2013-1849 Subversion (mod_dav_svn): DoS (crash) via PROPFIND request made against activity URLs"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2013-03-29T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-Workstation-5.9.Z:subversion-0:1.6.11-11.el5_9",
+						"5Server-5.9.Z:subversion-0:1.6.11-11.el5_9",
+						"6Client-optional-6.4.z:subversion-0:1.6.11-9.el6_4",
+						"6ComputeNode-optional-6.4.z:subversion-0:1.6.11-9.el6_4",
+						"6Server-6.4.z:subversion-0:1.6.11-9.el6_4",
+						"6Server-optional-6.4.z:subversion-0:1.6.11-9.el6_4",
+						"6Workstation-6.4.z:subversion-0:1.6.11-9.el6_4",
+						"6Workstation-optional-6.4.z:subversion-0:1.6.11-9.el6_4"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "RHEL Desktop Workstation (v. 5 client)",
+						"fullproductname": {
+							"text": "RHEL Desktop Workstation (v. 5 client)",
+							"productid": "5Client-Workstation-5.9.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::client_workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux (v. 5 server)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux (v. 5 server)",
+							"productid": "5Server-5.9.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+							"productid": "6Client-optional-6.4.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+							"productid": "6ComputeNode-optional-6.4.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 6)",
+							"productid": "6Server-6.4.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional (v. 6)",
+							"productid": "6Server-optional-6.4.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 6)",
+							"productid": "6Workstation-6.4.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+							"productid": "6Workstation-optional-6.4.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "subversion-0:1.6.11-11.el5_9",
+				"fullproductname": {
+					"text": "subversion-1.6.11-11.el5_9.src.rpm",
+					"productid": "subversion-0:1.6.11-11.el5_9",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client_workstation"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "subversion-0:1.6.11-9.el6_4",
+				"fullproductname": {
+					"text": "subversion-1.6.11-9.el6_4.src.rpm",
+					"productid": "subversion-0:1.6.11-9.el6_4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "subversion-0:1.6.11-11.el5_9",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Client-Workstation-5.9.Z",
+				"fullproductname": {
+					"text": "subversion-0:1.6.11-11.el5_9 as a component of RHEL Desktop Workstation (v. 5 client)",
+					"productid": "5Client-Workstation-5.9.Z:subversion-0:1.6.11-11.el5_9",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client_workstation"
+				}
+			},
+			{
+				"productreference": "subversion-0:1.6.11-11.el5_9",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-5.9.Z",
+				"fullproductname": {
+					"text": "subversion-0:1.6.11-11.el5_9 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"productid": "5Server-5.9.Z:subversion-0:1.6.11-11.el5_9",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+				}
+			},
+			{
+				"productreference": "subversion-0:1.6.11-9.el6_4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-optional-6.4.z",
+				"fullproductname": {
+					"text": "subversion-0:1.6.11-9.el6_4 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"productid": "6Client-optional-6.4.z:subversion-0:1.6.11-9.el6_4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "subversion-0:1.6.11-9.el6_4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-optional-6.4.z",
+				"fullproductname": {
+					"text": "subversion-0:1.6.11-9.el6_4 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"productid": "6ComputeNode-optional-6.4.z:subversion-0:1.6.11-9.el6_4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "subversion-0:1.6.11-9.el6_4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-6.4.z",
+				"fullproductname": {
+					"text": "subversion-0:1.6.11-9.el6_4 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"productid": "6Server-6.4.z:subversion-0:1.6.11-9.el6_4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "subversion-0:1.6.11-9.el6_4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-optional-6.4.z",
+				"fullproductname": {
+					"text": "subversion-0:1.6.11-9.el6_4 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"productid": "6Server-optional-6.4.z:subversion-0:1.6.11-9.el6_4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "subversion-0:1.6.11-9.el6_4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-6.4.z",
+				"fullproductname": {
+					"text": "subversion-0:1.6.11-9.el6_4 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"productid": "6Workstation-6.4.z:subversion-0:1.6.11-9.el6_4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			},
+			{
+				"productreference": "subversion-0:1.6.11-9.el6_4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-optional-6.4.z",
+				"fullproductname": {
+					"text": "subversion-0:1.6.11-9.el6_4 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"productid": "6Workstation-optional-6.4.z:subversion-0:1.6.11-9.el6_4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			}
+		]
+	}
+}

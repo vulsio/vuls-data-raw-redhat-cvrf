@@ -1,0 +1,252 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: kernel security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2017:2770"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2017-09-19T16:09:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2017-09-19T16:09:00Z",
+		"CurrentReleaseDate": "2017-09-19T16:09:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:42:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nAn update for kernel is now available for Red Hat Enterprise Linux 7.3 Extended Update Support.\n\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe kernel packages contain the Linux kernel, the core of any Linux operating system.\n\nSecurity Fix(es):\n\n* A race condition was found in the Linux kernel, present since v3.14-rc1 through v4.12. The race happens between threads of inotify_handle_event() and vfs_rename() while running the rename operation against the same file. As a result of the race the next slab data or the slab's free list pointer can be corrupted with attacker-controlled data, which may lead to the privilege escalation. (CVE-2017-7533, Important)\n\nRed Hat would like to thank Leilei Lin (Alibaba Group), Fan Wu (The University of Hong Kong), and Shixiong Zhao (The University of Hong Kong) for reporting this issue.\n\nBug Fix(es):\n\n* Previously, the sha1-avx2 optimized hashing, which is used on processors supporting avx2, under certain conditions miscalculated an offset. Consequently, a kernel crash occasionally occurred on the NFS clients or servers using the krb5 security. With this update, the optimized hashing path for sha1-avx2 has been disabled, and the NFS clients and servers with krb5 security no longer experience the miscalculation and subsequent crash. (BZ#1446230)\n\n* When virt boundary limit was set, lots of small bios could not be merged even though they were contiguous physically. In some workload, such as mkfs.ntfs, system performance could be ten times degraded. The proposed patch fixes the bug by allowing to merge these small bios, which improves performance of mkfs.ntfs on devices significantly. (BZ#1472674)\n\n* When executing the mkfs.btrfs command to create a btrfs file system over Non-Volatile Memory Express (NVMe), kernel panic was previously triggered. The underlying code has been patched to fix this regression, and btrfs is now created successfully in the described scenario. (BZ#1472675)\n\n* As a side effect of BZ#147263, the system previously crashed when creating a container device. The provided patch transforms the resched_task() function into resched_curr(), and the chance of kernel crash is thus reduced in the aforementioned situation. (BZ#1473742)\n\n* Due to incorrectly used memory in VXLAN driver (a use-after-free bug and list corruption), the kernel could previously panic under some circumstances while bringing the VXLAN interfaces down. The provided patch fixes the memory corruptions, and the panic no longer occurs in this situation. (BZ#1474263)\n\n* A race condition could cause the in-flight asynchronous buffers count (bt_io_count) to become negative. This caused the umount operation to hang in the xfs_wait_buftarg() function. The provided patch fixes the buffer I/O accounting release race, and XFS umount no longer hangs. (BZ#1478253)\n\n* Kernel version 3.10.0-498.el7 separated CPU and TSC frequency and introduced the x86_platform.calibrate_cpu function pointer which points by default to the native_calibrate_cpu() function. As a consequence, time synchronization bugs appeared on Red Hat Enterprise Linux 7.3 ESXi guest causing a time offset shortly after boot. An upstream patch has been applied, which sets x86_platform.calibrate_cpu pointer on ESXi guests to the proper function, thus fixing this bug. (BZ#1479245)\n\n* A system having more than 128 CPUs could previously experience a crash during shutdown after the Intelligent Platform Management Interface (IPMI) service was stopped. The provided patch fixes a race condition in the IPMI smi_timeout() function, allowing the system to shut down as expected. (BZ#1479760)\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2017:2770",
+				"Description": "https://access.redhat.com/errata/RHSA-2017:2770"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: a race between inotify_handle_event() and sys_rename()",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2017-08-03T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2017-7533",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2017:2770"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2017-7533",
+						"Description": "CVE-2017-7533"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1468283",
+						"Description": "bz#1468283: CVE-2017-7533 kernel: a race between inotify_handle_event() and sys_rename()"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2017-07-05T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7ComputeNode-7.3.EUS:kernel-0:3.10.0-514.32.2.el7",
+						"7ComputeNode-optional-7.3.EUS:kernel-0:3.10.0-514.32.2.el7",
+						"7Server-7.3.EUS:kernel-0:3.10.0-514.32.2.el7",
+						"7Server-optional-7.3.EUS:kernel-0:3.10.0-514.32.2.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank Andrew Aday (Columbia University), Fan Wu (The University of Hong Kong), Leilei Lin (Alibaba Group), Shankara Pailoor (Columbia University), and Shixiong Zhao (The University of Hong Kong) for reporting this issue."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ComputeNode EUS (v. 7.3)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ComputeNode EUS (v. 7.3)",
+							"productid": "7ComputeNode-7.3.EUS",
+							"cpe": "cpe:/o:redhat:rhel_eus:7.3::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ComputeNode Optional EUS (v. 7.3)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ComputeNode Optional EUS (v. 7.3)",
+							"productid": "7ComputeNode-optional-7.3.EUS",
+							"cpe": "cpe:/o:redhat:rhel_eus:7.3::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server EUS (v. 7.3)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server EUS (v. 7.3)",
+							"productid": "7Server-7.3.EUS",
+							"cpe": "cpe:/o:redhat:rhel_eus:7.3::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional EUS (v. 7.3)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional EUS (v. 7.3)",
+							"productid": "7Server-optional-7.3.EUS",
+							"cpe": "cpe:/o:redhat:rhel_eus:7.3::server"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-0:3.10.0-514.32.2.el7",
+				"fullproductname": {
+					"text": "kernel-3.10.0-514.32.2.el7.src.rpm",
+					"productid": "kernel-0:3.10.0-514.32.2.el7",
+					"cpe": "cpe:/o:redhat:rhel_eus:7.3::computenode"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "kernel-0:3.10.0-514.32.2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-7.3.EUS",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-514.32.2.el7 as a component of Red Hat Enterprise Linux ComputeNode EUS (v. 7.3)",
+					"productid": "7ComputeNode-7.3.EUS:kernel-0:3.10.0-514.32.2.el7",
+					"cpe": "cpe:/o:redhat:rhel_eus:7.3::computenode"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-514.32.2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-optional-7.3.EUS",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-514.32.2.el7 as a component of Red Hat Enterprise Linux ComputeNode Optional EUS (v. 7.3)",
+					"productid": "7ComputeNode-optional-7.3.EUS:kernel-0:3.10.0-514.32.2.el7",
+					"cpe": "cpe:/o:redhat:rhel_eus:7.3::computenode"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-514.32.2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-7.3.EUS",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-514.32.2.el7 as a component of Red Hat Enterprise Linux Server EUS (v. 7.3)",
+					"productid": "7Server-7.3.EUS:kernel-0:3.10.0-514.32.2.el7",
+					"cpe": "cpe:/o:redhat:rhel_eus:7.3::server"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-514.32.2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-optional-7.3.EUS",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-514.32.2.el7 as a component of Red Hat Enterprise Linux Server Optional EUS (v. 7.3)",
+					"productid": "7Server-optional-7.3.EUS:kernel-0:3.10.0-514.32.2.el7",
+					"cpe": "cpe:/o:redhat:rhel_eus:7.3::server"
+				}
+			}
+		]
+	}
+}

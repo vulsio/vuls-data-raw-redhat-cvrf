@@ -1,0 +1,528 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: nss and nspr security, bug fix, and enhancement update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2014:1246"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2014-09-16T05:39:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2014-09-16T05:39:00Z",
+		"CurrentReleaseDate": "2014-09-16T05:39:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:35:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated nss and nspr packages that fix multiple security issues, several\nbugs, and add various enhancements are now available for Red Hat Enterprise\nLinux 5.\n\nRed Hat Product Security has rated this update as having Moderate security\nimpact. Common Vulnerability Scoring System (CVSS) base scores, which give\ndetailed severity ratings, are available for each vulnerability from the\nCVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nNetwork Security Services (NSS) is a set of libraries designed to support\nthe cross-platform development of security-enabled client and server\napplications.\n\nA flaw was found in the way TLS False Start was implemented in NSS.\nAn attacker could use this flaw to potentially return unencrypted\ninformation from the server. (CVE-2013-1740)\n\nA race condition was found in the way NSS implemented session ticket\nhandling as specified by RFC 5077. An attacker could use this flaw to crash\nan application using NSS or, in rare cases, execute arbitrary code with the\nprivileges of the user running that application. (CVE-2014-1490)\n\nIt was found that NSS accepted weak Diffie-Hellman Key exchange (DHKE)\nparameters. This could possibly lead to weak encryption being used in\ncommunication between the client and the server. (CVE-2014-1491)\n\nAn out-of-bounds write flaw was found in NSPR. A remote attacker could\npotentially use this flaw to crash an application using NSPR or, possibly,\nexecute arbitrary code with the privileges of the user running that\napplication. This NSPR flaw was not exposed to web content in any shipped\nversion of Firefox. (CVE-2014-1545)\n\nIt was found that the implementation of Internationalizing Domain Names in\nApplications (IDNA) hostname matching in NSS did not follow the RFC 6125\nrecommendations. This could lead to certain invalid certificates with\ninternational characters to be accepted as valid. (CVE-2014-1492)\n\nRed Hat would like to thank the Mozilla project for reporting the\nCVE-2014-1490, CVE-2014-1491, and CVE-2014-1545 issues. Upstream\nacknowledges Brian Smith as the original reporter of CVE-2014-1490, Antoine\nDelignat-Lavaud and Karthikeyan Bhargavan as the original reporters of\nCVE-2014-1491, and Abhishek Arya as the original reporter of CVE-2014-1545.\n\nThe nss and nspr packages have been upgraded to upstream version 3.16.1 and\n4.10.6 respectively, which provide a number of bug fixes and enhancements\nover the previous versions. (BZ#1110857, BZ#1110860)\n\nThis update also fixes the following bugs:\n\n* Previously, when the output.log file was not present on the system, the\nshell in the Network Security Services (NSS) specification handled test\nfailures incorrectly as false positive test results. Consequently, certain\nutilities, such as \"grep\", could not handle failures properly. This update\nimproves error detection in the specification file, and \"grep\" and other\nutilities now handle missing files or crashes as intended. (BZ#1035281)\n\n* Prior to this update, a subordinate Certificate Authority (CA) of the\nANSSI agency incorrectly issued an intermediate certificate installed on a\nnetwork monitoring device. As a consequence, the monitoring device was\nenabled to act as an MITM (Man in the Middle) proxy performing traffic\nmanagement of domain names or IP addresses that the certificate holder did\nnot own or control. The trust in the intermediate certificate to issue the\ncertificate for an MITM device has been revoked, and such a device can no\nlonger be used for MITM attacks. (BZ#1042684)\n\n* Due to a regression, MD5 certificates were rejected by default because\nNetwork Security Services (NSS) did not trust MD5 certificates. With this\nupdate, MD5 certificates are supported in Red Hat Enterprise Linux 5.\n(BZ#11015864)\n\nUsers of nss and nspr are advised to upgrade to these updated packages,\nwhich correct these issues and add these enhancements.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2014:1246",
+				"Description": "https://access.redhat.com/errata/RHSA-2014:1246"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "nss: false start PR_Recv information disclosure security issue",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-01-05T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-1740",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to use the\nRed Hat Network to apply this update are available at\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2014:1246"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-1740",
+						"Description": "CVE-2013-1740"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1053725",
+						"Description": "bz#1053725: CVE-2013-1740 nss: false start PR_Recv information disclosure security issue"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-01-15T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-Workstation:nss-0:3.16.1-2.el5",
+						"5Client:nss-0:3.16.1-2.el5",
+						"5Server:nss-0:3.16.1-2.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "nss: TOCTOU, potential use-after-free in libssl's session ticket processing (MFSA 2014-12)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-02-04T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-1490",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to use the\nRed Hat Network to apply this update are available at\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2014:1246"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "http://www.mozilla.org/security/announce/2014/mfsa2014-12.html",
+						"Description": "http://www.mozilla.org/security/announce/2014/mfsa2014-12.html"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-1490",
+						"Description": "CVE-2014-1490"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1060953",
+						"Description": "bz#1060953: CVE-2014-1490 nss: TOCTOU, potential use-after-free in libssl's session ticket processing (MFSA 2014-12)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-02-04T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-Workstation:nss-0:3.16.1-2.el5",
+						"5Client:nss-0:3.16.1-2.el5",
+						"5Server:nss-0:3.16.1-2.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.1",
+					"Vector": "AV:N/AC:H/Au:N/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "nss: Do not allow p-1 as a public DH value (MFSA 2014-12)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-02-04T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-1491",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to use the\nRed Hat Network to apply this update are available at\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2014:1246"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "http://www.mozilla.org/security/announce/2014/mfsa2014-12.html",
+						"Description": "http://www.mozilla.org/security/announce/2014/mfsa2014-12.html"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-1491",
+						"Description": "CVE-2014-1491"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1060955",
+						"Description": "bz#1060955: CVE-2014-1491 nss: Do not allow p-1 as a public DH value (MFSA 2014-12)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-02-04T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-Workstation:nss-0:3.16.1-2.el5",
+						"5Client:nss-0:3.16.1-2.el5",
+						"5Server:nss-0:3.16.1-2.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "nss: IDNA hostname matching code does not follow RFC 6125 recommendation (MFSA 2014-45)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-03-18T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-1492",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to use the\nRed Hat Network to apply this update are available at\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2014:1246"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-1492",
+						"Description": "CVE-2014-1492"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1079851",
+						"Description": "bz#1079851: CVE-2014-1492 nss: IDNA hostname matching code does not follow RFC 6125 recommendation (MFSA 2014-45)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2014-03-24T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-Workstation:nss-0:3.16.1-2.el5",
+						"5Client:nss-0:3.16.1-2.el5",
+						"5Server:nss-0:3.16.1-2.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.6",
+					"Vector": "AV:N/AC:H/Au:N/C:N/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Mozilla: Out of bounds write in NSPR (MFSA 2014-55)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-06-10T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-1545",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to use the\nRed Hat Network to apply this update are available at\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2014:1246"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "http://www.mozilla.org/security/announce/2014/mfsa2014-55.html",
+						"Description": "http://www.mozilla.org/security/announce/2014/mfsa2014-55.html"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-1545",
+						"Description": "CVE-2014-1545"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1107432",
+						"Description": "bz#1107432: CVE-2014-1545 Mozilla: Out of bounds write in NSPR (MFSA 2014-55)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-06-10T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-Workstation:nss-0:3.16.1-2.el5",
+						"5Client:nss-0:3.16.1-2.el5",
+						"5Server:nss-0:3.16.1-2.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.1",
+					"Vector": "AV:N/AC:H/Au:N/C:P/I:P/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+							"productid": "5Client",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+							"productid": "5Client-Workstation",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::client_workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux (v. 5 server)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux (v. 5 server)",
+							"productid": "5Server",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "nss-0:3.16.1-2.el5",
+				"fullproductname": {
+					"text": "nss-3.16.1-2.el5.src.rpm",
+					"productid": "nss-0:3.16.1-2.el5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "nss-0:3.16.1-2.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Client",
+				"fullproductname": {
+					"text": "nss-0:3.16.1-2.el5 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"productid": "5Client:nss-0:3.16.1-2.el5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+				}
+			},
+			{
+				"productreference": "nss-0:3.16.1-2.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Client-Workstation",
+				"fullproductname": {
+					"text": "nss-0:3.16.1-2.el5 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"productid": "5Client-Workstation:nss-0:3.16.1-2.el5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client_workstation"
+				}
+			},
+			{
+				"productreference": "nss-0:3.16.1-2.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server",
+				"fullproductname": {
+					"text": "nss-0:3.16.1-2.el5 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"productid": "5Server:nss-0:3.16.1-2.el5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+				}
+			}
+		]
+	}
+}

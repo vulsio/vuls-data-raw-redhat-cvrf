@@ -1,0 +1,468 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: kernel-rt security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2010:0771"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2010-10-14T11:30:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2010-10-14T15:26:00Z",
+		"CurrentReleaseDate": "2010-10-14T11:30:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:37:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated kernel-rt packages that fix multiple security issues and upgrade\nthe kernel-rt kernel to version 2.6.33.7-rt29 are now available for Red Hat\nEnterprise MRG 1.3.\n\nThe Red Hat Security Response Team has rated this update as having moderate\nsecurity impact. Common Vulnerability Scoring System (CVSS) base scores,\nwhich give detailed severity ratings, are available for each vulnerability\nfrom the CVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe kernel-rt packages contain the Linux kernel, the core of any Linux\noperating system.\n\nThis update fixes the following security issues:\n\n* On AMD64 systems, it was discovered that the kernel did not ensure the\nELF interpreter was available before making a call to the SET_PERSONALITY\nmacro. A local attacker could use this flaw to cause a denial of service by\nrunning a 32-bit application that attempts to execute a 64-bit application.\n(CVE-2010-0307, Moderate)\n\n* Information leak flaws were found in the Linux kernel Traffic Control\nUnit implementation. A local attacker could use these flaws to cause the\nkernel to leak kernel memory to user-space, possibly leading to the\ndisclosure of sensitive information. (CVE-2010-2942, Moderate)\n\n* It was found that wireless drivers might not always clear allocated\nbuffers when handling a driver-specific IOCTL information request. A local\nuser could trigger this flaw to cause kernel memory to leak from the heap\nto user-space, leading to an information leak. (CVE-2010-2955, Moderate)\n\n* A flaw was found in the eql_g_master_cfg() function in the Linux kernel\nequalizer load-balancer for serial network interfaces implementation. A\ndata structure in eql_g_master_cfg() was not initialized properly before\nbeing copied to user-space. A local, unprivileged user could use this flaw\nto cause an information leak. (CVE-2010-3297, Moderate)\n\nRed Hat would like to thank Mathias Krause for reporting CVE-2010-0307, and\nDan Rosenberg for reporting CVE-2010-3297.\n\nThis update also fixes the following bugs:\n\n* The mkinitrd utility reported the following warning message when creating\nan initial ramdisk:\n\nNo module dm-mem-cache found for kernel [version], aborting.\n\nThis was caused by an erroneous dependency on dmraid-related modules. This\nupdate removes these dependencies with the result that mkinitrd does not\nissue a spurious warning about the dm-mem-cache module not being found.\n(BZ#482753)\n\n* The ibm_rtl kernel module now performs more exhaustive checking to ensure\nit only loads on correct IBM hardware. (BZ#612275)\n\n* The realtime Linux kernel has been upgraded to upstream version\n2.6.33.7-rt29, which provides a number of bug fixes and enhancements for\nRed Hat Enterprise MRG 1.3. (BZ#638672)\n\nUsers should upgrade to these updated packages, which upgrade the kernel-rt\nkernel to version 2.6.33.7-rt29 to correct these issues. The system must be\nrebooted for this update to take effect.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2010:0771",
+				"Description": "https://access.redhat.com/errata/RHSA-2010:0771"
+			},
+			{
+				"type": "External",
+				"URL": "http://www.redhat.com/security/updates/classification/#moderate",
+				"Description": "http://www.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: DoS on x86_64",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2010-01-28T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2010-0307",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2010:0771"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2010-0307",
+						"Description": "CVE-2010-0307"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=560547",
+						"Description": "bz#560547: CVE-2010-0307 kernel: DoS on x86_64"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2010-01-28T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.33.7-rt29.45.el5rt"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.9",
+					"Vector": "AV:L/AC:L/Au:N/C:N/I:N/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: net sched: fix some kernel memory leaks",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2010-08-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2010-2942",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2010:0771"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2010-2942",
+						"Description": "CVE-2010-2942"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=624903",
+						"Description": "bz#624903: CVE-2010-2942 kernel: net sched: fix some kernel memory leaks"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2010-08-18T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.33.7-rt29.45.el5rt"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.1",
+					"Vector": "AV:L/AC:L/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: wireless: fix 64K kernel heap content leak via ioctl",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2010-08-27T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2010-2955",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2010:0771"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2010-2955",
+						"Description": "CVE-2010-2955"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=628434",
+						"Description": "bz#628434: CVE-2010-2955 kernel: wireless: fix 64K kernel heap content leak via ioctl"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2010-08-30T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.33.7-rt29.45.el5rt"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.1",
+					"Vector": "AV:L/AC:L/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: drivers/net/cxgb3/cxgb3_main.c reading uninitialized stack memory",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2010-09-11T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2010-3296",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2010:0771"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2010-3296",
+						"Description": "CVE-2010-3296"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=633149",
+						"Description": "bz#633149: CVE-2010-3296 kernel: drivers/net/cxgb3/cxgb3_main.c reading uninitialized stack memory"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2010-09-13T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.33.7-rt29.45.el5rt"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "1.9",
+					"Vector": "AV:L/AC:M/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: drivers/net/eql.c: reading uninitialized stack memory",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2010-09-11T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2010-3297",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2010:0771"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2010-3297",
+						"Description": "CVE-2010-3297"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=633145",
+						"Description": "bz#633145: CVE-2010-3297 kernel: drivers/net/eql.c: reading uninitialized stack memory"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2010-09-13T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.33.7-rt29.45.el5rt"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "1.9",
+					"Vector": "AV:L/AC:M/Au:N/C:P/I:N/A:N"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise MRG for RHEL-5",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "MRG Realtime for RHEL 5 Server",
+						"fullproductname": {
+							"text": "MRG Realtime for RHEL 5 Server",
+							"productid": "5Server-MRG-Realtime-1.0",
+							"cpe": "cpe:/a:redhat:enterprise_mrg:1::el5"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-rt-0:2.6.33.7-rt29.45.el5rt",
+				"fullproductname": {
+					"text": "kernel-rt-2.6.33.7-rt29.45.el5rt.src.rpm",
+					"productid": "kernel-rt-0:2.6.33.7-rt29.45.el5rt",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:1::el5"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "kernel-rt-0:2.6.33.7-rt29.45.el5rt",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-MRG-Realtime-1.0",
+				"fullproductname": {
+					"text": "kernel-rt-0:2.6.33.7-rt29.45.el5rt as a component of MRG Realtime for RHEL 5 Server",
+					"productid": "5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.33.7-rt29.45.el5rt",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:1::el5"
+				}
+			}
+		]
+	}
+}

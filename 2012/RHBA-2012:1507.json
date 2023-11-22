@@ -1,0 +1,200 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Bug Fix Advisory: sanlock bug fix and enhancement update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHBA-2012:1507"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2012-12-04T18:06:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2012-12-04T00:00:00Z",
+		"CurrentReleaseDate": "2012-12-04T18:06:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.14.1",
+			"Date": "2023-05-12T19:51:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated sanlock packages that fix various bugs and add various enhancements are now available for Red Hat Enterprise Virtualization.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe sanlock package provides a shared storage lock manager. Hosts with shared access to a block device or file can use sanlock to synchronize their activities. VDSM and libvirt use sanlock to synchronize access to virtual machine images.\n\nThis updated package fixes the following bugs:\n\n* The init script was not creating a /var/lock/subsys file, which caused the killall init script to not shut down the daemon. (BZ#841991)\n\n* The wdmd init script was not loading the softdog module when no other watchdog module was loaded, causing the wdmd and sanlock daemons to fail startup. (BZ#840955)\n\n* The sanlock daemon was assuming that the uid and gid options were defined, which caused it to segfault during startup if the daemon was started without the uid/gid options. (BZ#841992)\n\n* The add_lockspace api was difficult to use from an application where multiple threads could be adding the same lockspace. These changes make it possible for the threads to coordinate the lockspace operations. (BZ#841994)\n\n* The sanlock inquire api was always returning an lver of 0 in the state string, rather than the real lver. This would cause anything to fail that\ntried to acquire a lease with an inquired version, like suspend/resume or migrate. (BZ#841995)\n\n* This enhancement allows a program to be run against registered processes to suspend them and release their leases as an alternative to sanlock killing them directly. (BZ#840953)\n\n* The sanlock daemon was running as the root uid, and depending on supplementary groups to allow file access on nfs. Some nfs servers do not recognize the groups and refuse access, so the sanlock daemon is changed to run as the sanlock uid, and use the root helper process to kill registered processes. (BZ#842764)\n\n* The sanlock log file and daemon pid files did not have the correct permissions. (BZ#849181)\n\n* The watchdog would not fire at the correct time if the wdmd process was\nkilled near the firing time, or killed and restarted near the firing time.\nThe time until the watchdog fired was also not being correctly calculated\nby sanlock. (BZ#849183)\n\n* The sanlock and wdmd daemons maintained a constant connection even when it was not needed.  This prevented them from each being restarted independently for upgrade. (BZ#849184)\n\n* The paxos code was doing some unnecessary host_id checks when the same host re-acquired a lease after it was uncleanly shut down previously. (BZ#849186)\n\nAll users of sanlock are advised to upgrade to these updated packages, which fix these bugs and add these enhancements.\n\nFor users of Red Hat Enterprise Virtualization Hypervisor these bug fixes and enhancements are included in advisory RHSA-2012:1505:\n\n  https://rhn.redhat.com/errata/RHBA-2012-1505.html\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2023 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Low",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHBA-2012:1507",
+				"Description": "https://access.redhat.com/errata/RHBA-2012:1507"
+			},
+			{
+				"type": "External",
+				"URL": "https://rhn.redhat.com/errata/RHBA-2012-1505.html",
+				"Description": "https://rhn.redhat.com/errata/RHBA-2012-1505.html"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "The setup_logging function in log.h in SANLock uses world-writable permissions for /var/log/sanlock.log, which allows local users to overwrite the file content or bypass intended disk-quota restrictions via standard filesystem write operations.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-08-22T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-5638",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHBA-2012:1507"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2012-5638",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2012-5638"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2012-5638",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2012-5638"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-5638",
+						"Description": "CVE-2012-5638"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=887010",
+						"Description": "bz#887010: sanlock world writable /var/log/sanlock.log"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2012-12-13T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-RHEV-Agents:sanlock-0:2.3-4.el6_3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "This issue was discovered by Red Hat."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.1",
+					"Vector": "AV:L/AC:L/Au:N/C:N/I:N/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Virtualization",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "RHEV Agents (vdsm)",
+						"fullproductname": {
+							"text": "RHEV Agents (vdsm)",
+							"productid": "6Server-RHEV-Agents",
+							"cpe": "cpe:/a:redhat:enterprise_linux:6::hypervisor"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "sanlock-0:2.3-4.el6_3",
+				"fullproductname": {
+					"text": "sanlock-2.3-4.el6_3.src.rpm",
+					"productid": "sanlock-0:2.3-4.el6_3",
+					"cpe": "cpe:/a:redhat:enterprise_linux:6::hypervisor"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "sanlock-0:2.3-4.el6_3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RHEV-Agents",
+				"fullproductname": {
+					"text": "sanlock-0:2.3-4.el6_3 as a component of RHEV Agents (vdsm)",
+					"productid": "6Server-RHEV-Agents:sanlock-0:2.3-4.el6_3",
+					"cpe": "cpe:/a:redhat:enterprise_linux:6::hypervisor"
+				}
+			}
+		]
+	}
+}

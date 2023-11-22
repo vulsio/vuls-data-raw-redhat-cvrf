@@ -1,0 +1,1745 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: java-1.8.0-openjdk security update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2018:0095"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2018-01-17T17:33:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2018-01-17T17:33:00Z",
+		"CurrentReleaseDate": "2018-01-17T17:33:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:43:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nAn update for java-1.8.0-openjdk is now available for Red Hat Enterprise Linux 6 and Red Hat Enterprise Linux 7.\n\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe java-1.8.0-openjdk packages provide the OpenJDK 8 Java Runtime Environment and the OpenJDK 8 Java Software Development Kit.\n\nSecurity Fix(es):\n\n* Multiple flaws were found in the Hotspot and AWT components of OpenJDK. An untrusted Java application or applet could use these flaws to bypass certain Java sandbox restrictions. (CVE-2018-2582, CVE-2018-2641)\n\n* It was discovered that the LDAPCertStore class in the JNDI component of OpenJDK failed to securely handle LDAP referrals. An attacker could possibly use this flaw to make it fetch attacker controlled certificate data. (CVE-2018-2633)\n\n* The JGSS component of OpenJDK ignores the value of the javax.security.auth.useSubjectCredsOnly property when using HTTP/SPNEGO authentication and always uses global credentials. It was discovered that this could cause global credentials to be unexpectedly used by an untrusted Java application. (CVE-2018-2634)\n\n* It was discovered that the JMX component of OpenJDK failed to properly set the deserialization filter for the SingleEntryRegistry in certain cases. A remote attacker could possibly use this flaw to bypass intended deserialization restrictions. (CVE-2018-2637)\n\n* It was discovered that the LDAP component of OpenJDK failed to properly encode special characters in user names when adding them to an LDAP search query. A remote attacker could possibly use this flaw to manipulate LDAP queries performed by the LdapLoginModule class. (CVE-2018-2588)\n\n* It was discovered that the DNS client implementation in the JNDI component of OpenJDK did not use random source ports when sending out DNS queries. This could make it easier for a remote attacker to spoof responses to those queries. (CVE-2018-2599)\n\n* It was discovered that the I18n component of OpenJDK could use an untrusted search path when loading resource bundle classes. A local attacker could possibly use this flaw to execute arbitrary code as another local user by making their Java application load an attacker controlled class file. (CVE-2018-2602)\n\n* It was discovered that the Libraries component of OpenJDK failed to sufficiently limit the amount of memory allocated when reading DER encoded input. A remote attacker could possibly use this flaw to make a Java application use an excessive amount of memory if it parsed attacker supplied DER encoded input. (CVE-2018-2603)\n\n* It was discovered that the key agreement implementations in the JCE component of OpenJDK did not guarantee sufficient strength of used keys to adequately protect generated shared secret. This could make it easier to break data encryption by attacking key agreement rather than the encryption using the negotiated secret. (CVE-2018-2618)\n\n* It was discovered that the JGSS component of OpenJDK failed to properly handle GSS context in the native GSS library wrapper in certain cases. A remote attacker could possibly make a Java application using JGSS to use a previously freed context. (CVE-2018-2629)\n\n* It was discovered that multiple classes in the Libraries, AWT, and JNDI components of OpenJDK did not sufficiently validate input when creating object instances from the serialized form. A specially-crafted input could cause a Java application to create objects with an inconsistent state or use an excessive amount of memory when deserialized. (CVE-2018-2663, CVE-2018-2677, CVE-2018-2678)\n\n* It was discovered that multiple encryption key classes in the Libraries component of OpenJDK did not properly synchronize access to their internal data. This could possibly cause a multi-threaded Java application to apply weak encryption to data because of the use of a key that was zeroed out. (CVE-2018-2579)\n\nNote: If the web browser plug-in provided by the icedtea-web package was installed, the issues exposed via Java applets could have been exploited without user interaction if a user visited a malicious website.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2018:0095",
+				"Description": "https://access.redhat.com/errata/RHSA-2018:0095"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "OpenJDK: unsynchronized access to encryption key data (Libraries, 8172525)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2018-01-16T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2018-2579",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nAll running instances of OpenJDK Java must be restarted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2018:0095"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2018-2579",
+						"Description": "CVE-2018-2579"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1534298",
+						"Description": "bz#1534298: CVE-2018-2579 OpenJDK: unsynchronized access to encryption key data (Libraries, 8172525)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2017-12-21T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Client-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6ComputeNode-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6ComputeNode-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Server-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Server-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Workstation-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Workstation-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"7Client-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Client-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7ComputeNode-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7ComputeNode-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Server-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Server-Alt-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Server-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Server-optional-Alt-7.4.z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Workstation-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Workstation-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "OpenJDK: insufficient validation of the invokeinterface instruction (Hotspot, 8174962)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2018-01-16T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2018-2582",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nAll running instances of OpenJDK Java must be restarted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2018:0095"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2018-2582",
+						"Description": "CVE-2018-2582"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1534768",
+						"Description": "bz#1534768: CVE-2018-2582 OpenJDK: insufficient validation of the invokeinterface instruction (Hotspot, 8174962)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2017-12-21T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Client-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6ComputeNode-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6ComputeNode-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Server-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Server-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Workstation-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Workstation-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"7Client-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Client-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7ComputeNode-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7ComputeNode-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Server-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Server-Alt-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Server-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Server-optional-Alt-7.4.z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Workstation-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Workstation-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "OpenJDK: LdapLoginModule insufficient username encoding in LDAP query (LDAP, 8178449)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2018-01-16T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2018-2588",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nAll running instances of OpenJDK Java must be restarted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2018:0095"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2018-2588",
+						"Description": "CVE-2018-2588"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1534299",
+						"Description": "bz#1534299: CVE-2018-2588 OpenJDK: LdapLoginModule insufficient username encoding in LDAP query (LDAP, 8178449)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2017-12-21T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Client-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6ComputeNode-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6ComputeNode-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Server-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Server-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Workstation-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Workstation-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"7Client-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Client-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7ComputeNode-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7ComputeNode-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Server-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Server-Alt-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Server-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Server-optional-Alt-7.4.z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Workstation-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Workstation-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "OpenJDK: DnsClient missing source port randomization (JNDI, 8182125)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2018-01-16T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2018-2599",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nAll running instances of OpenJDK Java must be restarted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2018:0095"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2018-2599",
+						"Description": "CVE-2018-2599"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1534543",
+						"Description": "bz#1534543: CVE-2018-2599 OpenJDK: DnsClient missing source port randomization (JNDI, 8182125)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2017-12-21T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Client-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6ComputeNode-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6ComputeNode-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Server-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Server-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Workstation-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Workstation-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"7Client-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Client-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7ComputeNode-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7ComputeNode-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Server-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Server-Alt-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Server-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Server-optional-Alt-7.4.z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Workstation-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Workstation-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "OpenJDK: loading of classes from untrusted locations (I18n, 8182601)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2018-01-16T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2018-2602",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nAll running instances of OpenJDK Java must be restarted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2018:0095"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2018-2602",
+						"Description": "CVE-2018-2602"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1534525",
+						"Description": "bz#1534525: CVE-2018-2602 OpenJDK: loading of classes from untrusted locations (I18n, 8182601)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2017-12-21T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Client-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6ComputeNode-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6ComputeNode-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Server-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Server-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Workstation-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Workstation-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"7Client-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Client-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7ComputeNode-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7ComputeNode-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Server-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Server-Alt-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Server-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Server-optional-Alt-7.4.z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Workstation-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Workstation-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "6",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "OpenJDK: DerValue unbounded memory allocation (Libraries, 8182387)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2018-01-16T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2018-2603",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nAll running instances of OpenJDK Java must be restarted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2018:0095"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2018-2603",
+						"Description": "CVE-2018-2603"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1534553",
+						"Description": "bz#1534553: CVE-2018-2603 OpenJDK: DerValue unbounded memory allocation (Libraries, 8182387)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2017-12-21T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Client-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6ComputeNode-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6ComputeNode-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Server-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Server-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Workstation-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Workstation-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"7Client-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Client-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7ComputeNode-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7ComputeNode-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Server-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Server-Alt-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Server-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Server-optional-Alt-7.4.z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Workstation-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Workstation-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "7",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "OpenJDK: insufficient strength of key agreement (JCE, 8185292)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2018-01-16T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2018-2618",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nAll running instances of OpenJDK Java must be restarted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2018:0095"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2018-2618",
+						"Description": "CVE-2018-2618"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1534762",
+						"Description": "bz#1534762: CVE-2018-2618 OpenJDK: insufficient strength of key agreement (JCE, 8185292)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2017-12-21T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Client-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6ComputeNode-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6ComputeNode-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Server-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Server-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Workstation-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Workstation-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"7Client-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Client-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7ComputeNode-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7ComputeNode-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Server-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Server-Alt-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Server-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Server-optional-Alt-7.4.z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Workstation-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Workstation-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "8",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "OpenJDK: GSS context use-after-free (JGSS, 8186212)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2018-01-16T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2018-2629",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nAll running instances of OpenJDK Java must be restarted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2018:0095"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2018-2629",
+						"Description": "CVE-2018-2629"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1534625",
+						"Description": "bz#1534625: CVE-2018-2629 OpenJDK: GSS context use-after-free (JGSS, 8186212)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2017-12-21T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Client-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6ComputeNode-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6ComputeNode-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Server-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Server-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Workstation-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Workstation-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"7Client-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Client-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7ComputeNode-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7ComputeNode-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Server-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Server-Alt-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Server-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Server-optional-Alt-7.4.z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Workstation-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Workstation-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "9",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "OpenJDK: LDAPCertStore insecure handling of LDAP referrals (JNDI, 8186606)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2018-01-16T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2018-2633",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nAll running instances of OpenJDK Java must be restarted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2018:0095"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2018-2633",
+						"Description": "CVE-2018-2633"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1535036",
+						"Description": "bz#1535036: CVE-2018-2633 OpenJDK: LDAPCertStore insecure handling of LDAP referrals (JNDI, 8186606)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2017-12-21T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Client-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6ComputeNode-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6ComputeNode-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Server-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Server-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Workstation-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Workstation-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"7Client-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Client-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7ComputeNode-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7ComputeNode-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Server-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Server-Alt-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Server-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Server-optional-Alt-7.4.z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Workstation-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Workstation-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "10",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "OpenJDK: use of global credentials for HTTP/SPNEGO (JGSS, 8186600)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2018-01-16T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2018-2634",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nAll running instances of OpenJDK Java must be restarted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2018:0095"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2018-2634",
+						"Description": "CVE-2018-2634"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1534943",
+						"Description": "bz#1534943: CVE-2018-2634 OpenJDK: use of global credentials for HTTP/SPNEGO (JGSS, 8186600)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2017-12-21T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Client-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6ComputeNode-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6ComputeNode-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Server-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Server-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Workstation-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Workstation-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"7Client-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Client-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7ComputeNode-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7ComputeNode-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Server-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Server-Alt-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Server-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Server-optional-Alt-7.4.z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Workstation-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Workstation-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "11",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "OpenJDK: SingleEntryRegistry incorrect setup of deserialization filter (JMX, 8186998)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2018-01-16T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2018-2637",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nAll running instances of OpenJDK Java must be restarted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2018:0095"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2018-2637",
+						"Description": "CVE-2018-2637"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1534970",
+						"Description": "bz#1534970: CVE-2018-2637 OpenJDK: SingleEntryRegistry incorrect setup of deserialization filter (JMX, 8186998)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2017-12-21T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Client-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6ComputeNode-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6ComputeNode-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Server-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Server-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Workstation-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Workstation-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"7Client-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Client-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7ComputeNode-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7ComputeNode-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Server-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Server-Alt-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Server-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Server-optional-Alt-7.4.z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Workstation-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Workstation-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "12",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "OpenJDK: GTK library loading use-after-free (AWT, 8185325)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2018-01-16T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2018-2641",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nAll running instances of OpenJDK Java must be restarted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2018:0095"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2018-2641",
+						"Description": "CVE-2018-2641"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1534766",
+						"Description": "bz#1534766: CVE-2018-2641 OpenJDK: GTK library loading use-after-free (AWT, 8185325)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2017-12-21T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Client-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6ComputeNode-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6ComputeNode-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Server-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Server-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Workstation-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Workstation-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"7Client-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Client-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7ComputeNode-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7ComputeNode-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Server-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Server-Alt-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Server-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Server-optional-Alt-7.4.z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Workstation-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Workstation-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "13",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "OpenJDK: ArrayBlockingQueue deserialization to an inconsistent state (Libraries, 8189284)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2018-01-16T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2018-2663",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nAll running instances of OpenJDK Java must be restarted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2018:0095"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2018-2663",
+						"Description": "CVE-2018-2663"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1534296",
+						"Description": "bz#1534296: CVE-2018-2663 OpenJDK: ArrayBlockingQueue deserialization to an inconsistent state (Libraries, 8189284)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2017-12-21T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Client-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6ComputeNode-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6ComputeNode-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Server-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Server-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Workstation-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Workstation-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"7Client-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Client-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7ComputeNode-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7ComputeNode-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Server-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Server-Alt-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Server-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Server-optional-Alt-7.4.z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Workstation-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Workstation-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "14",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "OpenJDK: unbounded memory allocation during deserialization (AWT, 8190289)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2018-01-16T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2018-2677",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nAll running instances of OpenJDK Java must be restarted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2018:0095"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2018-2677",
+						"Description": "CVE-2018-2677"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1534288",
+						"Description": "bz#1534288: CVE-2018-2677 OpenJDK: unbounded memory allocation during deserialization (AWT, 8190289)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2017-12-21T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Client-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6ComputeNode-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6ComputeNode-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Server-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Server-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Workstation-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Workstation-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"7Client-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Client-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7ComputeNode-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7ComputeNode-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Server-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Server-Alt-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Server-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Server-optional-Alt-7.4.z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Workstation-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Workstation-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "15",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "OpenJDK: unbounded memory allocation in BasicAttributes deserialization (JNDI, 8191142)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2018-01-16T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2018-2678",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nAll running instances of OpenJDK Java must be restarted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2018:0095"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2018-2678",
+						"Description": "CVE-2018-2678"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1534263",
+						"Description": "bz#1534263: CVE-2018-2678 OpenJDK: unbounded memory allocation in BasicAttributes deserialization (JNDI, 8191142)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2017-12-21T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Client-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6ComputeNode-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6ComputeNode-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Server-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Server-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Workstation-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"6Workstation-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+						"7Client-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Client-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7ComputeNode-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7ComputeNode-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Server-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Server-Alt-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Server-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Server-optional-Alt-7.4.z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Workstation-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+						"7Workstation-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 6)",
+							"productid": "6Client-6.9.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+							"productid": "6Client-optional-6.9.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node (v. 6)",
+							"productid": "6ComputeNode-6.9.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+							"productid": "6ComputeNode-optional-6.9.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 6)",
+							"productid": "6Server-6.9.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional (v. 6)",
+							"productid": "6Server-optional-6.9.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 6)",
+							"productid": "6Workstation-6.9.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+							"productid": "6Workstation-optional-6.9.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Client (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Client (v. 7)",
+							"productid": "7Client-7.4.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Client Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Client Optional (v. 7)",
+							"productid": "7Client-optional-7.4.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ComputeNode (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ComputeNode (v. 7)",
+							"productid": "7ComputeNode-7.4.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+							"productid": "7ComputeNode-optional-7.4.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 7)",
+							"productid": "7Server-7.4.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux for ARM and IBM Power LE (POWER9) Server (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux for ARM and IBM Power LE (POWER9) Server (v. 7)",
+							"productid": "7Server-Alt-7.4.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional (v. 7)",
+							"productid": "7Server-optional-7.4.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux for ARM and IBM Power LE (POWER9) Server Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux for ARM and IBM Power LE (POWER9) Server Optional (v. 7)",
+							"productid": "7Server-optional-Alt-7.4.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 7)",
+							"productid": "7Workstation-7.4.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation Optional (v. 7)",
+							"productid": "7Workstation-optional-7.4.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+				"fullproductname": {
+					"text": "java-1.8.0-openjdk-1.8.0.161-0.b14.el7_4.src.rpm",
+					"productid": "java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+				"fullproductname": {
+					"text": "java-1.8.0-openjdk-1.8.0.161-3.b14.el6_9.src.rpm",
+					"productid": "java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-6.9.z",
+				"fullproductname": {
+					"text": "java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"productid": "6Client-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-optional-6.9.z",
+				"fullproductname": {
+					"text": "java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"productid": "6Client-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-6.9.z",
+				"fullproductname": {
+					"text": "java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"productid": "6ComputeNode-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-optional-6.9.z",
+				"fullproductname": {
+					"text": "java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"productid": "6ComputeNode-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-6.9.z",
+				"fullproductname": {
+					"text": "java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"productid": "6Server-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-optional-6.9.z",
+				"fullproductname": {
+					"text": "java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"productid": "6Server-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-6.9.z",
+				"fullproductname": {
+					"text": "java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"productid": "6Workstation-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			},
+			{
+				"productreference": "java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-optional-6.9.z",
+				"fullproductname": {
+					"text": "java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"productid": "6Workstation-optional-6.9.z:java-1.8.0-openjdk-1:1.8.0.161-3.b14.el6_9",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			},
+			{
+				"productreference": "java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-7.4.Z",
+				"fullproductname": {
+					"text": "java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"productid": "7Client-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-optional-7.4.Z",
+				"fullproductname": {
+					"text": "java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"productid": "7Client-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-7.4.Z",
+				"fullproductname": {
+					"text": "java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4 as a component of Red Hat Enterprise Linux ComputeNode (v. 7)",
+					"productid": "7ComputeNode-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-optional-7.4.Z",
+				"fullproductname": {
+					"text": "java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"productid": "7ComputeNode-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-7.4.Z",
+				"fullproductname": {
+					"text": "java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-Alt-7.4.Z",
+				"fullproductname": {
+					"text": "java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4 as a component of Red Hat Enterprise Linux for ARM and IBM Power LE (POWER9) Server (v. 7)",
+					"productid": "7Server-Alt-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-optional-7.4.Z",
+				"fullproductname": {
+					"text": "java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4 as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"productid": "7Server-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-optional-Alt-7.4.z",
+				"fullproductname": {
+					"text": "java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4 as a component of Red Hat Enterprise Linux for ARM and IBM Power LE (POWER9) Server Optional (v. 7)",
+					"productid": "7Server-optional-Alt-7.4.z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-7.4.Z",
+				"fullproductname": {
+					"text": "java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"productid": "7Workstation-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-optional-7.4.Z",
+				"fullproductname": {
+					"text": "java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4 as a component of Red Hat Enterprise Linux Workstation Optional (v. 7)",
+					"productid": "7Workstation-optional-7.4.Z:java-1.8.0-openjdk-1:1.8.0.161-0.b14.el7_4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			}
+		]
+	}
+}

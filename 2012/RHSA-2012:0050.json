@@ -1,0 +1,267 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: qemu-kvm security, bug fix, and enhancement update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2012:0050"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2012-01-23T18:57:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2012-01-23T18:51:00Z",
+		"CurrentReleaseDate": "2012-01-23T18:57:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:31:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated qemu-kvm packages that fix one security issue, one bug, and add\none enhancement are now available for Red Hat Enterprise Linux 6.\n\nThe Red Hat Security Response Team has rated this update as having\nimportant security impact. A Common Vulnerability Scoring System (CVSS)\nbase score, which gives a detailed severity rating, is available from the\nCVE link in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nKVM (Kernel-based Virtual Machine) is a full virtualization solution for\nLinux on AMD64 and Intel 64 systems. qemu-kvm is the user-space component\nfor running virtual machines using KVM.\n\nA heap overflow flaw was found in the way QEMU-KVM emulated the e1000\nnetwork interface card. A privileged guest user in a virtual machine whose\nnetwork interface is configured to use the e1000 emulated driver could use\nthis flaw to crash the host or, possibly, escalate their privileges on the\nhost. (CVE-2012-0029)\n\nRed Hat would like to thank Nicolae Mogoreanu for reporting this issue.\n\nThis update also fixes the following bug:\n\n* qemu-kvm has a \"scsi\" option, to be used, for example, with the\n\"-device\" option: \"-device virtio-blk-pci,drive=[drive name],scsi=off\".\nPreviously, however, it only masked the feature bit, and did not reject\nSCSI commands if a malicious guest ignored the feature bit and issued a\nrequest. This update corrects this issue. The \"scsi=off\" option can be\nused to mitigate the virtualization aspect of CVE-2011-4127 before the\nRHSA-2011:1849 kernel update is installed on the host.\n\nThis mitigation is only required if you do not have the RHSA-2011:1849\nkernel update installed on the host and you are using raw format virtio\ndisks backed by a partition or LVM volume.\n\nIf you run guests by invoking /usr/libexec/qemu-kvm directly, use the\n\"-global virtio-blk-pci.scsi=off\" option to apply the mitigation. If you\nare using libvirt, as recommended by Red Hat, and have the RHBA-2012:0013\nlibvirt update installed, no manual action is required: guests will\nautomatically use \"scsi=off\". (BZ#767721)\n\nNote: After installing the RHSA-2011:1849 kernel update, SCSI requests\nissued by guests via the SG_IO IOCTL will not be passed to the underlying\nblock device when using raw format virtio disks backed by a partition or\nLVM volume, even if \"scsi=on\" is used.\n\nAs well, this update adds the following enhancement:\n\n* Prior to this update, qemu-kvm was not built with RELRO or PIE support.\nqemu-kvm is now built with full RELRO and PIE support as a security\nenhancement. (BZ#767906)\n\nAll users of qemu-kvm should upgrade to these updated packages, which\ncorrect these issues and add this enhancement. After installing this\nupdate, shut down all running virtual machines. Once all virtual machines\nhave shut down, start them again for this update to take effect.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2012:0050",
+				"Description": "https://access.redhat.com/errata/RHSA-2012:0050"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/kb/docs/DOC-67874",
+				"Description": "https://access.redhat.com/kb/docs/DOC-67874"
+			},
+			{
+				"type": "External",
+				"URL": "https://rhn.redhat.com/errata/RHSA-2011-1849.html",
+				"Description": "https://rhn.redhat.com/errata/RHSA-2011-1849.html"
+			},
+			{
+				"type": "External",
+				"URL": "https://rhn.redhat.com/errata/RHBA-2012-0013.html",
+				"Description": "https://rhn.redhat.com/errata/RHBA-2012-0013.html"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "qemu: e1000: process_tx_desc legacy mode packets heap overflow",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-01-23T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-0029",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/kb/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:0050"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-0029",
+						"Description": "CVE-2012-0029"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=772075",
+						"Description": "bz#772075: CVE-2012-0029 qemu: e1000: process_tx_desc legacy mode packets heap overflow"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2012-01-05T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.2.z:qemu-kvm-2:0.12.1.2-2.209.el6_2.4",
+						"6ComputeNode-6.2.z:qemu-kvm-2:0.12.1.2-2.209.el6_2.4",
+						"6Server-6.2.z:qemu-kvm-2:0.12.1.2-2.209.el6_2.4",
+						"6Workstation-6.2.z:qemu-kvm-2:0.12.1.2-2.209.el6_2.4"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "7.4",
+					"Vector": "AV:A/AC:M/Au:S/C:C/I:C/A:C"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 6)",
+							"productid": "6Client-6.2.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node (v. 6)",
+							"productid": "6ComputeNode-6.2.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 6)",
+							"productid": "6Server-6.2.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 6)",
+							"productid": "6Workstation-6.2.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "qemu-kvm-2:0.12.1.2-2.209.el6_2.4",
+				"fullproductname": {
+					"text": "qemu-kvm-0.12.1.2-2.209.el6_2.4.src.rpm",
+					"productid": "qemu-kvm-2:0.12.1.2-2.209.el6_2.4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "qemu-kvm-2:0.12.1.2-2.209.el6_2.4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-6.2.z",
+				"fullproductname": {
+					"text": "qemu-kvm-2:0.12.1.2-2.209.el6_2.4 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"productid": "6Client-6.2.z:qemu-kvm-2:0.12.1.2-2.209.el6_2.4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "qemu-kvm-2:0.12.1.2-2.209.el6_2.4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-6.2.z",
+				"fullproductname": {
+					"text": "qemu-kvm-2:0.12.1.2-2.209.el6_2.4 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"productid": "6ComputeNode-6.2.z:qemu-kvm-2:0.12.1.2-2.209.el6_2.4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "qemu-kvm-2:0.12.1.2-2.209.el6_2.4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-6.2.z",
+				"fullproductname": {
+					"text": "qemu-kvm-2:0.12.1.2-2.209.el6_2.4 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"productid": "6Server-6.2.z:qemu-kvm-2:0.12.1.2-2.209.el6_2.4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "qemu-kvm-2:0.12.1.2-2.209.el6_2.4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-6.2.z",
+				"fullproductname": {
+					"text": "qemu-kvm-2:0.12.1.2-2.209.el6_2.4 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"productid": "6Workstation-6.2.z:qemu-kvm-2:0.12.1.2-2.209.el6_2.4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			}
+		]
+	}
+}

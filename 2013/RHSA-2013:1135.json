@@ -1,0 +1,356 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: nss and nspr security, bug fix, and enhancement update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2013:1135"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2013-08-05T15:51:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2013-08-05T15:46:00Z",
+		"CurrentReleaseDate": "2013-08-05T15:51:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:32:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated nss and nspr packages that fix two security issues, various bugs,\nand add enhancements are now available for Red Hat Enterprise Linux 5.\n\nThe Red Hat Security Response Team has rated this update as having moderate\nsecurity impact. Common Vulnerability Scoring System (CVSS) base scores,\nwhich give detailed severity ratings, are available for each vulnerability\nfrom the CVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nNetwork Security Services (NSS) is a set of libraries designed to support\nthe cross-platform development of security-enabled client and server\napplications. Netscape Portable Runtime (NSPR) provides platform\nindependence for non-GUI operating system facilities.\n\nIt was discovered that NSS leaked timing information when decrypting\nTLS/SSL and DTLS protocol encrypted records when CBC-mode cipher suites\nwere used. A remote attacker could possibly use this flaw to retrieve plain\ntext from the encrypted packets by using a TLS/SSL or DTLS server as a\npadding oracle. (CVE-2013-1620)\n\nAn out-of-bounds memory read flaw was found in the way NSS decoded certain\ncertificates. If an application using NSS decoded a malformed certificate,\nit could cause the application to crash. (CVE-2013-0791)\n\nRed Hat would like to thank the Mozilla project for reporting\nCVE-2013-0791. Upstream acknowledges Ambroz Bizjak as the original reporter\nof CVE-2013-0791.\n\nThis update also fixes the following bugs:\n\n* A defect in the FreeBL library implementation of the Diffie-Hellman (DH)\nprotocol previously caused Openswan to drop connections. (BZ#958023)\n\n * A memory leak in the nssutil_ReadSecmodDB() function has been fixed.\n(BZ#986969)\n\nIn addition, the nss package has been upgraded to upstream version 3.14.3,\nand the nspr package has been upgraded to upstream version 4.9.5. These\nupdates provide a number of bug fixes and enhancements over the previous\nversions. (BZ#949845, BZ#924741)\n\nNote that while upstream NSS version 3.14 prevents the use of certificates\nthat have an MD5 signature, this erratum includes a patch that allows such\ncertificates by default. To prevent the use of certificates that have an\nMD5 signature, set the \"NSS_HASH_ALG_SUPPORT\" environment variable\nto \"-MD5\".\n\nUsers of NSS and NSPR are advised to upgrade to these updated packages,\nwhich fix these issues and add these enhancements. After installing this\nupdate, applications using NSS or NSPR must be restarted for this update to\ntake effect.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2013:1135",
+				"Description": "https://access.redhat.com/errata/RHSA-2013:1135"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Mozilla: Out-of-bounds array read in CERT_DecodeCertPackage (MFSA 2013-40)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-04-02T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-0791",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/site/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:1135"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "http://www.mozilla.org/security/announce/2013/mfsa2013-40.html",
+						"Description": "http://www.mozilla.org/security/announce/2013/mfsa2013-40.html"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-0791",
+						"Description": "CVE-2013-0791"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=946947",
+						"Description": "bz#946947: CVE-2013-0791 Mozilla: Out-of-bounds array read in CERT_DecodeCertPackage (MFSA 2013-40)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2013-04-01T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-5.9.Z:nspr-0:4.9.5-1.el5_9",
+						"5Client-5.9.Z:nss-0:3.14.3-6.el5_9",
+						"5Client-Workstation-5.9.Z:nspr-0:4.9.5-1.el5_9",
+						"5Client-Workstation-5.9.Z:nss-0:3.14.3-6.el5_9",
+						"5Server-5.9.Z:nspr-0:4.9.5-1.el5_9",
+						"5Server-5.9.Z:nss-0:3.14.3-6.el5_9"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "nss: TLS CBC padding timing attack",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-02-04T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-1620",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/site/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:1135"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "http://www.isg.rhul.ac.uk/tls/",
+						"Description": "http://www.isg.rhul.ac.uk/tls/"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-1620",
+						"Description": "CVE-2013-1620"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=908234",
+						"Description": "bz#908234: CVE-2013-1620 nss: TLS CBC padding timing attack"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2013-02-04T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-5.9.Z:nspr-0:4.9.5-1.el5_9",
+						"5Client-5.9.Z:nss-0:3.14.3-6.el5_9",
+						"5Client-Workstation-5.9.Z:nspr-0:4.9.5-1.el5_9",
+						"5Client-Workstation-5.9.Z:nss-0:3.14.3-6.el5_9",
+						"5Server-5.9.Z:nspr-0:4.9.5-1.el5_9",
+						"5Server-5.9.Z:nss-0:3.14.3-6.el5_9"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.1",
+					"Vector": "AV:N/AC:H/Au:N/C:P/I:P/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+							"productid": "5Client-5.9.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "RHEL Desktop Workstation (v. 5 client)",
+						"fullproductname": {
+							"text": "RHEL Desktop Workstation (v. 5 client)",
+							"productid": "5Client-Workstation-5.9.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::client_workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux (v. 5 server)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux (v. 5 server)",
+							"productid": "5Server-5.9.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "nspr-0:4.9.5-1.el5_9",
+				"fullproductname": {
+					"text": "nspr-4.9.5-1.el5_9.src.rpm",
+					"productid": "nspr-0:4.9.5-1.el5_9",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "nss-0:3.14.3-6.el5_9",
+				"fullproductname": {
+					"text": "nss-3.14.3-6.el5_9.src.rpm",
+					"productid": "nss-0:3.14.3-6.el5_9",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "nspr-0:4.9.5-1.el5_9",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Client-5.9.Z",
+				"fullproductname": {
+					"text": "nspr-0:4.9.5-1.el5_9 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"productid": "5Client-5.9.Z:nspr-0:4.9.5-1.el5_9",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+				}
+			},
+			{
+				"productreference": "nss-0:3.14.3-6.el5_9",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Client-5.9.Z",
+				"fullproductname": {
+					"text": "nss-0:3.14.3-6.el5_9 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"productid": "5Client-5.9.Z:nss-0:3.14.3-6.el5_9",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+				}
+			},
+			{
+				"productreference": "nspr-0:4.9.5-1.el5_9",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Client-Workstation-5.9.Z",
+				"fullproductname": {
+					"text": "nspr-0:4.9.5-1.el5_9 as a component of RHEL Desktop Workstation (v. 5 client)",
+					"productid": "5Client-Workstation-5.9.Z:nspr-0:4.9.5-1.el5_9",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client_workstation"
+				}
+			},
+			{
+				"productreference": "nss-0:3.14.3-6.el5_9",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Client-Workstation-5.9.Z",
+				"fullproductname": {
+					"text": "nss-0:3.14.3-6.el5_9 as a component of RHEL Desktop Workstation (v. 5 client)",
+					"productid": "5Client-Workstation-5.9.Z:nss-0:3.14.3-6.el5_9",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client_workstation"
+				}
+			},
+			{
+				"productreference": "nspr-0:4.9.5-1.el5_9",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-5.9.Z",
+				"fullproductname": {
+					"text": "nspr-0:4.9.5-1.el5_9 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"productid": "5Server-5.9.Z:nspr-0:4.9.5-1.el5_9",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+				}
+			},
+			{
+				"productreference": "nss-0:3.14.3-6.el5_9",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-5.9.Z",
+				"fullproductname": {
+					"text": "nss-0:3.14.3-6.el5_9 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"productid": "5Server-5.9.Z:nss-0:3.14.3-6.el5_9",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+				}
+			}
+		]
+	}
+}

@@ -1,0 +1,869 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: kernel security, bug fix, and enhancement update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2015:1272"
+		},
+		"Status": "Final",
+		"Version": "3",
+		"revisionhistory": {
+			"revision": {
+				"Number": "3",
+				"Date": "2015-07-22T07:56:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2015-07-20T14:00:00Z",
+		"CurrentReleaseDate": "2015-07-22T07:56:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:38:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated kernel packages that fix multiple security issues, address several\nhundred bugs, and add numerous enhancements are now available as part of\nthe ongoing support and maintenance of Red Hat Enterprise Linux version 6.\nThis is the seventh regular update.\n\nRed Hat Product Security has rated this update as having Moderate security\nimpact. Common Vulnerability Scoring System (CVSS) base scores, which give\ndetailed severity ratings, are available for each vulnerability from the\nCVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe kernel packages contain the Linux kernel, the core of any Linux\noperating system.\n\n* A flaw was found in the way Linux kernel's Transparent Huge Pages (THP)\nimplementation handled non-huge page migration. A local, unprivileged user\ncould use this flaw to crash the kernel by migrating transparent hugepages.\n(CVE-2014-3940, Moderate)\n\n* A buffer overflow flaw was found in the way the Linux kernel's eCryptfs\nimplementation decoded encrypted file names. A local, unprivileged user\ncould use this flaw to crash the system or, potentially, escalate their\nprivileges on the system. (CVE-2014-9683, Moderate)\n\n* A race condition flaw was found between the chown and execve system\ncalls. When changing the owner of a setuid user binary to root, the race\ncondition could momentarily make the binary setuid root. A local,\nunprivileged user could potentially use this flaw to escalate their\nprivileges on the system. (CVE-2015-3339, Moderate)\n\n* Multiple out-of-bounds write flaws were found in the way the Cherry\nCymotion keyboard driver, KYE/Genius device drivers, Logitech device\ndrivers, Monterey Genius KB29E keyboard driver, Petalynx Maxter remote\ncontrol driver, and Sunplus wireless desktop driver handled HID reports\nwith an invalid report descriptor size. An attacker with physical access to\nthe system could use either of these flaws to write data past an allocated\nmemory buffer. (CVE-2014-3184, Low)\n\n* An information leak flaw was found in the way the Linux kernel's Advanced\nLinux Sound Architecture (ALSA) implementation handled access of the user\ncontrol's state. A local, privileged user could use this flaw to leak\nkernel memory to user space. (CVE-2014-4652, Low)\n\n* It was found that the espfix functionality could be bypassed by\ninstalling a 16-bit RW data segment into GDT instead of LDT (which espfix\nchecks), and using that segment on the stack. A local, unprivileged user\ncould potentially use this flaw to leak kernel stack addresses.\n(CVE-2014-8133, Low)\n\n* An information leak flaw was found in the Linux kernel's IEEE 802.11\nwireless networking implementation. When software encryption was used, a\nremote attacker could use this flaw to leak up to 8 bytes of plaintext.\n(CVE-2014-8709, Low)\n\n* It was found that the Linux kernel KVM subsystem's sysenter instruction\nemulation was not sufficient. An unprivileged guest user could use this\nflaw to escalate their privileges by tricking the hypervisor to emulate a\nSYSENTER instruction in 16-bit mode, if the guest OS did not initialize the\nSYSENTER model-specific registers (MSRs). Note: Certified guest operating\nsystems for Red Hat Enterprise Linux with KVM do initialize the SYSENTER\nMSRs and are thus not vulnerable to this issue when running on a KVM\nhypervisor. (CVE-2015-0239, Low)\n\nRed Hat would like to thank Andy Lutomirski for reporting the CVE-2014-8133\nissue, and Nadav Amit for reporting the CVE-2015-0239 issue.\n\nThis update fixes several hundred bugs and adds numerous enhancements.\nRefer to the Red Hat Enterprise Linux 6.7 Release Notes for information on\nthe most significant of these changes, and the following Knowledgebase\narticle for further information:\n\nhttps://access.redhat.com/articles/1466073\n\nAll kernel users are advised to upgrade to these updated packages, which\ncontain backported patches to correct these issues and add these\nenhancements. The system must be rebooted for this update to take effect.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2015:1272",
+				"Description": "https://access.redhat.com/errata/RHSA-2015:1272"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/articles/1466073",
+				"Description": "https://access.redhat.com/articles/1466073"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Kernel: HID: off by one error in various _report_fixup routines",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-08-21T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-3184",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1272"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-3184",
+						"Description": "CVE-2014-3184"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1141391",
+						"Description": "bz#1141391: CVE-2014-3184 Kernel: HID: off by one error in various _report_fixup routines"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2014-09-11T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional:kernel-0:2.6.32-573.el6",
+						"6Client:kernel-0:2.6.32-573.el6",
+						"6ComputeNode-optional:kernel-0:2.6.32-573.el6",
+						"6ComputeNode:kernel-0:2.6.32-573.el6",
+						"6Server-optional:kernel-0:2.6.32-573.el6",
+						"6Server:kernel-0:2.6.32-573.el6",
+						"6Workstation-optional:kernel-0:2.6.32-573.el6",
+						"6Workstation:kernel-0:2.6.32-573.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "1.2",
+					"Vector": "AV:L/AC:H/Au:N/C:N/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Kernel: missing check during hugepage migration",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-03-18T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-3940",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1272"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-3940",
+						"Description": "CVE-2014-3940"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1104097",
+						"Description": "bz#1104097: CVE-2014-3940 Kernel: missing check during hugepage migration"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-06-02T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional:kernel-0:2.6.32-573.el6",
+						"6Client:kernel-0:2.6.32-573.el6",
+						"6ComputeNode-optional:kernel-0:2.6.32-573.el6",
+						"6ComputeNode:kernel-0:2.6.32-573.el6",
+						"6Server-optional:kernel-0:2.6.32-573.el6",
+						"6Server:kernel-0:2.6.32-573.el6",
+						"6Workstation-optional:kernel-0:2.6.32-573.el6",
+						"6Workstation:kernel-0:2.6.32-573.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.7",
+					"Vector": "AV:L/AC:H/Au:N/C:N/I:P/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Kernel: ALSA: control: protect user controls against races & memory disclosure",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-06-18T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-4652",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1272"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-4652",
+						"Description": "CVE-2014-4652"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1113406",
+						"Description": "bz#1113406: CVE-2014-4652 Kernel: ALSA: control: protect user controls against races & memory disclosure"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2014-06-24T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional:kernel-0:2.6.32-573.el6",
+						"6Client:kernel-0:2.6.32-573.el6",
+						"6ComputeNode-optional:kernel-0:2.6.32-573.el6",
+						"6ComputeNode:kernel-0:2.6.32-573.el6",
+						"6Server-optional:kernel-0:2.6.32-573.el6",
+						"6Server:kernel-0:2.6.32-573.el6",
+						"6Workstation-optional:kernel-0:2.6.32-573.el6",
+						"6Workstation:kernel-0:2.6.32-573.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "1.5",
+					"Vector": "AV:L/AC:M/Au:S/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: x86: espfix(64) bypass via set_thread_area and CLONE_SETTLS",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-12-15T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-8133",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1272"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-8133",
+						"Description": "CVE-2014-8133"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1172797",
+						"Description": "bz#1172797: CVE-2014-8133 kernel: x86: espfix(64) bypass via set_thread_area and CLONE_SETTLS"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2014-12-05T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional:kernel-0:2.6.32-573.el6",
+						"6Client:kernel-0:2.6.32-573.el6",
+						"6ComputeNode-optional:kernel-0:2.6.32-573.el6",
+						"6ComputeNode:kernel-0:2.6.32-573.el6",
+						"6Server-optional:kernel-0:2.6.32-573.el6",
+						"6Server:kernel-0:2.6.32-573.el6",
+						"6Workstation-optional:kernel-0:2.6.32-573.el6",
+						"6Workstation:kernel-0:2.6.32-573.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "1.9",
+					"Vector": "AV:L/AC:M/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: net: mac80211: plain text information leak",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-11-06T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-8709",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1272"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-8709",
+						"Description": "CVE-2014-8709"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1173580",
+						"Description": "bz#1173580: CVE-2014-8709 kernel: net: mac80211: plain text information leak"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2014-12-06T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional:kernel-0:2.6.32-573.el6",
+						"6Client:kernel-0:2.6.32-573.el6",
+						"6ComputeNode-optional:kernel-0:2.6.32-573.el6",
+						"6ComputeNode:kernel-0:2.6.32-573.el6",
+						"6Server-optional:kernel-0:2.6.32-573.el6",
+						"6Server:kernel-0:2.6.32-573.el6",
+						"6Workstation-optional:kernel-0:2.6.32-573.el6",
+						"6Workstation:kernel-0:2.6.32-573.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "1.8",
+					"Vector": "AV:A/AC:H/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "6",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: buffer overflow in eCryptfs",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-02-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-9683",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1272"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-9683",
+						"Description": "CVE-2014-9683"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1193830",
+						"Description": "bz#1193830: CVE-2014-9683 kernel: buffer overflow in eCryptfs"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-02-17T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional:kernel-0:2.6.32-573.el6",
+						"6Client:kernel-0:2.6.32-573.el6",
+						"6ComputeNode-optional:kernel-0:2.6.32-573.el6",
+						"6ComputeNode:kernel-0:2.6.32-573.el6",
+						"6Server-optional:kernel-0:2.6.32-573.el6",
+						"6Server:kernel-0:2.6.32-573.el6",
+						"6Workstation-optional:kernel-0:2.6.32-573.el6",
+						"6Workstation:kernel-0:2.6.32-573.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "3.6",
+					"Vector": "AV:L/AC:L/Au:N/C:N/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "7",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: kvm: insufficient sysenter emulation when invoked from 16-bit code",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-01-27T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-0239",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1272"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-0239",
+						"Description": "CVE-2015-0239"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1186448",
+						"Description": "bz#1186448: CVE-2015-0239 kernel: kvm: insufficient sysenter emulation when invoked from 16-bit code"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2015-01-08T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional:kernel-0:2.6.32-573.el6",
+						"6Client:kernel-0:2.6.32-573.el6",
+						"6ComputeNode-optional:kernel-0:2.6.32-573.el6",
+						"6ComputeNode:kernel-0:2.6.32-573.el6",
+						"6Server-optional:kernel-0:2.6.32-573.el6",
+						"6Server:kernel-0:2.6.32-573.el6",
+						"6Workstation-optional:kernel-0:2.6.32-573.el6",
+						"6Workstation:kernel-0:2.6.32-573.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.2",
+					"Vector": "AV:L/AC:H/Au:N/C:C/I:C/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "8",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: race condition between chown() and execve()",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-04-20T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-3339",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1272"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-3339",
+						"Description": "CVE-2015-3339"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1214030",
+						"Description": "bz#1214030: CVE-2015-3339 kernel: race condition between chown() and execve()"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-04-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional:kernel-0:2.6.32-573.el6",
+						"6Client:kernel-0:2.6.32-573.el6",
+						"6ComputeNode-optional:kernel-0:2.6.32-573.el6",
+						"6ComputeNode:kernel-0:2.6.32-573.el6",
+						"6Server-optional:kernel-0:2.6.32-573.el6",
+						"6Server:kernel-0:2.6.32-573.el6",
+						"6Workstation-optional:kernel-0:2.6.32-573.el6",
+						"6Workstation:kernel-0:2.6.32-573.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.2",
+					"Vector": "AV:L/AC:H/Au:N/C:C/I:C/A:C"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 6)",
+							"productid": "6Client",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+							"productid": "6Client-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node (v. 6)",
+							"productid": "6ComputeNode",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+							"productid": "6ComputeNode-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 6)",
+							"productid": "6Server",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional (v. 6)",
+							"productid": "6Server-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 6)",
+							"productid": "6Workstation",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+							"productid": "6Workstation-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-0:2.6.32-573.el6",
+				"fullproductname": {
+					"text": "kernel-2.6.32-573.el6.src.rpm",
+					"productid": "kernel-0:2.6.32-573.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "kernel-0:2.6.32-573.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-573.el6 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"productid": "6Client:kernel-0:2.6.32-573.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.32-573.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-optional",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-573.el6 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"productid": "6Client-optional:kernel-0:2.6.32-573.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.32-573.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-573.el6 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"productid": "6ComputeNode:kernel-0:2.6.32-573.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.32-573.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-optional",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-573.el6 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"productid": "6ComputeNode-optional:kernel-0:2.6.32-573.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.32-573.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-573.el6 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"productid": "6Server:kernel-0:2.6.32-573.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.32-573.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-optional",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-573.el6 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"productid": "6Server-optional:kernel-0:2.6.32-573.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.32-573.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-573.el6 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"productid": "6Workstation:kernel-0:2.6.32-573.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.32-573.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-optional",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-573.el6 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"productid": "6Workstation-optional:kernel-0:2.6.32-573.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			}
+		]
+	}
+}

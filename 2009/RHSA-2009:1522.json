@@ -1,0 +1,396 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: kernel security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2009:1522"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2009-10-22T11:09:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2009-10-22T15:06:00Z",
+		"CurrentReleaseDate": "2009-10-22T11:09:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:29:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated kernel packages that fix multiple security issues and several bugs\nare now available for Red Hat Enterprise Linux 4.\n\nThis update has been rated as having moderate security impact by the Red\nHat Security Response Team.\n\n[Updated 21st July 2010]\nBZ#523930 documentation expanded.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe kernel packages contain the Linux kernel, the core of any Linux\noperating system.\n\nThis update fixes the following security issues:\n\n* multiple, missing initialization flaws were found in the Linux kernel.\nPadding data in several core network structures was not initialized\nproperly before being sent to user-space. These flaws could lead to\ninformation leaks. (CVE-2005-4881, CVE-2009-3228, Moderate)\n\nThis update also fixes the following bugs:\n\n* a packet duplication issue was fixed via the RHSA-2008:0665 update;\nhowever, the fix introduced a problem for systems using network bonding:\nBackup slaves were unable to receive ARP packets. When using network\nbonding in the \"active-backup\" mode and with the \"arp_validate=3\" option,\nthe bonding driver considered such backup slaves as being down (since they\nwere not receiving ARP packets), preventing successful failover to these\ndevices. (BZ#519384)\n\n* due to insufficient memory barriers in the network code, a process\nsleeping in select() may have missed notifications about new data. In rare\ncases, this bug may have caused a process to sleep forever. (BZ#519386)\n\n* the driver version number in the ata_piix driver was not changed between\nRed Hat Enterprise Linux 4.7 and Red Hat Enterprise Linux 4.8, even though\nchanges had been made between these releases. This could have prevented the\ndriver from loading on systems that check driver versions, as this driver\nappeared older than it was. (BZ#519389)\n\n* a bug in nlm_lookup_host() could have led to un-reclaimed locks on file\nsystems, resulting in the umount command failing. This bug could have also\nprevented NFS services from being relocated correctly in clustered\nenvironments. (BZ#519656)\n\n* the data buffer ethtool_get_strings() allocated, for the igb driver, was\nsmaller than the amount of data that was copied in igb_get_strings(),\nbecause of a miscalculation in IGB_QUEUE_STATS_LEN, resulting in memory\ncorruption. This bug could have led to a kernel panic. (BZ#522738)\n\n* in some circumstances, write operations to a particular TTY device opened\nby more than one user (eg, one opened it as /dev/console and the other\nopened it as /dev/ttyS0) were blocked. If one user opened the TTY terminal\nwithout setting the O_NONBLOCK flag, this user's write operations were\nsuspended if the output buffer was full or if a STOP (Ctrl-S) signal was\nsent. As well, because the O_NONBLOCK flag was not respected, Write\noperations for user terminals opened with the O_NONBLOCK flag set were also\nblocked. This update re-implements TTY locks, ensuring O_NONBLOCK works as\nexpected, even if it a STOP signal is sent from another terminal.\n(BZ#523930)\n\n* a deadlock was found in the cciss driver. In rare cases, this caused an\nNMI lockup during boot. Messages such as \"cciss: controller cciss[x]\nfailed, stopping.\" and \"cciss[x]: controller not responding.\" may have\nbeen displayed on the console. (BZ#525725)\n\n* on 64-bit PowerPC systems, a rollover bug in the ibmveth driver could\nhave caused a kernel panic. In a reported case, this panic occurred on a\nsystem with a large uptime and under heavy network load. (BZ#527225)\n\nUsers should upgrade to these updated packages, which contain backported\npatches to correct these issues. The system must be rebooted for this\nupdate to take effect.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2009:1522",
+				"Description": "https://access.redhat.com/errata/RHSA-2009:1522"
+			},
+			{
+				"type": "External",
+				"URL": "http://www.redhat.com/security/updates/classification/#moderate",
+				"Description": "http://www.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: netlink: fix numerous padding memleaks",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2005-06-28T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2005-4881",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2009:1522"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2005-4881",
+						"Description": "CVE-2005-4881"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=521601",
+						"Description": "bz#521601: CVE-2005-4881 kernel: netlink: fix numerous padding memleaks"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2009-09-07T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"4AS:kernel-0:2.6.9-89.0.15.EL",
+						"4Desktop:kernel-0:2.6.9-89.0.15.EL",
+						"4ES:kernel-0:2.6.9-89.0.15.EL",
+						"4WS:kernel-0:2.6.9-89.0.15.EL"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.1",
+					"Vector": "AV:L/AC:L/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: tc: uninitialised kernel memory leak",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2009-09-02T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2009-3228",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2009:1522"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2009-3228",
+						"Description": "CVE-2009-3228"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=520990",
+						"Description": "bz#520990: CVE-2009-3228 kernel: tc: uninitialised kernel memory leak"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2009-09-03T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"4AS:kernel-0:2.6.9-89.0.15.EL",
+						"4Desktop:kernel-0:2.6.9-89.0.15.EL",
+						"4ES:kernel-0:2.6.9-89.0.15.EL",
+						"4WS:kernel-0:2.6.9-89.0.15.EL"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.1",
+					"Vector": "AV:L/AC:L/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: tcf_fill_node() infoleak due to typo in 9ef1d4c7",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2009-10-08T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2009-3612",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2009:1522"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2009-3612",
+						"Description": "CVE-2009-3612"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=528868",
+						"Description": "bz#528868: CVE-2009-3612 kernel: tcf_fill_node() infoleak due to typo in 9ef1d4c7"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2009-10-14T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"4AS:kernel-0:2.6.9-89.0.15.EL",
+						"4Desktop:kernel-0:2.6.9-89.0.15.EL",
+						"4ES:kernel-0:2.6.9-89.0.15.EL",
+						"4WS:kernel-0:2.6.9-89.0.15.EL"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.1",
+					"Vector": "AV:L/AC:L/Au:N/C:P/I:N/A:N"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux AS version 4",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux AS version 4",
+							"productid": "4AS",
+							"cpe": "cpe:/o:redhat:enterprise_linux:4::as"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop version 4",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop version 4",
+							"productid": "4Desktop",
+							"cpe": "cpe:/o:redhat:enterprise_linux:4::desktop"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ES version 4",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ES version 4",
+							"productid": "4ES",
+							"cpe": "cpe:/o:redhat:enterprise_linux:4::es"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux WS version 4",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux WS version 4",
+							"productid": "4WS",
+							"cpe": "cpe:/o:redhat:enterprise_linux:4::ws"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-0:2.6.9-89.0.15.EL",
+				"fullproductname": {
+					"text": "kernel-2.6.9-89.0.15.EL.src.rpm",
+					"productid": "kernel-0:2.6.9-89.0.15.EL",
+					"cpe": "cpe:/o:redhat:enterprise_linux:4::as"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "kernel-0:2.6.9-89.0.15.EL",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "4AS",
+				"fullproductname": {
+					"text": "kernel-0:2.6.9-89.0.15.EL as a component of Red Hat Enterprise Linux AS version 4",
+					"productid": "4AS:kernel-0:2.6.9-89.0.15.EL",
+					"cpe": "cpe:/o:redhat:enterprise_linux:4::as"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.9-89.0.15.EL",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "4Desktop",
+				"fullproductname": {
+					"text": "kernel-0:2.6.9-89.0.15.EL as a component of Red Hat Enterprise Linux Desktop version 4",
+					"productid": "4Desktop:kernel-0:2.6.9-89.0.15.EL",
+					"cpe": "cpe:/o:redhat:enterprise_linux:4::desktop"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.9-89.0.15.EL",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "4ES",
+				"fullproductname": {
+					"text": "kernel-0:2.6.9-89.0.15.EL as a component of Red Hat Enterprise Linux ES version 4",
+					"productid": "4ES:kernel-0:2.6.9-89.0.15.EL",
+					"cpe": "cpe:/o:redhat:enterprise_linux:4::es"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.9-89.0.15.EL",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "4WS",
+				"fullproductname": {
+					"text": "kernel-0:2.6.9-89.0.15.EL as a component of Red Hat Enterprise Linux WS version 4",
+					"productid": "4WS:kernel-0:2.6.9-89.0.15.EL",
+					"cpe": "cpe:/o:redhat:enterprise_linux:4::ws"
+				}
+			}
+		]
+	}
+}

@@ -1,0 +1,468 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: kernel-rt security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2009:1157"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2009-07-14T15:11:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2009-07-14T19:11:00Z",
+		"CurrentReleaseDate": "2009-07-14T15:11:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:35:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated kernel-rt packages that fix several security issues and various\nbugs are now available for Red Hat Enterprise MRG 1.1.\n\nThis update has been rated as having important security impact by the Red\nHat Security Response Team.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe kernel-rt packages contain the Linux kernel, the core of any Linux\noperating system.\n\nSecurity fixes:\n\n* a flaw was found in the Intel PRO/1000 network driver in the Linux\nkernel. Frames with sizes near the MTU of an interface may be split across\nmultiple hardware receive descriptors. Receipt of such a frame could leak\nthrough a validation check, leading to a corruption of the length check. A\nremote attacker could use this flaw to send a specially-crafted packet that\nwould cause a denial of service or code execution. (CVE-2009-1385,\nImportant)\n\n* Michael Tokarev reported a flaw in the Realtek r8169 Ethernet driver in\nthe Linux kernel. This driver allowed interfaces using this driver to\nreceive frames larger than what could be handled. This could lead to a\nremote denial of service or code execution. (CVE-2009-1389, Important)\n\n* several flaws were found in the way the Linux kernel CIFS implementation\nhandles Unicode strings. CIFS clients convert Unicode strings sent by a\nserver to their local character sets, and then write those strings into\nmemory. If a malicious server sent a long enough string, it could write\npast the end of the target memory region and corrupt other memory areas,\npossibly leading to a denial of service or privilege escalation on the\nclient mounting the CIFS share. (CVE-2009-1633, Important)\n\n* Frank Filz reported the NFSv4 client was missing a file permission check\nfor the execute bit in some situations. This could allow local,\nunprivileged users to run non-executable files on NFSv4 mounted file\nsystems. (CVE-2009-1630, Moderate)\n\n* a deadlock flaw was found in the Linux kernel splice implementation. This\ndeadlock could occur during interactions between the\ngeneric_file_splice_write() and splice_from_pipe() functions, possibly\nleading to a partial denial of service on the file system partition where\nthe deadlock occurs. (CVE-2009-1961, Moderate)\n\nBug fixes:\n\n* a stack buffer used by get_event_name() was not large enough to\naccommodate the nul terminator that sprintf() writes. In some cases, this\ncould lead to an invalid pointer or a kernel panic. With this update, the\nfunction is modified to allow space for the nul terminator. (BZ#503902)\n\n* free_bootmem() was hard-coded to use node 0. This could have caused a\nkernel panic during boot on a NUMA system that happens to boot on a node\nother than node 0. With this update, free_bootmem() acts on the current\nnode, resolving this issue. (BZ#503048)\n\n* CPU flag mishandling caused TSC clocksource synchronization to fail (TSC\nwas marked unstable) on the Intel® microarchitecture (Nehalem). In\naddition, TSC clocksource checks added to the 64-bit kernel code are now\npresent for i386 systems. Also, \"/proc/cpuinfo\" now shows TSC-related\nflags. (BZ#50289, BZ#508756)\n\n* barriers are used to make sure delayed work requested from threads is\nprocessed before continuing. run_workqueue(), however, exited before\nprocessing all barriers, causing threads to wait forever. In a reported\ncase, this bug caused missing path issues for Device Mapper Multipathing.\n(BZ#504133)\n\n* calling pipe() with an invalid address caused a file descriptor leak.\n(BZ#509629)\n\n* the code to add \"/dev/rtc\" contained a printk statement without a log\nlevel prefix. (BZ#510099)\n\n* an extra check has been added to the realtime kernel to avoid a rare\ncorruption of the FPU (Floating Point Unit) stack, which could occur if a\ntask using FPU registers was preempted by an interruption. (BZ#509359)\n\n* fix a boot-up problem on HP ProLiant SL2x170z G6 and similar systems by\nadding Intel ICH10 controllers back to the ata_piix driver. (BZ#508783)\n\n* converts a UID comparison in AGP to a more secure capability check. By\ndefault, \"/dev/agpgart\" is accessible only to the root user. (BZ#505493)\n\nUsers should upgrade to these updated packages, which contain backported\npatches to correct these issues. The system must be rebooted for this\nupdate to take effect.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2009:1157",
+				"Description": "https://access.redhat.com/errata/RHSA-2009:1157"
+			},
+			{
+				"type": "External",
+				"URL": "http://www.redhat.com/security/updates/classification/#important",
+				"Description": "http://www.redhat.com/security/updates/classification/#important"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: e1000_clean_rx_irq() denial of service",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2007-04-25T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2009-1385",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2009:1157"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2009-1385",
+						"Description": "CVE-2009-1385"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=502981",
+						"Description": "bz#502981: CVE-2009-1385 kernel: e1000_clean_rx_irq() denial of service"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2009-05-28T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-126.el5rt"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "7.1",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: r8169: fix crash when large packets are received",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2009-02-14T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2009-1389",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2009:1157"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2009-1389",
+						"Description": "CVE-2009-1389"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=504726",
+						"Description": "bz#504726: CVE-2009-1389 kernel: r8169: fix crash when large packets are received"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2009-06-09T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-126.el5rt"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.1",
+					"Vector": "AV:A/AC:L/Au:N/C:N/I:N/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: nfs: fix NFS v4 client handling of MAY_EXEC in nfs_permission",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2009-05-09T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2009-1630",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2009:1157"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2009-1630",
+						"Description": "CVE-2009-1630"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=500297",
+						"Description": "bz#500297: CVE-2009-1630 kernel: nfs: fix NFS v4 client handling of MAY_EXEC in nfs_permission"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2009-05-12T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-126.el5rt"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.1",
+					"Vector": "AV:L/AC:L/Au:N/C:N/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: cifs: fix potential buffer overruns when converting unicode strings sent by server",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2009-04-14T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2009-1633",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2009:1157"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2009-1633",
+						"Description": "CVE-2009-1633"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=496572",
+						"Description": "bz#496572: CVE-2009-1633 kernel: cifs: fix potential buffer overruns when converting unicode strings sent by server"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2009-04-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-126.el5rt"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "7.1",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: splice local denial of service",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2009-04-06T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2009-1961",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2009:1157"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2009-1961",
+						"Description": "CVE-2009-1961"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=503474",
+						"Description": "bz#503474: CVE-2009-1961 kernel: splice local denial of service"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2009-06-01T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-126.el5rt"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.1",
+					"Vector": "AV:L/AC:L/Au:N/C:N/I:N/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise MRG for RHEL-5",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "MRG Realtime for RHEL 5 Server",
+						"fullproductname": {
+							"text": "MRG Realtime for RHEL 5 Server",
+							"productid": "5Server-MRG-Realtime-1.0",
+							"cpe": "cpe:/a:redhat:enterprise_mrg:1::el5"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-rt-0:2.6.24.7-126.el5rt",
+				"fullproductname": {
+					"text": "kernel-rt-2.6.24.7-126.el5rt.src.rpm",
+					"productid": "kernel-rt-0:2.6.24.7-126.el5rt",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:1::el5"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "kernel-rt-0:2.6.24.7-126.el5rt",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-MRG-Realtime-1.0",
+				"fullproductname": {
+					"text": "kernel-rt-0:2.6.24.7-126.el5rt as a component of MRG Realtime for RHEL 5 Server",
+					"productid": "5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-126.el5rt",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:1::el5"
+				}
+			}
+		]
+	}
+}

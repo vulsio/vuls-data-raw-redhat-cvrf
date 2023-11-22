@@ -1,0 +1,332 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: openssh security, bug fix and enhancement update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2013:0519"
+		},
+		"Status": "Final",
+		"Version": "2",
+		"revisionhistory": {
+			"revision": {
+				"Number": "2",
+				"Date": "2013-02-20T16:28:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2013-02-20T16:20:00Z",
+		"CurrentReleaseDate": "2013-02-20T16:28:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:33:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated openssh packages that fix one security issue, multiple bugs, and\nadd various enhancements are now available for Red Hat Enterprise Linux 6.\n\nThe Red Hat Security Response Team has rated this update as having moderate\nsecurity impact. A Common Vulnerability Scoring System (CVSS) base score,\nwhich gives a detailed severity rating, is available from the CVE link in\nthe References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nOpenSSH is OpenBSD's Secure Shell (SSH) protocol implementation. These\npackages include the core files necessary for the OpenSSH client and\nserver.\n\nDue to the way the pam_ssh_agent_auth PAM module was built in Red Hat\nEnterprise Linux 6, the glibc's error() function was called rather than the\nintended error() function in pam_ssh_agent_auth to report errors. As these\ntwo functions expect different arguments, it was possible for an attacker\nto cause an application using pam_ssh_agent_auth to crash, disclose\nportions of its memory or, potentially, execute arbitrary code.\n(CVE-2012-5536)\n\nNote that the pam_ssh_agent_auth module is not used in Red Hat Enterprise\nLinux 6 by default.\n\nThis update also fixes the following bugs:\n\n* All possible options for the new RequiredAuthentications directive were\nnot documented in the sshd_config man page. This update improves the man\npage to document all the possible options. (BZ#821641)\n\n* When stopping one instance of the SSH daemon (sshd), the sshd init script\n(/etc/rc.d/init.d/sshd) stopped all sshd processes regardless of the PID of\nthe processes. This update improves the init script so that it only kills\nprocesses with the relevant PID. As a result, the init script now works\nmore reliably in a multi-instance environment. (BZ#826720)\n\n* Due to a regression, the ssh-copy-id command returned an exit status code\nof zero even if there was an error in copying the key to a remote host.\nWith this update, a patch has been applied and ssh-copy-id now returns a\nnon-zero exit code if there is an error in copying the SSH certificate to a\nremote host. (BZ#836650)\n\n* When SELinux was disabled on the system, no on-disk policy was installed,\na user account was used for a connection, and no \"~/.ssh\" configuration was\npresent in that user's home directory, the SSH client terminated\nunexpectedly with a segmentation fault when attempting to connect to\nanother system. A patch has been provided to address this issue and the\ncrashes no longer occur in the described scenario. (BZ#836655)\n\n* The \"HOWTO\" document /usr/share/doc/openssh-ldap-5.3p1/HOWTO.ldap-keys\nincorrectly documented the use of the AuthorizedKeysCommand directive.\nThis update corrects the document. (BZ#857760)\n\nThis update also adds the following enhancements:\n\n* When attempting to enable SSH for use with a Common Access Card (CAC),\nthe ssh-agent utility read all the certificates in the card even though\nonly the ID certificate was needed. Consequently, if a user entered their\nPIN incorrectly, then the CAC was locked, as a match for the PIN was\nattempted against all three certificates. With this update, ssh-add does\nnot try the same PIN for every certificate if the PIN fails for the first\none. As a result, the CAC will not be disabled if a user enters their PIN\nincorrectly. (BZ#782912)\n\n* This update adds a \"netcat mode\" to SSH. The \"ssh -W host:port ...\"\ncommand connects standard input and output (stdio) on a client to a single\nport on a server. As a result, SSH can be used to route connections via\nintermediate servers. (BZ#860809)\n\n* Due to a bug, arguments for the RequiredAuthentications2 directive were\nnot stored in a Match block. Consequently, parsing of the config file was\nnot in accordance with the man sshd_config documentation. This update fixes\nthe bug and users can now use the required authentication feature to\nspecify a list of authentication methods as expected according to the man\npage. (BZ#869903)\n\nAll users of openssh are advised to upgrade to these updated packages,\nwhich fix these issues and add these enhancements. After installing this\nupdate, the OpenSSH server daemon (sshd) will be restarted automatically.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2013:0519",
+				"Description": "https://access.redhat.com/errata/RHSA-2013:0519"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "pam_ssh_agent_auth: symbol crash leading to glibc error() called incorrectly",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-02-21T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-5536",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:0519"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-5536",
+						"Description": "CVE-2012-5536"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=834618",
+						"Description": "bz#834618: CVE-2012-5536 pam_ssh_agent_auth: symbol crash leading to glibc error() called incorrectly"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2012-06-21T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional:openssh-0:5.3p1-84.1.el6",
+						"6Client:openssh-0:5.3p1-84.1.el6",
+						"6ComputeNode-optional:openssh-0:5.3p1-84.1.el6",
+						"6ComputeNode:openssh-0:5.3p1-84.1.el6",
+						"6Server-optional:openssh-0:5.3p1-84.1.el6",
+						"6Server:openssh-0:5.3p1-84.1.el6",
+						"6Workstation-optional:openssh-0:5.3p1-84.1.el6",
+						"6Workstation:openssh-0:5.3p1-84.1.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.2",
+					"Vector": "AV:L/AC:H/Au:N/C:C/I:C/A:C"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 6)",
+							"productid": "6Client",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+							"productid": "6Client-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node (v. 6)",
+							"productid": "6ComputeNode",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+							"productid": "6ComputeNode-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 6)",
+							"productid": "6Server",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional (v. 6)",
+							"productid": "6Server-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 6)",
+							"productid": "6Workstation",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+							"productid": "6Workstation-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "openssh-0:5.3p1-84.1.el6",
+				"fullproductname": {
+					"text": "openssh-5.3p1-84.1.el6.src.rpm",
+					"productid": "openssh-0:5.3p1-84.1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "openssh-0:5.3p1-84.1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client",
+				"fullproductname": {
+					"text": "openssh-0:5.3p1-84.1.el6 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"productid": "6Client:openssh-0:5.3p1-84.1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "openssh-0:5.3p1-84.1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-optional",
+				"fullproductname": {
+					"text": "openssh-0:5.3p1-84.1.el6 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"productid": "6Client-optional:openssh-0:5.3p1-84.1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "openssh-0:5.3p1-84.1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode",
+				"fullproductname": {
+					"text": "openssh-0:5.3p1-84.1.el6 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"productid": "6ComputeNode:openssh-0:5.3p1-84.1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "openssh-0:5.3p1-84.1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-optional",
+				"fullproductname": {
+					"text": "openssh-0:5.3p1-84.1.el6 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"productid": "6ComputeNode-optional:openssh-0:5.3p1-84.1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "openssh-0:5.3p1-84.1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server",
+				"fullproductname": {
+					"text": "openssh-0:5.3p1-84.1.el6 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"productid": "6Server:openssh-0:5.3p1-84.1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "openssh-0:5.3p1-84.1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-optional",
+				"fullproductname": {
+					"text": "openssh-0:5.3p1-84.1.el6 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"productid": "6Server-optional:openssh-0:5.3p1-84.1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "openssh-0:5.3p1-84.1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation",
+				"fullproductname": {
+					"text": "openssh-0:5.3p1-84.1.el6 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"productid": "6Workstation:openssh-0:5.3p1-84.1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			},
+			{
+				"productreference": "openssh-0:5.3p1-84.1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-optional",
+				"fullproductname": {
+					"text": "openssh-0:5.3p1-84.1.el6 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"productid": "6Workstation-optional:openssh-0:5.3p1-84.1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			}
+		]
+	}
+}

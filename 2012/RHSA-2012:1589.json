@@ -1,0 +1,192 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: kernel security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2012:1589"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2012-12-18T22:20:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2012-12-18T22:18:00Z",
+		"CurrentReleaseDate": "2012-12-18T22:20:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:38:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated kernel packages that fix one security issue and one bug are now\navailable for Red Hat Enterprise Linux 6.1 Extended Update Support.\n\nThe Red Hat Security Response Team has rated this update as having low\nsecurity impact. A Common Vulnerability Scoring System (CVSS) base score,\nwhich gives a detailed severity rating, is available from the CVE link in\nthe References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe kernel packages contain the Linux kernel, the core of any Linux\noperating system.\n\nThis update fixes the following security issue:\n\n* A flaw was found in the way the Linux kernel's dl2k driver, used by\ncertain D-Link Gigabit Ethernet adapters, restricted IOCTLs. A local,\nunprivileged user could use this flaw to issue potentially harmful IOCTLs,\nwhich could cause Ethernet adapters using the dl2k driver to malfunction\n(for example, losing network connectivity). (CVE-2012-2313, Low)\n\nRed Hat would like to thank Stephan Mueller for reporting this issue.\n\nThis update also fixes the following bug:\n\n* The kernel allows high priority real time tasks, such as tasks scheduled\nwith the SCHED_FIFO policy, to be throttled. Previously, the CPU stop tasks\nwere scheduled as high priority real time tasks and could be thus throttled\naccordingly. However, the replenishment timer, which is responsible for\nclearing a throttle flag on tasks, could be pending on the just disabled\nCPU. This could lead to the situation that the throttled tasks were never\nscheduled to run. Consequently, if any of such tasks was needed to complete\nthe CPU disabling, the system became unresponsive. This update introduces a\nnew scheduler class, which gives a task the highest possible system\npriority and such a task cannot be throttled. The stop-task scheduling\nclass is now used for the CPU stop tasks, and the system shutdown completes\nas expected in the scenario described. (BZ#876077)\n\nUsers should upgrade to these updated packages, which contain backported\npatches to correct these issues. The system must be rebooted for this\nupdate to take effect.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Low",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2012:1589",
+				"Description": "https://access.redhat.com/errata/RHSA-2012:1589"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#low",
+				"Description": "https://access.redhat.com/security/updates/classification/#low"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: unfiltered netdev rio_ioctl access by users",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-04-26T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-2313",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:1589"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-2313",
+						"Description": "CVE-2012-2313"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=818820",
+						"Description": "bz#818820: CVE-2012-2313 kernel: unfiltered netdev rio_ioctl access by users"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2012-04-26T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-6.1.EUS:kernel-0:2.6.32-131.36.1.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "1.2",
+					"Vector": "AV:L/AC:H/Au:N/C:N/I:N/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server EUS (v. 6.1)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server EUS (v. 6.1)",
+							"productid": "6Server-6.1.EUS",
+							"cpe": "cpe:/o:redhat:rhel_eus:6.1"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-0:2.6.32-131.36.1.el6",
+				"fullproductname": {
+					"text": "kernel-2.6.32-131.36.1.el6.src.rpm",
+					"productid": "kernel-0:2.6.32-131.36.1.el6",
+					"cpe": "cpe:/o:redhat:rhel_eus:6.1"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "kernel-0:2.6.32-131.36.1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-6.1.EUS",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-131.36.1.el6 as a component of Red Hat Enterprise Linux Server EUS (v. 6.1)",
+					"productid": "6Server-6.1.EUS:kernel-0:2.6.32-131.36.1.el6",
+					"cpe": "cpe:/o:redhat:rhel_eus:6.1"
+				}
+			}
+		]
+	}
+}

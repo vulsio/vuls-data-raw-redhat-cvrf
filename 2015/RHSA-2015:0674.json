@@ -1,0 +1,560 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: kernel security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2015:0674"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2015-03-11T15:27:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2015-03-11T15:27:00Z",
+		"CurrentReleaseDate": "2015-03-11T15:27:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:37:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated kernel packages that fix multiple security issues and several bugs\nare now available for Red Hat Enterprise Linux 6.\n\nRed Hat Product Security has rated this update as having Important security\nimpact. Common Vulnerability Scoring System (CVSS) base scores, which give\ndetailed severity ratings, are available for each vulnerability from the\nCVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe kernel packages contain the Linux kernel, the core of any Linux\noperating system.\n\n* It was found that the Linux kernel's Infiniband subsystem did not\nproperly sanitize input parameters while registering memory regions from\nuser space via the (u)verbs API. A local user with access to a\n/dev/infiniband/uverbsX device could use this flaw to crash the system or,\npotentially, escalate their privileges on the system. (CVE-2014-8159,\nImportant)\n\n* A flaw was found in the way the Linux kernel's splice() system call\nvalidated its parameters. On certain file systems, a local, unprivileged\nuser could use this flaw to write past the maximum file size, and thus\ncrash the system. (CVE-2014-7822, Moderate)\n\n* A flaw was found in the way the Linux kernel's netfilter subsystem\nhandled generic protocol tracking. As demonstrated in the Stream Control\nTransmission Protocol (SCTP) case, a remote attacker could use this flaw to\nbypass intended iptables rule restrictions when the associated connection\ntracking module was not loaded on the system. (CVE-2014-8160, Moderate)\n\n* It was found that the fix for CVE-2014-3601 was incomplete: the Linux\nkernel's kvm_iommu_map_pages() function still handled IOMMU mapping\nfailures incorrectly. A privileged user in a guest with an assigned host\ndevice could use this flaw to crash the host. (CVE-2014-8369, Moderate)\n\nRed Hat would like to thank Mellanox for reporting CVE-2014-8159, and Akira\nFujita of NEC for reporting CVE-2014-7822.\n\nBug fixes:\n\n* The maximum amount of entries in the IPv6 route table\n(net.ipv6.route.max_size) was 4096, and every route towards this maximum\nsize limit was counted. Communication to more systems was impossible when\nthe limit was exceeded. Now, only cached routes are counted, which\nguarantees that the kernel does not run out of memory, but the user can now\ninstall as many routes as the memory allows until the kernel indicates it\ncan no longer handle the amount of memory and returns an error message.\n\nIn addition, the default \"net.ipv6.route.max_size\" value has been increased\nto 16384 for performance improvement reasons. (BZ#1177581)\n\n* When the user attempted to scan for an FCOE-served Logical Unit Number\n(LUN), after an initial LUN scan, a kernel panic occurred in\nbnx2fc_init_task. System scanning for LUNs is now stable after LUNs have\nbeen added. (BZ#1179098)\n\n* Under certain conditions, such as when attempting to scan the network for\nLUNs, a race condition in the bnx2fc driver could trigger a kernel panic in\nbnx2fc_init_task. A patch fixing a locking issue that caused the race\ncondition has been applied, and scanning the network for LUNs no longer\nleads to a kernel panic. (BZ#1179098)\n\n* Previously, it was not possible to boot the kernel on Xen hypervisor in\nPVHVM mode if more than 32 vCPUs were specified in the guest configuration.\nSupport for more than 32 vCPUs has been added, and the kernel now boots\nsuccessfully in the described situation. (BZ#1179343)\n\n* When the NVMe driver allocated a namespace queue, it indicated that it\nwas a request-based driver when it was actually a block I/O-based driver.\nConsequently, when NVMe driver was loaded along with a request-based dm\ndevice, the system could terminate unexpectedly or become unresponsive when\nattempting to access data. The NVMe driver no longer sets the\nQUEUE_FLAG_STACKABLE bit when allocating a namespace queue and\ndevice-mapper no longer perceives NVMe driver as request-based; system\nhangs or crashes no longer occur. (BZ#1180555)\n\n* If a user attempted to apply an NVRAM firmware update when running the\ntg3 module provided with Red Hat Enterprise Linux 6.6 kernels, the update\ncould fail. As a consequence, the Network Interface Card (NIC) could stay\nin an unusable state and this could prevent the entire system from booting.\nThe tg3 module has been updated to correctly apply firmware updates.\n(BZ#1182903)\n\n* Support for key sizes of 256 and 192 bits has been added to AES-NI.\n(BZ#1184332)\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2015:0674",
+				"Description": "https://access.redhat.com/errata/RHSA-2015:0674"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: splice: lack of generic write checks",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-01-28T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-7822",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll kernel users are advised to upgrade to these updated packages, which\ncontain backported patches to correct these issues. The system must be\nrebooted for this update to take effect.\n\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:0674"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-7822",
+						"Description": "CVE-2014-7822"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1163792",
+						"Description": "bz#1163792: CVE-2014-7822 kernel: splice: lack of generic write checks"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-10-23T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.6.z:kernel-0:2.6.32-504.12.2.el6",
+						"6Client-optional-6.6.z:kernel-0:2.6.32-504.12.2.el6",
+						"6ComputeNode-6.6.z:kernel-0:2.6.32-504.12.2.el6",
+						"6ComputeNode-optional-6.6.z:kernel-0:2.6.32-504.12.2.el6",
+						"6Server-6.6.z:kernel-0:2.6.32-504.12.2.el6",
+						"6Server-optional-6.6.z:kernel-0:2.6.32-504.12.2.el6",
+						"6Workstation-6.6.z:kernel-0:2.6.32-504.12.2.el6",
+						"6Workstation-optional-6.6.z:kernel-0:2.6.32-504.12.2.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.9",
+					"Vector": "AV:L/AC:L/Au:N/C:N/I:N/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: infiniband: uverbs: unprotected physical memory access",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-03-11T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-8159",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll kernel users are advised to upgrade to these updated packages, which\ncontain backported patches to correct these issues. The system must be\nrebooted for this update to take effect.\n\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:0674"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-8159",
+						"Description": "CVE-2014-8159"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1181166",
+						"Description": "bz#1181166: CVE-2014-8159 kernel: infiniband: uverbs: unprotected physical memory access"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2015-01-05T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.6.z:kernel-0:2.6.32-504.12.2.el6",
+						"6Client-optional-6.6.z:kernel-0:2.6.32-504.12.2.el6",
+						"6ComputeNode-6.6.z:kernel-0:2.6.32-504.12.2.el6",
+						"6ComputeNode-optional-6.6.z:kernel-0:2.6.32-504.12.2.el6",
+						"6Server-6.6.z:kernel-0:2.6.32-504.12.2.el6",
+						"6Server-optional-6.6.z:kernel-0:2.6.32-504.12.2.el6",
+						"6Workstation-6.6.z:kernel-0:2.6.32-504.12.2.el6",
+						"6Workstation-optional-6.6.z:kernel-0:2.6.32-504.12.2.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.2",
+					"Vector": "AV:L/AC:H/Au:N/C:C/I:C/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: iptables restriction bypass if a protocol handler kernel module not loaded",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-09-25T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-8160",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll kernel users are advised to upgrade to these updated packages, which\ncontain backported patches to correct these issues. The system must be\nrebooted for this update to take effect.\n\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:0674"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-8160",
+						"Description": "CVE-2014-8160"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1182059",
+						"Description": "bz#1182059: CVE-2014-8160 kernel: iptables restriction bypass if a protocol handler kernel module not loaded"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-01-14T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.6.z:kernel-0:2.6.32-504.12.2.el6",
+						"6Client-optional-6.6.z:kernel-0:2.6.32-504.12.2.el6",
+						"6ComputeNode-6.6.z:kernel-0:2.6.32-504.12.2.el6",
+						"6ComputeNode-optional-6.6.z:kernel-0:2.6.32-504.12.2.el6",
+						"6Server-6.6.z:kernel-0:2.6.32-504.12.2.el6",
+						"6Server-optional-6.6.z:kernel-0:2.6.32-504.12.2.el6",
+						"6Workstation-6.6.z:kernel-0:2.6.32-504.12.2.el6",
+						"6Workstation-optional-6.6.z:kernel-0:2.6.32-504.12.2.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.8",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: kvm: excessive pages un-pinning in kvm_iommu_map error path",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-10-24T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-8369",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll kernel users are advised to upgrade to these updated packages, which\ncontain backported patches to correct these issues. The system must be\nrebooted for this update to take effect.\n\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:0674"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-8369",
+						"Description": "CVE-2014-8369"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1156518",
+						"Description": "bz#1156518: CVE-2014-8369 kernel: kvm: excessive pages un-pinning in kvm_iommu_map error path"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-10-21T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.6.z:kernel-0:2.6.32-504.12.2.el6",
+						"6Client-optional-6.6.z:kernel-0:2.6.32-504.12.2.el6",
+						"6ComputeNode-6.6.z:kernel-0:2.6.32-504.12.2.el6",
+						"6ComputeNode-optional-6.6.z:kernel-0:2.6.32-504.12.2.el6",
+						"6Server-6.6.z:kernel-0:2.6.32-504.12.2.el6",
+						"6Server-optional-6.6.z:kernel-0:2.6.32-504.12.2.el6",
+						"6Workstation-6.6.z:kernel-0:2.6.32-504.12.2.el6",
+						"6Workstation-optional-6.6.z:kernel-0:2.6.32-504.12.2.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:A/AC:H/Au:S/C:N/I:N/A:C"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 6)",
+							"productid": "6Client-6.6.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+							"productid": "6Client-optional-6.6.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node (v. 6)",
+							"productid": "6ComputeNode-6.6.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+							"productid": "6ComputeNode-optional-6.6.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 6)",
+							"productid": "6Server-6.6.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional (v. 6)",
+							"productid": "6Server-optional-6.6.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 6)",
+							"productid": "6Workstation-6.6.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+							"productid": "6Workstation-optional-6.6.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-0:2.6.32-504.12.2.el6",
+				"fullproductname": {
+					"text": "kernel-2.6.32-504.12.2.el6.src.rpm",
+					"productid": "kernel-0:2.6.32-504.12.2.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "kernel-0:2.6.32-504.12.2.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-6.6.z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-504.12.2.el6 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"productid": "6Client-6.6.z:kernel-0:2.6.32-504.12.2.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.32-504.12.2.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-optional-6.6.z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-504.12.2.el6 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"productid": "6Client-optional-6.6.z:kernel-0:2.6.32-504.12.2.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.32-504.12.2.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-6.6.z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-504.12.2.el6 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"productid": "6ComputeNode-6.6.z:kernel-0:2.6.32-504.12.2.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.32-504.12.2.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-optional-6.6.z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-504.12.2.el6 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"productid": "6ComputeNode-optional-6.6.z:kernel-0:2.6.32-504.12.2.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.32-504.12.2.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-6.6.z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-504.12.2.el6 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"productid": "6Server-6.6.z:kernel-0:2.6.32-504.12.2.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.32-504.12.2.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-optional-6.6.z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-504.12.2.el6 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"productid": "6Server-optional-6.6.z:kernel-0:2.6.32-504.12.2.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.32-504.12.2.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-6.6.z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-504.12.2.el6 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"productid": "6Workstation-6.6.z:kernel-0:2.6.32-504.12.2.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.32-504.12.2.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-optional-6.6.z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-504.12.2.el6 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"productid": "6Workstation-optional-6.6.z:kernel-0:2.6.32-504.12.2.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			}
+		]
+	}
+}

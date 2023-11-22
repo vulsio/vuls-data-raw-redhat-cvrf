@@ -1,0 +1,252 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: virt-v2v security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2011:1615"
+		},
+		"Status": "Final",
+		"Version": "3",
+		"revisionhistory": {
+			"revision": {
+				"Number": "3",
+				"Date": "2011-12-05T19:51:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2011-12-05T19:41:00Z",
+		"CurrentReleaseDate": "2011-12-05T19:51:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:32:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nAn updated virt-v2v package that fixes one security issue and several bugs\nis now available for Red Hat Enterprise Linux 6.\n\nThe Red Hat Security Response Team has rated this update as having low\nsecurity impact. A Common Vulnerability Scoring System (CVSS) base score,\nwhich gives a detailed severity rating, is available from the CVE link in\nthe References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nvirt-v2v is a tool for converting and importing virtual machines to\nlibvirt-managed KVM (Kernel-based Virtual Machine), or Red Hat Enterprise\nVirtualization.\n\nUsing virt-v2v to convert a guest that has a password-protected VNC console\nto a KVM guest removed that password protection from the converted guest:\nafter conversion, a password was not required to access the converted\nguest's VNC console. Now, converted guests will require the same VNC\nconsole password as the original guest. Note that when converting a guest\nto run on Red Hat Enterprise Virtualization, virt-v2v will display a\nwarning that VNC passwords are not supported. (CVE-2011-1773)\n\nNote: The Red Hat Enterprise Linux 6.2 perl-Sys-Virt update must also be\ninstalled to correct CVE-2011-1773.\n\nBug fixes:\n\n* When converting a guest virtual machine (VM), whose name contained\ncertain characters, virt-v2v would create a converted guest with a\ncorrupted name. Now, virt-v2v will not corrupt guest names. (BZ#665883)\n\n* There were numerous usability issues when running virt-v2v as a non-root\nuser. This update makes it simpler to run virt-v2v as a non-root user.\n(BZ#671094)\n\n* virt-v2v failed to convert a Microsoft Windows guest with Windows\nRecovery Console installed in a separate partition. Now, virt-v2v will\nsuccessfully convert a guest with Windows Recovery Console installed in a\nseparate partition by ignoring that partition. (BZ#673066)\n\n* virt-v2v failed to convert a Red Hat Enterprise Linux guest which did not\nhave the symlink \"/boot/grub/menu.lst\". With this update, virt-v2v can\nselect a grub configuration file from several places. (BZ#694364)\n\n* This update removes information about the usage of deprecated command\nline options in the virt-v2v man page. (BZ#694370)\n\n* virt-v2v would fail to correctly change the allocation policy, (sparse or\npreallocated) when converting a guest with QCOW2 image format. The error\nmessage \"Cannot import VM, The selected disk configuration is not\nsupported\" was displayed. With this update, allocation policy changes to a\nguest with QCOW2 storage will work correctly. (BZ#696089)\n\n* The options \"--network\" and \"--bridge\" can not be used in conjunction\nwhen converting a guest, but no error message was displayed. With this\nupdate, virt-v2v will now display an error message if the mutually\nexclusive \"--network\" and \"--bridge\" command line options are both\nspecified. (BZ#700759)\n\n* virt-v2v failed to convert a multi-boot guest, and did not clean up\ntemporary storage and mount points after failure. With this update,\nvirt-v2v will prompt for which operating system to convert from a\nmulti-boot guest, and will correctly clean up if the process fails.\n(BZ#702007)\n\n* virt-v2v failed to correctly configure modprobe aliases when converting a\nVMware ESX guest with VMware Tools installed. With this update, modprobe\naliases will be correctly configured. (BZ#707261)\n\n* When converting a guest with preallocated raw storage using the\nlibvirtxml input method, virt-v2v failed with the erroneous error message\n\"size(X) < usage(Y)\". This update removes this erroneous error. (BZ#727489)\n\n* When converting a Red Hat Enterprise Linux guest, virt-v2v did not check\nthat the Cirrus X driver was available before configuring it. With this\nupdate, virt-v2v will attempt to install the Cirrus X driver if it is\nrequired. (BZ#708961)\n\n* VirtIO systems do not support the Windows Recovery Console on 32-bit\nWindows XP. The virt-v2v man page has been updated to note this. On Windows\nXP Professional x64 Edition, however, if Windows Recovery Console is\nre-installed after conversion, it will work as expected. (BZ#732421)\n\n* Placing comments in the guest fstab file by means of the leading \"#\"\nsymbol caused an \"unknown filesystem\" error after conversion of a guest.\nWith this update comments can now be used and error messages will not be\ndisplayed. (BZ#677870)\n\nUsers of virt-v2v should upgrade to this updated package, which fixes these\nissues and upgrades virt-v2v to version 0.8.3.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Low",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2011:1615",
+				"Description": "https://access.redhat.com/errata/RHSA-2011:1615"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#low",
+				"Description": "https://access.redhat.com/security/updates/classification/#low"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "virt-v2v: vnc password protection is missing after vm conversion",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2010-01-23T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2011-1773",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/kb/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2011:1615"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2011-1773",
+						"Description": "CVE-2011-1773"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=702754",
+						"Description": "bz#702754: CVE-2011-1773 virt-v2v: vnc password protection is missing after vm conversion"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2010-12-23T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client:virt-v2v-0:0.8.3-5.el6",
+						"6ComputeNode:virt-v2v-0:0.8.3-5.el6",
+						"6Server:virt-v2v-0:0.8.3-5.el6",
+						"6Workstation:virt-v2v-0:0.8.3-5.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "3.7",
+					"Vector": "AV:L/AC:H/Au:N/C:P/I:P/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 6)",
+							"productid": "6Client",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node (v. 6)",
+							"productid": "6ComputeNode",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 6)",
+							"productid": "6Server",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 6)",
+							"productid": "6Workstation",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "virt-v2v-0:0.8.3-5.el6",
+				"fullproductname": {
+					"text": "virt-v2v-0.8.3-5.el6.src.rpm",
+					"productid": "virt-v2v-0:0.8.3-5.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "virt-v2v-0:0.8.3-5.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client",
+				"fullproductname": {
+					"text": "virt-v2v-0:0.8.3-5.el6 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"productid": "6Client:virt-v2v-0:0.8.3-5.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "virt-v2v-0:0.8.3-5.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode",
+				"fullproductname": {
+					"text": "virt-v2v-0:0.8.3-5.el6 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"productid": "6ComputeNode:virt-v2v-0:0.8.3-5.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "virt-v2v-0:0.8.3-5.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server",
+				"fullproductname": {
+					"text": "virt-v2v-0:0.8.3-5.el6 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"productid": "6Server:virt-v2v-0:0.8.3-5.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "virt-v2v-0:0.8.3-5.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation",
+				"fullproductname": {
+					"text": "virt-v2v-0:0.8.3-5.el6 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"productid": "6Workstation:virt-v2v-0:0.8.3-5.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			}
+		]
+	}
+}

@@ -1,0 +1,192 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: Red Hat Virtualization Manager (RHV) bug fix 3.6.9",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2016:1929"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2016-09-21T17:57:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2016-09-21T17:57:00Z",
+		"CurrentReleaseDate": "2016-09-21T17:57:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:43:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nAn update for org.ovirt.engine-root is now available for RHEV Manager version 3.6.\n\nRed Hat Product Security has rated this update as having a security impact of Moderate. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe Red Hat Virtualization Manager is a centralized management platform \nthat allows system administrators to view and manage virtual machines. The \nManager provides a comprehensive range of features including search \ncapabilities, resource management, live migrations, and virtual \ninfrastructure provisioning.\n \nThe Manager is a JBoss Application Server application that provides several\ninterfaces through which the virtual environment can be accessed and \ninteracted with, including an Administration Portal, a User Portal, and a \nRepresentational State Transfer (REST) Application Programming Interface \n(API).\n\nSecurity Fix(es):\n\n* A flaw was found in RHEV Manager, where it wrote sensitive data to the engine-setup log file. A local attacker could exploit this flaw to view sensitive information such as encryption keys and certificates (which could then be used to steal other sensitive information such as passwords). (CVE-2016-4443)\n\nThis issue was discovered by Simone Tiraboschi (Red Hat).\n\nBug Fix(es):\n\n* With this update, users are now warned to set the system in global maintenance mode before running the engine-setup command. This is because data corruption may occur if the engine-setup command is run without setting the system into global maintenance mode. This update means that the user is warned and the setup will be aborted if the system is not in global maintenance mode and the engine is running in the hosted engine configuration. (BZ#1359844)\n\n* Previously, the update of the compatibility version of a cluster with many running virtual machines that are installed with the guest-agent caused a deadlock that caused the update to fail. In some cases, these clusters could not be upgraded to a newer compatibility version. Now, the deadlock in the database has been prevented so that a cluster with many running virtual machines that are installed with the guest-agent can be upgraded to newer compatibility version. (BZ#1369415)\n\n* Previously, a virtual machine with a null CPU profile id stored in the database caused a NPE when editing the virtual machine. Now, a virtual machine with a null CPU profile id stored in the database is correctly handled and the virtual machine can be edited. (BZ#1373090)\n\n* Setting only one of the thresholds for power saving/evenly distributed memory based balancing (high or low) can lead to unexpected results. For example, when in power saving load balancing the threshold for memory over utilized hosts was set with a value, and the threshold for memory under utilized hosts was undefined thus getting a default value of 0. All hosts were considered as under utilized hosts and were chosen as sources for migration, but no host was chosen as a destination for migration.\n\nThis has now been changed so that when the threshold for memory under utilized host is undefined, it gets a default value of Long.MAX. Now, when the threshold for memory over utilized hosts is set with a value, and the threshold for memory under utilized host is undefined, only over utilized hosts will be selected as sources for migration, and destination hosts will be hosts that are not over utilized. (BZ#1359767)\n\n* Previously, recently added logs that printed the amount of virtual machines running on a host were excessively written to the log file. Now, the frequency of these log have been reduced by printing them only upon a change in the number of virtual machines running on the host. (BZ#1367519)\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2016:1929",
+				"Description": "https://access.redhat.com/errata/RHSA-2016:1929"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "org.ovirt.engine-root: engine-setup logs contained information for extracting admin password",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-09-02T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2016-4443",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2016:1929"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2016-4443",
+						"Description": "CVE-2016-4443"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1335106",
+						"Description": "bz#1335106: CVE-2016-4443 org.ovirt.engine-root: engine-setup logs contained information for extracting admin password"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2016-05-09T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-RHEV-S-3.6:org.ovirt.engine-root-0:3.6.9.2-1"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "This issue was discovered by Simone Tiraboschi (Red Hat)."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.9",
+					"Vector": "AV:L/AC:L/Au:N/C:C/I:N/A:N"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Virtualization",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "RHEV-M 3.6",
+						"fullproductname": {
+							"text": "RHEV-M 3.6",
+							"productid": "6Server-RHEV-S-3.6",
+							"cpe": "cpe:/a:redhat:rhev_manager:3"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "org.ovirt.engine-root-0:3.6.9.2-1",
+				"fullproductname": {
+					"text": "org.ovirt.engine-root-3.6.9.2-1.src.rpm",
+					"productid": "org.ovirt.engine-root-0:3.6.9.2-1",
+					"cpe": "cpe:/a:redhat:rhev_manager:3"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "org.ovirt.engine-root-0:3.6.9.2-1",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RHEV-S-3.6",
+				"fullproductname": {
+					"text": "org.ovirt.engine-root-0:3.6.9.2-1 as a component of RHEV-M 3.6",
+					"productid": "6Server-RHEV-S-3.6:org.ovirt.engine-root-0:3.6.9.2-1",
+					"cpe": "cpe:/a:redhat:rhev_manager:3"
+				}
+			}
+		]
+	}
+}

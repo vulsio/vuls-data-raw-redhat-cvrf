@@ -1,0 +1,192 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: openstack-neutron security, bug fix, and enhancement update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2014:0091"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2014-01-22T18:31:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2014-01-22T18:31:00Z",
+		"CurrentReleaseDate": "2014-01-22T18:31:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:35:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated openstack-neutron packages that fix one security issue, several\nbugs, and add various enhancements are now available for Red Hat Enterprise\nLinux OpenStack Platform 4.0.\n\nThe Red Hat Security Response Team has rated this update as having moderate\nsecurity impact. A Common Vulnerability Scoring System (CVSS) base score,\nwhich gives a detailed severity rating, is available from the CVE link in\nthe References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe openstack-neutron packages provide Openstack Networking (neutron), the\nvirtual network service.\n\nIt was discovered that the metadata agent in OpenStack Networking was\nmissing an authorization check on the device ID that is bound to a specific\nport. A remote tenant could guess the instance ID bound to a port and\nretrieve metadata of another tenant, resulting in information disclosure.\nNote that only OpenStack Networking setups running neutron-metadata-agent\nwere affected. (CVE-2013-6419)\n\nRed Hat would like to thank Jeremy Stanley of the OpenStack Project for\nreporting this issue. Upstream acknowledges Aaron Rosen of VMware as the\noriginal reporter.\n\nThe openstack-neutron packages have been upgraded to upstream version\n2013.2.1, which provides a number of bug fixes and enhancements over the\nprevious version. The most notable fixes and enhancements are:\n\n- Support for multiple workers in the Neutron API. This can be achieved by\n  setting the 'workers=' parameter in the neutron.conf file.\n\n- The downtime and report interval default settings are tuned for\n  neutron agents.\n\n- The floating IP address stability has been enhanced.\n\n- A heartbeat-related deadlock problem in neutron-server has been fixed.\n\n(BZ#1045419)\n\nThis update also fixes the following bugs:\n\n* An incorrect warning was displayed when running neutron-dhcp-agent with\nRed Hat Enterprise Linux's version of dnsmasq. This meant that users were\nincorrectly warned that Red Hat Enterprise Linux's dnsmasq version will not\nwork with neutron-dhcp-agent. This warning has been removed, and will no\nlonger be logged to the neutron-dhcp-agent log file. (BZ#1040196)\n\n* A bug in the QPID topic consumer re-connection logic (under the v2\ntopology) caused qpidd to use a malformed subscriber address after\nrestarting, resulting in RPC requests sent to a topic with multiple servers\nending up being incorrectly multicast to all servers. This update removes\nthe special-case reconnect logic that handles UUID addresses, which in turn\navoids the incorrect establishment of multiple subscription to the same\nfanout address. The QPID broker now simply automatically generates unique\nqueue names when clients reconnect. (BZ#1045067)\n\n* Thread-consuming QPID messages were killed silently by unhandled errors,\nthus resulting in isolating the component from the rest of the system.\nWith this update, consuming threads are made more resilient to errors by\nensuring they do not die on an unhandled error. The error is now logged,\nand the consuming thread is retried. (BZ#1054249)\n\nIn addition, this update adds the following enhancement:\n\n* Previously, instances connected to tenant networks gained outside\nconnectivity by going through an SNAT by the L3 agent hosting that\nnetwork's virtual router. With this release, the ability to disable\nSNAT/PAT on virtual servers is added ensuring that an instance in a tenant\nnetwork subnet will retain its IP address as it passes through external\nnetworks. For example, if 10.0.0.1 is an instance in the 10.0.0.0/8 tenant\nnetwork, R1, a virtual router that connects the 10.0.0.0/8 subnet to the\n20.0.0.0/8 public provider networks, then you can use the 'neutron\nrouter-gateway-set --disable-snat R1 public' command and any traffic from\n10.0.0.1, which is forwarded out to the provider network, will retain its\nactual source IP address of 10.0.0.1. This can be a flexible and useful\nmethod to connect instances directly to a provider network, while retaining\nit in a tenant network. (BZ#1046070)\n\nAll openstack-neutron users are advised to upgrade to these updated\npackages, which correct these issues and add these enhancements.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2014:0091",
+				"Description": "https://access.redhat.com/errata/RHSA-2014:0091"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "OpenStack Neutron and Nova: Metadata queries from Neutron to Nova are not restricted by tenant",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-12-11T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-6419",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/site/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2014:0091"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-6419",
+						"Description": "CVE-2013-6419"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1039148",
+						"Description": "bz#1039148: CVE-2013-6419 OpenStack Neutron and Nova: Metadata queries from Neutron to Nova are not restricted by tenant"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2013-12-06T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-RHOS-4.0:openstack-neutron-0:2013.2.1-4.el6ost"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.0",
+					"Vector": "AV:N/AC:L/Au:S/C:P/I:N/A:N"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat OpenStack Platform",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux OpenStack Platform 4.0",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux OpenStack Platform 4.0",
+							"productid": "6Server-RHOS-4.0",
+							"cpe": "cpe:/a:redhat:openstack:4::el6"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "openstack-neutron-0:2013.2.1-4.el6ost",
+				"fullproductname": {
+					"text": "openstack-neutron-2013.2.1-4.el6ost.src.rpm",
+					"productid": "openstack-neutron-0:2013.2.1-4.el6ost",
+					"cpe": "cpe:/a:redhat:openstack:4::el6"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "openstack-neutron-0:2013.2.1-4.el6ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RHOS-4.0",
+				"fullproductname": {
+					"text": "openstack-neutron-0:2013.2.1-4.el6ost as a component of Red Hat Enterprise Linux OpenStack Platform 4.0",
+					"productid": "6Server-RHOS-4.0:openstack-neutron-0:2013.2.1-4.el6ost",
+					"cpe": "cpe:/a:redhat:openstack:4::el6"
+				}
+			}
+		]
+	}
+}

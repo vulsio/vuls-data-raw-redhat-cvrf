@@ -1,0 +1,424 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Bug Fix Advisory: OpenShift Container Platform 3.9 bug fix and enhancement update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHBA-2018:1796"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2019-09-20T05:29:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2018-06-06T15:46:00Z",
+		"CurrentReleaseDate": "2019-09-20T05:29:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.12.2",
+			"Date": "2023-03-24T15:05:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nRed Hat OpenShift Container Platform release 3.9.30 is now available with updates to packages and images that fix several bugs and add enhancements.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nRed Hat OpenShift Container Platform is the company's cloud computing Platform-as-a-Service (PaaS) solution designed for on-premise or private cloud deployments.\n\nThis advisory contains the RPM packages for Red Hat OpenShift Container Platform 3.9.30. See the following advisory for the container images for this release:\n\nhttps://access.redhat.com/errata/RHBA-2018:1797\n\nThis update fixes the following bugs:\n\n* Jenkins no_proxy processing could not handle suffixes like \".svc\". As a result, communication between a Jenkins k8s agent pod and the Jenkins master would attempt to go through a configured http_proxy and fail.\nWith this bug fix, the OpenShift Container Platform jenkins agent images are updated to automatically include the jenkins master and jnlp hosts in the no_proxy list. The Jenkins limitation for no_proxy processing is now circumvented.(BZ#1578989)\n\n* When creating the Elasticsearch server certificate, the external Elasticsearch host names were unconditionally added to the subjectAltName. Installation would fail because only host name components beginning with a letter are allowed in the subjectAltName, so hostnames like es.0xdeadbeef.com were disallowed and would cause an error. A warning is now issued if the Elasticsearch host name contains a component which does not begin with a letter, and it is not added to the subjectAltName. Logging installation now completes successfully. (BZ#1567767)\n\n* The plug-in only caught the KubeException, but not more general exceptions. Therefore, consumers were stuck cycling until the API server could be contacted. Metadata fetch is now more relaxed and gracefully catches the exception, returning no metadata, and subsequently the record is orphaned. (BZ#1560170)\n\n* logging-elasticsearch-ops was missing in the delete configmaps list in the openshift-ansible delete_logging role. The logging-elasticsearch-ops configmap still exists after running uninstall ansible playbook for logging. logging-elasticsearch-ops is added to the delete configmaps list. All of the logging configmaps including logging-elasticsearch-ops are now uninstalled by running the uninstall ansible playbook for logging. (BZ#1549220)\n\n* The Create Project button was incorrectly displayed to users when they had no projects and self-provisioning had been disabled on the projects list page of the web console. The action would always fail, so the button should have been hidden. The bug is now fixed, and Create Project is now correctly hidden in the console when self-provisioning is disabled. (BZ#1577359)\n\n* This bug fix addresses an issue pulling images from a private docker hub registry. (BZ#1578088)\n\n* This bug fix addresseswhere cfs_quota might still be set on a pod even when cpu-cfs-quota is set to false on the node. (BZ#1581860)\n\nThis update includes the following enhancement:\n\n* Users are now allowed to disable JSON payload parsing. Parsing each log message into JSON and attaching it to the final payload is an expensive operation. Fluentd can now be configured to disable parsing of message payloads. This is the initial configuration change to deprecating the feature from the fluent-plugin-kubernetes_metadata_filter. (BZ#1569825)\n\nAll OpenShift Container Platform 3.9 users are advised to upgrade to these updated packages and images.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2023 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHBA-2018:1796",
+				"Description": "https://access.redhat.com/errata/RHBA-2018:1796"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Kubernetes CRI-O version prior to 1.9 contains a Privilege Context Switching Error (CWE-270) vulnerability in the handling of ambient capabilities that can result in containers running with elevated privileges, allowing users abilities they should not have. This attack appears to be exploitable via container execution. This vulnerability appears to have been fixed in 1.9.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2018-04-27T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2018-1000400",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata relevant to your system have been applied.\n\nFor OpenShift Container Platform 3.9 see the following documentation, which will be updated shortly for release 3.9.30, for important instructions on how to upgrade your cluster and fully apply this asynchronous errata update:\n\nhttps://docs.openshift.com/container-platform/3.9/release_notes/ocp_3_9_release_notes.html\n\nThis update is available via the Red Hat Network. Details on how to use the Red Hat Network to apply this update are available at https://access.redhat.com/articles/11258.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHBA-2018:1796"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2018-1000400",
+						"Description": "CVE-2018-1000400"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1578109",
+						"Description": "bz#1578109: CVE-2018-1000400 cri-o: capabilities are not dropped when switching to a non-root user"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2018-05-07T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-RH7-RHOSE-3.9:atomic-openshift-0:3.9.30-1.git.0.dec1ba7.el7",
+						"7Server-RH7-RHOSE-3.9:atomic-openshift-dockerregistry-0:3.9.30-1.git.349.8b7912c.el7",
+						"7Server-RH7-RHOSE-3.9:atomic-openshift-web-console-0:3.9.30-1.git.245.4a3aade.el7",
+						"7Server-RH7-RHOSE-3.9:cri-o-0:1.9.12-1.gitfa11beb.el7",
+						"7Server-RH7-RHOSE-3.9:cri-tools-0:1.0.0-5.rhaos3.9.git8e6013a.el7",
+						"7Server-RH7-RHOSE-3.9:golang-github-prometheus-node_exporter-0:3.9.30-1.git.890.7ea5173.el7",
+						"7Server-RH7-RHOSE-3.9:openshift-ansible-0:3.9.30-1.git.7.46f8678.el7",
+						"7Server-RH7-RHOSE-3.9:rubygem-fluent-plugin-elasticsearch-0:1.16.1-1.el7",
+						"7Server-RH7-RHOSE-3.9:rubygem-fluent-plugin-kubernetes_metadata_filter-0:1.0.3-1.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "This issue was discovered by OpenShift team (Red Hat)."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "An improper validation flaw exists in the kubernetes 'kubectl cp' command. An attacker, who could trick a user into using the command to copy files locally from a pod, could override files outside of the target directory of the command.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2018-03-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2018-1002100",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata relevant to your system have been applied.\n\nFor OpenShift Container Platform 3.9 see the following documentation, which will be updated shortly for release 3.9.30, for important instructions on how to upgrade your cluster and fully apply this asynchronous errata update:\n\nhttps://docs.openshift.com/container-platform/3.9/release_notes/ocp_3_9_release_notes.html\n\nThis update is available via the Red Hat Network. Details on how to use the Red Hat Network to apply this update are available at https://access.redhat.com/articles/11258.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHBA-2018:1796"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2018-1002100",
+						"Description": "CVE-2018-1002100"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1564305",
+						"Description": "bz#1564305: CVE-2018-1002100 kubernetes: Kubectl copy doesn't check for paths outside of it's destination directory"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2018-03-17T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-RH7-RHOSE-3.9:atomic-openshift-0:3.9.30-1.git.0.dec1ba7.el7",
+						"7Server-RH7-RHOSE-3.9:atomic-openshift-dockerregistry-0:3.9.30-1.git.349.8b7912c.el7",
+						"7Server-RH7-RHOSE-3.9:atomic-openshift-web-console-0:3.9.30-1.git.245.4a3aade.el7",
+						"7Server-RH7-RHOSE-3.9:cri-o-0:1.9.12-1.gitfa11beb.el7",
+						"7Server-RH7-RHOSE-3.9:cri-tools-0:1.0.0-5.rhaos3.9.git8e6013a.el7",
+						"7Server-RH7-RHOSE-3.9:golang-github-prometheus-node_exporter-0:3.9.30-1.git.890.7ea5173.el7",
+						"7Server-RH7-RHOSE-3.9:openshift-ansible-0:3.9.30-1.git.7.46f8678.el7",
+						"7Server-RH7-RHOSE-3.9:rubygem-fluent-plugin-elasticsearch-0:1.16.1-1.el7",
+						"7Server-RH7-RHOSE-3.9:rubygem-fluent-plugin-kubernetes_metadata_filter-0:1.0.3-1.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank Michael Hanselmann (hansmi.ch) for reporting this issue."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat OpenShift Enterprise",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat OpenShift Container Platform 3.9",
+						"fullproductname": {
+							"text": "Red Hat OpenShift Container Platform 3.9",
+							"productid": "7Server-RH7-RHOSE-3.9",
+							"cpe": "cpe:/a:redhat:openshift:3.9::el7"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "atomic-openshift-0:3.9.30-1.git.0.dec1ba7.el7",
+				"fullproductname": {
+					"text": "atomic-openshift-3.9.30-1.git.0.dec1ba7.el7.src.rpm",
+					"productid": "atomic-openshift-0:3.9.30-1.git.0.dec1ba7.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.9::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "atomic-openshift-dockerregistry-0:3.9.30-1.git.349.8b7912c.el7",
+				"fullproductname": {
+					"text": "atomic-openshift-dockerregistry-3.9.30-1.git.349.8b7912c.el7.src.rpm",
+					"productid": "atomic-openshift-dockerregistry-0:3.9.30-1.git.349.8b7912c.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.9::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "atomic-openshift-web-console-0:3.9.30-1.git.245.4a3aade.el7",
+				"fullproductname": {
+					"text": "atomic-openshift-web-console-3.9.30-1.git.245.4a3aade.el7.src.rpm",
+					"productid": "atomic-openshift-web-console-0:3.9.30-1.git.245.4a3aade.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.9::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "cri-o-0:1.9.12-1.gitfa11beb.el7",
+				"fullproductname": {
+					"text": "cri-o-1.9.12-1.gitfa11beb.el7.src.rpm",
+					"productid": "cri-o-0:1.9.12-1.gitfa11beb.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.9::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "cri-tools-0:1.0.0-5.rhaos3.9.git8e6013a.el7",
+				"fullproductname": {
+					"text": "cri-tools-1.0.0-5.rhaos3.9.git8e6013a.el7.src.rpm",
+					"productid": "cri-tools-0:1.0.0-5.rhaos3.9.git8e6013a.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.9::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "golang-github-prometheus-node_exporter-0:3.9.30-1.git.890.7ea5173.el7",
+				"fullproductname": {
+					"text": "golang-github-prometheus-node_exporter-3.9.30-1.git.890.7ea5173.el7.src.rpm",
+					"productid": "golang-github-prometheus-node_exporter-0:3.9.30-1.git.890.7ea5173.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.9::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openshift-ansible-0:3.9.30-1.git.7.46f8678.el7",
+				"fullproductname": {
+					"text": "openshift-ansible-3.9.30-1.git.7.46f8678.el7.src.rpm",
+					"productid": "openshift-ansible-0:3.9.30-1.git.7.46f8678.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.9::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-fluent-plugin-elasticsearch-0:1.16.1-1.el7",
+				"fullproductname": {
+					"text": "rubygem-fluent-plugin-elasticsearch-1.16.1-1.el7.src.rpm",
+					"productid": "rubygem-fluent-plugin-elasticsearch-0:1.16.1-1.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.9::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-fluent-plugin-kubernetes_metadata_filter-0:1.0.3-1.el7",
+				"fullproductname": {
+					"text": "rubygem-fluent-plugin-kubernetes_metadata_filter-1.0.3-1.el7.src.rpm",
+					"productid": "rubygem-fluent-plugin-kubernetes_metadata_filter-0:1.0.3-1.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.9::el7"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "atomic-openshift-0:3.9.30-1.git.0.dec1ba7.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOSE-3.9",
+				"fullproductname": {
+					"text": "atomic-openshift-0:3.9.30-1.git.0.dec1ba7.el7 as a component of Red Hat OpenShift Container Platform 3.9",
+					"productid": "7Server-RH7-RHOSE-3.9:atomic-openshift-0:3.9.30-1.git.0.dec1ba7.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.9::el7"
+				}
+			},
+			{
+				"productreference": "atomic-openshift-dockerregistry-0:3.9.30-1.git.349.8b7912c.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOSE-3.9",
+				"fullproductname": {
+					"text": "atomic-openshift-dockerregistry-0:3.9.30-1.git.349.8b7912c.el7 as a component of Red Hat OpenShift Container Platform 3.9",
+					"productid": "7Server-RH7-RHOSE-3.9:atomic-openshift-dockerregistry-0:3.9.30-1.git.349.8b7912c.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.9::el7"
+				}
+			},
+			{
+				"productreference": "atomic-openshift-web-console-0:3.9.30-1.git.245.4a3aade.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOSE-3.9",
+				"fullproductname": {
+					"text": "atomic-openshift-web-console-0:3.9.30-1.git.245.4a3aade.el7 as a component of Red Hat OpenShift Container Platform 3.9",
+					"productid": "7Server-RH7-RHOSE-3.9:atomic-openshift-web-console-0:3.9.30-1.git.245.4a3aade.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.9::el7"
+				}
+			},
+			{
+				"productreference": "cri-o-0:1.9.12-1.gitfa11beb.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOSE-3.9",
+				"fullproductname": {
+					"text": "cri-o-0:1.9.12-1.gitfa11beb.el7 as a component of Red Hat OpenShift Container Platform 3.9",
+					"productid": "7Server-RH7-RHOSE-3.9:cri-o-0:1.9.12-1.gitfa11beb.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.9::el7"
+				}
+			},
+			{
+				"productreference": "cri-tools-0:1.0.0-5.rhaos3.9.git8e6013a.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOSE-3.9",
+				"fullproductname": {
+					"text": "cri-tools-0:1.0.0-5.rhaos3.9.git8e6013a.el7 as a component of Red Hat OpenShift Container Platform 3.9",
+					"productid": "7Server-RH7-RHOSE-3.9:cri-tools-0:1.0.0-5.rhaos3.9.git8e6013a.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.9::el7"
+				}
+			},
+			{
+				"productreference": "golang-github-prometheus-node_exporter-0:3.9.30-1.git.890.7ea5173.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOSE-3.9",
+				"fullproductname": {
+					"text": "golang-github-prometheus-node_exporter-0:3.9.30-1.git.890.7ea5173.el7 as a component of Red Hat OpenShift Container Platform 3.9",
+					"productid": "7Server-RH7-RHOSE-3.9:golang-github-prometheus-node_exporter-0:3.9.30-1.git.890.7ea5173.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.9::el7"
+				}
+			},
+			{
+				"productreference": "openshift-ansible-0:3.9.30-1.git.7.46f8678.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOSE-3.9",
+				"fullproductname": {
+					"text": "openshift-ansible-0:3.9.30-1.git.7.46f8678.el7 as a component of Red Hat OpenShift Container Platform 3.9",
+					"productid": "7Server-RH7-RHOSE-3.9:openshift-ansible-0:3.9.30-1.git.7.46f8678.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.9::el7"
+				}
+			},
+			{
+				"productreference": "rubygem-fluent-plugin-elasticsearch-0:1.16.1-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOSE-3.9",
+				"fullproductname": {
+					"text": "rubygem-fluent-plugin-elasticsearch-0:1.16.1-1.el7 as a component of Red Hat OpenShift Container Platform 3.9",
+					"productid": "7Server-RH7-RHOSE-3.9:rubygem-fluent-plugin-elasticsearch-0:1.16.1-1.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.9::el7"
+				}
+			},
+			{
+				"productreference": "rubygem-fluent-plugin-kubernetes_metadata_filter-0:1.0.3-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOSE-3.9",
+				"fullproductname": {
+					"text": "rubygem-fluent-plugin-kubernetes_metadata_filter-0:1.0.3-1.el7 as a component of Red Hat OpenShift Container Platform 3.9",
+					"productid": "7Server-RH7-RHOSE-3.9:rubygem-fluent-plugin-kubernetes_metadata_filter-0:1.0.3-1.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.9::el7"
+				}
+			}
+		]
+	}
+}

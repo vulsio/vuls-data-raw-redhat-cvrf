@@ -1,0 +1,782 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: kernel security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2010:0504"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2010-07-01T14:26:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2010-07-01T18:00:00Z",
+		"CurrentReleaseDate": "2010-07-01T14:26:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:29:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated kernel packages that fix multiple security issues and several bugs\nare now available for Red Hat Enterprise Linux 5.\n\nThe Red Hat Security Response Team has rated this update as having\nimportant security impact. Common Vulnerability Scoring System (CVSS) base\nscores, which give detailed severity ratings, are available for each\nvulnerability from the CVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe kernel packages contain the Linux kernel, the core of any Linux\noperating system.\n\nThis update fixes the following security issues:\n\n* multiple flaws were found in the mmap and mremap implementations. A local\nuser could use these flaws to cause a local denial of service or escalate\ntheir privileges. (CVE-2010-0291, Important)\n\n* a NULL pointer dereference flaw was found in the Fast Userspace Mutexes\n(futexes) implementation. The unlock code path did not check if the futex\nvalue associated with pi_state->owner had been modified. A local user could\nuse this flaw to modify the futex value, possibly leading to a denial of\nservice or privilege escalation when the pi_state->owner pointer is\ndereferenced. (CVE-2010-0622, Important)\n\n* a NULL pointer dereference flaw was found in the Linux kernel Network\nFile System (NFS) implementation. A local user on a system that has an\nNFS-mounted file system could use this flaw to cause a denial of service or\nescalate their privileges on that system. (CVE-2010-1087, Important)\n\n* a flaw was found in the sctp_process_unk_param() function in the Linux\nkernel Stream Control Transmission Protocol (SCTP) implementation. A remote\nattacker could send a specially-crafted SCTP packet to an SCTP listening\nport on a target system, causing a kernel panic (denial of service).\n(CVE-2010-1173, Important)\n\n* a flaw was found in the Linux kernel Transparent Inter-Process\nCommunication protocol (TIPC) implementation. If a client application, on a\nlocal system where the tipc module is not yet in network mode, attempted to\nsend a message to a remote TIPC node, it would dereference a NULL pointer\non the local system, causing a kernel panic (denial of service).\n(CVE-2010-1187, Important)\n\n* a buffer overflow flaw was found in the Linux kernel Global File System 2\n(GFS2) implementation. In certain cases, a quota could be written past the\nend of a memory page, causing memory corruption, leaving the quota stored\non disk in an invalid state. A user with write access to a GFS2 file system\ncould trigger this flaw to cause a kernel crash (denial of service) or\nescalate their privileges on the GFS2 server. This issue can only be\ntriggered if the GFS2 file system is mounted with the \"quota=on\" or\n\"quota=account\" mount option. (CVE-2010-1436, Important)\n\n* a race condition between finding a keyring by name and destroying a freed\nkeyring was found in the Linux kernel key management facility. A local user\ncould use this flaw to cause a kernel panic (denial of service) or escalate\ntheir privileges. (CVE-2010-1437, Important)\n\n* a flaw was found in the link_path_walk() function in the Linux kernel.\nUsing the file descriptor returned by the open() function with the\nO_NOFOLLOW flag on a subordinate NFS-mounted file system, could result in a\nNULL pointer dereference, causing a denial of service or privilege\nescalation. (CVE-2010-1088, Moderate)\n\n* a missing permission check was found in the gfs2_set_flags() function in\nthe Linux kernel GFS2 implementation. A local user could use this flaw to\nchange certain file attributes of files, on a GFS2 file system, that they\ndo not own. (CVE-2010-1641, Low)\n\nRed Hat would like to thank Jukka Taimisto and Olli Jarva of Codenomicon\nLtd, Nokia Siemens Networks, and Wind River on behalf of their customer,\nfor responsibly reporting CVE-2010-1173; Mario Mikocevic for responsibly\nreporting CVE-2010-1436; and Dan Rosenberg for responsibly reporting\nCVE-2010-1641.\n\nThis update also fixes several bugs. Documentation for these bug fixes will\nbe available shortly from\nhttp://www.redhat.com/docs/en-US/errata/RHSA-2010-0504/Kernel_Security_Update/index.html\n\nUsers should upgrade to these updated packages, which contain backported\npatches to correct these issues. The system must be rebooted for this\nupdate to take effect.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2010:0504",
+				"Description": "https://access.redhat.com/errata/RHSA-2010:0504"
+			},
+			{
+				"type": "External",
+				"URL": "http://www.redhat.com/security/updates/classification/#important",
+				"Description": "http://www.redhat.com/security/updates/classification/#important"
+			},
+			{
+				"type": "External",
+				"URL": "http://kbase.redhat.com/faq/docs/DOC-31052",
+				"Description": "http://kbase.redhat.com/faq/docs/DOC-31052"
+			},
+			{
+				"type": "External",
+				"URL": "http://www.redhat.com/docs/en-US/errata/RHSA-2010-0504/Kernel_Security_Update/index.html",
+				"Description": "http://www.redhat.com/docs/en-US/errata/RHSA-2010-0504/Kernel_Security_Update/index.html"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: untangle the do_mremap()",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2009-12-07T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2010-0291",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2010:0504"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2010-0291",
+						"Description": "CVE-2010-0291"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=556703",
+						"Description": "bz#556703: CVE-2010-0291 kernel: untangle the do_mremap()"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2010-01-19T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client:kernel-0:2.6.18-194.8.1.el5",
+						"5Server:kernel-0:2.6.18-194.8.1.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "7.2",
+					"Vector": "AV:L/AC:L/Au:N/C:C/I:C/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: futex: Handle user space corruption gracefully",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2010-02-02T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2010-0622",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2010:0504"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2010-0622",
+						"Description": "CVE-2010-0622"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=563091",
+						"Description": "bz#563091: CVE-2010-0622 kernel: futex: Handle user space corruption gracefully"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2010-02-09T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client:kernel-0:2.6.18-194.8.1.el5",
+						"5Server:kernel-0:2.6.18-194.8.1.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.9",
+					"Vector": "AV:L/AC:L/Au:N/C:N/I:N/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: NFS: Fix an Oops when truncating a file",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2010-02-19T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2010-1087",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2010:0504"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2010-1087",
+						"Description": "CVE-2010-1087"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=567184",
+						"Description": "bz#567184: CVE-2010-1087 kernel: NFS: Fix an Oops when truncating a file"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2010-02-22T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client:kernel-0:2.6.18-194.8.1.el5",
+						"5Server:kernel-0:2.6.18-194.8.1.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "7.2",
+					"Vector": "AV:L/AC:L/Au:N/C:C/I:C/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: fix LOOKUP_FOLLOW on automount \"symlinks\"",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2010-02-19T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2010-1088",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2010:0504"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2010-1088",
+						"Description": "CVE-2010-1088"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=567813",
+						"Description": "bz#567813: CVE-2010-1088 kernel: fix LOOKUP_FOLLOW on automount \"symlinks\""
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2010-02-24T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client:kernel-0:2.6.18-194.8.1.el5",
+						"5Server:kernel-0:2.6.18-194.8.1.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.9",
+					"Vector": "AV:L/AC:M/Au:N/C:C/I:C/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: sctp: crash due to malformed SCTPChunkInit packet",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2010-04-29T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2010-1173",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2010:0504"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2010-1173",
+						"Description": "CVE-2010-1173"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=584645",
+						"Description": "bz#584645: CVE-2010-1173 kernel: sctp: crash due to malformed SCTPChunkInit packet"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2010-04-22T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client:kernel-0:2.6.18-194.8.1.el5",
+						"5Server:kernel-0:2.6.18-194.8.1.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank Jukka Taimisto (Codenomicon Ltd), Nokia Siemens Networks, Olli Jarva (Codenomicon Ltd), and Wind River for reporting this issue."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "7.1",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "6",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: tipc: Fix oops on send prior to entering networked mode",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2010-02-19T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2010-1187",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2010:0504"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2010-1187",
+						"Description": "CVE-2010-1187"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=578057",
+						"Description": "bz#578057: CVE-2010-1187 kernel: tipc: Fix oops on send prior to entering networked mode"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2010-03-30T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client:kernel-0:2.6.18-194.8.1.el5",
+						"5Server:kernel-0:2.6.18-194.8.1.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.1",
+					"Vector": "AV:A/AC:L/Au:N/C:N/I:N/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "7",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: gfs2 buffer overflow",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2010-01-15T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2010-1436",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2010:0504"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2010-1436",
+						"Description": "CVE-2010-1436"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=586006",
+						"Description": "bz#586006: CVE-2010-1436 kernel: gfs2 buffer overflow"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2010-04-26T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client:kernel-0:2.6.18-194.8.1.el5",
+						"5Server:kernel-0:2.6.18-194.8.1.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "7.2",
+					"Vector": "AV:L/AC:L/Au:N/C:C/I:C/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "8",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: keyrings: find_keyring_by_name() can gain the freed keyring",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2010-04-23T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2010-1437",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2010:0504"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2010-1437",
+						"Description": "CVE-2010-1437"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=585094",
+						"Description": "bz#585094: CVE-2010-1437 kernel: keyrings: find_keyring_by_name() can gain the freed keyring"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2010-04-23T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client:kernel-0:2.6.18-194.8.1.el5",
+						"5Server:kernel-0:2.6.18-194.8.1.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "7.2",
+					"Vector": "AV:L/AC:L/Au:N/C:C/I:C/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "9",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: GFS2: The setflags ioctl() doesn't check file ownership",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2010-05-24T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2010-1641",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2010:0504"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2010-1641",
+						"Description": "CVE-2010-1641"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=595579",
+						"Description": "bz#595579: CVE-2010-1641 kernel: GFS2: The setflags ioctl() doesn't check file ownership"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2010-05-24T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client:kernel-0:2.6.18-194.8.1.el5",
+						"5Server:kernel-0:2.6.18-194.8.1.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.1",
+					"Vector": "AV:L/AC:L/Au:N/C:N/I:P/A:N"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+							"productid": "5Client",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux (v. 5 server)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux (v. 5 server)",
+							"productid": "5Server",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-0:2.6.18-194.8.1.el5",
+				"fullproductname": {
+					"text": "kernel-2.6.18-194.8.1.el5.src.rpm",
+					"productid": "kernel-0:2.6.18-194.8.1.el5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "kernel-0:2.6.18-194.8.1.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Client",
+				"fullproductname": {
+					"text": "kernel-0:2.6.18-194.8.1.el5 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"productid": "5Client:kernel-0:2.6.18-194.8.1.el5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.18-194.8.1.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server",
+				"fullproductname": {
+					"text": "kernel-0:2.6.18-194.8.1.el5 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"productid": "5Server:kernel-0:2.6.18-194.8.1.el5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+				}
+			}
+		]
+	}
+}

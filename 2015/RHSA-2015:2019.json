@@ -1,0 +1,332 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: sssd security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2015:2019"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2015-11-10T13:00:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2015-11-10T13:00:00Z",
+		"CurrentReleaseDate": "2015-11-10T13:00:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:39:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated sssd packages that fix one security issue and several bugs are now\navailable for Red Hat Enterprise Linux 6.\n\nRed Hat Product Security has rated this update as having Low security\nimpact. A Common Vulnerability Scoring System (CVSS) base score, which\ngives a detailed severity rating, is available from the CVE link in the\nReferences section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe System Security Services Daemon (SSSD) service provides a set of\ndaemons to manage access to remote directories and authentication\nmechanisms. It also provides the Name Service Switch (NSS) and the\nPluggable Authentication Modules (PAM) interfaces toward the system, and a\npluggable back-end system to connect to multiple different account sources.\n\nIt was found that SSSD's Privilege Attribute Certificate (PAC) responder\nplug-in would leak a small amount of memory on each authentication request.\nA remote attacker could potentially use this flaw to exhaust all available\nmemory on the system by making repeated requests to a Kerberized daemon\napplication configured to authenticate using the PAC responder plug-in.\n(CVE-2015-5292)\n\nThis update also fixes the following bugs:\n\n* Previously, SSSD did not correctly handle sudo rules that applied to\ngroups with names containing special characters, such as the \"(\" opening\nparenthesis sign. Consequently, SSSD skipped such sudo rules. The internal\nsysdb search has been modified to escape special characters when searching\nfor objects to which sudo rules apply. As a result, SSSD applies the\ndescribed sudo rules as expected. (BZ#1258398)\n\n* Prior to this update, SSSD did not correctly handle group names\ncontaining special Lightweight Directory Access Protocol (LDAP) characters,\nsuch as the \"(\" or \")\" parenthesis signs. When a group name contained one\nor more such characters, the internal cache cleanup operation failed with\nan I/O error. With this update, LDAP special characters in the\nDistinguished Name (DN) of a cache entry are escaped before the cleanup\noperation starts. As a result, the cleanup operation completes successfully\nin the described situation. (BZ#1264098)\n\n* Applications performing Kerberos authentication previously increased the\nmemory footprint of the Kerberos plug-in that parses the Privilege\nAttribute Certificate (PAC) information. The plug-in has been updated to\nfree the memory it allocates, thus fixing this bug. (BZ#1268783)\n\n* Previously, when malformed POSIX attributes were defined in an Active\nDirectory (AD) LDAP server, SSSD unexpectedly switched to offline mode.\nThis update relaxes certain checks for AD POSIX attribute validity. As a\nresult, SSSD now works as expected even when malformed POSIX attributes are\npresent in AD and no longer enters offline mode in the described situation.\n(BZ#1268784)\n\nAll sssd users are advised to upgrade to these updated packages, which\ncontain backported patches to correct these issues. After installing the\nupdate, the sssd service will be restarted automatically. Additionally, all\nrunning applications using the PAC responder plug-in must be restarted for\nthe changes to take effect.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Low",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2015:2019",
+				"Description": "https://access.redhat.com/errata/RHSA-2015:2019"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#low",
+				"Description": "https://access.redhat.com/security/updates/classification/#low"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "sssd: memory leak in the sssd_pac_plugin",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-09-23T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-5292",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:2019"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-5292",
+						"Description": "CVE-2015-5292"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1267580",
+						"Description": "bz#1267580: CVE-2015-5292 sssd: memory leak in the sssd_pac_plugin"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2015-09-25T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.7.z:sssd-0:1.12.4-47.el6_7.4",
+						"6Client-optional-6.7.z:sssd-0:1.12.4-47.el6_7.4",
+						"6ComputeNode-6.7.z:sssd-0:1.12.4-47.el6_7.4",
+						"6ComputeNode-optional-6.7.z:sssd-0:1.12.4-47.el6_7.4",
+						"6Server-6.7.z:sssd-0:1.12.4-47.el6_7.4",
+						"6Server-optional-6.7.z:sssd-0:1.12.4-47.el6_7.4",
+						"6Workstation-6.7.z:sssd-0:1.12.4-47.el6_7.4",
+						"6Workstation-optional-6.7.z:sssd-0:1.12.4-47.el6_7.4"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.1",
+					"Vector": "AV:N/AC:H/Au:S/C:N/I:N/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 6)",
+							"productid": "6Client-6.7.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+							"productid": "6Client-optional-6.7.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node (v. 6)",
+							"productid": "6ComputeNode-6.7.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+							"productid": "6ComputeNode-optional-6.7.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 6)",
+							"productid": "6Server-6.7.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional (v. 6)",
+							"productid": "6Server-optional-6.7.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 6)",
+							"productid": "6Workstation-6.7.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+							"productid": "6Workstation-optional-6.7.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "sssd-0:1.12.4-47.el6_7.4",
+				"fullproductname": {
+					"text": "sssd-1.12.4-47.el6_7.4.src.rpm",
+					"productid": "sssd-0:1.12.4-47.el6_7.4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "sssd-0:1.12.4-47.el6_7.4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-6.7.z",
+				"fullproductname": {
+					"text": "sssd-0:1.12.4-47.el6_7.4 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"productid": "6Client-6.7.z:sssd-0:1.12.4-47.el6_7.4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "sssd-0:1.12.4-47.el6_7.4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-optional-6.7.z",
+				"fullproductname": {
+					"text": "sssd-0:1.12.4-47.el6_7.4 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"productid": "6Client-optional-6.7.z:sssd-0:1.12.4-47.el6_7.4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "sssd-0:1.12.4-47.el6_7.4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-6.7.z",
+				"fullproductname": {
+					"text": "sssd-0:1.12.4-47.el6_7.4 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"productid": "6ComputeNode-6.7.z:sssd-0:1.12.4-47.el6_7.4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "sssd-0:1.12.4-47.el6_7.4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-optional-6.7.z",
+				"fullproductname": {
+					"text": "sssd-0:1.12.4-47.el6_7.4 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"productid": "6ComputeNode-optional-6.7.z:sssd-0:1.12.4-47.el6_7.4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "sssd-0:1.12.4-47.el6_7.4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-6.7.z",
+				"fullproductname": {
+					"text": "sssd-0:1.12.4-47.el6_7.4 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"productid": "6Server-6.7.z:sssd-0:1.12.4-47.el6_7.4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "sssd-0:1.12.4-47.el6_7.4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-optional-6.7.z",
+				"fullproductname": {
+					"text": "sssd-0:1.12.4-47.el6_7.4 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"productid": "6Server-optional-6.7.z:sssd-0:1.12.4-47.el6_7.4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "sssd-0:1.12.4-47.el6_7.4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-6.7.z",
+				"fullproductname": {
+					"text": "sssd-0:1.12.4-47.el6_7.4 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"productid": "6Workstation-6.7.z:sssd-0:1.12.4-47.el6_7.4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			},
+			{
+				"productreference": "sssd-0:1.12.4-47.el6_7.4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-optional-6.7.z",
+				"fullproductname": {
+					"text": "sssd-0:1.12.4-47.el6_7.4 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"productid": "6Workstation-optional-6.7.z:sssd-0:1.12.4-47.el6_7.4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			}
+		]
+	}
+}

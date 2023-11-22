@@ -1,0 +1,261 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: openstack-nova security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2014:0112"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2014-01-30T19:58:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2014-01-30T19:58:00Z",
+		"CurrentReleaseDate": "2014-01-30T19:58:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:40:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated openstack-nova packages that fix two security issues and three bugs\nare now available for Red Hat Enterprise Linux OpenStack Platform 3.0.\n\nThe Red Hat Security Response Team has rated this update as having moderate\nsecurity impact. A Common Vulnerability Scoring System (CVSS) base score,\nwhich gives a detailed severity rating, is available from the CVE link in\nthe References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe openstack-nova packages provide OpenStack Compute (nova), which\nprovides services for provisioning, managing, and using virtual\nmachine instances.\n\nIt was discovered that enabling \"qpid_protocol = ssl\" in the nova.conf file\ndid not result in nova using SSL to communicate to Qpid. If Qpid was not\nconfigured to enforce SSL this could lead to sensitive information being\nsent unencrypted over the communication channel. (CVE-2013-6491)\n\nA flaw was found in the way OpenStack Compute controlled the size of disk\nimages. An authenticated remote user could use malicious compressed qcow2\ndisk images to consume large amounts of disk space, potentially causing a\ndenial of service on the OpenStack Compute nodes. (CVE-2013-4463)\n\nRed Hat would like to thank the OpenStack project for reporting\nCVE-2013-4463. Upstream acknowledges Bernhard M. Wiedemann of SuSE as the\noriginal reporter of this issue.\n\nThis update also fixes the following bugs:\n\n* When using GroupAntiAffinityFilter, the scheduler was not filtering\ninstances in the group, which could cause an instance to not be scheduled\nat all if a group was specified on boot. With this fix, groups are taken\ninto account and the instance is scheduled as expected. (BZ#1014948)\n\n* If an exchange had not been created previously by a consumer, the\npublisher would crash because it could not find the specified exchange.\nThis resulted from Qpid's direct publisher using the wrong exchange type\n'Direct'. With this fix, the exchange type in the publisher has been\nchanged to 'direct'. (BZ#1042055)\n\n* Unhandled errors in the Qpid consuming thread could kill it silently and\nisolate the component from the rest of the system. To fix this, the\nconsuming thread has been made more resilient to errors by ensuring it does\nnot die on an unhandled error. Compute now logs the error and retries the\nconsuming thread. (BZ#1050213)\n\nAll openstack-nova users are advised to upgrade to these updated packages,\nwhich contain backported patches to correct these issues.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2014:0112",
+				"Description": "https://access.redhat.com/errata/RHSA-2014:0112"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "OpenStack Nova: Compressed disk image DoS",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-10-31T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-4463",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/site/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2014:0112"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-4463",
+						"Description": "CVE-2013-4463"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1023239",
+						"Description": "bz#1023239: CVE-2013-4463 OpenStack Nova: Compressed disk image DoS"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2013-10-24T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-Grizzly:openstack-nova-0:2013.1.4-4.el6ost"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.0",
+					"Vector": "AV:N/AC:L/Au:S/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Openstack nova: qpid SSL configuration",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-03-22T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-6491",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/site/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2014:0112"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-6491",
+						"Description": "CVE-2013-6491"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1059504",
+						"Description": "bz#1059504: CVE-2013-6491 Openstack nova: qpid SSL configuration"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-01-29T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-Grizzly:openstack-nova-0:2013.1.4-4.el6ost"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.1",
+					"Vector": "AV:N/AC:H/Au:N/C:P/I:P/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat OpenStack Platform",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux OpenStack Platform 3.0",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux OpenStack Platform 3.0",
+							"productid": "6Server-Grizzly",
+							"cpe": "cpe:/a:redhat:openstack:3::el6"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "openstack-nova-0:2013.1.4-4.el6ost",
+				"fullproductname": {
+					"text": "openstack-nova-2013.1.4-4.el6ost.src.rpm",
+					"productid": "openstack-nova-0:2013.1.4-4.el6ost",
+					"cpe": "cpe:/a:redhat:openstack:3::el6"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "openstack-nova-0:2013.1.4-4.el6ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-Grizzly",
+				"fullproductname": {
+					"text": "openstack-nova-0:2013.1.4-4.el6ost as a component of Red Hat Enterprise Linux OpenStack Platform 3.0",
+					"productid": "6Server-Grizzly:openstack-nova-0:2013.1.4-4.el6ost",
+					"cpe": "cpe:/a:redhat:openstack:3::el6"
+				}
+			}
+		]
+	}
+}

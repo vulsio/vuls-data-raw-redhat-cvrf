@@ -1,0 +1,633 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: Red Hat Enterprise MRG Messaging 2.3 security update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2013:0561"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2013-03-06T18:48:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2013-03-06T18:38:00Z",
+		"CurrentReleaseDate": "2013-03-06T18:48:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:31:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated Messaging component packages that fix multiple security issues,\nseveral bugs, and add various enhancements are now available for Red Hat\nEnterprise MRG 2.3 for Red Hat Enterprise Linux 5.\n\nThe Red Hat Security Response Team has rated this update as having moderate\nsecurity impact. Common Vulnerability Scoring System (CVSS) base scores,\nwhich give detailed severity ratings, are available for each vulnerability\nfrom the CVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nRed Hat Enterprise MRG (Messaging, Realtime, and Grid) is a next-generation\nIT infrastructure for enterprise computing. MRG offers increased\nperformance, reliability, interoperability, and faster computing for\nenterprise customers.\n\nMRG Messaging is a high-speed reliable messaging distribution for Linux\nbased on AMQP (Advanced Message Queuing Protocol), an open protocol\nstandard for enterprise messaging that is designed to make mission critical\nmessaging widely available as a standard service, and to make enterprise\nmessaging interoperable across platforms, programming languages, and\nvendors. MRG Messaging includes an AMQP 0-10 messaging broker; AMQP 0-10\nclient libraries for C++, Java JMS, and Python; as well as persistence\nlibraries and management tools.\n\nIt was found that the Apache Qpid daemon (qpidd) treated AMQP connections\nwith the federation_tag attribute set as a broker-to-broker connection,\nrather than a client-to-server connection. This resulted in the source user\nID of messages not being checked. A client that can establish an AMQP\nconnection with the broker could use this flaw to bypass intended\nauthentication. For Condor users, if condor-aviary is installed, this flaw\ncould be used to submit jobs that would run as any user (except root, as\nCondor does not run jobs as root). (CVE-2012-4446)\n\nIt was found that the AMQP type decoder in qpidd allowed arbitrary data\ntypes in certain messages. A remote attacker could use this flaw to send a\nmessage containing an excessively large amount of data, causing qpidd to\nallocate a large amount of memory. qpidd would then be killed by the Out of\nMemory killer (denial of service). (CVE-2012-4458)\n\nAn integer overflow flaw, leading to an out-of-bounds read, was found in\nthe Qpid qpid::framing::Buffer::checkAvailable() function. An\nunauthenticated, remote attacker could send a specially-crafted message to\nQpid, causing it to crash. (CVE-2012-4459)\n\nThe CVE-2012-4446, CVE-2012-4458, and CVE-2012-4459 issues were discovered\nby Florian Weimer of the Red Hat Product Security Team.\n\nThis update also fixes several bugs and adds enhancements. Documentation\nfor these changes will be available shortly from the Technical Notes\ndocument linked to in the References section.\n\nAll users of the Messaging capabilities of Red Hat Enterprise MRG are\nadvised to upgrade to these updated packages, which resolve these issues,\nand fix the bugs and add the enhancements noted in the Red Hat Enterprise\nMRG 2 Technical Notes. After installing the updated packages, stop the\ncluster by either running \"service qpidd stop\" on all nodes, or\n\"qpid-cluster --all-stop\" on any one of the cluster nodes. Once stopped,\nrestart the cluster with \"service qpidd start\" on all nodes for the update\nto take effect.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2013:0561",
+				"Description": "https://access.redhat.com/errata/RHSA-2013:0561"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/knowledge/docs/en-US/Red_Hat_Enterprise_MRG/2/html/Technical_Notes/RHSA-2013-0561.html",
+				"Description": "https://access.redhat.com/knowledge/docs/en-US/Red_Hat_Enterprise_MRG/2/html/Technical_Notes/RHSA-2013-0561.html"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "qpid-cpp: qpid authentication bypass",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-03-06T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-4446",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:0561"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://issues.apache.org/jira/browse/QPID-4631",
+						"Description": "https://issues.apache.org/jira/browse/QPID-4631"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-4446",
+						"Description": "CVE-2012-4446"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=851355",
+						"Description": "bz#851355: CVE-2012-4446 qpid-cpp: qpid authentication bypass"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2012-07-27T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Server-MRG-Grid-2:mrg-release-0:2.3.0-1.el5",
+						"5Server-MRG-Grid-Execute-Node-2:mrg-release-0:2.3.0-1.el5",
+						"5Server-MRG-Management-2:cumin-messaging-0:0.1.1-2.el5",
+						"5Server-MRG-Management-2:mrg-release-0:2.3.0-1.el5",
+						"5Server-MRG-Messaging-2:mrg-release-0:2.3.0-1.el5",
+						"5Server-MRG-Messaging-2:python-qpid-0:0.18-4.el5",
+						"5Server-MRG-Messaging-2:qpid-cpp-mrg-0:0.18-14.el5",
+						"5Server-MRG-Messaging-2:qpid-java-0:0.18-7.el5",
+						"5Server-MRG-Messaging-2:qpid-jca-0:0.18-8.el5",
+						"5Server-MRG-Messaging-2:qpid-qmf-0:0.18-15.el5",
+						"5Server-MRG-Messaging-2:qpid-tests-0:0.18-2.el5",
+						"5Server-MRG-Messaging-2:qpid-tools-0:0.18-8.el5",
+						"5Server-MRG-Messaging-2:rhm-docs-0:0.18-2.el5",
+						"5Server-MRG-Messaging-2:saslwrapper-0:0.18-1.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.8",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "qpid-cpp: long arrays of zero-width types cause a denial of service",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-03-05T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-4458",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:0561"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://issues.apache.org/jira/browse/QPID-4629",
+						"Description": "https://issues.apache.org/jira/browse/QPID-4629"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-4458",
+						"Description": "CVE-2012-4458"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=861234",
+						"Description": "bz#861234: CVE-2012-4458 qpid-cpp: long arrays of zero-width types cause a denial of service"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2012-05-23T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Server-MRG-Grid-2:mrg-release-0:2.3.0-1.el5",
+						"5Server-MRG-Grid-Execute-Node-2:mrg-release-0:2.3.0-1.el5",
+						"5Server-MRG-Management-2:cumin-messaging-0:0.1.1-2.el5",
+						"5Server-MRG-Management-2:mrg-release-0:2.3.0-1.el5",
+						"5Server-MRG-Messaging-2:mrg-release-0:2.3.0-1.el5",
+						"5Server-MRG-Messaging-2:python-qpid-0:0.18-4.el5",
+						"5Server-MRG-Messaging-2:qpid-cpp-mrg-0:0.18-14.el5",
+						"5Server-MRG-Messaging-2:qpid-java-0:0.18-7.el5",
+						"5Server-MRG-Messaging-2:qpid-jca-0:0.18-8.el5",
+						"5Server-MRG-Messaging-2:qpid-qmf-0:0.18-15.el5",
+						"5Server-MRG-Messaging-2:qpid-tests-0:0.18-2.el5",
+						"5Server-MRG-Messaging-2:qpid-tools-0:0.18-8.el5",
+						"5Server-MRG-Messaging-2:rhm-docs-0:0.18-2.el5",
+						"5Server-MRG-Messaging-2:saslwrapper-0:0.18-1.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.0",
+					"Vector": "AV:N/AC:L/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "qpid-cpp: crash due to qpid::framing::Buffer::checkAvailable() wraparound",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-03-05T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-4459",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:0561"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://issues.apache.org/jira/browse/QPID-4629",
+						"Description": "https://issues.apache.org/jira/browse/QPID-4629"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-4459",
+						"Description": "CVE-2012-4459"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=861241",
+						"Description": "bz#861241: CVE-2012-4459 qpid-cpp: crash due to qpid::framing::Buffer::checkAvailable() wraparound"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2012-05-25T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Server-MRG-Grid-2:mrg-release-0:2.3.0-1.el5",
+						"5Server-MRG-Grid-Execute-Node-2:mrg-release-0:2.3.0-1.el5",
+						"5Server-MRG-Management-2:cumin-messaging-0:0.1.1-2.el5",
+						"5Server-MRG-Management-2:mrg-release-0:2.3.0-1.el5",
+						"5Server-MRG-Messaging-2:mrg-release-0:2.3.0-1.el5",
+						"5Server-MRG-Messaging-2:python-qpid-0:0.18-4.el5",
+						"5Server-MRG-Messaging-2:qpid-cpp-mrg-0:0.18-14.el5",
+						"5Server-MRG-Messaging-2:qpid-java-0:0.18-7.el5",
+						"5Server-MRG-Messaging-2:qpid-jca-0:0.18-8.el5",
+						"5Server-MRG-Messaging-2:qpid-qmf-0:0.18-15.el5",
+						"5Server-MRG-Messaging-2:qpid-tests-0:0.18-2.el5",
+						"5Server-MRG-Messaging-2:qpid-tools-0:0.18-8.el5",
+						"5Server-MRG-Messaging-2:rhm-docs-0:0.18-2.el5",
+						"5Server-MRG-Messaging-2:saslwrapper-0:0.18-1.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.0",
+					"Vector": "AV:N/AC:L/Au:N/C:N/I:N/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise MRG for RHEL-5",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "MRG Grid for RHEL 5 Server v.2",
+						"fullproductname": {
+							"text": "MRG Grid for RHEL 5 Server v.2",
+							"productid": "5Server-MRG-Grid-2",
+							"cpe": "cpe:/a:redhat:enterprise_mrg:2::el5"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "MRG Grid Execute Node for RHEL 5 Server v.2",
+						"fullproductname": {
+							"text": "MRG Grid Execute Node for RHEL 5 Server v.2",
+							"productid": "5Server-MRG-Grid-Execute-Node-2",
+							"cpe": "cpe:/a:redhat:enterprise_mrg:2::el5"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "MRG Management for RHEL 5 Server v.2",
+						"fullproductname": {
+							"text": "MRG Management for RHEL 5 Server v.2",
+							"productid": "5Server-MRG-Management-2",
+							"cpe": "cpe:/a:redhat:enterprise_mrg:2::el5"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat MRG Messaging for RHEL 5 Server v.2",
+						"fullproductname": {
+							"text": "Red Hat MRG Messaging for RHEL 5 Server v.2",
+							"productid": "5Server-MRG-Messaging-2",
+							"cpe": "cpe:/a:redhat:enterprise_mrg:2::el5"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "cumin-messaging-0:0.1.1-2.el5",
+				"fullproductname": {
+					"text": "cumin-messaging-0.1.1-2.el5.src.rpm",
+					"productid": "cumin-messaging-0:0.1.1-2.el5",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2::el5"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "mrg-release-0:2.3.0-1.el5",
+				"fullproductname": {
+					"text": "mrg-release-2.3.0-1.el5.src.rpm",
+					"productid": "mrg-release-0:2.3.0-1.el5",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2::el5"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-qpid-0:0.18-4.el5",
+				"fullproductname": {
+					"text": "python-qpid-0.18-4.el5.src.rpm",
+					"productid": "python-qpid-0:0.18-4.el5",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2::el5"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "qpid-cpp-mrg-0:0.18-14.el5",
+				"fullproductname": {
+					"text": "qpid-cpp-mrg-0.18-14.el5.src.rpm",
+					"productid": "qpid-cpp-mrg-0:0.18-14.el5",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2::el5"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "qpid-java-0:0.18-7.el5",
+				"fullproductname": {
+					"text": "qpid-java-0.18-7.el5.src.rpm",
+					"productid": "qpid-java-0:0.18-7.el5",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2::el5"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "qpid-jca-0:0.18-8.el5",
+				"fullproductname": {
+					"text": "qpid-jca-0.18-8.el5.src.rpm",
+					"productid": "qpid-jca-0:0.18-8.el5",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2::el5"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "qpid-qmf-0:0.18-15.el5",
+				"fullproductname": {
+					"text": "qpid-qmf-0.18-15.el5.src.rpm",
+					"productid": "qpid-qmf-0:0.18-15.el5",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2::el5"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "qpid-tests-0:0.18-2.el5",
+				"fullproductname": {
+					"text": "qpid-tests-0.18-2.el5.src.rpm",
+					"productid": "qpid-tests-0:0.18-2.el5",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2::el5"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "qpid-tools-0:0.18-8.el5",
+				"fullproductname": {
+					"text": "qpid-tools-0.18-8.el5.src.rpm",
+					"productid": "qpid-tools-0:0.18-8.el5",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2::el5"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhm-docs-0:0.18-2.el5",
+				"fullproductname": {
+					"text": "rhm-docs-0.18-2.el5.src.rpm",
+					"productid": "rhm-docs-0:0.18-2.el5",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2::el5"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "saslwrapper-0:0.18-1.el5",
+				"fullproductname": {
+					"text": "saslwrapper-0.18-1.el5.src.rpm",
+					"productid": "saslwrapper-0:0.18-1.el5",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2::el5"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "mrg-release-0:2.3.0-1.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-MRG-Grid-2",
+				"fullproductname": {
+					"text": "mrg-release-0:2.3.0-1.el5 as a component of MRG Grid for RHEL 5 Server v.2",
+					"productid": "5Server-MRG-Grid-2:mrg-release-0:2.3.0-1.el5",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2::el5"
+				}
+			},
+			{
+				"productreference": "mrg-release-0:2.3.0-1.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-MRG-Grid-Execute-Node-2",
+				"fullproductname": {
+					"text": "mrg-release-0:2.3.0-1.el5 as a component of MRG Grid Execute Node for RHEL 5 Server v.2",
+					"productid": "5Server-MRG-Grid-Execute-Node-2:mrg-release-0:2.3.0-1.el5",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2::el5"
+				}
+			},
+			{
+				"productreference": "cumin-messaging-0:0.1.1-2.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-MRG-Management-2",
+				"fullproductname": {
+					"text": "cumin-messaging-0:0.1.1-2.el5 as a component of MRG Management for RHEL 5 Server v.2",
+					"productid": "5Server-MRG-Management-2:cumin-messaging-0:0.1.1-2.el5",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2::el5"
+				}
+			},
+			{
+				"productreference": "mrg-release-0:2.3.0-1.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-MRG-Management-2",
+				"fullproductname": {
+					"text": "mrg-release-0:2.3.0-1.el5 as a component of MRG Management for RHEL 5 Server v.2",
+					"productid": "5Server-MRG-Management-2:mrg-release-0:2.3.0-1.el5",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2::el5"
+				}
+			},
+			{
+				"productreference": "mrg-release-0:2.3.0-1.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-MRG-Messaging-2",
+				"fullproductname": {
+					"text": "mrg-release-0:2.3.0-1.el5 as a component of Red Hat MRG Messaging for RHEL 5 Server v.2",
+					"productid": "5Server-MRG-Messaging-2:mrg-release-0:2.3.0-1.el5",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2::el5"
+				}
+			},
+			{
+				"productreference": "python-qpid-0:0.18-4.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-MRG-Messaging-2",
+				"fullproductname": {
+					"text": "python-qpid-0:0.18-4.el5 as a component of Red Hat MRG Messaging for RHEL 5 Server v.2",
+					"productid": "5Server-MRG-Messaging-2:python-qpid-0:0.18-4.el5",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2::el5"
+				}
+			},
+			{
+				"productreference": "qpid-cpp-mrg-0:0.18-14.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-MRG-Messaging-2",
+				"fullproductname": {
+					"text": "qpid-cpp-mrg-0:0.18-14.el5 as a component of Red Hat MRG Messaging for RHEL 5 Server v.2",
+					"productid": "5Server-MRG-Messaging-2:qpid-cpp-mrg-0:0.18-14.el5",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2::el5"
+				}
+			},
+			{
+				"productreference": "qpid-java-0:0.18-7.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-MRG-Messaging-2",
+				"fullproductname": {
+					"text": "qpid-java-0:0.18-7.el5 as a component of Red Hat MRG Messaging for RHEL 5 Server v.2",
+					"productid": "5Server-MRG-Messaging-2:qpid-java-0:0.18-7.el5",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2::el5"
+				}
+			},
+			{
+				"productreference": "qpid-jca-0:0.18-8.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-MRG-Messaging-2",
+				"fullproductname": {
+					"text": "qpid-jca-0:0.18-8.el5 as a component of Red Hat MRG Messaging for RHEL 5 Server v.2",
+					"productid": "5Server-MRG-Messaging-2:qpid-jca-0:0.18-8.el5",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2::el5"
+				}
+			},
+			{
+				"productreference": "qpid-qmf-0:0.18-15.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-MRG-Messaging-2",
+				"fullproductname": {
+					"text": "qpid-qmf-0:0.18-15.el5 as a component of Red Hat MRG Messaging for RHEL 5 Server v.2",
+					"productid": "5Server-MRG-Messaging-2:qpid-qmf-0:0.18-15.el5",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2::el5"
+				}
+			},
+			{
+				"productreference": "qpid-tests-0:0.18-2.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-MRG-Messaging-2",
+				"fullproductname": {
+					"text": "qpid-tests-0:0.18-2.el5 as a component of Red Hat MRG Messaging for RHEL 5 Server v.2",
+					"productid": "5Server-MRG-Messaging-2:qpid-tests-0:0.18-2.el5",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2::el5"
+				}
+			},
+			{
+				"productreference": "qpid-tools-0:0.18-8.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-MRG-Messaging-2",
+				"fullproductname": {
+					"text": "qpid-tools-0:0.18-8.el5 as a component of Red Hat MRG Messaging for RHEL 5 Server v.2",
+					"productid": "5Server-MRG-Messaging-2:qpid-tools-0:0.18-8.el5",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2::el5"
+				}
+			},
+			{
+				"productreference": "rhm-docs-0:0.18-2.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-MRG-Messaging-2",
+				"fullproductname": {
+					"text": "rhm-docs-0:0.18-2.el5 as a component of Red Hat MRG Messaging for RHEL 5 Server v.2",
+					"productid": "5Server-MRG-Messaging-2:rhm-docs-0:0.18-2.el5",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2::el5"
+				}
+			},
+			{
+				"productreference": "saslwrapper-0:0.18-1.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-MRG-Messaging-2",
+				"fullproductname": {
+					"text": "saslwrapper-0:0.18-1.el5 as a component of Red Hat MRG Messaging for RHEL 5 Server v.2",
+					"productid": "5Server-MRG-Messaging-2:saslwrapper-0:0.18-1.el5",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2::el5"
+				}
+			}
+		]
+	}
+}

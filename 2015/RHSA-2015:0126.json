@@ -1,0 +1,557 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: rhev-hypervisor6 security update ",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2015:0126"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2015-02-04T17:52:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2015-02-04T17:52:00Z",
+		"CurrentReleaseDate": "2015-02-04T17:52:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:39:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nAn updated rhev-hypervisor6 package that fixes multiple security issues is\nnow available for Red Hat Enterprise Virtualization 3.\n\nRed Hat Product Security has rated this update as having Critical security\nimpact. Common Vulnerability Scoring System (CVSS) base scores, which give\ndetailed severity ratings, are available for each vulnerability from the\nCVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe rhev-hypervisor6 package provides a Red Hat Enterprise Virtualization\nHypervisor ISO disk image. The Red Hat Enterprise Virtualization Hypervisor\nis a dedicated Kernel-based Virtual Machine (KVM) hypervisor. It includes\neverything necessary to run and manage virtual machines: a subset of the\nRed Hat Enterprise Linux operating environment and the Red Hat Enterprise\nVirtualization Agent.\n\nNote: Red Hat Enterprise Virtualization Hypervisor is only available for\nthe Intel 64 and AMD64 architectures with virtualization extensions.\n\nA heap-based buffer overflow was found in glibc's\n__nss_hostname_digits_dots() function, which is used by the gethostbyname()\nand gethostbyname2() glibc function calls. A remote attacker able to make\nan application call either of these functions could use this flaw to\nexecute arbitrary code with the permissions of the user running the\napplication. (CVE-2015-0235)\n\nA race condition flaw was found in the way the Linux kernel's KVM subsystem \nhandled PIT (Programmable Interval Timer) emulation. A guest user who has \naccess to the PIT I/O ports could use this flaw to crash the host. \n(CVE-2014-3611)\n\nA flaw was found in the way OpenSSL handled fragmented handshake packets.\nA man-in-the-middle attacker could use this flaw to force a TLS/SSL server\nusing OpenSSL to use TLS 1.0, even if both the client and the server\nsupported newer protocol versions. (CVE-2014-3511)\n\nA memory leak flaw was found in the way an OpenSSL handled failed session\nticket integrity checks. A remote attacker could exhaust all available\nmemory of an SSL/TLS or DTLS server by sending a large number of invalid\nsession tickets to that server. (CVE-2014-3567)\n\nIt was found that the Linux kernel's KVM subsystem did not handle the VM\nexits gracefully for the invept (Invalidate Translations Derived from EPT)\nand invvpid (Invalidate Translations Based on VPID) instructions. On hosts\nwith an Intel processor and invept/invppid VM exit support, an unprivileged\nguest user could use these instructions to crash the guest. (CVE-2014-3645,\nCVE-2014-3646)\n\nRed Hat would like to thank Qualys for reporting the CVE-2015-0235 issue,\nLars Bull of Google for reporting the CVE-2014-3611 issue, and the Advanced\nThreat Research team at Intel Security for reporting the CVE-2014-3645 and\nCVE-2014-3646 issues.\n\nUsers of the Red Hat Enterprise Virtualization Hypervisor are advised to\nupgrade to this updated package.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Critical",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2015:0126",
+				"Description": "https://access.redhat.com/errata/RHSA-2015:0126"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#critical",
+				"Description": "https://access.redhat.com/security/updates/classification/#critical"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "openssl: TLS protocol downgrade attack",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-08-06T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-3511",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThis update is available via the Red Hat Network. Details on how to use the\nRed Hat Network to apply this update are available at\nhttps://access.redhat.com/articles/11258\n\nTo upgrade Hypervisors in Red Hat Enterprise Virtualization environments\nusing the disk image provided by this package, refer to:\n\nhttps://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Hypervisor_Deployment_Guide/chap-Deployment_Guide-Upgrading_Red_Hat_Enterprise_Virtualization_Hypervisors.html\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:0126"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.openssl.org/news/secadv_20140806.txt",
+						"Description": "https://www.openssl.org/news/secadv_20140806.txt"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-3511",
+						"Description": "CVE-2014-3511"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1127504",
+						"Description": "bz#1127504: CVE-2014-3511 openssl: TLS protocol downgrade attack"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-08-06T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-RHEV-Hypervisor:rhev-hypervisor6-0:6.6-20150123.1.el6ev"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "openssl: Invalid TLS/SSL session tickets could cause memory leak leading to server crash",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-10-15T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-3567",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThis update is available via the Red Hat Network. Details on how to use the\nRed Hat Network to apply this update are available at\nhttps://access.redhat.com/articles/11258\n\nTo upgrade Hypervisors in Red Hat Enterprise Virtualization environments\nusing the disk image provided by this package, refer to:\n\nhttps://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Hypervisor_Deployment_Guide/chap-Deployment_Guide-Upgrading_Red_Hat_Enterprise_Virtualization_Hypervisors.html\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:0126"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.openssl.org/news/secadv_20141015.txt",
+						"Description": "https://www.openssl.org/news/secadv_20141015.txt"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-3567",
+						"Description": "CVE-2014-3567"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1152961",
+						"Description": "bz#1152961: CVE-2014-3567 openssl: Invalid TLS/SSL session tickets could cause memory leak leading to server crash"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-10-15T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-RHEV-Hypervisor:rhev-hypervisor6-0:6.6-20150123.1.el6ev"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: kvm: PIT timer race condition",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-10-21T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-3611",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThis update is available via the Red Hat Network. Details on how to use the\nRed Hat Network to apply this update are available at\nhttps://access.redhat.com/articles/11258\n\nTo upgrade Hypervisors in Red Hat Enterprise Virtualization environments\nusing the disk image provided by this package, refer to:\n\nhttps://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Hypervisor_Deployment_Guide/chap-Deployment_Guide-Upgrading_Red_Hat_Enterprise_Virtualization_Hypervisors.html\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:0126"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-3611",
+						"Description": "CVE-2014-3611"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1144878",
+						"Description": "bz#1144878: CVE-2014-3611 kernel: kvm: PIT timer race condition"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2014-08-27T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-RHEV-Hypervisor:rhev-hypervisor6-0:6.6-20150123.1.el6ev"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.5",
+					"Vector": "AV:A/AC:L/Au:S/C:N/I:N/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: kvm: vmx: invept vm exit not handled",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-10-21T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-3645",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThis update is available via the Red Hat Network. Details on how to use the\nRed Hat Network to apply this update are available at\nhttps://access.redhat.com/articles/11258\n\nTo upgrade Hypervisors in Red Hat Enterprise Virtualization environments\nusing the disk image provided by this package, refer to:\n\nhttps://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Hypervisor_Deployment_Guide/chap-Deployment_Guide-Upgrading_Red_Hat_Enterprise_Virtualization_Hypervisors.html\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:0126"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-3645",
+						"Description": "CVE-2014-3645"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1144835",
+						"Description": "bz#1144835: CVE-2014-3645 kernel: kvm: vmx: invept vm exit not handled"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-09-17T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-RHEV-Hypervisor:rhev-hypervisor6-0:6.6-20150123.1.el6ev"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.7",
+					"Vector": "AV:L/AC:M/Au:N/C:N/I:N/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: kvm: vmx: invvpid vm exit not handled",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-10-21T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-3646",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThis update is available via the Red Hat Network. Details on how to use the\nRed Hat Network to apply this update are available at\nhttps://access.redhat.com/articles/11258\n\nTo upgrade Hypervisors in Red Hat Enterprise Virtualization environments\nusing the disk image provided by this package, refer to:\n\nhttps://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Hypervisor_Deployment_Guide/chap-Deployment_Guide-Upgrading_Red_Hat_Enterprise_Virtualization_Hypervisors.html\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:0126"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-3646",
+						"Description": "CVE-2014-3646"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1144825",
+						"Description": "bz#1144825: CVE-2014-3646 kernel: kvm: vmx: invvpid vm exit not handled"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-09-17T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-RHEV-Hypervisor:rhev-hypervisor6-0:6.6-20150123.1.el6ev"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.7",
+					"Vector": "AV:L/AC:M/Au:N/C:N/I:N/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "6",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "glibc: __nss_hostname_digits_dots() heap-based buffer overflow",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-01-27T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-0235",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThis update is available via the Red Hat Network. Details on how to use the\nRed Hat Network to apply this update are available at\nhttps://access.redhat.com/articles/11258\n\nTo upgrade Hypervisors in Red Hat Enterprise Virtualization environments\nusing the disk image provided by this package, refer to:\n\nhttps://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Hypervisor_Deployment_Guide/chap-Deployment_Guide-Upgrading_Red_Hat_Enterprise_Virtualization_Hypervisors.html\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:0126"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "http://www.openwall.com/lists/oss-security/2015/01/27/9",
+						"Description": "http://www.openwall.com/lists/oss-security/2015/01/27/9"
+					},
+					{
+						"URL": "https://access.redhat.com/articles/1332213",
+						"Description": "https://access.redhat.com/articles/1332213"
+					},
+					{
+						"URL": "https://community.qualys.com/blogs/laws-of-vulnerabilities/2015/01/27/the-ghost-vulnerability",
+						"Description": "https://community.qualys.com/blogs/laws-of-vulnerabilities/2015/01/27/the-ghost-vulnerability"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-0235",
+						"Description": "CVE-2015-0235"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1183461",
+						"Description": "bz#1183461: CVE-2015-0235 glibc: __nss_hostname_digits_dots() heap-based buffer overflow"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Critical"
+				}
+			},
+			"DiscoveryDate": "2015-01-19T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-RHEV-Hypervisor:rhev-hypervisor6-0:6.6-20150123.1.el6ev"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.8",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:P/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Virtualization",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "RHEV Hypervisor for RHEL-6",
+						"fullproductname": {
+							"text": "RHEV Hypervisor for RHEL-6",
+							"productid": "6Server-RHEV-Hypervisor",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::hypervisor"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhev-hypervisor6-0:6.6-20150123.1.el6ev",
+				"fullproductname": {
+					"text": "rhev-hypervisor6-6.6-20150123.1.el6ev.src.rpm",
+					"productid": "rhev-hypervisor6-0:6.6-20150123.1.el6ev",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::hypervisor"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "rhev-hypervisor6-0:6.6-20150123.1.el6ev",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RHEV-Hypervisor",
+				"fullproductname": {
+					"text": "rhev-hypervisor6-0:6.6-20150123.1.el6ev as a component of RHEV Hypervisor for RHEL-6",
+					"productid": "6Server-RHEV-Hypervisor:rhev-hypervisor6-0:6.6-20150123.1.el6ev",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::hypervisor"
+				}
+			}
+		]
+	}
+}

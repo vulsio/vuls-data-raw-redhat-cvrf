@@ -1,0 +1,1825 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: php55 security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2015:1053"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2015-06-17T20:51:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2015-06-04T08:06:00Z",
+		"CurrentReleaseDate": "2015-06-17T20:51:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:33:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated php55 collection packages that fix multiple security issues and\nseveral bugs are now available as part of Red Hat Software Collections 2.\n\nRed Hat Product Security has rated this update as having Moderate security\nimpact. Common Vulnerability Scoring System (CVSS) base scores, which give\ndetailed severity ratings, are available for each vulnerability from the\nCVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nPHP is an HTML-embedded scripting language commonly used with the Apache\nHTTP Server. The php55 packages provide a recent stable release of PHP with\nthe PEAR 1.9.4, memcache 3.0.8, and mongo 1.4.5 PECL extensions, and a\nnumber of additional utilities.\n\nThe php55 packages have been upgraded to upstream version 5.5.21, which\nprovides multiple bug fixes over the version shipped in Red Hat Software\nCollections 1. (BZ#1057089)\n\nThe following security issues were fixed in the php55-php component:\n\nAn uninitialized pointer use flaw was found in PHP's Exif extension. A\nspecially crafted JPEG or TIFF file could cause a PHP application using the\nexif_read_data() function to crash or, possibly, execute arbitrary code\nwith the privileges of the user running that PHP application.\n(CVE-2015-0232)\n\nMultiple flaws were discovered in the way PHP performed object\nunserialization. Specially crafted input processed by the unserialize()\nfunction could cause a PHP application to crash or, possibly, execute\narbitrary code. (CVE-2014-8142, CVE-2015-0231, CVE-2015-0273,\nCVE-2015-2787, CVE-2015-4147, CVE-2015-4148)\n\nA heap buffer overflow flaw was found in the enchant_broker_request_dict()\nfunction of PHP's enchant extension. An attacker able to make a PHP\napplication enchant dictionaries could possibly cause it to crash.\n(CVE-2014-9705)\n\nA heap buffer overflow flaw was found in PHP's regular expression\nextension. An attacker able to make PHP process a specially crafted regular\nexpression pattern could cause it to crash and possibly execute arbitrary\ncode. (CVE-2015-2305)\n\nA buffer over-read flaw was found in the GD library used by the PHP gd\nextension. A specially crafted GIF file could cause a PHP application using\nthe imagecreatefromgif() function to crash. (CVE-2014-9709)\n\nA use-after-free flaw was found in PHP's OPcache extension. This flaw could\npossibly lead to a disclosure of a portion of the server memory.\n(CVE-2015-1351)\n\nA use-after-free flaw was found in PHP's phar (PHP Archive) extension.\nAn attacker able to trigger certain error condition in phar archive\nprocessing could possibly use this flaw to disclose certain portions of\nserver memory. (CVE-2015-2301)\n\nAn ouf-of-bounds read flaw was found in the way the File Information\n(fileinfo) extension processed certain Pascal strings. A remote attacker\ncould cause a PHP application to crash if it used fileinfo to identify the\ntype of the attacker-supplied file. (CVE-2014-9652)\n\nIt was found that PHP move_uploaded_file() function did not properly handle\nfile names with a NULL character. A remote attacker could possibly use this\nflaw to make a PHP script access unexpected files and bypass intended file\nsystem access restrictions. (CVE-2015-2348)\n\nA NULL pointer dereference flaw was found in PHP's pgsql extension. A\nspecially crafted table name passed to a function such as pg_insert() or\npg_select() could cause a PHP application to crash. (CVE-2015-1352)\n\nA flaw was found in the way PHP handled malformed source files when running\nin CGI mode. A specially crafted PHP file could cause PHP CGI to crash.\n(CVE-2014-9427)\n\nAll php55 users are advised to upgrade to these updated packages, which\ncorrect these issues. After installing the updated packages, the\nhttpd24-httpd service must be restarted for the update to take effect.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2015:1053",
+				"Description": "https://access.redhat.com/errata/RHSA-2015:1053"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "php: use after free vulnerability in unserialize()",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-12-18T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-8142",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1053"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-8142",
+						"Description": "CVE-2014-8142"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1175718",
+						"Description": "bz#1175718: CVE-2014-8142 php: use after free vulnerability in unserialize()"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-12-18T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-RHSCL-2.0-6.5.Z:php55-0:2.0-1.el6",
+						"6Server-RHSCL-2.0-6.5.Z:php55-php-0:5.5.21-2.el6",
+						"6Server-RHSCL-2.0-6.6.Z:php55-0:2.0-1.el6",
+						"6Server-RHSCL-2.0-6.6.Z:php55-php-0:5.5.21-2.el6",
+						"6Server-RHSCL-2.0:php55-0:2.0-1.el6",
+						"6Server-RHSCL-2.0:php55-php-0:5.5.21-2.el6",
+						"6Workstation-RHSCL-2.0:php55-0:2.0-1.el6",
+						"6Workstation-RHSCL-2.0:php55-php-0:5.5.21-2.el6",
+						"7Server-RHSCL-2.0:php55-0:2.0-1.el7",
+						"7Server-RHSCL-2.0:php55-php-0:5.5.21-2.el7",
+						"7Workstation-RHSCL-2.0:php55-0:2.0-1.el7",
+						"7Workstation-RHSCL-2.0:php55-php-0:5.5.21-2.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.1",
+					"Vector": "AV:N/AC:H/Au:N/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "php: out of bounds read when parsing a crafted .php file",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-12-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-9427",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1053"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-9427",
+						"Description": "CVE-2014-9427"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1178736",
+						"Description": "bz#1178736: CVE-2014-9427 php: out of bounds read when parsing a crafted .php file"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2015-01-05T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-RHSCL-2.0-6.5.Z:php55-0:2.0-1.el6",
+						"6Server-RHSCL-2.0-6.5.Z:php55-php-0:5.5.21-2.el6",
+						"6Server-RHSCL-2.0-6.6.Z:php55-0:2.0-1.el6",
+						"6Server-RHSCL-2.0-6.6.Z:php55-php-0:5.5.21-2.el6",
+						"6Server-RHSCL-2.0:php55-0:2.0-1.el6",
+						"6Server-RHSCL-2.0:php55-php-0:5.5.21-2.el6",
+						"6Workstation-RHSCL-2.0:php55-0:2.0-1.el6",
+						"6Workstation-RHSCL-2.0:php55-php-0:5.5.21-2.el6",
+						"7Server-RHSCL-2.0:php55-0:2.0-1.el7",
+						"7Server-RHSCL-2.0:php55-php-0:5.5.21-2.el7",
+						"7Workstation-RHSCL-2.0:php55-0:2.0-1.el7",
+						"7Workstation-RHSCL-2.0:php55-php-0:5.5.21-2.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.1",
+					"Vector": "AV:L/AC:L/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "file: out of bounds read in mconvert()",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-11-11T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-9652",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1053"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-9652",
+						"Description": "CVE-2014-9652"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1188599",
+						"Description": "bz#1188599: CVE-2014-9652 file: out of bounds read in mconvert()"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2015-02-03T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-RHSCL-2.0-6.5.Z:php55-0:2.0-1.el6",
+						"6Server-RHSCL-2.0-6.5.Z:php55-php-0:5.5.21-2.el6",
+						"6Server-RHSCL-2.0-6.6.Z:php55-0:2.0-1.el6",
+						"6Server-RHSCL-2.0-6.6.Z:php55-php-0:5.5.21-2.el6",
+						"6Server-RHSCL-2.0:php55-0:2.0-1.el6",
+						"6Server-RHSCL-2.0:php55-php-0:5.5.21-2.el6",
+						"6Workstation-RHSCL-2.0:php55-0:2.0-1.el6",
+						"6Workstation-RHSCL-2.0:php55-php-0:5.5.21-2.el6",
+						"7Server-RHSCL-2.0:php55-0:2.0-1.el7",
+						"7Server-RHSCL-2.0:php55-php-0:5.5.21-2.el7",
+						"7Workstation-RHSCL-2.0:php55-0:2.0-1.el7",
+						"7Workstation-RHSCL-2.0:php55-php-0:5.5.21-2.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "php: heap buffer overflow in enchant_broker_request_dict()",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-12-05T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-9705",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1053"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-9705",
+						"Description": "CVE-2014-9705"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1194737",
+						"Description": "bz#1194737: CVE-2014-9705 php: heap buffer overflow in enchant_broker_request_dict()"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-02-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-RHSCL-2.0-6.5.Z:php55-0:2.0-1.el6",
+						"6Server-RHSCL-2.0-6.5.Z:php55-php-0:5.5.21-2.el6",
+						"6Server-RHSCL-2.0-6.6.Z:php55-0:2.0-1.el6",
+						"6Server-RHSCL-2.0-6.6.Z:php55-php-0:5.5.21-2.el6",
+						"6Server-RHSCL-2.0:php55-0:2.0-1.el6",
+						"6Server-RHSCL-2.0:php55-php-0:5.5.21-2.el6",
+						"6Workstation-RHSCL-2.0:php55-0:2.0-1.el6",
+						"6Workstation-RHSCL-2.0:php55-php-0:5.5.21-2.el6",
+						"7Server-RHSCL-2.0:php55-0:2.0-1.el7",
+						"7Server-RHSCL-2.0:php55-php-0:5.5.21-2.el7",
+						"7Workstation-RHSCL-2.0:php55-0:2.0-1.el7",
+						"7Workstation-RHSCL-2.0:php55-php-0:5.5.21-2.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "gd: buffer read overflow in gd_gif_in.c",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-12-13T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-9709",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1053"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-9709",
+						"Description": "CVE-2014-9709"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1188639",
+						"Description": "bz#1188639: CVE-2014-9709 gd: buffer read overflow in gd_gif_in.c"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2015-02-03T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-RHSCL-2.0-6.5.Z:php55-0:2.0-1.el6",
+						"6Server-RHSCL-2.0-6.5.Z:php55-php-0:5.5.21-2.el6",
+						"6Server-RHSCL-2.0-6.6.Z:php55-0:2.0-1.el6",
+						"6Server-RHSCL-2.0-6.6.Z:php55-php-0:5.5.21-2.el6",
+						"6Server-RHSCL-2.0:php55-0:2.0-1.el6",
+						"6Server-RHSCL-2.0:php55-php-0:5.5.21-2.el6",
+						"6Workstation-RHSCL-2.0:php55-0:2.0-1.el6",
+						"6Workstation-RHSCL-2.0:php55-php-0:5.5.21-2.el6",
+						"7Server-RHSCL-2.0:php55-0:2.0-1.el7",
+						"7Server-RHSCL-2.0:php55-php-0:5.5.21-2.el7",
+						"7Workstation-RHSCL-2.0:php55-0:2.0-1.el7",
+						"7Workstation-RHSCL-2.0:php55-php-0:5.5.21-2.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.0",
+					"Vector": "AV:N/AC:H/Au:N/C:P/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "6",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "php: use after free vulnerability in unserialize() (incomplete fix of CVE-2014-8142)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-01-01T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-0231",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1053"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-0231",
+						"Description": "CVE-2015-0231"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1185397",
+						"Description": "bz#1185397: CVE-2015-0231 php: use after free vulnerability in unserialize() (incomplete fix of CVE-2014-8142)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-01-23T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-RHSCL-2.0-6.5.Z:php55-0:2.0-1.el6",
+						"6Server-RHSCL-2.0-6.5.Z:php55-php-0:5.5.21-2.el6",
+						"6Server-RHSCL-2.0-6.6.Z:php55-0:2.0-1.el6",
+						"6Server-RHSCL-2.0-6.6.Z:php55-php-0:5.5.21-2.el6",
+						"6Server-RHSCL-2.0:php55-0:2.0-1.el6",
+						"6Server-RHSCL-2.0:php55-php-0:5.5.21-2.el6",
+						"6Workstation-RHSCL-2.0:php55-0:2.0-1.el6",
+						"6Workstation-RHSCL-2.0:php55-php-0:5.5.21-2.el6",
+						"7Server-RHSCL-2.0:php55-0:2.0-1.el7",
+						"7Server-RHSCL-2.0:php55-php-0:5.5.21-2.el7",
+						"7Workstation-RHSCL-2.0:php55-0:2.0-1.el7",
+						"7Workstation-RHSCL-2.0:php55-php-0:5.5.21-2.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.1",
+					"Vector": "AV:N/AC:H/Au:N/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "7",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "php: Free called on unitialized pointer in exif.c",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-01-01T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-0232",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1053"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-0232",
+						"Description": "CVE-2015-0232"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1185472",
+						"Description": "bz#1185472: CVE-2015-0232 php: Free called on unitialized pointer in exif.c"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-01-23T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-RHSCL-2.0-6.5.Z:php55-0:2.0-1.el6",
+						"6Server-RHSCL-2.0-6.5.Z:php55-php-0:5.5.21-2.el6",
+						"6Server-RHSCL-2.0-6.6.Z:php55-0:2.0-1.el6",
+						"6Server-RHSCL-2.0-6.6.Z:php55-php-0:5.5.21-2.el6",
+						"6Server-RHSCL-2.0:php55-0:2.0-1.el6",
+						"6Server-RHSCL-2.0:php55-php-0:5.5.21-2.el6",
+						"6Workstation-RHSCL-2.0:php55-0:2.0-1.el6",
+						"6Workstation-RHSCL-2.0:php55-php-0:5.5.21-2.el6",
+						"7Server-RHSCL-2.0:php55-0:2.0-1.el7",
+						"7Server-RHSCL-2.0:php55-php-0:5.5.21-2.el7",
+						"7Workstation-RHSCL-2.0:php55-0:2.0-1.el7",
+						"7Workstation-RHSCL-2.0:php55-php-0:5.5.21-2.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.1",
+					"Vector": "AV:N/AC:H/Au:N/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "8",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "php: use after free vulnerability in unserialize() with DateTimeZone",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-02-19T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-0273",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1053"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-0273",
+						"Description": "CVE-2015-0273"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1194730",
+						"Description": "bz#1194730: CVE-2015-0273 php: use after free vulnerability in unserialize() with DateTimeZone"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-02-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-RHSCL-2.0-6.5.Z:php55-0:2.0-1.el6",
+						"6Server-RHSCL-2.0-6.5.Z:php55-php-0:5.5.21-2.el6",
+						"6Server-RHSCL-2.0-6.6.Z:php55-0:2.0-1.el6",
+						"6Server-RHSCL-2.0-6.6.Z:php55-php-0:5.5.21-2.el6",
+						"6Server-RHSCL-2.0:php55-0:2.0-1.el6",
+						"6Server-RHSCL-2.0:php55-php-0:5.5.21-2.el6",
+						"6Workstation-RHSCL-2.0:php55-0:2.0-1.el6",
+						"6Workstation-RHSCL-2.0:php55-php-0:5.5.21-2.el6",
+						"7Server-RHSCL-2.0:php55-0:2.0-1.el7",
+						"7Server-RHSCL-2.0:php55-php-0:5.5.21-2.el7",
+						"7Workstation-RHSCL-2.0:php55-0:2.0-1.el7",
+						"7Workstation-RHSCL-2.0:php55-php-0:5.5.21-2.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.1",
+					"Vector": "AV:N/AC:H/Au:N/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "9",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "php: use after free in opcache extension",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-12-29T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-1351",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1053"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-1351",
+						"Description": "CVE-2015-1351"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1185900",
+						"Description": "bz#1185900: CVE-2015-1351 php: use after free in opcache extension"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2015-01-26T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-RHSCL-2.0-6.5.Z:php55-0:2.0-1.el6",
+						"6Server-RHSCL-2.0-6.5.Z:php55-php-0:5.5.21-2.el6",
+						"6Server-RHSCL-2.0-6.6.Z:php55-0:2.0-1.el6",
+						"6Server-RHSCL-2.0-6.6.Z:php55-php-0:5.5.21-2.el6",
+						"6Server-RHSCL-2.0:php55-0:2.0-1.el6",
+						"6Server-RHSCL-2.0:php55-php-0:5.5.21-2.el6",
+						"6Workstation-RHSCL-2.0:php55-0:2.0-1.el6",
+						"6Workstation-RHSCL-2.0:php55-php-0:5.5.21-2.el6",
+						"7Server-RHSCL-2.0:php55-0:2.0-1.el7",
+						"7Server-RHSCL-2.0:php55-php-0:5.5.21-2.el7",
+						"7Workstation-RHSCL-2.0:php55-0:2.0-1.el7",
+						"7Workstation-RHSCL-2.0:php55-php-0:5.5.21-2.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.6",
+					"Vector": "AV:N/AC:H/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "10",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "php: NULL pointer dereference in pgsql extension",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-01-04T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-1352",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1053"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-1352",
+						"Description": "CVE-2015-1352"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1185904",
+						"Description": "bz#1185904: CVE-2015-1352 php: NULL pointer dereference in pgsql extension"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2015-01-26T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-RHSCL-2.0-6.5.Z:php55-0:2.0-1.el6",
+						"6Server-RHSCL-2.0-6.5.Z:php55-php-0:5.5.21-2.el6",
+						"6Server-RHSCL-2.0-6.6.Z:php55-0:2.0-1.el6",
+						"6Server-RHSCL-2.0-6.6.Z:php55-php-0:5.5.21-2.el6",
+						"6Server-RHSCL-2.0:php55-0:2.0-1.el6",
+						"6Server-RHSCL-2.0:php55-php-0:5.5.21-2.el6",
+						"6Workstation-RHSCL-2.0:php55-0:2.0-1.el6",
+						"6Workstation-RHSCL-2.0:php55-php-0:5.5.21-2.el6",
+						"7Server-RHSCL-2.0:php55-0:2.0-1.el7",
+						"7Server-RHSCL-2.0:php55-php-0:5.5.21-2.el7",
+						"7Workstation-RHSCL-2.0:php55-0:2.0-1.el7",
+						"7Workstation-RHSCL-2.0:php55-php-0:5.5.21-2.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.6",
+					"Vector": "AV:N/AC:H/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "11",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "php: use after free in phar_object.c",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-01-24T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-2301",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1053"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-2301",
+						"Description": "CVE-2015-2301"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1194747",
+						"Description": "bz#1194747: CVE-2015-2301 php: use after free in phar_object.c"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2015-02-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-RHSCL-2.0-6.5.Z:php55-0:2.0-1.el6",
+						"6Server-RHSCL-2.0-6.5.Z:php55-php-0:5.5.21-2.el6",
+						"6Server-RHSCL-2.0-6.6.Z:php55-0:2.0-1.el6",
+						"6Server-RHSCL-2.0-6.6.Z:php55-php-0:5.5.21-2.el6",
+						"6Server-RHSCL-2.0:php55-0:2.0-1.el6",
+						"6Server-RHSCL-2.0:php55-php-0:5.5.21-2.el6",
+						"6Workstation-RHSCL-2.0:php55-0:2.0-1.el6",
+						"6Workstation-RHSCL-2.0:php55-php-0:5.5.21-2.el6",
+						"7Server-RHSCL-2.0:php55-0:2.0-1.el7",
+						"7Server-RHSCL-2.0:php55-php-0:5.5.21-2.el7",
+						"7Workstation-RHSCL-2.0:php55-0:2.0-1.el7",
+						"7Workstation-RHSCL-2.0:php55-php-0:5.5.21-2.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.6",
+					"Vector": "AV:N/AC:H/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "12",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "regex: heap overflow in regcomp() on 32-bit architectures",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-02-04T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-2305",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1053"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-2305",
+						"Description": "CVE-2015-2305"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1191049",
+						"Description": "bz#1191049: CVE-2015-2305 regex: heap overflow in regcomp() on 32-bit architectures"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-02-10T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-RHSCL-2.0-6.5.Z:php55-0:2.0-1.el6",
+						"6Server-RHSCL-2.0-6.5.Z:php55-php-0:5.5.21-2.el6",
+						"6Server-RHSCL-2.0-6.6.Z:php55-0:2.0-1.el6",
+						"6Server-RHSCL-2.0-6.6.Z:php55-php-0:5.5.21-2.el6",
+						"6Server-RHSCL-2.0:php55-0:2.0-1.el6",
+						"6Server-RHSCL-2.0:php55-php-0:5.5.21-2.el6",
+						"6Workstation-RHSCL-2.0:php55-0:2.0-1.el6",
+						"6Workstation-RHSCL-2.0:php55-php-0:5.5.21-2.el6",
+						"7Server-RHSCL-2.0:php55-0:2.0-1.el7",
+						"7Server-RHSCL-2.0:php55-php-0:5.5.21-2.el7",
+						"7Workstation-RHSCL-2.0:php55-0:2.0-1.el7",
+						"7Workstation-RHSCL-2.0:php55-php-0:5.5.21-2.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.1",
+					"Vector": "AV:N/AC:H/Au:N/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "13",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "php: move_uploaded_file() NUL byte injection in file name",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-03-02T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-2348",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1053"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-2348",
+						"Description": "CVE-2015-2348"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1207682",
+						"Description": "bz#1207682: CVE-2015-2348 php: move_uploaded_file() NUL byte injection in file name"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-03-31T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-RHSCL-2.0-6.5.Z:php55-0:2.0-1.el6",
+						"6Server-RHSCL-2.0-6.5.Z:php55-php-0:5.5.21-2.el6",
+						"6Server-RHSCL-2.0-6.6.Z:php55-0:2.0-1.el6",
+						"6Server-RHSCL-2.0-6.6.Z:php55-php-0:5.5.21-2.el6",
+						"6Server-RHSCL-2.0:php55-0:2.0-1.el6",
+						"6Server-RHSCL-2.0:php55-php-0:5.5.21-2.el6",
+						"6Workstation-RHSCL-2.0:php55-0:2.0-1.el6",
+						"6Workstation-RHSCL-2.0:php55-php-0:5.5.21-2.el6",
+						"7Server-RHSCL-2.0:php55-0:2.0-1.el7",
+						"7Server-RHSCL-2.0:php55-php-0:5.5.21-2.el7",
+						"7Workstation-RHSCL-2.0:php55-0:2.0-1.el7",
+						"7Workstation-RHSCL-2.0:php55-php-0:5.5.21-2.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.0",
+					"Vector": "AV:N/AC:H/Au:N/C:P/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "14",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "php: use-after-free vulnerability in the process_nested_data function in ext/standard/var_unserializer.re",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-03-02T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-2787",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1053"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-2787",
+						"Description": "CVE-2015-2787"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1207676",
+						"Description": "bz#1207676: CVE-2015-2787 php: use-after-free vulnerability in the process_nested_data function in ext/standard/var_unserializer.re"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-03-31T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-RHSCL-2.0-6.5.Z:php55-0:2.0-1.el6",
+						"6Server-RHSCL-2.0-6.5.Z:php55-php-0:5.5.21-2.el6",
+						"6Server-RHSCL-2.0-6.6.Z:php55-0:2.0-1.el6",
+						"6Server-RHSCL-2.0-6.6.Z:php55-php-0:5.5.21-2.el6",
+						"6Server-RHSCL-2.0:php55-0:2.0-1.el6",
+						"6Server-RHSCL-2.0:php55-php-0:5.5.21-2.el6",
+						"6Workstation-RHSCL-2.0:php55-0:2.0-1.el6",
+						"6Workstation-RHSCL-2.0:php55-php-0:5.5.21-2.el6",
+						"7Server-RHSCL-2.0:php55-0:2.0-1.el7",
+						"7Server-RHSCL-2.0:php55-php-0:5.5.21-2.el7",
+						"7Workstation-RHSCL-2.0:php55-0:2.0-1.el7",
+						"7Workstation-RHSCL-2.0:php55-php-0:5.5.21-2.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.0",
+					"Vector": "AV:N/AC:H/Au:N/C:P/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "15",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "php: SoapClient's __call() type confusion through unserialize()",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-03-03T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-4147",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1053"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-4147",
+						"Description": "CVE-2015-4147"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1204868",
+						"Description": "bz#1204868: CVE-2015-4147 php: SoapClient's __call() type confusion through unserialize()"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-03-23T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-RHSCL-2.0-6.5.Z:php55-0:2.0-1.el6",
+						"6Server-RHSCL-2.0-6.5.Z:php55-php-0:5.5.21-2.el6",
+						"6Server-RHSCL-2.0-6.6.Z:php55-0:2.0-1.el6",
+						"6Server-RHSCL-2.0-6.6.Z:php55-php-0:5.5.21-2.el6",
+						"6Server-RHSCL-2.0:php55-0:2.0-1.el6",
+						"6Server-RHSCL-2.0:php55-php-0:5.5.21-2.el6",
+						"6Workstation-RHSCL-2.0:php55-0:2.0-1.el6",
+						"6Workstation-RHSCL-2.0:php55-php-0:5.5.21-2.el6",
+						"7Server-RHSCL-2.0:php55-0:2.0-1.el7",
+						"7Server-RHSCL-2.0:php55-php-0:5.5.21-2.el7",
+						"7Workstation-RHSCL-2.0:php55-0:2.0-1.el7",
+						"7Workstation-RHSCL-2.0:php55-php-0:5.5.21-2.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.8",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "16",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "php: SoapClient's do_soap_call() type confusion after unserialize()",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-03-03T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-4148",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1053"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-4148",
+						"Description": "CVE-2015-4148"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1226916",
+						"Description": "bz#1226916: CVE-2015-4148 php: SoapClient's do_soap_call() type confusion after unserialize()"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2015-03-23T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-RHSCL-2.0-6.5.Z:php55-0:2.0-1.el6",
+						"6Server-RHSCL-2.0-6.5.Z:php55-php-0:5.5.21-2.el6",
+						"6Server-RHSCL-2.0-6.6.Z:php55-0:2.0-1.el6",
+						"6Server-RHSCL-2.0-6.6.Z:php55-php-0:5.5.21-2.el6",
+						"6Server-RHSCL-2.0:php55-0:2.0-1.el6",
+						"6Server-RHSCL-2.0:php55-php-0:5.5.21-2.el6",
+						"6Workstation-RHSCL-2.0:php55-0:2.0-1.el6",
+						"6Workstation-RHSCL-2.0:php55-php-0:5.5.21-2.el6",
+						"7Server-RHSCL-2.0:php55-0:2.0-1.el7",
+						"7Server-RHSCL-2.0:php55-php-0:5.5.21-2.el7",
+						"7Workstation-RHSCL-2.0:php55-0:2.0-1.el7",
+						"7Workstation-RHSCL-2.0:php55-php-0:5.5.21-2.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "17",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "php: type confusion issue in unserialize() with various SOAP methods",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-04-16T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-4599",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1053"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-4599",
+						"Description": "CVE-2015-4599"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1222538",
+						"Description": "bz#1222538: CVE-2015-4599 CVE-2015-4600 CVE-2015-4601 php: type confusion issue in unserialize() with various SOAP methods"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-05-18T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-RHSCL-2.0-6.5.Z:php55-0:2.0-1.el6",
+						"6Server-RHSCL-2.0-6.5.Z:php55-php-0:5.5.21-2.el6",
+						"6Server-RHSCL-2.0-6.6.Z:php55-0:2.0-1.el6",
+						"6Server-RHSCL-2.0-6.6.Z:php55-php-0:5.5.21-2.el6",
+						"6Server-RHSCL-2.0:php55-0:2.0-1.el6",
+						"6Server-RHSCL-2.0:php55-php-0:5.5.21-2.el6",
+						"6Workstation-RHSCL-2.0:php55-0:2.0-1.el6",
+						"6Workstation-RHSCL-2.0:php55-php-0:5.5.21-2.el6",
+						"7Server-RHSCL-2.0:php55-0:2.0-1.el7",
+						"7Server-RHSCL-2.0:php55-php-0:5.5.21-2.el7",
+						"7Workstation-RHSCL-2.0:php55-0:2.0-1.el7",
+						"7Workstation-RHSCL-2.0:php55-php-0:5.5.21-2.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "18",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "php: type confusion issue in unserialize() with various SOAP methods",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-04-16T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-4600",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1053"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-4600",
+						"Description": "CVE-2015-4600"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1222538",
+						"Description": "bz#1222538: CVE-2015-4599 CVE-2015-4600 CVE-2015-4601 php: type confusion issue in unserialize() with various SOAP methods"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-05-18T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-RHSCL-2.0-6.5.Z:php55-0:2.0-1.el6",
+						"6Server-RHSCL-2.0-6.5.Z:php55-php-0:5.5.21-2.el6",
+						"6Server-RHSCL-2.0-6.6.Z:php55-0:2.0-1.el6",
+						"6Server-RHSCL-2.0-6.6.Z:php55-php-0:5.5.21-2.el6",
+						"6Server-RHSCL-2.0:php55-0:2.0-1.el6",
+						"6Server-RHSCL-2.0:php55-php-0:5.5.21-2.el6",
+						"6Workstation-RHSCL-2.0:php55-0:2.0-1.el6",
+						"6Workstation-RHSCL-2.0:php55-php-0:5.5.21-2.el6",
+						"7Server-RHSCL-2.0:php55-0:2.0-1.el7",
+						"7Server-RHSCL-2.0:php55-php-0:5.5.21-2.el7",
+						"7Workstation-RHSCL-2.0:php55-0:2.0-1.el7",
+						"7Workstation-RHSCL-2.0:php55-php-0:5.5.21-2.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "19",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "php: type confusion issue in unserialize() with various SOAP methods",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-04-16T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-4601",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1053"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-4601",
+						"Description": "CVE-2015-4601"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1222538",
+						"Description": "bz#1222538: CVE-2015-4599 CVE-2015-4600 CVE-2015-4601 php: type confusion issue in unserialize() with various SOAP methods"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-05-18T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-RHSCL-2.0-6.5.Z:php55-0:2.0-1.el6",
+						"6Server-RHSCL-2.0-6.5.Z:php55-php-0:5.5.21-2.el6",
+						"6Server-RHSCL-2.0-6.6.Z:php55-0:2.0-1.el6",
+						"6Server-RHSCL-2.0-6.6.Z:php55-php-0:5.5.21-2.el6",
+						"6Server-RHSCL-2.0:php55-0:2.0-1.el6",
+						"6Server-RHSCL-2.0:php55-php-0:5.5.21-2.el6",
+						"6Workstation-RHSCL-2.0:php55-0:2.0-1.el6",
+						"6Workstation-RHSCL-2.0:php55-php-0:5.5.21-2.el6",
+						"7Server-RHSCL-2.0:php55-0:2.0-1.el7",
+						"7Server-RHSCL-2.0:php55-php-0:5.5.21-2.el7",
+						"7Workstation-RHSCL-2.0:php55-0:2.0-1.el7",
+						"7Workstation-RHSCL-2.0:php55-php-0:5.5.21-2.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:N/A:N"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Software Collections",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Software Collections for Red Hat Enterprise Linux Server (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Software Collections for Red Hat Enterprise Linux Server (v. 6)",
+							"productid": "6Server-RHSCL-2.0",
+							"cpe": "cpe:/a:redhat:rhel_software_collections:2::el6"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Software Collections for Red Hat Enterprise Linux Server EUS (v. 6.5)",
+						"fullproductname": {
+							"text": "Red Hat Software Collections for Red Hat Enterprise Linux Server EUS (v. 6.5)",
+							"productid": "6Server-RHSCL-2.0-6.5.Z",
+							"cpe": "cpe:/a:redhat:rhel_software_collections:2::el6"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Software Collections for Red Hat Enterprise Linux Server EUS (v. 6.6)",
+						"fullproductname": {
+							"text": "Red Hat Software Collections for Red Hat Enterprise Linux Server EUS (v. 6.6)",
+							"productid": "6Server-RHSCL-2.0-6.6.Z",
+							"cpe": "cpe:/a:redhat:rhel_software_collections:2::el6"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Software Collections for Red Hat Enterprise Linux Workstation (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Software Collections for Red Hat Enterprise Linux Workstation (v. 6)",
+							"productid": "6Workstation-RHSCL-2.0",
+							"cpe": "cpe:/a:redhat:rhel_software_collections:2::el6"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Software Collections for Red Hat Enterprise Linux Server (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Software Collections for Red Hat Enterprise Linux Server (v. 7)",
+							"productid": "7Server-RHSCL-2.0",
+							"cpe": "cpe:/a:redhat:rhel_software_collections:2::el7"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Software Collections for Red Hat Enterprise Linux Workstation (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Software Collections for Red Hat Enterprise Linux Workstation (v. 7)",
+							"productid": "7Workstation-RHSCL-2.0",
+							"cpe": "cpe:/a:redhat:rhel_software_collections:2::el7"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "php55-0:2.0-1.el6",
+				"fullproductname": {
+					"text": "php55-2.0-1.el6.src.rpm",
+					"productid": "php55-0:2.0-1.el6",
+					"cpe": "cpe:/a:redhat:rhel_software_collections:2::el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "php55-0:2.0-1.el7",
+				"fullproductname": {
+					"text": "php55-2.0-1.el7.src.rpm",
+					"productid": "php55-0:2.0-1.el7",
+					"cpe": "cpe:/a:redhat:rhel_software_collections:2::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "php55-php-0:5.5.21-2.el6",
+				"fullproductname": {
+					"text": "php55-php-5.5.21-2.el6.src.rpm",
+					"productid": "php55-php-0:5.5.21-2.el6",
+					"cpe": "cpe:/a:redhat:rhel_software_collections:2::el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "php55-php-0:5.5.21-2.el7",
+				"fullproductname": {
+					"text": "php55-php-5.5.21-2.el7.src.rpm",
+					"productid": "php55-php-0:5.5.21-2.el7",
+					"cpe": "cpe:/a:redhat:rhel_software_collections:2::el7"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "php55-0:2.0-1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RHSCL-2.0",
+				"fullproductname": {
+					"text": "php55-0:2.0-1.el6 as a component of Red Hat Software Collections for Red Hat Enterprise Linux Server (v. 6)",
+					"productid": "6Server-RHSCL-2.0:php55-0:2.0-1.el6",
+					"cpe": "cpe:/a:redhat:rhel_software_collections:2::el6"
+				}
+			},
+			{
+				"productreference": "php55-php-0:5.5.21-2.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RHSCL-2.0",
+				"fullproductname": {
+					"text": "php55-php-0:5.5.21-2.el6 as a component of Red Hat Software Collections for Red Hat Enterprise Linux Server (v. 6)",
+					"productid": "6Server-RHSCL-2.0:php55-php-0:5.5.21-2.el6",
+					"cpe": "cpe:/a:redhat:rhel_software_collections:2::el6"
+				}
+			},
+			{
+				"productreference": "php55-0:2.0-1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RHSCL-2.0-6.5.Z",
+				"fullproductname": {
+					"text": "php55-0:2.0-1.el6 as a component of Red Hat Software Collections for Red Hat Enterprise Linux Server EUS (v. 6.5)",
+					"productid": "6Server-RHSCL-2.0-6.5.Z:php55-0:2.0-1.el6",
+					"cpe": "cpe:/a:redhat:rhel_software_collections:2::el6"
+				}
+			},
+			{
+				"productreference": "php55-php-0:5.5.21-2.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RHSCL-2.0-6.5.Z",
+				"fullproductname": {
+					"text": "php55-php-0:5.5.21-2.el6 as a component of Red Hat Software Collections for Red Hat Enterprise Linux Server EUS (v. 6.5)",
+					"productid": "6Server-RHSCL-2.0-6.5.Z:php55-php-0:5.5.21-2.el6",
+					"cpe": "cpe:/a:redhat:rhel_software_collections:2::el6"
+				}
+			},
+			{
+				"productreference": "php55-0:2.0-1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RHSCL-2.0-6.6.Z",
+				"fullproductname": {
+					"text": "php55-0:2.0-1.el6 as a component of Red Hat Software Collections for Red Hat Enterprise Linux Server EUS (v. 6.6)",
+					"productid": "6Server-RHSCL-2.0-6.6.Z:php55-0:2.0-1.el6",
+					"cpe": "cpe:/a:redhat:rhel_software_collections:2::el6"
+				}
+			},
+			{
+				"productreference": "php55-php-0:5.5.21-2.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RHSCL-2.0-6.6.Z",
+				"fullproductname": {
+					"text": "php55-php-0:5.5.21-2.el6 as a component of Red Hat Software Collections for Red Hat Enterprise Linux Server EUS (v. 6.6)",
+					"productid": "6Server-RHSCL-2.0-6.6.Z:php55-php-0:5.5.21-2.el6",
+					"cpe": "cpe:/a:redhat:rhel_software_collections:2::el6"
+				}
+			},
+			{
+				"productreference": "php55-0:2.0-1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-RHSCL-2.0",
+				"fullproductname": {
+					"text": "php55-0:2.0-1.el6 as a component of Red Hat Software Collections for Red Hat Enterprise Linux Workstation (v. 6)",
+					"productid": "6Workstation-RHSCL-2.0:php55-0:2.0-1.el6",
+					"cpe": "cpe:/a:redhat:rhel_software_collections:2::el6"
+				}
+			},
+			{
+				"productreference": "php55-php-0:5.5.21-2.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-RHSCL-2.0",
+				"fullproductname": {
+					"text": "php55-php-0:5.5.21-2.el6 as a component of Red Hat Software Collections for Red Hat Enterprise Linux Workstation (v. 6)",
+					"productid": "6Workstation-RHSCL-2.0:php55-php-0:5.5.21-2.el6",
+					"cpe": "cpe:/a:redhat:rhel_software_collections:2::el6"
+				}
+			},
+			{
+				"productreference": "php55-0:2.0-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RHSCL-2.0",
+				"fullproductname": {
+					"text": "php55-0:2.0-1.el7 as a component of Red Hat Software Collections for Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server-RHSCL-2.0:php55-0:2.0-1.el7",
+					"cpe": "cpe:/a:redhat:rhel_software_collections:2::el7"
+				}
+			},
+			{
+				"productreference": "php55-php-0:5.5.21-2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RHSCL-2.0",
+				"fullproductname": {
+					"text": "php55-php-0:5.5.21-2.el7 as a component of Red Hat Software Collections for Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server-RHSCL-2.0:php55-php-0:5.5.21-2.el7",
+					"cpe": "cpe:/a:redhat:rhel_software_collections:2::el7"
+				}
+			},
+			{
+				"productreference": "php55-0:2.0-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-RHSCL-2.0",
+				"fullproductname": {
+					"text": "php55-0:2.0-1.el7 as a component of Red Hat Software Collections for Red Hat Enterprise Linux Workstation (v. 7)",
+					"productid": "7Workstation-RHSCL-2.0:php55-0:2.0-1.el7",
+					"cpe": "cpe:/a:redhat:rhel_software_collections:2::el7"
+				}
+			},
+			{
+				"productreference": "php55-php-0:5.5.21-2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-RHSCL-2.0",
+				"fullproductname": {
+					"text": "php55-php-0:5.5.21-2.el7 as a component of Red Hat Software Collections for Red Hat Enterprise Linux Workstation (v. 7)",
+					"productid": "7Workstation-RHSCL-2.0:php55-php-0:5.5.21-2.el7",
+					"cpe": "cpe:/a:redhat:rhel_software_collections:2::el7"
+				}
+			}
+		]
+	}
+}

@@ -1,0 +1,396 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: dovecot security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2013:0520"
+		},
+		"Status": "Final",
+		"Version": "2",
+		"revisionhistory": {
+			"revision": {
+				"Number": "2",
+				"Date": "2013-02-20T16:28:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2013-02-20T16:19:00Z",
+		"CurrentReleaseDate": "2013-02-20T16:28:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:33:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated dovecot packages that fix three security issues and one bug are now\navailable for Red Hat Enterprise Linux 6.\n\nThe Red Hat Security Response Team has rated this update as having low\nsecurity impact. Common Vulnerability Scoring System (CVSS) base scores,\nwhich give detailed severity ratings, are available for each vulnerability\nfrom the CVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nDovecot is an IMAP server, written with security primarily in mind, for\nLinux and other UNIX-like systems. It also contains a small POP3 server. It\nsupports mail in either of maildir or mbox formats. The SQL drivers and\nauthentication plug-ins are provided as sub-packages.\n\nTwo flaws were found in the way some settings were enforced by the\nscript-login functionality of Dovecot. A remote, authenticated user could\nuse these flaws to bypass intended access restrictions or conduct a\ndirectory traversal attack by leveraging login scripts. (CVE-2011-2166,\nCVE-2011-2167)\n\nA flaw was found in the way Dovecot performed remote server identity\nverification, when it was configured to proxy IMAP and POP3 connections to\nremote hosts using TLS/SSL protocols. A remote attacker could use this flaw\nto conduct man-in-the-middle attacks using an X.509 certificate issued by\na trusted Certificate Authority (for a different name). (CVE-2011-4318)\n\nThis update also fixes the following bug:\n\n* When a new user first accessed their IMAP inbox, Dovecot was, under some\ncircumstances, unable to change the group ownership of the inbox directory\nin the user's Maildir location to match that of the user's mail spool\n(/var/mail/$USER). This correctly generated an \"Internal error occurred\"\nmessage. However, with a subsequent attempt to access the inbox, Dovecot\nsaw that the directory already existed and proceeded with its operation,\nleaving the directory with incorrectly set permissions. This update\ncorrects the underlying permissions setting error. When a new user now\naccesses their inbox for the first time, and it is not possible to set\ngroup ownership, Dovecot removes the created directory and generates an\nerror message instead of keeping the directory with incorrect group\nownership. (BZ#697620)\n\nUsers of dovecot are advised to upgrade to these updated packages, which\ncontain backported patches to correct these issues. After installing the\nupdated packages, the dovecot service will be restarted automatically.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Low",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2013:0520",
+				"Description": "https://access.redhat.com/errata/RHSA-2013:0520"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#low",
+				"Description": "https://access.redhat.com/security/updates/classification/#low"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "dovecot: authenticated remote bypass of intended access restrictions",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2011-05-11T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2011-2166",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:0520"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2011-2166",
+						"Description": "CVE-2011-2166"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=709095",
+						"Description": "bz#709095: CVE-2011-2166 dovecot: authenticated remote bypass of intended access restrictions"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2011-05-24T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-optional:dovecot-1:2.0.9-5.el6",
+						"6Server:dovecot-1:2.0.9-5.el6",
+						"6Workstation-optional:dovecot-1:2.0.9-5.el6",
+						"6Workstation:dovecot-1:2.0.9-5.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "3.6",
+					"Vector": "AV:N/AC:H/Au:S/C:P/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "dovecot: directory traversal due to not obeying chroot directive",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2011-05-11T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2011-2167",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:0520"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2011-2167",
+						"Description": "CVE-2011-2167"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=709097",
+						"Description": "bz#709097: CVE-2011-2167 dovecot: directory traversal due to not obeying chroot directive"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2011-05-24T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-optional:dovecot-1:2.0.9-5.el6",
+						"6Server:dovecot-1:2.0.9-5.el6",
+						"6Workstation-optional:dovecot-1:2.0.9-5.el6",
+						"6Workstation:dovecot-1:2.0.9-5.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "3.6",
+					"Vector": "AV:N/AC:H/Au:S/C:P/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "dovecot: proxy destination host name not checked against SSL certificate name",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2011-11-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2011-4318",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:0520"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2011-4318",
+						"Description": "CVE-2011-4318"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=754980",
+						"Description": "bz#754980: CVE-2011-4318 dovecot: proxy destination host name not checked against SSL certificate name"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2011-11-17T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-optional:dovecot-1:2.0.9-5.el6",
+						"6Server:dovecot-1:2.0.9-5.el6",
+						"6Workstation-optional:dovecot-1:2.0.9-5.el6",
+						"6Workstation:dovecot-1:2.0.9-5.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.8",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:P/A:N"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 6)",
+							"productid": "6Server",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional (v. 6)",
+							"productid": "6Server-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 6)",
+							"productid": "6Workstation",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+							"productid": "6Workstation-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "dovecot-1:2.0.9-5.el6",
+				"fullproductname": {
+					"text": "dovecot-2.0.9-5.el6.src.rpm",
+					"productid": "dovecot-1:2.0.9-5.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "dovecot-1:2.0.9-5.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server",
+				"fullproductname": {
+					"text": "dovecot-1:2.0.9-5.el6 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"productid": "6Server:dovecot-1:2.0.9-5.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "dovecot-1:2.0.9-5.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-optional",
+				"fullproductname": {
+					"text": "dovecot-1:2.0.9-5.el6 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"productid": "6Server-optional:dovecot-1:2.0.9-5.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "dovecot-1:2.0.9-5.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation",
+				"fullproductname": {
+					"text": "dovecot-1:2.0.9-5.el6 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"productid": "6Workstation:dovecot-1:2.0.9-5.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			},
+			{
+				"productreference": "dovecot-1:2.0.9-5.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-optional",
+				"fullproductname": {
+					"text": "dovecot-1:2.0.9-5.el6 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"productid": "6Workstation-optional:dovecot-1:2.0.9-5.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			}
+		]
+	}
+}

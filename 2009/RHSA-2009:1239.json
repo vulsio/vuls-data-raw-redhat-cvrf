@@ -1,0 +1,330 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: kernel-rt security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2009:1239"
+		},
+		"Status": "Final",
+		"Version": "2",
+		"revisionhistory": {
+			"revision": {
+				"Number": "2",
+				"Date": "2009-09-01T03:38:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2009-09-01T07:37:00Z",
+		"CurrentReleaseDate": "2009-09-01T03:38:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:33:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated kernel-rt packages that fix several security issues and various\nbugs are now available for Red Hat Enterprise MRG 1.1.\n\nThis update has been rated as having important security impact by the Red\nHat Security Response Team.\n\n[Updated 1st Sep 2009]\nThis erratum originally stated that these updated kernel packages corrected\nthe issue CVE-2009-1895. This was a mistake as the kernel packages do not\ncontain a fix for this issue. CVE-2009-1895 will be addressed in a future \nupdate.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe kernel-rt packages contain the Linux kernel, the core of any Linux\noperating system.\n\nThese updated packages fix the following security issues:\n\n* Tavis Ormandy and Julien Tinnes of the Google Security Team reported a\nflaw in the SOCKOPS_WRAP macro in the Linux kernel. This macro did not\ninitialize the sendpage operation in the proto_ops structure correctly. A\nlocal, unprivileged user could use this flaw to cause a local denial of\nservice or escalate their privileges. (CVE-2009-2692, Important)\n\n* it was discovered that, when executing a new process, the clear_child_tid\npointer in the Linux kernel is not cleared. If this pointer points to a\nwritable portion of the memory of the new program, the kernel could corrupt\nfour bytes of memory, possibly leading to a local denial of service or\nprivilege escalation. (CVE-2009-2848, Important)\n\n* a flaw was found in the way the do_sigaltstack() function in the Linux\nkernel copies the stack_t structure to user-space. On 64-bit machines, this\nflaw could lead to a four-byte information leak. (CVE-2009-2847, Moderate)\n\nThis update also fixes the following bugs:\n\n* the gcc flag \"-fno-delete-null-pointer-checks\" was added to the kernel\nbuild options. This prevents gcc from optimizing out NULL pointer checks\nafter the first use of a pointer. NULL pointer bugs are often exploited by\nattackers, and keeping these checks is considered a safety measure.\n(BZ#511187) \n\n* a bug in the locking strategy for the free_pages_bulk() kernel function\nwas found, where a lock in a code branch was not held. This could have\ncreated a \"double free\" problem that resulted in a kernel panic.\n(BZ#513715)\n\n* udevd and multipathd were unable to service events fast enough when a\nFibre Channel cable was unplugged. This caused the cable state to be out of\nsync if the cable was plugged back in quickly, possibly resulting in\ndevices being removed, or path issues when using Device-Mapper Multipath.\nThis has been changed so that users can specify devices that should not be\nremoved if a cable is unplugged. (BZ#514541)\n\n* a race condition in exit_thread() could have eventually caused a kernel\noops. (BZ#514587)\n\n* a race condition was fixed between kthread_stop() and kthread_create().\nKernel subsystems creating and stopping threads at a fast pace could hit\nthis issue. Several inexplicable backtraces observed during tests\ncaused this race condition. (BZ#518967)\n\n* HPET_EMULATE_RTC was being disabled during kernel compile. This was\ncaused by an incorrect requirement in the related Kconfig entry. This issue\nled to failures when accessing the RTC (real time clock) in machines that\nhad the RTC emulated by HPET (High Precision Event Timer). (BZ#519433)\n\nUsers should upgrade to these updated packages, which contain backported\npatches to correct these issues. The system must be rebooted for this\nupdate to take effect.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2009:1239",
+				"Description": "https://access.redhat.com/errata/RHSA-2009:1239"
+			},
+			{
+				"type": "External",
+				"URL": "http://www.redhat.com/security/updates/classification/#important",
+				"Description": "http://www.redhat.com/security/updates/classification/#important"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: uninit op in SOCKOPS_WRAP() leads to privesc",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2009-08-13T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2009-2692",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2009:1239"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2009-2692",
+						"Description": "CVE-2009-2692"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=516949",
+						"Description": "bz#516949: CVE-2009-2692 kernel: uninit op in SOCKOPS_WRAP() leads to privesc"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2009-08-12T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-132.el5rt"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "7.2",
+					"Vector": "AV:L/AC:L/Au:N/C:C/I:C/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: information leak in sigaltstack",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2009-07-31T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2009-2847",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2009:1239"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2009-2847",
+						"Description": "CVE-2009-2847"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=515392",
+						"Description": "bz#515392: CVE-2009-2847 kernel: information leak in sigaltstack"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2009-08-04T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-132.el5rt"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.1",
+					"Vector": "AV:L/AC:L/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: execve: must clear current->clear_child_tid",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2009-07-31T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2009-2848",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2009:1239"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2009-2848",
+						"Description": "CVE-2009-2848"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=515423",
+						"Description": "bz#515423: CVE-2009-2848 kernel: execve: must clear current->clear_child_tid"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2009-08-04T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-132.el5rt"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "7.2",
+					"Vector": "AV:L/AC:L/Au:N/C:C/I:C/A:C"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise MRG for RHEL-5",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "MRG Realtime for RHEL 5 Server",
+						"fullproductname": {
+							"text": "MRG Realtime for RHEL 5 Server",
+							"productid": "5Server-MRG-Realtime-1.0",
+							"cpe": "cpe:/a:redhat:enterprise_mrg:1::el5"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-rt-0:2.6.24.7-132.el5rt",
+				"fullproductname": {
+					"text": "kernel-rt-2.6.24.7-132.el5rt.src.rpm",
+					"productid": "kernel-rt-0:2.6.24.7-132.el5rt",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:1::el5"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "kernel-rt-0:2.6.24.7-132.el5rt",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-MRG-Realtime-1.0",
+				"fullproductname": {
+					"text": "kernel-rt-0:2.6.24.7-132.el5rt as a component of MRG Realtime for RHEL 5 Server",
+					"productid": "5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-132.el5rt",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:1::el5"
+				}
+			}
+		]
+	}
+}

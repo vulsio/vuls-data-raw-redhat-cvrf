@@ -1,0 +1,311 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Bug Fix Advisory: OpenShift Container Platform 3.9 bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHBA-2019:0619"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2019-06-19T04:01:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2019-04-09T14:20:00Z",
+		"CurrentReleaseDate": "2019-06-19T04:01:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.12.2",
+			"Date": "2023-03-24T15:58:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nRed Hat OpenShift Container Platform release 3.9.74 is now available with\nupdates to packages and images that fix several bugs.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nRed Hat OpenShift Container Platform is Red Hat's cloud computing\nKubernetes application platform solution designed for on-premise or private\ncloud deployments.\n\nThis advisory contains the RPM packages for Red Hat OpenShift Container\nPlatform 3.9.74. See the following advisory for the container images for\nthis release:\n\nhttps://access.redhat.com/errata/RHBA-2019:0618\n\nThis update fixes the following bugs:\n\n* Passing the `--incremental` argument when running a non-docker strategy build was not checked for validity. As a result, a null pointer error can occur attempting to process the invalid argument. Now, the arguments are checked to ensure they are applicable. An error is now returned to the user instead of a null pointer condition. (BZ#1541911)\n\n* The SSL and TLS service uses Diffie-Hellman groups with insufficient strength (a key size less than 2048 bytes). As a result, the keys are more vulnerable. Now, the key strength has been increased and certificates are more secure. (BZ#1679841)\n\n* The files that implemented log rotation functionality were not copied to the correct `fluentd` directory. As a result, logs were not rotated. Now, the container build inspects the `fluentd` gem to find out where to install the files. The files that implement log rotation are copied to the correct directory for `fluentd` usage. (BZ#1684048)\n\n* When a cluster was installed, the user name in the loopback kubeconfig is the same as the host name of the master. Now, the variable in the playbook is changed to a different value. (BZ#1686587)\n\n* Using `MERGE_JSON_LOG=true` would create fields in the record that would cause syntax violations or create too many fields in `Elasticsearch`, causing severe performance problems. Now, users who experience these problems can tune `fluentd` to accommodate their log record fields without errors or `Elasticsearch` performance degradation. (BZ#1686947)\n\nAll OpenShift Container Platform 3.9 users are advised to upgrade to these\nupdated packages.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2023 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHBA-2019:0619",
+				"Description": "https://access.redhat.com/errata/RHBA-2019:0619"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in Kubernetes via the mishandling of symlinks when copying files from a running container. An attacker could exploit this by convincing a user to use `kubectl cp` or `oc cp` with a malicious container, allowing for arbitrary files to be overwritten on the host machine.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2019-03-28T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2019-1002101",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, ensure all previously released errata relevant to your system are applied.\n\nSee the following documentation, which will be updated shortly for release 3.9.74, for important instructions on how to upgrade your cluster and fully apply this asynchronous errata update:\n\nhttps://docs.openshift.com/container-platform/3.9/release_notes/ocp_3_9_release_notes.html\n\nThis update is available via the Red Hat Network. Details on how to use the\nRed Hat Network to apply this update are available at\nhttps://access.redhat.com/articles/11258.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHBA-2019:0619"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://discuss.kubernetes.io/t/announce-security-release-of-kubernetes-kubectl-potential-directory-traversal-releases-1-11-9-1-12-7-1-13-5-and-1-14-0-cve-2019-1002101/5712",
+						"Description": "https://discuss.kubernetes.io/t/announce-security-release-of-kubernetes-kubectl-potential-directory-traversal-releases-1-11-9-1-12-7-1-13-5-and-1-14-0-cve-2019-1002101/5712"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2019-1002101",
+						"Description": "CVE-2019-1002101"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1685213",
+						"Description": "bz#1685213: CVE-2019-1002101 kubernetes: Mishandling of symlinks allows for arbitrary file write via `kubectl cp`"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2019-03-04T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-RH7-RHOSE-3.9:ansible-service-broker-0:1.1.20-1.el7",
+						"7Server-RH7-RHOSE-3.9:atomic-openshift-0:3.9.74-1.git.0.78e56ea.el7",
+						"7Server-RH7-RHOSE-3.9:atomic-openshift-dockerregistry-0:3.9.74-1.git.0.b102e93.el7",
+						"7Server-RH7-RHOSE-3.9:atomic-openshift-web-console-0:3.9.74-1.git.50.93129da.el7",
+						"7Server-RH7-RHOSE-3.9:cri-o-0:1.9.16-1.git78b2041.el7",
+						"7Server-RH7-RHOSE-3.9:golang-github-prometheus-node_exporter-0:3.9.74-1.git.0.2ab615c.el7",
+						"7Server-RH7-RHOSE-3.9:openshift-ansible-0:3.9.74-1.git.0.70a0a63.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank Ariel Zelivansky (Twistlock) for reporting this issue."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat OpenShift Enterprise",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat OpenShift Container Platform 3.9",
+						"fullproductname": {
+							"text": "Red Hat OpenShift Container Platform 3.9",
+							"productid": "7Server-RH7-RHOSE-3.9",
+							"cpe": "cpe:/a:redhat:openshift:3.9::el7"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "ansible-service-broker-0:1.1.20-1.el7",
+				"fullproductname": {
+					"text": "ansible-service-broker-1.1.20-1.el7.src.rpm",
+					"productid": "ansible-service-broker-0:1.1.20-1.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.9::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "atomic-openshift-0:3.9.74-1.git.0.78e56ea.el7",
+				"fullproductname": {
+					"text": "atomic-openshift-3.9.74-1.git.0.78e56ea.el7.src.rpm",
+					"productid": "atomic-openshift-0:3.9.74-1.git.0.78e56ea.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.9::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "atomic-openshift-dockerregistry-0:3.9.74-1.git.0.b102e93.el7",
+				"fullproductname": {
+					"text": "atomic-openshift-dockerregistry-3.9.74-1.git.0.b102e93.el7.src.rpm",
+					"productid": "atomic-openshift-dockerregistry-0:3.9.74-1.git.0.b102e93.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.9::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "atomic-openshift-web-console-0:3.9.74-1.git.50.93129da.el7",
+				"fullproductname": {
+					"text": "atomic-openshift-web-console-3.9.74-1.git.50.93129da.el7.src.rpm",
+					"productid": "atomic-openshift-web-console-0:3.9.74-1.git.50.93129da.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.9::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "cri-o-0:1.9.16-1.git78b2041.el7",
+				"fullproductname": {
+					"text": "cri-o-1.9.16-1.git78b2041.el7.src.rpm",
+					"productid": "cri-o-0:1.9.16-1.git78b2041.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.9::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "golang-github-prometheus-node_exporter-0:3.9.74-1.git.0.2ab615c.el7",
+				"fullproductname": {
+					"text": "golang-github-prometheus-node_exporter-3.9.74-1.git.0.2ab615c.el7.src.rpm",
+					"productid": "golang-github-prometheus-node_exporter-0:3.9.74-1.git.0.2ab615c.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.9::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openshift-ansible-0:3.9.74-1.git.0.70a0a63.el7",
+				"fullproductname": {
+					"text": "openshift-ansible-3.9.74-1.git.0.70a0a63.el7.src.rpm",
+					"productid": "openshift-ansible-0:3.9.74-1.git.0.70a0a63.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.9::el7"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "ansible-service-broker-0:1.1.20-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOSE-3.9",
+				"fullproductname": {
+					"text": "ansible-service-broker-0:1.1.20-1.el7 as a component of Red Hat OpenShift Container Platform 3.9",
+					"productid": "7Server-RH7-RHOSE-3.9:ansible-service-broker-0:1.1.20-1.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.9::el7"
+				}
+			},
+			{
+				"productreference": "atomic-openshift-0:3.9.74-1.git.0.78e56ea.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOSE-3.9",
+				"fullproductname": {
+					"text": "atomic-openshift-0:3.9.74-1.git.0.78e56ea.el7 as a component of Red Hat OpenShift Container Platform 3.9",
+					"productid": "7Server-RH7-RHOSE-3.9:atomic-openshift-0:3.9.74-1.git.0.78e56ea.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.9::el7"
+				}
+			},
+			{
+				"productreference": "atomic-openshift-dockerregistry-0:3.9.74-1.git.0.b102e93.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOSE-3.9",
+				"fullproductname": {
+					"text": "atomic-openshift-dockerregistry-0:3.9.74-1.git.0.b102e93.el7 as a component of Red Hat OpenShift Container Platform 3.9",
+					"productid": "7Server-RH7-RHOSE-3.9:atomic-openshift-dockerregistry-0:3.9.74-1.git.0.b102e93.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.9::el7"
+				}
+			},
+			{
+				"productreference": "atomic-openshift-web-console-0:3.9.74-1.git.50.93129da.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOSE-3.9",
+				"fullproductname": {
+					"text": "atomic-openshift-web-console-0:3.9.74-1.git.50.93129da.el7 as a component of Red Hat OpenShift Container Platform 3.9",
+					"productid": "7Server-RH7-RHOSE-3.9:atomic-openshift-web-console-0:3.9.74-1.git.50.93129da.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.9::el7"
+				}
+			},
+			{
+				"productreference": "cri-o-0:1.9.16-1.git78b2041.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOSE-3.9",
+				"fullproductname": {
+					"text": "cri-o-0:1.9.16-1.git78b2041.el7 as a component of Red Hat OpenShift Container Platform 3.9",
+					"productid": "7Server-RH7-RHOSE-3.9:cri-o-0:1.9.16-1.git78b2041.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.9::el7"
+				}
+			},
+			{
+				"productreference": "golang-github-prometheus-node_exporter-0:3.9.74-1.git.0.2ab615c.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOSE-3.9",
+				"fullproductname": {
+					"text": "golang-github-prometheus-node_exporter-0:3.9.74-1.git.0.2ab615c.el7 as a component of Red Hat OpenShift Container Platform 3.9",
+					"productid": "7Server-RH7-RHOSE-3.9:golang-github-prometheus-node_exporter-0:3.9.74-1.git.0.2ab615c.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.9::el7"
+				}
+			},
+			{
+				"productreference": "openshift-ansible-0:3.9.74-1.git.0.70a0a63.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOSE-3.9",
+				"fullproductname": {
+					"text": "openshift-ansible-0:3.9.74-1.git.0.70a0a63.el7 as a component of Red Hat OpenShift Container Platform 3.9",
+					"productid": "7Server-RH7-RHOSE-3.9:openshift-ansible-0:3.9.74-1.git.0.70a0a63.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.9::el7"
+				}
+			}
+		]
+	}
+}

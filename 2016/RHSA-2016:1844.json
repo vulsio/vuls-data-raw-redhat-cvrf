@@ -1,0 +1,2020 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: libarchive security update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2016:1844"
+		},
+		"Status": "Final",
+		"Version": "3",
+		"revisionhistory": {
+			"revision": {
+				"Number": "3",
+				"Date": "2016-09-12T20:11:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2016-09-12T20:11:00Z",
+		"CurrentReleaseDate": "2016-09-12T20:11:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:43:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nAn update for libarchive is now available for Red Hat Enterprise Linux 7.\n\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe libarchive programming library can create and read several different streaming archive formats, including GNU tar, cpio, and ISO 9660 CD-ROM images. Libarchive is used notably in the bsdtar utility, scripting language bindings such as python-libarchive, and several popular desktop file managers.\n\nSecurity Fix(es):\n\n* A flaw was found in the way libarchive handled hardlink archive entries of non-zero size. Combined with flaws in libarchive's file system sandboxing, this issue could cause an application using libarchive to overwrite arbitrary files with arbitrary data from the archive. (CVE-2016-5418)\n\n* Multiple out-of-bounds write flaws were found in libarchive. Specially crafted ZIP, 7ZIP, or RAR files could cause a heap overflow, potentially allowing code execution in the context of the application using libarchive. (CVE-2016-1541, CVE-2016-4300, CVE-2016-4302)\n\n* Multiple out-of-bounds read flaws were found in libarchive. Specially crafted LZA/LZH, AR, MTREE, ZIP, TAR, or RAR files could cause the application to read data out of bounds, potentially disclosing a small amount of application memory, or causing an application crash. (CVE-2015-8919, CVE-2015-8920, CVE-2015-8921, CVE-2015-8923, CVE-2015-8924, CVE-2015-8925, CVE-2015-8926, CVE-2015-8928, CVE-2015-8934)\n\n* Multiple NULL pointer dereference flaws were found in libarchive. Specially crafted RAR, CAB, or 7ZIP files could cause an application using libarchive to crash. (CVE-2015-8916, CVE-2015-8917, CVE-2015-8922)\n\n* Multiple infinite loop / resource exhaustion flaws were found in libarchive. Specially crafted GZIP or ISO files could cause the application to consume an excessive amount of resources, eventually leading to a crash on memory exhaustion. (CVE-2016-7166, CVE-2015-8930)\n\n* A denial of service vulnerability was found in libarchive. A specially crafted CPIO archive containing a symbolic link to a large target path could cause memory allocation to fail, causing an application using libarchive that attempted to view or extract such archive to crash. (CVE-2016-4809)\n\n* An integer overflow flaw, leading to a buffer overflow, was found in libarchive's construction of ISO9660 volumes. Attempting to create an ISO9660 volume with 2 GB or 4 GB file names could cause the application to attempt to allocate 20 GB of memory. If this were to succeed, it could lead to an out of bounds write on the heap and potential code execution. (CVE-2016-6250)\n\n* Multiple instances of undefined behavior due to arithmetic overflow were found in libarchive. Specially crafted MTREE archives, Compress streams, or ISO9660 volumes could potentially cause the application to fail to read the archive, or to crash. (CVE-2015-8931, CVE-2015-8932, CVE-2016-5844)\n\nRed Hat would like to thank Insomnia Security for reporting CVE-2016-5418.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2016:1844",
+				"Description": "https://access.redhat.com/errata/RHSA-2016:1844"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "libarchive: NULL pointer access in RAR parser through bsdtar",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-06-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-8916",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2016:1844"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-8916",
+						"Description": "CVE-2015-8916"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1348412",
+						"Description": "bz#1348412: CVE-2015-8916 libarchive: NULL pointer access in RAR parser through bsdtar"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2016-06-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Client-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7ComputeNode-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7ComputeNode-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Server-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Server-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Workstation-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Workstation-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "3.5",
+					"Vector": "AV:N/AC:M/Au:S/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "libarchive: NULL pointer access in CAB parser",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-06-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-8917",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2016:1844"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-8917",
+						"Description": "CVE-2015-8917"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1348413",
+						"Description": "bz#1348413: CVE-2015-8917 libarchive: NULL pointer access in CAB parser"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2016-06-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Client-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7ComputeNode-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7ComputeNode-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Server-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Server-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Workstation-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Workstation-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "3.5",
+					"Vector": "AV:N/AC:M/Au:S/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "libarchive: Heap out of bounds read in LHA/LZH parser",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-06-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-8919",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2016:1844"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-8919",
+						"Description": "CVE-2015-8919"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1348414",
+						"Description": "bz#1348414: CVE-2015-8919 libarchive: Heap out of bounds read in LHA/LZH parser"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2016-06-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Client-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7ComputeNode-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7ComputeNode-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Server-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Server-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Workstation-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Workstation-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "3.5",
+					"Vector": "AV:N/AC:M/Au:S/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "libarchive: Stack out of bounds read in ar parser",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-06-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-8920",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2016:1844"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-8920",
+						"Description": "CVE-2015-8920"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1348416",
+						"Description": "bz#1348416: CVE-2015-8920 libarchive: Stack out of bounds read in ar parser"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2016-06-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Client-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7ComputeNode-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7ComputeNode-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Server-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Server-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Workstation-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Workstation-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "3.5",
+					"Vector": "AV:N/AC:M/Au:S/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "libarchive: Global out of bounds read in mtree parser",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-06-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-8921",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2016:1844"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-8921",
+						"Description": "CVE-2015-8921"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1348772",
+						"Description": "bz#1348772: CVE-2015-8921 libarchive: Global out of bounds read in mtree parser"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2016-06-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Client-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7ComputeNode-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7ComputeNode-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Server-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Server-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Workstation-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Workstation-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "3.5",
+					"Vector": "AV:N/AC:M/Au:S/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "6",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "libarchive: NULL pointer access in 7z parser",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-06-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-8922",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2016:1844"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-8922",
+						"Description": "CVE-2015-8922"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1348419",
+						"Description": "bz#1348419: CVE-2015-8922 libarchive: NULL pointer access in 7z parser"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2016-06-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Client-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7ComputeNode-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7ComputeNode-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Server-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Server-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Workstation-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Workstation-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "3.5",
+					"Vector": "AV:N/AC:M/Au:S/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "7",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "libarchive: Unclear crashes in ZIP parser",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-06-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-8923",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2016:1844"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-8923",
+						"Description": "CVE-2015-8923"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1348773",
+						"Description": "bz#1348773: CVE-2015-8923 libarchive: Unclear crashes in ZIP parser"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2016-06-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Client-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7ComputeNode-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7ComputeNode-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Server-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Server-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Workstation-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Workstation-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "3.5",
+					"Vector": "AV:N/AC:M/Au:S/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "8",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "libarchive: Heap out of bounds read in TAR parser",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-06-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-8924",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2016:1844"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-8924",
+						"Description": "CVE-2015-8924"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1348421",
+						"Description": "bz#1348421: CVE-2015-8924 libarchive: Heap out of bounds read in TAR parser"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2016-06-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Client-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7ComputeNode-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7ComputeNode-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Server-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Server-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Workstation-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Workstation-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "3.5",
+					"Vector": "AV:N/AC:M/Au:S/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "9",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "libarchive: Unclear invalid memory read in mtree parser",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-06-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-8925",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2016:1844"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-8925",
+						"Description": "CVE-2015-8925"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1348423",
+						"Description": "bz#1348423: CVE-2015-8925 libarchive: Unclear invalid memory read in mtree parser"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2016-06-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Client-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7ComputeNode-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7ComputeNode-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Server-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Server-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Workstation-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Workstation-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "3.5",
+					"Vector": "AV:N/AC:M/Au:S/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "10",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "libarchive: NULL pointer access in RAR parser",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-06-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-8926",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2016:1844"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-8926",
+						"Description": "CVE-2015-8926"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1348424",
+						"Description": "bz#1348424: CVE-2015-8926 libarchive: NULL pointer access in RAR parser"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2016-06-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Client-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7ComputeNode-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7ComputeNode-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Server-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Server-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Workstation-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Workstation-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "3.5",
+					"Vector": "AV:N/AC:M/Au:S/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "11",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "libarchive: Heap out of bounds read in mtree parser",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-06-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-8928",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2016:1844"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-8928",
+						"Description": "CVE-2015-8928"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1348429",
+						"Description": "bz#1348429: CVE-2015-8928 libarchive: Heap out of bounds read in mtree parser"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2016-06-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Client-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7ComputeNode-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7ComputeNode-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Server-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Server-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Workstation-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Workstation-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "3.5",
+					"Vector": "AV:N/AC:M/Au:S/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "12",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "libarchive: Endless loop in ISO parser",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-06-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-8930",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2016:1844"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-8930",
+						"Description": "CVE-2015-8930"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1349204",
+						"Description": "bz#1349204: CVE-2015-8930 libarchive: Endless loop in ISO parser"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2016-06-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Client-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7ComputeNode-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7ComputeNode-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Server-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Server-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Workstation-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Workstation-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "3.5",
+					"Vector": "AV:N/AC:M/Au:S/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "13",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "libarchive: Undefined behavior (signed integer overflow) in mtree parser",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-06-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-8931",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2016:1844"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-8931",
+						"Description": "CVE-2015-8931"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1348779",
+						"Description": "bz#1348779: CVE-2015-8931 libarchive: Undefined behavior (signed integer overflow) in mtree parser"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2016-06-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Client-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7ComputeNode-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7ComputeNode-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Server-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Server-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Workstation-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Workstation-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "3.5",
+					"Vector": "AV:N/AC:M/Au:S/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "14",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "libarchive: Undefined behavior / invalid shiftleft in TAR parser",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-06-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-8932",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2016:1844"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-8932",
+						"Description": "CVE-2015-8932"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1348780",
+						"Description": "bz#1348780: CVE-2015-8932 libarchive: Undefined behavior / invalid shiftleft in TAR parser"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2016-06-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Client-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7ComputeNode-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7ComputeNode-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Server-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Server-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Workstation-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Workstation-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "3.5",
+					"Vector": "AV:N/AC:M/Au:S/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "15",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "libarchive: out of bounds heap read in RAR parser",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-06-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-8934",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2016:1844"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-8934",
+						"Description": "CVE-2015-8934"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1349229",
+						"Description": "bz#1349229: CVE-2015-8934 libarchive: out of bounds heap read in RAR parser"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2016-06-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Client-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7ComputeNode-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7ComputeNode-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Server-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Server-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Workstation-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Workstation-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "3.5",
+					"Vector": "AV:N/AC:M/Au:S/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "16",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "libarchive: zip_read_mac_metadata() heap-based buffer overflow",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-05-02T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2016-1541",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2016:1844"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "http://www.kb.cert.org/vuls/id/862384",
+						"Description": "http://www.kb.cert.org/vuls/id/862384"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2016-1541",
+						"Description": "CVE-2016-1541"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1334211",
+						"Description": "bz#1334211: CVE-2016-1541 libarchive: zip_read_mac_metadata() heap-based buffer overflow"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2016-05-09T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Client-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7ComputeNode-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7ComputeNode-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Server-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Server-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Workstation-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Workstation-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.0",
+					"Vector": "AV:N/AC:M/Au:S/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "17",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "libarchive: Heap buffer overflow vulnerability in the 7zip read_SubStreamsInfo",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-06-19T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2016-4300",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2016:1844"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "http://www.talosintel.com/reports/TALOS-2016-0152/",
+						"Description": "http://www.talosintel.com/reports/TALOS-2016-0152/"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2016-4300",
+						"Description": "CVE-2016-4300"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1348439",
+						"Description": "bz#1348439: CVE-2016-4300 libarchive: Heap buffer overflow vulnerability in the 7zip read_SubStreamsInfo"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2016-06-19T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Client-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7ComputeNode-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7ComputeNode-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Server-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Server-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Workstation-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Workstation-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.0",
+					"Vector": "AV:N/AC:M/Au:S/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "18",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "libarchive: Heap buffer overflow in the Rar decompression functionality",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-06-19T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2016-4302",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2016:1844"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "http://www.talosintel.com/reports/TALOS-2016-0154/",
+						"Description": "http://www.talosintel.com/reports/TALOS-2016-0154/"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2016-4302",
+						"Description": "CVE-2016-4302"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1348444",
+						"Description": "bz#1348444: CVE-2016-4302 libarchive: Heap buffer overflow in the Rar decompression functionality"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2016-06-19T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Client-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7ComputeNode-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7ComputeNode-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Server-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Server-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Workstation-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Workstation-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.0",
+					"Vector": "AV:N/AC:M/Au:S/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "19",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "libarchive: Memory allocate error with symbolic links in cpio archives",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-05-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2016-4809",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2016:1844"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2016-4809",
+						"Description": "CVE-2016-4809"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1347084",
+						"Description": "bz#1347084: CVE-2016-4809 libarchive: Memory allocate error with symbolic links in cpio archives"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2016-06-15T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Client-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7ComputeNode-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7ComputeNode-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Server-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Server-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Workstation-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Workstation-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "3.5",
+					"Vector": "AV:N/AC:M/Au:S/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "20",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "libarchive: Archive Entry with type 1 (hardlink), but has a non-zero data size file overwrite",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-09-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2016-5418",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2016:1844"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "http://seclists.org/oss-sec/2016/q3/255",
+						"Description": "http://seclists.org/oss-sec/2016/q3/255"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2016-5418",
+						"Description": "CVE-2016-5418"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1362601",
+						"Description": "bz#1362601: CVE-2016-5418 libarchive: Archive Entry with type 1 (hardlink), but has a non-zero data size file overwrite"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2016-07-28T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Client-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7ComputeNode-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7ComputeNode-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Server-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Server-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Workstation-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Workstation-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank Insomnia Security for reporting this issue."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.6",
+					"Vector": "AV:N/AC:H/Au:S/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "21",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "libarchive: undefined behaviour (integer overflow) in iso parser",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-06-24T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2016-5844",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2016:1844"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2016-5844",
+						"Description": "CVE-2016-5844"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1350280",
+						"Description": "bz#1350280: CVE-2016-5844 libarchive: undefined behaviour (integer overflow) in iso parser"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2016-06-27T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Client-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7ComputeNode-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7ComputeNode-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Server-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Server-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Workstation-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Workstation-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "3.5",
+					"Vector": "AV:N/AC:M/Au:S/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "22",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "libarchive: Buffer overflow when writing large iso9660 containers",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-05-29T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2016-6250",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2016:1844"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2016-6250",
+						"Description": "CVE-2016-6250"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1347085",
+						"Description": "bz#1347085: CVE-2016-6250 libarchive: Buffer overflow when writing large iso9660 containers"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2016-06-15T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Client-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7ComputeNode-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7ComputeNode-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Server-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Server-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Workstation-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Workstation-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:H/Au:M/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "23",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "libarchive: Denial of service using a crafted gzip file",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-02-22T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2016-7166",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2016:1844"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2016-7166",
+						"Description": "CVE-2016-7166"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1347086",
+						"Description": "bz#1347086: CVE-2016-7166 libarchive: Denial of service using a crafted gzip file"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2016-06-15T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Client-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7ComputeNode-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7ComputeNode-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Server-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Server-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Workstation-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+						"7Workstation-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "3.5",
+					"Vector": "AV:N/AC:M/Au:S/C:N/I:N/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Client (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Client (v. 7)",
+							"productid": "7Client-7.2.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Client Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Client Optional (v. 7)",
+							"productid": "7Client-optional-7.2.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ComputeNode (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ComputeNode (v. 7)",
+							"productid": "7ComputeNode-7.2.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+							"productid": "7ComputeNode-optional-7.2.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 7)",
+							"productid": "7Server-7.2.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional (v. 7)",
+							"productid": "7Server-optional-7.2.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 7)",
+							"productid": "7Workstation-7.2.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation Optional (v. 7)",
+							"productid": "7Workstation-optional-7.2.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "libarchive-0:3.1.2-10.el7_2",
+				"fullproductname": {
+					"text": "libarchive-3.1.2-10.el7_2.src.rpm",
+					"productid": "libarchive-0:3.1.2-10.el7_2",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "libarchive-0:3.1.2-10.el7_2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-7.2.Z",
+				"fullproductname": {
+					"text": "libarchive-0:3.1.2-10.el7_2 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"productid": "7Client-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "libarchive-0:3.1.2-10.el7_2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-optional-7.2.Z",
+				"fullproductname": {
+					"text": "libarchive-0:3.1.2-10.el7_2 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"productid": "7Client-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "libarchive-0:3.1.2-10.el7_2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-7.2.Z",
+				"fullproductname": {
+					"text": "libarchive-0:3.1.2-10.el7_2 as a component of Red Hat Enterprise Linux ComputeNode (v. 7)",
+					"productid": "7ComputeNode-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "libarchive-0:3.1.2-10.el7_2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-optional-7.2.Z",
+				"fullproductname": {
+					"text": "libarchive-0:3.1.2-10.el7_2 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"productid": "7ComputeNode-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "libarchive-0:3.1.2-10.el7_2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-7.2.Z",
+				"fullproductname": {
+					"text": "libarchive-0:3.1.2-10.el7_2 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "libarchive-0:3.1.2-10.el7_2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-optional-7.2.Z",
+				"fullproductname": {
+					"text": "libarchive-0:3.1.2-10.el7_2 as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"productid": "7Server-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "libarchive-0:3.1.2-10.el7_2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-7.2.Z",
+				"fullproductname": {
+					"text": "libarchive-0:3.1.2-10.el7_2 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"productid": "7Workstation-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "libarchive-0:3.1.2-10.el7_2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-optional-7.2.Z",
+				"fullproductname": {
+					"text": "libarchive-0:3.1.2-10.el7_2 as a component of Red Hat Enterprise Linux Workstation Optional (v. 7)",
+					"productid": "7Workstation-optional-7.2.Z:libarchive-0:3.1.2-10.el7_2",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			}
+		]
+	}
+}

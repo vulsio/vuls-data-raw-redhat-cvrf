@@ -1,0 +1,412 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: apache, mod_ssl, php security update for Stronghold",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2004:405"
+		},
+		"Status": "Final",
+		"Version": "2",
+		"revisionhistory": {
+			"revision": {
+				"Number": "2",
+				"Date": "2004-07-23T00:00:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2004-07-23T09:26:00Z",
+		"CurrentReleaseDate": "2004-07-23T00:00:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:27:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated versions of cross-platform Stronghold that fix security issues in\nmod_ssl, PHP, and the Apache HTTP Server are now available.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nStronghold 4 contains a number of open source technologies, including\nPHP, mod_ssl and the Apache HTTP Server.\n\nStefan Esser discovered a flaw when the memory_limit configuration setting\nwas enabled in PHP 4 versions prior to 4.3.8. If a remote attacker could\nforce the PHP interpreter to allocate more memory than the memory_limit\nsetting before script execution begins, then the attacker may be able to\nsupply the contents of a PHP hash table remotely. This hash table could\nthen be used to execute arbitrary code as the 'apache' user. The Common\nVulnerabilities and Exposures project (cve.mitre.org) has assigned the name\nCAN-2004-0594 to this issue.\n\nIt may be possible to exploit this issue if using a non-default PHP\nconfiguration with the \"register_defaults\" setting is changed to \"On\".  Red\nHat does not believe that this flaw is exploitable in the default\nconfiguration of Stronghold 4.\n\nStefan Esser discovered a flaw in the strip_tags function in versions of\nPHP prior to 4.3.8. The strip_tags function is commonly used by PHP scripts\nto prevent cross-site scripting attacks by removing HTML tags from\nuser-supplied form data. By embedding NUL bytes into form data, HTML tags\ncan in some cases be passed intact through the strip_tags function, which\nmay allow a cross-site scripting attack. The Common Vulnerabilities and\nExposures project (cve.mitre.org) has assigned the name CAN-2004-0595 to\nthis issue.\n\nA stack buffer overflow was discovered in mod_ssl which can be triggered if\nusing the FakeBasicAuth option. If mod_ssl is sent a client certificate\nwith a subject DN field longer than 6000 characters, a stack overflow can\noccur if FakeBasicAuth has been enabled. In order to exploit this issue,\nthe carefully crafted malicious certificate would have to be signed by a\nCertificate Authority which mod_ssl is configured to trust. The Common\nVulnerabilities and Exposures project (cve.mitre.org) has assigned the name\nCAN-2004-0488 to this issue.\n\nA format string issue was discovered in mod_ssl which can be triggered if \nmod_ssl is configured to allow a client to proxy to remote SSL sites. \nIf mod_ssl is forced to connect to a remote SSL server using a\ncarefully crafted hostname, an attacker may be able to crash an Apache\nchild process.  This issue is not known to allow arbitrary execution of\ncode.  The Common Vulnerabilities and Exposures project (cve.mitre.org) has\nassigned the name CAN-2004-0700 to this issue.\n\nA denial of service issue was discovered which affects versions of the\nApache HTTP Server prior to 1.3.30.  On some platforms, when Apache is\nconfigured with multiple listening sockets, a short-lived connection to\none socket may temporarily block new connections to other sockets.  This\nissue does not affect Stronghold if running on Linux, FreeBSD or HP-UX\nplatforms.  The Common Vulnerabilities and Exposures project\n(cve.mitre.org) has assigned the name CAN-2004-0174 to this issue.\n\nUsers of Stronghold 4 cross-platform are advised to update to these errata\nversions, which contain backported security fixes and are not vulnerable to\nthese issues.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2004:405",
+				"Description": "https://access.redhat.com/errata/RHSA-2004:405"
+			},
+			{
+				"type": "External",
+				"URL": "",
+				"Description": ""
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "security flaw",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2004-03-19T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2004-0174",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nUpdated Stronghold 4 packages are now available via the update agent\nservice. Run the following command from the Stronghold 4 install root to\nupgrade an existing Stronghold 4 installation to the new package versions:\n\n$ bin/agent\n\nThe Stronghold 4.0i patch release which contains these updated packages is\nalso available from the download site.\n\nAfter upgrading Stronghold, the server must be completely restarted by\nrunning the following commands from the install root:\n\n$ bin/stop-server\n$ bin/start-server\n\nFor more information on how to upgrade between releases of Stronghold 4,\nrefer to http://stronghold.redhat.com/support/upgrade-sh4\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2004:405"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2004-0174",
+						"Description": "CVE-2004-0174"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1617165",
+						"Description": "bz#1617165: CVE-2004-0174 security flaw"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "mod_ssl ssl_util_uuencode_binary CA issue",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2004-05-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2004-0488",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nUpdated Stronghold 4 packages are now available via the update agent\nservice. Run the following command from the Stronghold 4 install root to\nupgrade an existing Stronghold 4 installation to the new package versions:\n\n$ bin/agent\n\nThe Stronghold 4.0i patch release which contains these updated packages is\nalso available from the download site.\n\nAfter upgrading Stronghold, the server must be completely restarted by\nrunning the following commands from the install root:\n\n$ bin/stop-server\n$ bin/start-server\n\nFor more information on how to upgrade between releases of Stronghold 4,\nrefer to http://stronghold.redhat.com/support/upgrade-sh4\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2004:405"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2004-0488",
+						"Description": "CVE-2004-0488"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=430867",
+						"Description": "bz#430867: CVE-2004-0488 mod_ssl ssl_util_uuencode_binary CA issue"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "security flaw",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2004-07-13T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2004-0594",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nUpdated Stronghold 4 packages are now available via the update agent\nservice. Run the following command from the Stronghold 4 install root to\nupgrade an existing Stronghold 4 installation to the new package versions:\n\n$ bin/agent\n\nThe Stronghold 4.0i patch release which contains these updated packages is\nalso available from the download site.\n\nAfter upgrading Stronghold, the server must be completely restarted by\nrunning the following commands from the install root:\n\n$ bin/stop-server\n$ bin/start-server\n\nFor more information on how to upgrade between releases of Stronghold 4,\nrefer to http://stronghold.redhat.com/support/upgrade-sh4\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2004:405"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2004-0594",
+						"Description": "CVE-2004-0594"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1617233",
+						"Description": "bz#1617233: CVE-2004-0594 security flaw"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "security flaw",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2004-07-14T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2004-0595",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nUpdated Stronghold 4 packages are now available via the update agent\nservice. Run the following command from the Stronghold 4 install root to\nupgrade an existing Stronghold 4 installation to the new package versions:\n\n$ bin/agent\n\nThe Stronghold 4.0i patch release which contains these updated packages is\nalso available from the download site.\n\nAfter upgrading Stronghold, the server must be completely restarted by\nrunning the following commands from the install root:\n\n$ bin/stop-server\n$ bin/start-server\n\nFor more information on how to upgrade between releases of Stronghold 4,\nrefer to http://stronghold.redhat.com/support/upgrade-sh4\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2004:405"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2004-0595",
+						"Description": "CVE-2004-0595"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1617234",
+						"Description": "bz#1617234: CVE-2004-0595 security flaw"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "mod_proxy hook format string",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2004-07-16T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2004-0700",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nUpdated Stronghold 4 packages are now available via the update agent\nservice. Run the following command from the Stronghold 4 install root to\nupgrade an existing Stronghold 4 installation to the new package versions:\n\n$ bin/agent\n\nThe Stronghold 4.0i patch release which contains these updated packages is\nalso available from the download site.\n\nAfter upgrading Stronghold, the server must be completely restarted by\nrunning the following commands from the install root:\n\n$ bin/stop-server\n$ bin/start-server\n\nFor more information on how to upgrade between releases of Stronghold 4,\nrefer to http://stronghold.redhat.com/support/upgrade-sh4\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2004:405"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2004-0700",
+						"Description": "CVE-2004-0700"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=430866",
+						"Description": "bz#430866: CVE-2004-0700 mod_proxy hook format string"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		}
+	],
+	"producttree": {}
+}

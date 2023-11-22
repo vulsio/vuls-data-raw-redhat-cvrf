@@ -1,0 +1,553 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: Red Hat Ceph Storage 3.3 Security and Bug Fix Update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2021:1518"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2021-05-06T19:04:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2021-05-06T19:04:00Z",
+		"CurrentReleaseDate": "2021-05-06T19:04:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:57:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nAn update is now available for Red Hat Ceph Storage 3.3 - Extended Life Support on Red Hat Enterprise Linux 7.\n\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nRed Hat Ceph Storage is a scalable, open, software-defined storage platform that combines the most stable version of the Ceph storage system with a Ceph management platform, deployment utilities, and support services.\n\nThe ceph-ansible package provides Ansible playbooks for installing, maintaining, and upgrading Red Hat Ceph Storage.\n\nGrafana is an open source, feature rich metrics dashboard and graph editor for Graphite, InfluxDB & OpenTSDB. \n\nThe tcmu-runner packages provide a service that handles the complexity of the LIO kernel target's userspace passthrough interface (TCMU). It presents a C plugin API for extension modules that handle SCSI requests in ways not possible or suitable to be handled by LIO's in-kernel backstores.\n\nSecurity Fix(es):\n\n* grafana: SSRF incorrect access control vulnerability allows unauthenticated users to make grafana send HTTP requests to any URL (CVE-2020-13379)\n\n* ceph: User credentials can be manipulated and stolen by Native CephFS consumers of OpenStack Manila (CVE-2020-27781)\n\n* tcmu-runner: SCSI target (LIO) write to any block on ILO backstore (CVE-2021-3139)\n\n* ceph: specially crafted XML payload on POST requests leads to DoS by crashing RGW (CVE-2020-12059)\n\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\n\nBug Fix(es):\n\nThis advisory fixes the following bug:\n\n* When rebooting OSDs, the `_OSD down_` tab in the `_CEPH Backend storage_` dashboard shows the correct number of OSDs that is `down`. However, when all OSDs are `up` again after the reboot, the tab continues showing the number of `down` OSDs. With this update, both CLI and Grafana values are matching during osd up/down operation and working as expected. (BZ#1652233)\n\nAll users of Red Hat Ceph Storage are advised to upgrade to these updated packages.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2021:1518",
+				"Description": "https://access.redhat.com/errata/RHSA-2021:1518"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "ceph: specially crafted XML payload on POST requests leads to DoS by crashing RGW",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2020-04-07T10:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2020-12059",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2021:1518"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://ceph.io/releases/v13-2-10-mimic-released/",
+						"Description": "https://ceph.io/releases/v13-2-10-mimic-released/"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2020-12059",
+						"Description": "CVE-2020-12059"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1827262",
+						"Description": "bz#1827262: CVE-2020-12059 ceph: specially crafted XML payload on POST requests leads to DoS by crashing RGW"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2020-04-22T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-RHEL-7-RHCEPH-3-ELS-MON:ceph-2:12.2.12-139.el7cp",
+						"7Server-RHEL-7-RHCEPH-3-ELS-OSD:ceph-2:12.2.12-139.el7cp",
+						"7Server-RHEL-7-RHCEPH-3-ELS-Tools:ceph-2:12.2.12-139.el7cp",
+						"7Server-RHEL-7-RHCEPH-3-ELS-Tools:ceph-ansible-0:3.2.56-1.el7cp",
+						"7Server-RHEL-7-RHCEPH-3-ELS-Tools:cephmetrics-0:2.0.10-1.el7cp",
+						"7Server-RHEL-7-RHCEPH-3-ELS-Tools:grafana-0:5.2.4-3.el7cp",
+						"7Server-RHEL-7-RHCEPH-3-ELS-Tools:tcmu-runner-0:1.4.0-3.el7cp"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "grafana: SSRF incorrect access control vulnerability allows unauthenticated users to make grafana send HTTP requests to any URL",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2020-06-03T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2020-13379",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2021:1518"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://grafana.com/blog/2020/06/03/grafana-6.7.4-and-7.0.2-released-with-important-security-fix/",
+						"Description": "https://grafana.com/blog/2020/06/03/grafana-6.7.4-and-7.0.2-released-with-important-security-fix/"
+					},
+					{
+						"URL": "https://www.openwall.com/lists/oss-security/2020/06/09/2/",
+						"Description": "https://www.openwall.com/lists/oss-security/2020/06/09/2/"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2020-13379",
+						"Description": "CVE-2020-13379"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1843640",
+						"Description": "bz#1843640: CVE-2020-13379 grafana: SSRF incorrect access control vulnerability allows unauthenticated users to make grafana send HTTP requests to any URL"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2020-06-03T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-RHEL-7-RHCEPH-3-ELS-MON:ceph-2:12.2.12-139.el7cp",
+						"7Server-RHEL-7-RHCEPH-3-ELS-OSD:ceph-2:12.2.12-139.el7cp",
+						"7Server-RHEL-7-RHCEPH-3-ELS-Tools:ceph-2:12.2.12-139.el7cp",
+						"7Server-RHEL-7-RHCEPH-3-ELS-Tools:ceph-ansible-0:3.2.56-1.el7cp",
+						"7Server-RHEL-7-RHCEPH-3-ELS-Tools:cephmetrics-0:2.0.10-1.el7cp",
+						"7Server-RHEL-7-RHCEPH-3-ELS-Tools:grafana-0:5.2.4-3.el7cp",
+						"7Server-RHEL-7-RHCEPH-3-ELS-Tools:tcmu-runner-0:1.4.0-3.el7cp"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "ceph: User credentials can be manipulated and stolen by Native CephFS consumers of OpenStack Manila",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2020-12-16T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2020-27781",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2021:1518"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2020-27781",
+						"Description": "CVE-2020-27781"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1900109",
+						"Description": "bz#1900109: CVE-2020-27781 ceph: User credentials can be manipulated and stolen by Native CephFS consumers of OpenStack Manila"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2020-11-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-RHEL-7-RHCEPH-3-ELS-MON:ceph-2:12.2.12-139.el7cp",
+						"7Server-RHEL-7-RHCEPH-3-ELS-OSD:ceph-2:12.2.12-139.el7cp",
+						"7Server-RHEL-7-RHCEPH-3-ELS-Tools:ceph-2:12.2.12-139.el7cp",
+						"7Server-RHEL-7-RHCEPH-3-ELS-Tools:ceph-ansible-0:3.2.56-1.el7cp",
+						"7Server-RHEL-7-RHCEPH-3-ELS-Tools:cephmetrics-0:2.0.10-1.el7cp",
+						"7Server-RHEL-7-RHCEPH-3-ELS-Tools:grafana-0:5.2.4-3.el7cp",
+						"7Server-RHEL-7-RHCEPH-3-ELS-Tools:tcmu-runner-0:1.4.0-3.el7cp"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "This issue was discovered by Goutham Pacha Ravi (Red Hat), Jahson Babel (Centre de Calcul de l'IN2P3), and John Garbutt (StackHPC)."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "tcmu-runner: SCSI target (LIO) write to any block on ILO backstore",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2021-01-13T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2021-3139",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2021:1518"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2021-3139",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2021-3139"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2021-3139",
+						"Description": "CVE-2021-3139"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1916045",
+						"Description": "bz#1916045: CVE-2021-3139 tcmu-runner: SCSI target (LIO) write to any block on ILO backstore"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2021-01-13T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-RHEL-7-RHCEPH-3-ELS-MON:ceph-2:12.2.12-139.el7cp",
+						"7Server-RHEL-7-RHCEPH-3-ELS-OSD:ceph-2:12.2.12-139.el7cp",
+						"7Server-RHEL-7-RHCEPH-3-ELS-Tools:ceph-2:12.2.12-139.el7cp",
+						"7Server-RHEL-7-RHCEPH-3-ELS-Tools:ceph-ansible-0:3.2.56-1.el7cp",
+						"7Server-RHEL-7-RHCEPH-3-ELS-Tools:cephmetrics-0:2.0.10-1.el7cp",
+						"7Server-RHEL-7-RHCEPH-3-ELS-Tools:grafana-0:5.2.4-3.el7cp",
+						"7Server-RHEL-7-RHCEPH-3-ELS-Tools:tcmu-runner-0:1.4.0-3.el7cp"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Ceph Storage",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Ceph Storage 3 MON - ELS",
+						"fullproductname": {
+							"text": "Red Hat Ceph Storage 3 MON - ELS",
+							"productid": "7Server-RHEL-7-RHCEPH-3-ELS-MON",
+							"cpe": "cpe:/a:redhat:ceph_storage:3::el7"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Ceph Storage 3 OSD - ELS",
+						"fullproductname": {
+							"text": "Red Hat Ceph Storage 3 OSD - ELS",
+							"productid": "7Server-RHEL-7-RHCEPH-3-ELS-OSD",
+							"cpe": "cpe:/a:redhat:ceph_storage:3::el7"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Ceph Storage 3 Tools - ELS",
+						"fullproductname": {
+							"text": "Red Hat Ceph Storage 3 Tools - ELS",
+							"productid": "7Server-RHEL-7-RHCEPH-3-ELS-Tools",
+							"cpe": "cpe:/a:redhat:ceph_storage:3::el7"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "ceph-2:12.2.12-139.el7cp",
+				"fullproductname": {
+					"text": "ceph-12.2.12-139.el7cp.src.rpm",
+					"productid": "ceph-2:12.2.12-139.el7cp",
+					"cpe": "cpe:/a:redhat:ceph_storage:3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ceph-ansible-0:3.2.56-1.el7cp",
+				"fullproductname": {
+					"text": "ceph-ansible-3.2.56-1.el7cp.src.rpm",
+					"productid": "ceph-ansible-0:3.2.56-1.el7cp",
+					"cpe": "cpe:/a:redhat:ceph_storage:3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "cephmetrics-0:2.0.10-1.el7cp",
+				"fullproductname": {
+					"text": "cephmetrics-2.0.10-1.el7cp.src.rpm",
+					"productid": "cephmetrics-0:2.0.10-1.el7cp",
+					"cpe": "cpe:/a:redhat:ceph_storage:3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "grafana-0:5.2.4-3.el7cp",
+				"fullproductname": {
+					"text": "grafana-5.2.4-3.el7cp.src.rpm",
+					"productid": "grafana-0:5.2.4-3.el7cp",
+					"cpe": "cpe:/a:redhat:ceph_storage:3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "tcmu-runner-0:1.4.0-3.el7cp",
+				"fullproductname": {
+					"text": "tcmu-runner-1.4.0-3.el7cp.src.rpm",
+					"productid": "tcmu-runner-0:1.4.0-3.el7cp",
+					"cpe": "cpe:/a:redhat:ceph_storage:3::el7"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "ceph-2:12.2.12-139.el7cp",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RHEL-7-RHCEPH-3-ELS-MON",
+				"fullproductname": {
+					"text": "ceph-2:12.2.12-139.el7cp as a component of Red Hat Ceph Storage 3 MON - ELS",
+					"productid": "7Server-RHEL-7-RHCEPH-3-ELS-MON:ceph-2:12.2.12-139.el7cp",
+					"cpe": "cpe:/a:redhat:ceph_storage:3::el7"
+				}
+			},
+			{
+				"productreference": "ceph-2:12.2.12-139.el7cp",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RHEL-7-RHCEPH-3-ELS-OSD",
+				"fullproductname": {
+					"text": "ceph-2:12.2.12-139.el7cp as a component of Red Hat Ceph Storage 3 OSD - ELS",
+					"productid": "7Server-RHEL-7-RHCEPH-3-ELS-OSD:ceph-2:12.2.12-139.el7cp",
+					"cpe": "cpe:/a:redhat:ceph_storage:3::el7"
+				}
+			},
+			{
+				"productreference": "ceph-2:12.2.12-139.el7cp",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RHEL-7-RHCEPH-3-ELS-Tools",
+				"fullproductname": {
+					"text": "ceph-2:12.2.12-139.el7cp as a component of Red Hat Ceph Storage 3 Tools - ELS",
+					"productid": "7Server-RHEL-7-RHCEPH-3-ELS-Tools:ceph-2:12.2.12-139.el7cp",
+					"cpe": "cpe:/a:redhat:ceph_storage:3::el7"
+				}
+			},
+			{
+				"productreference": "ceph-ansible-0:3.2.56-1.el7cp",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RHEL-7-RHCEPH-3-ELS-Tools",
+				"fullproductname": {
+					"text": "ceph-ansible-0:3.2.56-1.el7cp as a component of Red Hat Ceph Storage 3 Tools - ELS",
+					"productid": "7Server-RHEL-7-RHCEPH-3-ELS-Tools:ceph-ansible-0:3.2.56-1.el7cp",
+					"cpe": "cpe:/a:redhat:ceph_storage:3::el7"
+				}
+			},
+			{
+				"productreference": "cephmetrics-0:2.0.10-1.el7cp",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RHEL-7-RHCEPH-3-ELS-Tools",
+				"fullproductname": {
+					"text": "cephmetrics-0:2.0.10-1.el7cp as a component of Red Hat Ceph Storage 3 Tools - ELS",
+					"productid": "7Server-RHEL-7-RHCEPH-3-ELS-Tools:cephmetrics-0:2.0.10-1.el7cp",
+					"cpe": "cpe:/a:redhat:ceph_storage:3::el7"
+				}
+			},
+			{
+				"productreference": "grafana-0:5.2.4-3.el7cp",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RHEL-7-RHCEPH-3-ELS-Tools",
+				"fullproductname": {
+					"text": "grafana-0:5.2.4-3.el7cp as a component of Red Hat Ceph Storage 3 Tools - ELS",
+					"productid": "7Server-RHEL-7-RHCEPH-3-ELS-Tools:grafana-0:5.2.4-3.el7cp",
+					"cpe": "cpe:/a:redhat:ceph_storage:3::el7"
+				}
+			},
+			{
+				"productreference": "tcmu-runner-0:1.4.0-3.el7cp",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RHEL-7-RHCEPH-3-ELS-Tools",
+				"fullproductname": {
+					"text": "tcmu-runner-0:1.4.0-3.el7cp as a component of Red Hat Ceph Storage 3 Tools - ELS",
+					"productid": "7Server-RHEL-7-RHCEPH-3-ELS-Tools:tcmu-runner-0:1.4.0-3.el7cp",
+					"cpe": "cpe:/a:redhat:ceph_storage:3::el7"
+				}
+			}
+		]
+	}
+}

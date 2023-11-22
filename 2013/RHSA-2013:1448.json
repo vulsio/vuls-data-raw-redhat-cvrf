@@ -1,0 +1,356 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: Red Hat JBoss Operations Network 3.1.2 update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2013:1448"
+		},
+		"Status": "Final",
+		"Version": "2",
+		"revisionhistory": {
+			"revision": {
+				"Number": "2",
+				"Date": "2019-02-04T23:20:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2013-10-21T17:22:00Z",
+		"CurrentReleaseDate": "2019-02-04T23:20:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:39:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nAn update for Red Hat JBoss Operations Network 3.1.2 that fixes multiple\nsecurity issues is now available from the Red Hat Customer Portal.\n\nThe Red Hat Security Response Team has rated this update as having\nimportant security impact. A Common Vulnerability Scoring System (CVSS)\nbase score, which gives a detailed severity rating, is available from the\nCVE link in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nRed Hat JBoss Operations Network is a middleware management solution that\nprovides a single point of control to deploy, manage, and monitor JBoss\nEnterprise Middleware, applications, and services.\n\nA flaw was found in the way the DiskFileItem class handled NULL characters\nin file names. A remote attacker able to supply a serialized instance of\nthe DiskFileItem class, which will be deserialized on a server, could use\nthis flaw to write arbitrary content to any location on the server that is\naccessible to the user running the application server process.\n(CVE-2013-2186)\n\nA denial of service flaw was found in the implementation of the\norg.jboss.remoting.transport.socket.ServerThread class in JBoss\nRemoting. An attacker could use this flaw to exhaust all available file\ndescriptors on the target server, preventing legitimate connections. Note\nthat to exploit this flaw remotely, the remoting port must be exposed\ndirectly or indirectly (for example, deploying a public facing application\nthat uses JBoss Remoting could indirectly expose this flaw).\n(CVE-2013-4210)\n\nIt was found that the JBoss Operations Network server exposed configured\npasswords in plain text in its log files by default. A local user with\naccess to these log files could use the exposed credentials.\n(CVE-2013-4293)\n\nA flaw was found in the way JPADriftServerBean instances stored drift\nfiles. The storeFiles method created a predictable temporary directory when\nunpacking a zip file. Once a zip file was extracted to the temporary\ndirectory, all files in this directory were stored. A local attacker could\nprovide their own drift files to be imported into the server instance.\n(CVE-2013-4373)\n\nThe CVE-2013-4293 was discovered by Larry O'Leary of the Red Hat Middleware\nSupport Engineering Group, and CVE-2013-4210 was discovered by James\nLivingston of the Red Hat Support Engineering Group.\n\nAll users of JBoss Operations Network 3.1.2 as provided from the Red Hat\nCustomer Portal are advised to apply this update.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2013:1448",
+				"Description": "https://access.redhat.com/errata/RHSA-2013:1448"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/jbossnetwork/restricted/listSoftware.html?product=em&downloadType=securityPatches&version=3.1.2",
+				"Description": "https://access.redhat.com/jbossnetwork/restricted/listSoftware.html?product=em&downloadType=securityPatches&version=3.1.2"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/site/documentation/Red_Hat_JBoss_Operations_Network/",
+				"Description": "https://access.redhat.com/site/documentation/Red_Hat_JBoss_Operations_Network/"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Apache commons-fileupload: Arbitrary file upload via deserialization",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-10-15T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-2186",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThe References section of this erratum contains a download link (you must\nlog in to download the update). Before applying this update, back up your\nexisting JBoss Operations Network installation (including its databases,\napplications, configuration files, the JBoss Operations Network server's\nfile system directory, and so on).\n\nNote: This update provides fixes for the server, agent, and core GUI\ncomponents of Red Hat JBoss Operations Network. It is recommended to apply\nall the patches provided by this update.\n\nRefer to the JBoss Operations Network 3.1.2 Release Notes for installation\ninformation.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:1448"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-2186",
+						"Description": "CVE-2013-2186"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=974814",
+						"Description": "bz#974814: CVE-2013-2186 Apache commons-fileupload: Arbitrary file upload via deserialization"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2013-06-14T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "7.5",
+					"Vector": "AV:N/AC:L/Au:N/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "JBoss Remoting: DoS by file descriptor exhaustion",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-09-30T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-4210",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThe References section of this erratum contains a download link (you must\nlog in to download the update). Before applying this update, back up your\nexisting JBoss Operations Network installation (including its databases,\napplications, configuration files, the JBoss Operations Network server's\nfile system directory, and so on).\n\nNote: This update provides fixes for the server, agent, and core GUI\ncomponents of Red Hat JBoss Operations Network. It is recommended to apply\nall the patches provided by this update.\n\nRefer to the JBoss Operations Network 3.1.2 Release Notes for installation\ninformation.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:1448"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-4210",
+						"Description": "CVE-2013-4210"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=994321",
+						"Description": "bz#994321: CVE-2013-4210 JBoss Remoting: DoS by file descriptor exhaustion"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2013-07-26T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.0",
+					"Vector": "AV:N/AC:L/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "JON Server: Plaintext passwords in server logs",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-10-21T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-4293",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThe References section of this erratum contains a download link (you must\nlog in to download the update). Before applying this update, back up your\nexisting JBoss Operations Network installation (including its databases,\napplications, configuration files, the JBoss Operations Network server's\nfile system directory, and so on).\n\nNote: This update provides fixes for the server, agent, and core GUI\ncomponents of Red Hat JBoss Operations Network. It is recommended to apply\nall the patches provided by this update.\n\nRefer to the JBoss Operations Network 3.1.2 Release Notes for installation\ninformation.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:1448"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-4293",
+						"Description": "CVE-2013-4293"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1002853",
+						"Description": "bz#1002853: CVE-2013-4293 JON Server: Plaintext passwords in server logs"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2013-08-29T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.1",
+					"Vector": "AV:L/AC:L/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "JON Drift: Malicious drift file import due to insecure temporary file usage",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-10-21T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-4373",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThe References section of this erratum contains a download link (you must\nlog in to download the update). Before applying this update, back up your\nexisting JBoss Operations Network installation (including its databases,\napplications, configuration files, the JBoss Operations Network server's\nfile system directory, and so on).\n\nNote: This update provides fixes for the server, agent, and core GUI\ncomponents of Red Hat JBoss Operations Network. It is recommended to apply\nall the patches provided by this update.\n\nRefer to the JBoss Operations Network 3.1.2 Release Notes for installation\ninformation.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:1448"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-4373",
+						"Description": "CVE-2013-4373"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1011824",
+						"Description": "bz#1011824: CVE-2013-4373 JON Drift: Malicious drift file import due to insecure temporary file usage"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2013-09-24T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "3.2",
+					"Vector": "AV:L/AC:L/Au:S/C:N/I:P/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {}
+}

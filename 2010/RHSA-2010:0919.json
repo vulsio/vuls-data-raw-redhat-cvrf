@@ -1,0 +1,745 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: php security update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2010:0919"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2010-11-29T16:33:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2010-11-29T21:31:00Z",
+		"CurrentReleaseDate": "2010-11-29T16:33:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:30:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated php packages that fix multiple security issues are now available\nfor Red Hat Enterprise Linux 4 and 5.\n\nThe Red Hat Security Response Team has rated this update as having moderate\nsecurity impact. Common Vulnerability Scoring System (CVSS) base scores,\nwhich give detailed severity ratings, are available for each vulnerability\nfrom the CVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nPHP is an HTML-embedded scripting language commonly used with the Apache\nHTTP Server.\n\nAn input validation flaw was discovered in the PHP session serializer. If a\nPHP script generated session variable names from untrusted user input, a\nremote attacker could use this flaw to inject an arbitrary variable into\nthe PHP session. (CVE-2010-3065)\n\nAn information leak flaw was discovered in the PHP var_export() function\nimplementation. If some fatal error occurred during the execution of this\nfunction (such as the exhaustion of memory or script execution time limit),\npart of the function's output was sent to the user as script output,\npossibly leading to the disclosure of sensitive information.\n(CVE-2010-2531)\n\nA numeric truncation error and an input validation flaw were found in the\nway the PHP utf8_decode() function decoded partial multi-byte sequences\nfor some multi-byte encodings, sending them to output without them being\nescaped. An attacker could use these flaws to perform a cross-site\nscripting attack. (CVE-2009-5016, CVE-2010-3870)\n\nIt was discovered that the PHP lcg_value() function used insufficient\nentropy to seed the pseudo-random number generator. A remote attacker could\npossibly use this flaw to predict values returned by the function, which\nare used to generate session identifiers by default. This update changes\nthe function's implementation to use more entropy during seeding.\n(CVE-2010-1128)\n\nIt was discovered that the PHP fnmatch() function did not restrict the\nlength of the pattern argument. A remote attacker could use this flaw to\ncrash the PHP interpreter where a script used fnmatch() on untrusted\nmatching patterns. (CVE-2010-1917)\n\nA NULL pointer dereference flaw was discovered in the PHP XML-RPC\nextension. A malicious XML-RPC client or server could use this flaw to\ncrash the PHP interpreter via a specially-crafted XML-RPC request.\n(CVE-2010-0397)\n\nAll php users should upgrade to these updated packages, which contain\nbackported patches to resolve these issues. After installing the updated\npackages, the httpd daemon must be restarted for the update to take effect.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2010:0919",
+				"Description": "https://access.redhat.com/errata/RHSA-2010:0919"
+			},
+			{
+				"type": "External",
+				"URL": "http://www.redhat.com/security/updates/classification/#moderate",
+				"Description": "http://www.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "php: XSS and SQL injection bypass via crafted overlong UTF-8 encoded string",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2009-09-27T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2009-5016",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2010:0919"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2009-5016",
+						"Description": "CVE-2009-5016"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=652836",
+						"Description": "bz#652836: CVE-2009-5016 php: XSS and SQL injection bypass via crafted overlong UTF-8 encoded string"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2010-11-12T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"4AS:php-0:4.3.9-3.31",
+						"4Desktop:php-0:4.3.9-3.31",
+						"4ES:php-0:4.3.9-3.31",
+						"4WS:php-0:4.3.9-3.31",
+						"5Client-Workstation:php-0:5.1.6-27.el5_5.3",
+						"5Server:php-0:5.1.6-27.el5_5.3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "php: NULL pointer dereference in XML-RPC extension",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2010-03-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2010-0397",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2010:0919"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2010-0397",
+						"Description": "CVE-2010-0397"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=573779",
+						"Description": "bz#573779: CVE-2010-0397 php: NULL pointer dereference in XML-RPC extension"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2010-03-12T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"4AS:php-0:4.3.9-3.31",
+						"4Desktop:php-0:4.3.9-3.31",
+						"4ES:php-0:4.3.9-3.31",
+						"4WS:php-0:4.3.9-3.31",
+						"5Client-Workstation:php-0:5.1.6-27.el5_5.3",
+						"5Server:php-0:5.1.6-27.el5_5.3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "php: LCG entropy weakness",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2010-02-25T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2010-1128",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2010:0919"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2010-1128",
+						"Description": "CVE-2010-1128"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=577582",
+						"Description": "bz#577582: CVE-2010-1128 php: LCG entropy weakness"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2010-03-26T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"4AS:php-0:4.3.9-3.31",
+						"4Desktop:php-0:4.3.9-3.31",
+						"4ES:php-0:4.3.9-3.31",
+						"4WS:php-0:4.3.9-3.31",
+						"5Client-Workstation:php-0:5.1.6-27.el5_5.3",
+						"5Server:php-0:5.1.6-27.el5_5.3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.6",
+					"Vector": "AV:N/AC:H/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "php: fnmatch long pattern stack memory exhaustion (MOPS-2010-021)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2010-05-11T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2010-1917",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2010:0919"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2010-1917",
+						"Description": "CVE-2010-1917"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=617232",
+						"Description": "bz#617232: CVE-2010-1917 php: fnmatch long pattern stack memory exhaustion (MOPS-2010-021)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2010-05-27T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"4AS:php-0:4.3.9-3.31",
+						"4Desktop:php-0:4.3.9-3.31",
+						"4ES:php-0:4.3.9-3.31",
+						"4WS:php-0:4.3.9-3.31",
+						"5Client-Workstation:php-0:5.1.6-27.el5_5.3",
+						"5Server:php-0:5.1.6-27.el5_5.3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.6",
+					"Vector": "AV:N/AC:H/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "php: information leak vulnerability in var_export()",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2010-07-09T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2010-2531",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2010:0919"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2010-2531",
+						"Description": "CVE-2010-2531"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=617673",
+						"Description": "bz#617673: CVE-2010-2531 php: information leak vulnerability in var_export()"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2010-07-13T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"4AS:php-0:4.3.9-3.31",
+						"4Desktop:php-0:4.3.9-3.31",
+						"4ES:php-0:4.3.9-3.31",
+						"4WS:php-0:4.3.9-3.31",
+						"5Client-Workstation:php-0:5.1.6-27.el5_5.3",
+						"5Server:php-0:5.1.6-27.el5_5.3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "6",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "php: session serializer session data injection vulnerability (MOPS-2010-060)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2010-05-31T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2010-3065",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2010:0919"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2010-3065",
+						"Description": "CVE-2010-3065"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=619030",
+						"Description": "bz#619030: CVE-2010-3065 php: session serializer session data injection vulnerability (MOPS-2010-060)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2010-06-30T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"4AS:php-0:4.3.9-3.31",
+						"4Desktop:php-0:4.3.9-3.31",
+						"4ES:php-0:4.3.9-3.31",
+						"4WS:php-0:4.3.9-3.31",
+						"5Client-Workstation:php-0:5.1.6-27.el5_5.3",
+						"5Server:php-0:5.1.6-27.el5_5.3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "7",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "php: XSS mitigation bypass via utf8_decode()",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2009-09-27T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2010-3870",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2010:0919"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2010-3870",
+						"Description": "CVE-2010-3870"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=649056",
+						"Description": "bz#649056: CVE-2010-3870 php: XSS mitigation bypass via utf8_decode()"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2010-11-02T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"4AS:php-0:4.3.9-3.31",
+						"4Desktop:php-0:4.3.9-3.31",
+						"4ES:php-0:4.3.9-3.31",
+						"4WS:php-0:4.3.9-3.31",
+						"5Client-Workstation:php-0:5.1.6-27.el5_5.3",
+						"5Server:php-0:5.1.6-27.el5_5.3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:P/A:N"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux AS version 4",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux AS version 4",
+							"productid": "4AS",
+							"cpe": "cpe:/o:redhat:enterprise_linux:4::as"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop version 4",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop version 4",
+							"productid": "4Desktop",
+							"cpe": "cpe:/o:redhat:enterprise_linux:4::desktop"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ES version 4",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ES version 4",
+							"productid": "4ES",
+							"cpe": "cpe:/o:redhat:enterprise_linux:4::es"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux WS version 4",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux WS version 4",
+							"productid": "4WS",
+							"cpe": "cpe:/o:redhat:enterprise_linux:4::ws"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+							"productid": "5Client-Workstation",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::client_workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux (v. 5 server)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux (v. 5 server)",
+							"productid": "5Server",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "php-0:4.3.9-3.31",
+				"fullproductname": {
+					"text": "php-4.3.9-3.31.src.rpm",
+					"productid": "php-0:4.3.9-3.31",
+					"cpe": "cpe:/o:redhat:enterprise_linux:4::as"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "php-0:5.1.6-27.el5_5.3",
+				"fullproductname": {
+					"text": "php-5.1.6-27.el5_5.3.src.rpm",
+					"productid": "php-0:5.1.6-27.el5_5.3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client_workstation"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "php-0:4.3.9-3.31",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "4AS",
+				"fullproductname": {
+					"text": "php-0:4.3.9-3.31 as a component of Red Hat Enterprise Linux AS version 4",
+					"productid": "4AS:php-0:4.3.9-3.31",
+					"cpe": "cpe:/o:redhat:enterprise_linux:4::as"
+				}
+			},
+			{
+				"productreference": "php-0:4.3.9-3.31",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "4Desktop",
+				"fullproductname": {
+					"text": "php-0:4.3.9-3.31 as a component of Red Hat Enterprise Linux Desktop version 4",
+					"productid": "4Desktop:php-0:4.3.9-3.31",
+					"cpe": "cpe:/o:redhat:enterprise_linux:4::desktop"
+				}
+			},
+			{
+				"productreference": "php-0:4.3.9-3.31",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "4ES",
+				"fullproductname": {
+					"text": "php-0:4.3.9-3.31 as a component of Red Hat Enterprise Linux ES version 4",
+					"productid": "4ES:php-0:4.3.9-3.31",
+					"cpe": "cpe:/o:redhat:enterprise_linux:4::es"
+				}
+			},
+			{
+				"productreference": "php-0:4.3.9-3.31",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "4WS",
+				"fullproductname": {
+					"text": "php-0:4.3.9-3.31 as a component of Red Hat Enterprise Linux WS version 4",
+					"productid": "4WS:php-0:4.3.9-3.31",
+					"cpe": "cpe:/o:redhat:enterprise_linux:4::ws"
+				}
+			},
+			{
+				"productreference": "php-0:5.1.6-27.el5_5.3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Client-Workstation",
+				"fullproductname": {
+					"text": "php-0:5.1.6-27.el5_5.3 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"productid": "5Client-Workstation:php-0:5.1.6-27.el5_5.3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client_workstation"
+				}
+			},
+			{
+				"productreference": "php-0:5.1.6-27.el5_5.3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server",
+				"fullproductname": {
+					"text": "php-0:5.1.6-27.el5_5.3 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"productid": "5Server:php-0:5.1.6-27.el5_5.3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+				}
+			}
+		]
+	}
+}

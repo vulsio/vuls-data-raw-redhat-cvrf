@@ -1,0 +1,352 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: kernel security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2008:1017"
+		},
+		"Status": "Final",
+		"Version": "2",
+		"revisionhistory": {
+			"revision": {
+				"Number": "2",
+				"Date": "2008-12-16T02:33:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2008-12-16T07:30:00Z",
+		"CurrentReleaseDate": "2008-12-16T02:33:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:28:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated kernel packages that resolve several security issues and fix\nvarious bugs are now available for Red Hat Enterprise Linux 5.\n\nThis update has been rated as having important security impact by the Red\nHat Security Response Team.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe kernel packages contain the Linux kernel, the core of any Linux\noperating system.\n\n* Olaf Kirch reported a flaw in the i915 kernel driver. This flaw could,\npotentially, lead to local privilege escalation. Note: the flaw only\naffects systems based on the Intel G33 Express Chipset and newer.\n(CVE-2008-3831, Important)\n\n* Miklos Szeredi reported a missing check for files opened with O_APPEND in\nthe sys_splice(). This could allow a local, unprivileged user to bypass the\nappend-only file restrictions. (CVE-2008-4554, Important)\n\n* a deficiency was found in the Linux kernel Stream Control Transmission\nProtocol (SCTP) implementation. This could lead to a possible denial of\nservice if one end of a SCTP connection did not support the AUTH extension.\n(CVE-2008-4576, Important)\n\nIn addition, these updated packages fix the following bugs:\n\n* on Itanium® systems, when a multithreaded program was traced using the\ncommand \"strace -f\", messages such as\n \n   PANIC: attached pid 10740 exited \n   PANIC: handle_group_exit: 10740 leader 10721\n   ...\n\nwill be displayed, and after which the trace would stop.  With these\nupdated packages, \"strace -f\" command no longer results in these error\nmessages, and strace terminates normally after tracing all threads.\n\n* on big-endian systems such as PowerPC, the getsockopt() function\nincorrectly returned 0 depending on the parameters passed to it when the\ntime to live (TTL) value equaled 255.\n\n* when using an NFSv4 file system, accessing the same file with two\nseparate processes simultaneously resulted in the NFS client process\nbecoming unresponsive.\n\n* on AMD64 and Intel® 64 hypervisor-enabled systems, when a syscall\ncorrectly returned '-1' in code compiled on Red Hat Enterprise Linux 5, the\nsame code, when run with the strace utility, would incorrectly return an\ninvalid return value. This has been fixed: on AMD64 and Intel® 64\nhypervisor-enabled systems, syscalls in compiled code return the same,\ncorrect values as syscalls run with strace.\n\n* on the Itanium® architecture, fully-virtualized guest domains created\nusing more than 64 GB of memory caused other guest domains not to receive\ninterrupts. This caused soft lockups on other guests. All guest domains are\nnow able to receive interrupts regardless of their allotted memory.\n\n* when user-space used SIGIO notification, which was not disabled before\nclosing a file descriptor and was then re-enabled in a different process,\nan attempt by the kernel to dereference a stale pointer led to a kernel\ncrash. With this fix, such a situation no longer causes a kernel crash.\n\n* modifications to certain pages made through a memory-mapped region could\nhave been lost in cases when the NFS client needed to invalidate the page\ncache for that particular memory-mapped file.\n\n* fully-virtualized Windows® guests became unresponsive due to the vIOSAPIC\ncomponent being multiprocessor-unsafe. With this fix, vIOSAPIC is\nmultiprocessor-safe and Windows guests do not become unresponsive.\n\n* on certain systems, keyboard controllers could not withstand continuous\nrequests to switch keyboard LEDs on or off. This resulted in some or all\nkey presses not being registered by the system.\n\n* on the Itanium® architecture, setting the \"vm.nr_hugepages\" sysctl\nparameter caused a kernel stack overflow resulting in a kernel panic, and\npossibly stack corruption. With this fix, setting vm.nr_hugepages works\ncorrectly.\n\n* hugepages allow the Linux kernel to utilize the multiple page size\ncapabilities of modern hardware architectures. In certain configurations,\nsystems with large amounts of memory could fail to allocate most of this\nmemory for hugepages even if it was free. This could result, for example,\nin database restart failures.\n\nUsers should upgrade to these updated packages, which contain backported\npatches to correct these issues.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2008:1017",
+				"Description": "https://access.redhat.com/errata/RHSA-2008:1017"
+			},
+			{
+				"type": "External",
+				"URL": "http://www.redhat.com/security/updates/classification/#important",
+				"Description": "http://www.redhat.com/security/updates/classification/#important"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: i915 kernel drm driver arbitrary ioremap",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2008-10-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2008-3831",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via Red Hat Network. Details on how to use the Red\nHat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2008:1017"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2008-3831",
+						"Description": "CVE-2008-3831"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=464502",
+						"Description": "bz#464502: CVE-2008-3831 kernel: i915 kernel drm driver arbitrary ioremap"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2008-09-29T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client:kernel-0:2.6.18-92.1.22.el5",
+						"5Server:kernel-0:2.6.18-92.1.22.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: don't allow splice() to files opened with O_APPEND",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2008-10-09T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2008-4554",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via Red Hat Network. Details on how to use the Red\nHat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2008:1017"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2008-4554",
+						"Description": "CVE-2008-4554"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=466707",
+						"Description": "bz#466707: CVE-2008-4554 kernel: don't allow splice() to files opened with O_APPEND"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2008-10-13T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client:kernel-0:2.6.18-92.1.22.el5",
+						"5Server:kernel-0:2.6.18-92.1.22.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: sctp: Fix oops when INIT-ACK indicates that peer doesn't support AUTH",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2008-09-18T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2008-4576",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via Red Hat Network. Details on how to use the Red\nHat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2008:1017"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2008-4576",
+						"Description": "CVE-2008-4576"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=466079",
+						"Description": "bz#466079: CVE-2008-4576 kernel: sctp: Fix oops when INIT-ACK indicates that peer doesn't support AUTH"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2008-10-08T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client:kernel-0:2.6.18-92.1.22.el5",
+						"5Server:kernel-0:2.6.18-92.1.22.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+							"productid": "5Client",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux (v. 5 server)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux (v. 5 server)",
+							"productid": "5Server",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-0:2.6.18-92.1.22.el5",
+				"fullproductname": {
+					"text": "kernel-2.6.18-92.1.22.el5.src.rpm",
+					"productid": "kernel-0:2.6.18-92.1.22.el5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "kernel-0:2.6.18-92.1.22.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Client",
+				"fullproductname": {
+					"text": "kernel-0:2.6.18-92.1.22.el5 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"productid": "5Client:kernel-0:2.6.18-92.1.22.el5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.18-92.1.22.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server",
+				"fullproductname": {
+					"text": "kernel-0:2.6.18-92.1.22.el5 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"productid": "5Server:kernel-0:2.6.18-92.1.22.el5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+				}
+			}
+		]
+	}
+}

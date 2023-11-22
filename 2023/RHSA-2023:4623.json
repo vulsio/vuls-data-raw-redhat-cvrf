@@ -1,0 +1,735 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: Red Hat OpenShift Service Mesh 2.2.9  security update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2023:4623"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2023-08-11T16:46:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2023-08-11T16:46:00Z",
+		"CurrentReleaseDate": "2023-08-11T16:46:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.20.1",
+			"Date": "2023-08-11T21:39:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nRed Hat OpenShift Service Mesh 2.2.9\n\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nRed Hat OpenShift Service Mesh is Red Hat's distribution of the Istio service mesh project, tailored for installation into an OpenShift Container Platform installation.\n\nSecurity Fix(es):\n\n* envoy: Client may fake the header `x-envoy-original-path` (CVE-2023-27487)\n\n* envoy: envoy doesn't escape HTTP header values (CVE-2023-27493)\n\n* envoy: gRPC client produces invalid protobuf when an HTTP header with non-UTF8 value is received (CVE-2023-27488)\n\n* envoy: Envoy forwards invalid HTTP/2 and HTTP/3 downstream (CVE-2023-27491)\n\n* envoy:  Crash when a large request body is processed in Lua filter (CVE-2023-27492)\n\n* envoy: Crash when a redirect url without a state param is received in the oauth filter (CVE-2023-27496)\n\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2023 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2023:4623",
+				"Description": "https://access.redhat.com/errata/RHSA-2023:4623"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in envoy. The header x-envoy-original-path should be an internal header, but Envoy does not remove this header from the request at the beginning of request processing when it is sent from an untrusted client. The faked header could then be used for trace logs and grpc logs, used in the URL for jwt_authn checks if the jwt_authn filter is used, and any other upstream use of the x-envoy-original-path header.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2023-04-04T19:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2023-27487",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:4623"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2023-27487",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2023-27487"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2023-27487",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2023-27487"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2023-27487",
+						"Description": "CVE-2023-27487"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2179135",
+						"Description": "bz#2179135: Client may fake the header `x-envoy-original-path`"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2023-03-16T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-RHOSSM-2.2:openshift-istio-cni-rhel8-container-2.2.9-1",
+						"8Base-RHOSSM-2.2:openshift-istio-grafana-rhel8-container-2.2.9-1",
+						"8Base-RHOSSM-2.2:openshift-istio-must-gather-rhel8-container-2.2.9-2",
+						"8Base-RHOSSM-2.2:openshift-istio-pilot-rhel8-container-2.2.9-1",
+						"8Base-RHOSSM-2.2:openshift-istio-prometheus-rhel8-container-2.2.9-1",
+						"8Base-RHOSSM-2.2:openshift-istio-proxyv2-rhel8-container-2.2.9-2",
+						"8Base-RHOSSM-2.2:openshift-istio-ratelimit-rhel8-container-2.2.9-1"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in Envoy. This issue could allow an attacker to bypass authentication checks when ext_authz is used by crafting a malicious http header with a non-UTF8 value.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2023-04-04T19:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2023-27488",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:4623"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2023-27488",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2023-27488"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2023-27488",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2023-27488"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2023-27488",
+						"Description": "CVE-2023-27488"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2182156",
+						"Description": "bz#2182156: gRPC client produces invalid protobuf when an HTTP header with non-UTF8 value is received"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2023-03-16T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-RHOSSM-2.2:openshift-istio-cni-rhel8-container-2.2.9-1",
+						"8Base-RHOSSM-2.2:openshift-istio-grafana-rhel8-container-2.2.9-1",
+						"8Base-RHOSSM-2.2:openshift-istio-must-gather-rhel8-container-2.2.9-2",
+						"8Base-RHOSSM-2.2:openshift-istio-pilot-rhel8-container-2.2.9-1",
+						"8Base-RHOSSM-2.2:openshift-istio-prometheus-rhel8-container-2.2.9-1",
+						"8Base-RHOSSM-2.2:openshift-istio-proxyv2-rhel8-container-2.2.9-2",
+						"8Base-RHOSSM-2.2:openshift-istio-ratelimit-rhel8-container-2.2.9-1"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in Envoy that may allow attackers to send specially crafted HTTP/2 or HTTP/3 requests to trigger parsing errors on the HTTP/1 upstream service.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2023-04-04T19:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2023-27491",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:4623"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2023-27491",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2023-27491"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2023-27491",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2023-27491"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2023-27491",
+						"Description": "CVE-2023-27491"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2179138",
+						"Description": "bz#2179138: Envoy forwards invalid HTTP/2 and HTTP/3 downstream"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2023-03-16T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-RHOSSM-2.2:openshift-istio-cni-rhel8-container-2.2.9-1",
+						"8Base-RHOSSM-2.2:openshift-istio-grafana-rhel8-container-2.2.9-1",
+						"8Base-RHOSSM-2.2:openshift-istio-must-gather-rhel8-container-2.2.9-2",
+						"8Base-RHOSSM-2.2:openshift-istio-pilot-rhel8-container-2.2.9-1",
+						"8Base-RHOSSM-2.2:openshift-istio-prometheus-rhel8-container-2.2.9-1",
+						"8Base-RHOSSM-2.2:openshift-istio-proxyv2-rhel8-container-2.2.9-2",
+						"8Base-RHOSSM-2.2:openshift-istio-ratelimit-rhel8-container-2.2.9-1"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in Envoy. This issue may allow attackers to send large request bodies for routes that have the Lua filter enabled, which will trigger a crash.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2023-04-04T19:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2023-27492",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:4623"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2023-27492",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2023-27492"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2023-27492",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2023-27492"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2023-27492",
+						"Description": "CVE-2023-27492"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2179139",
+						"Description": "bz#2179139: Crash when a large request body is processed in Lua filter"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2023-03-16T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-RHOSSM-2.2:openshift-istio-cni-rhel8-container-2.2.9-1",
+						"8Base-RHOSSM-2.2:openshift-istio-grafana-rhel8-container-2.2.9-1",
+						"8Base-RHOSSM-2.2:openshift-istio-must-gather-rhel8-container-2.2.9-2",
+						"8Base-RHOSSM-2.2:openshift-istio-pilot-rhel8-container-2.2.9-1",
+						"8Base-RHOSSM-2.2:openshift-istio-prometheus-rhel8-container-2.2.9-1",
+						"8Base-RHOSSM-2.2:openshift-istio-proxyv2-rhel8-container-2.2.9-2",
+						"8Base-RHOSSM-2.2:openshift-istio-ratelimit-rhel8-container-2.2.9-1"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in Envoy. Envoy doesn't escape HTTP header values due to a specifically constructed HTTP request or mTLS connection with a specifically crafted client certificate. Envoy configuration must also include an option to add request headers that were generated using inputs from the request, for example, the peer certificate SAN.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2023-04-04T19:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2023-27493",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:4623"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2023-27493",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2023-27493"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2023-27493",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2023-27493"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2023-27493",
+						"Description": "CVE-2023-27493"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2182158",
+						"Description": "bz#2182158: envoy doesn't escape HTTP header values"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2023-03-27T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-RHOSSM-2.2:openshift-istio-cni-rhel8-container-2.2.9-1",
+						"8Base-RHOSSM-2.2:openshift-istio-grafana-rhel8-container-2.2.9-1",
+						"8Base-RHOSSM-2.2:openshift-istio-must-gather-rhel8-container-2.2.9-2",
+						"8Base-RHOSSM-2.2:openshift-istio-pilot-rhel8-container-2.2.9-1",
+						"8Base-RHOSSM-2.2:openshift-istio-prometheus-rhel8-container-2.2.9-1",
+						"8Base-RHOSSM-2.2:openshift-istio-proxyv2-rhel8-container-2.2.9-2",
+						"8Base-RHOSSM-2.2:openshift-istio-ratelimit-rhel8-container-2.2.9-1"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "6",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in Envoy. If Envoy is running with the OAuth filter enabled, a malicious actor could construct a request which would cause denial of service, crashing Envoy.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2023-04-04T19:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2023-27496",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:4623"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2023-27496",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2023-27496"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2023-27496",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2023-27496"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2023-27496",
+						"Description": "CVE-2023-27496"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2182155",
+						"Description": "bz#2182155: Crash when a redirect url without a state param is received in the oauth filter"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2023-03-16T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-RHOSSM-2.2:openshift-istio-cni-rhel8-container-2.2.9-1",
+						"8Base-RHOSSM-2.2:openshift-istio-grafana-rhel8-container-2.2.9-1",
+						"8Base-RHOSSM-2.2:openshift-istio-must-gather-rhel8-container-2.2.9-2",
+						"8Base-RHOSSM-2.2:openshift-istio-pilot-rhel8-container-2.2.9-1",
+						"8Base-RHOSSM-2.2:openshift-istio-prometheus-rhel8-container-2.2.9-1",
+						"8Base-RHOSSM-2.2:openshift-istio-proxyv2-rhel8-container-2.2.9-2",
+						"8Base-RHOSSM-2.2:openshift-istio-ratelimit-rhel8-container-2.2.9-1"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat OpenShift Service Mesh",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "RHOSSM 2.2 for RHEL 8",
+						"fullproductname": {
+							"text": "RHOSSM 2.2 for RHEL 8",
+							"productid": "8Base-RHOSSM-2.2",
+							"cpe": "cpe:/a:redhat:service_mesh:2.2::el8"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "openshift-istio-cni-rhel8-container-2.2.9-1",
+				"fullproductname": {
+					"text": "openshift-istio-cni-rhel8-container-2.2.9-1",
+					"productid": "openshift-istio-cni-rhel8-container-2.2.9-1",
+					"cpe": "cpe:/a:redhat:service_mesh:2.2::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openshift-istio-grafana-rhel8-container-2.2.9-1",
+				"fullproductname": {
+					"text": "openshift-istio-grafana-rhel8-container-2.2.9-1",
+					"productid": "openshift-istio-grafana-rhel8-container-2.2.9-1",
+					"cpe": "cpe:/a:redhat:service_mesh:2.2::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openshift-istio-must-gather-rhel8-container-2.2.9-2",
+				"fullproductname": {
+					"text": "openshift-istio-must-gather-rhel8-container-2.2.9-2",
+					"productid": "openshift-istio-must-gather-rhel8-container-2.2.9-2",
+					"cpe": "cpe:/a:redhat:service_mesh:2.2::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openshift-istio-pilot-rhel8-container-2.2.9-1",
+				"fullproductname": {
+					"text": "openshift-istio-pilot-rhel8-container-2.2.9-1",
+					"productid": "openshift-istio-pilot-rhel8-container-2.2.9-1",
+					"cpe": "cpe:/a:redhat:service_mesh:2.2::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openshift-istio-prometheus-rhel8-container-2.2.9-1",
+				"fullproductname": {
+					"text": "openshift-istio-prometheus-rhel8-container-2.2.9-1",
+					"productid": "openshift-istio-prometheus-rhel8-container-2.2.9-1",
+					"cpe": "cpe:/a:redhat:service_mesh:2.2::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openshift-istio-proxyv2-rhel8-container-2.2.9-2",
+				"fullproductname": {
+					"text": "openshift-istio-proxyv2-rhel8-container-2.2.9-2",
+					"productid": "openshift-istio-proxyv2-rhel8-container-2.2.9-2",
+					"cpe": "cpe:/a:redhat:service_mesh:2.2::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openshift-istio-ratelimit-rhel8-container-2.2.9-1",
+				"fullproductname": {
+					"text": "openshift-istio-ratelimit-rhel8-container-2.2.9-1",
+					"productid": "openshift-istio-ratelimit-rhel8-container-2.2.9-1",
+					"cpe": "cpe:/a:redhat:service_mesh:2.2::el8"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "openshift-istio-cni-rhel8-container-2.2.9-1",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHOSSM-2.2",
+				"fullproductname": {
+					"text": "openshift-istio-cni-rhel8-container-2.2.9-1 as a component of RHOSSM 2.2 for RHEL 8",
+					"productid": "8Base-RHOSSM-2.2:openshift-istio-cni-rhel8-container-2.2.9-1",
+					"cpe": "cpe:/a:redhat:service_mesh:2.2::el8"
+				}
+			},
+			{
+				"productreference": "openshift-istio-grafana-rhel8-container-2.2.9-1",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHOSSM-2.2",
+				"fullproductname": {
+					"text": "openshift-istio-grafana-rhel8-container-2.2.9-1 as a component of RHOSSM 2.2 for RHEL 8",
+					"productid": "8Base-RHOSSM-2.2:openshift-istio-grafana-rhel8-container-2.2.9-1",
+					"cpe": "cpe:/a:redhat:service_mesh:2.2::el8"
+				}
+			},
+			{
+				"productreference": "openshift-istio-must-gather-rhel8-container-2.2.9-2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHOSSM-2.2",
+				"fullproductname": {
+					"text": "openshift-istio-must-gather-rhel8-container-2.2.9-2 as a component of RHOSSM 2.2 for RHEL 8",
+					"productid": "8Base-RHOSSM-2.2:openshift-istio-must-gather-rhel8-container-2.2.9-2",
+					"cpe": "cpe:/a:redhat:service_mesh:2.2::el8"
+				}
+			},
+			{
+				"productreference": "openshift-istio-pilot-rhel8-container-2.2.9-1",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHOSSM-2.2",
+				"fullproductname": {
+					"text": "openshift-istio-pilot-rhel8-container-2.2.9-1 as a component of RHOSSM 2.2 for RHEL 8",
+					"productid": "8Base-RHOSSM-2.2:openshift-istio-pilot-rhel8-container-2.2.9-1",
+					"cpe": "cpe:/a:redhat:service_mesh:2.2::el8"
+				}
+			},
+			{
+				"productreference": "openshift-istio-prometheus-rhel8-container-2.2.9-1",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHOSSM-2.2",
+				"fullproductname": {
+					"text": "openshift-istio-prometheus-rhel8-container-2.2.9-1 as a component of RHOSSM 2.2 for RHEL 8",
+					"productid": "8Base-RHOSSM-2.2:openshift-istio-prometheus-rhel8-container-2.2.9-1",
+					"cpe": "cpe:/a:redhat:service_mesh:2.2::el8"
+				}
+			},
+			{
+				"productreference": "openshift-istio-proxyv2-rhel8-container-2.2.9-2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHOSSM-2.2",
+				"fullproductname": {
+					"text": "openshift-istio-proxyv2-rhel8-container-2.2.9-2 as a component of RHOSSM 2.2 for RHEL 8",
+					"productid": "8Base-RHOSSM-2.2:openshift-istio-proxyv2-rhel8-container-2.2.9-2",
+					"cpe": "cpe:/a:redhat:service_mesh:2.2::el8"
+				}
+			},
+			{
+				"productreference": "openshift-istio-ratelimit-rhel8-container-2.2.9-1",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHOSSM-2.2",
+				"fullproductname": {
+					"text": "openshift-istio-ratelimit-rhel8-container-2.2.9-1 as a component of RHOSSM 2.2 for RHEL 8",
+					"productid": "8Base-RHOSSM-2.2:openshift-istio-ratelimit-rhel8-container-2.2.9-1",
+					"cpe": "cpe:/a:redhat:service_mesh:2.2::el8"
+				}
+			}
+		]
+	}
+}

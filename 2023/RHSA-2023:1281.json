@@ -1,0 +1,253 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: Red Hat OpenStack Platform (python-werkzeug) security update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2023:1281"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2023-03-15T19:58:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2023-03-15T19:58:00Z",
+		"CurrentReleaseDate": "2023-03-15T19:58:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.12.2",
+			"Date": "2023-03-15T22:31:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nAn update for python-werkzeug is now available for Red Hat OpenStack\nPlatform.\n\nRed Hat Product Security has rated this update as having a security impact\nof Important. A Common Vulnerability Scoring System (CVSS) base score,\nwhich gives a detailed severity rating, is available for each vulnerability\nfrom the CVE link(s) in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nWerkzeug started as simple collection of various\nutilities for WSGI applications and has become one of the most advanced\nWSGI utility modules. It includes a powerful debugger, full featured\nrequest and response objects, HTTP utilities to handle entity tags, cache\ncontrol headers, HTTP dates, cookie handling, file uploads, a powerful URL\nrouting system and a bunch of community contributed addon modules. Werkzeug\nis unicode aware and doesn't enforce a specific template engine, database\nadapter or anything else. It doesn't even enforce a specific way of\nhandling requests and leaves all that up to the developer. It's most useful\nfor end user applications which should work on as many server environments\nas possible (such as blogs, wikis, bulletin boards, etc.).\n\nSecurity Fix(es):\n\n* high resource usage when parsing multipart form data with many fields\n(CVE-2023-25577)\n\nFor more details about the security issue(s), including the impact, a CVSS\nscore, acknowledgments, and other related information, refer to the CVE\npage listed in the References section.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2023 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2023:1281",
+				"Description": "https://access.redhat.com/errata/RHSA-2023:1281"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in python-werkzeug. Werkzeug is multipart form data parser, that will parse an unlimited number of parts, including file parts. These parts can be a small amount of bytes, but each requires CPU time to parse, and may use more memory as Python data. If a request can be made to an endpoint that accesses request.data, request.form, request.files, or request.get_data(parse_form_data=False), it can cause unexpectedly high resource usage, allowing an attacker to cause a denial of service by sending crafted multipart data to an endpoint that will parse it. The amount of CPU time required can block worker processes from handling legitimate requests, and if many concurrent requests are sent continuously, this can exhaust or kill all available workers.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2023-02-14T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2023-25577",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes\ndescribed in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:1281"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://github.com/pallets/werkzeug/commit/517cac5a804e8c4dc4ed038bb20dacd038e7a9f1",
+						"Description": "https://github.com/pallets/werkzeug/commit/517cac5a804e8c4dc4ed038bb20dacd038e7a9f1"
+					},
+					{
+						"URL": "https://github.com/pallets/werkzeug/releases/tag/2.2.3",
+						"Description": "https://github.com/pallets/werkzeug/releases/tag/2.2.3"
+					},
+					{
+						"URL": "https://github.com/pallets/werkzeug/security/advisories/GHSA-xg9f-g7g7-2323",
+						"Description": "https://github.com/pallets/werkzeug/security/advisories/GHSA-xg9f-g7g7-2323"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2023-25577",
+						"Description": "CVE-2023-25577"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2170242",
+						"Description": "bz#2170242: CVE-2023-25577 python-werkzeug: high resource usage when parsing multipart form data with many fields"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2023-02-15T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-RH7-RHOS-OCTAVIA-13.0-ELS:python-werkzeug-0:0.14.1-3.1.el7ost",
+						"8Base-RHOS-16.1:python-werkzeug-0:0.14.1-12.el8ost",
+						"8Base-RHOS-16.2:python-werkzeug-0:0.14.1-12.el8ost"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat OpenStack Platform",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat OpenStack Platform 13.0 - ELS",
+						"fullproductname": {
+							"text": "Red Hat OpenStack Platform 13.0 - ELS",
+							"productid": "7Server-RH7-RHOS-OCTAVIA-13.0-ELS",
+							"cpe": "cpe:/a:redhat:openstack:13::el7"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat OpenStack Platform 16.1",
+						"fullproductname": {
+							"text": "Red Hat OpenStack Platform 16.1",
+							"productid": "8Base-RHOS-16.1",
+							"cpe": "cpe:/a:redhat:openstack:16.1::el8"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat OpenStack Platform 16.2",
+						"fullproductname": {
+							"text": "Red Hat OpenStack Platform 16.2",
+							"productid": "8Base-RHOS-16.2",
+							"cpe": "cpe:/a:redhat:openstack:16.2::el8"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-werkzeug-0:0.14.1-12.el8ost",
+				"fullproductname": {
+					"text": "python-werkzeug-0.14.1-12.el8ost.src.rpm",
+					"productid": "python-werkzeug-0:0.14.1-12.el8ost",
+					"cpe": "cpe:/a:redhat:openstack:16.1::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-werkzeug-0:0.14.1-3.1.el7ost",
+				"fullproductname": {
+					"text": "python-werkzeug-0.14.1-3.1.el7ost.src.rpm",
+					"productid": "python-werkzeug-0:0.14.1-3.1.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:13::el7"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "python-werkzeug-0:0.14.1-3.1.el7ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOS-OCTAVIA-13.0-ELS",
+				"fullproductname": {
+					"text": "python-werkzeug-0:0.14.1-3.1.el7ost as a component of Red Hat OpenStack Platform 13.0 - ELS",
+					"productid": "7Server-RH7-RHOS-OCTAVIA-13.0-ELS:python-werkzeug-0:0.14.1-3.1.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:13::el7"
+				}
+			},
+			{
+				"productreference": "python-werkzeug-0:0.14.1-12.el8ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHOS-16.1",
+				"fullproductname": {
+					"text": "python-werkzeug-0:0.14.1-12.el8ost as a component of Red Hat OpenStack Platform 16.1",
+					"productid": "8Base-RHOS-16.1:python-werkzeug-0:0.14.1-12.el8ost",
+					"cpe": "cpe:/a:redhat:openstack:16.1::el8"
+				}
+			},
+			{
+				"productreference": "python-werkzeug-0:0.14.1-12.el8ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHOS-16.2",
+				"fullproductname": {
+					"text": "python-werkzeug-0:0.14.1-12.el8ost as a component of Red Hat OpenStack Platform 16.2",
+					"productid": "8Base-RHOS-16.2:python-werkzeug-0:0.14.1-12.el8ost",
+					"cpe": "cpe:/a:redhat:openstack:16.2::el8"
+				}
+			}
+		]
+	}
+}

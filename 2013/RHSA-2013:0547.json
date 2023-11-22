@@ -1,0 +1,355 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: CloudForms System Engine 1.1.2 update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2013:0547"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2013-02-21T19:01:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2013-02-21T18:55:00Z",
+		"CurrentReleaseDate": "2013-02-21T19:01:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:33:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nCloudForms System Engine 1.1.2 is now available.\n\nThe Red Hat Security Response Team has rated this update as having moderate\nsecurity impact. Common Vulnerability Scoring System (CVSS) base scores,\nwhich give detailed severity ratings, are available for each vulnerability\nfrom the CVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nRed Hat CloudForms is an on-premise hybrid cloud\nInfrastructure-as-a-Service (IaaS) product that lets you create and manage\nprivate and public clouds. It provides self-service computing resources to\nusers in a managed, governed, and secure way. CloudForms System Engine can\nbe used to configure new systems, subscribe to updates, and maintain\ninstallations in distributed environments.\n\nIt was found that the\n\"/usr/share/katello/script/katello-generate-passphrase\" utility, which is\nrun during the installation and configuration process, set world-readable\npermissions on the \"/etc/katello/secure/passphrase\" file. A local attacker\ncould use this flaw to obtain the passphrase for Katello, giving them\naccess to information they would otherwise not have access to.\n(CVE-2012-5561)\n\nNote: After installing this update, ensure the\n\"/etc/katello/secure/passphrase\" file is owned by the root user and group\nand mode 0750 permissions. Sites should also consider re-creating the\nKatello passphrase as this issue exposed it to local users.\n\nOne task the katello-configure utility performs is creating an RPM to be\ninstalled on client machines that need to connect to the Katello server. It\nwas found that this RPM set world-readable and writable permissions on the\npem file (containing the Certificate Authority certificate) used for\ntrusting the Katello server. An attacker could use this flaw to perform a\nman-in-the-middle attack, allowing them to manage (such as installing and\nremoving software) Katello client systems. (CVE-2012-6116)\n\nThe CVE-2012-5561 issue was discovered by Aaron Weitekamp of the Red Hat\nCloud Quality Engineering team, and CVE-2012-6116 was discovered by Dominic\nCleal and James Laska of Red Hat.\n\nThis update also fixes the following bugs:\n\n* The CloudForms System Engine command line tool incorrectly parsed\nlocales, which caused the following error:\n\n\"translation missing: de.activerecord.errors.messages.record_invalid\"\n\nThis update replaces the controller for setting the locale. The translation\nerror no longer appears. (BZ#896251)\n\n* Certain locales did not properly escape certain UI content for new role\ncreation. This broke the Save button for some locales. This update corrects\nthe escape behavior for localized UI content. The Save button now works\nfor new role creation. (BZ#896252)\n\n* A missing icon stopped users from deleting recent or saved searches. This\nupdate adds the icon and users can now delete recent or saved searches.\n(BZ#896253)\n\n* A performance issue in the Candlepin 0.7.8 component caused subscription\nresponsiveness to decrease as the number of systems subscribed to\nCloudForms System Engine increases. This erratum updates to Candlepin\n0.7.19, which corrects the performance issues. (BZ#896261)\n\n* CloudForms System Engine would not fetch Extended Update Service (EUS)\nentitlements. This blocked the user from seeing and enabling EUS\nrepositories. This update revises the manifest upload and deletion code,\nwhich also corrects the behavior for fetching entitlements. System Engine\nnow fetches EUS entitlements. (BZ#896265)\n\n* Issues with menu widths caused the localized UI to not render certain\nmenu items. This update corrects the style for the System Engine UI. The\nWeb UI now renders the menu items correctly. (BZ#903702)\n\nRefer to the CloudForms 1.1.2 Release Notes for further information about\nthis release. The Release Notes will be available shortly from\nhttps://access.redhat.com/knowledge/docs/\n\nTo upgrade, follow the upgrade instructions in the CloudForms Installation\nGuide, section \"4.1. Upgrading CloudForms System Engine\":\n\nhttps://access.redhat.com/knowledge/docs/en-US/CloudForms/1.1/html/Installation_Guide/index.html\n\nUsers of CloudForms System Engine are advised to upgrade to these updated\npackages.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2013:0547",
+				"Description": "https://access.redhat.com/errata/RHSA-2013:0547"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/knowledge/docs/",
+				"Description": "https://access.redhat.com/knowledge/docs/"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/knowledge/docs/en-US/CloudForms/1.1/html/Installation_Guide/index.html",
+				"Description": "https://access.redhat.com/knowledge/docs/en-US/CloudForms/1.1/html/Installation_Guide/index.html"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Katello: /etc/katello/secure/passphrase is world readable",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-01-03T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-5561",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:0547"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-5561",
+						"Description": "CVE-2012-5561"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=879094",
+						"Description": "bz#879094: CVE-2012-5561 Katello: /etc/katello/secure/passphrase is world readable"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2012-11-21T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-SystemEngine:candlepin-0:0.7.19-3.el6cf",
+						"6Server-SystemEngine:katello-0:1.1.12.2-5.el6cf",
+						"6Server-SystemEngine:katello-cli-0:1.1.8-14.el6cf",
+						"6Server-SystemEngine:katello-configure-0:1.1.9-13.el6cf",
+						"6Server-SystemEngine:katello-selinux-0:1.1.1-5.el6cf"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.1",
+					"Vector": "AV:L/AC:L/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Candlepin: bootstrap RPM deploys CA certificate file with mode 666",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-02-21T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-6116",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:0547"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-6116",
+						"Description": "CVE-2012-6116"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=906207",
+						"Description": "bz#906207: CVE-2012-6116 Candlepin: bootstrap RPM deploys CA certificate file with mode 666"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2012-11-16T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-SystemEngine:candlepin-0:0.7.19-3.el6cf",
+						"6Server-SystemEngine:katello-0:1.1.12.2-5.el6cf",
+						"6Server-SystemEngine:katello-cli-0:1.1.8-14.el6cf",
+						"6Server-SystemEngine:katello-configure-0:1.1.9-13.el6cf",
+						"6Server-SystemEngine:katello-selinux-0:1.1.1-5.el6cf"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.6",
+					"Vector": "AV:L/AC:L/Au:N/C:P/I:P/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat CloudForms",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "CloudForms System Engine for RHEL 6 Server",
+						"fullproductname": {
+							"text": "CloudForms System Engine for RHEL 6 Server",
+							"productid": "6Server-SystemEngine",
+							"cpe": "cpe:/a:cloudforms_systemengine:1::el6"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "candlepin-0:0.7.19-3.el6cf",
+				"fullproductname": {
+					"text": "candlepin-0.7.19-3.el6cf.src.rpm",
+					"productid": "candlepin-0:0.7.19-3.el6cf",
+					"cpe": "cpe:/a:cloudforms_systemengine:1::el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "katello-0:1.1.12.2-5.el6cf",
+				"fullproductname": {
+					"text": "katello-1.1.12.2-5.el6cf.src.rpm",
+					"productid": "katello-0:1.1.12.2-5.el6cf",
+					"cpe": "cpe:/a:cloudforms_systemengine:1::el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "katello-cli-0:1.1.8-14.el6cf",
+				"fullproductname": {
+					"text": "katello-cli-1.1.8-14.el6cf.src.rpm",
+					"productid": "katello-cli-0:1.1.8-14.el6cf",
+					"cpe": "cpe:/a:cloudforms_systemengine:1::el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "katello-configure-0:1.1.9-13.el6cf",
+				"fullproductname": {
+					"text": "katello-configure-1.1.9-13.el6cf.src.rpm",
+					"productid": "katello-configure-0:1.1.9-13.el6cf",
+					"cpe": "cpe:/a:cloudforms_systemengine:1::el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "katello-selinux-0:1.1.1-5.el6cf",
+				"fullproductname": {
+					"text": "katello-selinux-1.1.1-5.el6cf.src.rpm",
+					"productid": "katello-selinux-0:1.1.1-5.el6cf",
+					"cpe": "cpe:/a:cloudforms_systemengine:1::el6"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "candlepin-0:0.7.19-3.el6cf",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-SystemEngine",
+				"fullproductname": {
+					"text": "candlepin-0:0.7.19-3.el6cf as a component of CloudForms System Engine for RHEL 6 Server",
+					"productid": "6Server-SystemEngine:candlepin-0:0.7.19-3.el6cf",
+					"cpe": "cpe:/a:cloudforms_systemengine:1::el6"
+				}
+			},
+			{
+				"productreference": "katello-0:1.1.12.2-5.el6cf",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-SystemEngine",
+				"fullproductname": {
+					"text": "katello-0:1.1.12.2-5.el6cf as a component of CloudForms System Engine for RHEL 6 Server",
+					"productid": "6Server-SystemEngine:katello-0:1.1.12.2-5.el6cf",
+					"cpe": "cpe:/a:cloudforms_systemengine:1::el6"
+				}
+			},
+			{
+				"productreference": "katello-cli-0:1.1.8-14.el6cf",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-SystemEngine",
+				"fullproductname": {
+					"text": "katello-cli-0:1.1.8-14.el6cf as a component of CloudForms System Engine for RHEL 6 Server",
+					"productid": "6Server-SystemEngine:katello-cli-0:1.1.8-14.el6cf",
+					"cpe": "cpe:/a:cloudforms_systemengine:1::el6"
+				}
+			},
+			{
+				"productreference": "katello-configure-0:1.1.9-13.el6cf",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-SystemEngine",
+				"fullproductname": {
+					"text": "katello-configure-0:1.1.9-13.el6cf as a component of CloudForms System Engine for RHEL 6 Server",
+					"productid": "6Server-SystemEngine:katello-configure-0:1.1.9-13.el6cf",
+					"cpe": "cpe:/a:cloudforms_systemengine:1::el6"
+				}
+			},
+			{
+				"productreference": "katello-selinux-0:1.1.1-5.el6cf",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-SystemEngine",
+				"fullproductname": {
+					"text": "katello-selinux-0:1.1.1-5.el6cf as a component of CloudForms System Engine for RHEL 6 Server",
+					"productid": "6Server-SystemEngine:katello-selinux-0:1.1.1-5.el6cf",
+					"cpe": "cpe:/a:cloudforms_systemengine:1::el6"
+				}
+			}
+		]
+	}
+}

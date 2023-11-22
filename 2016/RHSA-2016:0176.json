@@ -1,0 +1,417 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: glibc security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2016:0176"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2016-02-16T15:39:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2016-02-16T15:39:00Z",
+		"CurrentReleaseDate": "2016-02-16T15:39:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:54:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated glibc packages that fix two security issues and two bugs are now\navailable for Red Hat Enterprise Linux 7.\n\nRed Hat Product Security has rated this update as having Critical security\nimpact. Common Vulnerability Scoring System (CVSS) base scores, which give\ndetailed severity ratings, are available for each vulnerability from the\nCVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe glibc packages provide the standard C libraries (libc), POSIX \nthread libraries (libpthread), standard math libraries (libm), and the \nname service cache daemon (nscd) used by multiple programs on the \nsystem. Without these libraries, the Linux system cannot function \ncorrectly.\n\nA stack-based buffer overflow was found in the way the libresolv library\nperformed dual A/AAAA DNS queries. A remote attacker could create a\nspecially crafted DNS response which could cause libresolv to crash or,\npotentially, execute code with the permissions of the user running the\nlibrary. Note: this issue is only exposed when libresolv is called from the\nnss_dns NSS service module. (CVE-2015-7547)\n\nIt was discovered that the calloc implementation in glibc could return\nmemory areas which contain non-zero bytes. This could result in unexpected\napplication behavior such as hangs or crashes. (CVE-2015-5229)\n\nThe CVE-2015-7547 issue was discovered by the Google Security Team and Red\nHat. Red Hat would like to thank Jeff Layton for reporting the\nCVE-2015-5229 issue.\n\nThis update also fixes the following bugs:\n\n* The existing implementation of the \"free\" function causes all memory\npools beyond the first to return freed memory directly to the operating\nsystem as quickly as possible. This can result in performance degradation\nwhen the rate of free calls is very high. The first memory pool (the main\npool) does provide a method to rate limit the returns via M_TRIM_THRESHOLD,\nbut this method is not available to subsequent memory pools.\n\nWith this update, the M_TRIM_THRESHOLD method is extended to apply to all\nmemory pools, which improves performance for threads with very high amounts\nof free calls and limits the number of \"madvise\" system calls. The change\nalso increases the total transient memory usage by processes because the\ntrim threshold must be reached before memory can be freed.\n\nTo return to the previous behavior, you can either set M_TRIM_THRESHOLD\nusing the \"mallopt\" function, or set the MALLOC_TRIM_THRESHOLD environment\nvariable to 0. (BZ#1298930)\n\n* On the little-endian variant of 64-bit IBM Power Systems (ppc64le), a bug\nin the dynamic loader could cause applications compiled with profiling\nenabled to fail to start with the error \"monstartup: out of memory\".\nThe bug has been corrected and applications compiled for profiling now\nstart correctly. (BZ#1298956)\n\nAll glibc users are advised to upgrade to these updated packages, which\ncontain backported patches to correct these issues.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Critical",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2016:0176",
+				"Description": "https://access.redhat.com/errata/RHSA-2016:0176"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#critical",
+				"Description": "https://access.redhat.com/security/updates/classification/#critical"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/articles/2161461",
+				"Description": "https://access.redhat.com/articles/2161461"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "glibc: calloc may return non-zero memory",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-08-21T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-5229",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2016:0176"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-5229",
+						"Description": "CVE-2015-5229"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1256285",
+						"Description": "bz#1256285: CVE-2015-5229 glibc: calloc may return non-zero memory"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2015-08-24T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-7.2.Z:glibc-0:2.17-106.el7_2.4",
+						"7Client-optional-7.2.Z:glibc-0:2.17-106.el7_2.4",
+						"7ComputeNode-7.2.Z:glibc-0:2.17-106.el7_2.4",
+						"7ComputeNode-optional-7.2.Z:glibc-0:2.17-106.el7_2.4",
+						"7Server-7.2.Z:glibc-0:2.17-106.el7_2.4",
+						"7Server-optional-7.2.Z:glibc-0:2.17-106.el7_2.4",
+						"7Workstation-7.2.Z:glibc-0:2.17-106.el7_2.4",
+						"7Workstation-optional-7.2.Z:glibc-0:2.17-106.el7_2.4"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.6",
+					"Vector": "AV:N/AC:H/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "glibc: getaddrinfo stack-based buffer overflow",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-02-16T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-7547",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2016:0176"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/articles/2161461",
+						"Description": "https://access.redhat.com/articles/2161461"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-7547",
+						"Description": "CVE-2015-7547"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1293532",
+						"Description": "bz#1293532: CVE-2015-7547 glibc: getaddrinfo stack-based buffer overflow"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Critical"
+				}
+			},
+			"DiscoveryDate": "2015-12-11T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-7.2.Z:glibc-0:2.17-106.el7_2.4",
+						"7Client-optional-7.2.Z:glibc-0:2.17-106.el7_2.4",
+						"7ComputeNode-7.2.Z:glibc-0:2.17-106.el7_2.4",
+						"7ComputeNode-optional-7.2.Z:glibc-0:2.17-106.el7_2.4",
+						"7Server-7.2.Z:glibc-0:2.17-106.el7_2.4",
+						"7Server-optional-7.2.Z:glibc-0:2.17-106.el7_2.4",
+						"7Workstation-7.2.Z:glibc-0:2.17-106.el7_2.4",
+						"7Workstation-optional-7.2.Z:glibc-0:2.17-106.el7_2.4"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.8",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:P/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Client (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Client (v. 7)",
+							"productid": "7Client-7.2.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Client Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Client Optional (v. 7)",
+							"productid": "7Client-optional-7.2.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ComputeNode (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ComputeNode (v. 7)",
+							"productid": "7ComputeNode-7.2.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+							"productid": "7ComputeNode-optional-7.2.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 7)",
+							"productid": "7Server-7.2.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional (v. 7)",
+							"productid": "7Server-optional-7.2.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 7)",
+							"productid": "7Workstation-7.2.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation Optional (v. 7)",
+							"productid": "7Workstation-optional-7.2.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "glibc-0:2.17-106.el7_2.4",
+				"fullproductname": {
+					"text": "glibc-2.17-106.el7_2.4.src.rpm",
+					"productid": "glibc-0:2.17-106.el7_2.4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "glibc-0:2.17-106.el7_2.4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-7.2.Z",
+				"fullproductname": {
+					"text": "glibc-0:2.17-106.el7_2.4 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"productid": "7Client-7.2.Z:glibc-0:2.17-106.el7_2.4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "glibc-0:2.17-106.el7_2.4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-optional-7.2.Z",
+				"fullproductname": {
+					"text": "glibc-0:2.17-106.el7_2.4 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"productid": "7Client-optional-7.2.Z:glibc-0:2.17-106.el7_2.4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "glibc-0:2.17-106.el7_2.4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-7.2.Z",
+				"fullproductname": {
+					"text": "glibc-0:2.17-106.el7_2.4 as a component of Red Hat Enterprise Linux ComputeNode (v. 7)",
+					"productid": "7ComputeNode-7.2.Z:glibc-0:2.17-106.el7_2.4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "glibc-0:2.17-106.el7_2.4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-optional-7.2.Z",
+				"fullproductname": {
+					"text": "glibc-0:2.17-106.el7_2.4 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"productid": "7ComputeNode-optional-7.2.Z:glibc-0:2.17-106.el7_2.4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "glibc-0:2.17-106.el7_2.4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-7.2.Z",
+				"fullproductname": {
+					"text": "glibc-0:2.17-106.el7_2.4 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server-7.2.Z:glibc-0:2.17-106.el7_2.4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "glibc-0:2.17-106.el7_2.4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-optional-7.2.Z",
+				"fullproductname": {
+					"text": "glibc-0:2.17-106.el7_2.4 as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"productid": "7Server-optional-7.2.Z:glibc-0:2.17-106.el7_2.4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "glibc-0:2.17-106.el7_2.4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-7.2.Z",
+				"fullproductname": {
+					"text": "glibc-0:2.17-106.el7_2.4 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"productid": "7Workstation-7.2.Z:glibc-0:2.17-106.el7_2.4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "glibc-0:2.17-106.el7_2.4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-optional-7.2.Z",
+				"fullproductname": {
+					"text": "glibc-0:2.17-106.el7_2.4 as a component of Red Hat Enterprise Linux Workstation Optional (v. 7)",
+					"productid": "7Workstation-optional-7.2.Z:glibc-0:2.17-106.el7_2.4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			}
+		]
+	}
+}

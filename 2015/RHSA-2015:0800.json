@@ -1,0 +1,875 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: openssl security update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2015:0800"
+		},
+		"Status": "Final",
+		"Version": "3",
+		"revisionhistory": {
+			"revision": {
+				"Number": "3",
+				"Date": "2016-03-02T08:20:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2015-04-13T11:54:00Z",
+		"CurrentReleaseDate": "2016-03-02T08:20:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:39:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated openssl packages that fix multiple security issues are now\navailable for Red Hat Enterprise Linux 5\n\nRed Hat Product Security has rated this update as having Moderate security\nimpact. Common Vulnerability Scoring System (CVSS) base scores, which give\ndetailed severity ratings, are available for each vulnerability from the\nCVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nOpenSSL is a toolkit that implements the Secure Sockets Layer (SSL v2/v3)\nand Transport Layer Security (TLS v1) protocols, as well as a\nfull-strength, general purpose cryptography library.\n\nIt was discovered that OpenSSL would accept ephemeral RSA keys when using\nnon-export RSA cipher suites. A malicious server could make a TLS/SSL\nclient using OpenSSL use a weaker key exchange method. (CVE-2015-0204)\n\nAn integer underflow flaw, leading to a buffer overflow, was found in the\nway OpenSSL decoded malformed Base64-encoded inputs. An attacker able to\nmake an application using OpenSSL decode a specially crafted Base64-encoded\ninput (such as a PEM file) could use this flaw to cause the application to\ncrash. Note: this flaw is not exploitable via the TLS/SSL protocol because\nthe data being transferred is not Base64-encoded. (CVE-2015-0292)\n\nA denial of service flaw was found in the way OpenSSL handled SSLv2\nhandshake messages. A remote attacker could use this flaw to cause a\nTLS/SSL server using OpenSSL to exit on a failed assertion if it had both\nthe SSLv2 protocol and EXPORT-grade cipher suites enabled. (CVE-2015-0293)\n\nMultiple flaws were found in the way OpenSSL parsed X.509 certificates.\nAn attacker could use these flaws to modify an X.509 certificate to produce\na certificate with a different fingerprint without invalidating its\nsignature, and possibly bypass fingerprint-based blacklisting in\napplications. (CVE-2014-8275)\n\nAn out-of-bounds write flaw was found in the way OpenSSL reused certain\nASN.1 structures. A remote attacker could possibly use a specially crafted\nASN.1 structure that, when parsed by an application, would cause that\napplication to crash. (CVE-2015-0287)\n\nA NULL pointer dereference flaw was found in OpenSSL's X.509 certificate\nhandling implementation. A specially crafted X.509 certificate could cause\nan application using OpenSSL to crash if the application attempted to\nconvert the certificate to a certificate request. (CVE-2015-0288)\n\nA NULL pointer dereference was found in the way OpenSSL handled certain\nPKCS#7 inputs. An attacker able to make an application using OpenSSL\nverify, decrypt, or parse a specially crafted PKCS#7 input could cause that\napplication to crash. TLS/SSL clients and servers using OpenSSL were not\naffected by this flaw. (CVE-2015-0289)\n\nRed Hat would like to thank the OpenSSL project for reporting \nCVE-2015-0287, CVE-2015-0288, CVE-2015-0289, CVE-2015-0292, and \nCVE-2015-0293. Upstream acknowledges Emilia Käsper of the OpenSSL \ndevelopment team as the original reporter of CVE-2015-0287, Brian Carpenter \nas the original reporter of CVE-2015-0288, Michal Zalewski of Google as the \noriginal reporter of CVE-2015-0289, Robert Dugal and David Ramos as the \noriginal reporters of CVE-2015-0292, and Sean Burford of Google and Emilia \nKäsper of the OpenSSL development team as the original reporters of \nCVE-2015-0293.\n\nAll openssl users are advised to upgrade to these updated packages, which\ncontain backported patches to correct these issues. For the update to take\neffect, all services linked to the OpenSSL library must be restarted, or\nthe system rebooted.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2015:0800",
+				"Description": "https://access.redhat.com/errata/RHSA-2015:0800"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			},
+			{
+				"type": "External",
+				"URL": "https://www.openssl.org/news/secadv_20150108.txt ",
+				"Description": "https://www.openssl.org/news/secadv_20150108.txt "
+			},
+			{
+				"type": "External",
+				"URL": "https://www.openssl.org/news/secadv_20150319.txt",
+				"Description": "https://www.openssl.org/news/secadv_20150319.txt"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/articles/1384453",
+				"Description": "https://access.redhat.com/articles/1384453"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "openssl: Fix various certificate fingerprint issues",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-01-05T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-8275",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:0800"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.openssl.org/news/secadv_20150108.txt",
+						"Description": "https://www.openssl.org/news/secadv_20150108.txt"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-8275",
+						"Description": "CVE-2014-8275"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1180187",
+						"Description": "bz#1180187: CVE-2014-8275 openssl: Fix various certificate fingerprint issues"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2015-01-08T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-5.11.Z:openssl-0:0.9.8e-33.el5_11",
+						"5Client-Workstation-5.11.Z:openssl-0:0.9.8e-33.el5_11",
+						"5Server-5.11.Z:openssl-0:0.9.8e-33.el5_11"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "openssl: only allow ephemeral RSA keys in export ciphersuites (FREAK)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-01-06T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-0204",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:0800"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://securityblog.redhat.com/2015/03/04/factoring-rsa-export-keys-freak-cve-2015-0204/",
+						"Description": "https://securityblog.redhat.com/2015/03/04/factoring-rsa-export-keys-freak-cve-2015-0204/"
+					},
+					{
+						"URL": "https://www.openssl.org/news/secadv_20150108.txt",
+						"Description": "https://www.openssl.org/news/secadv_20150108.txt"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-0204",
+						"Description": "CVE-2015-0204"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1180184",
+						"Description": "bz#1180184: CVE-2015-0204 openssl: only allow ephemeral RSA keys in export ciphersuites (FREAK)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-01-08T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-5.11.Z:openssl-0:0.9.8e-33.el5_11",
+						"5Client-Workstation-5.11.Z:openssl-0:0.9.8e-33.el5_11",
+						"5Server-5.11.Z:openssl-0:0.9.8e-33.el5_11"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "openssl: ASN.1 structure reuse memory corruption",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-03-19T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-0287",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:0800"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/articles/1384453",
+						"Description": "https://access.redhat.com/articles/1384453"
+					},
+					{
+						"URL": "https://openssl.org/news/secadv_20150319.txt",
+						"Description": "https://openssl.org/news/secadv_20150319.txt"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-0287",
+						"Description": "CVE-2015-0287"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1202380",
+						"Description": "bz#1202380: CVE-2015-0287 openssl: ASN.1 structure reuse memory corruption"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2015-03-16T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-5.11.Z:openssl-0:0.9.8e-33.el5_11",
+						"5Client-Workstation-5.11.Z:openssl-0:0.9.8e-33.el5_11",
+						"5Server-5.11.Z:openssl-0:0.9.8e-33.el5_11"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.6",
+					"Vector": "AV:N/AC:H/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "openssl: X509_to_X509_REQ NULL pointer dereference",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-03-19T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-0288",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:0800"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/articles/1384453",
+						"Description": "https://access.redhat.com/articles/1384453"
+					},
+					{
+						"URL": "https://openssl.org/news/secadv_20150319.txt",
+						"Description": "https://openssl.org/news/secadv_20150319.txt"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-0288",
+						"Description": "CVE-2015-0288"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1202418",
+						"Description": "bz#1202418: CVE-2015-0288 openssl: X509_to_X509_REQ NULL pointer dereference"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2015-03-16T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-5.11.Z:openssl-0:0.9.8e-33.el5_11",
+						"5Client-Workstation-5.11.Z:openssl-0:0.9.8e-33.el5_11",
+						"5Server-5.11.Z:openssl-0:0.9.8e-33.el5_11"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.6",
+					"Vector": "AV:N/AC:H/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "openssl: PKCS7 NULL pointer dereference",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-03-19T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-0289",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:0800"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/articles/1384453",
+						"Description": "https://access.redhat.com/articles/1384453"
+					},
+					{
+						"URL": "https://openssl.org/news/secadv_20150319.txt",
+						"Description": "https://openssl.org/news/secadv_20150319.txt"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-0289",
+						"Description": "CVE-2015-0289"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1202384",
+						"Description": "bz#1202384: CVE-2015-0289 openssl: PKCS7 NULL pointer dereference"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2015-03-16T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-5.11.Z:openssl-0:0.9.8e-33.el5_11",
+						"5Client-Workstation-5.11.Z:openssl-0:0.9.8e-33.el5_11",
+						"5Server-5.11.Z:openssl-0:0.9.8e-33.el5_11"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.6",
+					"Vector": "AV:N/AC:H/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "6",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "openssl: integer underflow leading to buffer overflow in base64 decoding",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-03-19T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-0292",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:0800"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/articles/1384453",
+						"Description": "https://access.redhat.com/articles/1384453"
+					},
+					{
+						"URL": "https://openssl.org/news/secadv_20150319.txt",
+						"Description": "https://openssl.org/news/secadv_20150319.txt"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-0292",
+						"Description": "CVE-2015-0292"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1202395",
+						"Description": "bz#1202395: CVE-2015-0292 openssl: integer underflow leading to buffer overflow in base64 decoding"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-03-16T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-5.11.Z:openssl-0:0.9.8e-33.el5_11",
+						"5Client-Workstation-5.11.Z:openssl-0:0.9.8e-33.el5_11",
+						"5Server-5.11.Z:openssl-0:0.9.8e-33.el5_11"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.1",
+					"Vector": "AV:N/AC:H/Au:N/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "7",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "openssl: assertion failure in SSLv2 servers",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-03-19T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-0293",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:0800"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/articles/1384453",
+						"Description": "https://access.redhat.com/articles/1384453"
+					},
+					{
+						"URL": "https://openssl.org/news/secadv_20150319.txt",
+						"Description": "https://openssl.org/news/secadv_20150319.txt"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-0293",
+						"Description": "CVE-2015-0293"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1202404",
+						"Description": "bz#1202404: CVE-2015-0293 openssl: assertion failure in SSLv2 servers"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-03-16T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-5.11.Z:openssl-0:0.9.8e-33.el5_11",
+						"5Client-Workstation-5.11.Z:openssl-0:0.9.8e-33.el5_11",
+						"5Server-5.11.Z:openssl-0:0.9.8e-33.el5_11"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank the OpenSSL project for reporting this issue. Upstream acknowledges Emilia Käsper (the OpenSSL development team) and Sean Burford (Google) as the original reporters."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "8",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "openssl: Divide-and-conquer session key recovery in SSLv2",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-03-01T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2016-0703",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:0800"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.openssl.org/news/secadv/20160301.txt",
+						"Description": "https://www.openssl.org/news/secadv/20160301.txt"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2016-0703",
+						"Description": "CVE-2016-0703"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1310811",
+						"Description": "bz#1310811: CVE-2016-0703 openssl: Divide-and-conquer session key recovery in SSLv2"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2016-02-22T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-5.11.Z:openssl-0:0.9.8e-33.el5_11",
+						"5Client-Workstation-5.11.Z:openssl-0:0.9.8e-33.el5_11",
+						"5Server-5.11.Z:openssl-0:0.9.8e-33.el5_11"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank the OpenSSL project for reporting this issue. Upstream acknowledges David Adrian (University of Michigan) and J. Alex Halderman (University of Michigan) as the original reporters."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "9",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "openssl: SSLv2 Bleichenbacher protection overwrites wrong bytes for export ciphers",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-03-01T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2016-0704",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:0800"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.openssl.org/news/secadv/20160301.txt",
+						"Description": "https://www.openssl.org/news/secadv/20160301.txt"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2016-0704",
+						"Description": "CVE-2016-0704"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1310814",
+						"Description": "bz#1310814: CVE-2016-0704 openssl: SSLv2 Bleichenbacher protection overwrites wrong bytes for export ciphers"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2016-02-22T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-5.11.Z:openssl-0:0.9.8e-33.el5_11",
+						"5Client-Workstation-5.11.Z:openssl-0:0.9.8e-33.el5_11",
+						"5Server-5.11.Z:openssl-0:0.9.8e-33.el5_11"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank the OpenSSL project for reporting this issue. Upstream acknowledges David Adrian (University of Michigan) and J. Alex Halderman (University of Michigan) as the original reporters."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:N/A:N"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+							"productid": "5Client-5.11.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+							"productid": "5Client-Workstation-5.11.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::client_workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux (v. 5 server)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux (v. 5 server)",
+							"productid": "5Server-5.11.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "openssl-0:0.9.8e-33.el5_11",
+				"fullproductname": {
+					"text": "openssl-0.9.8e-33.el5_11.src.rpm",
+					"productid": "openssl-0:0.9.8e-33.el5_11",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "openssl-0:0.9.8e-33.el5_11",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Client-5.11.Z",
+				"fullproductname": {
+					"text": "openssl-0:0.9.8e-33.el5_11 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"productid": "5Client-5.11.Z:openssl-0:0.9.8e-33.el5_11",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+				}
+			},
+			{
+				"productreference": "openssl-0:0.9.8e-33.el5_11",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Client-Workstation-5.11.Z",
+				"fullproductname": {
+					"text": "openssl-0:0.9.8e-33.el5_11 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"productid": "5Client-Workstation-5.11.Z:openssl-0:0.9.8e-33.el5_11",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client_workstation"
+				}
+			},
+			{
+				"productreference": "openssl-0:0.9.8e-33.el5_11",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-5.11.Z",
+				"fullproductname": {
+					"text": "openssl-0:0.9.8e-33.el5_11 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"productid": "5Server-5.11.Z:openssl-0:0.9.8e-33.el5_11",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+				}
+			}
+		]
+	}
+}

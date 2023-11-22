@@ -1,0 +1,958 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: php53 and php security update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2011:1423"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2011-11-02T18:24:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2011-11-02T22:15:00Z",
+		"CurrentReleaseDate": "2011-11-02T18:24:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:32:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated php53 and php packages that fix several security issues are now\navailable for Red Hat Enterprise Linux 5 and 6 respectively.\n\nThe Red Hat Security Response Team has rated this update as having moderate\nsecurity impact. Common Vulnerability Scoring System (CVSS) base scores,\nwhich give detailed severity ratings, are available for each vulnerability\nfrom the CVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nPHP is an HTML-embedded scripting language commonly used with the Apache\nHTTP Server.\n\nA signedness issue was found in the way the PHP crypt() function handled\n8-bit characters in passwords when using Blowfish hashing. Up to three\ncharacters immediately preceding a non-ASCII character (one with the high\nbit set) had no effect on the hash result, thus shortening the effective\npassword length. This made brute-force guessing more efficient as several\ndifferent passwords were hashed to the same value. (CVE-2011-2483)\n\nNote: Due to the CVE-2011-2483 fix, after installing this update some users\nmay not be able to log in to PHP applications that hash passwords with\nBlowfish using the PHP crypt() function. Refer to the upstream\n\"CRYPT_BLOWFISH security fix details\" document, linked to in the\nReferences, for details.\n\nAn insufficient input validation flaw, leading to a buffer over-read, was\nfound in the PHP exif extension. A specially-crafted image file could cause\nthe PHP interpreter to crash when a PHP script tries to extract\nExchangeable image file format (Exif) metadata from the image file.\n(CVE-2011-0708)\n\nAn integer overflow flaw was found in the PHP calendar extension. A remote\nattacker able to make a PHP script call SdnToJulian() with a large value\ncould cause the PHP interpreter to crash. (CVE-2011-1466)\n\nMultiple memory leak flaws were found in the PHP OpenSSL extension. A\nremote attacker able to make a PHP script use openssl_encrypt() or\nopenssl_decrypt() repeatedly could cause the PHP interpreter to use an\nexcessive amount of memory. (CVE-2011-1468)\n\nA use-after-free flaw was found in the PHP substr_replace() function. If a\nPHP script used the same variable as multiple function arguments, a remote\nattacker could possibly use this to crash the PHP interpreter or, possibly,\nexecute arbitrary code. (CVE-2011-1148)\n\nA bug in the PHP Streams component caused the PHP interpreter to crash if\nan FTP wrapper connection was made through an HTTP proxy. A remote attacker\ncould possibly trigger this issue if a PHP script accepted an untrusted URL\nto connect to. (CVE-2011-1469)\n\nAn integer signedness issue was found in the PHP zip extension. An attacker\ncould use a specially-crafted ZIP archive to cause the PHP interpreter to\nuse an excessive amount of CPU time until the script execution time limit\nis reached. (CVE-2011-1471)\n\nA stack-based buffer overflow flaw was found in the way the PHP socket\nextension handled long AF_UNIX socket addresses. An attacker able to make a\nPHP script connect to a long AF_UNIX socket address could use this flaw to\ncrash the PHP interpreter. (CVE-2011-1938)\n\nAn off-by-one flaw was found in PHP. If an attacker uploaded a file with a\nspecially-crafted file name it could cause a PHP script to attempt to write\na file to the root (/) directory. By default, PHP runs as the \"apache\"\nuser, preventing it from writing to the root directory. (CVE-2011-2202)\n\nAll php53 and php users should upgrade to these updated packages, which\ncontain backported patches to resolve these issues. After installing the\nupdated packages, the httpd daemon must be restarted for the update to take\neffect.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2011:1423",
+				"Description": "https://access.redhat.com/errata/RHSA-2011:1423"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			},
+			{
+				"type": "External",
+				"URL": "http://www.php.net/security/crypt_blowfish.php",
+				"Description": "http://www.php.net/security/crypt_blowfish.php"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "php: buffer over-read in Exif extension",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2011-02-14T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2011-0708",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/kb/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2011:1423"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2011-0708",
+						"Description": "CVE-2011-0708"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=680972",
+						"Description": "bz#680972: CVE-2011-0708 php: buffer over-read in Exif extension"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2011-02-14T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-Workstation-5.7.Z:php53-0:5.3.3-1.el5_7.3",
+						"5Server-5.7.Z:php53-0:5.3.3-1.el5_7.3",
+						"6Client-optional-6.1.z:php-0:5.3.3-3.el6_1.3",
+						"6ComputeNode-optional-6.1.z:php-0:5.3.3-3.el6_1.3",
+						"6Server-6.1.z:php-0:5.3.3-3.el6_1.3",
+						"6Server-optional-6.1.z:php-0:5.3.3-3.el6_1.3",
+						"6Workstation-6.1.z:php-0:5.3.3-3.el6_1.3",
+						"6Workstation-optional-6.1.z:php-0:5.3.3-3.el6_1.3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.6",
+					"Vector": "AV:N/AC:H/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "php: use-after-free vulnerability in substr_replace()",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2011-03-13T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2011-1148",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/kb/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2011:1423"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2011-1148",
+						"Description": "CVE-2011-1148"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=688958",
+						"Description": "bz#688958: CVE-2011-1148 php: use-after-free vulnerability in substr_replace()"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2011-03-13T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-Workstation-5.7.Z:php53-0:5.3.3-1.el5_7.3",
+						"5Server-5.7.Z:php53-0:5.3.3-1.el5_7.3",
+						"6Client-optional-6.1.z:php-0:5.3.3-3.el6_1.3",
+						"6ComputeNode-optional-6.1.z:php-0:5.3.3-3.el6_1.3",
+						"6Server-6.1.z:php-0:5.3.3-3.el6_1.3",
+						"6Server-optional-6.1.z:php-0:5.3.3-3.el6_1.3",
+						"6Workstation-6.1.z:php-0:5.3.3-3.el6_1.3",
+						"6Workstation-optional-6.1.z:php-0:5.3.3-3.el6_1.3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.8",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "php: Crash by converting serial day numbers (SDN) into Julian calendar",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2010-12-19T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2011-1466",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/kb/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2011:1423"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2011-1466",
+						"Description": "CVE-2011-1466"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=689386",
+						"Description": "bz#689386: CVE-2011-1466 php: Crash by converting serial day numbers (SDN) into Julian calendar"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2011-03-19T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-Workstation-5.7.Z:php53-0:5.3.3-1.el5_7.3",
+						"5Server-5.7.Z:php53-0:5.3.3-1.el5_7.3",
+						"6Client-optional-6.1.z:php-0:5.3.3-3.el6_1.3",
+						"6ComputeNode-optional-6.1.z:php-0:5.3.3-3.el6_1.3",
+						"6Server-6.1.z:php-0:5.3.3-3.el6_1.3",
+						"6Server-optional-6.1.z:php-0:5.3.3-3.el6_1.3",
+						"6Workstation-6.1.z:php-0:5.3.3-3.el6_1.3",
+						"6Workstation-optional-6.1.z:php-0:5.3.3-3.el6_1.3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "php: Multiple memory leaks in the OpenSSL extension",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2011-02-21T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2011-1468",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/kb/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2011:1423"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2011-1468",
+						"Description": "CVE-2011-1468"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=690899",
+						"Description": "bz#690899: CVE-2011-1468 php: Multiple memory leaks in the OpenSSL extension"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2011-03-19T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-Workstation-5.7.Z:php53-0:5.3.3-1.el5_7.3",
+						"5Server-5.7.Z:php53-0:5.3.3-1.el5_7.3",
+						"6Client-optional-6.1.z:php-0:5.3.3-3.el6_1.3",
+						"6ComputeNode-optional-6.1.z:php-0:5.3.3-3.el6_1.3",
+						"6Server-6.1.z:php-0:5.3.3-3.el6_1.3",
+						"6Server-optional-6.1.z:php-0:5.3.3-3.el6_1.3",
+						"6Workstation-6.1.z:php-0:5.3.3-3.el6_1.3",
+						"6Workstation-optional-6.1.z:php-0:5.3.3-3.el6_1.3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "php: DoS when using HTTP proxy with the FTP wrapper",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2011-02-24T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2011-1469",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/kb/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2011:1423"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2011-1469",
+						"Description": "CVE-2011-1469"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=690905",
+						"Description": "bz#690905: CVE-2011-1469 php: DoS when using HTTP proxy with the FTP wrapper"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2011-03-19T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-Workstation-5.7.Z:php53-0:5.3.3-1.el5_7.3",
+						"5Server-5.7.Z:php53-0:5.3.3-1.el5_7.3",
+						"6Client-optional-6.1.z:php-0:5.3.3-3.el6_1.3",
+						"6ComputeNode-optional-6.1.z:php-0:5.3.3-3.el6_1.3",
+						"6Server-6.1.z:php-0:5.3.3-3.el6_1.3",
+						"6Server-optional-6.1.z:php-0:5.3.3-3.el6_1.3",
+						"6Workstation-6.1.z:php-0:5.3.3-3.el6_1.3",
+						"6Workstation-optional-6.1.z:php-0:5.3.3-3.el6_1.3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "6",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "php: DoS (excessive CPU consumption) by processing certain Zip archive files",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2009-07-27T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2011-1471",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/kb/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2011:1423"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2011-1471",
+						"Description": "CVE-2011-1471"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=690915",
+						"Description": "bz#690915: CVE-2011-1471 php: DoS (excessive CPU consumption) by processing certain Zip archive files"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2011-03-19T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-Workstation-5.7.Z:php53-0:5.3.3-1.el5_7.3",
+						"5Server-5.7.Z:php53-0:5.3.3-1.el5_7.3",
+						"6Client-optional-6.1.z:php-0:5.3.3-3.el6_1.3",
+						"6ComputeNode-optional-6.1.z:php-0:5.3.3-3.el6_1.3",
+						"6Server-6.1.z:php-0:5.3.3-3.el6_1.3",
+						"6Server-optional-6.1.z:php-0:5.3.3-3.el6_1.3",
+						"6Workstation-6.1.z:php-0:5.3.3-3.el6_1.3",
+						"6Workstation-optional-6.1.z:php-0:5.3.3-3.el6_1.3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "7",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "php: stack-based buffer overflow in socket_connect()",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2011-05-23T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2011-1938",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/kb/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2011:1423"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2011-1938",
+						"Description": "CVE-2011-1938"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=709067",
+						"Description": "bz#709067: CVE-2011-1938 php: stack-based buffer overflow in socket_connect()"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2011-05-24T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-Workstation-5.7.Z:php53-0:5.3.3-1.el5_7.3",
+						"5Server-5.7.Z:php53-0:5.3.3-1.el5_7.3",
+						"6Client-optional-6.1.z:php-0:5.3.3-3.el6_1.3",
+						"6ComputeNode-optional-6.1.z:php-0:5.3.3-3.el6_1.3",
+						"6Server-6.1.z:php-0:5.3.3-3.el6_1.3",
+						"6Server-optional-6.1.z:php-0:5.3.3-3.el6_1.3",
+						"6Workstation-6.1.z:php-0:5.3.3-3.el6_1.3",
+						"6Workstation-optional-6.1.z:php-0:5.3.3-3.el6_1.3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.6",
+					"Vector": "AV:N/AC:H/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "8",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "php: file path injection vulnerability in RFC1867 file upload filename",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2011-06-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2011-2202",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/kb/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2011:1423"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2011-2202",
+						"Description": "CVE-2011-2202"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=713194",
+						"Description": "bz#713194: CVE-2011-2202 php: file path injection vulnerability in RFC1867 file upload filename"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2011-06-12T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-Workstation-5.7.Z:php53-0:5.3.3-1.el5_7.3",
+						"5Server-5.7.Z:php53-0:5.3.3-1.el5_7.3",
+						"6Client-optional-6.1.z:php-0:5.3.3-3.el6_1.3",
+						"6ComputeNode-optional-6.1.z:php-0:5.3.3-3.el6_1.3",
+						"6Server-6.1.z:php-0:5.3.3-3.el6_1.3",
+						"6Server-optional-6.1.z:php-0:5.3.3-3.el6_1.3",
+						"6Workstation-6.1.z:php-0:5.3.3-3.el6_1.3",
+						"6Workstation-optional-6.1.z:php-0:5.3.3-3.el6_1.3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.6",
+					"Vector": "AV:N/AC:H/Au:N/C:N/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "9",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "crypt_blowfish: 8-bit character mishandling allows different password pairs to produce the same hash",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2011-06-20T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2011-2483",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/kb/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2011:1423"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "http://www.php.net/security/crypt_blowfish.php",
+						"Description": "http://www.php.net/security/crypt_blowfish.php"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2011-2483",
+						"Description": "CVE-2011-2483"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=715025",
+						"Description": "bz#715025: CVE-2011-2483 crypt_blowfish: 8-bit character mishandling allows different password pairs to produce the same hash"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2011-06-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-Workstation-5.7.Z:php53-0:5.3.3-1.el5_7.3",
+						"5Server-5.7.Z:php53-0:5.3.3-1.el5_7.3",
+						"6Client-optional-6.1.z:php-0:5.3.3-3.el6_1.3",
+						"6ComputeNode-optional-6.1.z:php-0:5.3.3-3.el6_1.3",
+						"6Server-6.1.z:php-0:5.3.3-3.el6_1.3",
+						"6Server-optional-6.1.z:php-0:5.3.3-3.el6_1.3",
+						"6Workstation-6.1.z:php-0:5.3.3-3.el6_1.3",
+						"6Workstation-optional-6.1.z:php-0:5.3.3-3.el6_1.3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:N/A:N"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "RHEL Desktop Workstation (v. 5 client)",
+						"fullproductname": {
+							"text": "RHEL Desktop Workstation (v. 5 client)",
+							"productid": "5Client-Workstation-5.7.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::client_workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux (v. 5 server)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux (v. 5 server)",
+							"productid": "5Server-5.7.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+							"productid": "6Client-optional-6.1.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+							"productid": "6ComputeNode-optional-6.1.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 6)",
+							"productid": "6Server-6.1.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional (v. 6)",
+							"productid": "6Server-optional-6.1.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 6)",
+							"productid": "6Workstation-6.1.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+							"productid": "6Workstation-optional-6.1.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "php-0:5.3.3-3.el6_1.3",
+				"fullproductname": {
+					"text": "php-5.3.3-3.el6_1.3.src.rpm",
+					"productid": "php-0:5.3.3-3.el6_1.3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "php53-0:5.3.3-1.el5_7.3",
+				"fullproductname": {
+					"text": "php53-5.3.3-1.el5_7.3.src.rpm",
+					"productid": "php53-0:5.3.3-1.el5_7.3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client_workstation"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "php53-0:5.3.3-1.el5_7.3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Client-Workstation-5.7.Z",
+				"fullproductname": {
+					"text": "php53-0:5.3.3-1.el5_7.3 as a component of RHEL Desktop Workstation (v. 5 client)",
+					"productid": "5Client-Workstation-5.7.Z:php53-0:5.3.3-1.el5_7.3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client_workstation"
+				}
+			},
+			{
+				"productreference": "php53-0:5.3.3-1.el5_7.3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-5.7.Z",
+				"fullproductname": {
+					"text": "php53-0:5.3.3-1.el5_7.3 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"productid": "5Server-5.7.Z:php53-0:5.3.3-1.el5_7.3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+				}
+			},
+			{
+				"productreference": "php-0:5.3.3-3.el6_1.3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-optional-6.1.z",
+				"fullproductname": {
+					"text": "php-0:5.3.3-3.el6_1.3 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"productid": "6Client-optional-6.1.z:php-0:5.3.3-3.el6_1.3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "php-0:5.3.3-3.el6_1.3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-optional-6.1.z",
+				"fullproductname": {
+					"text": "php-0:5.3.3-3.el6_1.3 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"productid": "6ComputeNode-optional-6.1.z:php-0:5.3.3-3.el6_1.3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "php-0:5.3.3-3.el6_1.3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-6.1.z",
+				"fullproductname": {
+					"text": "php-0:5.3.3-3.el6_1.3 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"productid": "6Server-6.1.z:php-0:5.3.3-3.el6_1.3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "php-0:5.3.3-3.el6_1.3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-optional-6.1.z",
+				"fullproductname": {
+					"text": "php-0:5.3.3-3.el6_1.3 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"productid": "6Server-optional-6.1.z:php-0:5.3.3-3.el6_1.3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "php-0:5.3.3-3.el6_1.3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-6.1.z",
+				"fullproductname": {
+					"text": "php-0:5.3.3-3.el6_1.3 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"productid": "6Workstation-6.1.z:php-0:5.3.3-3.el6_1.3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			},
+			{
+				"productreference": "php-0:5.3.3-3.el6_1.3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-optional-6.1.z",
+				"fullproductname": {
+					"text": "php-0:5.3.3-3.el6_1.3 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"productid": "6Workstation-optional-6.1.z:php-0:5.3.3-3.el6_1.3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			}
+		]
+	}
+}

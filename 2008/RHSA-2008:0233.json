@@ -1,0 +1,562 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: kernel security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2008:0233"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2008-05-07T03:47:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2008-05-07T07:39:00Z",
+		"CurrentReleaseDate": "2008-05-07T03:47:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:34:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated kernel packages that fix various security issues and several bugs\nare now available for Red Hat Enterprise Linux 5.\n\nThis update has been rated as having important security impact by the Red\nHat Security Response Team.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe kernel packages contain the Linux kernel, the core of any Linux\noperating system.\n\nThese updated packages fix the following security issues:\n\n* the absence of a protection mechanism when attempting to access a\ncritical section of code has been found in the Linux kernel open file\ndescriptors control mechanism, fcntl. This could allow a local unprivileged\nuser to simultaneously execute code, which would otherwise be protected\nagainst parallel execution. As well, a race condition when handling locks\nin the Linux kernel fcntl functionality, may have allowed a process\nbelonging to a local unprivileged user to gain re-ordered access to the\ndescriptor table. (CVE-2008-1669, Important)\n\n* a possible hypervisor panic was found in the Linux kernel. A privileged\nuser of a fully virtualized guest could initiate a stress-test File\nTransfer Protocol (FTP) transfer between the guest and the hypervisor,\npossibly leading to hypervisor panic. (CVE-2008-1619, Important)\n\n* the absence of a protection mechanism when attempting to access a\ncritical section of code, as well as a race condition, have been found\nin the Linux kernel file system event notifier, dnotify. This could allow a\nlocal unprivileged user to get inconsistent data, or to send arbitrary\nsignals to arbitrary system processes. (CVE-2008-1375, Important)\n\nRed Hat would like to thank Nick Piggin for responsibly disclosing the\nfollowing issue:\n\n* when accessing kernel memory locations, certain Linux kernel drivers\nregistering a fault handler did not perform required range checks. A local\nunprivileged user could use this flaw to gain read or write access to\narbitrary kernel memory, or possibly cause a kernel crash.\n(CVE-2008-0007, Important)\n\n* the absence of sanity-checks was found in the hypervisor block backend\ndriver, when running 32-bit paravirtualized guests on a 64-bit host. The\nnumber of blocks to be processed per one request from guest to host, or\nvice-versa, was not checked for its maximum value, which could have allowed\na local privileged user of the guest operating system to cause a denial of\nservice. (CVE-2007-5498, Important)\n\n* it was discovered that the Linux kernel handled string operations in the\nopposite way to the GNU Compiler Collection (GCC). This could allow a local\nunprivileged user to cause memory corruption. (CVE-2008-1367, Low)\n\nAs well, these updated packages fix the following bugs:\n\n* on IBM System z architectures, when running QIOASSIST enabled QDIO\ndevices in an IBM z/VM environment, the output queue stalled under heavy\nload. This caused network performance to degrade, possibly causing network\nhangs and outages.\n\n* multiple buffer overflows were discovered in the neofb video driver. It\nwas not possible for an unprivileged user to exploit these issues, and as\nsuch, they have not been handled as security issues.\n\n* when running Microsoft Windows in a HVM, a bug in vmalloc/vfree caused\nnetwork performance to degrade.\n\n* on certain architectures, a bug in the libATA sata_nv driver may have\ncaused infinite reboots, and an \"ata1: CPB flags CMD err flags 0x11\" error.\n\n* repeatedly hot-plugging a PCI Express card may have caused \"Bad DLLP\"\nerrors.\n\n* a NULL pointer dereference in NFS, which may have caused applications to\ncrash, has been resolved.\n\n* when attempting to kexec reboot, either manually or via a panic-triggered\nkdump, the Unisys ES7000/one hanged after rebooting in the new kernel,\nafter printing the \"Memory: 32839688k/33685504k available\" line.\n\nRed Hat Enterprise Linux 5 users are advised to upgrade to these updated\npackages, which contain backported patches to resolve these issues.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2008:0233",
+				"Description": "https://access.redhat.com/errata/RHSA-2008:0233"
+			},
+			{
+				"type": "External",
+				"URL": "http://www.redhat.com/security/updates/classification/#important",
+				"Description": "http://www.redhat.com/security/updates/classification/#important"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "missing sanity check in xen block backend driver",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2008-04-22T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2007-5498",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/FAQ_58_10188\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2008:0233"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2007-5498",
+						"Description": "CVE-2007-5498"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=369531",
+						"Description": "bz#369531: CVE-2007-5498 missing sanity check in xen block backend driver"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2007-11-07T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client:kernel-0:2.6.18-53.1.19.el5",
+						"5Server:kernel-0:2.6.18-53.1.19.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: insufficient range checks in fault handlers with mremap",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2008-02-08T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2008-0007",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/FAQ_58_10188\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2008:0233"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2008-0007",
+						"Description": "CVE-2008-0007"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=428961",
+						"Description": "bz#428961: CVE-2008-0007 kernel: insufficient range checks in fault handlers with mremap"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2008-01-16T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client:kernel-0:2.6.18-53.1.19.el5",
+						"5Server:kernel-0:2.6.18-53.1.19.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Kernel doesn't clear DF for signal handlers",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2008-03-05T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2008-1367",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/FAQ_58_10188\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2008:0233"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2008-1367",
+						"Description": "CVE-2008-1367"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=437312",
+						"Description": "bz#437312: CVE-2008-1367 Kernel doesn't clear DF for signal handlers"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2008-03-05T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client:kernel-0:2.6.18-53.1.19.el5",
+						"5Server:kernel-0:2.6.18-53.1.19.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: race condition in dnotify (local DoS, local roothole possible)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2008-05-01T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2008-1375",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/FAQ_58_10188\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2008:0233"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2008-1375",
+						"Description": "CVE-2008-1375"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=439754",
+						"Description": "bz#439754: CVE-2008-1375 kernel: race condition in dnotify (local DoS, local roothole possible)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2008-03-31T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client:kernel-0:2.6.18-53.1.19.el5",
+						"5Server:kernel-0:2.6.18-53.1.19.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "[xen-ia64] Dom0 panic while we run ftp test tool between HVM and Dom0.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2008-01-03T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2008-1619",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/FAQ_58_10188\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2008:0233"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2008-1619",
+						"Description": "CVE-2008-1619"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=437770",
+						"Description": "bz#437770: CVE-2008-1619 [xen-ia64] Dom0 panic while we run ftp test tool between HVM and Dom0."
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2008-01-03T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client:kernel-0:2.6.18-53.1.19.el5",
+						"5Server:kernel-0:2.6.18-53.1.19.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "6",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: add rcu_read_lock() to fcheck() in both dnotify, locks.c and fix fcntl store/load race in locks.c",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2008-05-06T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2008-1669",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/FAQ_58_10188\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2008:0233"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2008-1669",
+						"Description": "CVE-2008-1669"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=443433",
+						"Description": "bz#443433: CVE-2008-1669 kernel: add rcu_read_lock() to fcheck() in both dnotify, locks.c and fix fcntl store/load race in locks.c"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2008-04-21T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client:kernel-0:2.6.18-53.1.19.el5",
+						"5Server:kernel-0:2.6.18-53.1.19.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+							"productid": "5Client",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux (v. 5 server)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux (v. 5 server)",
+							"productid": "5Server",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-0:2.6.18-53.1.19.el5",
+				"fullproductname": {
+					"text": "kernel-2.6.18-53.1.19.el5.src.rpm",
+					"productid": "kernel-0:2.6.18-53.1.19.el5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "kernel-0:2.6.18-53.1.19.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Client",
+				"fullproductname": {
+					"text": "kernel-0:2.6.18-53.1.19.el5 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"productid": "5Client:kernel-0:2.6.18-53.1.19.el5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.18-53.1.19.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server",
+				"fullproductname": {
+					"text": "kernel-0:2.6.18-53.1.19.el5 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"productid": "5Server:kernel-0:2.6.18-53.1.19.el5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+				}
+			}
+		]
+	}
+}

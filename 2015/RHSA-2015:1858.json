@@ -1,0 +1,162 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: mod_proxy_fcgi and ceph security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2015:1858"
+		},
+		"Status": "Final",
+		"Version": "3",
+		"revisionhistory": {
+			"revision": {
+				"Number": "3",
+				"Date": "2016-02-02T22:02:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2015-10-01T21:00:00Z",
+		"CurrentReleaseDate": "2016-02-02T22:02:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:38:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated mod_proxy_fcgi and ceph packages that fix one security issue and\nseveral bugs are now available for CentOS 6.\n\nRed Hat Product Security has rated this update as having Low security\nimpact. A Common Vulnerability Scoring System (CVSS) base score, which\ngives a detailed severity rating, is available from the CVE link in the\nReferences section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nRed Hat Ceph Storage is a massively scalable, open, software-defined\nstorage platform that combines the most stable version of the Ceph storage\nsystem with a Ceph management platform, deployment tools, and support\nservices.\n\nThe mod_proxy_fcgi package provides a proxy module for the Apache 2.2 HTTP\nserver.\n\nA buffer overflow flaw was found in mod_proxy_fcgi's handle_headers()\nfunction. A malicious FastCGI server that httpd is configured to connect to\ncould send a carefully crafted response that would cause an httpd child\nprocess handling the request to crash. (CVE-2014-3583)\n\nThis update also fixes the following bugs:\n\n* The RADOS gateway (RGW) can now properly decode the slash characters\n(\"/\") in clients' upload IDs. (BZ#1183182)\n\n* The RGW's object attribute updates could race with other object updates\noperations, which led to inconsistent object states, such as incomplete\nobject deletions. RGW now handles attribute updates correctly. (BZ#1206963)\n\n* Recreating a previously existing bucket in RGW did not remove the bucket\ninstance metadata object and created a redundant object in the RGW pool.\nThe redundant objects are no longer generated. (BZ#1212524)\n\n* The Content-Length header is now correctly created when creating a\ncontainer using the Swift API. (BZ#1213988)\n\n* RGW did not properly cache users' keystone tokens and validated all\nkeystone tokens for every Swift operation. RGW now caches tokens correctly,\nso that the token validation occurs only when necessary. (BZ#1213999)\n\n* Modifying a user's Access Control List (ACL) permissions for an object in\nRGW inappropriately caused the user to become the owner of the object.\nThis update fixes this bug. (BZ#1214051)\n\n* RGW could fail to update the bucket attributes during a Swift API \"POST\"\noperation. RGW now correctly updates the bucket attributes. (BZ#1214058)\n\n* RGW no longer terminated unexpectedly when using keystone authentication\nto copy an object. (BZ#1214061)\n\n* An attempt to download an object greater than 512 KB using a range header\nfailed when using the Swift API. Objects can now be downloaded as expected.\n(BZ#1214854)\n\n* When using OpenStack's Cinder RADOS Block Device (RBD) back-end driver\nwith Ceph administration socket enabled, Ceph could leak file descriptors\nand eventually consume the maximum number of allowed opened files.\nThis behavior caused Cinder's RBD connections to fail. Now, Ceph closes the\nadministration socket appropriately. (BZ#1220496)\n\n* When a part of a multi-part object was resent, the object became broken\ndue a discrepancy between the object size when listing the object and when\nstating the object. Now, multi-part objects no longer become broken in such\na case. (BZ#1222091)\n\n* When the number of placement groups (PGs) in a pool was increased, Ceph\ndid not send watch or notify operations correctly. Consequently, the librbd\nlibrary presented inconsistent RBD snapshot data. Now, Ceph correctly\nre-sends operations. (BZ#1245785)\n\n* When reopening log files, Object Storage Devices (OSDs) could write data\nto the incorrect file descriptor. Consequently, log entries were lost, or\nwere written to a file descriptor, which was opened by the filestore.\nThe latter case could cause data corruption. This bug has been fixed.\n(BZ#1247752)\n\nAll mod_proxy_fcgi and ceph users are advised to upgrade to these updated\npackages, which correct these issues.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Low",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2015:1858",
+				"Description": "https://access.redhat.com/errata/RHSA-2015:1858"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#low",
+				"Description": "https://access.redhat.com/security/updates/classification/#low"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/articles/1560193",
+				"Description": "https://access.redhat.com/articles/1560193"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/articles/1372203",
+				"Description": "https://access.redhat.com/articles/1372203"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "httpd: mod_proxy_fcgi handle_headers() buffer over read",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-10-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-3583",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nRefer to the following Knowledge Base article for a download link and\nsigning information:\n\nhttps://access.redhat.com/articles/1560193\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1858"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "http://httpd.apache.org/security/vulnerabilities_24.html",
+						"Description": "http://httpd.apache.org/security/vulnerabilities_24.html"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-3583",
+						"Description": "CVE-2014-3583"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1163555",
+						"Description": "bz#1163555: CVE-2014-3583 httpd: mod_proxy_fcgi handle_headers() buffer over read"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2014-10-12T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.6",
+					"Vector": "AV:N/AC:H/Au:N/C:N/I:N/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {}
+}

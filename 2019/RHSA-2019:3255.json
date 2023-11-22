@@ -1,0 +1,212 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: heketi security, bug fix, and enhancement update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2019:3255"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2019-10-30T12:35:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2019-10-30T12:35:00Z",
+		"CurrentReleaseDate": "2019-10-30T12:35:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:43:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated heketi packages that fix one security issue, multiple bugs, and adds various enhancements is now available for OpenShift Container Storage 3.11 Batch 4 Update.\n\nRed Hat Product Security has rated this update as having a security impact of Moderate. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nHeketi provides a RESTful management interface that can be used to manage the life cycle of GlusterFS volumes. With Heketi, cloud services like OpenStack Manila, Kubernetes, and OpenShift can dynamically provision GlusterFS volumes with any of the supported durability types. Heketi will automatically determine the location for bricks across the cluster, making sure to place bricks and its replicas across different failure domains. Heketi also supports any number of GlusterFS clusters, allowing cloud services to provide network file storage without being limited to a single GlusterFS cluster.\n\nThe following packages have been upgraded to a later upstream version: heketi (9.0.0). (BZ#1710080)\n\nSecurity Fix(es):\n\n* heketi: heketi can be installed using insecure defaults (CVE-2019-3899)\n\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\n\nBug Fix(es):\n\n* Previously, it was easy to inadvertently set Heketi up in an unsecured way which increased the risk of unauthorized users to make changes to the storage managed by Heketi. The default settings have changed to require users to configure authentication and to make disabling authentication unintentionally more difficult. (BZ#1701838)\n\n* Previously, when Heketi executed commands within OpenShift/Kubernetes pods, the commands were executed without a timeout specified. Hence, some commands never returned which differed from the SSH executor which always executes commands with a timeout. With this update, the commands that are executed in the gluster containers have a timeout specified. The timeout values are the same regardless of what connection type is used. (BZ#1636912)\n\n* Previously, if Heketi managed multiple clusters and it failed to create volumes on any of the clusters it would return a generic \"No space\" error message. With this update, error messages produced when heketi manages multiple gluster clusters have been improved. Heketi now displays specific errors for when the cluster has no nodes or none of the nodes have usable devices and also reports on each cluster's error by prefixing cluster errors with the cluster ID. (BZ#1577803)\n\n* Previously, if operation cleanup was requested from the server simultaneously, the server would try to initiate cleanup for the same operation twice. This triggered panic in the server. With this update, the server no longer panics if two operation cleanups are requested at the same time. (BZ#1702162)\n\nEnhancement(s):\n\n* When a node is removed or added to a gluster trusted storage pool using heketi, the existing endpoints do not get updated automatically. With this update, to update the endpoints after node addition/removal, users can now execute the following commands:\n1. heketi-cli volume endpoint patch <volume-id>\n2. oc patch ep <heketi-db-endpoint-name> -p <changes> (BZ#1660681)\n\n* With this update, Heketi tracks additional metadata associated with disk devices even if the path of the device changes. The outputs of some commands have been updated to reflect the additional metadata. (BZ#1609553)\n\nUsers of Heketi are advised to upgrade to these updated packages, which adds these enhancements and fix these bugs.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2019:3255",
+				"Description": "https://access.redhat.com/errata/RHSA-2019:3255"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "heketi: heketi can be installed using insecure defaults",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2019-04-18T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2019-3899",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2019:3255"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2019-3899",
+						"Description": "CVE-2019-3899"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1701091",
+						"Description": "bz#1701091: CVE-2019-3899 heketi: heketi can be installed using insecure defaults"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2019-04-18T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-RH-Gluster-3.5-Server:heketi-0:9.0.0-7.el7rhgs",
+						"7Server-RHSClient:heketi-0:9.0.0-7.el7rhgs"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "This issue was discovered by Daniel Moessner (Red Hat)."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Gluster Storage",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Gluster Storage Server 3.5 on RHEL-7",
+						"fullproductname": {
+							"text": "Red Hat Gluster Storage Server 3.5 on RHEL-7",
+							"productid": "7Server-RH-Gluster-3.5-Server",
+							"cpe": "cpe:/a:redhat:storage:3.5:server:el7"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Storage Native Client for Red Hat Enterprise Linux 7",
+						"fullproductname": {
+							"text": "Red Hat Storage Native Client for Red Hat Enterprise Linux 7",
+							"productid": "7Server-RHSClient",
+							"cpe": "cpe:/a:redhat:storage:3:client:el7"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "heketi-0:9.0.0-7.el7rhgs",
+				"fullproductname": {
+					"text": "heketi-9.0.0-7.el7rhgs.src.rpm",
+					"productid": "heketi-0:9.0.0-7.el7rhgs",
+					"cpe": "cpe:/a:redhat:storage:3.5:server:el7"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "heketi-0:9.0.0-7.el7rhgs",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH-Gluster-3.5-Server",
+				"fullproductname": {
+					"text": "heketi-0:9.0.0-7.el7rhgs as a component of Red Hat Gluster Storage Server 3.5 on RHEL-7",
+					"productid": "7Server-RH-Gluster-3.5-Server:heketi-0:9.0.0-7.el7rhgs",
+					"cpe": "cpe:/a:redhat:storage:3.5:server:el7"
+				}
+			},
+			{
+				"productreference": "heketi-0:9.0.0-7.el7rhgs",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RHSClient",
+				"fullproductname": {
+					"text": "heketi-0:9.0.0-7.el7rhgs as a component of Red Hat Storage Native Client for Red Hat Enterprise Linux 7",
+					"productid": "7Server-RHSClient:heketi-0:9.0.0-7.el7rhgs",
+					"cpe": "cpe:/a:redhat:storage:3:client:el7"
+				}
+			}
+		]
+	}
+}

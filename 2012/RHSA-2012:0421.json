@@ -1,0 +1,266 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: rhevm security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2012:0421"
+		},
+		"Status": "Final",
+		"Version": "2",
+		"revisionhistory": {
+			"revision": {
+				"Number": "2",
+				"Date": "2012-03-26T15:17:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2012-03-26T15:16:00Z",
+		"CurrentReleaseDate": "2012-03-26T15:17:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:32:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated rhevm packages that fix one security issue and various bugs are now\navailable.\n\nThe Red Hat Security Response Team has rated this update as having moderate\nsecurity impact. A Common Vulnerability Scoring System (CVSS) base score,\nwhich gives a detailed severity rating, is available from the CVE link in\nthe References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nRed Hat Enterprise Virtualization Manager is a visual tool for centrally\nmanaging collections of virtual machines running Red Hat Enterprise Linux\nand Microsoft Windows. These packages also include the Red Hat Enterprise\nVirtualization Manager REST (Representational State Transfer) API, a set of\nscriptable commands that give administrators the ability to perform queries\nand operations on Red Hat Enterprise Virtualization Manager.\n\nIt was found that RESTEasy was vulnerable to XML External Entity (XXE)\nattacks. If a remote attacker who is able to access the Red Hat Enterprise\nVirtualization Manager REST API submitted a request containing an external\nXML entity to a RESTEasy endpoint, the entity would be resolved, allowing\nthe attacker to read files accessible to the user running the application\nserver. This flaw affected DOM (Document Object Model) Document and JAXB\n(Java Architecture for XML Binding) input. (CVE-2012-0818)\n\nThis update also fixes the following bugs:\n\n* Previously the REST API was ignoring the \"Accept\" header. This made it\nimpossible to retrieve detailed information about specific sub-collections,\nincluding hosts and disks. The REST API has been updated and now processes\nthe \"Accept\" header as originally intended. (BZ#771369)\n\n* The \"start_time\" Virtual Machine property was previously always set. This\nmeant that even Virtual Machines that were stopped, had a value for\n\"start_time\". An update has been made to ensure that the \"start_time\"\nproperty is only set when the Virtual Machine has been started, and is\nrunning. (BZ#772975)\n\n* The 'rhevm-setup' script previously only ran successfully on systems with\ntheir locale set to 'en_US.UTF-8', 'en_US.utf-8', or 'en_US.utf8'. The\nscript has since been updated to also run successfully in additional\nlocales, including 'ja_JP.UTF-8'. (BZ#784860)\n\n* The REST API did not previously validate that all required parameters\nwere provided when enabling power management. The response code returned\nwould also incorrectly indicate the operation had succeeded where\nmandatory parameters were not supplied. An update has been made to ensure\nthat the power management parameters are validated correctly. (BZ#785744)\n\n* Previously no warning or error was issued when the amount of free disk\nspace on a host was low. When no free disk space remained on the host it\nwould become non-responsive with no prior warning. An update has been made\nto report a warning in the audit log when a host's free disk space is less\nthan 1000 MB, and an error when a host's free disk space is less than 500\nMB. (BZ#786132)\n\n* When importing Virtual Machines no notification was provided if the MAC\naddress of the network interface card clashed with that of an existing\nVirtual Machine. Now when this occurs a message is printed to the audit\nlog, highlighting the need for manual intervention. (BZ#795416)\n\n* Previously it was not possible to set more, or less, than one value for\nSpiceSecureChannels using the rhevm-config tool. This meant it was not\npossible to encrypt all SPICE channels. The rhevm-config tool has been\nupdated and it is now possible to encrypt all SPICE channels, by adding\nthem to the SpiceSecureChannels configuration key. (BZ#784012)\n\nAll Red Hat Enterprise Virtualization users are advised to upgrade to these\nupdated packages, which address this vulnerability and fix these bugs.\nRefer to the Solution section for information about installing this update.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2012:0421",
+				"Description": "https://access.redhat.com/errata/RHSA-2012:0421"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			},
+			{
+				"type": "External",
+				"URL": "http://docs.redhat.com/docs/en-US/Red_Hat_Enterprise_Virtualization/3.0/html/Installation_Guide/chap-Installation_Guide-Installing_the_RHEV_Manager-Upgrades.html",
+				"Description": "http://docs.redhat.com/docs/en-US/Red_Hat_Enterprise_Virtualization/3.0/html/Installation_Guide/chap-Installation_Guide-Installing_the_RHEV_Manager-Upgrades.html"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "RESTEasy: XML eXternal Entity (XXE) flaw",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2011-12-30T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2011-5245",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Follow the upgrade\nprocedure in the Red Hat Enterprise Virtualization\nInstallation Guide to install these updated packages:\n\nhttp://docs.redhat.com/docs/en-US/Red_Hat_Enterprise_Virtualization/3.0/html/Installation_Guide/chap-Installation_Guide-Installing_the_RHEV_Manager-Upgrades.html\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:0421"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2011-5245",
+						"Description": "CVE-2011-5245"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=785631",
+						"Description": "bz#785631: CVE-2011-5245 CVE-2012-0818 RESTEasy: XML eXternal Entity (XXE) flaw"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2012-01-24T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-RHEV-S:org.ovirt.engine-root-0:3.0.3_0001-3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.0",
+					"Vector": "AV:N/AC:L/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "RESTEasy: XML eXternal Entity (XXE) flaw",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2011-12-30T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-0818",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Follow the upgrade\nprocedure in the Red Hat Enterprise Virtualization\nInstallation Guide to install these updated packages:\n\nhttp://docs.redhat.com/docs/en-US/Red_Hat_Enterprise_Virtualization/3.0/html/Installation_Guide/chap-Installation_Guide-Installing_the_RHEV_Manager-Upgrades.html\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:0421"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-0818",
+						"Description": "CVE-2012-0818"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=785631",
+						"Description": "bz#785631: CVE-2011-5245 CVE-2012-0818 RESTEasy: XML eXternal Entity (XXE) flaw"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2012-01-24T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-RHEV-S:org.ovirt.engine-root-0:3.0.3_0001-3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.0",
+					"Vector": "AV:N/AC:L/Au:N/C:P/I:N/A:N"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Virtualization",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "RHEV-M for Servers",
+						"fullproductname": {
+							"text": "RHEV-M for Servers",
+							"productid": "6Server-RHEV-S",
+							"cpe": "cpe:/a:redhat:rhev_manager:3"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "org.ovirt.engine-root-0:3.0.3_0001-3",
+				"fullproductname": {
+					"text": "org.ovirt.engine-root-3.0.3_0001-3.src.rpm",
+					"productid": "org.ovirt.engine-root-0:3.0.3_0001-3",
+					"cpe": "cpe:/a:redhat:rhev_manager:3"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "org.ovirt.engine-root-0:3.0.3_0001-3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RHEV-S",
+				"fullproductname": {
+					"text": "org.ovirt.engine-root-0:3.0.3_0001-3 as a component of RHEV-M for Servers",
+					"productid": "6Server-RHEV-S:org.ovirt.engine-root-0:3.0.3_0001-3",
+					"cpe": "cpe:/a:redhat:rhev_manager:3"
+				}
+			}
+		]
+	}
+}

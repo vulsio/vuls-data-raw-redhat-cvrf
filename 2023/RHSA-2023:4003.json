@@ -1,0 +1,1530 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: Red Hat Service Interconnect 1.4 Release security update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2023:4003"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2023-07-10T09:56:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2023-07-10T09:56:00Z",
+		"CurrentReleaseDate": "2023-07-10T09:56:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.18.0",
+			"Date": "2023-07-10T17:11:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nThis is release 1.4 of the rpms for Red Hat Service Interconnect. Red Hat Service Interconnect 1.4 introduces a service network, linking TCP and HTTP services across the hybrid cloud.\nA service network enables communication between services running in different network locations or sites. It allows geographically distributed services to connect as if they were all running in the same site.\n\nRed Hat Product Security has rated this update as having a security impact of Moderate. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nAs a Kubernetes user, I cannot connect easily connect services from one cluster with services on another cluster. Red Hat Application Interconnect enables me to create a service network and it allows geographically distributed services to connect as if they were all running in the same site.\n\nSecurity Fix(es):\n\n* golang: archive/tar: unbounded memory consumption when reading headers (CVE-2022-2879)\n\n* golang: net/http/httputil: ReverseProxy should not forward unparseable query parameters (CVE-2022-2880)\n\n* golang: crypto/elliptic: panic caused by oversized scalar (CVE-2022-28327)\n\n* golang: regexp/syntax: limit memory used by parsing regexps (CVE-2022-41715)\n\n* net/http, golang.org/x/net/http2: avoid quadratic complexity in HPACK decoding (CVE-2022-41723)\n\n* golang: crypto/tls: large handshake records may cause panics (CVE-2022-41724)\n\n* golang: net/http, mime/multipart: denial of service from excessive resource consumption (CVE-2022-41725)\n\n* golang: net/http, net/textproto: denial of service from excessive memory allocation (CVE-2023-24534)\n\n* golang: net/http, net/textproto, mime/multipart: denial of service from excessive resource consumption (CVE-2023-24536)\n\n* golang: go/parser: Infinite loop in parsing (CVE-2023-24537)\n\n* golang: html/template: backticks not treated as string delimiters (CVE-2023-24538)\n\n* golang: html/template: improper sanitization of CSS values (CVE-2023-24539)\n\n* golang: html/template: improper handling of empty HTML attributes (CVE-2023-29400)\n\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2023 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2023:4003",
+				"Description": "https://access.redhat.com/errata/RHSA-2023:4003"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/documentation/en-us/red_hat_service_interconnect",
+				"Description": "https://access.redhat.com/documentation/en-us/red_hat_service_interconnect"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in the golang package, where Reader.Read does not set a limit on the maximum size of file headers. After fixing, Reader.Read limits the maximum size of header blocks to 1 MiB. This flaw allows a maliciously crafted archive to cause Read to allocate unbounded amounts of memory, potentially causing resource exhaustion or panic.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-10-04T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-2879",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:4003"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2022-2879",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2022-2879"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2022-2879",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2022-2879"
+					},
+					{
+						"URL": "https://github.com/golang/go/issues/54853",
+						"Description": "https://github.com/golang/go/issues/54853"
+					},
+					{
+						"URL": "https://groups.google.com/g/golang-announce/c/xtuG5faxtaU?pli=1",
+						"Description": "https://groups.google.com/g/golang-announce/c/xtuG5faxtaU?pli=1"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-2879",
+						"Description": "CVE-2022-2879"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2132867",
+						"Description": "bz#2132867: unbounded memory consumption when reading headers"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2022-10-07T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-Service-Interconnect-1:libwebsockets-0:4.3.1-1.el8ai",
+						"8Base-Service-Interconnect-1:qpid-proton-0:0.37.0-2.el8ai",
+						"8Base-Service-Interconnect-1:skupper-cli-0:1.4.1-2.el8",
+						"8Base-Service-Interconnect-1:skupper-router-0:2.4.1-2.el8",
+						"9Base-Service-Interconnect-1:jsoncpp-0:1.9.4-3.el9",
+						"9Base-Service-Interconnect-1:libwebsockets-0:4.3.1-1.el9ai",
+						"9Base-Service-Interconnect-1:qpid-proton-0:0.37.0-2.el9ai",
+						"9Base-Service-Interconnect-1:skupper-cli-0:1.4.1-2.el9",
+						"9Base-Service-Interconnect-1:skupper-router-0:2.4.1-2.el9"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank Adam Korczynski (ADA Logics) and OSS-Fuzz for reporting this issue."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in the golang package, where requests forwarded by reverse proxy include the raw query parameters from the inbound request, including unparseable parameters rejected by net/http. This issue could permit query parameter smuggling when a Go proxy forwards a parameter with an unparseable value. After the fix, the reverse proxy sanitizes the query parameters in the forwarded query when the outbound request's form field is set after the reverse proxy. The director function returns, indicating that the proxy has parsed the query parameters. Proxies that do not parse query parameters continue to forward the original query parameters unchanged.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-10-04T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-2880",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:4003"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2022-2880",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2022-2880"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2022-2880",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2022-2880"
+					},
+					{
+						"URL": "https://github.com/golang/go/issues/54663",
+						"Description": "https://github.com/golang/go/issues/54663"
+					},
+					{
+						"URL": "https://groups.google.com/g/golang-announce/c/xtuG5faxtaU?pli=1",
+						"Description": "https://groups.google.com/g/golang-announce/c/xtuG5faxtaU?pli=1"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-2880",
+						"Description": "CVE-2022-2880"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2132868",
+						"Description": "bz#2132868: ReverseProxy should not forward unparseable query parameters"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2022-10-07T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-Service-Interconnect-1:libwebsockets-0:4.3.1-1.el8ai",
+						"8Base-Service-Interconnect-1:qpid-proton-0:0.37.0-2.el8ai",
+						"8Base-Service-Interconnect-1:skupper-cli-0:1.4.1-2.el8",
+						"8Base-Service-Interconnect-1:skupper-router-0:2.4.1-2.el8",
+						"9Base-Service-Interconnect-1:jsoncpp-0:1.9.4-3.el9",
+						"9Base-Service-Interconnect-1:libwebsockets-0:4.3.1-1.el9ai",
+						"9Base-Service-Interconnect-1:qpid-proton-0:0.37.0-2.el9ai",
+						"9Base-Service-Interconnect-1:skupper-cli-0:1.4.1-2.el9",
+						"9Base-Service-Interconnect-1:skupper-router-0:2.4.1-2.el9"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank Daniel Abeles (Head of Research, Oxeye) and Gal Goldstein (Security Researcher, Oxeye) for reporting this issue."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "An integer overflow flaw was found in Golang's crypto/elliptic library. This flaw allows an attacker to use a crafted scaler input longer than 32 bytes, causing P256().ScalarMult or P256().ScalarBaseMult to panic, leading to a loss of availability.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-04-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-28327",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:4003"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2022-28327",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2022-28327"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2022-28327",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2022-28327"
+					},
+					{
+						"URL": "https://groups.google.com/g/golang-announce/c/oecdBNLOml8",
+						"Description": "https://groups.google.com/g/golang-announce/c/oecdBNLOml8"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-28327",
+						"Description": "CVE-2022-28327"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2077689",
+						"Description": "bz#2077689: panic caused by oversized scalar"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2022-04-21T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-Service-Interconnect-1:libwebsockets-0:4.3.1-1.el8ai",
+						"8Base-Service-Interconnect-1:qpid-proton-0:0.37.0-2.el8ai",
+						"8Base-Service-Interconnect-1:skupper-cli-0:1.4.1-2.el8",
+						"8Base-Service-Interconnect-1:skupper-router-0:2.4.1-2.el8",
+						"9Base-Service-Interconnect-1:jsoncpp-0:1.9.4-3.el9",
+						"9Base-Service-Interconnect-1:libwebsockets-0:4.3.1-1.el9ai",
+						"9Base-Service-Interconnect-1:qpid-proton-0:0.37.0-2.el9ai",
+						"9Base-Service-Interconnect-1:skupper-cli-0:1.4.1-2.el9",
+						"9Base-Service-Interconnect-1:skupper-router-0:2.4.1-2.el9"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in the golang package, where programs that compile regular expressions from untrusted sources are vulnerable to memory exhaustion or a denial of service. The parsed regexp representation is linear in the input size. Still, in some cases, the constant factor can be as high as 40,000, making a relatively small regexp consume larger amounts of memory. After the fix, each regexp being parsed is limited to a 256 MB memory footprint. Regular expressions whose representation would use more space than that are rejected. Routine use of regular expressions is unaffected.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-10-04T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-41715",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:4003"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2022-41715",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2022-41715"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2022-41715",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2022-41715"
+					},
+					{
+						"URL": "https://github.com/golang/go/issues/55949",
+						"Description": "https://github.com/golang/go/issues/55949"
+					},
+					{
+						"URL": "https://groups.google.com/g/golang-announce/c/xtuG5faxtaU?pli=1",
+						"Description": "https://groups.google.com/g/golang-announce/c/xtuG5faxtaU?pli=1"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-41715",
+						"Description": "CVE-2022-41715"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2132872",
+						"Description": "bz#2132872: limit memory used by parsing regexps"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2022-10-07T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-Service-Interconnect-1:libwebsockets-0:4.3.1-1.el8ai",
+						"8Base-Service-Interconnect-1:qpid-proton-0:0.37.0-2.el8ai",
+						"8Base-Service-Interconnect-1:skupper-cli-0:1.4.1-2.el8",
+						"8Base-Service-Interconnect-1:skupper-router-0:2.4.1-2.el8",
+						"9Base-Service-Interconnect-1:jsoncpp-0:1.9.4-3.el9",
+						"9Base-Service-Interconnect-1:libwebsockets-0:4.3.1-1.el9ai",
+						"9Base-Service-Interconnect-1:qpid-proton-0:0.37.0-2.el9ai",
+						"9Base-Service-Interconnect-1:skupper-cli-0:1.4.1-2.el9",
+						"9Base-Service-Interconnect-1:skupper-router-0:2.4.1-2.el9"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank Adam Korczynski (ADA Logics) and OSS-Fuzz for reporting this issue."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in golang. A maliciously crafted HTTP/2 stream could cause excessive CPU consumption in the HPACK decoder, sufficient to cause a denial of service from a small number of small requests.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2023-02-17T14:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-41723",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:4003"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2022-41723",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2022-41723"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2022-41723",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2022-41723"
+					},
+					{
+						"URL": "https://github.com/advisories/GHSA-vvpx-j8f3-3w6h",
+						"Description": "https://github.com/advisories/GHSA-vvpx-j8f3-3w6h"
+					},
+					{
+						"URL": "https://go.dev/cl/468135",
+						"Description": "https://go.dev/cl/468135"
+					},
+					{
+						"URL": "https://go.dev/cl/468295",
+						"Description": "https://go.dev/cl/468295"
+					},
+					{
+						"URL": "https://go.dev/issue/57855",
+						"Description": "https://go.dev/issue/57855"
+					},
+					{
+						"URL": "https://groups.google.com/g/golang-announce/c/V0aBFqaFs_E",
+						"Description": "https://groups.google.com/g/golang-announce/c/V0aBFqaFs_E"
+					},
+					{
+						"URL": "https://pkg.go.dev/vuln/GO-2023-1571",
+						"Description": "https://pkg.go.dev/vuln/GO-2023-1571"
+					},
+					{
+						"URL": "https://vuln.go.dev/ID/GO-2023-1571.json",
+						"Description": "https://vuln.go.dev/ID/GO-2023-1571.json"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-41723",
+						"Description": "CVE-2022-41723"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2178358",
+						"Description": "bz#2178358: avoid quadratic complexity in HPACK decoding"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2023-03-14T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-Service-Interconnect-1:libwebsockets-0:4.3.1-1.el8ai",
+						"8Base-Service-Interconnect-1:qpid-proton-0:0.37.0-2.el8ai",
+						"8Base-Service-Interconnect-1:skupper-cli-0:1.4.1-2.el8",
+						"8Base-Service-Interconnect-1:skupper-router-0:2.4.1-2.el8",
+						"9Base-Service-Interconnect-1:jsoncpp-0:1.9.4-3.el9",
+						"9Base-Service-Interconnect-1:libwebsockets-0:4.3.1-1.el9ai",
+						"9Base-Service-Interconnect-1:qpid-proton-0:0.37.0-2.el9ai",
+						"9Base-Service-Interconnect-1:skupper-cli-0:1.4.1-2.el9",
+						"9Base-Service-Interconnect-1:skupper-router-0:2.4.1-2.el9"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank Philippe Antoine (Catena Cyber) for reporting this issue."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "6",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in Golang Go, where it is vulnerable to a denial of service caused when processing large TLS handshake records. By sending specially-crafted TLS handshake records, a remote, authenticated attacker can cause a denial of service condition.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2023-02-15T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-41724",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:4003"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2022-41724",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2022-41724"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2022-41724",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2022-41724"
+					},
+					{
+						"URL": "https://go.dev/cl/468125",
+						"Description": "https://go.dev/cl/468125"
+					},
+					{
+						"URL": "https://go.dev/issue/58001",
+						"Description": "https://go.dev/issue/58001"
+					},
+					{
+						"URL": "https://groups.google.com/g/golang-announce/c/V0aBFqaFs_E",
+						"Description": "https://groups.google.com/g/golang-announce/c/V0aBFqaFs_E"
+					},
+					{
+						"URL": "https://pkg.go.dev/vuln/GO-2023-1570",
+						"Description": "https://pkg.go.dev/vuln/GO-2023-1570"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-41724",
+						"Description": "CVE-2022-41724"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2178492",
+						"Description": "bz#2178492: large handshake records may cause panics"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2023-03-15T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-Service-Interconnect-1:libwebsockets-0:4.3.1-1.el8ai",
+						"8Base-Service-Interconnect-1:qpid-proton-0:0.37.0-2.el8ai",
+						"8Base-Service-Interconnect-1:skupper-cli-0:1.4.1-2.el8",
+						"8Base-Service-Interconnect-1:skupper-router-0:2.4.1-2.el8",
+						"9Base-Service-Interconnect-1:jsoncpp-0:1.9.4-3.el9",
+						"9Base-Service-Interconnect-1:libwebsockets-0:4.3.1-1.el9ai",
+						"9Base-Service-Interconnect-1:qpid-proton-0:0.37.0-2.el9ai",
+						"9Base-Service-Interconnect-1:skupper-cli-0:1.4.1-2.el9",
+						"9Base-Service-Interconnect-1:skupper-router-0:2.4.1-2.el9"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "7",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in Go, where it is vulnerable to a denial of service caused by an excessive resource consumption flaw in the net/http and mime/multipart packages. By sending a specially-crafted request, a remote attacker can cause a denial of service.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2023-02-15T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-41725",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:4003"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2022-41725",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2022-41725"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2022-41725",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2022-41725"
+					},
+					{
+						"URL": "https://go.dev/cl/468124",
+						"Description": "https://go.dev/cl/468124"
+					},
+					{
+						"URL": "https://go.dev/issue/58006",
+						"Description": "https://go.dev/issue/58006"
+					},
+					{
+						"URL": "https://groups.google.com/g/golang-announce/c/V0aBFqaFs_E",
+						"Description": "https://groups.google.com/g/golang-announce/c/V0aBFqaFs_E"
+					},
+					{
+						"URL": "https://pkg.go.dev/vuln/GO-2023-1569",
+						"Description": "https://pkg.go.dev/vuln/GO-2023-1569"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-41725",
+						"Description": "CVE-2022-41725"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2178488",
+						"Description": "bz#2178488: denial of service from excessive resource consumption"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2023-03-15T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-Service-Interconnect-1:libwebsockets-0:4.3.1-1.el8ai",
+						"8Base-Service-Interconnect-1:qpid-proton-0:0.37.0-2.el8ai",
+						"8Base-Service-Interconnect-1:skupper-cli-0:1.4.1-2.el8",
+						"8Base-Service-Interconnect-1:skupper-router-0:2.4.1-2.el8",
+						"9Base-Service-Interconnect-1:jsoncpp-0:1.9.4-3.el9",
+						"9Base-Service-Interconnect-1:libwebsockets-0:4.3.1-1.el9ai",
+						"9Base-Service-Interconnect-1:qpid-proton-0:0.37.0-2.el9ai",
+						"9Base-Service-Interconnect-1:skupper-cli-0:1.4.1-2.el9",
+						"9Base-Service-Interconnect-1:skupper-router-0:2.4.1-2.el9"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "8",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in Golang Go, where it is vulnerable to a denial of service caused by memory exhaustion in the common function in HTTP and MIME header parsing. By sending a specially crafted request, a remote attacker can cause a denial of service.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2023-04-04T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2023-24534",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:4003"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2023-24534",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2023-24534"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2023-24534",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2023-24534"
+					},
+					{
+						"URL": "https://go.dev/issue/58975",
+						"Description": "https://go.dev/issue/58975"
+					},
+					{
+						"URL": "https://groups.google.com/g/golang-announce/c/Xdv6JL9ENs8",
+						"Description": "https://groups.google.com/g/golang-announce/c/Xdv6JL9ENs8"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2023-24534",
+						"Description": "CVE-2023-24534"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2184483",
+						"Description": "bz#2184483: denial of service from excessive memory allocation"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2023-04-04T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-Service-Interconnect-1:libwebsockets-0:4.3.1-1.el8ai",
+						"8Base-Service-Interconnect-1:qpid-proton-0:0.37.0-2.el8ai",
+						"8Base-Service-Interconnect-1:skupper-cli-0:1.4.1-2.el8",
+						"8Base-Service-Interconnect-1:skupper-router-0:2.4.1-2.el8",
+						"9Base-Service-Interconnect-1:jsoncpp-0:1.9.4-3.el9",
+						"9Base-Service-Interconnect-1:libwebsockets-0:4.3.1-1.el9ai",
+						"9Base-Service-Interconnect-1:qpid-proton-0:0.37.0-2.el9ai",
+						"9Base-Service-Interconnect-1:skupper-cli-0:1.4.1-2.el9",
+						"9Base-Service-Interconnect-1:skupper-router-0:2.4.1-2.el9"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "9",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in Golang Go, where it is vulnerable to a denial of service caused by an issue during multipart form parsing. By sending a specially crafted input, a remote attacker can consume large amounts of CPU and memory, resulting in a denial of service.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2023-04-04T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2023-24536",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:4003"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2023-24536",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2023-24536"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2023-24536",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2023-24536"
+					},
+					{
+						"URL": "https://go.dev/issue/59153",
+						"Description": "https://go.dev/issue/59153"
+					},
+					{
+						"URL": "https://groups.google.com/g/golang-announce/c/Xdv6JL9ENs8",
+						"Description": "https://groups.google.com/g/golang-announce/c/Xdv6JL9ENs8"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2023-24536",
+						"Description": "CVE-2023-24536"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2184482",
+						"Description": "bz#2184482: denial of service from excessive resource consumption"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2023-04-04T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-Service-Interconnect-1:libwebsockets-0:4.3.1-1.el8ai",
+						"8Base-Service-Interconnect-1:qpid-proton-0:0.37.0-2.el8ai",
+						"8Base-Service-Interconnect-1:skupper-cli-0:1.4.1-2.el8",
+						"8Base-Service-Interconnect-1:skupper-router-0:2.4.1-2.el8",
+						"9Base-Service-Interconnect-1:jsoncpp-0:1.9.4-3.el9",
+						"9Base-Service-Interconnect-1:libwebsockets-0:4.3.1-1.el9ai",
+						"9Base-Service-Interconnect-1:qpid-proton-0:0.37.0-2.el9ai",
+						"9Base-Service-Interconnect-1:skupper-cli-0:1.4.1-2.el9",
+						"9Base-Service-Interconnect-1:skupper-router-0:2.4.1-2.el9"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "10",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in Golang Go, where it is vulnerable to a denial of service caused by an infinite loop due to integer overflow when calling any of the Parse functions. By sending a specially crafted input, a remote attacker can cause a denial of service.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2023-04-04T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2023-24537",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:4003"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2023-24537",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2023-24537"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2023-24537",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2023-24537"
+					},
+					{
+						"URL": "https://github.com/golang/go/issues/59180",
+						"Description": "https://github.com/golang/go/issues/59180"
+					},
+					{
+						"URL": "https://groups.google.com/g/golang-announce/c/Xdv6JL9ENs8",
+						"Description": "https://groups.google.com/g/golang-announce/c/Xdv6JL9ENs8"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2023-24537",
+						"Description": "CVE-2023-24537"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2184484",
+						"Description": "bz#2184484: Infinite loop in parsing"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2023-04-04T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-Service-Interconnect-1:libwebsockets-0:4.3.1-1.el8ai",
+						"8Base-Service-Interconnect-1:qpid-proton-0:0.37.0-2.el8ai",
+						"8Base-Service-Interconnect-1:skupper-cli-0:1.4.1-2.el8",
+						"8Base-Service-Interconnect-1:skupper-router-0:2.4.1-2.el8",
+						"9Base-Service-Interconnect-1:jsoncpp-0:1.9.4-3.el9",
+						"9Base-Service-Interconnect-1:libwebsockets-0:4.3.1-1.el9ai",
+						"9Base-Service-Interconnect-1:qpid-proton-0:0.37.0-2.el9ai",
+						"9Base-Service-Interconnect-1:skupper-cli-0:1.4.1-2.el9",
+						"9Base-Service-Interconnect-1:skupper-router-0:2.4.1-2.el9"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "11",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in Golang Go. This flaw allows a remote attacker to execute arbitrary code on the system, caused by not properly considering backticks (`) as Javascript string delimiters. By sending a specially crafted request, an attacker execute arbitrary code on the system.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2023-04-04T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2023-24538",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:4003"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2023-24538",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2023-24538"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2023-24538",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2023-24538"
+					},
+					{
+						"URL": "https://github.com/golang/go/issues/59234",
+						"Description": "https://github.com/golang/go/issues/59234"
+					},
+					{
+						"URL": "https://groups.google.com/g/golang-announce/c/Xdv6JL9ENs8",
+						"Description": "https://groups.google.com/g/golang-announce/c/Xdv6JL9ENs8"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2023-24538",
+						"Description": "CVE-2023-24538"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2184481",
+						"Description": "bz#2184481: backticks not treated as string delimiters"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2023-04-04T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-Service-Interconnect-1:libwebsockets-0:4.3.1-1.el8ai",
+						"8Base-Service-Interconnect-1:qpid-proton-0:0.37.0-2.el8ai",
+						"8Base-Service-Interconnect-1:skupper-cli-0:1.4.1-2.el8",
+						"8Base-Service-Interconnect-1:skupper-router-0:2.4.1-2.el8",
+						"9Base-Service-Interconnect-1:jsoncpp-0:1.9.4-3.el9",
+						"9Base-Service-Interconnect-1:libwebsockets-0:4.3.1-1.el9ai",
+						"9Base-Service-Interconnect-1:qpid-proton-0:0.37.0-2.el9ai",
+						"9Base-Service-Interconnect-1:skupper-cli-0:1.4.1-2.el9",
+						"9Base-Service-Interconnect-1:skupper-router-0:2.4.1-2.el9"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "12",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in golang where angle brackets (<>) were not considered dangerous characters when inserted into CSS contexts. Templates containing multiple actions separated by a '/' character could result in the CSS context unexpectedly closing, allowing for the injection of unexpected HMTL if executed with untrusted input.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2023-04-20T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2023-24539",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:4003"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2023-24539",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2023-24539"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2023-24539",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2023-24539"
+					},
+					{
+						"URL": "https://github.com/golang/go/issues/59720",
+						"Description": "https://github.com/golang/go/issues/59720"
+					},
+					{
+						"URL": "https://groups.google.com/g/golang-announce/c/MEb0UyuSMsU",
+						"Description": "https://groups.google.com/g/golang-announce/c/MEb0UyuSMsU"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2023-24539",
+						"Description": "CVE-2023-24539"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2196026",
+						"Description": "bz#2196026: improper sanitization of CSS values"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2023-05-07T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-Service-Interconnect-1:libwebsockets-0:4.3.1-1.el8ai",
+						"8Base-Service-Interconnect-1:qpid-proton-0:0.37.0-2.el8ai",
+						"8Base-Service-Interconnect-1:skupper-cli-0:1.4.1-2.el8",
+						"8Base-Service-Interconnect-1:skupper-router-0:2.4.1-2.el8",
+						"9Base-Service-Interconnect-1:jsoncpp-0:1.9.4-3.el9",
+						"9Base-Service-Interconnect-1:libwebsockets-0:4.3.1-1.el9ai",
+						"9Base-Service-Interconnect-1:qpid-proton-0:0.37.0-2.el9ai",
+						"9Base-Service-Interconnect-1:skupper-cli-0:1.4.1-2.el9",
+						"9Base-Service-Interconnect-1:skupper-router-0:2.4.1-2.el9"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank Juho Nurminen (Mattermost) for reporting this issue."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "13",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in golang. Templates containing actions in unquoted HTML attributes, for example, \"attr={{.}}\") executed with empty input, could result in output that has unexpected results when parsed due to HTML normalization rules. This issue may allow the injection of arbitrary attributes into tags.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2023-04-20T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2023-29400",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:4003"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2023-29400",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2023-29400"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2023-29400",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2023-29400"
+					},
+					{
+						"URL": "https://go.dev/issue/59722",
+						"Description": "https://go.dev/issue/59722"
+					},
+					{
+						"URL": "https://groups.google.com/g/golang-announce/c/MEb0UyuSMsU",
+						"Description": "https://groups.google.com/g/golang-announce/c/MEb0UyuSMsU"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2023-29400",
+						"Description": "CVE-2023-29400"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2196029",
+						"Description": "bz#2196029: improper handling of empty HTML attributes"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2023-05-07T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-Service-Interconnect-1:libwebsockets-0:4.3.1-1.el8ai",
+						"8Base-Service-Interconnect-1:qpid-proton-0:0.37.0-2.el8ai",
+						"8Base-Service-Interconnect-1:skupper-cli-0:1.4.1-2.el8",
+						"8Base-Service-Interconnect-1:skupper-router-0:2.4.1-2.el8",
+						"9Base-Service-Interconnect-1:jsoncpp-0:1.9.4-3.el9",
+						"9Base-Service-Interconnect-1:libwebsockets-0:4.3.1-1.el9ai",
+						"9Base-Service-Interconnect-1:qpid-proton-0:0.37.0-2.el9ai",
+						"9Base-Service-Interconnect-1:skupper-cli-0:1.4.1-2.el9",
+						"9Base-Service-Interconnect-1:skupper-router-0:2.4.1-2.el9"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank Juho Nurminen (Mattermost) for reporting this issue."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Service Interconnect",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "8Base-Service-Interconnect-1",
+						"fullproductname": {
+							"text": "8Base-Service-Interconnect-1",
+							"productid": "8Base-Service-Interconnect-1",
+							"cpe": "cpe:/a:redhat:service_interconnect:1::el8"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "9Base-Service-Interconnect-1",
+						"fullproductname": {
+							"text": "9Base-Service-Interconnect-1",
+							"productid": "9Base-Service-Interconnect-1",
+							"cpe": "cpe:/a:redhat:service_interconnect:1::el9"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "jsoncpp-0:1.9.4-3.el9",
+				"fullproductname": {
+					"text": "jsoncpp-1.9.4-3.el9.src.rpm",
+					"productid": "jsoncpp-0:1.9.4-3.el9",
+					"cpe": "cpe:/a:redhat:service_interconnect:1::el9"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libwebsockets-0:4.3.1-1.el8ai",
+				"fullproductname": {
+					"text": "libwebsockets-4.3.1-1.el8ai.src.rpm",
+					"productid": "libwebsockets-0:4.3.1-1.el8ai",
+					"cpe": "cpe:/a:redhat:service_interconnect:1::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libwebsockets-0:4.3.1-1.el9ai",
+				"fullproductname": {
+					"text": "libwebsockets-4.3.1-1.el9ai.src.rpm",
+					"productid": "libwebsockets-0:4.3.1-1.el9ai",
+					"cpe": "cpe:/a:redhat:service_interconnect:1::el9"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "qpid-proton-0:0.37.0-2.el8ai",
+				"fullproductname": {
+					"text": "qpid-proton-0.37.0-2.el8ai.src.rpm",
+					"productid": "qpid-proton-0:0.37.0-2.el8ai",
+					"cpe": "cpe:/a:redhat:service_interconnect:1::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "qpid-proton-0:0.37.0-2.el9ai",
+				"fullproductname": {
+					"text": "qpid-proton-0.37.0-2.el9ai.src.rpm",
+					"productid": "qpid-proton-0:0.37.0-2.el9ai",
+					"cpe": "cpe:/a:redhat:service_interconnect:1::el9"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "skupper-cli-0:1.4.1-2.el8",
+				"fullproductname": {
+					"text": "skupper-cli-1.4.1-2.el8.src.rpm",
+					"productid": "skupper-cli-0:1.4.1-2.el8",
+					"cpe": "cpe:/a:redhat:service_interconnect:1::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "skupper-cli-0:1.4.1-2.el9",
+				"fullproductname": {
+					"text": "skupper-cli-1.4.1-2.el9.src.rpm",
+					"productid": "skupper-cli-0:1.4.1-2.el9",
+					"cpe": "cpe:/a:redhat:service_interconnect:1::el9"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "skupper-router-0:2.4.1-2.el8",
+				"fullproductname": {
+					"text": "skupper-router-2.4.1-2.el8.src.rpm",
+					"productid": "skupper-router-0:2.4.1-2.el8",
+					"cpe": "cpe:/a:redhat:service_interconnect:1::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "skupper-router-0:2.4.1-2.el9",
+				"fullproductname": {
+					"text": "skupper-router-2.4.1-2.el9.src.rpm",
+					"productid": "skupper-router-0:2.4.1-2.el9",
+					"cpe": "cpe:/a:redhat:service_interconnect:1::el9"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "libwebsockets-0:4.3.1-1.el8ai",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-Service-Interconnect-1",
+				"fullproductname": {
+					"text": "libwebsockets-0:4.3.1-1.el8ai as a component of 8Base-Service-Interconnect-1",
+					"productid": "8Base-Service-Interconnect-1:libwebsockets-0:4.3.1-1.el8ai",
+					"cpe": "cpe:/a:redhat:service_interconnect:1::el8"
+				}
+			},
+			{
+				"productreference": "qpid-proton-0:0.37.0-2.el8ai",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-Service-Interconnect-1",
+				"fullproductname": {
+					"text": "qpid-proton-0:0.37.0-2.el8ai as a component of 8Base-Service-Interconnect-1",
+					"productid": "8Base-Service-Interconnect-1:qpid-proton-0:0.37.0-2.el8ai",
+					"cpe": "cpe:/a:redhat:service_interconnect:1::el8"
+				}
+			},
+			{
+				"productreference": "skupper-cli-0:1.4.1-2.el8",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-Service-Interconnect-1",
+				"fullproductname": {
+					"text": "skupper-cli-0:1.4.1-2.el8 as a component of 8Base-Service-Interconnect-1",
+					"productid": "8Base-Service-Interconnect-1:skupper-cli-0:1.4.1-2.el8",
+					"cpe": "cpe:/a:redhat:service_interconnect:1::el8"
+				}
+			},
+			{
+				"productreference": "skupper-router-0:2.4.1-2.el8",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-Service-Interconnect-1",
+				"fullproductname": {
+					"text": "skupper-router-0:2.4.1-2.el8 as a component of 8Base-Service-Interconnect-1",
+					"productid": "8Base-Service-Interconnect-1:skupper-router-0:2.4.1-2.el8",
+					"cpe": "cpe:/a:redhat:service_interconnect:1::el8"
+				}
+			},
+			{
+				"productreference": "jsoncpp-0:1.9.4-3.el9",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "9Base-Service-Interconnect-1",
+				"fullproductname": {
+					"text": "jsoncpp-0:1.9.4-3.el9 as a component of 9Base-Service-Interconnect-1",
+					"productid": "9Base-Service-Interconnect-1:jsoncpp-0:1.9.4-3.el9",
+					"cpe": "cpe:/a:redhat:service_interconnect:1::el9"
+				}
+			},
+			{
+				"productreference": "libwebsockets-0:4.3.1-1.el9ai",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "9Base-Service-Interconnect-1",
+				"fullproductname": {
+					"text": "libwebsockets-0:4.3.1-1.el9ai as a component of 9Base-Service-Interconnect-1",
+					"productid": "9Base-Service-Interconnect-1:libwebsockets-0:4.3.1-1.el9ai",
+					"cpe": "cpe:/a:redhat:service_interconnect:1::el9"
+				}
+			},
+			{
+				"productreference": "qpid-proton-0:0.37.0-2.el9ai",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "9Base-Service-Interconnect-1",
+				"fullproductname": {
+					"text": "qpid-proton-0:0.37.0-2.el9ai as a component of 9Base-Service-Interconnect-1",
+					"productid": "9Base-Service-Interconnect-1:qpid-proton-0:0.37.0-2.el9ai",
+					"cpe": "cpe:/a:redhat:service_interconnect:1::el9"
+				}
+			},
+			{
+				"productreference": "skupper-cli-0:1.4.1-2.el9",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "9Base-Service-Interconnect-1",
+				"fullproductname": {
+					"text": "skupper-cli-0:1.4.1-2.el9 as a component of 9Base-Service-Interconnect-1",
+					"productid": "9Base-Service-Interconnect-1:skupper-cli-0:1.4.1-2.el9",
+					"cpe": "cpe:/a:redhat:service_interconnect:1::el9"
+				}
+			},
+			{
+				"productreference": "skupper-router-0:2.4.1-2.el9",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "9Base-Service-Interconnect-1",
+				"fullproductname": {
+					"text": "skupper-router-0:2.4.1-2.el9 as a component of 9Base-Service-Interconnect-1",
+					"productid": "9Base-Service-Interconnect-1:skupper-router-0:2.4.1-2.el9",
+					"cpe": "cpe:/a:redhat:service_interconnect:1::el9"
+				}
+			}
+		]
+	}
+}

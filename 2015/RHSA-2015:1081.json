@@ -1,0 +1,641 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: kernel security, bug fix, and enhancement update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2015:1081"
+		},
+		"Status": "Final",
+		"Version": "2",
+		"revisionhistory": {
+			"revision": {
+				"Number": "2",
+				"Date": "2015-06-09T16:35:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2015-06-09T14:47:00Z",
+		"CurrentReleaseDate": "2015-06-09T16:35:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:40:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated kernel packages that fix multiple security issues, several bugs,\nand add various enhancements are now available for Red Hat Enterprise\nLinux 6.\n\nRed Hat Product Security has rated this update as having Important security\nimpact. Common Vulnerability Scoring System (CVSS) base scores, which give\ndetailed severity ratings, are available for each vulnerability from the\nCVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe kernel packages contain the Linux kernel, the core of any Linux\noperating system.\n\n* It was found that the Linux kernel's implementation of vectored pipe read\nand write functionality did not take into account the I/O vectors that were\nalready processed when retrying after a failed atomic access operation,\npotentially resulting in memory corruption due to an I/O vector array\noverrun. A local, unprivileged user could use this flaw to crash the system\nor, potentially, escalate their privileges on the system. (CVE-2015-1805,\nImportant)\n\n* A buffer overflow flaw was found in the way the Linux kernel's Intel\nAES-NI instructions optimized version of the RFC4106 GCM mode decryption\nfunctionality handled fragmented packets. A remote attacker could use this\nflaw to crash, or potentially escalate their privileges on, a system over a\nconnection with an active AES-GCM mode IPSec security association.\n(CVE-2015-3331, Important)\n\n* An information leak flaw was found in the way the Linux kernel changed\ncertain segment registers and thread-local storage (TLS) during a context\nswitch. A local, unprivileged user could use this flaw to leak the user\nspace TLS base address of an arbitrary process. (CVE-2014-9419, Low)\n\n* It was found that the Linux kernel's ISO file system implementation did\nnot correctly limit the traversal of Rock Ridge extension Continuation\nEntries (CE). An attacker with physical access to the system could use this\nflaw to trigger an infinite loop in the kernel, resulting in a denial of\nservice. (CVE-2014-9420, Low)\n\n* An information leak flaw was found in the way the Linux kernel's Virtual\nDynamic Shared Object (vDSO) implementation performed address\nrandomization. A local, unprivileged user could use this flaw to leak\nkernel memory addresses to user-space. (CVE-2014-9585, Low)\n\nRed Hat would like to thank Carl Henrik Lunde for reporting \nCVE-2014-9420. The security impact of the CVE-2015-1805 issue was \ndiscovered by Red Hat.\n\nThis update also fixes several bugs and adds various enhancements.\nDocumentation for these changes is available from the Technical Notes\ndocument linked to in the References section.\n\nAll kernel users are advised to upgrade to these updated packages, which\ncontain backported patches to correct these issues and add these\nenhancements. The system must be rebooted for this update to take effect.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2015:1081",
+				"Description": "https://access.redhat.com/errata/RHSA-2015:1081"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/6.6_Technical_Notes/kernel.html",
+				"Description": "https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/6.6_Technical_Notes/kernel.html"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: partial ASLR bypass through TLS base addresses leak",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-12-08T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-9419",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1081"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-9419",
+						"Description": "CVE-2014-9419"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1177260",
+						"Description": "bz#1177260: CVE-2014-9419 kernel: partial ASLR bypass through TLS base addresses leak"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2014-12-25T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.6.z:kernel-0:2.6.32-504.23.4.el6",
+						"6Client-optional-6.6.z:kernel-0:2.6.32-504.23.4.el6",
+						"6ComputeNode-6.6.z:kernel-0:2.6.32-504.23.4.el6",
+						"6ComputeNode-optional-6.6.z:kernel-0:2.6.32-504.23.4.el6",
+						"6Server-6.6.z:kernel-0:2.6.32-504.23.4.el6",
+						"6Server-optional-6.6.z:kernel-0:2.6.32-504.23.4.el6",
+						"6Workstation-6.6.z:kernel-0:2.6.32-504.23.4.el6",
+						"6Workstation-optional-6.6.z:kernel-0:2.6.32-504.23.4.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "1.9",
+					"Vector": "AV:L/AC:M/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Kernel: fs: isofs: infinite loop in CE record entries",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-12-15T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-9420",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1081"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-9420",
+						"Description": "CVE-2014-9420"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1175235",
+						"Description": "bz#1175235: CVE-2014-9420 Kernel: fs: isofs: infinite loop in CE record entries"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2014-12-10T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.6.z:kernel-0:2.6.32-504.23.4.el6",
+						"6Client-optional-6.6.z:kernel-0:2.6.32-504.23.4.el6",
+						"6ComputeNode-6.6.z:kernel-0:2.6.32-504.23.4.el6",
+						"6ComputeNode-optional-6.6.z:kernel-0:2.6.32-504.23.4.el6",
+						"6Server-6.6.z:kernel-0:2.6.32-504.23.4.el6",
+						"6Server-optional-6.6.z:kernel-0:2.6.32-504.23.4.el6",
+						"6Workstation-6.6.z:kernel-0:2.6.32-504.23.4.el6",
+						"6Workstation-optional-6.6.z:kernel-0:2.6.32-504.23.4.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.7",
+					"Vector": "AV:L/AC:M/Au:N/C:N/I:N/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: ASLR bruteforce possible for vdso library",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-12-11T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-9585",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1081"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-9585",
+						"Description": "CVE-2014-9585"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1181054",
+						"Description": "bz#1181054: CVE-2014-9585 kernel: ASLR bruteforce possible for vdso library"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2015-01-12T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.6.z:kernel-0:2.6.32-504.23.4.el6",
+						"6Client-optional-6.6.z:kernel-0:2.6.32-504.23.4.el6",
+						"6ComputeNode-6.6.z:kernel-0:2.6.32-504.23.4.el6",
+						"6ComputeNode-optional-6.6.z:kernel-0:2.6.32-504.23.4.el6",
+						"6Server-6.6.z:kernel-0:2.6.32-504.23.4.el6",
+						"6Server-optional-6.6.z:kernel-0:2.6.32-504.23.4.el6",
+						"6Workstation-6.6.z:kernel-0:2.6.32-504.23.4.el6",
+						"6Workstation-optional-6.6.z:kernel-0:2.6.32-504.23.4.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "1.9",
+					"Vector": "AV:L/AC:M/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: pipe: iovec overrun leading to memory corruption",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-06-02T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-1805",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1081"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-1805",
+						"Description": "CVE-2015-1805"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1202855",
+						"Description": "bz#1202855: CVE-2015-1805 kernel: pipe: iovec overrun leading to memory corruption"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2015-03-02T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.6.z:kernel-0:2.6.32-504.23.4.el6",
+						"6Client-optional-6.6.z:kernel-0:2.6.32-504.23.4.el6",
+						"6ComputeNode-6.6.z:kernel-0:2.6.32-504.23.4.el6",
+						"6ComputeNode-optional-6.6.z:kernel-0:2.6.32-504.23.4.el6",
+						"6Server-6.6.z:kernel-0:2.6.32-504.23.4.el6",
+						"6Server-optional-6.6.z:kernel-0:2.6.32-504.23.4.el6",
+						"6Workstation-6.6.z:kernel-0:2.6.32-504.23.4.el6",
+						"6Workstation-optional-6.6.z:kernel-0:2.6.32-504.23.4.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.9",
+					"Vector": "AV:L/AC:M/Au:N/C:C/I:C/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Kernel: crypto: buffer overruns in RFC4106 implementation using AESNI",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-03-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-3331",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1081"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-3331",
+						"Description": "CVE-2015-3331"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1213322",
+						"Description": "bz#1213322: CVE-2015-3331 Kernel: crypto: buffer overruns in RFC4106 implementation using AESNI"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2015-04-14T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.6.z:kernel-0:2.6.32-504.23.4.el6",
+						"6Client-optional-6.6.z:kernel-0:2.6.32-504.23.4.el6",
+						"6ComputeNode-6.6.z:kernel-0:2.6.32-504.23.4.el6",
+						"6ComputeNode-optional-6.6.z:kernel-0:2.6.32-504.23.4.el6",
+						"6Server-6.6.z:kernel-0:2.6.32-504.23.4.el6",
+						"6Server-optional-6.6.z:kernel-0:2.6.32-504.23.4.el6",
+						"6Workstation-6.6.z:kernel-0:2.6.32-504.23.4.el6",
+						"6Workstation-optional-6.6.z:kernel-0:2.6.32-504.23.4.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "7.1",
+					"Vector": "AV:N/AC:H/Au:S/C:C/I:C/A:C"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 6)",
+							"productid": "6Client-6.6.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+							"productid": "6Client-optional-6.6.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node (v. 6)",
+							"productid": "6ComputeNode-6.6.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+							"productid": "6ComputeNode-optional-6.6.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 6)",
+							"productid": "6Server-6.6.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional (v. 6)",
+							"productid": "6Server-optional-6.6.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 6)",
+							"productid": "6Workstation-6.6.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+							"productid": "6Workstation-optional-6.6.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-0:2.6.32-504.23.4.el6",
+				"fullproductname": {
+					"text": "kernel-2.6.32-504.23.4.el6.src.rpm",
+					"productid": "kernel-0:2.6.32-504.23.4.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "kernel-0:2.6.32-504.23.4.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-6.6.z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-504.23.4.el6 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"productid": "6Client-6.6.z:kernel-0:2.6.32-504.23.4.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.32-504.23.4.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-optional-6.6.z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-504.23.4.el6 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"productid": "6Client-optional-6.6.z:kernel-0:2.6.32-504.23.4.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.32-504.23.4.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-6.6.z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-504.23.4.el6 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"productid": "6ComputeNode-6.6.z:kernel-0:2.6.32-504.23.4.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.32-504.23.4.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-optional-6.6.z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-504.23.4.el6 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"productid": "6ComputeNode-optional-6.6.z:kernel-0:2.6.32-504.23.4.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.32-504.23.4.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-6.6.z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-504.23.4.el6 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"productid": "6Server-6.6.z:kernel-0:2.6.32-504.23.4.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.32-504.23.4.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-optional-6.6.z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-504.23.4.el6 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"productid": "6Server-optional-6.6.z:kernel-0:2.6.32-504.23.4.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.32-504.23.4.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-6.6.z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-504.23.4.el6 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"productid": "6Workstation-6.6.z:kernel-0:2.6.32-504.23.4.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.32-504.23.4.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-optional-6.6.z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-504.23.4.el6 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"productid": "6Workstation-optional-6.6.z:kernel-0:2.6.32-504.23.4.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			}
+		]
+	}
+}

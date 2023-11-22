@@ -1,0 +1,404 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: rhev-hypervisor6 security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2012:0109"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2012-02-15T16:09:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2012-02-15T16:01:00Z",
+		"CurrentReleaseDate": "2012-02-15T16:09:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:32:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nAn updated rhev-hypervisor6 package that fixes multiple security issues and\nvarious bugs is now available.\n\nThe Red Hat Security Response Team has rated this update as having\nimportant security impact. Common Vulnerability Scoring System (CVSS) base\nscores, which give detailed severity ratings, are available for each\nvulnerability from the CVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe rhev-hypervisor6 package provides a Red Hat Enterprise Virtualization\nHypervisor ISO disk image. The Red Hat Enterprise Virtualization Hypervisor\nis a dedicated Kernel-based Virtual Machine (KVM) hypervisor. It includes\neverything necessary to run and manage virtual machines: A subset of the\nRed Hat Enterprise Linux operating environment and the Red Hat Enterprise\nVirtualization Agent.\n\nNote: Red Hat Enterprise Virtualization Hypervisor is only available for\nthe Intel 64 and AMD64 architectures with virtualization extensions.\n\nA heap overflow flaw was found in the way QEMU-KVM emulated the e1000\nnetwork interface card. A privileged guest user in a virtual machine whose\nnetwork interface is configured to use the e1000 emulated driver could use\nthis flaw to crash the host or, possibly, escalate their privileges on the\nhost. (CVE-2012-0029)\n\nAn information leak flaw was found in the SSL 3.0 protocol implementation\nin OpenSSL. Incorrect initialization of SSL record padding bytes could\ncause an SSL client or server to send a limited amount of possibly\nsensitive data to its SSL peer via the encrypted connection.\n(CVE-2011-4576)\n\nA denial of service flaw was found in the RFC 3779 implementation in\nOpenSSL. A remote attacker could use this flaw to make an application using\nOpenSSL exit unexpectedly by providing a specially-crafted X.509\ncertificate that has malformed RFC 3779 extension data. (CVE-2011-4577)\n\nIt was discovered that OpenSSL did not limit the number of TLS/SSL\nhandshake restarts required to support Server Gated Cryptography. A remote\nattacker could use this flaw to make a TLS/SSL server using OpenSSL consume\nan excessive amount of CPU by continuously restarting the handshake.\n(CVE-2011-4619)\n\nRed Hat would like to thank Nicolae Mogoreanu for reporting CVE-2012-0029.\n\nThis updated package provides updated components that include fixes for\nvarious security issues. These issues have no security impact on Red Hat\nEnterprise Virtualization Hypervisor itself, however. The security fixes\nincluded in this update address the following CVE numbers:\n\nCVE-2009-5029 and CVE-2011-4609 (glibc issues)\n\nCVE-2012-0056 (kernel issue)\n\nCVE-2011-4108 and CVE-2012-0050 (openssl issues)\n\nThis update also fixes the following bugs:\n\n* Previously, it was possible to begin a Hypervisor installation without\nany valid disks to install to.\n\nNow, if no valid disks are found for Hypervisor installation, a message is\ndisplayed informing the user that there are no valid disks for\ninstallation. (BZ#781471)\n\n* Previously, the user interface for the Hypervisor did not indicate\nwhether the system was registered with Red Hat Network (RHN) Classic or RHN\nSatellite. As a result, customers could not easily determine the\nregistration status of their Hypervisor installations.\n\nThe TUI has been updated to display the registration status of the\nHypervisor. (BZ#788223)\n\n* Previously, autoinstall would fail if the firstboot or reinstall options\nwere passed but local_boot or upgrade were not passed. Now, neither the\nlocal_boot or upgrade parameters are required for autoinstall. (BZ#788225)\n\nUsers of the Red Hat Enterprise Virtualization Hypervisor are advised to\nupgrade to this updated package, which fixes these issues.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2012:0109",
+				"Description": "https://access.redhat.com/errata/RHSA-2012:0109"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			},
+			{
+				"type": "External",
+				"URL": "http://docs.redhat.com/docs/en-US/Red_Hat_Enterprise_Virtualization/3.0/html/Technical_Notes/",
+				"Description": "http://docs.redhat.com/docs/en-US/Red_Hat_Enterprise_Virtualization/3.0/html/Technical_Notes/"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "openssl: uninitialized SSL 3.0 padding",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-01-04T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2011-4576",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/kb/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:0109"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2011-4576",
+						"Description": "CVE-2011-4576"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=771775",
+						"Description": "bz#771775: CVE-2011-4576 openssl: uninitialized SSL 3.0 padding"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2012-01-04T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-RHEV-Hypervisor:rhev-hypervisor6-0:6.2-20120209.0.el6_2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "openssl: malformed RFC 3779 data can cause assertion failures",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-01-04T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2011-4577",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/kb/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:0109"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2011-4577",
+						"Description": "CVE-2011-4577"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=771778",
+						"Description": "bz#771778: CVE-2011-4577 openssl: malformed RFC 3779 data can cause assertion failures"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2012-01-04T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-RHEV-Hypervisor:rhev-hypervisor6-0:6.2-20120209.0.el6_2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "openssl: SGC restart DoS attack",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-01-04T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2011-4619",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/kb/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:0109"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2011-4619",
+						"Description": "CVE-2011-4619"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=771780",
+						"Description": "bz#771780: CVE-2011-4619 openssl: SGC restart DoS attack"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2012-01-04T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-RHEV-Hypervisor:rhev-hypervisor6-0:6.2-20120209.0.el6_2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "qemu: e1000: process_tx_desc legacy mode packets heap overflow",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-01-23T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-0029",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/kb/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:0109"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-0029",
+						"Description": "CVE-2012-0029"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=772075",
+						"Description": "bz#772075: CVE-2012-0029 qemu: e1000: process_tx_desc legacy mode packets heap overflow"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2012-01-05T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-RHEV-Hypervisor:rhev-hypervisor6-0:6.2-20120209.0.el6_2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "7.4",
+					"Vector": "AV:A/AC:M/Au:S/C:C/I:C/A:C"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Virtualization",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "RHEV Hypervisor for RHEL-6",
+						"fullproductname": {
+							"text": "RHEV Hypervisor for RHEL-6",
+							"productid": "6Server-RHEV-Hypervisor",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::hypervisor"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhev-hypervisor6-0:6.2-20120209.0.el6_2",
+				"fullproductname": {
+					"text": "rhev-hypervisor6-6.2-20120209.0.el6_2.src.rpm",
+					"productid": "rhev-hypervisor6-0:6.2-20120209.0.el6_2",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::hypervisor"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "rhev-hypervisor6-0:6.2-20120209.0.el6_2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RHEV-Hypervisor",
+				"fullproductname": {
+					"text": "rhev-hypervisor6-0:6.2-20120209.0.el6_2 as a component of RHEV Hypervisor for RHEL-6",
+					"productid": "6Server-RHEV-Hypervisor:rhev-hypervisor6-0:6.2-20120209.0.el6_2",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::hypervisor"
+				}
+			}
+		]
+	}
+}

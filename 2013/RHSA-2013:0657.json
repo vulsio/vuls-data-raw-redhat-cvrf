@@ -1,0 +1,271 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: openstack-nova security, bug fix, and enhancement update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2013:0657"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2013-03-21T18:12:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2013-03-21T18:08:00Z",
+		"CurrentReleaseDate": "2013-03-21T18:12:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:35:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated openstack-nova packages that fix two security issues, several bugs,\nand add an enhancement are now available for Red Hat OpenStack Folsom.\n\nThe Red Hat Security Response Team has rated this update as having moderate\nsecurity impact. Common Vulnerability Scoring System (CVSS) base scores,\nwhich give detailed severity ratings, are available for each vulnerability\nfrom the CVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe openstack-nova packages provide OpenStack Compute (code name Nova),\nwhich provides services for provisioning, managing, and using virtual\nmachine instances.\n\nA denial of service flaw was found in the Extensible Markup Language (XML)\nparser used by Nova. A remote attacker could use this flaw to send a\nspecially-crafted request to a Nova API, causing Nova to consume an\nexcessive amount of CPU and memory. (CVE-2013-1664)\n\nA flaw was found in the XML parser used by Nova. If a remote attacker\nsent a specially-crafted request to a Nova API, it could cause Nova to\nconnect to external entities, causing a large amount of system load, or\nallow an attacker to read files on the Nova server that are accessible to\nthe user running Nova. (CVE-2013-1665)\n\nThis update also fixes several bugs. The following are noteworthy changes:\n\n* In single node, all-in-one environments where all services (such as\nNova, Glance, and Keystone) are installed and run on a single system, after\na host reboot, some instances may have automatically started again, but\nsoon after, automatically shut down. \"Instance shutdown by itself. Calling\nthe stop API\" messages were logged to Nova logs (in \"/var/log/nova/\") in\nthese cases. (BZ#890512)\n\n* In environments using Quantum, after creating a network with two\nsubnets, removing an IP address (using \"nova remove-fixed-ip\"), and then\nadding a fixed address (using \"nova add-fixed-ip\"), resulted in the\nvirtual machine having two IP addresses. (BZ#908373)\n\n* Prior to this update, after converting a downloaded image to raw, the\noriginal, downloaded image (a large .part file) was not removed. After\ninstalling this update, the following three options must be configured in\n\"/etc/nova/nova.conf\" to correctly resolve this issue:\n\nremove_unused_base_images=true\nremove_unused_resized_minimum_age_seconds=60\nremove_unused_original_minimum_age_seconds=60\n\n(BZ#911103)\n\nAdditionally, this update adds the following enhancement:\n\n* The RHSA-2013:0658 openstack-cinder update implemented a Cinder driver\nthat allows Red Hat Storage to be used as a back-end for Cinder volumes.\nThis update adds a libvirt connector to Nova, which is a requirement for\nusing the new Cinder driver. Note that you must manually install the\nglusterfs and glusterfs-fuse packages on the Nova nodes.\n\nAdditionally, when running Security-Enhanced Linux (SELinux) in Enforcing\nmode, the latest selinux-policy packages provided by RHBA-2013:0618 must be\ninstalled, otherwise denials will be logged when attempting to mount Red\nHat Storage volumes. (BZ#912384)\n\nAll users of openstack-nova are advised to upgrade to these updated\npackages, which correct these issues and add this enhancement. After\ninstalling the updated packages, the Nova running services will be\nrestarted automatically.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2013:0657",
+				"Description": "https://access.redhat.com/errata/RHSA-2013:0657"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			},
+			{
+				"type": "External",
+				"URL": "https://rhn.redhat.com/errata/RHSA-2013-0658.html",
+				"Description": "https://rhn.redhat.com/errata/RHSA-2013-0658.html"
+			},
+			{
+				"type": "External",
+				"URL": "https://rhn.redhat.com/errata/RHBA-2013-0618.html",
+				"Description": "https://rhn.redhat.com/errata/RHBA-2013-0618.html"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Python xml bindings: Internal entity expansion in Python XML libraries inflicts DoS vulnerabilities",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-02-19T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-1664",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:0657"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-1664",
+						"Description": "CVE-2013-1664"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=913808",
+						"Description": "bz#913808: CVE-2013-1664 Python xml bindings: Internal entity expansion in Python XML libraries inflicts DoS vulnerabilities"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2013-02-18T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-Folsom:openstack-nova-0:2012.2.3-4.el6ost"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Python xml bindings: External entity expansion in Python XML libraries inflicts potential security flaws and DoS vulnerabilities",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-02-19T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-1665",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:0657"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-1665",
+						"Description": "CVE-2013-1665"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=912982",
+						"Description": "bz#912982: CVE-2013-1665 Python xml bindings: External entity expansion in Python XML libraries inflicts potential security flaws and DoS vulnerabilities"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2013-02-18T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-Folsom:openstack-nova-0:2012.2.3-4.el6ost"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.8",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:N/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat OpenStack Platform",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "OpenStack Folsom",
+						"fullproductname": {
+							"text": "OpenStack Folsom",
+							"productid": "6Server-Folsom",
+							"cpe": "cpe:/a:redhat:openstack:2::el6"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "openstack-nova-0:2012.2.3-4.el6ost",
+				"fullproductname": {
+					"text": "openstack-nova-2012.2.3-4.el6ost.src.rpm",
+					"productid": "openstack-nova-0:2012.2.3-4.el6ost",
+					"cpe": "cpe:/a:redhat:openstack:2::el6"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "openstack-nova-0:2012.2.3-4.el6ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-Folsom",
+				"fullproductname": {
+					"text": "openstack-nova-0:2012.2.3-4.el6ost as a component of OpenStack Folsom",
+					"productid": "6Server-Folsom:openstack-nova-0:2012.2.3-4.el6ost",
+					"cpe": "cpe:/a:redhat:openstack:2::el6"
+				}
+			}
+		]
+	}
+}

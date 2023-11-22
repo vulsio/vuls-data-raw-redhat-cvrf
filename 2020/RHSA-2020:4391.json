@@ -1,0 +1,216 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: openstack-cinder security update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2020:4391"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2020-10-28T18:24:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2020-10-28T18:24:00Z",
+		"CurrentReleaseDate": "2020-10-28T18:24:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:48:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nAn update for OpenStack Block Storage (cinder) is now available for Red Hat OpenStack Platform 13 (Queens).\n\nRed Hat Product Security has rated this update as having a security impact\nof Moderate. A Common Vulnerability Scoring System (CVSS) base score, which\ngives a detailed severity rating, is available for each vulnerability from\nthe CVE link(s) in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nOpenStack Block Storage (cinder) manages block storage mounting and the\npresentation of such mounted block storage to instances. The backend\nphysical storage can consist of local disks, or Fiber Channel, iSCSI, and\nNFS mounts attached to Compute nodes. In addition, Block Storage supports\nvolume backups, and snapshots for temporary save and restore operations.\nProgrammatic management is available via Block Storage's API.\n\nSecurity Fix(es):\n\n* Improper handling of ScaleIO backend credentials (CVE-2020-10755)\n\nFor more details about the security issue(s), including the impact, a CVSS score, and other related information, refer to the CVE page(s) listed in the References section.\n\nBug Fix(es):\n\n* Before this update, FC live migration was failing. With this update, the correct device information is now sent to os-brick for FC for the corresponding host. Also, the device is now removed from the correct masking view when the live migration process has failed on the Compute node. (BZ#1841157)\n\n* Before this update, the 3PAR driver did not look at the `_name_id` field for a possible volume ID, which caused volumes to be unusable after a live migration. With this update, the driver is now aware of the `_name_id` field as an alternative location for the volume ID, and live migrated volumes now work as expected. (BZ#1841866)\n\n* Before this update, the internal temporary snapshot, created during async migration when creating a volume from a snapshot, was not being deleted from the VNX storage.\n\nFor example, if we create a new volume, V2, from snapshot S1, which we created from volume V1, an internal temporary snapshot, S2, is created from copying S1. V1 now has two snapshots, S1 and S2. Although we delete V1, V2 and S1 from OpenStack Block Storage (cinder), S2 is not deleted. This causes both V1 and S2 to remain on the VNX storage.\n\nWith this update, the temporary snapshot, S2, is deleted, and V1 can be successfully deleted. (BZ#1843196)\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2020:4391",
+				"Description": "https://access.redhat.com/errata/RHSA-2020:4391"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "openstack-cinder:  Improper handling of ScaleIO backend credentials",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2020-06-03T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2020-10755",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes\ndescribed in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2020:4391"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://wiki.openstack.org/wiki/OSSN/OSSN-0086",
+						"Description": "https://wiki.openstack.org/wiki/OSSN/OSSN-0086"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2020-10755",
+						"Description": "CVE-2020-10755"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1842748",
+						"Description": "bz#1842748: CVE-2020-10755 openstack-cinder:  Improper handling of ScaleIO backend credentials"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2019-04-04T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-7.6.EUS-RH7-RHOS-13.0:openstack-cinder-1:12.0.10-19.el7ost",
+						"7Server-RH7-RHOS-13.0:openstack-cinder-1:12.0.10-19.el7ost"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "This issue was discovered by David Hill (Red Hat) and Eric Harney (Red Hat)."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat OpenStack Platform",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat OpenStack Platform 13.0 for RHEL 7.6 EUS Server",
+						"fullproductname": {
+							"text": "Red Hat OpenStack Platform 13.0 for RHEL 7.6 EUS Server",
+							"productid": "7Server-7.6.EUS-RH7-RHOS-13.0",
+							"cpe": "cpe:/a:redhat:openstack:13::el7"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat OpenStack Platform 13.0",
+						"fullproductname": {
+							"text": "Red Hat OpenStack Platform 13.0",
+							"productid": "7Server-RH7-RHOS-13.0",
+							"cpe": "cpe:/a:redhat:openstack:13::el7"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "openstack-cinder-1:12.0.10-19.el7ost",
+				"fullproductname": {
+					"text": "openstack-cinder-12.0.10-19.el7ost.src.rpm",
+					"productid": "openstack-cinder-1:12.0.10-19.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:13::el7"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "openstack-cinder-1:12.0.10-19.el7ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-7.6.EUS-RH7-RHOS-13.0",
+				"fullproductname": {
+					"text": "openstack-cinder-1:12.0.10-19.el7ost as a component of Red Hat OpenStack Platform 13.0 for RHEL 7.6 EUS Server",
+					"productid": "7Server-7.6.EUS-RH7-RHOS-13.0:openstack-cinder-1:12.0.10-19.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:13::el7"
+				}
+			},
+			{
+				"productreference": "openstack-cinder-1:12.0.10-19.el7ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOS-13.0",
+				"fullproductname": {
+					"text": "openstack-cinder-1:12.0.10-19.el7ost as a component of Red Hat OpenStack Platform 13.0",
+					"productid": "7Server-RH7-RHOS-13.0:openstack-cinder-1:12.0.10-19.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:13::el7"
+				}
+			}
+		]
+	}
+}

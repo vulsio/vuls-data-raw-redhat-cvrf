@@ -1,0 +1,833 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: OpenShift Container Platform 4.11.28 security update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2023:0774"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2023-02-21T18:11:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2023-02-21T18:11:00Z",
+		"CurrentReleaseDate": "2023-02-21T18:11:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.11.0",
+			"Date": "2023-02-22T00:45:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nRed Hat OpenShift Container Platform release 4.11.28 is now available with updates to packages and images that fix several bugs and add enhancements.\n\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nRed Hat OpenShift Container Platform is Red Hat's cloud computing\nKubernetes application platform solution designed for on-premise or private\ncloud deployments.\n\nThis advisory contains the container images for Red Hat OpenShift Container Platform 4.11.28. See the following advisory for the RPM packages for this release:\n\nhttps://access.redhat.com/errata/RHBA-2023:0773\n\nSpace precludes documenting all of the container images in this advisory. See the following Release Notes documentation, which will be updated shortly for this release, for details about these changes:\n\nhttps://docs.openshift.com/container-platform/4.11/release_notes/ocp-4-11-release-notes.html\n\nSecurity Fix(es):\n\n* goutils: RandomAlphaNumeric and CryptoRandomAlphaNumeric are not as random as they should be (CVE-2021-4238)\n\n* golang: out-of-bounds read in golang.org/x/text/language leads to DoS (CVE-2021-38561)\n\n* golang: net/http: An attacker can cause excessive memory growth in a Go server accepting HTTP/2 requests (CVE-2022-41717)\n\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\n\nAll OpenShift Container Platform 4.11 users are advised to upgrade to these updated packages and images when they are available in the appropriate release channel. To check for available updates, use the OpenShift CLI (oc) or web console. Instructions for upgrading a cluster are available at https://docs.openshift.com/container-platform/4.11/updating/updating-cluster-cli.html\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2023 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2023:0774",
+				"Description": "https://access.redhat.com/errata/RHSA-2023:0774"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			},
+			{
+				"type": "External",
+				"URL": "https://docs.openshift.com/container-platform/4.11/release_notes/ocp-4-11-release-notes.html",
+				"Description": "https://docs.openshift.com/container-platform/4.11/release_notes/ocp-4-11-release-notes.html"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in goutils where randomly generated alphanumeric strings contain significantly less entropy than expected. Both the `RandomAlphaNumeric` and `CryptoRandomAlphaNumeric` functions always return strings containing at least one digit from 0 to 9. This issue significantly reduces the amount of entropy generated in short strings by these functions.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-12-27T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2021-4238",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor OpenShift Container Platform 4.11 see the following documentation, which will be updated shortly for this release, for important instructions on how to upgrade your cluster and fully apply this asynchronous errata update:\n\nhttps://docs.openshift.com/container-platform/4.11/release_notes/ocp-4-11-release-notes.html\n\nYou can download the oc tool and use it to inspect release image metadata for x86_64, s390x, ppc64le, and aarch64 architectures. The image digests can be found at\nhttps://quay.io/repository/openshift-release-dev/ocp-release?tab=tags.\n\nThe sha values for the release are:\n\n(For x86_64 architecture)\nThe image digest is sha256:85238bc3eddb88e958535597dbe8ec6f2aa88aa1713c2e1ee7faf88d1fefdac0\n\n(For s390x architecture)\nThe image digest is sha256:96528500690870b001c214ed0b142b5b375494ddfd99de274285ae6eacd318bb\n\n(For ppc64le architecture)\nThe image digest is sha256:0821035d379a4cab1147669bac5f42139b9839e780394e8586e29800e79789bd\n\n(For aarch64 architecture)\nThe image digest is sha256:a5c6196590d47b5ca8578e35c23da47cb103947271ab5deb21c8d258de62a777\n\nAll OpenShift Container Platform 4.11 users are advised to upgrade to these updated packages and images when they are available in the appropriate release channel. To check for available updates, use the OpenShift CLI (oc) or web console. Instructions for upgrading a cluster are available at\nhttps://docs.openshift.com/container-platform/4.11/updating/updating-cluster-cli.html\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:0774"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://github.com/Masterminds/goutils/commit/869801f20f9f1e7ecdbdb6422049d8241270d5e1",
+						"Description": "https://github.com/Masterminds/goutils/commit/869801f20f9f1e7ecdbdb6422049d8241270d5e1"
+					},
+					{
+						"URL": "https://github.com/advisories/GHSA-3839-6r69-m497",
+						"Description": "https://github.com/advisories/GHSA-3839-6r69-m497"
+					},
+					{
+						"URL": "https://pkg.go.dev/vuln/GO-2022-0411",
+						"Description": "https://pkg.go.dev/vuln/GO-2022-0411"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2021-4238",
+						"Description": "CVE-2021-4238"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2156729",
+						"Description": "bz#2156729: CVE-2021-4238 goutils: RandomAlphaNumeric and CryptoRandomAlphaNumeric are not as random as they should be"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2022-12-28T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-RHOSE-4.11:cluster-node-tuning-operator-container-v4.11.0-202302090828.p0.gd27a36e.assembly.stream",
+						"8Base-RHOSE-4.11:csi-driver-manila-container-v4.11.0-202302091416.p0.g5876145.assembly.stream",
+						"8Base-RHOSE-4.11:driver-toolkit-container-v4.11.0-202302071754.p0.g28589b0.assembly.stream",
+						"8Base-RHOSE-4.11:kuryr-cni-container-v4.11.0-202302090042.p0.g93daed6.assembly.stream",
+						"8Base-RHOSE-4.11:kuryr-controller-container-v4.11.0-202302090042.p0.g93daed6.assembly.stream",
+						"8Base-RHOSE-4.11:openshift-enterprise-console-container-v4.11.0-202302141441.p0.gadb1684.assembly.stream",
+						"8Base-RHOSE-4.11:openshift-enterprise-haproxy-router-container-v4.11.0-202302141555.p0.g601ba57.assembly.stream",
+						"8Base-RHOSE-4.11:openshift-enterprise-hyperkube-container-v4.11.0-202302071554.p0.gdeccab3.assembly.stream",
+						"8Base-RHOSE-4.11:openshift-enterprise-pod-container-v4.11.0-202302071554.p0.gdeccab3.assembly.stream",
+						"8Base-RHOSE-4.11:openshift-enterprise-tests-container-v4.11.0-202302091716.p0.gac2791c.assembly.stream",
+						"8Base-RHOSE-4.11:ose-baremetal-installer-container-v4.11.0-202302130454.p0.g59d1196.assembly.stream",
+						"8Base-RHOSE-4.11:ose-cluster-samples-operator-container-v4.11.0-202302131015.p0.g645e5ff.assembly.stream",
+						"8Base-RHOSE-4.11:ose-installer-artifacts-container-v4.11.0-202302130628.p0.g59d1196.assembly.stream",
+						"8Base-RHOSE-4.11:ose-installer-container-v4.11.0-202302130454.p0.g59d1196.assembly.stream",
+						"8Base-RHOSE-4.11:ose-machine-api-provider-openstack-container-v4.11.0-202302131215.p0.gf8ea13a.assembly.stream",
+						"8Base-RHOSE-4.11:ose-machine-os-images-container-v4.11.0-202302130628.p0.gb1580a2.assembly.stream",
+						"8Base-RHOSE-4.11:ose-multus-whereabouts-ipam-cni-container-v4.11.0-202302082242.p0.g08a91f1.assembly.stream",
+						"8Base-RHOSE-4.11:ose-network-tools-container-v4.11.0-202302132029.p0.g4e87286.assembly.stream",
+						"8Base-RHOSE-4.11:ose-node-container-v4.11.0-202302090042.p0.g6d45763.assembly.stream",
+						"8Base-RHOSE-4.11:ose-openstack-cinder-csi-driver-container-v4.11.0-202302091416.p0.g5876145.assembly.stream",
+						"8Base-RHOSE-4.11:ose-openstack-cloud-controller-manager-container-v4.11.0-202302091416.p0.g5876145.assembly.stream",
+						"8Base-RHOSE-4.11:ose-ovn-kubernetes-container-v4.11.0-202302132029.p0.g8e52d63.assembly.stream"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in golang. The language package for go language can panic due to an out-of-bounds read when an incorrectly formatted language tag is being parsed. This flaw allows an attacker to cause applications using this package to parse untrusted input data to crash, leading to a denial of service of the affected component.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2021-08-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2021-38561",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor OpenShift Container Platform 4.11 see the following documentation, which will be updated shortly for this release, for important instructions on how to upgrade your cluster and fully apply this asynchronous errata update:\n\nhttps://docs.openshift.com/container-platform/4.11/release_notes/ocp-4-11-release-notes.html\n\nYou can download the oc tool and use it to inspect release image metadata for x86_64, s390x, ppc64le, and aarch64 architectures. The image digests can be found at\nhttps://quay.io/repository/openshift-release-dev/ocp-release?tab=tags.\n\nThe sha values for the release are:\n\n(For x86_64 architecture)\nThe image digest is sha256:85238bc3eddb88e958535597dbe8ec6f2aa88aa1713c2e1ee7faf88d1fefdac0\n\n(For s390x architecture)\nThe image digest is sha256:96528500690870b001c214ed0b142b5b375494ddfd99de274285ae6eacd318bb\n\n(For ppc64le architecture)\nThe image digest is sha256:0821035d379a4cab1147669bac5f42139b9839e780394e8586e29800e79789bd\n\n(For aarch64 architecture)\nThe image digest is sha256:a5c6196590d47b5ca8578e35c23da47cb103947271ab5deb21c8d258de62a777\n\nAll OpenShift Container Platform 4.11 users are advised to upgrade to these updated packages and images when they are available in the appropriate release channel. To check for available updates, use the OpenShift CLI (oc) or web console. Instructions for upgrading a cluster are available at\nhttps://docs.openshift.com/container-platform/4.11/updating/updating-cluster-cli.html\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:0774"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://pkg.go.dev/vuln/GO-2021-0113",
+						"Description": "https://pkg.go.dev/vuln/GO-2021-0113"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2021-38561",
+						"Description": "CVE-2021-38561"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2100495",
+						"Description": "bz#2100495: CVE-2021-38561 golang: out-of-bounds read in golang.org/x/text/language leads to DoS"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2022-06-23T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-RHOSE-4.11:cluster-node-tuning-operator-container-v4.11.0-202302090828.p0.gd27a36e.assembly.stream",
+						"8Base-RHOSE-4.11:csi-driver-manila-container-v4.11.0-202302091416.p0.g5876145.assembly.stream",
+						"8Base-RHOSE-4.11:driver-toolkit-container-v4.11.0-202302071754.p0.g28589b0.assembly.stream",
+						"8Base-RHOSE-4.11:kuryr-cni-container-v4.11.0-202302090042.p0.g93daed6.assembly.stream",
+						"8Base-RHOSE-4.11:kuryr-controller-container-v4.11.0-202302090042.p0.g93daed6.assembly.stream",
+						"8Base-RHOSE-4.11:openshift-enterprise-console-container-v4.11.0-202302141441.p0.gadb1684.assembly.stream",
+						"8Base-RHOSE-4.11:openshift-enterprise-haproxy-router-container-v4.11.0-202302141555.p0.g601ba57.assembly.stream",
+						"8Base-RHOSE-4.11:openshift-enterprise-hyperkube-container-v4.11.0-202302071554.p0.gdeccab3.assembly.stream",
+						"8Base-RHOSE-4.11:openshift-enterprise-pod-container-v4.11.0-202302071554.p0.gdeccab3.assembly.stream",
+						"8Base-RHOSE-4.11:openshift-enterprise-tests-container-v4.11.0-202302091716.p0.gac2791c.assembly.stream",
+						"8Base-RHOSE-4.11:ose-baremetal-installer-container-v4.11.0-202302130454.p0.g59d1196.assembly.stream",
+						"8Base-RHOSE-4.11:ose-cluster-samples-operator-container-v4.11.0-202302131015.p0.g645e5ff.assembly.stream",
+						"8Base-RHOSE-4.11:ose-installer-artifacts-container-v4.11.0-202302130628.p0.g59d1196.assembly.stream",
+						"8Base-RHOSE-4.11:ose-installer-container-v4.11.0-202302130454.p0.g59d1196.assembly.stream",
+						"8Base-RHOSE-4.11:ose-machine-api-provider-openstack-container-v4.11.0-202302131215.p0.gf8ea13a.assembly.stream",
+						"8Base-RHOSE-4.11:ose-machine-os-images-container-v4.11.0-202302130628.p0.gb1580a2.assembly.stream",
+						"8Base-RHOSE-4.11:ose-multus-whereabouts-ipam-cni-container-v4.11.0-202302082242.p0.g08a91f1.assembly.stream",
+						"8Base-RHOSE-4.11:ose-network-tools-container-v4.11.0-202302132029.p0.g4e87286.assembly.stream",
+						"8Base-RHOSE-4.11:ose-node-container-v4.11.0-202302090042.p0.g6d45763.assembly.stream",
+						"8Base-RHOSE-4.11:ose-openstack-cinder-csi-driver-container-v4.11.0-202302091416.p0.g5876145.assembly.stream",
+						"8Base-RHOSE-4.11:ose-openstack-cloud-controller-manager-container-v4.11.0-202302091416.p0.g5876145.assembly.stream",
+						"8Base-RHOSE-4.11:ose-ovn-kubernetes-container-v4.11.0-202302132029.p0.g8e52d63.assembly.stream"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in the net/http library of the golang package. This flaw allows an attacker to cause excessive memory growth in a Go server accepting HTTP/2 requests. HTTP/2 server connections contain a cache of HTTP header keys sent by the client. While the total number of entries in this cache is capped, an attacker sending very large keys can cause the server to allocate approximately 64 MiB per open connection.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-11-30T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-41717",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor OpenShift Container Platform 4.11 see the following documentation, which will be updated shortly for this release, for important instructions on how to upgrade your cluster and fully apply this asynchronous errata update:\n\nhttps://docs.openshift.com/container-platform/4.11/release_notes/ocp-4-11-release-notes.html\n\nYou can download the oc tool and use it to inspect release image metadata for x86_64, s390x, ppc64le, and aarch64 architectures. The image digests can be found at\nhttps://quay.io/repository/openshift-release-dev/ocp-release?tab=tags.\n\nThe sha values for the release are:\n\n(For x86_64 architecture)\nThe image digest is sha256:85238bc3eddb88e958535597dbe8ec6f2aa88aa1713c2e1ee7faf88d1fefdac0\n\n(For s390x architecture)\nThe image digest is sha256:96528500690870b001c214ed0b142b5b375494ddfd99de274285ae6eacd318bb\n\n(For ppc64le architecture)\nThe image digest is sha256:0821035d379a4cab1147669bac5f42139b9839e780394e8586e29800e79789bd\n\n(For aarch64 architecture)\nThe image digest is sha256:a5c6196590d47b5ca8578e35c23da47cb103947271ab5deb21c8d258de62a777\n\nAll OpenShift Container Platform 4.11 users are advised to upgrade to these updated packages and images when they are available in the appropriate release channel. To check for available updates, use the OpenShift CLI (oc) or web console. Instructions for upgrading a cluster are available at\nhttps://docs.openshift.com/container-platform/4.11/updating/updating-cluster-cli.html\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:0774"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://go.dev/cl/455635",
+						"Description": "https://go.dev/cl/455635"
+					},
+					{
+						"URL": "https://go.dev/cl/455717",
+						"Description": "https://go.dev/cl/455717"
+					},
+					{
+						"URL": "https://go.dev/issue/56350",
+						"Description": "https://go.dev/issue/56350"
+					},
+					{
+						"URL": "https://groups.google.com/g/golang-announce/c/L_3rmdT0BMU/m/yZDrXjIiBQAJ",
+						"Description": "https://groups.google.com/g/golang-announce/c/L_3rmdT0BMU/m/yZDrXjIiBQAJ"
+					},
+					{
+						"URL": "https://pkg.go.dev/vuln/GO-2022-1144",
+						"Description": "https://pkg.go.dev/vuln/GO-2022-1144"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-41717",
+						"Description": "CVE-2022-41717"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2161274",
+						"Description": "bz#2161274: CVE-2022-41717 golang: net/http: An attacker can cause excessive memory growth in a Go server accepting HTTP/2 requests"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2023-01-16T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-RHOSE-4.11:cluster-node-tuning-operator-container-v4.11.0-202302090828.p0.gd27a36e.assembly.stream",
+						"8Base-RHOSE-4.11:csi-driver-manila-container-v4.11.0-202302091416.p0.g5876145.assembly.stream",
+						"8Base-RHOSE-4.11:driver-toolkit-container-v4.11.0-202302071754.p0.g28589b0.assembly.stream",
+						"8Base-RHOSE-4.11:kuryr-cni-container-v4.11.0-202302090042.p0.g93daed6.assembly.stream",
+						"8Base-RHOSE-4.11:kuryr-controller-container-v4.11.0-202302090042.p0.g93daed6.assembly.stream",
+						"8Base-RHOSE-4.11:openshift-enterprise-console-container-v4.11.0-202302141441.p0.gadb1684.assembly.stream",
+						"8Base-RHOSE-4.11:openshift-enterprise-haproxy-router-container-v4.11.0-202302141555.p0.g601ba57.assembly.stream",
+						"8Base-RHOSE-4.11:openshift-enterprise-hyperkube-container-v4.11.0-202302071554.p0.gdeccab3.assembly.stream",
+						"8Base-RHOSE-4.11:openshift-enterprise-pod-container-v4.11.0-202302071554.p0.gdeccab3.assembly.stream",
+						"8Base-RHOSE-4.11:openshift-enterprise-tests-container-v4.11.0-202302091716.p0.gac2791c.assembly.stream",
+						"8Base-RHOSE-4.11:ose-baremetal-installer-container-v4.11.0-202302130454.p0.g59d1196.assembly.stream",
+						"8Base-RHOSE-4.11:ose-cluster-samples-operator-container-v4.11.0-202302131015.p0.g645e5ff.assembly.stream",
+						"8Base-RHOSE-4.11:ose-installer-artifacts-container-v4.11.0-202302130628.p0.g59d1196.assembly.stream",
+						"8Base-RHOSE-4.11:ose-installer-container-v4.11.0-202302130454.p0.g59d1196.assembly.stream",
+						"8Base-RHOSE-4.11:ose-machine-api-provider-openstack-container-v4.11.0-202302131215.p0.gf8ea13a.assembly.stream",
+						"8Base-RHOSE-4.11:ose-machine-os-images-container-v4.11.0-202302130628.p0.gb1580a2.assembly.stream",
+						"8Base-RHOSE-4.11:ose-multus-whereabouts-ipam-cni-container-v4.11.0-202302082242.p0.g08a91f1.assembly.stream",
+						"8Base-RHOSE-4.11:ose-network-tools-container-v4.11.0-202302132029.p0.g4e87286.assembly.stream",
+						"8Base-RHOSE-4.11:ose-node-container-v4.11.0-202302090042.p0.g6d45763.assembly.stream",
+						"8Base-RHOSE-4.11:ose-openstack-cinder-csi-driver-container-v4.11.0-202302091416.p0.g5876145.assembly.stream",
+						"8Base-RHOSE-4.11:ose-openstack-cloud-controller-manager-container-v4.11.0-202302091416.p0.g5876145.assembly.stream",
+						"8Base-RHOSE-4.11:ose-ovn-kubernetes-container-v4.11.0-202302132029.p0.g8e52d63.assembly.stream"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat OpenShift Enterprise",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat OpenShift Container Platform 4.11",
+						"fullproductname": {
+							"text": "Red Hat OpenShift Container Platform 4.11",
+							"productid": "8Base-RHOSE-4.11",
+							"cpe": "cpe:/a:redhat:openshift:4.11::el8"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "openshift4/driver-toolkit-rhel8:v4.11.0-202302071754.p0.g28589b0.assembly.stream",
+				"fullproductname": {
+					"text": "openshift4/driver-toolkit-rhel8:v4.11.0-202302071754.p0.g28589b0.assembly.stream",
+					"productid": "openshift4/driver-toolkit-rhel8:v4.11.0-202302071754.p0.g28589b0.assembly.stream",
+					"cpe": "cpe:/a:redhat:openshift:4.11::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openshift4/network-tools-rhel8:v4.11.0-202302132029.p0.g4e87286.assembly.stream",
+				"fullproductname": {
+					"text": "openshift4/network-tools-rhel8:v4.11.0-202302132029.p0.g4e87286.assembly.stream",
+					"productid": "openshift4/network-tools-rhel8:v4.11.0-202302132029.p0.g4e87286.assembly.stream",
+					"cpe": "cpe:/a:redhat:openshift:4.11::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openshift4/ose-baremetal-installer-rhel8:v4.11.0-202302130454.p0.g59d1196.assembly.stream",
+				"fullproductname": {
+					"text": "openshift4/ose-baremetal-installer-rhel8:v4.11.0-202302130454.p0.g59d1196.assembly.stream",
+					"productid": "openshift4/ose-baremetal-installer-rhel8:v4.11.0-202302130454.p0.g59d1196.assembly.stream",
+					"cpe": "cpe:/a:redhat:openshift:4.11::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openshift4/ose-cluster-node-tuning-operator:v4.11.0-202302090828.p0.gd27a36e.assembly.stream",
+				"fullproductname": {
+					"text": "openshift4/ose-cluster-node-tuning-operator:v4.11.0-202302090828.p0.gd27a36e.assembly.stream",
+					"productid": "openshift4/ose-cluster-node-tuning-operator:v4.11.0-202302090828.p0.gd27a36e.assembly.stream",
+					"cpe": "cpe:/a:redhat:openshift:4.11::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openshift4/ose-cluster-samples-operator:v4.11.0-202302131015.p0.g645e5ff.assembly.stream",
+				"fullproductname": {
+					"text": "openshift4/ose-cluster-samples-operator:v4.11.0-202302131015.p0.g645e5ff.assembly.stream",
+					"productid": "openshift4/ose-cluster-samples-operator:v4.11.0-202302131015.p0.g645e5ff.assembly.stream",
+					"cpe": "cpe:/a:redhat:openshift:4.11::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openshift4/ose-console:v4.11.0-202302141441.p0.gadb1684.assembly.stream",
+				"fullproductname": {
+					"text": "openshift4/ose-console:v4.11.0-202302141441.p0.gadb1684.assembly.stream",
+					"productid": "openshift4/ose-console:v4.11.0-202302141441.p0.gadb1684.assembly.stream",
+					"cpe": "cpe:/a:redhat:openshift:4.11::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openshift4/ose-csi-driver-manila-rhel8:v4.11.0-202302091416.p0.g5876145.assembly.stream",
+				"fullproductname": {
+					"text": "openshift4/ose-csi-driver-manila-rhel8:v4.11.0-202302091416.p0.g5876145.assembly.stream",
+					"productid": "openshift4/ose-csi-driver-manila-rhel8:v4.11.0-202302091416.p0.g5876145.assembly.stream",
+					"cpe": "cpe:/a:redhat:openshift:4.11::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openshift4/ose-haproxy-router:v4.11.0-202302141555.p0.g601ba57.assembly.stream",
+				"fullproductname": {
+					"text": "openshift4/ose-haproxy-router:v4.11.0-202302141555.p0.g601ba57.assembly.stream",
+					"productid": "openshift4/ose-haproxy-router:v4.11.0-202302141555.p0.g601ba57.assembly.stream",
+					"cpe": "cpe:/a:redhat:openshift:4.11::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openshift4/ose-hyperkube:v4.11.0-202302071554.p0.gdeccab3.assembly.stream",
+				"fullproductname": {
+					"text": "openshift4/ose-hyperkube:v4.11.0-202302071554.p0.gdeccab3.assembly.stream",
+					"productid": "openshift4/ose-hyperkube:v4.11.0-202302071554.p0.gdeccab3.assembly.stream",
+					"cpe": "cpe:/a:redhat:openshift:4.11::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openshift4/ose-installer-artifacts:v4.11.0-202302130628.p0.g59d1196.assembly.stream",
+				"fullproductname": {
+					"text": "openshift4/ose-installer-artifacts:v4.11.0-202302130628.p0.g59d1196.assembly.stream",
+					"productid": "openshift4/ose-installer-artifacts:v4.11.0-202302130628.p0.g59d1196.assembly.stream",
+					"cpe": "cpe:/a:redhat:openshift:4.11::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openshift4/ose-installer:v4.11.0-202302130454.p0.g59d1196.assembly.stream",
+				"fullproductname": {
+					"text": "openshift4/ose-installer:v4.11.0-202302130454.p0.g59d1196.assembly.stream",
+					"productid": "openshift4/ose-installer:v4.11.0-202302130454.p0.g59d1196.assembly.stream",
+					"cpe": "cpe:/a:redhat:openshift:4.11::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openshift4/ose-kuryr-cni-rhel8:v4.11.0-202302090042.p0.g93daed6.assembly.stream",
+				"fullproductname": {
+					"text": "openshift4/ose-kuryr-cni-rhel8:v4.11.0-202302090042.p0.g93daed6.assembly.stream",
+					"productid": "openshift4/ose-kuryr-cni-rhel8:v4.11.0-202302090042.p0.g93daed6.assembly.stream",
+					"cpe": "cpe:/a:redhat:openshift:4.11::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openshift4/ose-kuryr-controller-rhel8:v4.11.0-202302090042.p0.g93daed6.assembly.stream",
+				"fullproductname": {
+					"text": "openshift4/ose-kuryr-controller-rhel8:v4.11.0-202302090042.p0.g93daed6.assembly.stream",
+					"productid": "openshift4/ose-kuryr-controller-rhel8:v4.11.0-202302090042.p0.g93daed6.assembly.stream",
+					"cpe": "cpe:/a:redhat:openshift:4.11::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openshift4/ose-machine-api-provider-openstack-rhel8:v4.11.0-202302131215.p0.gf8ea13a.assembly.stream",
+				"fullproductname": {
+					"text": "openshift4/ose-machine-api-provider-openstack-rhel8:v4.11.0-202302131215.p0.gf8ea13a.assembly.stream",
+					"productid": "openshift4/ose-machine-api-provider-openstack-rhel8:v4.11.0-202302131215.p0.gf8ea13a.assembly.stream",
+					"cpe": "cpe:/a:redhat:openshift:4.11::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openshift4/ose-machine-os-images-rhel8:v4.11.0-202302130628.p0.gb1580a2.assembly.stream",
+				"fullproductname": {
+					"text": "openshift4/ose-machine-os-images-rhel8:v4.11.0-202302130628.p0.gb1580a2.assembly.stream",
+					"productid": "openshift4/ose-machine-os-images-rhel8:v4.11.0-202302130628.p0.gb1580a2.assembly.stream",
+					"cpe": "cpe:/a:redhat:openshift:4.11::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openshift4/ose-multus-whereabouts-ipam-cni-rhel8:v4.11.0-202302082242.p0.g08a91f1.assembly.stream",
+				"fullproductname": {
+					"text": "openshift4/ose-multus-whereabouts-ipam-cni-rhel8:v4.11.0-202302082242.p0.g08a91f1.assembly.stream",
+					"productid": "openshift4/ose-multus-whereabouts-ipam-cni-rhel8:v4.11.0-202302082242.p0.g08a91f1.assembly.stream",
+					"cpe": "cpe:/a:redhat:openshift:4.11::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openshift4/ose-openstack-cinder-csi-driver-rhel8:v4.11.0-202302091416.p0.g5876145.assembly.stream",
+				"fullproductname": {
+					"text": "openshift4/ose-openstack-cinder-csi-driver-rhel8:v4.11.0-202302091416.p0.g5876145.assembly.stream",
+					"productid": "openshift4/ose-openstack-cinder-csi-driver-rhel8:v4.11.0-202302091416.p0.g5876145.assembly.stream",
+					"cpe": "cpe:/a:redhat:openshift:4.11::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openshift4/ose-openstack-cloud-controller-manager-rhel8:v4.11.0-202302091416.p0.g5876145.assembly.stream",
+				"fullproductname": {
+					"text": "openshift4/ose-openstack-cloud-controller-manager-rhel8:v4.11.0-202302091416.p0.g5876145.assembly.stream",
+					"productid": "openshift4/ose-openstack-cloud-controller-manager-rhel8:v4.11.0-202302091416.p0.g5876145.assembly.stream",
+					"cpe": "cpe:/a:redhat:openshift:4.11::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openshift4/ose-ovn-kubernetes:v4.11.0-202302132029.p0.g8e52d63.assembly.stream",
+				"fullproductname": {
+					"text": "openshift4/ose-ovn-kubernetes:v4.11.0-202302132029.p0.g8e52d63.assembly.stream",
+					"productid": "openshift4/ose-ovn-kubernetes:v4.11.0-202302132029.p0.g8e52d63.assembly.stream",
+					"cpe": "cpe:/a:redhat:openshift:4.11::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openshift4/ose-pod:v4.11.0-202302071554.p0.gdeccab3.assembly.stream",
+				"fullproductname": {
+					"text": "openshift4/ose-pod:v4.11.0-202302071554.p0.gdeccab3.assembly.stream",
+					"productid": "openshift4/ose-pod:v4.11.0-202302071554.p0.gdeccab3.assembly.stream",
+					"cpe": "cpe:/a:redhat:openshift:4.11::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openshift4/ose-sdn-rhel8:v4.11.0-202302090042.p0.g6d45763.assembly.stream",
+				"fullproductname": {
+					"text": "openshift4/ose-sdn-rhel8:v4.11.0-202302090042.p0.g6d45763.assembly.stream",
+					"productid": "openshift4/ose-sdn-rhel8:v4.11.0-202302090042.p0.g6d45763.assembly.stream",
+					"cpe": "cpe:/a:redhat:openshift:4.11::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openshift4/ose-tests:v4.11.0-202302091716.p0.gac2791c.assembly.stream",
+				"fullproductname": {
+					"text": "openshift4/ose-tests:v4.11.0-202302091716.p0.gac2791c.assembly.stream",
+					"productid": "openshift4/ose-tests:v4.11.0-202302091716.p0.gac2791c.assembly.stream",
+					"cpe": "cpe:/a:redhat:openshift:4.11::el8"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "cluster-node-tuning-operator-container-v4.11.0-202302090828.p0.gd27a36e.assembly.stream",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHOSE-4.11",
+				"fullproductname": {
+					"text": "cluster-node-tuning-operator-container-v4.11.0-202302090828.p0.gd27a36e.assembly.stream as a component of Red Hat OpenShift Container Platform 4.11",
+					"productid": "8Base-RHOSE-4.11:cluster-node-tuning-operator-container-v4.11.0-202302090828.p0.gd27a36e.assembly.stream",
+					"cpe": "cpe:/a:redhat:openshift:4.11::el8"
+				}
+			},
+			{
+				"productreference": "csi-driver-manila-container-v4.11.0-202302091416.p0.g5876145.assembly.stream",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHOSE-4.11",
+				"fullproductname": {
+					"text": "csi-driver-manila-container-v4.11.0-202302091416.p0.g5876145.assembly.stream as a component of Red Hat OpenShift Container Platform 4.11",
+					"productid": "8Base-RHOSE-4.11:csi-driver-manila-container-v4.11.0-202302091416.p0.g5876145.assembly.stream",
+					"cpe": "cpe:/a:redhat:openshift:4.11::el8"
+				}
+			},
+			{
+				"productreference": "driver-toolkit-container-v4.11.0-202302071754.p0.g28589b0.assembly.stream",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHOSE-4.11",
+				"fullproductname": {
+					"text": "driver-toolkit-container-v4.11.0-202302071754.p0.g28589b0.assembly.stream as a component of Red Hat OpenShift Container Platform 4.11",
+					"productid": "8Base-RHOSE-4.11:driver-toolkit-container-v4.11.0-202302071754.p0.g28589b0.assembly.stream",
+					"cpe": "cpe:/a:redhat:openshift:4.11::el8"
+				}
+			},
+			{
+				"productreference": "kuryr-cni-container-v4.11.0-202302090042.p0.g93daed6.assembly.stream",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHOSE-4.11",
+				"fullproductname": {
+					"text": "kuryr-cni-container-v4.11.0-202302090042.p0.g93daed6.assembly.stream as a component of Red Hat OpenShift Container Platform 4.11",
+					"productid": "8Base-RHOSE-4.11:kuryr-cni-container-v4.11.0-202302090042.p0.g93daed6.assembly.stream",
+					"cpe": "cpe:/a:redhat:openshift:4.11::el8"
+				}
+			},
+			{
+				"productreference": "kuryr-controller-container-v4.11.0-202302090042.p0.g93daed6.assembly.stream",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHOSE-4.11",
+				"fullproductname": {
+					"text": "kuryr-controller-container-v4.11.0-202302090042.p0.g93daed6.assembly.stream as a component of Red Hat OpenShift Container Platform 4.11",
+					"productid": "8Base-RHOSE-4.11:kuryr-controller-container-v4.11.0-202302090042.p0.g93daed6.assembly.stream",
+					"cpe": "cpe:/a:redhat:openshift:4.11::el8"
+				}
+			},
+			{
+				"productreference": "openshift-enterprise-console-container-v4.11.0-202302141441.p0.gadb1684.assembly.stream",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHOSE-4.11",
+				"fullproductname": {
+					"text": "openshift-enterprise-console-container-v4.11.0-202302141441.p0.gadb1684.assembly.stream as a component of Red Hat OpenShift Container Platform 4.11",
+					"productid": "8Base-RHOSE-4.11:openshift-enterprise-console-container-v4.11.0-202302141441.p0.gadb1684.assembly.stream",
+					"cpe": "cpe:/a:redhat:openshift:4.11::el8"
+				}
+			},
+			{
+				"productreference": "openshift-enterprise-haproxy-router-container-v4.11.0-202302141555.p0.g601ba57.assembly.stream",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHOSE-4.11",
+				"fullproductname": {
+					"text": "openshift-enterprise-haproxy-router-container-v4.11.0-202302141555.p0.g601ba57.assembly.stream as a component of Red Hat OpenShift Container Platform 4.11",
+					"productid": "8Base-RHOSE-4.11:openshift-enterprise-haproxy-router-container-v4.11.0-202302141555.p0.g601ba57.assembly.stream",
+					"cpe": "cpe:/a:redhat:openshift:4.11::el8"
+				}
+			},
+			{
+				"productreference": "openshift-enterprise-hyperkube-container-v4.11.0-202302071554.p0.gdeccab3.assembly.stream",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHOSE-4.11",
+				"fullproductname": {
+					"text": "openshift-enterprise-hyperkube-container-v4.11.0-202302071554.p0.gdeccab3.assembly.stream as a component of Red Hat OpenShift Container Platform 4.11",
+					"productid": "8Base-RHOSE-4.11:openshift-enterprise-hyperkube-container-v4.11.0-202302071554.p0.gdeccab3.assembly.stream",
+					"cpe": "cpe:/a:redhat:openshift:4.11::el8"
+				}
+			},
+			{
+				"productreference": "openshift-enterprise-pod-container-v4.11.0-202302071554.p0.gdeccab3.assembly.stream",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHOSE-4.11",
+				"fullproductname": {
+					"text": "openshift-enterprise-pod-container-v4.11.0-202302071554.p0.gdeccab3.assembly.stream as a component of Red Hat OpenShift Container Platform 4.11",
+					"productid": "8Base-RHOSE-4.11:openshift-enterprise-pod-container-v4.11.0-202302071554.p0.gdeccab3.assembly.stream",
+					"cpe": "cpe:/a:redhat:openshift:4.11::el8"
+				}
+			},
+			{
+				"productreference": "openshift-enterprise-tests-container-v4.11.0-202302091716.p0.gac2791c.assembly.stream",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHOSE-4.11",
+				"fullproductname": {
+					"text": "openshift-enterprise-tests-container-v4.11.0-202302091716.p0.gac2791c.assembly.stream as a component of Red Hat OpenShift Container Platform 4.11",
+					"productid": "8Base-RHOSE-4.11:openshift-enterprise-tests-container-v4.11.0-202302091716.p0.gac2791c.assembly.stream",
+					"cpe": "cpe:/a:redhat:openshift:4.11::el8"
+				}
+			},
+			{
+				"productreference": "ose-baremetal-installer-container-v4.11.0-202302130454.p0.g59d1196.assembly.stream",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHOSE-4.11",
+				"fullproductname": {
+					"text": "ose-baremetal-installer-container-v4.11.0-202302130454.p0.g59d1196.assembly.stream as a component of Red Hat OpenShift Container Platform 4.11",
+					"productid": "8Base-RHOSE-4.11:ose-baremetal-installer-container-v4.11.0-202302130454.p0.g59d1196.assembly.stream",
+					"cpe": "cpe:/a:redhat:openshift:4.11::el8"
+				}
+			},
+			{
+				"productreference": "ose-cluster-samples-operator-container-v4.11.0-202302131015.p0.g645e5ff.assembly.stream",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHOSE-4.11",
+				"fullproductname": {
+					"text": "ose-cluster-samples-operator-container-v4.11.0-202302131015.p0.g645e5ff.assembly.stream as a component of Red Hat OpenShift Container Platform 4.11",
+					"productid": "8Base-RHOSE-4.11:ose-cluster-samples-operator-container-v4.11.0-202302131015.p0.g645e5ff.assembly.stream",
+					"cpe": "cpe:/a:redhat:openshift:4.11::el8"
+				}
+			},
+			{
+				"productreference": "ose-installer-artifacts-container-v4.11.0-202302130628.p0.g59d1196.assembly.stream",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHOSE-4.11",
+				"fullproductname": {
+					"text": "ose-installer-artifacts-container-v4.11.0-202302130628.p0.g59d1196.assembly.stream as a component of Red Hat OpenShift Container Platform 4.11",
+					"productid": "8Base-RHOSE-4.11:ose-installer-artifacts-container-v4.11.0-202302130628.p0.g59d1196.assembly.stream",
+					"cpe": "cpe:/a:redhat:openshift:4.11::el8"
+				}
+			},
+			{
+				"productreference": "ose-installer-container-v4.11.0-202302130454.p0.g59d1196.assembly.stream",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHOSE-4.11",
+				"fullproductname": {
+					"text": "ose-installer-container-v4.11.0-202302130454.p0.g59d1196.assembly.stream as a component of Red Hat OpenShift Container Platform 4.11",
+					"productid": "8Base-RHOSE-4.11:ose-installer-container-v4.11.0-202302130454.p0.g59d1196.assembly.stream",
+					"cpe": "cpe:/a:redhat:openshift:4.11::el8"
+				}
+			},
+			{
+				"productreference": "ose-machine-api-provider-openstack-container-v4.11.0-202302131215.p0.gf8ea13a.assembly.stream",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHOSE-4.11",
+				"fullproductname": {
+					"text": "ose-machine-api-provider-openstack-container-v4.11.0-202302131215.p0.gf8ea13a.assembly.stream as a component of Red Hat OpenShift Container Platform 4.11",
+					"productid": "8Base-RHOSE-4.11:ose-machine-api-provider-openstack-container-v4.11.0-202302131215.p0.gf8ea13a.assembly.stream",
+					"cpe": "cpe:/a:redhat:openshift:4.11::el8"
+				}
+			},
+			{
+				"productreference": "ose-machine-os-images-container-v4.11.0-202302130628.p0.gb1580a2.assembly.stream",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHOSE-4.11",
+				"fullproductname": {
+					"text": "ose-machine-os-images-container-v4.11.0-202302130628.p0.gb1580a2.assembly.stream as a component of Red Hat OpenShift Container Platform 4.11",
+					"productid": "8Base-RHOSE-4.11:ose-machine-os-images-container-v4.11.0-202302130628.p0.gb1580a2.assembly.stream",
+					"cpe": "cpe:/a:redhat:openshift:4.11::el8"
+				}
+			},
+			{
+				"productreference": "ose-multus-whereabouts-ipam-cni-container-v4.11.0-202302082242.p0.g08a91f1.assembly.stream",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHOSE-4.11",
+				"fullproductname": {
+					"text": "ose-multus-whereabouts-ipam-cni-container-v4.11.0-202302082242.p0.g08a91f1.assembly.stream as a component of Red Hat OpenShift Container Platform 4.11",
+					"productid": "8Base-RHOSE-4.11:ose-multus-whereabouts-ipam-cni-container-v4.11.0-202302082242.p0.g08a91f1.assembly.stream",
+					"cpe": "cpe:/a:redhat:openshift:4.11::el8"
+				}
+			},
+			{
+				"productreference": "ose-network-tools-container-v4.11.0-202302132029.p0.g4e87286.assembly.stream",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHOSE-4.11",
+				"fullproductname": {
+					"text": "ose-network-tools-container-v4.11.0-202302132029.p0.g4e87286.assembly.stream as a component of Red Hat OpenShift Container Platform 4.11",
+					"productid": "8Base-RHOSE-4.11:ose-network-tools-container-v4.11.0-202302132029.p0.g4e87286.assembly.stream",
+					"cpe": "cpe:/a:redhat:openshift:4.11::el8"
+				}
+			},
+			{
+				"productreference": "ose-node-container-v4.11.0-202302090042.p0.g6d45763.assembly.stream",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHOSE-4.11",
+				"fullproductname": {
+					"text": "ose-node-container-v4.11.0-202302090042.p0.g6d45763.assembly.stream as a component of Red Hat OpenShift Container Platform 4.11",
+					"productid": "8Base-RHOSE-4.11:ose-node-container-v4.11.0-202302090042.p0.g6d45763.assembly.stream",
+					"cpe": "cpe:/a:redhat:openshift:4.11::el8"
+				}
+			},
+			{
+				"productreference": "ose-openstack-cinder-csi-driver-container-v4.11.0-202302091416.p0.g5876145.assembly.stream",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHOSE-4.11",
+				"fullproductname": {
+					"text": "ose-openstack-cinder-csi-driver-container-v4.11.0-202302091416.p0.g5876145.assembly.stream as a component of Red Hat OpenShift Container Platform 4.11",
+					"productid": "8Base-RHOSE-4.11:ose-openstack-cinder-csi-driver-container-v4.11.0-202302091416.p0.g5876145.assembly.stream",
+					"cpe": "cpe:/a:redhat:openshift:4.11::el8"
+				}
+			},
+			{
+				"productreference": "ose-openstack-cloud-controller-manager-container-v4.11.0-202302091416.p0.g5876145.assembly.stream",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHOSE-4.11",
+				"fullproductname": {
+					"text": "ose-openstack-cloud-controller-manager-container-v4.11.0-202302091416.p0.g5876145.assembly.stream as a component of Red Hat OpenShift Container Platform 4.11",
+					"productid": "8Base-RHOSE-4.11:ose-openstack-cloud-controller-manager-container-v4.11.0-202302091416.p0.g5876145.assembly.stream",
+					"cpe": "cpe:/a:redhat:openshift:4.11::el8"
+				}
+			},
+			{
+				"productreference": "ose-ovn-kubernetes-container-v4.11.0-202302132029.p0.g8e52d63.assembly.stream",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHOSE-4.11",
+				"fullproductname": {
+					"text": "ose-ovn-kubernetes-container-v4.11.0-202302132029.p0.g8e52d63.assembly.stream as a component of Red Hat OpenShift Container Platform 4.11",
+					"productid": "8Base-RHOSE-4.11:ose-ovn-kubernetes-container-v4.11.0-202302132029.p0.g8e52d63.assembly.stream",
+					"cpe": "cpe:/a:redhat:openshift:4.11::el8"
+				}
+			}
+		]
+	}
+}

@@ -1,0 +1,1318 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: container-tools:4.0 security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2023:2802"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2023-05-16T08:59:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2023-05-16T08:59:00Z",
+		"CurrentReleaseDate": "2023-05-16T08:59:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.14.1",
+			"Date": "2023-05-16T14:17:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nAn update for the container-tools:4.0 module is now available for Red Hat Enterprise Linux 8.\n\nRed Hat Product Security has rated this update as having a security impact of Moderate. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe container-tools module contains tools for working with containers, notably podman, buildah, skopeo, and runc.\n\nSecurity Fix(es):\n\n* golang: net/http: improper sanitization of Transfer-Encoding header (CVE-2022-1705)\n\n* golang: go/parser: stack exhaustion in all Parse* functions (CVE-2022-1962)\n\n* golang: net/http: handle server errors after sending GOAWAY (CVE-2022-27664)\n\n* golang: encoding/xml: stack exhaustion in Decoder.Skip (CVE-2022-28131)\n\n* golang: io/fs: stack exhaustion in Glob (CVE-2022-30630)\n\n* golang: compress/gzip: stack exhaustion in Reader.Read (CVE-2022-30631)\n\n* golang: path/filepath: stack exhaustion in Glob (CVE-2022-30632)\n\n* golang: encoding/xml: stack exhaustion in Unmarshal (CVE-2022-30633)\n\n* golang: encoding/gob: stack exhaustion in Decoder.Decode (CVE-2022-30635)\n\n* golang: net/http/httputil: NewSingleHostReverseProxy - omit X-Forwarded-For not working (CVE-2022-32148)\n\n* golang: net/http: excessive memory growth in a Go server accepting HTTP/2 requests (CVE-2022-41717)\n\n* podman: symlink exchange attack in podman export volume (CVE-2023-0778)\n\n* podman: possible information disclosure and modification (CVE-2022-2989)\n\n* golang: math/big: decoding big.Float and big.Rat types can panic if the encoded message is too short, potentially allowing a denial of service (CVE-2022-32189)\n\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\n\nAdditional Changes:\n\nFor detailed information on changes in this release, see the Red Hat Enterprise Linux 8.8 Release Notes linked from the References section.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2023 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2023:2802",
+				"Description": "https://access.redhat.com/errata/RHSA-2023:2802"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/8.8_release_notes/index",
+				"Description": "https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/8.8_release_notes/index"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in golang. The HTTP/1 client accepted invalid Transfer-Encoding headers indicating \"chunked\" encoding. This issue could allow request smuggling, but only if combined with an intermediate server that also improperly accepts the header as invalid.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-07-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-1705",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:2802"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2022-1705",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2022-1705"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2022-1705",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2022-1705"
+					},
+					{
+						"URL": "https://go.dev/issue/53188",
+						"Description": "https://go.dev/issue/53188"
+					},
+					{
+						"URL": "https://groups.google.com/g/golang-announce/c/nqrv9fbR0zE",
+						"Description": "https://groups.google.com/g/golang-announce/c/nqrv9fbR0zE"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-1705",
+						"Description": "CVE-2022-1705"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2107374",
+						"Description": "bz#2107374: improper sanitization of Transfer-Encoding header"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2022-07-14T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"AppStream-8.8.0.GA:container-tools:4.0-8080020230217080101.8108cfbc"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in the golang standard library, go/parser. When calling any Parse functions on the Go source code, which contains deeply nested types or declarations, a panic can occur due to stack exhaustion. This issue allows an attacker to impact system availability.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-07-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-1962",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:2802"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2022-1962",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2022-1962"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2022-1962",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2022-1962"
+					},
+					{
+						"URL": "https://go.dev/issue/53616",
+						"Description": "https://go.dev/issue/53616"
+					},
+					{
+						"URL": "https://groups.google.com/g/golang-announce/c/nqrv9fbR0zE",
+						"Description": "https://groups.google.com/g/golang-announce/c/nqrv9fbR0zE"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-1962",
+						"Description": "CVE-2022-1962"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2107376",
+						"Description": "bz#2107376: stack exhaustion in all Parse* functions"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2022-07-14T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"AppStream-8.8.0.GA:container-tools:4.0-8080020230217080101.8108cfbc"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "An incorrect handling of the supplementary groups in the Podman container engine might lead to the sensitive information disclosure or possible data modification if an attacker has direct access to the affected container where supplementary groups are used to set access permissions and is able to execute a binary code in that container.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-08-22T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-2989",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:2802"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2022-2989",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2022-2989"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2022-2989",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2022-2989"
+					},
+					{
+						"URL": "https://www.benthamsgaze.org/2022/08/22/vulnerability-in-linux-containers-investigation-and-mitigation/",
+						"Description": "https://www.benthamsgaze.org/2022/08/22/vulnerability-in-linux-containers-investigation-and-mitigation/"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-2989",
+						"Description": "CVE-2022-2989"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2121445",
+						"Description": "bz#2121445: possible information disclosure and modification"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2022-08-25T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"AppStream-8.8.0.GA:container-tools:4.0-8080020230217080101.8108cfbc"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank Steven Murdoch for reporting this issue."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in the golang package. In net/http in Go, attackers can cause a denial of service because an HTTP/2 connection can hang during closing if a fatal error preempts the shutdown.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-09-06T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-27664",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:2802"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2022-27664",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2022-27664"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2022-27664",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2022-27664"
+					},
+					{
+						"URL": "https://go.dev/issue/54658",
+						"Description": "https://go.dev/issue/54658"
+					},
+					{
+						"URL": "https://groups.google.com/g/golang-announce/c/x49AQzIVX-s/m/0tgO0pjiBQAJ",
+						"Description": "https://groups.google.com/g/golang-announce/c/x49AQzIVX-s/m/0tgO0pjiBQAJ"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-27664",
+						"Description": "CVE-2022-27664"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2124669",
+						"Description": "bz#2124669: handle server errors after sending GOAWAY"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2022-09-06T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"AppStream-8.8.0.GA:container-tools:4.0-8080020230217080101.8108cfbc"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in golang encoding/xml. When calling Decoder, Skip while parsing a deeply nested XML document, a panic can occur due to stack exhaustion and allows an attacker to impact system availability.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-07-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-28131",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:2802"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2022-28131",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2022-28131"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2022-28131",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2022-28131"
+					},
+					{
+						"URL": "https://go.dev/issue/53614",
+						"Description": "https://go.dev/issue/53614"
+					},
+					{
+						"URL": "https://groups.google.com/g/golang-announce/c/nqrv9fbR0zE",
+						"Description": "https://groups.google.com/g/golang-announce/c/nqrv9fbR0zE"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-28131",
+						"Description": "CVE-2022-28131"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2107390",
+						"Description": "bz#2107390: stack exhaustion in Decoder.Skip"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2022-07-14T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"AppStream-8.8.0.GA:container-tools:4.0-8080020230217080101.8108cfbc"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "6",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in the golang standard library, io/fs. Calling Glob on a path that contains a large number of path separators can cause a panic issue due to stack exhaustion. This could allow an attacker to impact availability.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-07-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-30630",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:2802"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2022-30630",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2022-30630"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2022-30630",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2022-30630"
+					},
+					{
+						"URL": "https://go.dev/issue/53415",
+						"Description": "https://go.dev/issue/53415"
+					},
+					{
+						"URL": "https://groups.google.com/g/golang-announce/c/nqrv9fbR0zE",
+						"Description": "https://groups.google.com/g/golang-announce/c/nqrv9fbR0zE"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-30630",
+						"Description": "CVE-2022-30630"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2107371",
+						"Description": "bz#2107371: stack exhaustion in Glob"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2022-07-14T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"AppStream-8.8.0.GA:container-tools:4.0-8080020230217080101.8108cfbc"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "7",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in golang. Calling the Reader, Read method on an archive that contains a large number of concatenated 0-length compressed files can cause a panic issue due to stack exhaustion.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-07-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-30631",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:2802"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2022-30631",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2022-30631"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2022-30631",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2022-30631"
+					},
+					{
+						"URL": "https://go.dev/issue/53168",
+						"Description": "https://go.dev/issue/53168"
+					},
+					{
+						"URL": "https://groups.google.com/g/golang-announce/c/nqrv9fbR0zE",
+						"Description": "https://groups.google.com/g/golang-announce/c/nqrv9fbR0zE"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-30631",
+						"Description": "CVE-2022-30631"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2107342",
+						"Description": "bz#2107342: stack exhaustion in Reader.Read"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2022-07-14T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"AppStream-8.8.0.GA:container-tools:4.0-8080020230217080101.8108cfbc"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "8",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in golang. Calling Glob on a path that contains a large number of path separators can cause a panic issue due to stack exhaustion. This can cause an attacker to impact availability.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-07-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-30632",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:2802"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2022-30632",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2022-30632"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2022-30632",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2022-30632"
+					},
+					{
+						"URL": "https://go.dev/issue/53416",
+						"Description": "https://go.dev/issue/53416"
+					},
+					{
+						"URL": "https://groups.google.com/g/golang-announce/c/nqrv9fbR0zE",
+						"Description": "https://groups.google.com/g/golang-announce/c/nqrv9fbR0zE"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-30632",
+						"Description": "CVE-2022-30632"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2107386",
+						"Description": "bz#2107386: stack exhaustion in Glob"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2022-07-14T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"AppStream-8.8.0.GA:container-tools:4.0-8080020230217080101.8108cfbc"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "9",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in golang. Calling Unmarshal on an XML document into a Go struct, which has a nested field that uses the \"any\" field tag, can cause a panic due to stack exhaustion.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-07-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-30633",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:2802"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2022-30633",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2022-30633"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2022-30633",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2022-30633"
+					},
+					{
+						"URL": "https://go.dev/issue/53611",
+						"Description": "https://go.dev/issue/53611"
+					},
+					{
+						"URL": "https://groups.google.com/g/golang-announce/c/nqrv9fbR0zE",
+						"Description": "https://groups.google.com/g/golang-announce/c/nqrv9fbR0zE"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-30633",
+						"Description": "CVE-2022-30633"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2107392",
+						"Description": "bz#2107392: stack exhaustion in Unmarshal"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2022-07-14T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"AppStream-8.8.0.GA:container-tools:4.0-8080020230217080101.8108cfbc"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "10",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in golang. When calling Decoder, Decode on a message that contains deeply nested structures, a panic can occur due to stack exhaustion and allows an attacker to impact system availability.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-07-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-30635",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:2802"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2022-30635",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2022-30635"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2022-30635",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2022-30635"
+					},
+					{
+						"URL": "https://go.dev/issue/53615",
+						"Description": "https://go.dev/issue/53615"
+					},
+					{
+						"URL": "https://groups.google.com/g/golang-announce/c/nqrv9fbR0zE",
+						"Description": "https://groups.google.com/g/golang-announce/c/nqrv9fbR0zE"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-30635",
+						"Description": "CVE-2022-30635"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2107388",
+						"Description": "bz#2107388: stack exhaustion in Decoder.Decode"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2022-07-14T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"AppStream-8.8.0.GA:container-tools:4.0-8080020230217080101.8108cfbc"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "11",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in net/http/httputil golang package. When httputil.ReverseProxy.ServeHTTP is called with a Request.Header map containing a nil value for the X-Forwarded-For header, ReverseProxy could set the client IP incorrectly. This issue may affect confidentiality.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-07-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-32148",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:2802"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2022-32148",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2022-32148"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2022-32148",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2022-32148"
+					},
+					{
+						"URL": "https://go.dev/issue/53423",
+						"Description": "https://go.dev/issue/53423"
+					},
+					{
+						"URL": "https://groups.google.com/g/golang-announce/c/nqrv9fbR0zE",
+						"Description": "https://groups.google.com/g/golang-announce/c/nqrv9fbR0zE"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-32148",
+						"Description": "CVE-2022-32148"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2107383",
+						"Description": "bz#2107383: NewSingleHostReverseProxy - omit X-Forwarded-For not working"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2022-07-14T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"AppStream-8.8.0.GA:container-tools:4.0-8080020230217080101.8108cfbc"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "12",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "An uncontrolled resource consumption flaw was found in Golang math/big. A too-short encoded message can cause a panic in Float.GobDecode and Rat.GobDecode in math/big in Go, potentially allowing an attacker to create a denial of service, impacting availability.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-08-01T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-32189",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:2802"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2022-32189",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2022-32189"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2022-32189",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2022-32189"
+					},
+					{
+						"URL": "https://go.dev/issue/53871",
+						"Description": "https://go.dev/issue/53871"
+					},
+					{
+						"URL": "https://groups.google.com/g/golang-nuts/c/DCFSyTGM0wU",
+						"Description": "https://groups.google.com/g/golang-nuts/c/DCFSyTGM0wU"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-32189",
+						"Description": "CVE-2022-32189"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2113814",
+						"Description": "bz#2113814: decoding big.Float and big.Rat types can panic if the encoded message is too short, potentially allowing a denial of service"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2022-08-02T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"AppStream-8.8.0.GA:container-tools:4.0-8080020230217080101.8108cfbc"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "13",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in the net/http library of the golang package. This flaw allows an attacker to cause excessive memory growth in a Go server accepting HTTP/2 requests. HTTP/2 server connections contain a cache of HTTP header keys sent by the client. While the total number of entries in this cache is capped, an attacker sending very large keys can cause the server to allocate approximately 64 MiB per open connection.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-11-30T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-41717",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:2802"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2022-41717",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2022-41717"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2022-41717",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2022-41717"
+					},
+					{
+						"URL": "https://go.dev/cl/455635",
+						"Description": "https://go.dev/cl/455635"
+					},
+					{
+						"URL": "https://go.dev/cl/455717",
+						"Description": "https://go.dev/cl/455717"
+					},
+					{
+						"URL": "https://go.dev/issue/56350",
+						"Description": "https://go.dev/issue/56350"
+					},
+					{
+						"URL": "https://groups.google.com/g/golang-announce/c/L_3rmdT0BMU/m/yZDrXjIiBQAJ",
+						"Description": "https://groups.google.com/g/golang-announce/c/L_3rmdT0BMU/m/yZDrXjIiBQAJ"
+					},
+					{
+						"URL": "https://pkg.go.dev/vuln/GO-2022-1144",
+						"Description": "https://pkg.go.dev/vuln/GO-2022-1144"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-41717",
+						"Description": "CVE-2022-41717"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2161274",
+						"Description": "bz#2161274: excessive memory growth in a Go server accepting HTTP/2 requests"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2023-01-16T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"AppStream-8.8.0.GA:container-tools:4.0-8080020230217080101.8108cfbc"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "14",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A Time-of-check Time-of-use (TOCTOU) flaw was found in podman. This issue may allow a malicious user to replace a normal file in a volume with a symlink while exporting the volume, allowing for access to arbitrary files on the host file system.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2023-02-15T15:56:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2023-0778",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:2802"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2023-0778",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2023-0778"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2023-0778",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2023-0778"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2023-0778",
+						"Description": "CVE-2023-0778"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2168256",
+						"Description": "bz#2168256: symlink exchange attack in podman export volume"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2023-02-08T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"AppStream-8.8.0.GA:container-tools:4.0-8080020230217080101.8108cfbc"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank Hongliang Tian (Ant Group), Weijie Liu (Ant Group), XiaoFeng Wang (Indiana University Bloomington), and Zhi Li (Huazhong University of Science and Technology) for reporting this issue."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux AppStream (v. 8)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux AppStream (v. 8)",
+							"productid": "AppStream-8.8.0.GA",
+							"cpe": "cpe:/a:redhat:enterprise_linux:8::appstream"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "container-tools:4.0-8080020230217080101.8108cfbc",
+				"fullproductname": {
+					"text": "container-tools-4.0-8080020230217080101.8108cfbc",
+					"productid": "container-tools:4.0-8080020230217080101.8108cfbc",
+					"cpe": "cpe:/a:redhat:enterprise_linux:8::appstream"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "container-tools:4.0-8080020230217080101.8108cfbc",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "AppStream-8.8.0.GA",
+				"fullproductname": {
+					"text": "container-tools:4.0-8080020230217080101.8108cfbc as a component of Red Hat Enterprise Linux AppStream (v. 8)",
+					"productid": "AppStream-8.8.0.GA:container-tools:4.0-8080020230217080101.8108cfbc",
+					"cpe": "cpe:/a:redhat:enterprise_linux:8::appstream"
+				}
+			}
+		]
+	}
+}

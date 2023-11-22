@@ -1,0 +1,346 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: openssl, mm security update for Stronghold",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2002:163"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2002-07-31T00:00:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2002-08-08T09:20:00Z",
+		"CurrentReleaseDate": "2002-07-31T00:00:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:32:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated Apache packages are available which fix several serious buffer\noverflow vulnerabilities in OpenSSL and a local privilege escalation\nvulnerability in MM.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nNote:\n\nPlease read the \"Solution\" section below as there are special upgrade\ninstructions for this errata.\n\n-----------\n\nOpenSSL is a commercial-grade, full-featured, and Open Source toolkit which\nimplements the Secure Sockets Layer (SSL v2/v3) and Transport Layer\nSecurity (TLS v1) protocols as well as a full-strength general purpose\ncryptography library. A security audit of the OpenSSL code sponsored by\nDARPA found several buffer overflows in OpenSSL which affect versions 0.9.7\nand 0.9.6d and earlier:\n\n1. The master key supplied by a client to an SSL version 2 server could be\noversized, causing a stack-based buffer overflow. This issue is remotely\nexploitable. Services that have SSLv2 disabled would not be vulnerable to\nthis issue. (CAN-2002-0656)\n\n2. The SSLv3 session ID supplied to a client from a malicious server could\nbe oversized and overrun a buffer. This issue looks to be remotely\nexploitable. (CAN-2002-0656)\n\n3. Various buffers used for storing ASCII representations of integers were\ntoo small on 64 bit platforms. This issue may be exploitable. (CAN-2002-0655)\n\nA further issue was found in OpenSSL 0.9.7 that does not affect versions of\nOpenSSL included in Stronghold (CAN-2002-0657).\n\nThe MM library provides an abstraction layer which allows related processes\nto easily share data. On systems where shared memory or other\ninter-process communication mechanisms are not available, the MM library\nwill emulate them using temporary files. MM is used in Stronghold to\nproviding shared memory pools to Apache modules.\n\nVersions of MM up to and including 1.1.3 open temporary files in an unsafe\nmanner, allowing a malicious local user to cause an application which uses\nMM to overwrite any file to which it has write access. (CAN-2002-0658)\n\nAll users are advised to upgrade to these errata packages which contain a\npatched version of MM that is not vulnerable to this issue.\n\nThanks go to the OpenSSL team, Ben Laurie, and Marcus Meissner for\nproviding patches for these issues.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Critical",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2002:163",
+				"Description": "https://access.redhat.com/errata/RHSA-2002:163"
+			},
+			{
+				"type": "External",
+				"URL": "",
+				"Description": ""
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "security flaw",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2002-07-30T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2002-0655",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nWe have backported the security fixes for the versions of OpenSSL \nand mm included in Stronghold 4. The fixed packages are now available via\nthe update agent service; run\n\n$ bin/agent\n\nfrom the Stronghold 4 install root to upgrade an existing Stronghold 4\ninstallation to the new package versions.\n\nDue to a bug in the update agent, users of Solaris on Intel platforms\nshould create a file \"conf/update-agent.conf\" in the install root,\ncontaining the following two lines:\n\n[agent]\nignore: RPMPROB_FILTER_IGNOREARCH\n\nAfter the appropriate updates have been applied, it will be necessary to\nmanually restart the server with the following commands:\n\n  $ bin/stop-server\n  $ bin/start-server\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2002:163"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2002-0655",
+						"Description": "CVE-2002-0655"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1616787",
+						"Description": "bz#1616787: CVE-2002-0655 security flaw"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Critical"
+				}
+			},
+			"DiscoveryDate": "",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "security flaw",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2002-07-30T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2002-0656",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nWe have backported the security fixes for the versions of OpenSSL \nand mm included in Stronghold 4. The fixed packages are now available via\nthe update agent service; run\n\n$ bin/agent\n\nfrom the Stronghold 4 install root to upgrade an existing Stronghold 4\ninstallation to the new package versions.\n\nDue to a bug in the update agent, users of Solaris on Intel platforms\nshould create a file \"conf/update-agent.conf\" in the install root,\ncontaining the following two lines:\n\n[agent]\nignore: RPMPROB_FILTER_IGNOREARCH\n\nAfter the appropriate updates have been applied, it will be necessary to\nmanually restart the server with the following commands:\n\n  $ bin/stop-server\n  $ bin/start-server\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2002:163"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2002-0656",
+						"Description": "CVE-2002-0656"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1616788",
+						"Description": "bz#1616788: CVE-2002-0656 security flaw"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Critical"
+				}
+			},
+			"DiscoveryDate": "",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "security flaw",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2002-07-29T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2002-0658",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nWe have backported the security fixes for the versions of OpenSSL \nand mm included in Stronghold 4. The fixed packages are now available via\nthe update agent service; run\n\n$ bin/agent\n\nfrom the Stronghold 4 install root to upgrade an existing Stronghold 4\ninstallation to the new package versions.\n\nDue to a bug in the update agent, users of Solaris on Intel platforms\nshould create a file \"conf/update-agent.conf\" in the install root,\ncontaining the following two lines:\n\n[agent]\nignore: RPMPROB_FILTER_IGNOREARCH\n\nAfter the appropriate updates have been applied, it will be necessary to\nmanually restart the server with the following commands:\n\n  $ bin/stop-server\n  $ bin/start-server\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2002:163"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2002-0658",
+						"Description": "CVE-2002-0658"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1616790",
+						"Description": "bz#1616790: CVE-2002-0658 security flaw"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "security flaw",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2002-07-30T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2002-0659",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nWe have backported the security fixes for the versions of OpenSSL \nand mm included in Stronghold 4. The fixed packages are now available via\nthe update agent service; run\n\n$ bin/agent\n\nfrom the Stronghold 4 install root to upgrade an existing Stronghold 4\ninstallation to the new package versions.\n\nDue to a bug in the update agent, users of Solaris on Intel platforms\nshould create a file \"conf/update-agent.conf\" in the install root,\ncontaining the following two lines:\n\n[agent]\nignore: RPMPROB_FILTER_IGNOREARCH\n\nAfter the appropriate updates have been applied, it will be necessary to\nmanually restart the server with the following commands:\n\n  $ bin/stop-server\n  $ bin/start-server\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2002:163"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2002-0659",
+						"Description": "CVE-2002-0659"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1616792",
+						"Description": "bz#1616792: CVE-2002-0659 security flaw"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		}
+	],
+	"producttree": {}
+}

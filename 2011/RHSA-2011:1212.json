@@ -1,0 +1,567 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: kernel security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2011:1212"
+		},
+		"Status": "Final",
+		"Version": "2",
+		"revisionhistory": {
+			"revision": {
+				"Number": "2",
+				"Date": "2011-09-06T17:41:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2011-09-06T21:31:00Z",
+		"CurrentReleaseDate": "2011-09-06T17:41:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:31:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated kernel packages that fix multiple security issues and several bugs\nare now available for Red Hat Enterprise Linux 5.\n\nThe Red Hat Security Response Team has rated this update as having\nimportant security impact. Common Vulnerability Scoring System (CVSS) base\nscores, which give detailed severity ratings, are available for each\nvulnerability from the CVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe kernel packages contain the Linux kernel, the core of any Linux\noperating system.\n\nThis update fixes the following security issues:\n\n* A NULL pointer dereference flaw was found in the Linux kernel's Stream\nControl Transmission Protocol (SCTP) implementation. A remote attacker\ncould send a specially-crafted SCTP packet to a target system, resulting in\na denial of service. (CVE-2011-2482, Important)\n\n* A flaw in the Linux kernel's client-side NFS Lock Manager (NLM)\nimplementation could allow a local, unprivileged user to cause a denial of\nservice. (CVE-2011-2491, Important)\n\n* Buffer overflow flaws in the Linux kernel's netlink-based wireless\nconfiguration interface implementation could allow a local user, who has\nthe CAP_NET_ADMIN capability, to cause a denial of service or escalate\ntheir privileges on systems that have an active wireless interface.\n(CVE-2011-2517, Important)\n\n* A flaw was found in the way the Linux kernel's Xen hypervisor\nimplementation emulated the SAHF instruction. When using a\nfully-virtualized guest on a host that does not use hardware assisted\npaging (HAP), such as those running CPUs that do not have support for (or\nthose that have it disabled) Intel Extended Page Tables (EPT) or AMD\nVirtualization (AMD-V) Rapid Virtualization Indexing (RVI), a privileged\nguest user could trigger this flaw to cause the hypervisor to crash.\n(CVE-2011-2519, Moderate)\n\n* An off-by-one flaw was found in the __addr_ok() macro in the Linux\nkernel's Xen hypervisor implementation when running on 64-bit systems. A\nprivileged guest user could trigger this flaw to cause the hypervisor to\ncrash. (CVE-2011-2901, Moderate)\n\n* /proc/[PID]/io is world-readable by default. Previously, these files\ncould be read without any further restrictions. A local, unprivileged user\ncould read these files, belonging to other, possibly privileged processes\nto gather confidential information, such as the length of a password used\nin a process. (CVE-2011-2495, Low)\n\nRed Hat would like to thank Vasily Averin for reporting CVE-2011-2491, and\nVasiliy Kulikov of Openwall for reporting CVE-2011-2495.\n\nThis update also fixes several bugs. Documentation for these bug fixes will\nbe available shortly from the Technical Notes document linked to in the\nReferences section.\n\nUsers should upgrade to these updated packages, which contain backported\npatches to correct these issues, and fix the bugs noted in the Technical\nNotes. The system must be rebooted for this update to take effect.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2011:1212",
+				"Description": "https://access.redhat.com/errata/RHSA-2011:1212"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			},
+			{
+				"type": "External",
+				"URL": "https://docs.redhat.com/docs/en-US/Red_Hat_Enterprise_Linux/5/html/5.7_Technical_Notes/kernel.html#RHSA-2011-1212",
+				"Description": "https://docs.redhat.com/docs/en-US/Red_Hat_Enterprise_Linux/5/html/5.7_Technical_Notes/kernel.html#RHSA-2011-1212"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: sctp dos",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2011-08-30T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2011-2482",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/kb/docs/DOC-11259\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2011:1212"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2011-2482",
+						"Description": "CVE-2011-2482"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=714867",
+						"Description": "bz#714867: CVE-2011-2482 kernel: sctp dos"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2011-06-21T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-5.7.Z:kernel-0:2.6.18-274.3.1.el5",
+						"5Server-5.7.Z:kernel-0:2.6.18-274.3.1.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "7.8",
+					"Vector": "AV:N/AC:L/Au:N/C:N/I:N/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: rpc task leak after flock()ing  NFS share",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2011-05-31T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2011-2491",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/kb/docs/DOC-11259\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2011:1212"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2011-2491",
+						"Description": "CVE-2011-2491"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=709393",
+						"Description": "bz#709393: CVE-2011-2491 kernel: rpc task leak after flock()ing  NFS share"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2011-06-01T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-5.7.Z:kernel-0:2.6.18-274.3.1.el5",
+						"5Server-5.7.Z:kernel-0:2.6.18-274.3.1.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.9",
+					"Vector": "AV:L/AC:L/Au:N/C:N/I:N/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: /proc/PID/io infoleak",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2011-06-21T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2011-2495",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/kb/docs/DOC-11259\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2011:1212"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2011-2495",
+						"Description": "CVE-2011-2495"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=716825",
+						"Description": "bz#716825: CVE-2011-2495 kernel: /proc/PID/io infoleak"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2011-06-21T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-5.7.Z:kernel-0:2.6.18-274.3.1.el5",
+						"5Server-5.7.Z:kernel-0:2.6.18-274.3.1.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.1",
+					"Vector": "AV:L/AC:L/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: nl80211: missing check for valid SSID size in scan operations",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2011-05-18T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2011-2517",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/kb/docs/DOC-11259\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2011:1212"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2011-2517",
+						"Description": "CVE-2011-2517"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=718152",
+						"Description": "bz#718152: CVE-2011-2517 kernel: nl80211: missing check for valid SSID size in scan operations"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2011-06-11T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-5.7.Z:kernel-0:2.6.18-274.3.1.el5",
+						"5Server-5.7.Z:kernel-0:2.6.18-274.3.1.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.6",
+					"Vector": "AV:L/AC:M/Au:S/C:C/I:C/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: xen: x86_emulate: fix SAHF emulation",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2011-08-30T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2011-2519",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/kb/docs/DOC-11259\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2011:1212"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2011-2519",
+						"Description": "CVE-2011-2519"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=718882",
+						"Description": "bz#718882: CVE-2011-2519 kernel: xen: x86_emulate: fix SAHF emulation"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2011-07-05T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-5.7.Z:kernel-0:2.6.18-274.3.1.el5",
+						"5Server-5.7.Z:kernel-0:2.6.18-274.3.1.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.2",
+					"Vector": "AV:A/AC:M/Au:S/C:N/I:N/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "6",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: xen: off-by-one shift in x86_64 __addr_ok()",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2011-08-30T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2011-2901",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/kb/docs/DOC-11259\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2011:1212"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2011-2901",
+						"Description": "CVE-2011-2901"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=728042",
+						"Description": "bz#728042: CVE-2011-2901 kernel: xen: off-by-one shift in x86_64 __addr_ok()"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2011-08-04T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-5.7.Z:kernel-0:2.6.18-274.3.1.el5",
+						"5Server-5.7.Z:kernel-0:2.6.18-274.3.1.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.5",
+					"Vector": "AV:A/AC:L/Au:S/C:N/I:N/A:C"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+							"productid": "5Client-5.7.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux (v. 5 server)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux (v. 5 server)",
+							"productid": "5Server-5.7.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-0:2.6.18-274.3.1.el5",
+				"fullproductname": {
+					"text": "kernel-2.6.18-274.3.1.el5.src.rpm",
+					"productid": "kernel-0:2.6.18-274.3.1.el5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "kernel-0:2.6.18-274.3.1.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Client-5.7.Z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.18-274.3.1.el5 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"productid": "5Client-5.7.Z:kernel-0:2.6.18-274.3.1.el5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.18-274.3.1.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-5.7.Z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.18-274.3.1.el5 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"productid": "5Server-5.7.Z:kernel-0:2.6.18-274.3.1.el5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+				}
+			}
+		]
+	}
+}

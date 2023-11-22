@@ -1,0 +1,408 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: kernel security, bug fix, and enhancement update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2016:0715"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2016-05-04T00:29:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2016-05-04T00:29:00Z",
+		"CurrentReleaseDate": "2016-05-04T00:29:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:39:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nAn update for kernel is now available for Red Hat Enterprise Linux 6.\n\nRed Hat Product Security has rated this update as having a security impact of Moderate. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe kernel packages contain the Linux kernel, the core of any Linux operating system.\n\nSecurity Fix(es):\n\n* A flaw was found in the way the Linux kernel handled IRET faults during the processing of NMIs. An unprivileged, local user could use this flaw to crash the system or, potentially (although highly unlikely), escalate their privileges on the system. (CVE-2015-5157, Moderate)\n\n* A race condition flaw was found in the way the Linux kernel's SCTP implementation handled sctp_accept() during the processing of heartbeat timeout events. A remote attacker could use this flaw to prevent further connections to be accepted by the SCTP server running on the system, resulting in a denial of service. (CVE-2015-8767, Moderate)\n\nBug Fix(es):\n\n* When the nvme driver held the queue lock for too long, for example during DMA mapping, a lockup occurred leading to nvme hard-lockup panic. This update fixes the underlying source code, and nvme now works as expected.(BZ#1314209)\n\n* Due to a regression, a Unix domain datagram socket could come to a deadlock when sending a datagram to itself. The provided patch adds another \"sk\" check to the unix_dgram_sendmsg() function, and the aforementioned deadlock no longer occurs. (BZ#1315696)\n\n* Previously, writing a large file using direct I/O in 16 MB chunks sometimes caused a pathological allocation pattern where 16 MB chunks of large free extent were allocated to a file in reversed order. The provided patch avoids the backward allocation, and writing a large file using direct I/O now proceeds successfully. (BZ#1320031)\n\n* MD RAID1 devices that repeatedly became hot removed and re-added could become mismatched due to a race condition. This caused them to return stale data, leading to data corruption. The provided set of patches fixes this bug, and hot removals and re-additions of md devices now work as expected. (BZ#1320863)\n\n* A couple of previous fixes caused a deadlock on the \"rq\" lock leading to a kernel panic on CPU 0. The provided set of patches reverts the relevant commits, thus preventing the panic from occurring. (BZ#1326043)\n\nEnhancement(s):\n\n* VLAN support has been updated to integrate some of the latest upstream features. This update also makes sure that Null pointer crashes related to VLAN support in bonding mode no longer occur and that tag stripping and insertion work as expected. (BZ#1315706)\n\n* This update adds additional model numbers for Broadwell to perf. (BZ#1320035)\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2016:0715",
+				"Description": "https://access.redhat.com/errata/RHSA-2016:0715"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: x86-64: IRET faults during NMIs processing",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-07-22T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-5157",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2016:0715"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-5157",
+						"Description": "CVE-2015-5157"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1259577",
+						"Description": "bz#1259577: CVE-2015-5157 kernel: x86-64: IRET faults during NMIs processing"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-07-14T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.7.z:kernel-0:2.6.32-573.26.1.el6",
+						"6Client-optional-6.7.z:kernel-0:2.6.32-573.26.1.el6",
+						"6ComputeNode-6.7.z:kernel-0:2.6.32-573.26.1.el6",
+						"6ComputeNode-optional-6.7.z:kernel-0:2.6.32-573.26.1.el6",
+						"6Server-6.7.z:kernel-0:2.6.32-573.26.1.el6",
+						"6Server-optional-6.7.z:kernel-0:2.6.32-573.26.1.el6",
+						"6Workstation-6.7.z:kernel-0:2.6.32-573.26.1.el6",
+						"6Workstation-optional-6.7.z:kernel-0:2.6.32-573.26.1.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.2",
+					"Vector": "AV:L/AC:H/Au:N/C:C/I:C/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: SCTP denial of service during timeout",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-01-11T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-8767",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2016:0715"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-8767",
+						"Description": "CVE-2015-8767"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1297389",
+						"Description": "bz#1297389: CVE-2015-8767 kernel: SCTP denial of service during timeout"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-11-13T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.7.z:kernel-0:2.6.32-573.26.1.el6",
+						"6Client-optional-6.7.z:kernel-0:2.6.32-573.26.1.el6",
+						"6ComputeNode-6.7.z:kernel-0:2.6.32-573.26.1.el6",
+						"6ComputeNode-optional-6.7.z:kernel-0:2.6.32-573.26.1.el6",
+						"6Server-6.7.z:kernel-0:2.6.32-573.26.1.el6",
+						"6Server-optional-6.7.z:kernel-0:2.6.32-573.26.1.el6",
+						"6Workstation-6.7.z:kernel-0:2.6.32-573.26.1.el6",
+						"6Workstation-optional-6.7.z:kernel-0:2.6.32-573.26.1.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "7.1",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:C"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 6)",
+							"productid": "6Client-6.7.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+							"productid": "6Client-optional-6.7.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node (v. 6)",
+							"productid": "6ComputeNode-6.7.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+							"productid": "6ComputeNode-optional-6.7.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 6)",
+							"productid": "6Server-6.7.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional (v. 6)",
+							"productid": "6Server-optional-6.7.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 6)",
+							"productid": "6Workstation-6.7.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+							"productid": "6Workstation-optional-6.7.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-0:2.6.32-573.26.1.el6",
+				"fullproductname": {
+					"text": "kernel-2.6.32-573.26.1.el6.src.rpm",
+					"productid": "kernel-0:2.6.32-573.26.1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "kernel-0:2.6.32-573.26.1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-6.7.z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-573.26.1.el6 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"productid": "6Client-6.7.z:kernel-0:2.6.32-573.26.1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.32-573.26.1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-optional-6.7.z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-573.26.1.el6 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"productid": "6Client-optional-6.7.z:kernel-0:2.6.32-573.26.1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.32-573.26.1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-6.7.z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-573.26.1.el6 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"productid": "6ComputeNode-6.7.z:kernel-0:2.6.32-573.26.1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.32-573.26.1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-optional-6.7.z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-573.26.1.el6 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"productid": "6ComputeNode-optional-6.7.z:kernel-0:2.6.32-573.26.1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.32-573.26.1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-6.7.z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-573.26.1.el6 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"productid": "6Server-6.7.z:kernel-0:2.6.32-573.26.1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.32-573.26.1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-optional-6.7.z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-573.26.1.el6 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"productid": "6Server-optional-6.7.z:kernel-0:2.6.32-573.26.1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.32-573.26.1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-6.7.z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-573.26.1.el6 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"productid": "6Workstation-6.7.z:kernel-0:2.6.32-573.26.1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.32-573.26.1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-optional-6.7.z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-573.26.1.el6 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"productid": "6Workstation-optional-6.7.z:kernel-0:2.6.32-573.26.1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			}
+		]
+	}
+}

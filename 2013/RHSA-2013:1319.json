@@ -1,0 +1,212 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: sssd security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2013:1319"
+		},
+		"Status": "Final",
+		"Version": "2",
+		"revisionhistory": {
+			"revision": {
+				"Number": "2",
+				"Date": "2013-09-30T20:31:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2013-09-30T20:30:00Z",
+		"CurrentReleaseDate": "2013-09-30T20:31:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:36:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated sssd packages that fix one security issue and several bugs are now\navailable for Red Hat Enterprise Linux 5.\n\nThe Red Hat Security Response Team has rated this update as having low\nsecurity impact. A Common Vulnerability Scoring System (CVSS) base score,\nwhich gives a detailed severity rating, is available from the CVE link in\nthe References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nSSSD (System Security Services Daemon) provides a set of daemons to manage\naccess to remote directories and authentication mechanisms. It provides NSS\n(Name Service Switch) and PAM (Pluggable Authentication Modules) interfaces\ntoward the system and a pluggable back end system to connect to multiple\ndifferent account sources.\n\nA race condition was found in the way SSSD copied and removed user home\ndirectories. A local attacker who is able to write into the home directory\nof a different user who is being removed could use this flaw to perform\nsymbolic link attacks, possibly allowing them to modify and delete\narbitrary files with the privileges of the root user. (CVE-2013-0219)\n\nThe CVE-2013-0219 issue war discovered by Florian Weimer of the Red Hat\nProduct Security Team.\n\nThis update also fixes the following bugs:\n\n* After a paging control was used, memory in the sssd_be process was never\nfreed which led to the growth of the sssd_be process memory usage over\ntime. To fix this bug, the paging control was deallocated after use, and\nthus the memory usage of the sssd_be process no longer grows. (BZ#820908)\n\n* If the sssd_be process was terminated and recreated while there were\nauthentication requests pending, the sssd_pam process did not recover\ncorrectly and did not reconnect to the new sssd_be process. Consequently,\nthe sssd_pam process was seemingly blocked and did not accept any new\nauthentication requests. The sssd_pam process has been fixes so that it\nreconnects to the new instance of the sssd_be process after the original\none terminated unexpectedly. Even after a crash and reconnect, the sssd_pam\nprocess now accepts new authentication requests. (BZ#882414)\n\n* When the sssd_be process hung for a while, it was terminated and a new\ninstance was created. If the old instance did not respond to the TERM\nsignal and continued running, SSSD terminated unexpectedly. As a\nconsequence, the user could not log in. SSSD now keeps track of sssd_be\nsubprocesses more effectively, making the restarts of sssd_be more reliable\nin such scenarios. Users can now log in whenever the sssd_be is restarted\nand becomes unresponsive. (BZ#886165)\n\n* In case the processing of an LDAP request took longer than the client\ntimeout upon completing the request (60 seconds by default), the PAM client\ncould have accessed memory that was previously freed due to the client\ntimeout being reached. As a result, the sssd_pam process terminated\nunexpectedly with a segmentation fault. SSSD now ignores an LDAP request\nresult when it detects that the set timeout of this request has been\nreached. The sssd_pam process no longer crashes in the aforementioned\nscenario. (BZ#923813)\n\n* When there was a heavy load of users and groups to be saved in cache,\nSSSD experienced a timeout. Consequently, NSS did not start the backup\nprocess properly and it was impossible to log in. A patch has been provided\nto fix this bug. The SSSD daemon now remains responsive and the login\ncontinues as expected. (BZ#805729)\n\n* SSSD kept the file descriptors to the log files open.  Consequently, on\noccasions like moving the actual log file and restarting the back end, SSSD\nstill kept the file descriptors open. SSSD now closes the file descriptor\nafter the child process execution; after a successful back end start, the\nfile descriptor to log files is closed. (BZ#961680)\n\n* While performing access control in the Identity Management back end, SSSD\nerroneously downloaded the \"member\" attribute from the server and then\nattempted to use it in the cache verbatim. Consequently, the cache\nattempted to use the \"member\" attribute values as if they were pointing to\nthe local cache which was CPU intensive. The member attribute when\nprocessing host groups is no longer downloaded and processed. Moreover, the\nlogin process is reasonably fast even with large host groups. (BZ#979047)\n\nAll sssd users are advised to upgrade to these updated packages, which\ncontain backported patches to correct these issues.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Low",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2013:1319",
+				"Description": "https://access.redhat.com/errata/RHSA-2013:1319"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#low",
+				"Description": "https://access.redhat.com/security/updates/classification/#low"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "sssd: TOCTOU race conditions by copying and removing directory trees",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-01-23T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-0219",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to use\nthe Red Hat Network to apply this update are available at\nhttps://access.redhat.com/site/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:1319"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-0219",
+						"Description": "CVE-2013-0219"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=884254",
+						"Description": "bz#884254: CVE-2013-0219 sssd: TOCTOU race conditions by copying and removing directory trees"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2012-12-05T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client:sssd-0:1.5.1-70.el5",
+						"5Server:sssd-0:1.5.1-70.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "3.7",
+					"Vector": "AV:L/AC:H/Au:N/C:P/I:P/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+							"productid": "5Client",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux (v. 5 server)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux (v. 5 server)",
+							"productid": "5Server",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "sssd-0:1.5.1-70.el5",
+				"fullproductname": {
+					"text": "sssd-1.5.1-70.el5.src.rpm",
+					"productid": "sssd-0:1.5.1-70.el5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "sssd-0:1.5.1-70.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Client",
+				"fullproductname": {
+					"text": "sssd-0:1.5.1-70.el5 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"productid": "5Client:sssd-0:1.5.1-70.el5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+				}
+			},
+			{
+				"productreference": "sssd-0:1.5.1-70.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server",
+				"fullproductname": {
+					"text": "sssd-0:1.5.1-70.el5 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"productid": "5Server:sssd-0:1.5.1-70.el5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+				}
+			}
+		]
+	}
+}

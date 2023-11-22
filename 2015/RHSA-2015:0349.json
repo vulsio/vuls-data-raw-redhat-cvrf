@@ -1,0 +1,542 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: qemu-kvm security, bug fix, and enhancement update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2015:0349"
+		},
+		"Status": "Final",
+		"Version": "2",
+		"revisionhistory": {
+			"revision": {
+				"Number": "2",
+				"Date": "2015-03-05T07:27:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2015-03-05T07:27:00Z",
+		"CurrentReleaseDate": "2015-03-05T07:27:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:36:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated qemu-kvm packages that fix multiple security issues, several bugs,\nand add various enhancements are now available for Red Hat Enterprise\nLinux 7.\n\nRed Hat Product Security has rated this update as having Important security\nimpact. Common Vulnerability Scoring System (CVSS) base scores, which give\ndetailed severity ratings, are available for each vulnerability from the\nCVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nKVM (Kernel-based Virtual Machine) is a full virtualization solution for Linux on AMD64 and Intel 64 systems. The qemu-kvm packages provide the user-space component for running virtual machines using KVM.\n\nIt was found that the Cirrus blit region checks were insufficient. A privileged guest user could use this flaw to write outside of VRAM-allocated buffer boundaries in the host's QEMU process address space with attacker-provided data. (CVE-2014-8106)\n\nAn uninitialized data structure use flaw was found in the way the set_pixel_format() function sanitized the value of bits_per_pixel. An attacker able to access a guest's VNC console could use this flaw to crash the guest. (CVE-2014-7815)\n\nIt was found that certain values that were read when loading RAM during migration were not validated. A user able to alter the savevm data (either on the disk or over the wire during migration) could use either of these flaws to corrupt QEMU process memory on the (destination) host, which could potentially result in arbitrary code execution on the host with the privileges of the QEMU process. (CVE-2014-7840)\n\nA NULL pointer dereference flaw was found in the way QEMU handled UDP packets with a source port and address of 0 when QEMU's user networking was in use. A local guest user could use this flaw to crash the guest. (CVE-2014-3640)\n\nRed Hat would like to thank James Spadaro of Cisco for reporting CVE-2014-7815, and Xavier Mehrenberger and Stephane Duverger of Airbus for reporting CVE-2014-3640. The CVE-2014-8106 issue was found by Paolo Bonzini of Red Hat, and the CVE-2014-7840 issue was discovered by Michael S. Tsirkin of Red Hat.\n\nBug fixes:\n\n* The KVM utility executed demanding routing update system calls every time it performed an MSI vector mask/unmask operation. Consequently, guests running legacy systems such as Red Hat Enterprise Linux 5 could, under certain circumstances, experience significant slowdown. Now, the routing system calls during mask/unmask operations are skipped, and the performance of legacy guests is now more consistent. (BZ#1098976)\n\n* Due to a bug in the Internet Small Computer System Interface (iSCSI) driver, a qemu-kvm process terminated unexpectedly with a segmentation fault when the \"write same\" command was executed in guest mode under the iSCSI protocol. This update fixes the bug, and the \"write same\" command now functions in guest mode under iSCSI as intended. (BZ#1083413)\n\n* The QEMU command interface did not properly handle resizing of cache memory during guest migration, causing QEMU to terminate unexpectedly with a segmentation fault. This update fixes the related code, and QEMU no longer crashes in the described situation. (BZ#1066338)\n\nEnhancements:\n\n* The maximum number of supported virtual CPUs (vCPUs) in a KVM guest has been increased to 240. This increases the number of virtual processing units that the user can assign to the guest, and therefore improves its performance potential. (BZ#1134408)\n\n* Support for the 5th Generation Intel Core processors has been added to the QEMU hypervisor, the KVM kernel code, and the libvirt API. This allows KVM guests to use the following instructions and features: ADCX, ADOX, RDSFEED, PREFETCHW, and supervisor mode access prevention (SMAP). (BZ#1116117)\n\n* The \"dump-guest-memory\" command now supports crash dump compression. This makes it possible for users who cannot use the \"virsh dump\" command to require less hard disk space for guest crash dumps. In addition, saving a compressed guest crash dump frequently takes less time than saving a non-compressed one. (BZ#1157798)\n\n* This update introduces support for flight recorder tracing, which uses SystemTap to automatically capture qemu-kvm data while the guest machine is running. For detailed instructions on how to configure and use flight recorder tracing, see the Virtualization Deployment and Administration Guide, linked to in the References section below. (BZ#1088112)\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2015:0349",
+				"Description": "https://access.redhat.com/errata/RHSA-2015:0349"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/Virtualization_Deployment_and_Administration_Guide/index.html",
+				"Description": "https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/Virtualization_Deployment_and_Administration_Guide/index.html"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "qemu: slirp: NULL pointer deref in sosendto()",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-09-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-3640",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll qemu-kvm users are advised to upgrade to these updated packages, which\ncontain backported patches to correct these issues and add these\nenhancements. After installing this update, shut down all running virtual\nmachines. Once all virtual machines have shut down, start them again for\nthis update to take effect.\n\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:0349"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-3640",
+						"Description": "CVE-2014-3640"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1144818",
+						"Description": "bz#1144818: CVE-2014-3640 qemu: slirp: NULL pointer deref in sosendto()"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2014-09-05T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-optional:qemu-kvm-10:1.5.3-86.el7",
+						"7Client:qemu-kvm-10:1.5.3-86.el7",
+						"7ComputeNode-optional:qemu-kvm-10:1.5.3-86.el7",
+						"7Server-optional:qemu-kvm-10:1.5.3-86.el7",
+						"7Server:qemu-kvm-10:1.5.3-86.el7",
+						"7Workstation-optional:qemu-kvm-10:1.5.3-86.el7",
+						"7Workstation:qemu-kvm-10:1.5.3-86.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.4",
+					"Vector": "AV:L/AC:M/Au:S/C:N/I:N/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "qemu: vnc: insufficient bits_per_pixel from the client sanitization",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-10-27T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-7815",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll qemu-kvm users are advised to upgrade to these updated packages, which\ncontain backported patches to correct these issues and add these\nenhancements. After installing this update, shut down all running virtual\nmachines. Once all virtual machines have shut down, start them again for\nthis update to take effect.\n\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:0349"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-7815",
+						"Description": "CVE-2014-7815"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1157641",
+						"Description": "bz#1157641: CVE-2014-7815 qemu: vnc: insufficient bits_per_pixel from the client sanitization"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-10-21T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-optional:qemu-kvm-10:1.5.3-86.el7",
+						"7Client:qemu-kvm-10:1.5.3-86.el7",
+						"7ComputeNode-optional:qemu-kvm-10:1.5.3-86.el7",
+						"7Server-optional:qemu-kvm-10:1.5.3-86.el7",
+						"7Server:qemu-kvm-10:1.5.3-86.el7",
+						"7Workstation-optional:qemu-kvm-10:1.5.3-86.el7",
+						"7Workstation:qemu-kvm-10:1.5.3-86.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.2",
+					"Vector": "AV:A/AC:M/Au:S/C:N/I:N/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "qemu: insufficient parameter validation during ram load",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-11-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-7840",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll qemu-kvm users are advised to upgrade to these updated packages, which\ncontain backported patches to correct these issues and add these\nenhancements. After installing this update, shut down all running virtual\nmachines. Once all virtual machines have shut down, start them again for\nthis update to take effect.\n\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:0349"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-7840",
+						"Description": "CVE-2014-7840"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1163075",
+						"Description": "bz#1163075: CVE-2014-7840 qemu: insufficient parameter validation during ram load"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-11-11T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-optional:qemu-kvm-10:1.5.3-86.el7",
+						"7Client:qemu-kvm-10:1.5.3-86.el7",
+						"7ComputeNode-optional:qemu-kvm-10:1.5.3-86.el7",
+						"7Server-optional:qemu-kvm-10:1.5.3-86.el7",
+						"7Server:qemu-kvm-10:1.5.3-86.el7",
+						"7Workstation-optional:qemu-kvm-10:1.5.3-86.el7",
+						"7Workstation:qemu-kvm-10:1.5.3-86.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "3.7",
+					"Vector": "AV:L/AC:H/Au:N/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "qemu: cirrus: insufficient blit region checks",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-12-04T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-8106",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll qemu-kvm users are advised to upgrade to these updated packages, which\ncontain backported patches to correct these issues and add these\nenhancements. After installing this update, shut down all running virtual\nmachines. Once all virtual machines have shut down, start them again for\nthis update to take effect.\n\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:0349"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-8106",
+						"Description": "CVE-2014-8106"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1169454",
+						"Description": "bz#1169454: CVE-2014-8106 qemu: cirrus: insufficient blit region checks"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2014-11-13T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-optional:qemu-kvm-10:1.5.3-86.el7",
+						"7Client:qemu-kvm-10:1.5.3-86.el7",
+						"7ComputeNode-optional:qemu-kvm-10:1.5.3-86.el7",
+						"7Server-optional:qemu-kvm-10:1.5.3-86.el7",
+						"7Server:qemu-kvm-10:1.5.3-86.el7",
+						"7Workstation-optional:qemu-kvm-10:1.5.3-86.el7",
+						"7Workstation:qemu-kvm-10:1.5.3-86.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.9",
+					"Vector": "AV:A/AC:M/Au:S/C:P/I:P/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Client (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Client (v. 7)",
+							"productid": "7Client",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Client Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Client Optional (v. 7)",
+							"productid": "7Client-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+							"productid": "7ComputeNode-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 7)",
+							"productid": "7Server",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional (v. 7)",
+							"productid": "7Server-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 7)",
+							"productid": "7Workstation",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation Optional (v. 7)",
+							"productid": "7Workstation-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "qemu-kvm-10:1.5.3-86.el7",
+				"fullproductname": {
+					"text": "qemu-kvm-1.5.3-86.el7.src.rpm",
+					"productid": "qemu-kvm-10:1.5.3-86.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "qemu-kvm-10:1.5.3-86.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client",
+				"fullproductname": {
+					"text": "qemu-kvm-10:1.5.3-86.el7 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"productid": "7Client:qemu-kvm-10:1.5.3-86.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "qemu-kvm-10:1.5.3-86.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-optional",
+				"fullproductname": {
+					"text": "qemu-kvm-10:1.5.3-86.el7 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"productid": "7Client-optional:qemu-kvm-10:1.5.3-86.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "qemu-kvm-10:1.5.3-86.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-optional",
+				"fullproductname": {
+					"text": "qemu-kvm-10:1.5.3-86.el7 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"productid": "7ComputeNode-optional:qemu-kvm-10:1.5.3-86.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "qemu-kvm-10:1.5.3-86.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server",
+				"fullproductname": {
+					"text": "qemu-kvm-10:1.5.3-86.el7 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server:qemu-kvm-10:1.5.3-86.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "qemu-kvm-10:1.5.3-86.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-optional",
+				"fullproductname": {
+					"text": "qemu-kvm-10:1.5.3-86.el7 as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"productid": "7Server-optional:qemu-kvm-10:1.5.3-86.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "qemu-kvm-10:1.5.3-86.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation",
+				"fullproductname": {
+					"text": "qemu-kvm-10:1.5.3-86.el7 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"productid": "7Workstation:qemu-kvm-10:1.5.3-86.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "qemu-kvm-10:1.5.3-86.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-optional",
+				"fullproductname": {
+					"text": "qemu-kvm-10:1.5.3-86.el7 as a component of Red Hat Enterprise Linux Workstation Optional (v. 7)",
+					"productid": "7Workstation-optional:qemu-kvm-10:1.5.3-86.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			}
+		]
+	}
+}

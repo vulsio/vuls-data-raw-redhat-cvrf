@@ -1,0 +1,282 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: kernel security, bug fix, and enhancement update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2014:0433"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2014-04-24T17:36:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2014-04-24T17:36:00Z",
+		"CurrentReleaseDate": "2014-04-24T17:36:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:35:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated kernel packages that fix two security issues, three bugs, and add\none enhancement are now available for Red Hat Enterprise Linux 5.\n\nThe Red Hat Security Response Team has rated this update as having Moderate\nsecurity impact. Common Vulnerability Scoring System (CVSS) base scores,\nwhich give detailed severity ratings, are available for each vulnerability\nfrom the CVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe kernel packages contain the Linux kernel, the core of any Linux\noperating system.\n\n* A flaw was found in the way the Linux kernel's TCP/IP protocol suite\nimplementation handled TCP packets with both the SYN and FIN flags set.\nA remote attacker could use this flaw to consume an excessive amount of\nresources on the target system, potentially resulting in a denial of\nservice. (CVE-2012-6638, Moderate)\n\n* A flaw was found in the way the Linux kernel handled HID (Human Interface\nDevice) reports with an out-of-bounds Report ID. An attacker with physical\naccess to the system could use this flaw to crash the system or,\npotentially, escalate their privileges on the system. (CVE-2013-2888,\nModerate)\n\nThis update also fixes the following bugs:\n\n* A previous change to the sunrpc code introduced a race condition between\nthe rpc_wake_up_task() and rpc_wake_up_status() functions. A race between\nthreads operating on these functions could result in a deadlock situation,\nsubsequently triggering a \"soft lockup\" event and rendering the system\nunresponsive. This problem has been fixed by re-ordering tasks in the RPC\nwait queue. (BZ#1073731)\n\n* Running a process in the background on a GFS2 file system could\nsometimes trigger a glock recursion error that resulted in a kernel panic.\nThis happened when a readpage operation attempted to take a glock that had\nalready been held by another function. To prevent this error, GFS2 now\nverifies whether the glock is already held when performing the readpage\noperation. (BZ#1073953)\n\n* A previous patch backport to the IUCV (Inter User Communication Vehicle)\ncode was incomplete. Consequently, when establishing an IUCV connection,\nthe kernel could, under certain circumstances, dereference a NULL pointer,\nresulting in a kernel panic. A patch has been applied to correct this\nproblem by calling the proper function when removing IUCV paths.\n(BZ#1077045)\n\nIn addition, this update adds the following enhancement:\n\n* The lpfc driver had a fixed timeout of 60 seconds for SCSI task\nmanagement commands. With this update, the lpfc driver enables the user to\nset this timeout within the range from 5 to 180 seconds. The timeout can\nbe changed by modifying the \"lpfc_task_mgmt_tmo\" parameter for the lpfc\ndriver. (BZ#1073123)\n\nAll kernel users are advised to upgrade to these updated packages, which\ncontain backported patches to correct these issues and add this\nenhancement. The system must be rebooted for this update to take effect.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2014:0433",
+				"Description": "https://access.redhat.com/errata/RHSA-2014:0433"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Kernel: net: tcp: potential DoS via SYN+FIN messages",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2011-12-02T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-6638",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to use the\nRed Hat Network to apply this update are available at\nhttps://access.redhat.com/site/articles/11258\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not use\n\"rpm -Uvh\" as that will remove the running kernel binaries from your\nsystem. You may use \"rpm -e\" to remove old kernels after determining that\nthe new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2014:0433"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-6638",
+						"Description": "CVE-2012-6638"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1066055",
+						"Description": "bz#1066055: CVE-2012-6638 Kernel: net: tcp: potential DoS via SYN+FIN messages"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-02-15T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-5.10.Z:kernel-0:2.6.18-371.8.1.el5",
+						"5Server-5.10.Z:kernel-0:2.6.18-371.8.1.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.4",
+					"Vector": "AV:N/AC:L/Au:N/C:P/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Kernel: HID: memory corruption flaw",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-08-29T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-2888",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to use the\nRed Hat Network to apply this update are available at\nhttps://access.redhat.com/site/articles/11258\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not use\n\"rpm -Uvh\" as that will remove the running kernel binaries from your\nsystem. You may use \"rpm -e\" to remove old kernels after determining that\nthe new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2014:0433"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-2888",
+						"Description": "CVE-2013-2888"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1000451",
+						"Description": "bz#1000451: CVE-2013-2888 Kernel: HID: memory corruption flaw"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2013-08-14T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-5.10.Z:kernel-0:2.6.18-371.8.1.el5",
+						"5Server-5.10.Z:kernel-0:2.6.18-371.8.1.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.2",
+					"Vector": "AV:L/AC:H/Au:N/C:C/I:C/A:C"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+							"productid": "5Client-5.10.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux (v. 5 server)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux (v. 5 server)",
+							"productid": "5Server-5.10.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-0:2.6.18-371.8.1.el5",
+				"fullproductname": {
+					"text": "kernel-2.6.18-371.8.1.el5.src.rpm",
+					"productid": "kernel-0:2.6.18-371.8.1.el5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "kernel-0:2.6.18-371.8.1.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Client-5.10.Z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.18-371.8.1.el5 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"productid": "5Client-5.10.Z:kernel-0:2.6.18-371.8.1.el5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.18-371.8.1.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-5.10.Z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.18-371.8.1.el5 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"productid": "5Server-5.10.Z:kernel-0:2.6.18-371.8.1.el5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+				}
+			}
+		]
+	}
+}

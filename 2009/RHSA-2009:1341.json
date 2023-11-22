@@ -1,0 +1,282 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: cman security, bug fix, and enhancement update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2009:1341"
+		},
+		"Status": "Final",
+		"Version": "2",
+		"revisionhistory": {
+			"revision": {
+				"Number": "2",
+				"Date": "2009-09-01T06:43:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2009-09-02T08:00:00Z",
+		"CurrentReleaseDate": "2009-09-01T06:43:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:30:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated cman packages that fix several security issues, various bugs, and\nadd enhancements are now available for Red Hat Enterprise Linux 5.\n\nThis update has been rated as having low security impact by the Red Hat\nSecurity Response Team.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe Cluster Manager (cman) utility provides services for managing a Linux\ncluster.\n\nMultiple insecure temporary file use flaws were found in fence_apc_snmp and\nccs_tool. A local attacker could use these flaws to overwrite an arbitrary\nfile writable by a victim running those utilities (typically root) with\nthe output of the utilities via a symbolic link attack. (CVE-2008-4579,\nCVE-2008-6552)\n\nBug fixes:\n\n* a buffer could overflow if cluster.conf had more than 52 entries per\nblock inside the <cman> block. The limit is now 1024.\n\n* the output of the group_tool dump subcommands were NULL padded.\n\n* using device=\"\" instead of label=\"\" no longer causes qdiskd to\nincorrectly exit.\n\n* the IPMI fencing agent has been modified to time out after 10 seconds. It\nis also now possible to specify a different timeout value with the '-t'\noption.\n\n* the IPMI fencing agent now allows punctuation in passwords.\n\n* quickly starting and stopping the cman service no longer causes the\ncluster membership to become inconsistent across the cluster.\n\n* an issue with lock syncing caused 'receive_own from' errors to be logged\nto '/var/log/messages'.\n\n* an issue which caused gfs_controld to segfault when mounting hundreds of\nfile systems has been fixed.\n\n* the LPAR fencing agent now properly reports status when an LPAR is in\nOpen Firmware mode.\n\n* the LPAR fencing agent now works properly with systems using the\nIntegrated Virtualization Manager (IVM).\n\n* the APC SNMP fencing agent now properly recognizes outletStatusOn and\noutletStatusOff return codes from the SNMP agent.\n\n* the WTI fencing agent can now connect to fencing devices with no\npassword.\n\n* the rps-10 fencing agent now properly performs a reboot when run with no\noptions.\n\n* the IPMI fencing agent now supports different cipher types with the '-C'\noption.\n\n* qdisk now properly scans devices and partitions.\n\n* cman now checks to see if a new node has state to prevent killing the\nfirst node during cluster setup.\n\n* 'service qdiskd start' now works properly.\n\n* the McData fence agent now works properly with the McData Sphereon 4500\nFabric Switch.\n\n* the Egenera fence agent can now specify an SSH login name.\n\n* the APC fence agent now works with non-admin accounts when using the\n3.5.x firmware.\n\n* fence_xvmd now tries two methods to reboot a virtual machine.\n\n* connections to OpenAIS are now allowed from unprivileged CPG clients with\nthe user and group of 'ais'.\n\n* groupd no longer allows the default fence domain to be '0', which\npreviously caused rgmanager to hang. Now, rgmanager no longer hangs.\n\n* the RSA fence agent now supports SSH enabled RSA II devices.\n\n* the DRAC fence agent now works with the Integrated Dell Remote Access\nController (iDRAC) on Dell PowerEdge M600 blade servers.\n\n* fixed a memory leak in cman.\n\n* qdisk now displays a warning if more than one label is found with the\nsame name.\n\n* the DRAC5 fencing agent now shows proper usage instructions for the '-D'\noption.\n\n* cman no longer uses the wrong node name when getnameinfo() fails.\n\n* the SCSI fence agent now verifies that sg_persist is installed.\n\n* the DRAC5 fencing agent now properly handles modulename.\n\n* QDisk now logs warning messages if it appears its I/O to shared storage\nis hung.\n\n* fence_apc no longer fails with a pexpect exception.\n\n* removing a node from the cluster using 'cman_tool leave remove' now\nproperly reduces the expected_votes and quorum.\n\n* a semaphore leak in cman has been fixed.\n\n* 'cman_tool nodes -F name' no longer segfaults when a node is out of\nmembership.\n\nEnhancements:\n\n* support for: ePowerSwitch 8+ and LPAR/HMC v3 devices, Cisco MDS 9124 and\nMDS 9134 SAN switches, the virsh fencing agent, and broadcast communication\nwith cman.\n\n* fence_scsi limitations added to fence_scsi man page.\n\nUsers of cman are advised to upgrade to these updated packages, which\nresolve these issues and add these enhancements.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Low",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2009:1341",
+				"Description": "https://access.redhat.com/errata/RHSA-2009:1341"
+			},
+			{
+				"type": "External",
+				"URL": "http://www.redhat.com/security/updates/classification/#low",
+				"Description": "http://www.redhat.com/security/updates/classification/#low"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "cman/fence: insecure temporary file usage in the apc fence agents",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2008-10-08T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2008-4579",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2009:1341"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2008-4579",
+						"Description": "CVE-2008-4579"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=467386",
+						"Description": "bz#467386: CVE-2008-4579 cman/fence: insecure temporary file usage in the apc fence agents"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2008-10-08T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-Workstation:cman-0:2.0.115-1.el5",
+						"5Server:cman-0:2.0.115-1.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "1.5",
+					"Vector": "AV:L/AC:M/Au:S/C:N/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "cman, gfs2-utils, rgmanager: multiple insecure temporary file use issues",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2008-10-31T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2008-6552",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2009:1341"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2008-6552",
+						"Description": "CVE-2008-6552"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=519436",
+						"Description": "bz#519436: CVE-2008-6552 cman, gfs2-utils, rgmanager: multiple insecure temporary file use issues"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2008-10-31T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-Workstation:cman-0:2.0.115-1.el5",
+						"5Server:cman-0:2.0.115-1.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.4",
+					"Vector": "AV:L/AC:M/Au:N/C:N/I:P/A:C"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+							"productid": "5Client-Workstation",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::client_workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux (v. 5 server)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux (v. 5 server)",
+							"productid": "5Server",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "cman-0:2.0.115-1.el5",
+				"fullproductname": {
+					"text": "cman-2.0.115-1.el5.src.rpm",
+					"productid": "cman-0:2.0.115-1.el5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client_workstation"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "cman-0:2.0.115-1.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Client-Workstation",
+				"fullproductname": {
+					"text": "cman-0:2.0.115-1.el5 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"productid": "5Client-Workstation:cman-0:2.0.115-1.el5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client_workstation"
+				}
+			},
+			{
+				"productreference": "cman-0:2.0.115-1.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server",
+				"fullproductname": {
+					"text": "cman-0:2.0.115-1.el5 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"productid": "5Server:cman-0:2.0.115-1.el5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+				}
+			}
+		]
+	}
+}

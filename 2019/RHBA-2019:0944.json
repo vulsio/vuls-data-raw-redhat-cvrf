@@ -1,0 +1,802 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Bug Fix Advisory: Red Hat OpenStack Platform 14 bug fix and enhancement advisory",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHBA-2019:0944"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2019-05-28T23:02:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2019-04-30T17:48:00Z",
+		"CurrentReleaseDate": "2019-05-28T23:02:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.12.2",
+			"Date": "2023-03-24T15:08:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated packages that resolve various issues are now available for Red Hat\nOpenStack Platform 14.0 (Rocky) for RHEL 7.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nRed Hat OpenStack Platform provides the facilities for building, deploying\nand monitoring a private or public infrastructure-as-a-service (IaaS) cloud\nrunning on commonly available physical hardware.\n\nChanges to the openstack-kuryr-kubernetes component:\n\n* Prior to this update, a race condition between Octavia and Kuryr agents could result in the co-existence of Octavia-generated and Kuryr-generated security group rules. This caused failure of namespace isolation enforcement.\n\nNow the Kuryr agent waits for and deletes Octavia-generated security group rules before generating Kuryr specific security group rules. This allows successful namespace isolation enforcement. (BZ#1663150)\n\n* Previously, when the number of networks in the Kubernetes project exceeded the quota, the kuryr-controller pod would restart indefinitely due to having been marked as unhealthy. Now, a new readiness check validates the tenant's quota against the available Neutron resources. If the quota is reached, the controller pod is marked as 'Not Ready' and an action is required from the tenant side to increase the quota value or delete resources. (BZ#1631182)\n\nChanges to the python-ovsdbapp component:\n\n* This update fixes a networking-ovn bug that prevented load balancer traffic from being distributed even when distributed virtual routing (DVR) was enabled.\n\nPrior to this update, auto-nested transactions failed when the return value of one command was used as input to another. Commands that returned values used in other commands that were bundled into the same auto-nested transaction could not return their values until after the transaction completed. This caused the networking-ovn load balancer problem.\n\nBecause most commands that return values are read-only, it is not necessary to initiate a transaction, because the data is already in memory. With this update, the read-only commands are run outside of a transaction, resolving the problem. (BZ#1669306)\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2023 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHBA-2019:0944",
+				"Description": "https://access.redhat.com/errata/RHBA-2019:0944"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was discovered in the python-novajoin plugin for Red Hat OpenStack Platform. The novajoin API lacked sufficient access control, allowing any keystone authenticated user to generate FreeIPA tokens.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2019-01-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2019-10138",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, ensure all previously released errata relevant\nto your system have been applied.\n\nRed Hat OpenStack Platform 14 runs on Red Hat Enterprise Linux 7.6.\n\nThe Red Hat OpenStack Platform 14 Release Notes contain the following:\n* An explanation of the way in which the provided components interact to\nform a working cloud computing environment.\n* Technology Previews, Recommended Practices, and Known Issues.\n* The channels required for Red Hat OpenStack Platform 14, including which\nchannels need to be enabled and disabled.\n\nThe Release Notes are available at:\nhttps://access.redhat.com/documentation/en/red-hat-openstack-platform/\n\nThis update is available through 'yum update' on systems registered through\nRed Hat Subscription Manager. For more information about Red Hat\nSubscription Manager, see:\n\nhttps://access.redhat.com/documentation/en-US/Red_Hat_Subscription_Management/1/html/RHSM/index.html\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHBA-2019:0944"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://review.opendev.org/#/c/631240/",
+						"Description": "https://review.opendev.org/#/c/631240/"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2019-10138",
+						"Description": "CVE-2019-10138"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1670573",
+						"Description": "bz#1670573: CVE-2019-10138 python-novajoin: novajoin API lacks access control"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2019-01-11T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-RH7-RHOS-TOOLS-14.0:python-octaviaclient-0:1.6.0-0.20180816134808.64d007f.el7ost",
+						"7Server-RH7-RHOS-14.0:ansible-role-container-registry-0:1.0.1-0.20190218212245.d6a749a.el7ost",
+						"7Server-RH7-RHOS-14.0:ansible-role-redhat-subscription-0:1.0.2-1.el7ost",
+						"7Server-RH7-RHOS-14.0:ansible-role-tripleo-modify-image-0:1.0.1-0.20190226052419.9014df9.el7ost",
+						"7Server-RH7-RHOS-14.0:ansible-tripleo-ipsec-0:9.1.0-1.el7ost",
+						"7Server-RH7-RHOS-14.0:openstack-barbican-0:7.0.1-0.20190204192112.ed17b57.el7ost",
+						"7Server-RH7-RHOS-14.0:openstack-designate-1:7.0.1-0.20190314164436.7f4c878.el7ost",
+						"7Server-RH7-RHOS-14.0:openstack-heat-ui-0:1.4.1-0.20190130023741.0b301df.el7ost",
+						"7Server-RH7-RHOS-14.0:openstack-kuryr-kubernetes-0:0.5.4-0.20190220170509.17d2635.el7ost",
+						"7Server-RH7-RHOS-14.0:openstack-manila-1:7.1.0-2.el7ost",
+						"7Server-RH7-RHOS-14.0:openstack-manila-ui-0:2.16.1-0.20190204170113.4865df2.el7ost",
+						"7Server-RH7-RHOS-14.0:openstack-octavia-ui-0:2.0.1-0.20190110112807.85e4a3e.el7ost",
+						"7Server-RH7-RHOS-14.0:openstack-selinux-0:0.8.18-1.el7ost",
+						"7Server-RH7-RHOS-14.0:openstack-tempest-1:19.0.0-3.el7ost",
+						"7Server-RH7-RHOS-14.0:openstack-zaqar-1:7.0.1-0.20181026065336.fed6d77.el7ost",
+						"7Server-RH7-RHOS-14.0:openvswitch2.10-0:2.10.0-28.el7fdp.2",
+						"7Server-RH7-RHOS-14.0:python-glance-store-0:0.26.2-0.20181026221750.d001c3c.el7ost",
+						"7Server-RH7-RHOS-14.0:python-hardware-0:0.18.1-0.20190301121902.b417976.el7ost",
+						"7Server-RH7-RHOS-14.0:python-novajoin-0:1.1.1-2.el7ost",
+						"7Server-RH7-RHOS-14.0:python-octaviaclient-0:1.6.0-0.20180816134808.64d007f.el7ost",
+						"7Server-RH7-RHOS-14.0:python-os-faults-0:0.2.1-1.el7ost",
+						"7Server-RH7-RHOS-14.0:python-oslo-cache-0:1.30.3-0.20190204170706.5f42092.el7ost",
+						"7Server-RH7-RHOS-14.0:python-ovsdbapp-0:0.12.3-1.el7ost",
+						"7Server-RH7-RHOS-14.0:python-telemetry-tests-tempest-0:0.2.0-0.20190222195250.7f0e315.el7ost",
+						"7Server-RH7-RHOS-14.0:python-vmware-nsxlib-0:13.0.1-0.20190220070404.24a7ff4.el7ost",
+						"7Server-RH7-RHOS-14.0:python-wsme-0:0.9.4-0.20190314161310.1d73d6e.el7ost",
+						"7Server-RH7-RHOS-14.0:qpid-proton-0:0.26.0-3.el7",
+						"7Server-RH7-RHOS-14.0:rhosp-release-0:14.0.2-1.el7ost",
+						"7Server-RH7-RHOS-14.0:skydive-0:0.20.3-1.el7ost",
+						"7Server-RH7-RHOS-DEPLOYMENT-TOOLS-14.0:openstack-selinux-0:0.8.18-1.el7ost",
+						"7Server-RH7-RHOS-DEPLOYMENT-TOOLS-14.0:rhosp-release-0:14.0.2-1.el7ost",
+						"7Server-RH7-RHOS-DEVTOOLS-14.0:openvswitch2.10-0:2.10.0-28.el7fdp.2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "This issue was discovered by Grzegorz Grasza (Red Hat)."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat OpenStack Platform",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat OpenStack Platform 14.0",
+						"fullproductname": {
+							"text": "Red Hat OpenStack Platform 14.0",
+							"productid": "7Client-RH7-RHOS-TOOLS-14.0",
+							"cpe": "cpe:/a:redhat:openstack:14::el7"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat OpenStack Platform 14.0",
+						"fullproductname": {
+							"text": "Red Hat OpenStack Platform 14.0",
+							"productid": "7Server-RH7-RHOS-14.0",
+							"cpe": "cpe:/a:redhat:openstack:14::el7"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat OpenStack Platform 14.0",
+						"fullproductname": {
+							"text": "Red Hat OpenStack Platform 14.0",
+							"productid": "7Server-RH7-RHOS-DEPLOYMENT-TOOLS-14.0",
+							"cpe": "cpe:/a:redhat:openstack:14::el7"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat OpenStack Platform 14.0",
+						"fullproductname": {
+							"text": "Red Hat OpenStack Platform 14.0",
+							"productid": "7Server-RH7-RHOS-DEVTOOLS-14.0",
+							"cpe": "cpe:/a:redhat:openstack:14::el7"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "ansible-role-container-registry-0:1.0.1-0.20190218212245.d6a749a.el7ost",
+				"fullproductname": {
+					"text": "ansible-role-container-registry-1.0.1-0.20190218212245.d6a749a.el7ost.src.rpm",
+					"productid": "ansible-role-container-registry-0:1.0.1-0.20190218212245.d6a749a.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:14::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ansible-role-redhat-subscription-0:1.0.2-1.el7ost",
+				"fullproductname": {
+					"text": "ansible-role-redhat-subscription-1.0.2-1.el7ost.src.rpm",
+					"productid": "ansible-role-redhat-subscription-0:1.0.2-1.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:14::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ansible-role-tripleo-modify-image-0:1.0.1-0.20190226052419.9014df9.el7ost",
+				"fullproductname": {
+					"text": "ansible-role-tripleo-modify-image-1.0.1-0.20190226052419.9014df9.el7ost.src.rpm",
+					"productid": "ansible-role-tripleo-modify-image-0:1.0.1-0.20190226052419.9014df9.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:14::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ansible-tripleo-ipsec-0:9.1.0-1.el7ost",
+				"fullproductname": {
+					"text": "ansible-tripleo-ipsec-9.1.0-1.el7ost.src.rpm",
+					"productid": "ansible-tripleo-ipsec-0:9.1.0-1.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:14::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openstack-barbican-0:7.0.1-0.20190204192112.ed17b57.el7ost",
+				"fullproductname": {
+					"text": "openstack-barbican-7.0.1-0.20190204192112.ed17b57.el7ost.src.rpm",
+					"productid": "openstack-barbican-0:7.0.1-0.20190204192112.ed17b57.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:14::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openstack-designate-1:7.0.1-0.20190314164436.7f4c878.el7ost",
+				"fullproductname": {
+					"text": "openstack-designate-7.0.1-0.20190314164436.7f4c878.el7ost.src.rpm",
+					"productid": "openstack-designate-1:7.0.1-0.20190314164436.7f4c878.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:14::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openstack-heat-ui-0:1.4.1-0.20190130023741.0b301df.el7ost",
+				"fullproductname": {
+					"text": "openstack-heat-ui-1.4.1-0.20190130023741.0b301df.el7ost.src.rpm",
+					"productid": "openstack-heat-ui-0:1.4.1-0.20190130023741.0b301df.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:14::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openstack-kuryr-kubernetes-0:0.5.4-0.20190220170509.17d2635.el7ost",
+				"fullproductname": {
+					"text": "openstack-kuryr-kubernetes-0.5.4-0.20190220170509.17d2635.el7ost.src.rpm",
+					"productid": "openstack-kuryr-kubernetes-0:0.5.4-0.20190220170509.17d2635.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:14::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openstack-manila-1:7.1.0-2.el7ost",
+				"fullproductname": {
+					"text": "openstack-manila-7.1.0-2.el7ost.src.rpm",
+					"productid": "openstack-manila-1:7.1.0-2.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:14::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openstack-manila-ui-0:2.16.1-0.20190204170113.4865df2.el7ost",
+				"fullproductname": {
+					"text": "openstack-manila-ui-2.16.1-0.20190204170113.4865df2.el7ost.src.rpm",
+					"productid": "openstack-manila-ui-0:2.16.1-0.20190204170113.4865df2.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:14::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openstack-octavia-ui-0:2.0.1-0.20190110112807.85e4a3e.el7ost",
+				"fullproductname": {
+					"text": "openstack-octavia-ui-2.0.1-0.20190110112807.85e4a3e.el7ost.src.rpm",
+					"productid": "openstack-octavia-ui-0:2.0.1-0.20190110112807.85e4a3e.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:14::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openstack-selinux-0:0.8.18-1.el7ost",
+				"fullproductname": {
+					"text": "openstack-selinux-0.8.18-1.el7ost.src.rpm",
+					"productid": "openstack-selinux-0:0.8.18-1.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:14::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openstack-tempest-1:19.0.0-3.el7ost",
+				"fullproductname": {
+					"text": "openstack-tempest-19.0.0-3.el7ost.src.rpm",
+					"productid": "openstack-tempest-1:19.0.0-3.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:14::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openstack-zaqar-1:7.0.1-0.20181026065336.fed6d77.el7ost",
+				"fullproductname": {
+					"text": "openstack-zaqar-7.0.1-0.20181026065336.fed6d77.el7ost.src.rpm",
+					"productid": "openstack-zaqar-1:7.0.1-0.20181026065336.fed6d77.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:14::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openvswitch2.10-0:2.10.0-28.el7fdp.2",
+				"fullproductname": {
+					"text": "openvswitch2.10-2.10.0-28.el7fdp.2.src.rpm",
+					"productid": "openvswitch2.10-0:2.10.0-28.el7fdp.2",
+					"cpe": "cpe:/a:redhat:openstack:14::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-glance-store-0:0.26.2-0.20181026221750.d001c3c.el7ost",
+				"fullproductname": {
+					"text": "python-glance-store-0.26.2-0.20181026221750.d001c3c.el7ost.src.rpm",
+					"productid": "python-glance-store-0:0.26.2-0.20181026221750.d001c3c.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:14::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-hardware-0:0.18.1-0.20190301121902.b417976.el7ost",
+				"fullproductname": {
+					"text": "python-hardware-0.18.1-0.20190301121902.b417976.el7ost.src.rpm",
+					"productid": "python-hardware-0:0.18.1-0.20190301121902.b417976.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:14::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-novajoin-0:1.1.1-2.el7ost",
+				"fullproductname": {
+					"text": "python-novajoin-1.1.1-2.el7ost.src.rpm",
+					"productid": "python-novajoin-0:1.1.1-2.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:14::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-octaviaclient-0:1.6.0-0.20180816134808.64d007f.el7ost",
+				"fullproductname": {
+					"text": "python-octaviaclient-1.6.0-0.20180816134808.64d007f.el7ost.src.rpm",
+					"productid": "python-octaviaclient-0:1.6.0-0.20180816134808.64d007f.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:14::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-os-faults-0:0.2.1-1.el7ost",
+				"fullproductname": {
+					"text": "python-os-faults-0.2.1-1.el7ost.src.rpm",
+					"productid": "python-os-faults-0:0.2.1-1.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:14::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-oslo-cache-0:1.30.3-0.20190204170706.5f42092.el7ost",
+				"fullproductname": {
+					"text": "python-oslo-cache-1.30.3-0.20190204170706.5f42092.el7ost.src.rpm",
+					"productid": "python-oslo-cache-0:1.30.3-0.20190204170706.5f42092.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:14::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-ovsdbapp-0:0.12.3-1.el7ost",
+				"fullproductname": {
+					"text": "python-ovsdbapp-0.12.3-1.el7ost.src.rpm",
+					"productid": "python-ovsdbapp-0:0.12.3-1.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:14::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-telemetry-tests-tempest-0:0.2.0-0.20190222195250.7f0e315.el7ost",
+				"fullproductname": {
+					"text": "python-telemetry-tests-tempest-0.2.0-0.20190222195250.7f0e315.el7ost.src.rpm",
+					"productid": "python-telemetry-tests-tempest-0:0.2.0-0.20190222195250.7f0e315.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:14::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-vmware-nsxlib-0:13.0.1-0.20190220070404.24a7ff4.el7ost",
+				"fullproductname": {
+					"text": "python-vmware-nsxlib-13.0.1-0.20190220070404.24a7ff4.el7ost.src.rpm",
+					"productid": "python-vmware-nsxlib-0:13.0.1-0.20190220070404.24a7ff4.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:14::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-wsme-0:0.9.4-0.20190314161310.1d73d6e.el7ost",
+				"fullproductname": {
+					"text": "python-wsme-0.9.4-0.20190314161310.1d73d6e.el7ost.src.rpm",
+					"productid": "python-wsme-0:0.9.4-0.20190314161310.1d73d6e.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:14::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "qpid-proton-0:0.26.0-3.el7",
+				"fullproductname": {
+					"text": "qpid-proton-0.26.0-3.el7.src.rpm",
+					"productid": "qpid-proton-0:0.26.0-3.el7",
+					"cpe": "cpe:/a:redhat:openstack:14::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhosp-release-0:14.0.2-1.el7ost",
+				"fullproductname": {
+					"text": "rhosp-release-14.0.2-1.el7ost.src.rpm",
+					"productid": "rhosp-release-0:14.0.2-1.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:14::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "skydive-0:0.20.3-1.el7ost",
+				"fullproductname": {
+					"text": "skydive-0.20.3-1.el7ost.src.rpm",
+					"productid": "skydive-0:0.20.3-1.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:14::el7"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "python-octaviaclient-0:1.6.0-0.20180816134808.64d007f.el7ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-RH7-RHOS-TOOLS-14.0",
+				"fullproductname": {
+					"text": "python-octaviaclient-0:1.6.0-0.20180816134808.64d007f.el7ost as a component of Red Hat OpenStack Platform 14.0",
+					"productid": "7Client-RH7-RHOS-TOOLS-14.0:python-octaviaclient-0:1.6.0-0.20180816134808.64d007f.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:14::el7"
+				}
+			},
+			{
+				"productreference": "ansible-role-container-registry-0:1.0.1-0.20190218212245.d6a749a.el7ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOS-14.0",
+				"fullproductname": {
+					"text": "ansible-role-container-registry-0:1.0.1-0.20190218212245.d6a749a.el7ost as a component of Red Hat OpenStack Platform 14.0",
+					"productid": "7Server-RH7-RHOS-14.0:ansible-role-container-registry-0:1.0.1-0.20190218212245.d6a749a.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:14::el7"
+				}
+			},
+			{
+				"productreference": "ansible-role-redhat-subscription-0:1.0.2-1.el7ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOS-14.0",
+				"fullproductname": {
+					"text": "ansible-role-redhat-subscription-0:1.0.2-1.el7ost as a component of Red Hat OpenStack Platform 14.0",
+					"productid": "7Server-RH7-RHOS-14.0:ansible-role-redhat-subscription-0:1.0.2-1.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:14::el7"
+				}
+			},
+			{
+				"productreference": "ansible-role-tripleo-modify-image-0:1.0.1-0.20190226052419.9014df9.el7ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOS-14.0",
+				"fullproductname": {
+					"text": "ansible-role-tripleo-modify-image-0:1.0.1-0.20190226052419.9014df9.el7ost as a component of Red Hat OpenStack Platform 14.0",
+					"productid": "7Server-RH7-RHOS-14.0:ansible-role-tripleo-modify-image-0:1.0.1-0.20190226052419.9014df9.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:14::el7"
+				}
+			},
+			{
+				"productreference": "ansible-tripleo-ipsec-0:9.1.0-1.el7ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOS-14.0",
+				"fullproductname": {
+					"text": "ansible-tripleo-ipsec-0:9.1.0-1.el7ost as a component of Red Hat OpenStack Platform 14.0",
+					"productid": "7Server-RH7-RHOS-14.0:ansible-tripleo-ipsec-0:9.1.0-1.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:14::el7"
+				}
+			},
+			{
+				"productreference": "openstack-barbican-0:7.0.1-0.20190204192112.ed17b57.el7ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOS-14.0",
+				"fullproductname": {
+					"text": "openstack-barbican-0:7.0.1-0.20190204192112.ed17b57.el7ost as a component of Red Hat OpenStack Platform 14.0",
+					"productid": "7Server-RH7-RHOS-14.0:openstack-barbican-0:7.0.1-0.20190204192112.ed17b57.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:14::el7"
+				}
+			},
+			{
+				"productreference": "openstack-designate-1:7.0.1-0.20190314164436.7f4c878.el7ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOS-14.0",
+				"fullproductname": {
+					"text": "openstack-designate-1:7.0.1-0.20190314164436.7f4c878.el7ost as a component of Red Hat OpenStack Platform 14.0",
+					"productid": "7Server-RH7-RHOS-14.0:openstack-designate-1:7.0.1-0.20190314164436.7f4c878.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:14::el7"
+				}
+			},
+			{
+				"productreference": "openstack-heat-ui-0:1.4.1-0.20190130023741.0b301df.el7ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOS-14.0",
+				"fullproductname": {
+					"text": "openstack-heat-ui-0:1.4.1-0.20190130023741.0b301df.el7ost as a component of Red Hat OpenStack Platform 14.0",
+					"productid": "7Server-RH7-RHOS-14.0:openstack-heat-ui-0:1.4.1-0.20190130023741.0b301df.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:14::el7"
+				}
+			},
+			{
+				"productreference": "openstack-kuryr-kubernetes-0:0.5.4-0.20190220170509.17d2635.el7ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOS-14.0",
+				"fullproductname": {
+					"text": "openstack-kuryr-kubernetes-0:0.5.4-0.20190220170509.17d2635.el7ost as a component of Red Hat OpenStack Platform 14.0",
+					"productid": "7Server-RH7-RHOS-14.0:openstack-kuryr-kubernetes-0:0.5.4-0.20190220170509.17d2635.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:14::el7"
+				}
+			},
+			{
+				"productreference": "openstack-manila-1:7.1.0-2.el7ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOS-14.0",
+				"fullproductname": {
+					"text": "openstack-manila-1:7.1.0-2.el7ost as a component of Red Hat OpenStack Platform 14.0",
+					"productid": "7Server-RH7-RHOS-14.0:openstack-manila-1:7.1.0-2.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:14::el7"
+				}
+			},
+			{
+				"productreference": "openstack-manila-ui-0:2.16.1-0.20190204170113.4865df2.el7ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOS-14.0",
+				"fullproductname": {
+					"text": "openstack-manila-ui-0:2.16.1-0.20190204170113.4865df2.el7ost as a component of Red Hat OpenStack Platform 14.0",
+					"productid": "7Server-RH7-RHOS-14.0:openstack-manila-ui-0:2.16.1-0.20190204170113.4865df2.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:14::el7"
+				}
+			},
+			{
+				"productreference": "openstack-octavia-ui-0:2.0.1-0.20190110112807.85e4a3e.el7ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOS-14.0",
+				"fullproductname": {
+					"text": "openstack-octavia-ui-0:2.0.1-0.20190110112807.85e4a3e.el7ost as a component of Red Hat OpenStack Platform 14.0",
+					"productid": "7Server-RH7-RHOS-14.0:openstack-octavia-ui-0:2.0.1-0.20190110112807.85e4a3e.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:14::el7"
+				}
+			},
+			{
+				"productreference": "openstack-selinux-0:0.8.18-1.el7ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOS-14.0",
+				"fullproductname": {
+					"text": "openstack-selinux-0:0.8.18-1.el7ost as a component of Red Hat OpenStack Platform 14.0",
+					"productid": "7Server-RH7-RHOS-14.0:openstack-selinux-0:0.8.18-1.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:14::el7"
+				}
+			},
+			{
+				"productreference": "openstack-tempest-1:19.0.0-3.el7ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOS-14.0",
+				"fullproductname": {
+					"text": "openstack-tempest-1:19.0.0-3.el7ost as a component of Red Hat OpenStack Platform 14.0",
+					"productid": "7Server-RH7-RHOS-14.0:openstack-tempest-1:19.0.0-3.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:14::el7"
+				}
+			},
+			{
+				"productreference": "openstack-zaqar-1:7.0.1-0.20181026065336.fed6d77.el7ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOS-14.0",
+				"fullproductname": {
+					"text": "openstack-zaqar-1:7.0.1-0.20181026065336.fed6d77.el7ost as a component of Red Hat OpenStack Platform 14.0",
+					"productid": "7Server-RH7-RHOS-14.0:openstack-zaqar-1:7.0.1-0.20181026065336.fed6d77.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:14::el7"
+				}
+			},
+			{
+				"productreference": "openvswitch2.10-0:2.10.0-28.el7fdp.2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOS-14.0",
+				"fullproductname": {
+					"text": "openvswitch2.10-0:2.10.0-28.el7fdp.2 as a component of Red Hat OpenStack Platform 14.0",
+					"productid": "7Server-RH7-RHOS-14.0:openvswitch2.10-0:2.10.0-28.el7fdp.2",
+					"cpe": "cpe:/a:redhat:openstack:14::el7"
+				}
+			},
+			{
+				"productreference": "python-glance-store-0:0.26.2-0.20181026221750.d001c3c.el7ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOS-14.0",
+				"fullproductname": {
+					"text": "python-glance-store-0:0.26.2-0.20181026221750.d001c3c.el7ost as a component of Red Hat OpenStack Platform 14.0",
+					"productid": "7Server-RH7-RHOS-14.0:python-glance-store-0:0.26.2-0.20181026221750.d001c3c.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:14::el7"
+				}
+			},
+			{
+				"productreference": "python-hardware-0:0.18.1-0.20190301121902.b417976.el7ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOS-14.0",
+				"fullproductname": {
+					"text": "python-hardware-0:0.18.1-0.20190301121902.b417976.el7ost as a component of Red Hat OpenStack Platform 14.0",
+					"productid": "7Server-RH7-RHOS-14.0:python-hardware-0:0.18.1-0.20190301121902.b417976.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:14::el7"
+				}
+			},
+			{
+				"productreference": "python-novajoin-0:1.1.1-2.el7ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOS-14.0",
+				"fullproductname": {
+					"text": "python-novajoin-0:1.1.1-2.el7ost as a component of Red Hat OpenStack Platform 14.0",
+					"productid": "7Server-RH7-RHOS-14.0:python-novajoin-0:1.1.1-2.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:14::el7"
+				}
+			},
+			{
+				"productreference": "python-octaviaclient-0:1.6.0-0.20180816134808.64d007f.el7ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOS-14.0",
+				"fullproductname": {
+					"text": "python-octaviaclient-0:1.6.0-0.20180816134808.64d007f.el7ost as a component of Red Hat OpenStack Platform 14.0",
+					"productid": "7Server-RH7-RHOS-14.0:python-octaviaclient-0:1.6.0-0.20180816134808.64d007f.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:14::el7"
+				}
+			},
+			{
+				"productreference": "python-os-faults-0:0.2.1-1.el7ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOS-14.0",
+				"fullproductname": {
+					"text": "python-os-faults-0:0.2.1-1.el7ost as a component of Red Hat OpenStack Platform 14.0",
+					"productid": "7Server-RH7-RHOS-14.0:python-os-faults-0:0.2.1-1.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:14::el7"
+				}
+			},
+			{
+				"productreference": "python-oslo-cache-0:1.30.3-0.20190204170706.5f42092.el7ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOS-14.0",
+				"fullproductname": {
+					"text": "python-oslo-cache-0:1.30.3-0.20190204170706.5f42092.el7ost as a component of Red Hat OpenStack Platform 14.0",
+					"productid": "7Server-RH7-RHOS-14.0:python-oslo-cache-0:1.30.3-0.20190204170706.5f42092.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:14::el7"
+				}
+			},
+			{
+				"productreference": "python-ovsdbapp-0:0.12.3-1.el7ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOS-14.0",
+				"fullproductname": {
+					"text": "python-ovsdbapp-0:0.12.3-1.el7ost as a component of Red Hat OpenStack Platform 14.0",
+					"productid": "7Server-RH7-RHOS-14.0:python-ovsdbapp-0:0.12.3-1.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:14::el7"
+				}
+			},
+			{
+				"productreference": "python-telemetry-tests-tempest-0:0.2.0-0.20190222195250.7f0e315.el7ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOS-14.0",
+				"fullproductname": {
+					"text": "python-telemetry-tests-tempest-0:0.2.0-0.20190222195250.7f0e315.el7ost as a component of Red Hat OpenStack Platform 14.0",
+					"productid": "7Server-RH7-RHOS-14.0:python-telemetry-tests-tempest-0:0.2.0-0.20190222195250.7f0e315.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:14::el7"
+				}
+			},
+			{
+				"productreference": "python-vmware-nsxlib-0:13.0.1-0.20190220070404.24a7ff4.el7ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOS-14.0",
+				"fullproductname": {
+					"text": "python-vmware-nsxlib-0:13.0.1-0.20190220070404.24a7ff4.el7ost as a component of Red Hat OpenStack Platform 14.0",
+					"productid": "7Server-RH7-RHOS-14.0:python-vmware-nsxlib-0:13.0.1-0.20190220070404.24a7ff4.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:14::el7"
+				}
+			},
+			{
+				"productreference": "python-wsme-0:0.9.4-0.20190314161310.1d73d6e.el7ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOS-14.0",
+				"fullproductname": {
+					"text": "python-wsme-0:0.9.4-0.20190314161310.1d73d6e.el7ost as a component of Red Hat OpenStack Platform 14.0",
+					"productid": "7Server-RH7-RHOS-14.0:python-wsme-0:0.9.4-0.20190314161310.1d73d6e.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:14::el7"
+				}
+			},
+			{
+				"productreference": "qpid-proton-0:0.26.0-3.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOS-14.0",
+				"fullproductname": {
+					"text": "qpid-proton-0:0.26.0-3.el7 as a component of Red Hat OpenStack Platform 14.0",
+					"productid": "7Server-RH7-RHOS-14.0:qpid-proton-0:0.26.0-3.el7",
+					"cpe": "cpe:/a:redhat:openstack:14::el7"
+				}
+			},
+			{
+				"productreference": "rhosp-release-0:14.0.2-1.el7ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOS-14.0",
+				"fullproductname": {
+					"text": "rhosp-release-0:14.0.2-1.el7ost as a component of Red Hat OpenStack Platform 14.0",
+					"productid": "7Server-RH7-RHOS-14.0:rhosp-release-0:14.0.2-1.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:14::el7"
+				}
+			},
+			{
+				"productreference": "skydive-0:0.20.3-1.el7ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOS-14.0",
+				"fullproductname": {
+					"text": "skydive-0:0.20.3-1.el7ost as a component of Red Hat OpenStack Platform 14.0",
+					"productid": "7Server-RH7-RHOS-14.0:skydive-0:0.20.3-1.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:14::el7"
+				}
+			},
+			{
+				"productreference": "openstack-selinux-0:0.8.18-1.el7ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOS-DEPLOYMENT-TOOLS-14.0",
+				"fullproductname": {
+					"text": "openstack-selinux-0:0.8.18-1.el7ost as a component of Red Hat OpenStack Platform 14.0",
+					"productid": "7Server-RH7-RHOS-DEPLOYMENT-TOOLS-14.0:openstack-selinux-0:0.8.18-1.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:14::el7"
+				}
+			},
+			{
+				"productreference": "rhosp-release-0:14.0.2-1.el7ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOS-DEPLOYMENT-TOOLS-14.0",
+				"fullproductname": {
+					"text": "rhosp-release-0:14.0.2-1.el7ost as a component of Red Hat OpenStack Platform 14.0",
+					"productid": "7Server-RH7-RHOS-DEPLOYMENT-TOOLS-14.0:rhosp-release-0:14.0.2-1.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:14::el7"
+				}
+			},
+			{
+				"productreference": "openvswitch2.10-0:2.10.0-28.el7fdp.2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOS-DEVTOOLS-14.0",
+				"fullproductname": {
+					"text": "openvswitch2.10-0:2.10.0-28.el7fdp.2 as a component of Red Hat OpenStack Platform 14.0",
+					"productid": "7Server-RH7-RHOS-DEVTOOLS-14.0:openvswitch2.10-0:2.10.0-28.el7fdp.2",
+					"cpe": "cpe:/a:redhat:openstack:14::el7"
+				}
+			}
+		]
+	}
+}

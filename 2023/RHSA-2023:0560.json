@@ -1,0 +1,1891 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: OpenShift Container Platform 4.10.51 security update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2023:0560"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2023-02-08T18:41:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2023-02-08T18:41:00Z",
+		"CurrentReleaseDate": "2023-02-08T18:41:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.11.0",
+			"Date": "2023-02-08T21:42:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nRed Hat OpenShift Container Platform release 4.10.51 is now available with updates to packages and images that fix several bugs and add enhancements.\n\nRed Hat Product Security has rated this update as having a security impact of Critical. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nRed Hat OpenShift Container Platform is Red Hat's cloud computing Kubernetes application platform solution designed for on-premise or private cloud deployments.\n\nSecurity Fix(es):\n\n* jenkins-plugin/script-security: Sandbox bypass vulnerabilities in Jenkins\nScript Security Plugin (CVE-2022-43401)\n* jenkins-plugin/workflow-cps: Sandbox bypass vulnerabilities in Pipeline:\nGroovy Plugin (CVE-2022-43402)\n* jenkins-plugin/script-security: Sandbox bypass vulnerabilities in Jenkins\nScript Security Plugin (CVE-2022-43403)\n* jenkins-plugin/script-security: Sandbox bypass vulnerabilities in Jenkins\nScript Security Plugin (CVE-2022-43404)\n* jenkins-plugin/pipeline-groovy-lib: Sandbox bypass vulnerability in\nPipeline: Groovy Libraries Plugin (CVE-2022-43405)\n* jenkins-plugin/workflow-cps-global-lib: Sandbox bypass vulnerability in\nPipeline: Deprecated Groovy Libraries Plugin (CVE-2022-43406)\n* google-oauth-client: missing PKCE support in accordance with the RFC for\nOAuth 2.0 for Native Apps can lead to improper authorization\n(CVE-2020-7692)\n* snakeyaml: Denial of Service due to missing nested depth limitation for\ncollections (CVE-2022-25857)\n* jenkins-plugin/pipeline-input-step: CSRF protection for any URL can be\nbypassed in Pipeline: Input Step Plugin (CVE-2022-43407)\n* mina-sshd: Java unsafe deserialization vulnerability (CVE-2022-45047)\n* jenkins-plugin/script-security: Whole-script approval in Script Security\nPlugin vulnerable to SHA-1 collisions (CVE-2022-45379)\n* jenkins-plugin/JUnit: Stored XSS vulnerability in JUnit Plugin\n(CVE-2022-45380)\n* jenkins-plugin/pipeline-utility-steps: Arbitrary file read vulnerability\nin Pipeline Utility Steps Plugin (CVE-2022-45381)\n* Jenkins plugin: CSRF vulnerability in Script Security Plugin\n(CVE-2022-30946)\n* Jenkins plugin: User-scoped credentials exposed to other users by\nPipeline SCM API for Blue Ocean Plugin (CVE-2022-30952)\n* Jenkins plugin: CSRF vulnerability in Blue Ocean Plugin (CVE-2022-30953)\n* Jenkins plugin: missing permission checks in Blue Ocean Plugin\n(CVE-2022-30954)\n* jenkins-plugin: Cross-site Request Forgery (CSRF) in\norg.jenkins-ci.plugins:git (CVE-2022-36882)\n* jenkins plugin: Lack of authentication mechanism in Git Plugin webhook\n(CVE-2022-36883)\n* jenkins plugin: Lack of authentication mechanism in Git Plugin webhook\n(CVE-2022-36884)\n* jenkins plugin: Non-constant time webhook signature comparison in GitHub\nPlugin (CVE-2022-36885)\n* jenkins-plugin/pipeline-stage-view: CSRF protection for any URL can be\nbypassed in Pipeline: Stage View Plugin (CVE-2022-43408)\n* jenkins-plugin/workflow-support: Stored XSS vulnerability in Pipeline:\nSupporting APIs Plugin (CVE-2022-43409)\n\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2023 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Critical",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2023:0560",
+				"Description": "https://access.redhat.com/errata/RHSA-2023:0560"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#critical",
+				"Description": "https://access.redhat.com/security/updates/classification/#critical"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "PKCE support is not implemented in accordance with the RFC for OAuth 2.0 for Native Apps. Without the use of PKCE, the authorization code returned by an authorization server is not enough to guarantee that the client that issued the initial authorization request is the one that will be authorized. An attacker is able to obtain the authorization code using a malicious app on the client-side and use it to gain authorization to the protected resource. This affects the package com.google.oauth-client:google-oauth-client before 1.31.0.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2020-07-03T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2020-7692",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor OpenShift Container Platform 4.10 see the following documentation, which will be updated shortly for this release, for important instructions on how to upgrade your cluster and fully apply this asynchronous errata update:\n\nhttps://docs.openshift.com/container-platform/4.10/release_notes/ocp-4-10-release-notes.html\n\nBefore applying this update, make sure all previously released errata relevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:0560"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2020-7692",
+						"Description": "CVE-2020-7692"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1856376",
+						"Description": "bz#1856376: CVE-2020-7692 google-oauth-client: missing PKCE support in accordance with the RFC for OAuth 2.0 for Native Apps can lead to improper authorization"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2020-07-09T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-RH7-RHOSE-4.10:cri-o-0:1.23.5-5.rhaos4.10.gitd9dec98.el7",
+						"8Base-RHOSE-4.10:cri-o-0:1.23.5-5.rhaos4.10.gitd9dec98.el8",
+						"8Base-RHOSE-4.10:jenkins-2-plugins-0:4.10.1675144701-1.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in the org.yaml.snakeyaml package. This flaw allows an attacker to cause a denial of service (DoS) due to missing nested depth limitation for collections.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-08-30T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-25857",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor OpenShift Container Platform 4.10 see the following documentation, which will be updated shortly for this release, for important instructions on how to upgrade your cluster and fully apply this asynchronous errata update:\n\nhttps://docs.openshift.com/container-platform/4.10/release_notes/ocp-4-10-release-notes.html\n\nBefore applying this update, make sure all previously released errata relevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:0560"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://bitbucket.org/snakeyaml/snakeyaml/issues/525",
+						"Description": "https://bitbucket.org/snakeyaml/snakeyaml/issues/525"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-25857",
+						"Description": "CVE-2022-25857"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2126789",
+						"Description": "bz#2126789: CVE-2022-25857 snakeyaml: Denial of Service due to missing nested depth limitation for collections"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2022-09-14T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-RH7-RHOSE-4.10:cri-o-0:1.23.5-5.rhaos4.10.gitd9dec98.el7",
+						"8Base-RHOSE-4.10:cri-o-0:1.23.5-5.rhaos4.10.gitd9dec98.el8",
+						"8Base-RHOSE-4.10:jenkins-2-plugins-0:4.10.1675144701-1.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A cross-site request forgery (CSRF) vulnerability in Jenkins Script Security Plugin 1158.v7c1b_73a_69a_08 and earlier allows attackers to have Jenkins send an HTTP request to an attacker-specified webserver.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-05-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-30946",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor OpenShift Container Platform 4.10 see the following documentation, which will be updated shortly for this release, for important instructions on how to upgrade your cluster and fully apply this asynchronous errata update:\n\nhttps://docs.openshift.com/container-platform/4.10/release_notes/ocp-4-10-release-notes.html\n\nBefore applying this update, make sure all previously released errata relevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:0560"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.jenkins.io/security/advisory/2022-05-17/#SECURITY-2116",
+						"Description": "https://www.jenkins.io/security/advisory/2022-05-17/#SECURITY-2116"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-30946",
+						"Description": "CVE-2022-30946"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2119643",
+						"Description": "bz#2119643: CVE-2022-30946 Jenkins plugin: CSRF vulnerability in Script Security Plugin"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2022-08-19T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-RH7-RHOSE-4.10:cri-o-0:1.23.5-5.rhaos4.10.gitd9dec98.el7",
+						"8Base-RHOSE-4.10:cri-o-0:1.23.5-5.rhaos4.10.gitd9dec98.el8",
+						"8Base-RHOSE-4.10:jenkins-2-plugins-0:4.10.1675144701-1.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Jenkins Pipeline SCM API for Blue Ocean Plugin 1.25.3 and earlier allows attackers with Job/Configure permission to access credentials with attacker-specified IDs stored in the private per-user credentials stores of any attacker-specified user in Jenkins.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-05-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-30952",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor OpenShift Container Platform 4.10 see the following documentation, which will be updated shortly for this release, for important instructions on how to upgrade your cluster and fully apply this asynchronous errata update:\n\nhttps://docs.openshift.com/container-platform/4.10/release_notes/ocp-4-10-release-notes.html\n\nBefore applying this update, make sure all previously released errata relevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:0560"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.jenkins.io/security/advisory/2022-05-17/#SECURITY-714",
+						"Description": "https://www.jenkins.io/security/advisory/2022-05-17/#SECURITY-714"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-30952",
+						"Description": "CVE-2022-30952"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2119645",
+						"Description": "bz#2119645: CVE-2022-30952 Jenkins plugin: User-scoped credentials exposed to other users by Pipeline SCM API for Blue Ocean Plugin"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2022-08-19T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-RH7-RHOSE-4.10:cri-o-0:1.23.5-5.rhaos4.10.gitd9dec98.el7",
+						"8Base-RHOSE-4.10:cri-o-0:1.23.5-5.rhaos4.10.gitd9dec98.el8",
+						"8Base-RHOSE-4.10:jenkins-2-plugins-0:4.10.1675144701-1.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A cross-site request forgery (CSRF) vulnerability in Jenkins Blue Ocean Plugin 1.25.3 and earlier allows attackers to connect to an attacker-specified HTTP server.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-05-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-30953",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor OpenShift Container Platform 4.10 see the following documentation, which will be updated shortly for this release, for important instructions on how to upgrade your cluster and fully apply this asynchronous errata update:\n\nhttps://docs.openshift.com/container-platform/4.10/release_notes/ocp-4-10-release-notes.html\n\nBefore applying this update, make sure all previously released errata relevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:0560"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.jenkins.io/security/advisory/2022-05-17/#SECURITY-2502",
+						"Description": "https://www.jenkins.io/security/advisory/2022-05-17/#SECURITY-2502"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-30953",
+						"Description": "CVE-2022-30953"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2119646",
+						"Description": "bz#2119646: CVE-2022-30953 Jenkins plugin: CSRF vulnerability in Blue Ocean Plugin"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2022-08-19T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-RH7-RHOSE-4.10:cri-o-0:1.23.5-5.rhaos4.10.gitd9dec98.el7",
+						"8Base-RHOSE-4.10:cri-o-0:1.23.5-5.rhaos4.10.gitd9dec98.el8",
+						"8Base-RHOSE-4.10:jenkins-2-plugins-0:4.10.1675144701-1.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "6",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Jenkins Blue Ocean Plugin 1.25.3 and earlier does not perform a permission check in several HTTP endpoints, allowing attackers with Overall/Read permission to connect to an attacker-specified HTTP server.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-05-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-30954",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor OpenShift Container Platform 4.10 see the following documentation, which will be updated shortly for this release, for important instructions on how to upgrade your cluster and fully apply this asynchronous errata update:\n\nhttps://docs.openshift.com/container-platform/4.10/release_notes/ocp-4-10-release-notes.html\n\nBefore applying this update, make sure all previously released errata relevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:0560"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.jenkins.io/security/advisory/2022-05-17/#SECURITY-2502",
+						"Description": "https://www.jenkins.io/security/advisory/2022-05-17/#SECURITY-2502"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-30954",
+						"Description": "CVE-2022-30954"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2119647",
+						"Description": "bz#2119647: CVE-2022-30954 Jenkins plugin: missing permission checks in Blue Ocean Plugin"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2022-08-19T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-RH7-RHOSE-4.10:cri-o-0:1.23.5-5.rhaos4.10.gitd9dec98.el7",
+						"8Base-RHOSE-4.10:cri-o-0:1.23.5-5.rhaos4.10.gitd9dec98.el8",
+						"8Base-RHOSE-4.10:jenkins-2-plugins-0:4.10.1675144701-1.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "7",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in the Git Jenkins plugin. The affected versions of the Git Jenkins Plugin allow attackers to trigger the builds of jobs configured to use an attacker-specified Git repository and to cause them to check out an attacker-specified commit.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-08-03T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-36882",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor OpenShift Container Platform 4.10 see the following documentation, which will be updated shortly for this release, for important instructions on how to upgrade your cluster and fully apply this asynchronous errata update:\n\nhttps://docs.openshift.com/container-platform/4.10/release_notes/ocp-4-10-release-notes.html\n\nBefore applying this update, make sure all previously released errata relevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:0560"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.jenkins.io/security/advisory/2022-07-27/#SECURITY-284",
+						"Description": "https://www.jenkins.io/security/advisory/2022-07-27/#SECURITY-284"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-36882",
+						"Description": "CVE-2022-36882"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2116840",
+						"Description": "bz#2116840: CVE-2022-36882 jenkins-plugin: Cross-site Request Forgery (CSRF) in org.jenkins-ci.plugins:git"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2022-08-09T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-RH7-RHOSE-4.10:cri-o-0:1.23.5-5.rhaos4.10.gitd9dec98.el7",
+						"8Base-RHOSE-4.10:cri-o-0:1.23.5-5.rhaos4.10.gitd9dec98.el8",
+						"8Base-RHOSE-4.10:jenkins-2-plugins-0:4.10.1675144701-1.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "8",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A missing permission check in Jenkins Git Plugin 4.11.3 and earlier allows unauthenticated attackers to trigger builds of jobs configured to use an attacker-specified Git repository and to cause them to check out an attacker-specified commit.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-07-27T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-36883",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor OpenShift Container Platform 4.10 see the following documentation, which will be updated shortly for this release, for important instructions on how to upgrade your cluster and fully apply this asynchronous errata update:\n\nhttps://docs.openshift.com/container-platform/4.10/release_notes/ocp-4-10-release-notes.html\n\nBefore applying this update, make sure all previously released errata relevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:0560"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.jenkins.io/security/advisory/2022-07-27/#SECURITY-284",
+						"Description": "https://www.jenkins.io/security/advisory/2022-07-27/#SECURITY-284"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-36883",
+						"Description": "CVE-2022-36883"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2119656",
+						"Description": "bz#2119656: CVE-2022-36883 jenkins plugin: Lack of authentication mechanism in Git Plugin webhook"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2022-08-19T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-RH7-RHOSE-4.10:cri-o-0:1.23.5-5.rhaos4.10.gitd9dec98.el7",
+						"8Base-RHOSE-4.10:cri-o-0:1.23.5-5.rhaos4.10.gitd9dec98.el8",
+						"8Base-RHOSE-4.10:jenkins-2-plugins-0:4.10.1675144701-1.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "9",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "The webhook endpoint in Jenkins Git Plugin 4.11.3 and earlier provide unauthenticated attackers information about the existence of jobs configured to use an attacker-specified Git repository.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-07-27T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-36884",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor OpenShift Container Platform 4.10 see the following documentation, which will be updated shortly for this release, for important instructions on how to upgrade your cluster and fully apply this asynchronous errata update:\n\nhttps://docs.openshift.com/container-platform/4.10/release_notes/ocp-4-10-release-notes.html\n\nBefore applying this update, make sure all previously released errata relevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:0560"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.jenkins.io/security/advisory/2022-07-27/#SECURITY-284",
+						"Description": "https://www.jenkins.io/security/advisory/2022-07-27/#SECURITY-284"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-36884",
+						"Description": "CVE-2022-36884"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2119657",
+						"Description": "bz#2119657: CVE-2022-36884 jenkins plugin: Lack of authentication mechanism in Git Plugin webhook"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2022-08-19T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-RH7-RHOSE-4.10:cri-o-0:1.23.5-5.rhaos4.10.gitd9dec98.el7",
+						"8Base-RHOSE-4.10:cri-o-0:1.23.5-5.rhaos4.10.gitd9dec98.el8",
+						"8Base-RHOSE-4.10:jenkins-2-plugins-0:4.10.1675144701-1.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "10",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Jenkins GitHub Plugin 1.34.4 and earlier uses a non-constant time comparison function when checking whether the provided and computed webhook signatures are equal, allowing attackers to use statistical methods to obtain a valid webhook signature.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-07-27T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-36885",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor OpenShift Container Platform 4.10 see the following documentation, which will be updated shortly for this release, for important instructions on how to upgrade your cluster and fully apply this asynchronous errata update:\n\nhttps://docs.openshift.com/container-platform/4.10/release_notes/ocp-4-10-release-notes.html\n\nBefore applying this update, make sure all previously released errata relevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:0560"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.jenkins.io/security/advisory/2022-07-27/#SECURITY-1849",
+						"Description": "https://www.jenkins.io/security/advisory/2022-07-27/#SECURITY-1849"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-36885",
+						"Description": "CVE-2022-36885"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2119658",
+						"Description": "bz#2119658: CVE-2022-36885 jenkins plugin: Non-constant time webhook signature comparison in GitHub Plugin"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2022-08-19T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-RH7-RHOSE-4.10:cri-o-0:1.23.5-5.rhaos4.10.gitd9dec98.el7",
+						"8Base-RHOSE-4.10:cri-o-0:1.23.5-5.rhaos4.10.gitd9dec98.el8",
+						"8Base-RHOSE-4.10:jenkins-2-plugins-0:4.10.1675144701-1.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "11",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A sandbox bypass vulnerability was found in several Jenkins plugins. This could allow an authenticated attacker to execute arbitrary code within the Jenkins JVM controller. Exploitation could be achieved by crafting untrusted libraries or pipelines, compromising the integrity, availability, and confidentiality of Jenkins.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-10-19T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-43401",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor OpenShift Container Platform 4.10 see the following documentation, which will be updated shortly for this release, for important instructions on how to upgrade your cluster and fully apply this asynchronous errata update:\n\nhttps://docs.openshift.com/container-platform/4.10/release_notes/ocp-4-10-release-notes.html\n\nBefore applying this update, make sure all previously released errata relevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:0560"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.jenkins.io/security/advisory/2022-10-19/#SECURITY-2824%20(1)",
+						"Description": "https://www.jenkins.io/security/advisory/2022-10-19/#SECURITY-2824%20(1)"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-43401",
+						"Description": "CVE-2022-43401"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2136381",
+						"Description": "bz#2136381: CVE-2022-43401 jenkins-plugin/script-security: Sandbox bypass vulnerabilities in Jenkins Script Security Plugin"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Critical"
+				}
+			},
+			"DiscoveryDate": "2022-10-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-RH7-RHOSE-4.10:cri-o-0:1.23.5-5.rhaos4.10.gitd9dec98.el7",
+						"8Base-RHOSE-4.10:cri-o-0:1.23.5-5.rhaos4.10.gitd9dec98.el8",
+						"8Base-RHOSE-4.10:jenkins-2-plugins-0:4.10.1675144701-1.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "12",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A sandbox bypass vulnerability was found in several Jenkins plugins. This could allow an authenticated attacker to execute arbitrary code within the Jenkins JVM controller. Exploitation could be achieved by crafting untrusted libraries or pipelines, compromising the integrity, availability, and confidentiality of Jenkins.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-10-19T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-43402",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor OpenShift Container Platform 4.10 see the following documentation, which will be updated shortly for this release, for important instructions on how to upgrade your cluster and fully apply this asynchronous errata update:\n\nhttps://docs.openshift.com/container-platform/4.10/release_notes/ocp-4-10-release-notes.html\n\nBefore applying this update, make sure all previously released errata relevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:0560"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.jenkins.io/security/advisory/2022-10-19/#SECURITY-2824%20(1)",
+						"Description": "https://www.jenkins.io/security/advisory/2022-10-19/#SECURITY-2824%20(1)"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-43402",
+						"Description": "CVE-2022-43402"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2136379",
+						"Description": "bz#2136379: CVE-2022-43402 jenkins-plugin/workflow-cps: Sandbox bypass vulnerabilities in Pipeline: Groovy Plugin"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Critical"
+				}
+			},
+			"DiscoveryDate": "2022-10-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-RH7-RHOSE-4.10:cri-o-0:1.23.5-5.rhaos4.10.gitd9dec98.el7",
+						"8Base-RHOSE-4.10:cri-o-0:1.23.5-5.rhaos4.10.gitd9dec98.el8",
+						"8Base-RHOSE-4.10:jenkins-2-plugins-0:4.10.1675144701-1.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "13",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A sandbox bypass vulnerability was found in several Jenkins plugins. This could allow an authenticated attacker to execute arbitrary code within the Jenkins JVM controller. Exploitation could be achieved by crafting untrusted libraries or pipelines, compromising the integrity, availability, and confidentiality of Jenkins.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-10-19T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-43403",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor OpenShift Container Platform 4.10 see the following documentation, which will be updated shortly for this release, for important instructions on how to upgrade your cluster and fully apply this asynchronous errata update:\n\nhttps://docs.openshift.com/container-platform/4.10/release_notes/ocp-4-10-release-notes.html\n\nBefore applying this update, make sure all previously released errata relevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:0560"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.jenkins.io/security/advisory/2022-10-19/#SECURITY-2824%20(1)",
+						"Description": "https://www.jenkins.io/security/advisory/2022-10-19/#SECURITY-2824%20(1)"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-43403",
+						"Description": "CVE-2022-43403"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2136382",
+						"Description": "bz#2136382: CVE-2022-43403 jenkins-plugin/script-security: Sandbox bypass vulnerabilities in Jenkins Script Security Plugin"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Critical"
+				}
+			},
+			"DiscoveryDate": "2022-10-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-RH7-RHOSE-4.10:cri-o-0:1.23.5-5.rhaos4.10.gitd9dec98.el7",
+						"8Base-RHOSE-4.10:cri-o-0:1.23.5-5.rhaos4.10.gitd9dec98.el8",
+						"8Base-RHOSE-4.10:jenkins-2-plugins-0:4.10.1675144701-1.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "14",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A sandbox bypass vulnerability was found in several Jenkins plugins. This could allow an authenticated attacker to execute arbitrary code within the Jenkins JVM controller. Exploitation could be achieved by crafting untrusted libraries or pipelines, compromising the integrity, availability, and confidentiality of Jenkins.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-10-19T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-43404",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor OpenShift Container Platform 4.10 see the following documentation, which will be updated shortly for this release, for important instructions on how to upgrade your cluster and fully apply this asynchronous errata update:\n\nhttps://docs.openshift.com/container-platform/4.10/release_notes/ocp-4-10-release-notes.html\n\nBefore applying this update, make sure all previously released errata relevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:0560"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.jenkins.io/security/advisory/2022-10-19/#SECURITY-2824%20(1)",
+						"Description": "https://www.jenkins.io/security/advisory/2022-10-19/#SECURITY-2824%20(1)"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-43404",
+						"Description": "CVE-2022-43404"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2136383",
+						"Description": "bz#2136383: CVE-2022-43404 jenkins-plugin/script-security: Sandbox bypass vulnerabilities in Jenkins Script Security Plugin"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Critical"
+				}
+			},
+			"DiscoveryDate": "2022-10-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-RH7-RHOSE-4.10:cri-o-0:1.23.5-5.rhaos4.10.gitd9dec98.el7",
+						"8Base-RHOSE-4.10:cri-o-0:1.23.5-5.rhaos4.10.gitd9dec98.el8",
+						"8Base-RHOSE-4.10:jenkins-2-plugins-0:4.10.1675144701-1.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "15",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A sandbox bypass vulnerability was found in several Jenkins plugins. This could allow an authenticated attacker to execute arbitrary code within the Jenkins JVM controller. Exploitation could be achieved by crafting untrusted libraries or pipelines, compromising the integrity, availability, and confidentiality of Jenkins.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-10-19T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-43405",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor OpenShift Container Platform 4.10 see the following documentation, which will be updated shortly for this release, for important instructions on how to upgrade your cluster and fully apply this asynchronous errata update:\n\nhttps://docs.openshift.com/container-platform/4.10/release_notes/ocp-4-10-release-notes.html\n\nBefore applying this update, make sure all previously released errata relevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:0560"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.jenkins.io/security/advisory/2022-10-19/#SECURITY-2824%20(2)",
+						"Description": "https://www.jenkins.io/security/advisory/2022-10-19/#SECURITY-2824%20(2)"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-43405",
+						"Description": "CVE-2022-43405"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2136374",
+						"Description": "bz#2136374: CVE-2022-43405 jenkins-plugin/pipeline-groovy-lib: Sandbox bypass vulnerability in Pipeline: Groovy Libraries Plugin"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Critical"
+				}
+			},
+			"DiscoveryDate": "2022-10-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-RH7-RHOSE-4.10:cri-o-0:1.23.5-5.rhaos4.10.gitd9dec98.el7",
+						"8Base-RHOSE-4.10:cri-o-0:1.23.5-5.rhaos4.10.gitd9dec98.el8",
+						"8Base-RHOSE-4.10:jenkins-2-plugins-0:4.10.1675144701-1.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "16",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A sandbox bypass vulnerability was found in several Jenkins plugins. This could allow an authenticated attacker to execute arbitrary code within the Jenkins JVM controller. Exploitation could be achieved by crafting untrusted libraries or pipelines, compromising the integrity, availability, and confidentiality of Jenkins.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-10-19T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-43406",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor OpenShift Container Platform 4.10 see the following documentation, which will be updated shortly for this release, for important instructions on how to upgrade your cluster and fully apply this asynchronous errata update:\n\nhttps://docs.openshift.com/container-platform/4.10/release_notes/ocp-4-10-release-notes.html\n\nBefore applying this update, make sure all previously released errata relevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:0560"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.jenkins.io/security/advisory/2022-10-19/#SECURITY-2824%20(2)",
+						"Description": "https://www.jenkins.io/security/advisory/2022-10-19/#SECURITY-2824%20(2)"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-43406",
+						"Description": "CVE-2022-43406"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2136370",
+						"Description": "bz#2136370: CVE-2022-43406 jenkins-plugin/workflow-cps-global-lib: Sandbox bypass vulnerability in Pipeline: Deprecated Groovy Libraries Plugin"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Critical"
+				}
+			},
+			"DiscoveryDate": "2022-10-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-RH7-RHOSE-4.10:cri-o-0:1.23.5-5.rhaos4.10.gitd9dec98.el7",
+						"8Base-RHOSE-4.10:cri-o-0:1.23.5-5.rhaos4.10.gitd9dec98.el8",
+						"8Base-RHOSE-4.10:jenkins-2-plugins-0:4.10.1675144701-1.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "17",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A cross-site request forgery (CSRF) vulnerability was found in a Jenkins plugin. This issue may allow an unauthenticated attacker to access Jenkins builds, bypassing CSRF protections. This could compromise the integrity, availability, and confidentiality of Jenkins.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-10-19T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-43407",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor OpenShift Container Platform 4.10 see the following documentation, which will be updated shortly for this release, for important instructions on how to upgrade your cluster and fully apply this asynchronous errata update:\n\nhttps://docs.openshift.com/container-platform/4.10/release_notes/ocp-4-10-release-notes.html\n\nBefore applying this update, make sure all previously released errata relevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:0560"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.jenkins.io/security/advisory/2022-10-19/#SECURITY-2880",
+						"Description": "https://www.jenkins.io/security/advisory/2022-10-19/#SECURITY-2880"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-43407",
+						"Description": "CVE-2022-43407"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2136386",
+						"Description": "bz#2136386: CVE-2022-43407 jenkins-plugin/pipeline-input-step: CSRF protection for any URL can be bypassed in Pipeline: Input Step Plugin"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2022-10-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-RH7-RHOSE-4.10:cri-o-0:1.23.5-5.rhaos4.10.gitd9dec98.el7",
+						"8Base-RHOSE-4.10:cri-o-0:1.23.5-5.rhaos4.10.gitd9dec98.el8",
+						"8Base-RHOSE-4.10:jenkins-2-plugins-0:4.10.1675144701-1.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "18",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A Cross-site request forgery (CSRF) vulnerability was found in a Jenkins plugin. This issue may allow an authenticated attacker to access Jenkins builds, bypassing CSRF protections.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-10-19T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-43408",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor OpenShift Container Platform 4.10 see the following documentation, which will be updated shortly for this release, for important instructions on how to upgrade your cluster and fully apply this asynchronous errata update:\n\nhttps://docs.openshift.com/container-platform/4.10/release_notes/ocp-4-10-release-notes.html\n\nBefore applying this update, make sure all previously released errata relevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:0560"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.jenkins.io/security/advisory/2022-10-19/#SECURITY-2828",
+						"Description": "https://www.jenkins.io/security/advisory/2022-10-19/#SECURITY-2828"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-43408",
+						"Description": "CVE-2022-43408"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2136388",
+						"Description": "bz#2136388: CVE-2022-43408 jenkins-plugin/pipeline-stage-view: CSRF protection for any URL can be bypassed in Pipeline: Stage View Plugin"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2022-10-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-RH7-RHOSE-4.10:cri-o-0:1.23.5-5.rhaos4.10.gitd9dec98.el7",
+						"8Base-RHOSE-4.10:cri-o-0:1.23.5-5.rhaos4.10.gitd9dec98.el8",
+						"8Base-RHOSE-4.10:jenkins-2-plugins-0:4.10.1675144701-1.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "19",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A Cross-site scripting (XSS) vulnerability was found in a Jenkins plugin. This issue may allow an authenticated remote attacker to create Pipelines.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-10-19T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-43409",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor OpenShift Container Platform 4.10 see the following documentation, which will be updated shortly for this release, for important instructions on how to upgrade your cluster and fully apply this asynchronous errata update:\n\nhttps://docs.openshift.com/container-platform/4.10/release_notes/ocp-4-10-release-notes.html\n\nBefore applying this update, make sure all previously released errata relevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:0560"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.jenkins.io/security/advisory/2022-10-19/#SECURITY-2881",
+						"Description": "https://www.jenkins.io/security/advisory/2022-10-19/#SECURITY-2881"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-43409",
+						"Description": "CVE-2022-43409"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2136391",
+						"Description": "bz#2136391: CVE-2022-43409 jenkins-plugin/workflow-support: Stored XSS vulnerability in Pipeline: Supporting APIs Plugin"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2022-10-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-RH7-RHOSE-4.10:cri-o-0:1.23.5-5.rhaos4.10.gitd9dec98.el7",
+						"8Base-RHOSE-4.10:cri-o-0:1.23.5-5.rhaos4.10.gitd9dec98.el8",
+						"8Base-RHOSE-4.10:jenkins-2-plugins-0:4.10.1675144701-1.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "20",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in Apache MINA SSHD, when using Java deserialization to load a serialized java.security.PrivateKey. An attacker could benefit from unsafe deserialization by inserting unsecured data that may affect the application or server.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-11-16T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-45047",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor OpenShift Container Platform 4.10 see the following documentation, which will be updated shortly for this release, for important instructions on how to upgrade your cluster and fully apply this asynchronous errata update:\n\nhttps://docs.openshift.com/container-platform/4.10/release_notes/ocp-4-10-release-notes.html\n\nBefore applying this update, make sure all previously released errata relevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:0560"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.mail-archive.com/dev@mina.apache.org/msg39312.html",
+						"Description": "https://www.mail-archive.com/dev@mina.apache.org/msg39312.html"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-45047",
+						"Description": "CVE-2022-45047"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2145194",
+						"Description": "bz#2145194: CVE-2022-45047 mina-sshd: Java unsafe deserialization vulnerability"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2022-11-23T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-RH7-RHOSE-4.10:cri-o-0:1.23.5-5.rhaos4.10.gitd9dec98.el7",
+						"8Base-RHOSE-4.10:cri-o-0:1.23.5-5.rhaos4.10.gitd9dec98.el8",
+						"8Base-RHOSE-4.10:jenkins-2-plugins-0:4.10.1675144701-1.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "21",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in the script-security Jenkins Plugin.  SHA-1 no longer meets the security standards for producing a cryptographically secure message digest. The affected version of the script-security Plugin stores whole-script approvals as the SHA-1 hash of the approved script.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-11-15T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-45379",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor OpenShift Container Platform 4.10 see the following documentation, which will be updated shortly for this release, for important instructions on how to upgrade your cluster and fully apply this asynchronous errata update:\n\nhttps://docs.openshift.com/container-platform/4.10/release_notes/ocp-4-10-release-notes.html\n\nBefore applying this update, make sure all previously released errata relevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:0560"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.jenkins.io/security/advisory/2022-11-15/#SECURITY-2564",
+						"Description": "https://www.jenkins.io/security/advisory/2022-11-15/#SECURITY-2564"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-45379",
+						"Description": "CVE-2022-45379"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2143090",
+						"Description": "bz#2143090: CVE-2022-45379 jenkins-plugin/script-security: Whole-script approval in Script Security Plugin vulnerable to SHA-1 collisions"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2022-11-16T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-RH7-RHOSE-4.10:cri-o-0:1.23.5-5.rhaos4.10.gitd9dec98.el7",
+						"8Base-RHOSE-4.10:cri-o-0:1.23.5-5.rhaos4.10.gitd9dec98.el8",
+						"8Base-RHOSE-4.10:jenkins-2-plugins-0:4.10.1675144701-1.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "22",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in the JUnit Jenkins Plugin. The affected version of the JUnit plugin converts HTTP(S) URLs in test report output to clickable links, which leads to a stored Cross-site scripting (XSS) attack.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-11-15T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-45380",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor OpenShift Container Platform 4.10 see the following documentation, which will be updated shortly for this release, for important instructions on how to upgrade your cluster and fully apply this asynchronous errata update:\n\nhttps://docs.openshift.com/container-platform/4.10/release_notes/ocp-4-10-release-notes.html\n\nBefore applying this update, make sure all previously released errata relevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:0560"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.jenkins.io/security/advisory/2022-11-15/#SECURITY-2888",
+						"Description": "https://www.jenkins.io/security/advisory/2022-11-15/#SECURITY-2888"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-45380",
+						"Description": "CVE-2022-45380"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2143086",
+						"Description": "bz#2143086: CVE-2022-45380 jenkins-plugin/JUnit: Stored XSS vulnerability in JUnit Plugin"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2022-11-16T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-RH7-RHOSE-4.10:cri-o-0:1.23.5-5.rhaos4.10.gitd9dec98.el7",
+						"8Base-RHOSE-4.10:cri-o-0:1.23.5-5.rhaos4.10.gitd9dec98.el8",
+						"8Base-RHOSE-4.10:jenkins-2-plugins-0:4.10.1675144701-1.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "23",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in the Pipeline Utility Steps Jenkins Plugin. The affected version of the Pipeline Utility Steps Plugin does not restrict the set of enabled prefix interpolators and bundles versions of this library that enable the file: prefix interpolator by default. This flaw allows attackers who can configure Pipelines to read arbitrary files from the Jenkins controller file system.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-11-15T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-45381",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor OpenShift Container Platform 4.10 see the following documentation, which will be updated shortly for this release, for important instructions on how to upgrade your cluster and fully apply this asynchronous errata update:\n\nhttps://docs.openshift.com/container-platform/4.10/release_notes/ocp-4-10-release-notes.html\n\nBefore applying this update, make sure all previously released errata relevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:0560"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.jenkins.io/security/advisory/2022-11-15/#SECURITY-2949",
+						"Description": "https://www.jenkins.io/security/advisory/2022-11-15/#SECURITY-2949"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-45381",
+						"Description": "CVE-2022-45381"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2143089",
+						"Description": "bz#2143089: CVE-2022-45381 jenkins-plugin/pipeline-utility-steps: Arbitrary file read vulnerability in Pipeline Utility Steps Plugin"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2022-11-16T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-RH7-RHOSE-4.10:cri-o-0:1.23.5-5.rhaos4.10.gitd9dec98.el7",
+						"8Base-RHOSE-4.10:cri-o-0:1.23.5-5.rhaos4.10.gitd9dec98.el8",
+						"8Base-RHOSE-4.10:jenkins-2-plugins-0:4.10.1675144701-1.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat OpenShift Enterprise",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat OpenShift Container Platform 4.10",
+						"fullproductname": {
+							"text": "Red Hat OpenShift Container Platform 4.10",
+							"productid": "7Server-RH7-RHOSE-4.10",
+							"cpe": "cpe:/a:redhat:openshift:4.10::el7"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat OpenShift Container Platform 4.10",
+						"fullproductname": {
+							"text": "Red Hat OpenShift Container Platform 4.10",
+							"productid": "8Base-RHOSE-4.10",
+							"cpe": "cpe:/a:redhat:openshift:4.10::el8"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "cri-o-0:1.23.5-5.rhaos4.10.gitd9dec98.el7",
+				"fullproductname": {
+					"text": "cri-o-1.23.5-5.rhaos4.10.gitd9dec98.el7.src.rpm",
+					"productid": "cri-o-0:1.23.5-5.rhaos4.10.gitd9dec98.el7",
+					"cpe": "cpe:/a:redhat:openshift:4.10::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "cri-o-0:1.23.5-5.rhaos4.10.gitd9dec98.el8",
+				"fullproductname": {
+					"text": "cri-o-1.23.5-5.rhaos4.10.gitd9dec98.el8.src.rpm",
+					"productid": "cri-o-0:1.23.5-5.rhaos4.10.gitd9dec98.el8",
+					"cpe": "cpe:/a:redhat:openshift:4.10::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "jenkins-2-plugins-0:4.10.1675144701-1.el8",
+				"fullproductname": {
+					"text": "jenkins-2-plugins-4.10.1675144701-1.el8.src.rpm",
+					"productid": "jenkins-2-plugins-0:4.10.1675144701-1.el8",
+					"cpe": "cpe:/a:redhat:openshift:4.10::el8"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "cri-o-0:1.23.5-5.rhaos4.10.gitd9dec98.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOSE-4.10",
+				"fullproductname": {
+					"text": "cri-o-0:1.23.5-5.rhaos4.10.gitd9dec98.el7 as a component of Red Hat OpenShift Container Platform 4.10",
+					"productid": "7Server-RH7-RHOSE-4.10:cri-o-0:1.23.5-5.rhaos4.10.gitd9dec98.el7",
+					"cpe": "cpe:/a:redhat:openshift:4.10::el7"
+				}
+			},
+			{
+				"productreference": "cri-o-0:1.23.5-5.rhaos4.10.gitd9dec98.el8",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHOSE-4.10",
+				"fullproductname": {
+					"text": "cri-o-0:1.23.5-5.rhaos4.10.gitd9dec98.el8 as a component of Red Hat OpenShift Container Platform 4.10",
+					"productid": "8Base-RHOSE-4.10:cri-o-0:1.23.5-5.rhaos4.10.gitd9dec98.el8",
+					"cpe": "cpe:/a:redhat:openshift:4.10::el8"
+				}
+			},
+			{
+				"productreference": "jenkins-2-plugins-0:4.10.1675144701-1.el8",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHOSE-4.10",
+				"fullproductname": {
+					"text": "jenkins-2-plugins-0:4.10.1675144701-1.el8 as a component of Red Hat OpenShift Container Platform 4.10",
+					"productid": "8Base-RHOSE-4.10:jenkins-2-plugins-0:4.10.1675144701-1.el8",
+					"cpe": "cpe:/a:redhat:openshift:4.10::el8"
+				}
+			}
+		]
+	}
+}

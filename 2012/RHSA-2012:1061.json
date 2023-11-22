@@ -1,0 +1,217 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: kernel security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2012:1061"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2012-07-10T11:31:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2012-07-10T11:25:00Z",
+		"CurrentReleaseDate": "2012-07-10T11:31:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:31:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated kernel packages that fix one security issue and multiple bugs are\nnow available for Red Hat Enterprise Linux 5.\n\nThe Red Hat Security Response Team has rated this update as having moderate\nsecurity impact. A Common Vulnerability Scoring System (CVSS) base score,\nwhich gives a detailed severity rating, is available from the CVE link in\nthe References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe kernel packages contain the Linux kernel, the core of any Linux\noperating system.\n\nSecurity fix:\n\n* The fix for CVE-2011-1083 (RHSA-2012:0150) introduced a flaw in the way\nthe Linux kernel's Event Poll (epoll) subsystem handled resource clean up\nwhen an ELOOP error code was returned. A local, unprivileged user could use\nthis flaw to cause a denial of service. (CVE-2012-3375, Moderate)\n\nBug fixes:\n\n* The qla2xxx driver handled interrupts for QLogic Fibre Channel adapters\nincorrectly due to a bug in a test condition for MSI-X support. This update\ncorrects the bug and qla2xxx now handles interrupts as expected.\n(BZ#816373)\n\n* A process scheduler did not handle RPC priority wait queues correctly.\nConsequently, the process scheduler failed to wake up all scheduled tasks\nas expected after RPC timeout, which caused the system to become\nunresponsive and could significantly decrease system performance. This\nupdate modifies the process scheduler to handle RPC priority wait queues as\nexpected. All scheduled tasks are now properly woken up after RPC timeout\nand the system behaves as expected. (BZ#817571)\n\n* The kernel version 2.6.18-308.4.1.el5 contained several bugs which led to\nan overrun of the NFS server page array. Consequently, any attempt to\nconnect an NFS client running on Red Hat Enterprise Linux 5.8 to the NFS\nserver running on the system with this kernel caused the NFS server to\nterminate unexpectedly and the kernel to panic. This update corrects the\nbugs causing NFS page array overruns and the kernel no longer crashes in\nthis scenario. (BZ#820358)\n\n* An insufficiently designed calculation in the CPU accelerator in the\nprevious kernel caused an arithmetic overflow in the sched_clock() function\nwhen system uptime exceeded 208.5 days. This overflow led to a kernel panic\non the systems using the Time Stamp Counter (TSC) or Virtual Machine\nInterface (VMI) clock source. This update corrects the calculation so that\nthis arithmetic overflow and kernel panic can no longer occur under these\ncircumstances.\n\nNote: This advisory does not include a fix for this bug for the 32-bit\narchitecture. (BZ#824654)\n\n* Under memory pressure, memory pages that are still a part of a\ncheckpointing transaction can be invalidated. However, when the pages were\ninvalidated, the journal head was re-filed onto the transactions' \"forget\"\nlist, which caused the current running transaction's block to be modified.\nAs a result, block accounting was not properly performed on that modified\nblock because it appeared to have already been modified due to the journal\nhead being re-filed. This could trigger an assertion failure in the\n\"journal_commit_transaction()\" function on the system. The \"b_modified\"\nflag is now cleared before the journal head is filed onto any transaction;\nassertion failures no longer occur. (BZ#827205)\n\n* When running more than 30 instances of the cclengine utility concurrently\non IBM System z with IBM Communications Controller for Linux, the system\ncould become unresponsive. This was caused by a missing wake_up() function\ncall in the qeth_release_buffer() function in the QETH network device\ndriver. This update adds the missing wake_up() function call and the system\nnow responds as expected in this scenario. (BZ#829059)\n\n* Recent changes removing support for the Flow Director from the ixgbe\ndriver introduced bugs that caused the RSS (Receive Side Scaling)\nfunctionality to stop working correctly on Intel 82599EB 10 Gigabit\nEthernet network devices. This update corrects the return code in the\nixgbe_cache_ring_fdir function and setting of the registers that control\nthe RSS redirection table. Also, obsolete code related to Flow Director\nsupport has been removed. The RSS functionality now works as expected on\nthese devices. (BZ#832169)\n\nUsers should upgrade to these updated packages, which contain backported\npatches to correct these issues. The system must be rebooted for this\nupdate to take effect.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2012:1061",
+				"Description": "https://access.redhat.com/errata/RHSA-2012:1061"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			},
+			{
+				"type": "External",
+				"URL": "https://rhn.redhat.com/errata/RHSA-2012-0150.html",
+				"Description": "https://rhn.redhat.com/errata/RHSA-2012-0150.html"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: epoll: can leak file descriptors when returning -ELOOP",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-03-27T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-3375",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:1061"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-3375",
+						"Description": "CVE-2012-3375"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=837502",
+						"Description": "bz#837502: CVE-2012-3375 kernel: epoll: can leak file descriptors when returning -ELOOP"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2012-04-27T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-5.8.Z:kernel-0:2.6.18-308.11.1.el5",
+						"5Server-5.8.Z:kernel-0:2.6.18-308.11.1.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.9",
+					"Vector": "AV:L/AC:L/Au:N/C:N/I:N/A:C"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+							"productid": "5Client-5.8.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux (v. 5 server)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux (v. 5 server)",
+							"productid": "5Server-5.8.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-0:2.6.18-308.11.1.el5",
+				"fullproductname": {
+					"text": "kernel-2.6.18-308.11.1.el5.src.rpm",
+					"productid": "kernel-0:2.6.18-308.11.1.el5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "kernel-0:2.6.18-308.11.1.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Client-5.8.Z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.18-308.11.1.el5 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"productid": "5Client-5.8.Z:kernel-0:2.6.18-308.11.1.el5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.18-308.11.1.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-5.8.Z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.18-308.11.1.el5 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"productid": "5Server-5.8.Z:kernel-0:2.6.18-308.11.1.el5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+				}
+			}
+		]
+	}
+}

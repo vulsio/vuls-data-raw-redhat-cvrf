@@ -1,0 +1,708 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: rh-postgresql95-postgresql security update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2017:2425"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2017-08-07T16:11:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2017-08-07T16:11:00Z",
+		"CurrentReleaseDate": "2017-08-07T16:11:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:39:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nAn update for rh-postgresql95-postgresql is now available for Red Hat Satellite 5.7.\n\nRed Hat Product Security has rated this update as having a security impact of Moderate. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n\nThis update applies only to Satellite 5.7 instances using either embedded or managed PostgreSQL databases.\n\nThere are manual steps required in order to finish the migration from postgresql92-postgresql to rh-postgresql95-postgresql. If these steps are not undertaken, the affected Satellite will continue to use PostgreSQL 9.2.\n\npostgresql92-postgresql will be upgraded automatically to rh-postgresql95-postgresql as part of an upgrade to Satellite 5.8.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nPostgreSQL is an advanced object-relational database management system (DBMS).\n\nThe following packages have been upgraded to a later upstream version: rh-postgresql95-postgresql (9.5.7). (BZ#1449701)\n\nSecurity Fix(es):\n\n* A flaw was found in the way PostgreSQL server handled certain SQL statements containing CASE/WHEN commands. A remote, authenticated attacker could use a specially crafted SQL statement to cause PostgreSQL to crash or disclose a few bytes of server memory or possibly execute arbitrary code. (CVE-2016-5423)\n\n* A flaw was found in the way PostgreSQL client programs handled database and role names containing newlines, carriage returns, double quotes, or backslashes. By crafting such an object name, roles with the CREATEDB or CREATEROLE option could escalate their privileges to superuser when a superuser next executes maintenance with a vulnerable client program. (CVE-2016-5424)\n\n* It was found that some selectivity estimation functions did not check user privileges before providing information from pg_statistic, possibly leaking information. A non-administrative database user could use this flaw to steal some information from tables they are otherwise not allowed to access. (CVE-2017-7484)\n\n* It was discovered that the PostgreSQL client library (libpq) did not enforce the use of TLS/SSL for a connection to a PostgreSQL server when the PGREQUIRESSL environment variable was set. An man-in-the-middle attacker could use this flaw to strip the SSL/TLS protection from a connection between a client and a server. (CVE-2017-7485)\n\n* It was found that the pg_user_mappings view could disclose information about user mappings to a foreign database to non-administrative database users. A database user with USAGE privilege for this mapping could, when querying the view, obtain user mapping data, such as the username and password used to connect to the foreign database. (CVE-2017-7486)\n\nRed Hat would like to thank the PostgreSQL project for reporting these issues. Upstream acknowledges Robert Haas as the original reporter of CVE-2017-7484; Daniel Gustafsson as the original reporter of CVE-2017-7485; and Andrew Wheelwright as the original reporter of CVE-2017-7486.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2017:2425",
+				"Description": "https://access.redhat.com/errata/RHSA-2017:2425"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "postgresql: CASE/WHEN with inlining can cause untrusted pointer dereference",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-08-11T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2016-5423",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAs part of this upgrade, PostgreSQL data files will be moved from /opt/rh/postgresql92/root/var/lib/pgsql/ to /var/opt/rh/rh-postgresql95/lib/pgsql/.\n\nBefore proceeding with command line portion of the upgrade please insure that there is enough free space under the /var/opt directory. The amount of free space required should be at least equal to size of your /opt/rh/postgresql92/root/var/lib/pgsql/ directory. This size can be determined using the following command:\n\ndu -sh /opt/rh/postgresql92/root/var/lib/pgsql/\n\nAfter updating packages, run following command on your database machine (NOTE: in the embedded-database case this is the Satellite system itself; otherwise, run the command on the system running your PostgreSQL database):\n\n/usr/bin/spacewalk-upgrade-postgresql\n\npostgresql92-postgresql will be upgraded to rh-postgresql95-postgresql.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2017:2425"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2016-5423",
+						"Description": "CVE-2016-5423"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1364001",
+						"Description": "bz#1364001: CVE-2016-5423 postgresql: CASE/WHEN with inlining can cause untrusted pointer dereference"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2016-08-01T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-ManagedDB57:rh-postgresql95-0:2.2-3.el6",
+						"6Server-ManagedDB57:rh-postgresql95-postgresql-0:9.5.7-2.el6",
+						"6Server-ManagedDB57:spacewalk-postgresql-server-0:9.5-1.el6sat",
+						"6Server-ManagedDB57:spacewalk-setup-postgresql-0:2.3.0-27.el6sat",
+						"6Server-ManagedDB57:spacewalk-web-0:2.3.2-35.el6sat",
+						"6Server-Satellite57:rh-postgresql95-0:2.2-3.el6",
+						"6Server-Satellite57:rh-postgresql95-postgresql-0:9.5.7-2.el6",
+						"6Server-Satellite57:spacewalk-backend-0:2.3.3-53.el6sat",
+						"6Server-Satellite57:spacewalk-postgresql-server-0:9.5-1.el6sat",
+						"6Server-Satellite57:spacewalk-setup-postgresql-0:2.3.0-27.el6sat",
+						"6Server-Satellite57:spacewalk-utils-0:2.3.2-32.el6sat",
+						"6Server-Satellite57:spacewalk-web-0:2.3.2-35.el6sat"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank the PostgreSQL project for reporting this issue. Upstream acknowledges Heikki Linnakangas as the original reporter."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.5",
+					"Vector": "AV:N/AC:L/Au:S/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "postgresql: privilege escalation via crafted database and role names",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-08-11T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2016-5424",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAs part of this upgrade, PostgreSQL data files will be moved from /opt/rh/postgresql92/root/var/lib/pgsql/ to /var/opt/rh/rh-postgresql95/lib/pgsql/.\n\nBefore proceeding with command line portion of the upgrade please insure that there is enough free space under the /var/opt directory. The amount of free space required should be at least equal to size of your /opt/rh/postgresql92/root/var/lib/pgsql/ directory. This size can be determined using the following command:\n\ndu -sh /opt/rh/postgresql92/root/var/lib/pgsql/\n\nAfter updating packages, run following command on your database machine (NOTE: in the embedded-database case this is the Satellite system itself; otherwise, run the command on the system running your PostgreSQL database):\n\n/usr/bin/spacewalk-upgrade-postgresql\n\npostgresql92-postgresql will be upgraded to rh-postgresql95-postgresql.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2017:2425"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2016-5424",
+						"Description": "CVE-2016-5424"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1364002",
+						"Description": "bz#1364002: CVE-2016-5424 postgresql: privilege escalation via crafted database and role names"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2016-08-01T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-ManagedDB57:rh-postgresql95-0:2.2-3.el6",
+						"6Server-ManagedDB57:rh-postgresql95-postgresql-0:9.5.7-2.el6",
+						"6Server-ManagedDB57:spacewalk-postgresql-server-0:9.5-1.el6sat",
+						"6Server-ManagedDB57:spacewalk-setup-postgresql-0:2.3.0-27.el6sat",
+						"6Server-ManagedDB57:spacewalk-web-0:2.3.2-35.el6sat",
+						"6Server-Satellite57:rh-postgresql95-0:2.2-3.el6",
+						"6Server-Satellite57:rh-postgresql95-postgresql-0:9.5.7-2.el6",
+						"6Server-Satellite57:spacewalk-backend-0:2.3.3-53.el6sat",
+						"6Server-Satellite57:spacewalk-postgresql-server-0:9.5-1.el6sat",
+						"6Server-Satellite57:spacewalk-setup-postgresql-0:2.3.0-27.el6sat",
+						"6Server-Satellite57:spacewalk-utils-0:2.3.2-32.el6sat",
+						"6Server-Satellite57:spacewalk-web-0:2.3.2-35.el6sat"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank the PostgreSQL project for reporting this issue. Upstream acknowledges Nathan Bossart as the original reporter."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.0",
+					"Vector": "AV:N/AC:M/Au:S/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "postgresql: Selectivity estimators bypass SELECT privilege checks",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2017-05-11T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2017-7484",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAs part of this upgrade, PostgreSQL data files will be moved from /opt/rh/postgresql92/root/var/lib/pgsql/ to /var/opt/rh/rh-postgresql95/lib/pgsql/.\n\nBefore proceeding with command line portion of the upgrade please insure that there is enough free space under the /var/opt directory. The amount of free space required should be at least equal to size of your /opt/rh/postgresql92/root/var/lib/pgsql/ directory. This size can be determined using the following command:\n\ndu -sh /opt/rh/postgresql92/root/var/lib/pgsql/\n\nAfter updating packages, run following command on your database machine (NOTE: in the embedded-database case this is the Satellite system itself; otherwise, run the command on the system running your PostgreSQL database):\n\n/usr/bin/spacewalk-upgrade-postgresql\n\npostgresql92-postgresql will be upgraded to rh-postgresql95-postgresql.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2017:2425"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.postgresql.org/about/news/1746/",
+						"Description": "https://www.postgresql.org/about/news/1746/"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2017-7484",
+						"Description": "CVE-2017-7484"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1448078",
+						"Description": "bz#1448078: CVE-2017-7484 postgresql: Selectivity estimators bypass SELECT privilege checks"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2017-05-01T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-ManagedDB57:rh-postgresql95-0:2.2-3.el6",
+						"6Server-ManagedDB57:rh-postgresql95-postgresql-0:9.5.7-2.el6",
+						"6Server-ManagedDB57:spacewalk-postgresql-server-0:9.5-1.el6sat",
+						"6Server-ManagedDB57:spacewalk-setup-postgresql-0:2.3.0-27.el6sat",
+						"6Server-ManagedDB57:spacewalk-web-0:2.3.2-35.el6sat",
+						"6Server-Satellite57:rh-postgresql95-0:2.2-3.el6",
+						"6Server-Satellite57:rh-postgresql95-postgresql-0:9.5.7-2.el6",
+						"6Server-Satellite57:spacewalk-backend-0:2.3.3-53.el6sat",
+						"6Server-Satellite57:spacewalk-postgresql-server-0:9.5-1.el6sat",
+						"6Server-Satellite57:spacewalk-setup-postgresql-0:2.3.0-27.el6sat",
+						"6Server-Satellite57:spacewalk-utils-0:2.3.2-32.el6sat",
+						"6Server-Satellite57:spacewalk-web-0:2.3.2-35.el6sat"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank the PostgreSQL project for reporting this issue. Upstream acknowledges Robert Haas as the original reporter."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "postgresql: libpq ignores PGREQUIRESSL environment variable",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2017-05-11T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2017-7485",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAs part of this upgrade, PostgreSQL data files will be moved from /opt/rh/postgresql92/root/var/lib/pgsql/ to /var/opt/rh/rh-postgresql95/lib/pgsql/.\n\nBefore proceeding with command line portion of the upgrade please insure that there is enough free space under the /var/opt directory. The amount of free space required should be at least equal to size of your /opt/rh/postgresql92/root/var/lib/pgsql/ directory. This size can be determined using the following command:\n\ndu -sh /opt/rh/postgresql92/root/var/lib/pgsql/\n\nAfter updating packages, run following command on your database machine (NOTE: in the embedded-database case this is the Satellite system itself; otherwise, run the command on the system running your PostgreSQL database):\n\n/usr/bin/spacewalk-upgrade-postgresql\n\npostgresql92-postgresql will be upgraded to rh-postgresql95-postgresql.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2017:2425"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.postgresql.org/about/news/1746/",
+						"Description": "https://www.postgresql.org/about/news/1746/"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2017-7485",
+						"Description": "CVE-2017-7485"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1448086",
+						"Description": "bz#1448086: CVE-2017-7485 postgresql: libpq ignores PGREQUIRESSL environment variable"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2017-05-01T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-ManagedDB57:rh-postgresql95-0:2.2-3.el6",
+						"6Server-ManagedDB57:rh-postgresql95-postgresql-0:9.5.7-2.el6",
+						"6Server-ManagedDB57:spacewalk-postgresql-server-0:9.5-1.el6sat",
+						"6Server-ManagedDB57:spacewalk-setup-postgresql-0:2.3.0-27.el6sat",
+						"6Server-ManagedDB57:spacewalk-web-0:2.3.2-35.el6sat",
+						"6Server-Satellite57:rh-postgresql95-0:2.2-3.el6",
+						"6Server-Satellite57:rh-postgresql95-postgresql-0:9.5.7-2.el6",
+						"6Server-Satellite57:spacewalk-backend-0:2.3.3-53.el6sat",
+						"6Server-Satellite57:spacewalk-postgresql-server-0:9.5-1.el6sat",
+						"6Server-Satellite57:spacewalk-setup-postgresql-0:2.3.0-27.el6sat",
+						"6Server-Satellite57:spacewalk-utils-0:2.3.2-32.el6sat",
+						"6Server-Satellite57:spacewalk-web-0:2.3.2-35.el6sat"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank the PostgreSQL project for reporting this issue. Upstream acknowledges Daniel Gustafsson as the original reporter."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "postgresql: pg_user_mappings view discloses foreign server passwords",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2017-05-11T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2017-7486",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAs part of this upgrade, PostgreSQL data files will be moved from /opt/rh/postgresql92/root/var/lib/pgsql/ to /var/opt/rh/rh-postgresql95/lib/pgsql/.\n\nBefore proceeding with command line portion of the upgrade please insure that there is enough free space under the /var/opt directory. The amount of free space required should be at least equal to size of your /opt/rh/postgresql92/root/var/lib/pgsql/ directory. This size can be determined using the following command:\n\ndu -sh /opt/rh/postgresql92/root/var/lib/pgsql/\n\nAfter updating packages, run following command on your database machine (NOTE: in the embedded-database case this is the Satellite system itself; otherwise, run the command on the system running your PostgreSQL database):\n\n/usr/bin/spacewalk-upgrade-postgresql\n\npostgresql92-postgresql will be upgraded to rh-postgresql95-postgresql.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2017:2425"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.postgresql.org/about/news/1746/",
+						"Description": "https://www.postgresql.org/about/news/1746/"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2017-7486",
+						"Description": "CVE-2017-7486"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1448089",
+						"Description": "bz#1448089: CVE-2017-7486 postgresql: pg_user_mappings view discloses foreign server passwords"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2017-05-01T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-ManagedDB57:rh-postgresql95-0:2.2-3.el6",
+						"6Server-ManagedDB57:rh-postgresql95-postgresql-0:9.5.7-2.el6",
+						"6Server-ManagedDB57:spacewalk-postgresql-server-0:9.5-1.el6sat",
+						"6Server-ManagedDB57:spacewalk-setup-postgresql-0:2.3.0-27.el6sat",
+						"6Server-ManagedDB57:spacewalk-web-0:2.3.2-35.el6sat",
+						"6Server-Satellite57:rh-postgresql95-0:2.2-3.el6",
+						"6Server-Satellite57:rh-postgresql95-postgresql-0:9.5.7-2.el6",
+						"6Server-Satellite57:spacewalk-backend-0:2.3.3-53.el6sat",
+						"6Server-Satellite57:spacewalk-postgresql-server-0:9.5-1.el6sat",
+						"6Server-Satellite57:spacewalk-setup-postgresql-0:2.3.0-27.el6sat",
+						"6Server-Satellite57:spacewalk-utils-0:2.3.2-32.el6sat",
+						"6Server-Satellite57:spacewalk-web-0:2.3.2-35.el6sat"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank the PostgreSQL project for reporting this issue. Upstream acknowledges Andrew Wheelwright as the original reporter."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Satellite",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Satellite Managed DB 5.7 (RHEL v.6)",
+						"fullproductname": {
+							"text": "Red Hat Satellite Managed DB 5.7 (RHEL v.6)",
+							"productid": "6Server-ManagedDB57",
+							"cpe": "cpe:/a:redhat:network_satellite_managed_db:5.7::el6"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Satellite 5.7 (RHEL v.6)",
+						"fullproductname": {
+							"text": "Red Hat Satellite 5.7 (RHEL v.6)",
+							"productid": "6Server-Satellite57",
+							"cpe": "cpe:/a:redhat:network_satellite:5.7::el6"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "rh-postgresql95-0:2.2-3.el6",
+				"fullproductname": {
+					"text": "rh-postgresql95-2.2-3.el6.src.rpm",
+					"productid": "rh-postgresql95-0:2.2-3.el6",
+					"cpe": "cpe:/a:redhat:network_satellite:5.7::el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rh-postgresql95-postgresql-0:9.5.7-2.el6",
+				"fullproductname": {
+					"text": "rh-postgresql95-postgresql-9.5.7-2.el6.src.rpm",
+					"productid": "rh-postgresql95-postgresql-0:9.5.7-2.el6",
+					"cpe": "cpe:/a:redhat:network_satellite:5.7::el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-backend-0:2.3.3-53.el6sat",
+				"fullproductname": {
+					"text": "spacewalk-backend-2.3.3-53.el6sat.src.rpm",
+					"productid": "spacewalk-backend-0:2.3.3-53.el6sat",
+					"cpe": "cpe:/a:redhat:network_satellite:5.7::el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-postgresql-server-0:9.5-1.el6sat",
+				"fullproductname": {
+					"text": "spacewalk-postgresql-server-9.5-1.el6sat.src.rpm",
+					"productid": "spacewalk-postgresql-server-0:9.5-1.el6sat",
+					"cpe": "cpe:/a:redhat:network_satellite:5.7::el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-setup-postgresql-0:2.3.0-27.el6sat",
+				"fullproductname": {
+					"text": "spacewalk-setup-postgresql-2.3.0-27.el6sat.src.rpm",
+					"productid": "spacewalk-setup-postgresql-0:2.3.0-27.el6sat",
+					"cpe": "cpe:/a:redhat:network_satellite:5.7::el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-utils-0:2.3.2-32.el6sat",
+				"fullproductname": {
+					"text": "spacewalk-utils-2.3.2-32.el6sat.src.rpm",
+					"productid": "spacewalk-utils-0:2.3.2-32.el6sat",
+					"cpe": "cpe:/a:redhat:network_satellite:5.7::el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-web-0:2.3.2-35.el6sat",
+				"fullproductname": {
+					"text": "spacewalk-web-2.3.2-35.el6sat.src.rpm",
+					"productid": "spacewalk-web-0:2.3.2-35.el6sat",
+					"cpe": "cpe:/a:redhat:network_satellite:5.7::el6"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "rh-postgresql95-0:2.2-3.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-ManagedDB57",
+				"fullproductname": {
+					"text": "rh-postgresql95-0:2.2-3.el6 as a component of Red Hat Satellite Managed DB 5.7 (RHEL v.6)",
+					"productid": "6Server-ManagedDB57:rh-postgresql95-0:2.2-3.el6",
+					"cpe": "cpe:/a:redhat:network_satellite_managed_db:5.7::el6"
+				}
+			},
+			{
+				"productreference": "rh-postgresql95-postgresql-0:9.5.7-2.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-ManagedDB57",
+				"fullproductname": {
+					"text": "rh-postgresql95-postgresql-0:9.5.7-2.el6 as a component of Red Hat Satellite Managed DB 5.7 (RHEL v.6)",
+					"productid": "6Server-ManagedDB57:rh-postgresql95-postgresql-0:9.5.7-2.el6",
+					"cpe": "cpe:/a:redhat:network_satellite_managed_db:5.7::el6"
+				}
+			},
+			{
+				"productreference": "spacewalk-postgresql-server-0:9.5-1.el6sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-ManagedDB57",
+				"fullproductname": {
+					"text": "spacewalk-postgresql-server-0:9.5-1.el6sat as a component of Red Hat Satellite Managed DB 5.7 (RHEL v.6)",
+					"productid": "6Server-ManagedDB57:spacewalk-postgresql-server-0:9.5-1.el6sat",
+					"cpe": "cpe:/a:redhat:network_satellite_managed_db:5.7::el6"
+				}
+			},
+			{
+				"productreference": "spacewalk-setup-postgresql-0:2.3.0-27.el6sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-ManagedDB57",
+				"fullproductname": {
+					"text": "spacewalk-setup-postgresql-0:2.3.0-27.el6sat as a component of Red Hat Satellite Managed DB 5.7 (RHEL v.6)",
+					"productid": "6Server-ManagedDB57:spacewalk-setup-postgresql-0:2.3.0-27.el6sat",
+					"cpe": "cpe:/a:redhat:network_satellite_managed_db:5.7::el6"
+				}
+			},
+			{
+				"productreference": "spacewalk-web-0:2.3.2-35.el6sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-ManagedDB57",
+				"fullproductname": {
+					"text": "spacewalk-web-0:2.3.2-35.el6sat as a component of Red Hat Satellite Managed DB 5.7 (RHEL v.6)",
+					"productid": "6Server-ManagedDB57:spacewalk-web-0:2.3.2-35.el6sat",
+					"cpe": "cpe:/a:redhat:network_satellite_managed_db:5.7::el6"
+				}
+			},
+			{
+				"productreference": "rh-postgresql95-0:2.2-3.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-Satellite57",
+				"fullproductname": {
+					"text": "rh-postgresql95-0:2.2-3.el6 as a component of Red Hat Satellite 5.7 (RHEL v.6)",
+					"productid": "6Server-Satellite57:rh-postgresql95-0:2.2-3.el6",
+					"cpe": "cpe:/a:redhat:network_satellite:5.7::el6"
+				}
+			},
+			{
+				"productreference": "rh-postgresql95-postgresql-0:9.5.7-2.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-Satellite57",
+				"fullproductname": {
+					"text": "rh-postgresql95-postgresql-0:9.5.7-2.el6 as a component of Red Hat Satellite 5.7 (RHEL v.6)",
+					"productid": "6Server-Satellite57:rh-postgresql95-postgresql-0:9.5.7-2.el6",
+					"cpe": "cpe:/a:redhat:network_satellite:5.7::el6"
+				}
+			},
+			{
+				"productreference": "spacewalk-backend-0:2.3.3-53.el6sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-Satellite57",
+				"fullproductname": {
+					"text": "spacewalk-backend-0:2.3.3-53.el6sat as a component of Red Hat Satellite 5.7 (RHEL v.6)",
+					"productid": "6Server-Satellite57:spacewalk-backend-0:2.3.3-53.el6sat",
+					"cpe": "cpe:/a:redhat:network_satellite:5.7::el6"
+				}
+			},
+			{
+				"productreference": "spacewalk-postgresql-server-0:9.5-1.el6sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-Satellite57",
+				"fullproductname": {
+					"text": "spacewalk-postgresql-server-0:9.5-1.el6sat as a component of Red Hat Satellite 5.7 (RHEL v.6)",
+					"productid": "6Server-Satellite57:spacewalk-postgresql-server-0:9.5-1.el6sat",
+					"cpe": "cpe:/a:redhat:network_satellite:5.7::el6"
+				}
+			},
+			{
+				"productreference": "spacewalk-setup-postgresql-0:2.3.0-27.el6sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-Satellite57",
+				"fullproductname": {
+					"text": "spacewalk-setup-postgresql-0:2.3.0-27.el6sat as a component of Red Hat Satellite 5.7 (RHEL v.6)",
+					"productid": "6Server-Satellite57:spacewalk-setup-postgresql-0:2.3.0-27.el6sat",
+					"cpe": "cpe:/a:redhat:network_satellite:5.7::el6"
+				}
+			},
+			{
+				"productreference": "spacewalk-utils-0:2.3.2-32.el6sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-Satellite57",
+				"fullproductname": {
+					"text": "spacewalk-utils-0:2.3.2-32.el6sat as a component of Red Hat Satellite 5.7 (RHEL v.6)",
+					"productid": "6Server-Satellite57:spacewalk-utils-0:2.3.2-32.el6sat",
+					"cpe": "cpe:/a:redhat:network_satellite:5.7::el6"
+				}
+			},
+			{
+				"productreference": "spacewalk-web-0:2.3.2-35.el6sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-Satellite57",
+				"fullproductname": {
+					"text": "spacewalk-web-0:2.3.2-35.el6sat as a component of Red Hat Satellite 5.7 (RHEL v.6)",
+					"productid": "6Server-Satellite57:spacewalk-web-0:2.3.2-35.el6sat",
+					"cpe": "cpe:/a:redhat:network_satellite:5.7::el6"
+				}
+			}
+		]
+	}
+}

@@ -1,0 +1,445 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: gnutls security update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2014:0594"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2014-06-03T16:06:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2014-06-03T16:06:00Z",
+		"CurrentReleaseDate": "2014-06-03T16:06:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:36:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated gnutls packages that fix multiple security issues are now available\nfor Red Hat Enterprise Linux 5.\n\nThe Red Hat Security Response Team has rated this update as having\nImportant security impact. Common Vulnerability Scoring System (CVSS) base\nscores, which give detailed severity ratings, are available for each\nvulnerability from the CVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe GnuTLS library provides support for cryptographic algorithms and for\nprotocols such as Transport Layer Security (TLS). The gnutls packages also\ninclude the libtasn1 library, which provides Abstract Syntax Notation One\n(ASN.1) parsing and structures management, and Distinguished Encoding Rules\n(DER) encoding and decoding functions.\n\nA flaw was found in the way GnuTLS parsed session IDs from ServerHello\nmessages of the TLS/SSL handshake. A malicious server could use this flaw\nto send an excessively long session ID value, which would trigger a buffer\noverflow in a connecting TLS/SSL client application using GnuTLS, causing\nthe client application to crash or, possibly, execute arbitrary code.\n(CVE-2014-3466)\n\nIt was discovered that the asn1_get_bit_der() function of the libtasn1\nlibrary incorrectly reported the length of ASN.1-encoded data. Specially\ncrafted ASN.1 input could cause an application using libtasn1 to perform\nan out-of-bounds access operation, causing the application to crash or,\npossibly, execute arbitrary code. (CVE-2014-3468)\n\nMultiple incorrect buffer boundary check issues were discovered in\nlibtasn1. Specially crafted ASN.1 input could cause an application using\nlibtasn1 to crash. (CVE-2014-3467)\n\nMultiple NULL pointer dereference flaws were found in libtasn1's\nasn1_read_value() function. Specially crafted ASN.1 input could cause an\napplication using libtasn1 to crash, if the application used the\naforementioned function in a certain way. (CVE-2014-3469)\n\nRed Hat would like to thank GnuTLS upstream for reporting these issues.\nUpstream acknowledges Joonas Kuorilehto of Codenomicon as the original\nreporter of CVE-2014-3466.\n\nUsers of GnuTLS are advised to upgrade to these updated packages, which\ncorrect these issues. For the update to take effect, all applications\nlinked to the GnuTLS or libtasn1 library must be restarted.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2014:0594",
+				"Description": "https://access.redhat.com/errata/RHSA-2014:0594"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "gnutls: insufficient session id length check in _gnutls_read_server_hello (GNUTLS-SA-2014-3)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-05-30T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-3466",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to use the\nRed Hat Network to apply this update are available at\nhttps://access.redhat.com/site/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2014:0594"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-3466",
+						"Description": "CVE-2014-3466"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1101932",
+						"Description": "bz#1101932: CVE-2014-3466 gnutls: insufficient session id length check in _gnutls_read_server_hello (GNUTLS-SA-2014-3)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2014-05-28T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-5.10.Z:gnutls-0:1.4.1-16.el5_10",
+						"5Client-Workstation-5.10.Z:gnutls-0:1.4.1-16.el5_10",
+						"5Server-5.10.Z:gnutls-0:1.4.1-16.el5_10"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.8",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "libtasn1: multiple boundary check issues",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-05-25T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-3467",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to use the\nRed Hat Network to apply this update are available at\nhttps://access.redhat.com/site/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2014:0594"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-3467",
+						"Description": "CVE-2014-3467"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1102022",
+						"Description": "bz#1102022: CVE-2014-3467 libtasn1: multiple boundary check issues"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-05-26T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-5.10.Z:gnutls-0:1.4.1-16.el5_10",
+						"5Client-Workstation-5.10.Z:gnutls-0:1.4.1-16.el5_10",
+						"5Server-5.10.Z:gnutls-0:1.4.1-16.el5_10"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "libtasn1: asn1_get_bit_der() can return negative bit length",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-05-25T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-3468",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to use the\nRed Hat Network to apply this update are available at\nhttps://access.redhat.com/site/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2014:0594"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-3468",
+						"Description": "CVE-2014-3468"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1102323",
+						"Description": "bz#1102323: CVE-2014-3468 libtasn1: asn1_get_bit_der() can return negative bit length"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-05-26T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-5.10.Z:gnutls-0:1.4.1-16.el5_10",
+						"5Client-Workstation-5.10.Z:gnutls-0:1.4.1-16.el5_10",
+						"5Server-5.10.Z:gnutls-0:1.4.1-16.el5_10"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.8",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "libtasn1: asn1_read_value_type() NULL pointer dereference",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-05-25T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-3469",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to use the\nRed Hat Network to apply this update are available at\nhttps://access.redhat.com/site/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2014:0594"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-3469",
+						"Description": "CVE-2014-3469"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1102329",
+						"Description": "bz#1102329: CVE-2014-3469 libtasn1: asn1_read_value_type() NULL pointer dereference"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-05-26T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-5.10.Z:gnutls-0:1.4.1-16.el5_10",
+						"5Client-Workstation-5.10.Z:gnutls-0:1.4.1-16.el5_10",
+						"5Server-5.10.Z:gnutls-0:1.4.1-16.el5_10"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+							"productid": "5Client-5.10.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+							"productid": "5Client-Workstation-5.10.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::client_workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux (v. 5 server)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux (v. 5 server)",
+							"productid": "5Server-5.10.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "gnutls-0:1.4.1-16.el5_10",
+				"fullproductname": {
+					"text": "gnutls-1.4.1-16.el5_10.src.rpm",
+					"productid": "gnutls-0:1.4.1-16.el5_10",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "gnutls-0:1.4.1-16.el5_10",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Client-5.10.Z",
+				"fullproductname": {
+					"text": "gnutls-0:1.4.1-16.el5_10 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"productid": "5Client-5.10.Z:gnutls-0:1.4.1-16.el5_10",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+				}
+			},
+			{
+				"productreference": "gnutls-0:1.4.1-16.el5_10",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Client-Workstation-5.10.Z",
+				"fullproductname": {
+					"text": "gnutls-0:1.4.1-16.el5_10 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"productid": "5Client-Workstation-5.10.Z:gnutls-0:1.4.1-16.el5_10",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client_workstation"
+				}
+			},
+			{
+				"productreference": "gnutls-0:1.4.1-16.el5_10",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-5.10.Z",
+				"fullproductname": {
+					"text": "gnutls-0:1.4.1-16.el5_10 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"productid": "5Server-5.10.Z:gnutls-0:1.4.1-16.el5_10",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+				}
+			}
+		]
+	}
+}

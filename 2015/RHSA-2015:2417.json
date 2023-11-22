@@ -1,0 +1,252 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: autofs security, bug fix and enhancement update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2015:2417"
+		},
+		"Status": "Final",
+		"Version": "3",
+		"revisionhistory": {
+			"revision": {
+				"Number": "3",
+				"Date": "2015-11-19T06:23:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2015-11-19T06:23:00Z",
+		"CurrentReleaseDate": "2015-11-19T06:23:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:55:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated autofs packages that fix one security issue, several bugs, and add\none enhancement are now available for Red Hat Enterprise Linux 7.\n\nRed Hat Product Security has rated this update as having Moderate security\nimpact. A Common Vulnerability Scoring System (CVSS) base score, which\ngives a detailed severity rating, is available from the CVE link in the\nReferences section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe autofs utility controls the operation of the automount daemon. The\ndaemon automatically mounts file systems when in use and unmounts them when\nthey are not busy.\n\nIt was found that program-based automounter maps that used interpreted\nlanguages such as Python used standard environment variables to locate\nand load modules of those languages. A local attacker could potentially use\nthis flaw to escalate their privileges on the system. (CVE-2014-8169)\n\nNote: This issue has been fixed by adding the \"AUTOFS_\" prefix to the\naffected environment variables so that they are not used to subvert the\nsystem. A configuration option (\"force_standard_program_map_env\") to\noverride this prefix and to use the environment variables without the\nprefix has been added. In addition, warnings have been added to the manual\npage and to the installed configuration file. Now, by default the standard\nvariables of the program map are provided only with the prefix added to\nits name.\n\nRed Hat would like to thank the Georgia Institute of Technology for\nreporting this issue.\n\nNotably, this update fixes the following bugs:\n\n* When the \"ls *\" command was run in the root of an indirect mount, autofs\nattempted to literally mount the wildcard character (*) causing it to be\nadded to the negative cache. If done before a valid mount, autofs then\nfailed on further mount attempts inside the mount point, valid or not. This\nhas been fixed, and wildcard map entries now function in the described\nsituation. (BZ#1166457)\n\n* When autofs encountered a syntax error consisting of a duplicate entry in\na multimap entry, it reported an error and did not mount the map entry.\nWith this update, autofs has been amended to report the problem in the log\nto alert the system administrator and use the last seen instance of the\nduplicate entry rather than fail. (BZ#1205600)\n\n* In the ldap and sss lookup modules, the map reading functions did not\ndistinguish between the \"no entry found\" and \"service not available\"\nerrors. Consequently, when the \"service not available\" response was\nreturned from a master map read, autofs did not update the mounts.\nAn \"entry not found\" return does not prevent the map update, so the ldap\nand sss lookup modules were updated to distinguish between these two\nreturns and now work as expected. (BZ#1233065)\n\nIn addition, this update adds the following enhancement:\n\n* The description of the configuration parameter map_hash_table_size was\nmissing from the autofs.conf(5) man page and its description in the\nconfiguration file comments was insufficient. A description of the\nparameter has been added to autofs.conf(5), and the configuration file\ncomments have been updated. (BZ#1238573)\n\nAll autofs users are advised to upgrade to these updated packages, which\ncontain backported patches to correct these issues and add this\nenhancement.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2015:2417",
+				"Description": "https://access.redhat.com/errata/RHSA-2015:2417"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "autofs: priv escalation via interpreter load path for program based automount maps",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-03-02T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-8169",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:2417"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-8169",
+						"Description": "CVE-2014-8169"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1192565",
+						"Description": "bz#1192565: CVE-2014-8169 autofs: priv escalation via interpreter load path for program based automount maps"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-11-04T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client:autofs-1:5.0.7-54.el7",
+						"7ComputeNode:autofs-1:5.0.7-54.el7",
+						"7Server:autofs-1:5.0.7-54.el7",
+						"7Workstation:autofs-1:5.0.7-54.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.6",
+					"Vector": "AV:L/AC:L/Au:N/C:P/I:P/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Client (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Client (v. 7)",
+							"productid": "7Client",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ComputeNode (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ComputeNode (v. 7)",
+							"productid": "7ComputeNode",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 7)",
+							"productid": "7Server",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 7)",
+							"productid": "7Workstation",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "autofs-1:5.0.7-54.el7",
+				"fullproductname": {
+					"text": "autofs-5.0.7-54.el7.src.rpm",
+					"productid": "autofs-1:5.0.7-54.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "autofs-1:5.0.7-54.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client",
+				"fullproductname": {
+					"text": "autofs-1:5.0.7-54.el7 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"productid": "7Client:autofs-1:5.0.7-54.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "autofs-1:5.0.7-54.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode",
+				"fullproductname": {
+					"text": "autofs-1:5.0.7-54.el7 as a component of Red Hat Enterprise Linux ComputeNode (v. 7)",
+					"productid": "7ComputeNode:autofs-1:5.0.7-54.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "autofs-1:5.0.7-54.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server",
+				"fullproductname": {
+					"text": "autofs-1:5.0.7-54.el7 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server:autofs-1:5.0.7-54.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "autofs-1:5.0.7-54.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation",
+				"fullproductname": {
+					"text": "autofs-1:5.0.7-54.el7 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"productid": "7Workstation:autofs-1:5.0.7-54.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			}
+		]
+	}
+}

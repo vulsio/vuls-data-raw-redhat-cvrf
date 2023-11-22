@@ -1,0 +1,261 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: kernel-rt security, bug fix, and enhancement update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2016:0224"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2016-02-16T14:59:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2016-02-16T14:59:00Z",
+		"CurrentReleaseDate": "2016-02-16T14:59:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:41:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated kernel-rt packages that fix two security issues, several bugs, and\nadd various enhancements are now available for Red Hat Enterprise MRG 2.5.\n\nRed Hat Product Security has rated this update as having Important security\nimpact. Common Vulnerability Scoring System (CVSS) base scores, which give\ndetailed severity ratings, are available for each vulnerability from the\nCVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe kernel-rt packages contain the Linux kernel, the core of any Linux\noperating system.\n\n* It was found that the Linux kernel's keys subsystem did not correctly\ngarbage collect uninstantiated keyrings. A local attacker could use this\nflaw to crash the system or, potentially, escalate their privileges on the\nsystem. (CVE-2015-7872, Important)\n\n* A flaw was found in the way the Linux kernel handled IRET faults during\nthe processing of NMIs. An unprivileged, local user could use this flaw to\ncrash the system or, potentially (although highly unlikely), escalate their\nprivileges on the system. (CVE-2015-5157, Moderate)\n\nThis update provides a build of the kernel-rt package for Red Hat\nEnterprise MRG 2.5 that is layered on Red Hat Enterprise Linux 6, and\nprovides a number of bug fixes and enhancements, including:\n\n* [md] dm: fix AB-BA deadlock in __dm_destroy() \n\n* [md] revert \"dm-mpath: fix stalls when handling invalid ioctl\n\n* [cpufreq] intel_pstate: Fix limits->max_perf and limits->max_policy_pct\nrounding errors\n\n* [cpufreq] revert \"intel_pstate: fix rounding error in max_freq_pct\"\n\n* [crypto] nx: 842 - Add CRC and validation support\n\n* [of] return NUMA_NO_NODE from fallback of_node_to_nid()\n\n(BZ#1277670)\n\nThe HP Smart Array (hpsa) SCSI driver has been updated to the latest\nversion included in a Red Hat release. (BZ#1224096)\n\nThis update also fixes the following bugs:\n\n* A heavy load of incoming packets on a fast networking driver (like the\ni40e) will both stress the softirq mechanism on the realtime kernel (as\ndescribed in BZ#1293229) and exercise the possible livelock in the netpoll\nNAPI/busy polling routines (as described in BZ#1293230). The fixes applied\nto both BZ#1293229 and BZ#1293230 will address these issues by hardening\nthe locking mechanism for the netpoll NAPI/busy polling and by enhancing\nthe way softirqs are serviced. These fixes also create a failsafe to\navoiding RCU stalls on a heavily loaded system and allows the networking\ndriver to work as expected. (BZ#1200766)\n\n* The nohz_full code in older versions of the MRG-Realtime kernels was\nincomplete and known to be problematic due to the way the old\nimplementation interacted with the real time features in the kernel.\nThe nohz_full kernel code has been updated enabling this feature to\nfunction as expected and allowing this feature to be enabled in the\nrealtime kernel. (BZ#1278511)\n\n* Because the realtime kernel replaces most of the spinlocks with\nrtmutexes, the locking scheme used in both NAPI polling and busy polling\ncould become out of synchronization with the State Machine they protected.\nThis could cause system performance degradation or even a livelock\nsituation when a machine with faster NICs (10g or 40g) was subject to a\nheavy pressure receiving network packets. The locking schemes on NAPI\npolling and busy polling routines were hardened to enforce the State\nmachine sanity to help ensure the system continues to function properly\nunder pressure. (BZ#1295884)\n\n* A possible livelock in the NAPI polling and busy polling routines could\nlead the system to a livelock on threads running at high, realtime,\npriorities. The threads running at priorities lower than the ones of the\nthreads involved in the livelock would be prevented from running on the\nCPUs affected by the livelock. Among those lower priority threads are the\nrcuc/ threads. Right before (4 jiffies) a RCU stall is detected, the rcuc/\nthreads on the CPUs facing the livelock have their priorities boosted above\nthe priority of the threads involved in the livelock. The softirq code was\nalso updated to be more robust. These modifications allowed the rcuc/\nthreads to execute even under system pressure, mitigating the RCU stalls.\n(BZ#1295885)\n\nAll kernel-rt users are advised to upgrade to these updated packages, which\ncorrect these issues and add these enhancements. The system must be\nrebooted for this update to take effect.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2016:0224",
+				"Description": "https://access.redhat.com/errata/RHSA-2016:0224"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: x86-64: IRET faults during NMIs processing",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-07-22T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-5157",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2016:0224"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-5157",
+						"Description": "CVE-2015-5157"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1259577",
+						"Description": "bz#1259577: CVE-2015-5157 kernel: x86-64: IRET faults during NMIs processing"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-07-14T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-MRG-Realtime-2:kernel-rt-1:3.10.0-327.rt56.171.el6rt"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.2",
+					"Vector": "AV:L/AC:H/Au:N/C:C/I:C/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: Keyrings crash triggerable by unprivileged user",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-10-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-7872",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2016:0224"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-7872",
+						"Description": "CVE-2015-7872"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1272371",
+						"Description": "bz#1272371: CVE-2015-7872 kernel: Keyrings crash triggerable by unprivileged user"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2015-10-15T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-MRG-Realtime-2:kernel-rt-1:3.10.0-327.rt56.171.el6rt"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "7.2",
+					"Vector": "AV:L/AC:L/Au:N/C:C/I:C/A:C"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise MRG for RHEL-6",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat MRG Realtime for RHEL 6 Server v.2",
+						"fullproductname": {
+							"text": "Red Hat MRG Realtime for RHEL 6 Server v.2",
+							"productid": "6Server-MRG-Realtime-2",
+							"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-rt-1:3.10.0-327.rt56.171.el6rt",
+				"fullproductname": {
+					"text": "kernel-rt-3.10.0-327.rt56.171.el6rt.src.rpm",
+					"productid": "kernel-rt-1:3.10.0-327.rt56.171.el6rt",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "kernel-rt-1:3.10.0-327.rt56.171.el6rt",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-MRG-Realtime-2",
+				"fullproductname": {
+					"text": "kernel-rt-1:3.10.0-327.rt56.171.el6rt as a component of Red Hat MRG Realtime for RHEL 6 Server v.2",
+					"productid": "6Server-MRG-Realtime-2:kernel-rt-1:3.10.0-327.rt56.171.el6rt",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			}
+		]
+	}
+}

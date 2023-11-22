@@ -1,0 +1,612 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: xen security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2008:0194"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2008-05-13T08:28:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2008-05-13T12:28:00Z",
+		"CurrentReleaseDate": "2008-05-13T08:28:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:28:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated xen packages that fix several security issues and a bug are now\navailable for Red Hat Enterprise Linux 5.\n\nThis update has been rated as having important security impact by the Red\nHat Security Response Team.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe xen packages contain tools for managing the virtual machine monitor in\nRed Hat Virtualization.\n\nThese updated packages fix the following security issues:\n\nDaniel P. Berrange discovered that the hypervisor's para-virtualized\nframebuffer (PVFB) backend failed to validate the format of messages\nserving to update the contents of the framebuffer. This could allow a\nmalicious user to cause a denial of service, or compromise the privileged\ndomain (Dom0). (CVE-2008-1944)\n\nMarkus Armbruster discovered that the hypervisor's para-virtualized\nframebuffer (PVFB) backend failed to validate the frontend's framebuffer\ndescription. This could allow a malicious user to cause a denial of\nservice, or to use a specially crafted frontend to compromise the\nprivileged domain (Dom0). (CVE-2008-1943)\n\nChris Wright discovered a security vulnerability in the QEMU block format\nauto-detection, when running fully-virtualized guests. Such\nfully-virtualized guests, with a raw formatted disk image, were able\nto write a header to that disk image describing another format. This could\nallow such guests to read arbitrary files in their hypervisor's host.\n(CVE-2008-2004)\n\nIan Jackson discovered a security vulnerability in the QEMU block device\ndrivers backend. A guest operating system could issue a block device\nrequest and read or write arbitrary memory locations, which could lead to\nprivilege escalation. (CVE-2008-0928)\n\nTavis Ormandy found that QEMU did not perform adequate sanity-checking of\ndata received via the \"net socket listen\" option. A malicious local\nadministrator of a guest domain could trigger this flaw to potentially\nexecute arbitrary code outside of the domain. (CVE-2007-5730)\n\nSteve Kemp discovered that the xenbaked daemon and the XenMon utility\ncommunicated via an insecure temporary file. A malicious local\nadministrator of a guest domain could perform a symbolic link attack,\ncausing arbitrary files to be truncated. (CVE-2007-3919)\n\nAs well, in the previous xen packages, it was possible for Dom0 to fail to\nflush data from a fully-virtualized guest to disk, even if the guest\nexplicitly requested the flush. This could cause data integrity problems on\nthe guest. In these updated packages, Dom0 always respects the request to\nflush to disk.\n\nUsers of xen are advised to upgrade to these updated packages, which\nresolve these issues.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2008:0194",
+				"Description": "https://access.redhat.com/errata/RHSA-2008:0194"
+			},
+			{
+				"type": "External",
+				"URL": "http://www.redhat.com/security/updates/classification/#important",
+				"Description": "http://www.redhat.com/security/updates/classification/#important"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "xen xenmon.py / xenbaked insecure temporary file accesss",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2007-10-23T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2007-3919",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.  \n\nThis update is available via Red Hat Network.  Details on how to use \nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/FAQ_58_10188\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2008:0194"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2007-3919",
+						"Description": "CVE-2007-3919"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=350421",
+						"Description": "bz#350421: CVE-2007-3919 xen xenmon.py / xenbaked insecure temporary file accesss"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2007-10-17T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-VT:xen-0:3.0.3-41.el5_1.5",
+						"5Client:xen-0:3.0.3-41.el5_1.5",
+						"5Server-VT:xen-0:3.0.3-41.el5_1.5",
+						"5Server:xen-0:3.0.3-41.el5_1.5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "QEMU Buffer overflow via crafted \"net socket listen\" option",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2007-10-23T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2007-5730",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.  \n\nThis update is available via Red Hat Network.  Details on how to use \nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/FAQ_58_10188\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2008:0194"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2007-5730",
+						"Description": "CVE-2007-5730"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=360381",
+						"Description": "bz#360381: CVE-2007-5730 QEMU Buffer overflow via crafted \"net socket listen\" option"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2007-10-17T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-VT:xen-0:3.0.3-41.el5_1.5",
+						"5Client:xen-0:3.0.3-41.el5_1.5",
+						"5Server-VT:xen-0:3.0.3-41.el5_1.5",
+						"5Server:xen-0:3.0.3-41.el5_1.5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Qemu insufficient block device address range checking",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2008-02-19T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2008-0928",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.  \n\nThis update is available via Red Hat Network.  Details on how to use \nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/FAQ_58_10188\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2008:0194"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2008-0928",
+						"Description": "CVE-2008-0928"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=433560",
+						"Description": "bz#433560: CVE-2008-0928 Qemu insufficient block device address range checking"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2008-02-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-VT:xen-0:3.0.3-41.el5_1.5",
+						"5Client:xen-0:3.0.3-41.el5_1.5",
+						"5Server-VT:xen-0:3.0.3-41.el5_1.5",
+						"5Server:xen-0:3.0.3-41.el5_1.5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "PVFB backend fails to validate frontend's framebuffer description",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2008-05-13T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2008-1943",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.  \n\nThis update is available via Red Hat Network.  Details on how to use \nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/FAQ_58_10188\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2008:0194"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2008-1943",
+						"Description": "CVE-2008-1943"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=443078",
+						"Description": "bz#443078: CVE-2008-1943 PVFB backend fails to validate frontend's framebuffer description"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2008-04-18T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-VT:xen-0:3.0.3-41.el5_1.5",
+						"5Client:xen-0:3.0.3-41.el5_1.5",
+						"5Server-VT:xen-0:3.0.3-41.el5_1.5",
+						"5Server:xen-0:3.0.3-41.el5_1.5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "PVFB SDL backend chokes on bogus screen updates",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2008-05-13T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2008-1944",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.  \n\nThis update is available via Red Hat Network.  Details on how to use \nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/FAQ_58_10188\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2008:0194"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2008-1944",
+						"Description": "CVE-2008-1944"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=443390",
+						"Description": "bz#443390: CVE-2008-1944 PVFB SDL backend chokes on bogus screen updates"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2007-11-06T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-VT:xen-0:3.0.3-41.el5_1.5",
+						"5Client:xen-0:3.0.3-41.el5_1.5",
+						"5Server-VT:xen-0:3.0.3-41.el5_1.5",
+						"5Server:xen-0:3.0.3-41.el5_1.5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "6",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "qemu/kvm/xen: qemu block format auto-detection vulnerability",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2008-04-27T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2008-2004",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.  \n\nThis update is available via Red Hat Network.  Details on how to use \nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/FAQ_58_10188\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2008:0194"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2008-2004",
+						"Description": "CVE-2008-2004"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=444583",
+						"Description": "bz#444583: CVE-2008-2004 qemu/kvm/xen: qemu block format auto-detection vulnerability"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2008-04-17T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-VT:xen-0:3.0.3-41.el5_1.5",
+						"5Client:xen-0:3.0.3-41.el5_1.5",
+						"5Server-VT:xen-0:3.0.3-41.el5_1.5",
+						"5Server:xen-0:3.0.3-41.el5_1.5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+							"productid": "5Client",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop Multi OS (v. 5 client)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop Multi OS (v. 5 client)",
+							"productid": "5Client-VT",
+							"cpe": "cpe:/a:redhat:rhel_virtualization:5::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux (v. 5 server)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux (v. 5 server)",
+							"productid": "5Server",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Virtualization (v. 5 server)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Virtualization (v. 5 server)",
+							"productid": "5Server-VT",
+							"cpe": "cpe:/a:redhat:rhel_virtualization:5::server"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "xen-0:3.0.3-41.el5_1.5",
+				"fullproductname": {
+					"text": "xen-3.0.3-41.el5_1.5.src.rpm",
+					"productid": "xen-0:3.0.3-41.el5_1.5",
+					"cpe": "cpe:/a:redhat:rhel_virtualization:5::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "xen-0:3.0.3-41.el5_1.5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Client",
+				"fullproductname": {
+					"text": "xen-0:3.0.3-41.el5_1.5 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"productid": "5Client:xen-0:3.0.3-41.el5_1.5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+				}
+			},
+			{
+				"productreference": "xen-0:3.0.3-41.el5_1.5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Client-VT",
+				"fullproductname": {
+					"text": "xen-0:3.0.3-41.el5_1.5 as a component of Red Hat Enterprise Linux Desktop Multi OS (v. 5 client)",
+					"productid": "5Client-VT:xen-0:3.0.3-41.el5_1.5",
+					"cpe": "cpe:/a:redhat:rhel_virtualization:5::client"
+				}
+			},
+			{
+				"productreference": "xen-0:3.0.3-41.el5_1.5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server",
+				"fullproductname": {
+					"text": "xen-0:3.0.3-41.el5_1.5 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"productid": "5Server:xen-0:3.0.3-41.el5_1.5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+				}
+			},
+			{
+				"productreference": "xen-0:3.0.3-41.el5_1.5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-VT",
+				"fullproductname": {
+					"text": "xen-0:3.0.3-41.el5_1.5 as a component of Red Hat Enterprise Linux Virtualization (v. 5 server)",
+					"productid": "5Server-VT:xen-0:3.0.3-41.el5_1.5",
+					"cpe": "cpe:/a:redhat:rhel_virtualization:5::server"
+				}
+			}
+		]
+	}
+}

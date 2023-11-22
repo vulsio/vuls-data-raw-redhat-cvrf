@@ -1,0 +1,366 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: 389-ds-base security, bug fix, and enhancement update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2015:0416"
+		},
+		"Status": "Final",
+		"Version": "3",
+		"revisionhistory": {
+			"revision": {
+				"Number": "3",
+				"Date": "2015-03-05T09:26:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2015-03-05T09:26:00Z",
+		"CurrentReleaseDate": "2015-03-05T09:26:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:34:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated 389-ds-base packages that fix two security issues, several bugs,\nand add various enhancements are now available for Red Hat Enterprise\nLinux 7.\n\nRed Hat Product Security has rated this update as having Important security\nimpact. Common Vulnerability Scoring System (CVSS) base scores, which give\ndetailed severity ratings, are available for each vulnerability from the\nCVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe 389 Directory Server is an LDAPv3 compliant server. The base packages include the Lightweight Directory Access Protocol (LDAP) server and command-line utilities for server administration.\n\nAn information disclosure flaw was found in the way the 389 Directory Server stored information in the Changelog that is exposed via the 'cn=changelog' LDAP sub-tree. An unauthenticated user could in certain cases use this flaw to read data from the Changelog, which could include sensitive information such as plain-text passwords.\n(CVE-2014-8105)\n\nIt was found that when the nsslapd-unhashed-pw-switch 389 Directory Server configuration option was set to \"off\", it did not prevent the writing of unhashed passwords into the Changelog. This could potentially allow an authenticated user able to access the Changelog to read sensitive information. (CVE-2014-8112)\n\nThe CVE-2014-8105 issue was discovered by Petr Špaček of the Red Hat Identity Management Engineering Team, and the CVE-2014-8112 issue was discovered by Ludwig Krispenz of the Red Hat Identity Management Engineering Team.\n\nEnhancements:\n\n* Added new WinSync configuration parameters: winSyncSubtreePair for synchronizing multiple subtrees, as well as winSyncWindowsFilter and winSyncDirectoryFilter for synchronizing restricted sets by filters. (BZ#746646)\n\n* It is now possible to stop, start, or configure plug-ins without the need to restart the server for the change to take effect. (BZ#994690)\n\n* Access control related to the MODDN and MODRDN operations has been updated: the source and destination targets can be specified in the same access control instruction. (BZ#1118014)\n\n* The nsDS5ReplicaBindDNGroup attribute for using a group distinguished name in binding to replicas has been added. (BZ#1052754)\n\n* WinSync now supports range retrieval. If more than the MaxValRange number of attribute values exist per attribute, WinSync synchronizes all the attributes to the directory server using the range retrieval. (BZ#1044149)\n\n* Support for the RFC 4527 Read Entry Controls and RFC 4533 Content Synchronization Operation LDAP standards has been added. (BZ#1044139, BZ#1044159)\n\n* The Referential Integrity (referint) plug-in can now use an alternate configuration area. The PlugInArg plug-in configuration now uses unique configuration attributes. Configuration changes no longer require a server restart. (BZ#1044203)\n\n* The logconv.pl log analysis tool now supports gzip, bzip2, and xz compressed files and also TAR archives and compressed TAR archives of these files. (BZ#1044188)\n\n* Only the Directory Manager could add encoded passwords or force users to change their password after a reset. Users defined in the passwordAdminDN attribute can now also do this. (BZ#1118007)\n\n* The \"nsslapd-memberofScope\" configuration parameter has been added to the MemberOf plug-in. With MemberOf enabled and a scope defined, moving a group out of scope with a MODRDN operation failed. Moving a member entry out of scope now correctly removes the memberof value. (BZ#1044170)\n\n* The alwaysRecordLoginAttr attribute has been addded to the Account Policy plug-in configuration entry, which allows to distinguish between an attribute for checking the activity of an account and an attribute to be updated at successful login. (BZ#1060032)\n\n* A root DSE search, using the ldapsearch command with the '-s base -b \"\"' options, returns only the user attributes instead of the operational attributes. The \"nsslapd-return-default\" option has been added for backward compatibility. (BZ#1118021)\n\n* The configuration of the MemberOf plug-in can be stored in a suffix mapped to a back-end database, which allows MemberOf configuration to be replicated. (BZ#1044205)\n\n* Added support for the SSL versions from the range supported by the NSS library available on the system. Due to the POODLE vulnerability, SSLv3 is disabled by default even if NSS supports it. (BZ#1044191)\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2015:0416",
+				"Description": "https://access.redhat.com/errata/RHSA-2015:0416"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "389-ds-base: information disclosure through 'cn=changelog' subtree",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-03-05T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-8105",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll 389-ds-base users are advised to upgrade to these updated packages,\nwhich contain backported patches to correct these issues and add these\nenhancements. After installing this update, the 389 server service will be restarted automatically.\n\nBefore applying this update, make sure all previously released errata relevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:0416"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-8105",
+						"Description": "CVE-2014-8105"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1167858",
+						"Description": "bz#1167858: CVE-2014-8105 389-ds-base: information disclosure through 'cn=changelog' subtree"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2014-11-25T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-optional:389-ds-base-0:1.3.3.1-13.el7",
+						"7ComputeNode-optional:389-ds-base-0:1.3.3.1-13.el7",
+						"7Server-optional:389-ds-base-0:1.3.3.1-13.el7",
+						"7Server:389-ds-base-0:1.3.3.1-13.el7",
+						"7Workstation-optional:389-ds-base-0:1.3.3.1-13.el7",
+						"7Workstation:389-ds-base-0:1.3.3.1-13.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.8",
+					"Vector": "AV:A/AC:L/Au:N/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "389-ds-base: password hashing bypassed when \"nsslapd-unhashed-pw-switch\" is set to off",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-03-05T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-8112",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll 389-ds-base users are advised to upgrade to these updated packages,\nwhich contain backported patches to correct these issues and add these\nenhancements. After installing this update, the 389 server service will be restarted automatically.\n\nBefore applying this update, make sure all previously released errata relevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:0416"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-8112",
+						"Description": "CVE-2014-8112"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1172729",
+						"Description": "bz#1172729: CVE-2014-8112 389-ds-base: password hashing bypassed when \"nsslapd-unhashed-pw-switch\" is set to off"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2014-11-26T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-optional:389-ds-base-0:1.3.3.1-13.el7",
+						"7ComputeNode-optional:389-ds-base-0:1.3.3.1-13.el7",
+						"7Server-optional:389-ds-base-0:1.3.3.1-13.el7",
+						"7Server:389-ds-base-0:1.3.3.1-13.el7",
+						"7Workstation-optional:389-ds-base-0:1.3.3.1-13.el7",
+						"7Workstation:389-ds-base-0:1.3.3.1-13.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "1.4",
+					"Vector": "AV:A/AC:H/Au:S/C:P/I:N/A:N"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Client Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Client Optional (v. 7)",
+							"productid": "7Client-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+							"productid": "7ComputeNode-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 7)",
+							"productid": "7Server",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional (v. 7)",
+							"productid": "7Server-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 7)",
+							"productid": "7Workstation",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation Optional (v. 7)",
+							"productid": "7Workstation-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "389-ds-base-0:1.3.3.1-13.el7",
+				"fullproductname": {
+					"text": "389-ds-base-1.3.3.1-13.el7.src.rpm",
+					"productid": "389-ds-base-0:1.3.3.1-13.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "389-ds-base-0:1.3.3.1-13.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-optional",
+				"fullproductname": {
+					"text": "389-ds-base-0:1.3.3.1-13.el7 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"productid": "7Client-optional:389-ds-base-0:1.3.3.1-13.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "389-ds-base-0:1.3.3.1-13.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-optional",
+				"fullproductname": {
+					"text": "389-ds-base-0:1.3.3.1-13.el7 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"productid": "7ComputeNode-optional:389-ds-base-0:1.3.3.1-13.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "389-ds-base-0:1.3.3.1-13.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server",
+				"fullproductname": {
+					"text": "389-ds-base-0:1.3.3.1-13.el7 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server:389-ds-base-0:1.3.3.1-13.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "389-ds-base-0:1.3.3.1-13.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-optional",
+				"fullproductname": {
+					"text": "389-ds-base-0:1.3.3.1-13.el7 as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"productid": "7Server-optional:389-ds-base-0:1.3.3.1-13.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "389-ds-base-0:1.3.3.1-13.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation",
+				"fullproductname": {
+					"text": "389-ds-base-0:1.3.3.1-13.el7 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"productid": "7Workstation:389-ds-base-0:1.3.3.1-13.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "389-ds-base-0:1.3.3.1-13.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-optional",
+				"fullproductname": {
+					"text": "389-ds-base-0:1.3.3.1-13.el7 as a component of Red Hat Enterprise Linux Workstation Optional (v. 7)",
+					"productid": "7Workstation-optional:389-ds-base-0:1.3.3.1-13.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			}
+		]
+	}
+}

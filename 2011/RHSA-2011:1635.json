@@ -1,0 +1,332 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: cups security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2011:1635"
+		},
+		"Status": "Final",
+		"Version": "3",
+		"revisionhistory": {
+			"revision": {
+				"Number": "3",
+				"Date": "2011-12-05T19:50:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2011-12-05T19:45:00Z",
+		"CurrentReleaseDate": "2011-12-05T19:50:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:32:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated cups packages that fix one security issue and several bugs are now\navailable for Red Hat Enterprise Linux 6.\n\nThe Red Hat Security Response Team has rated this update as having low\nsecurity impact. A Common Vulnerability Scoring System (CVSS) base score,\nwhich gives a detailed severity rating, is available from the CVE link in\nthe References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe Common UNIX Printing System (CUPS) provides a portable printing layer\nfor UNIX operating systems.\n\nA heap-based buffer overflow flaw was found in the Lempel-Ziv-Welch (LZW)\ndecompression algorithm implementation used by the CUPS GIF image format\nreader. An attacker could create a malicious GIF image file that, when\nprinted, could possibly cause CUPS to crash or, potentially, execute\narbitrary code with the privileges of the \"lp\" user. (CVE-2011-2896)\n\nThese updated cups packages also provide fixes for the following bugs:\n\n* Previously CUPS was not correctly handling the language setting\nLANG=en_US.ASCII. As a consequence lpadmin, lpstat and lpinfo binaries were\nnot displaying any output when the LANG=en_US.ASCII environment variable\nwas used. As a result of this update the problem is fixed and the expected\noutput is now displayed. (BZ#681836)\n\n* Previously the scheduler did not check for empty values of several\nconfiguration directives. As a consequence it was possible for the CUPS\ndaemon (cupsd) to crash when a configuration file contained certain empty\nvalues. With this update the problem is fixed and cupsd no longer crashes\nwhen reading such a configuration file. (BZ#706673)\n\n* Previously when printing to a raw print queue, when using certain printer\nmodels, CUPS was incorrectly sending SNMP queries. As a consequence there\nwas a noticeable 4-second delay between queueing the job and the start of\nprinting. With this update the problem is fixed and CUPS no longer tries to\ncollect SNMP supply and status information for raw print queues.\n(BZ#709896)\n\n* Previously when using the BrowsePoll directive it could happen that the\nCUPS printer polling daemon (cups-polld) began polling before the network\ninterfaces were set up after a system boot. CUPS was then caching the\nfailed hostname lookup. As a consequence no printers were found and the\nerror, \"Host name lookup failure\", was logged. With this update the code\nthat re-initializes the resolver after failure in cups-polld is fixed and\nas a result CUPS will obtain the correct network settings to use in printer\ndiscovery. (BZ#712430)\n\n* The MaxJobs directive controls the maximum number of print jobs that are\nkept in memory. Previously, once the number of jobs reached the limit, the\nCUPS system failed to automatically purge the data file associated with the\noldest completed job from the system in order to make room for a new print\njob. This bug has been fixed, and the jobs beyond the set limit are now\nproperly purged. (BZ#735505)\n\n* The cups init script (/etc/rc.d/init.d/cups) uses the daemon function\n(from /etc/rc.d/init.d/functions) to start the cups process, but previously\nit did not source a configuration file from the /etc/sysconfig/ directory.\nAs a consequence, it was difficult to cleanly set the nice level or cgroup\nfor the cups daemon by setting the NICELEVEL or CGROUP_DAEMON variables.\nWith this update, the init script is fixed. (BZ#744791)\n\nAll users of CUPS are advised to upgrade to these updated packages, which\ncontain backported patches to resolve these issues. After installing this\nupdate, the cupsd daemon will be restarted automatically.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Low",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2011:1635",
+				"Description": "https://access.redhat.com/errata/RHSA-2011:1635"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#low",
+				"Description": "https://access.redhat.com/security/updates/classification/#low"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "David Koblas' GIF decoder LZW decoder buffer overflow",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2011-08-10T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2011-2896",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/kb/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2011:1635"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2011-2896",
+						"Description": "CVE-2011-2896"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=727800",
+						"Description": "bz#727800: CVE-2011-2896 David Koblas' GIF decoder LZW decoder buffer overflow"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2011-06-17T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional:cups-1:1.4.2-44.el6",
+						"6Client:cups-1:1.4.2-44.el6",
+						"6ComputeNode-optional:cups-1:1.4.2-44.el6",
+						"6ComputeNode:cups-1:1.4.2-44.el6",
+						"6Server-optional:cups-1:1.4.2-44.el6",
+						"6Server:cups-1:1.4.2-44.el6",
+						"6Workstation-optional:cups-1:1.4.2-44.el6",
+						"6Workstation:cups-1:1.4.2-44.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.1",
+					"Vector": "AV:N/AC:H/Au:N/C:P/I:P/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 6)",
+							"productid": "6Client",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+							"productid": "6Client-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node (v. 6)",
+							"productid": "6ComputeNode",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+							"productid": "6ComputeNode-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 6)",
+							"productid": "6Server",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional (v. 6)",
+							"productid": "6Server-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 6)",
+							"productid": "6Workstation",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+							"productid": "6Workstation-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "cups-1:1.4.2-44.el6",
+				"fullproductname": {
+					"text": "cups-1.4.2-44.el6.src.rpm",
+					"productid": "cups-1:1.4.2-44.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "cups-1:1.4.2-44.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client",
+				"fullproductname": {
+					"text": "cups-1:1.4.2-44.el6 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"productid": "6Client:cups-1:1.4.2-44.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "cups-1:1.4.2-44.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-optional",
+				"fullproductname": {
+					"text": "cups-1:1.4.2-44.el6 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"productid": "6Client-optional:cups-1:1.4.2-44.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "cups-1:1.4.2-44.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode",
+				"fullproductname": {
+					"text": "cups-1:1.4.2-44.el6 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"productid": "6ComputeNode:cups-1:1.4.2-44.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "cups-1:1.4.2-44.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-optional",
+				"fullproductname": {
+					"text": "cups-1:1.4.2-44.el6 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"productid": "6ComputeNode-optional:cups-1:1.4.2-44.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "cups-1:1.4.2-44.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server",
+				"fullproductname": {
+					"text": "cups-1:1.4.2-44.el6 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"productid": "6Server:cups-1:1.4.2-44.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "cups-1:1.4.2-44.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-optional",
+				"fullproductname": {
+					"text": "cups-1:1.4.2-44.el6 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"productid": "6Server-optional:cups-1:1.4.2-44.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "cups-1:1.4.2-44.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation",
+				"fullproductname": {
+					"text": "cups-1:1.4.2-44.el6 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"productid": "6Workstation:cups-1:1.4.2-44.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			},
+			{
+				"productreference": "cups-1:1.4.2-44.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-optional",
+				"fullproductname": {
+					"text": "cups-1:1.4.2-44.el6 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"productid": "6Workstation-optional:cups-1:1.4.2-44.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			}
+		]
+	}
+}

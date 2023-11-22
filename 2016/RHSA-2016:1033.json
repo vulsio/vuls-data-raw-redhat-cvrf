@@ -1,0 +1,408 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: kernel security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2016:1033"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2017-02-10T16:17:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2016-05-12T09:55:00Z",
+		"CurrentReleaseDate": "2017-02-10T16:17:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:41:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nAn update for kernel is now available for Red Hat Enterprise Linux 7.\n\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe kernel packages contain the Linux kernel, the core of any Linux operating system.\n\nSecurity Fix(es):\n\n* A flaw was found in the way the Linux kernel's ASN.1 DER decoder processed certain certificate files with tags of indefinite length. A local, unprivileged user could use a specially crafted X.509 certificate DER file to crash the system or, potentially, escalate their privileges on the system. (CVE-2016-0758, Important)\n\nRed Hat would like to thank Philip Pettersson of Samsung for reporting this issue.\n\nBug Fix(es):\n\n* Under certain conditions, the migration threads could race with the CPU hotplug, which could cause a deadlock. A set of patches has been provided to fix this bug, and the deadlock no longer occurs in the system. (BZ#1299338)\n\n* A bug in the code that cleans up revoked delegations could previously cause a soft lockup in the NFS server. This patch fixes the underlying source code, so the lockup no longer occurs. (BZ#1311582)\n\n* The second attempt to reload Common Application Programming Interface (CAPI) devices on the little-endian variant of IBM Power Systems previously failed. The provided set of patches fixes this bug, and reloading works as intended. (BZ#1312396)\n\n* Due to inconsistencies in page size of IOMMU, the NVMe device, and the kernel, the BUG_ON signal previously occurred in the nvme_setup_prps() function, leading to the system crash while setting up the DMA transfer. The provided patch sets the default NVMe page size to 4k, thus preventing the system crash. (BZ#1312399)\n\n* Previously, on a system using the Infiniband mlx5 driver used for the SRP stack, a hard lockup previously occurred after the kernel exceeded time with lock held with interrupts blocked. As a consequence, the system panicked. This update fixes this bug, and the system no longer panics in this situation. (BZ#1313814)\n\n* On the little-endian variant of IBM Power Systems, the kernel previously crashed in the bitmap_weight() function while running the memory affinity script. The provided patch fortifies the topology setup and prevents sd->child from being set to NULL when it is already NULL. As a result, the memory affinity script runs successfully. (BZ#1316158)\n\n* When a KVM guest wrote random values to the special-purpose registers (SPR) Instruction Authority Mask Register (IAMR), the guest and the corresponding QEMU process previously hung. This update adds the code which sets SPRs to a suitable neutral value on guest exit, thus fixing this bug. (BZ#1316636)\n\n* Under heavy iSCSI traffic load, the system previously panicked due to a race in the locking code leading to a list corruption. This update fixes this bug, and the system no longer panics in this situation. (BZ#1316812)\n\n* During SCSI exception handling (triggered by some irregularities), the driver could previously use an already retired SCSI command. As a consequence, a kernel panic or data corruption occurred. The provided patches fix this bug, and exception handling now proceeds successfully. (BZ#1316820)\n\n* When the previously opened /dev/tty, which pointed to a pseudo terminal (pty) pair, was the last file closed, a kernel crash could previously occur. The underlying source code has been fixed, preventing this bug. (BZ#1320297)\n\n* Previously, when using VPLEX and FCoE via the bnx2fc driver, different degrees of data corruption occurred. The provided patch fixes the FCP Response (RSP) residual parsing in bnx2fc, which prevents the aforementioned corruption. (BZ#1322279)\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2016:1033",
+				"Description": "https://access.redhat.com/errata/RHSA-2016:1033"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: tags with indefinite length can corrupt pointers in asn1_find_indefinite_length()",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-05-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2016-0758",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2016:1033"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2016-0758",
+						"Description": "CVE-2016-0758"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1300257",
+						"Description": "bz#1300257: CVE-2016-0758 kernel: tags with indefinite length can corrupt pointers in asn1_find_indefinite_length()"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2016-01-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-7.2.Z:kernel-0:3.10.0-327.18.2.el7",
+						"7Client-optional-7.2.Z:kernel-0:3.10.0-327.18.2.el7",
+						"7ComputeNode-7.2.Z:kernel-0:3.10.0-327.18.2.el7",
+						"7ComputeNode-optional-7.2.Z:kernel-0:3.10.0-327.18.2.el7",
+						"7Server-7.2.Z:kernel-0:3.10.0-327.18.2.el7",
+						"7Server-optional-7.2.Z:kernel-0:3.10.0-327.18.2.el7",
+						"7Workstation-7.2.Z:kernel-0:3.10.0-327.18.2.el7",
+						"7Workstation-optional-7.2.Z:kernel-0:3.10.0-327.18.2.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank Philip Pettersson (Samsung) for reporting this issue."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "7.2",
+					"Vector": "AV:L/AC:L/Au:N/C:C/I:C/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: Infinite loop vulnerability in KVM",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-07-22T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2016-3044",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2016:1033"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2016-3044",
+						"Description": "CVE-2016-3044"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1400495",
+						"Description": "bz#1400495: CVE-2016-3044 kernel: Infinite loop vulnerability in KVM"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2016-12-01T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-7.2.Z:kernel-0:3.10.0-327.18.2.el7",
+						"7Client-optional-7.2.Z:kernel-0:3.10.0-327.18.2.el7",
+						"7ComputeNode-7.2.Z:kernel-0:3.10.0-327.18.2.el7",
+						"7ComputeNode-optional-7.2.Z:kernel-0:3.10.0-327.18.2.el7",
+						"7Server-7.2.Z:kernel-0:3.10.0-327.18.2.el7",
+						"7Server-optional-7.2.Z:kernel-0:3.10.0-327.18.2.el7",
+						"7Workstation-7.2.Z:kernel-0:3.10.0-327.18.2.el7",
+						"7Workstation-optional-7.2.Z:kernel-0:3.10.0-327.18.2.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.2",
+					"Vector": "AV:A/AC:M/Au:S/C:N/I:N/A:C"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Client (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Client (v. 7)",
+							"productid": "7Client-7.2.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Client Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Client Optional (v. 7)",
+							"productid": "7Client-optional-7.2.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ComputeNode (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ComputeNode (v. 7)",
+							"productid": "7ComputeNode-7.2.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+							"productid": "7ComputeNode-optional-7.2.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 7)",
+							"productid": "7Server-7.2.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional (v. 7)",
+							"productid": "7Server-optional-7.2.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 7)",
+							"productid": "7Workstation-7.2.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation Optional (v. 7)",
+							"productid": "7Workstation-optional-7.2.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-0:3.10.0-327.18.2.el7",
+				"fullproductname": {
+					"text": "kernel-3.10.0-327.18.2.el7.src.rpm",
+					"productid": "kernel-0:3.10.0-327.18.2.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "kernel-0:3.10.0-327.18.2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-7.2.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-327.18.2.el7 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"productid": "7Client-7.2.Z:kernel-0:3.10.0-327.18.2.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-327.18.2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-optional-7.2.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-327.18.2.el7 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"productid": "7Client-optional-7.2.Z:kernel-0:3.10.0-327.18.2.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-327.18.2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-7.2.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-327.18.2.el7 as a component of Red Hat Enterprise Linux ComputeNode (v. 7)",
+					"productid": "7ComputeNode-7.2.Z:kernel-0:3.10.0-327.18.2.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-327.18.2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-optional-7.2.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-327.18.2.el7 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"productid": "7ComputeNode-optional-7.2.Z:kernel-0:3.10.0-327.18.2.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-327.18.2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-7.2.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-327.18.2.el7 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server-7.2.Z:kernel-0:3.10.0-327.18.2.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-327.18.2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-optional-7.2.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-327.18.2.el7 as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"productid": "7Server-optional-7.2.Z:kernel-0:3.10.0-327.18.2.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-327.18.2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-7.2.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-327.18.2.el7 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"productid": "7Workstation-7.2.Z:kernel-0:3.10.0-327.18.2.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-327.18.2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-optional-7.2.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-327.18.2.el7 as a component of Red Hat Enterprise Linux Workstation Optional (v. 7)",
+					"productid": "7Workstation-optional-7.2.Z:kernel-0:3.10.0-327.18.2.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			}
+		]
+	}
+}

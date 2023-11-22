@@ -1,0 +1,158 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: Red Hat JBoss Enterprise Application Platform 6.2.1 security update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2014:0205"
+		},
+		"Status": "Final",
+		"Version": "3",
+		"revisionhistory": {
+			"revision": {
+				"Number": "3",
+				"Date": "2019-02-20T12:32:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2014-02-24T17:46:00Z",
+		"CurrentReleaseDate": "2019-02-20T12:32:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:37:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nAn update for Red Hat JBoss Enterprise Application Platform 6.2.1 that\nfixes one security issue is now available from the Red Hat Customer Portal.\n\nThe Red Hat Security Response Team has rated this update as having Low\nsecurity impact. A Common Vulnerability Scoring System (CVSS) base score,\nwhich gives a detailed severity rating, is available from the CVE link in\nthe References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nRed Hat JBoss Enterprise Application Platform 6 is a platform for Java\napplications based on JBoss Application Server 7.\n\nIt was found that the security audit functionality, as provided by Red Hat\nJBoss Enterprise Application Platform 6, logged request parameters in plain\ntext. This may have caused passwords to be included in the audit log files\nwhen using BASIC or FORM-based authentication. A local attacker with access\nto audit log files could possibly use this flaw to obtain application or\nserver authentication credentials. (CVE-2014-0058)\n\nThe provided patch to fix CVE-2014-0058 also allows greater control over\nwhich of the following components of web requests are captured in audit\nlogs:\n\n - parameters\n - cookies\n - headers\n - attributes\n\nIt is also possible to selectively mask some elements of headers,\nparameters, cookies, and attributes using masks. This capability is\nprovided by two system properties, which are introduced by this patch:\n\n1) org.jboss.security.web.audit\n\nDescription:\nThis property controls the granularity of the security auditing of web\nrequests.\n\nPossible values:\noff = Disables auditing of web requests\nheaders = Audits only the headers of web requests\ncookies = Audits only the cookies of web requests\nparameters = Audits only the parameters of web requests\nattributes = Audits only the attributes of web requests\nheaders,cookies,parameters = Audits the headers, cookies, and parameters of\nweb requests\nheaders,cookies = Audits the headers and cookies of web requests\n\nDefault Value:\nheaders, parameters\n\nExamples:\nSetting \"org.jboss.security.web.audit=off\" disables security auditing of\nweb requests entirely.\nSetting \"org.jboss.security.web.audit=headers\" enables security auditing of\nonly headers in web requests.\n\n2) org.jboss.security.web.audit.mask\n\nDescription:\nThis property can be used to specify a list of strings to be matched\nagainst headers, parameters, cookies, and attributes of web requests.\nAny element matching the specified masks will be excluded from security\naudit logging.\n\nPossible values:\nAny comma separated string indicating keys of headers, parameters, cookies,\nand attributes.\n\nDefault Value:\nj_password, authorization\n\nNote that currently the matching of the masks is fuzzy rather than strict.\nFor example, a mask of \"authorization\" will mask both the header called\nauthorization and the parameter called \"custom_authorization\". A future\nrelease may introduce strict masks.\n\nAll users of Red Hat JBoss Enterprise Application Platform 6.2.1 as\nprovided from the Red Hat Customer Portal are advised to apply this update.\nThe JBoss server process must be restarted for the update to take effect.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Low",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2014:0205",
+				"Description": "https://access.redhat.com/errata/RHSA-2014:0205"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#low",
+				"Description": "https://access.redhat.com/security/updates/classification/#low"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/jbossnetwork/restricted/listSoftware.html?product=appplatform&downloadType=securityPatches&version=6.2.0",
+				"Description": "https://access.redhat.com/jbossnetwork/restricted/listSoftware.html?product=appplatform&downloadType=securityPatches&version=6.2.0"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/site/solutions/625683",
+				"Description": "https://access.redhat.com/site/solutions/625683"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Red Hat JBoss EAP6: Plain text password logging during security audit",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-02-24T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-0058",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThe References section of this erratum contains a download link (you must\nlog in to download the update). Before applying this update, back up your\nexisting Red Hat JBoss Enterprise Application Platform installation and\ndeployed applications.\n\nIf you have a native ZIP file installation on top of your Red Hat JBoss\nEnterprise Application Platform installation, refer to\nhttps://access.redhat.com/site/solutions/731123 to apply the patch provided\nin this erratum.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2014:0205"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-0058",
+						"Description": "CVE-2014-0058"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1063641",
+						"Description": "bz#1063641: CVE-2014-0058 Red Hat JBoss EAP6: Plain text password logging during security audit"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2014-02-11T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "1.9",
+					"Vector": "AV:L/AC:M/Au:N/C:P/I:N/A:N"
+				}
+			}
+		}
+	],
+	"producttree": {}
+}

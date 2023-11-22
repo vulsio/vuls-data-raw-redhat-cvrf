@@ -1,0 +1,292 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: glibc security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2013:0769"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2013-04-24T17:36:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2013-04-24T17:34:00Z",
+		"CurrentReleaseDate": "2013-04-24T17:36:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:32:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated glibc packages that fix two security issues and two bugs are now\navailable for Red Hat Enterprise Linux 5.\n\nThe Red Hat Security Response Team has rated this update as having low\nsecurity impact. Common Vulnerability Scoring System (CVSS) base scores,\nwhich give detailed severity ratings, are available for each vulnerability\nfrom the CVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe glibc packages provide the standard C libraries (libc), POSIX thread\nlibraries (libpthread), standard math libraries (libm), and the Name Server\nCaching Daemon (nscd) used by multiple programs on the system. Without\nthese libraries, the Linux system cannot function correctly.\n\nIt was found that getaddrinfo() did not limit the amount of stack memory\nused during name resolution. An attacker able to make an application\nresolve an attacker-controlled hostname or IP address could possibly cause\nthe application to exhaust all stack memory and crash. (CVE-2013-1914)\n\nA flaw was found in the regular expression matching routines that process\nmultibyte character input. If an application utilized the glibc regular\nexpression matching mechanism, an attacker could provide specially-crafted\ninput that, when processed, would cause the application to crash.\n(CVE-2013-0242)\n\nThis update also fixes the following bugs:\n\n* The improvements RHSA-2012:1207 made to the accuracy of floating point\nfunctions in the math library caused performance regressions for those\nfunctions. The performance regressions were analyzed and a fix was applied\nthat retains the current accuracy but reduces the performance penalty to\nacceptable levels. Refer to Red Hat Knowledge solution 229993, linked\nto in the References, for further information. (BZ#950535)\n\n* It was possible that a memory location freed by the localization code\ncould be accessed immediately after, resulting in a crash. The fix ensures\nthat the application does not crash by avoiding the invalid memory access.\n(BZ#951493)\n\nUsers of glibc are advised to upgrade to these updated packages, which\ncontain backported patches to correct these issues.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Low",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2013:0769",
+				"Description": "https://access.redhat.com/errata/RHSA-2013:0769"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#low",
+				"Description": "https://access.redhat.com/security/updates/classification/#low"
+			},
+			{
+				"type": "External",
+				"URL": "https://rhn.redhat.com/errata/RHSA-2012-1207.html",
+				"Description": "https://rhn.redhat.com/errata/RHSA-2012-1207.html"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/site/solutions/229993",
+				"Description": "https://access.redhat.com/site/solutions/229993"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "glibc: Buffer overrun (DoS) in regexp matcher by processing multibyte characters",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-01-29T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-0242",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:0769"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-0242",
+						"Description": "CVE-2013-0242"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=905874",
+						"Description": "bz#905874: CVE-2013-0242 glibc: Buffer overrun (DoS) in regexp matcher by processing multibyte characters"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2013-01-29T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-5.9.Z:glibc-0:2.5-107.el5_9.4",
+						"5Server-5.9.Z:glibc-0:2.5-107.el5_9.4"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "glibc: Stack (frame) overflow in getaddrinfo() when processing entry mapping to long list of address structures",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-04-03T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-1914",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:0769"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-1914",
+						"Description": "CVE-2013-1914"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=947882",
+						"Description": "bz#947882: CVE-2013-1914 glibc: Stack (frame) overflow in getaddrinfo() when processing entry mapping to long list of address structures"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2013-04-03T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-5.9.Z:glibc-0:2.5-107.el5_9.4",
+						"5Server-5.9.Z:glibc-0:2.5-107.el5_9.4"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+							"productid": "5Client-5.9.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux (v. 5 server)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux (v. 5 server)",
+							"productid": "5Server-5.9.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "glibc-0:2.5-107.el5_9.4",
+				"fullproductname": {
+					"text": "glibc-2.5-107.el5_9.4.src.rpm",
+					"productid": "glibc-0:2.5-107.el5_9.4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "glibc-0:2.5-107.el5_9.4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Client-5.9.Z",
+				"fullproductname": {
+					"text": "glibc-0:2.5-107.el5_9.4 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"productid": "5Client-5.9.Z:glibc-0:2.5-107.el5_9.4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+				}
+			},
+			{
+				"productreference": "glibc-0:2.5-107.el5_9.4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-5.9.Z",
+				"fullproductname": {
+					"text": "glibc-0:2.5-107.el5_9.4 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"productid": "5Server-5.9.Z:glibc-0:2.5-107.el5_9.4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+				}
+			}
+		]
+	}
+}

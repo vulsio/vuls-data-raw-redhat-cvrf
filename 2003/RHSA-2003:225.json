@@ -1,0 +1,213 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: Updated LPRng packages fix psbanner vulnerability",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2003:225"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2003-07-14T00:00:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2003-07-14T16:12:00Z",
+		"CurrentReleaseDate": "2003-07-14T00:00:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:32:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated LPRng packages for Red Hat Linux on IBM iSeries and pSeries systems\nresolve a temporary file vulnerability and an insecure default.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nLPRng is a print spooler.  \n\nLPRng includes a program, psbanner, that can be used to produce Postscript\nbanner pages to separate print jobs.   A vulnerability has been found in\npsbanner, which creates a temporary file with a known filename in an\ninsecure manner.  An attacker could create a symbolic link and cause\narbitrary files to be written as the 'lp' user.  The Common Vulnerabilities\nand Exposures project (cve.mitre.org) has assigned the name CAN-2003-0136\nto this issue.\n\nNote: psbanner is not used by the default Red Hat Linux LPRng configuration.\n\nWith its default configuration, LPRng accepts job submissions from any\nhost, which is not appropriate in a workstation environment. The Common\nVulnerabilities and Exposures project (cve.mitre.org) has assigned the name\nCAN-2002-0378 to this issue.\n\nThe updated packages from this advisory change the job submission\npolicy (in /etc/lpd.perms) so that jobs from remote hosts are refused\nby default and contain a patch so that psbanner does not create\nthe temporary file.\n\nThose sites running print servers may want to adjust this policy as\nappropriate; for example, to give access to certain hosts or subnets.\nRefer to the lpd.perms(5) man page for details.\n\nNote: Default installations of Red Hat Linux 7.1 include ipchains rules\nblocking remote access to the print spooler IP port; as a result default\ninstallations already reject remote job submissions.  \n\nIMPORTANT: There are special instructions for installing this update at\nthe end of the \"Solution\" section.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2003:225",
+				"Description": "https://access.redhat.com/errata/RHSA-2003:225"
+			},
+			{
+				"type": "External",
+				"URL": "http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=188366",
+				"Description": "http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=188366"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "security flaw",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2002-06-10T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2002-0378",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nTo update all RPMs for your particular architecture, run:\n\nrpm -Fvh [filenames]\n\nwhere [filenames] is a list of the RPMs you wish to upgrade.  Only those\nRPMs which are currently installed will be updated.  Those RPMs which are\nnot installed but included in the list will not be updated.  Note that you\ncan also use wildcards (*.rpm) if your current directory *only* contains the\ndesired RPMs.\n\nPlease note that this update is also available via Red Hat Network.  Many\npeople find this an easier way to apply updates.  To use Red Hat Network,\nlaunch the Red Hat Update Agent with the following command:\n\nup2date\n\nThis will start an interactive process that will result in the appropriate\nRPMs being upgraded on your system.\n\nAfter upgrading, you should check that the new configuration file is\nactivated. To do this, type the following command:\n\ngrep \"X NOT SERVER\" /etc/lpd.perms\n\nIf this command returns no output, you must put the new configuration file\nin place by typing:\n\nmv /etc/lpd.perms.rpmnew /etc/lpd.perms\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2003:225"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2002-0378",
+						"Description": "CVE-2002-0378"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1616765",
+						"Description": "bz#1616765: CVE-2002-0378 security flaw"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "security flaw",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2003-04-09T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2003-0136",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nTo update all RPMs for your particular architecture, run:\n\nrpm -Fvh [filenames]\n\nwhere [filenames] is a list of the RPMs you wish to upgrade.  Only those\nRPMs which are currently installed will be updated.  Those RPMs which are\nnot installed but included in the list will not be updated.  Note that you\ncan also use wildcards (*.rpm) if your current directory *only* contains the\ndesired RPMs.\n\nPlease note that this update is also available via Red Hat Network.  Many\npeople find this an easier way to apply updates.  To use Red Hat Network,\nlaunch the Red Hat Update Agent with the following command:\n\nup2date\n\nThis will start an interactive process that will result in the appropriate\nRPMs being upgraded on your system.\n\nAfter upgrading, you should check that the new configuration file is\nactivated. To do this, type the following command:\n\ngrep \"X NOT SERVER\" /etc/lpd.perms\n\nIf this command returns no output, you must put the new configuration file\nin place by typing:\n\nmv /etc/lpd.perms.rpmnew /etc/lpd.perms\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2003:225"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2003-0136",
+						"Description": "CVE-2003-0136"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1616980",
+						"Description": "bz#1616980: CVE-2003-0136 security flaw"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"Description": ""
+				}
+			},
+			"DiscoveryDate": "",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		}
+	],
+	"producttree": {}
+}

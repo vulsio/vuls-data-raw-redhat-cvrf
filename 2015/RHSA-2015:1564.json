@@ -1,0 +1,330 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: kernel-rt security, bug fix, and enhancement update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2015:1564"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2015-08-05T18:49:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2015-08-05T18:49:00Z",
+		"CurrentReleaseDate": "2015-08-05T18:49:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:35:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated kernel-rt packages that fix three security issues, several bugs,\nand add various enhancements are now available for Red Hat Enterprise MRG\n2.5.\n\nRed Hat Product Security has rated this update as having Moderate security\nimpact. Common Vulnerability Scoring System (CVSS) base scores, which give\ndetailed severity ratings, are available for each vulnerability from the\nCVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe kernel-rt packages contain the Linux kernel, the core of any Linux\noperating system.\n\n* An integer overflow flaw was found in the way the Linux kernel's\nnetfilter connection tracking implementation loaded extensions. An attacker\non a local network could potentially send a sequence of specially crafted\npackets that would initiate the loading of a large number of extensions,\ncausing the targeted system in that network to crash. (CVE-2014-9715,\nModerate)\n\n* It was found that the Linux kernel's ping socket implementation did not\nproperly handle socket unhashing during spurious disconnects, which could\nlead to a use-after-free flaw. On x86-64 architecture systems, a local user\nable to create ping sockets could use this flaw to crash the system.\nOn non-x86-64 architecture systems, a local user able to create ping\nsockets could use this flaw to escalate their privileges on the system.\n(CVE-2015-3636, Moderate)\n\n* It was found that the Linux kernel's TCP/IP protocol suite implementation\nfor IPv6 allowed the Hop Limit value to be set to a smaller value than the\ndefault one. An attacker on a local network could use this flaw to prevent\nsystems on that network from sending or receiving network packets.\n(CVE-2015-2922, Low)\n\nRed Hat would like to thank Nathan Hoad for reporting the CVE-2014-9715\nissue.\n\nThis update provides a build of the kernel-rt package for Red Hat\nEnterprise MRG 2.5 that is layered on Red Hat Enterprise Linux 6, and fixes\nthe following issues:\n\n* drbg: Add stdrng alias and increase priority\n* seqiv / eseqiv / chainiv: Move IV seeding into init function\n* ipv4: kABI fix for 0bbf87d backport\n* ipv4: Convert ipv4.ip_local_port_range to be per netns\n* libceph: tcp_nodelay support\n* ipr: Increase default adapter init stage change timeout\n* fix use-after-free bug in usb_hcd_unlink_urb()\n* libceph: fix double __remove_osd() problem\n* ext4: fix data corruption caused by unwritten and delayed extents\n* sunrpc: Add missing support for RPC_CLNT_CREATE_NO_RETRANS_TIMEOUT\n* nfs: Fixing lease renewal (Benjamin Coddington)\n* control hard lockup detection default\n* Fix print-once on enable\n* watchdog: update watchdog_thresh properly and watchdog attributes\n  atomically\n* module: Call module notifier on failure after complete_formation()\n\n(BZ#1230403)\n\nThis update also fixes the following bugs:\n\n* Non-standard usage of the functions write_seqcount_{begin,end}() were\nused in NFSv4, which caused the realtime code to try to sleep while locks\nwere held and produced the \"scheduling while atomic\" messages. The code was\nmodified to use the functions __write_seqcount_{begin,end}() that do not\nhold any locks removing the message and allowing correct execution.\n(BZ#1225642)\n\n* Dracut in Red Hat Enterprise Linux 6 has a dependency on a module called\nscsi_wait_scan that no longer exists on 3.x kernels. This caused the system\nto display misleading messages at start-up when the obsoleted\nscsi_wait_scan module was not found. To address this issue, MRG Realtime\nprovides a dummy scsi_wait_scan module so that the requirements for the\ninitramfs created by dracut are met and the boot messages are no longer\ndisplayed. (BZ#1230403)\n\nAll kernel-rt users are advised to upgrade to these updated packages, which\ncorrect these issues and add these enhancements. The system must be\nrebooted for this update to take effect.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2015:1564",
+				"Description": "https://access.redhat.com/errata/RHSA-2015:1564"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: netfilter connection tracking extensions denial of service",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-04-08T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-9715",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1564"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-9715",
+						"Description": "CVE-2014-9715"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1208684",
+						"Description": "bz#1208684: CVE-2014-9715 kernel: netfilter connection tracking extensions denial of service"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-05-26T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-MRG-Realtime-2:kernel-rt-1:3.10.0-229.rt56.158.el6rt"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.7",
+					"Vector": "AV:A/AC:M/Au:N/C:N/I:N/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: denial of service (DoS) attack against IPv6 network stacks due to improper handling of Router Advertisements.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-03-24T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-2922",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1564"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-2922",
+						"Description": "CVE-2015-2922"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1203712",
+						"Description": "bz#1203712: CVE-2015-2922 kernel: denial of service (DoS) attack against IPv6 network stacks due to improper handling of Router Advertisements."
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2015-03-05T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-MRG-Realtime-2:kernel-rt-1:3.10.0-229.rt56.158.el6rt"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "3.3",
+					"Vector": "AV:A/AC:L/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: ping sockets: use-after-free leading to local privilege escalation",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-05-02T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-3636",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1564"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-3636",
+						"Description": "CVE-2015-3636"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1218074",
+						"Description": "bz#1218074: CVE-2015-3636 kernel: ping sockets: use-after-free leading to local privilege escalation"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-05-02T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-MRG-Realtime-2:kernel-rt-1:3.10.0-229.rt56.158.el6rt"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.0",
+					"Vector": "AV:L/AC:H/Au:S/C:C/I:C/A:C"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise MRG for RHEL-6",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat MRG Realtime for RHEL 6 Server v.2",
+						"fullproductname": {
+							"text": "Red Hat MRG Realtime for RHEL 6 Server v.2",
+							"productid": "6Server-MRG-Realtime-2",
+							"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-rt-1:3.10.0-229.rt56.158.el6rt",
+				"fullproductname": {
+					"text": "kernel-rt-3.10.0-229.rt56.158.el6rt.src.rpm",
+					"productid": "kernel-rt-1:3.10.0-229.rt56.158.el6rt",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "kernel-rt-1:3.10.0-229.rt56.158.el6rt",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-MRG-Realtime-2",
+				"fullproductname": {
+					"text": "kernel-rt-1:3.10.0-229.rt56.158.el6rt as a component of Red Hat MRG Realtime for RHEL 6 Server v.2",
+					"productid": "6Server-MRG-Realtime-2:kernel-rt-1:3.10.0-229.rt56.158.el6rt",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			}
+		]
+	}
+}

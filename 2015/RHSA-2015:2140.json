@@ -1,0 +1,336 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: libssh2 security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2015:2140"
+		},
+		"Status": "Final",
+		"Version": "7",
+		"revisionhistory": {
+			"revision": {
+				"Number": "7",
+				"Date": "2015-11-19T03:17:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2015-11-19T03:17:00Z",
+		"CurrentReleaseDate": "2015-11-19T03:17:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:37:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated libssh2 packages that fix one security issue and two bugs are now\navailable for Red Hat Enterprise Linux 7.\n\nRed Hat Product Security has rated this update as having Low security\nimpact. A Common Vulnerability Scoring System (CVSS) base score, which\ngives a detailed severity rating, is available from the CVE link in the\nReferences section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe libssh2 packages provide a library that implements the SSH2 protocol.\n\nA flaw was found in the way the kex_agree_methods() function of libssh2\nperformed a key exchange when negotiating a new SSH session. A\nman-in-the-middle attacker could use a crafted SSH_MSG_KEXINIT packet to\ncrash a connecting libssh2 client. (CVE-2015-1782)\n\nThis update also fixes the following bugs:\n\n* Previously, libssh2 did not correctly adjust the size of the receive\nwindow while reading from an SSH channel. This caused downloads over\nthe secure copy (SCP) protocol to consume an excessive amount of memory.\nA series of upstream patches has been applied on the libssh2 source code to\nimprove handling of the receive window size. Now, SCP downloads work as\nexpected. (BZ#1080459)\n\n* Prior to this update, libssh2 did not properly initialize an internal\nvariable holding the SSH agent file descriptor, which caused the agent\ndestructor to close the standard input file descriptor by mistake.\nAn upstream patch has been applied on libssh2 sources to properly\ninitialize the internal variable. Now, libssh2 closes only the file\ndescriptors it owns. (BZ#1147717)\n\nAll libssh2 users are advised to upgrade to these updated packages, which\ncontain backported patches to correct these issues. After installing these\nupdated packages, all running applications using libssh2 must be restarted\nfor this update to take effect.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Low",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2015:2140",
+				"Description": "https://access.redhat.com/errata/RHSA-2015:2140"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#low",
+				"Description": "https://access.redhat.com/security/updates/classification/#low"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "libssh2: Using SSH_MSG_KEXINIT data unbounded",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-03-11T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-1782",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:2140"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "http://www.libssh2.org/adv_20150311.html",
+						"Description": "http://www.libssh2.org/adv_20150311.html"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-1782",
+						"Description": "CVE-2015-1782"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1199511",
+						"Description": "bz#1199511: CVE-2015-1782 libssh2: Using SSH_MSG_KEXINIT data unbounded"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2015-03-06T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-optional:libssh2-0:1.4.3-10.el7",
+						"7Client:libssh2-0:1.4.3-10.el7",
+						"7ComputeNode-optional:libssh2-0:1.4.3-10.el7",
+						"7ComputeNode:libssh2-0:1.4.3-10.el7",
+						"7Server-optional:libssh2-0:1.4.3-10.el7",
+						"7Server:libssh2-0:1.4.3-10.el7",
+						"7Workstation-optional:libssh2-0:1.4.3-10.el7",
+						"7Workstation:libssh2-0:1.4.3-10.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "7.8",
+					"Vector": "AV:N/AC:L/Au:N/C:N/I:N/A:C"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Client (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Client (v. 7)",
+							"productid": "7Client",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Client Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Client Optional (v. 7)",
+							"productid": "7Client-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ComputeNode (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ComputeNode (v. 7)",
+							"productid": "7ComputeNode",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+							"productid": "7ComputeNode-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 7)",
+							"productid": "7Server",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional (v. 7)",
+							"productid": "7Server-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 7)",
+							"productid": "7Workstation",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation Optional (v. 7)",
+							"productid": "7Workstation-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "libssh2-0:1.4.3-10.el7",
+				"fullproductname": {
+					"text": "libssh2-1.4.3-10.el7.src.rpm",
+					"productid": "libssh2-0:1.4.3-10.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "libssh2-0:1.4.3-10.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client",
+				"fullproductname": {
+					"text": "libssh2-0:1.4.3-10.el7 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"productid": "7Client:libssh2-0:1.4.3-10.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "libssh2-0:1.4.3-10.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-optional",
+				"fullproductname": {
+					"text": "libssh2-0:1.4.3-10.el7 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"productid": "7Client-optional:libssh2-0:1.4.3-10.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "libssh2-0:1.4.3-10.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode",
+				"fullproductname": {
+					"text": "libssh2-0:1.4.3-10.el7 as a component of Red Hat Enterprise Linux ComputeNode (v. 7)",
+					"productid": "7ComputeNode:libssh2-0:1.4.3-10.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "libssh2-0:1.4.3-10.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-optional",
+				"fullproductname": {
+					"text": "libssh2-0:1.4.3-10.el7 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"productid": "7ComputeNode-optional:libssh2-0:1.4.3-10.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "libssh2-0:1.4.3-10.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server",
+				"fullproductname": {
+					"text": "libssh2-0:1.4.3-10.el7 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server:libssh2-0:1.4.3-10.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "libssh2-0:1.4.3-10.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-optional",
+				"fullproductname": {
+					"text": "libssh2-0:1.4.3-10.el7 as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"productid": "7Server-optional:libssh2-0:1.4.3-10.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "libssh2-0:1.4.3-10.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation",
+				"fullproductname": {
+					"text": "libssh2-0:1.4.3-10.el7 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"productid": "7Workstation:libssh2-0:1.4.3-10.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "libssh2-0:1.4.3-10.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-optional",
+				"fullproductname": {
+					"text": "libssh2-0:1.4.3-10.el7 as a component of Red Hat Enterprise Linux Workstation Optional (v. 7)",
+					"productid": "7Workstation-optional:libssh2-0:1.4.3-10.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			}
+		]
+	}
+}

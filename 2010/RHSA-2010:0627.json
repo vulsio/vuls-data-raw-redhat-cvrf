@@ -1,0 +1,352 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: kvm security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2010:0627"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2010-08-19T17:31:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2010-08-19T21:31:00Z",
+		"CurrentReleaseDate": "2010-08-19T17:31:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:29:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated kvm packages that fix three security issues and multiple bugs are\nnow available for Red Hat Enterprise Linux 5.\n\nThe Red Hat Security Response Team has rated this update as having\nimportant security impact. Common Vulnerability Scoring System (CVSS) base\nscores, which give detailed severity ratings, are available for each\nvulnerability from the CVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nKVM (Kernel-based Virtual Machine) is a full virtualization solution for\nLinux on AMD64 and Intel 64 systems. KVM is a Linux kernel module built for\nthe standard Red Hat Enterprise Linux kernel.\n\nIt was found that QEMU-KVM on the host did not validate all pointers\nprovided from a guest system's QXL graphics card driver. A privileged guest\nuser could use this flaw to cause the host to dereference an invalid\npointer, causing the guest to crash (denial of service) or, possibly,\nresulting in the privileged guest user escalating their privileges on the\nhost. (CVE-2010-0431)\n\nA flaw was found in QEMU-KVM, allowing the guest some control over the\nindex used to access the callback array during sub-page MMIO\ninitialization. A privileged guest user could use this flaw to crash the\nguest (denial of service) or, possibly, escalate their privileges on the\nhost. (CVE-2010-2784)\n\nA NULL pointer dereference flaw was found when the host system had a\nprocessor with the Intel VT-x extension enabled. A privileged guest user\ncould use this flaw to trick the host into emulating a certain instruction,\nwhich could crash the host (denial of service). (CVE-2010-0435)\n\nThis update also fixes the following bugs:\n\n* running a \"qemu-img\" check on a faulty virtual machine image ended with a\nsegmentation fault. With this update, the segmentation fault no longer\noccurs when running the \"qemu-img\" check. (BZ#610342)\n\n* when attempting to transfer a file between two guests that were joined in\nthe same virtual LAN (VLAN), the receiving guest unexpectedly quit. With\nthis update, the transfer completes successfully. (BZ#610343)\n\n* installation of a system was occasionally failing in KVM. This was caused\nby KVM using wrong permissions for large guest pages. With this update, the\ninstallation completes successfully. (BZ#616796)\n\n* previously, the migration process would fail for a virtual machine\nbecause the virtual machine could not map all the memory. This was caused\nby a conflict that was initiated when a virtual machine was initially run\nand then migrated right away. With this update, the conflict no longer\noccurs and the migration process no longer fails. (BZ#618205)\n\n* using a thinly provisioned VirtIO disk on iSCSI storage and performing a\n\"qemu-img\" check during an \"e_no_space\" event returned cluster errors. With\nthis update, the errors no longer appear. (BZ#618206)\n\nAll KVM users should upgrade to these updated packages, which contain\nbackported patches to resolve these issues. Note: The procedure in the\nSolution section must be performed before this update will take effect.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2010:0627",
+				"Description": "https://access.redhat.com/errata/RHSA-2010:0627"
+			},
+			{
+				"type": "External",
+				"URL": "http://www.redhat.com/security/updates/classification/#important",
+				"Description": "http://www.redhat.com/security/updates/classification/#important"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "qemu: Insufficient guest provided pointers validation",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2010-08-19T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2010-0431",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n\nThe following procedure must be performed before this update will take\neffect:\n\n1) Stop all KVM guest virtual machines.\n\n2) Either reboot the hypervisor machine or, as the root user, remove (using\n\"modprobe -r [module]\") and reload (using \"modprobe [module]\") all of the\nfollowing modules which are currently running (determined using \"lsmod\"):\nkvm, ksm, kvm-intel or kvm-amd.\n\n3) Restart the KVM guest virtual machines.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2010:0627"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2010-0431",
+						"Description": "CVE-2010-0431"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=568809",
+						"Description": "bz#568809: CVE-2010-0431 qemu: Insufficient guest provided pointers validation"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2010-02-23T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-VT:kvm-0:83-164.el5_5.21",
+						"5Server-VT:kvm-0:83-164.el5_5.21"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.6",
+					"Vector": "AV:L/AC:M/Au:S/C:C/I:C/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kvm: vmx null pointer dereference",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2010-08-19T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2010-0435",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n\nThe following procedure must be performed before this update will take\neffect:\n\n1) Stop all KVM guest virtual machines.\n\n2) Either reboot the hypervisor machine or, as the root user, remove (using\n\"modprobe -r [module]\") and reload (using \"modprobe [module]\") all of the\nfollowing modules which are currently running (determined using \"lsmod\"):\nkvm, ksm, kvm-intel or kvm-amd.\n\n3) Restart the KVM guest virtual machines.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2010:0627"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2010-0435",
+						"Description": "CVE-2010-0435"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=570528",
+						"Description": "bz#570528: CVE-2010-0435 kvm: vmx null pointer dereference"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2010-03-04T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-VT:kvm-0:83-164.el5_5.21",
+						"5Server-VT:kvm-0:83-164.el5_5.21"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.6",
+					"Vector": "AV:L/AC:L/Au:S/C:N/I:N/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "qemu: insufficient constraints checking in exec.c:subpage_register()",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2010-07-28T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2010-2784",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n\nThe following procedure must be performed before this update will take\neffect:\n\n1) Stop all KVM guest virtual machines.\n\n2) Either reboot the hypervisor machine or, as the root user, remove (using\n\"modprobe -r [module]\") and reload (using \"modprobe [module]\") all of the\nfollowing modules which are currently running (determined using \"lsmod\"):\nkvm, ksm, kvm-intel or kvm-amd.\n\n3) Restart the KVM guest virtual machines.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2010:0627"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2010-2784",
+						"Description": "CVE-2010-2784"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=619411",
+						"Description": "bz#619411: CVE-2010-2784 qemu: insufficient constraints checking in exec.c:subpage_register()"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2010-07-28T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-VT:kvm-0:83-164.el5_5.21",
+						"5Server-VT:kvm-0:83-164.el5_5.21"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.6",
+					"Vector": "AV:L/AC:M/Au:S/C:C/I:C/A:C"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop Multi OS (v. 5 client)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop Multi OS (v. 5 client)",
+							"productid": "5Client-VT",
+							"cpe": "cpe:/a:redhat:rhel_virtualization:5::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Virtualization (v. 5 server)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Virtualization (v. 5 server)",
+							"productid": "5Server-VT",
+							"cpe": "cpe:/a:redhat:rhel_virtualization:5::server"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kvm-0:83-164.el5_5.21",
+				"fullproductname": {
+					"text": "kvm-83-164.el5_5.21.src.rpm",
+					"productid": "kvm-0:83-164.el5_5.21",
+					"cpe": "cpe:/a:redhat:rhel_virtualization:5::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "kvm-0:83-164.el5_5.21",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Client-VT",
+				"fullproductname": {
+					"text": "kvm-0:83-164.el5_5.21 as a component of Red Hat Enterprise Linux Desktop Multi OS (v. 5 client)",
+					"productid": "5Client-VT:kvm-0:83-164.el5_5.21",
+					"cpe": "cpe:/a:redhat:rhel_virtualization:5::client"
+				}
+			},
+			{
+				"productreference": "kvm-0:83-164.el5_5.21",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-VT",
+				"fullproductname": {
+					"text": "kvm-0:83-164.el5_5.21 as a component of Red Hat Enterprise Linux Virtualization (v. 5 server)",
+					"productid": "5Server-VT:kvm-0:83-164.el5_5.21",
+					"cpe": "cpe:/a:redhat:rhel_virtualization:5::server"
+				}
+			}
+		]
+	}
+}

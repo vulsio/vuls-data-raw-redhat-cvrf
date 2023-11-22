@@ -1,0 +1,1218 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: openssl security update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2016:1940"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2016-09-27T13:46:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2016-09-27T13:46:00Z",
+		"CurrentReleaseDate": "2016-09-27T13:46:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:44:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nAn update for openssl is now available for Red Hat Enterprise Linux 6 and Red Hat Enterprise Linux 7.\n\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nOpenSSL is a toolkit that implements the Secure Sockets Layer (SSL) and Transport Layer Security (TLS) protocols, as well as a full-strength general-purpose cryptography library.\n\nSecurity Fix(es):\n\n* A memory leak flaw was found in the way OpenSSL handled TLS status request extension data during session renegotiation. A remote attacker could cause a TLS server using OpenSSL to consume an excessive amount of memory and, possibly, exit unexpectedly after exhausting all available memory, if it enabled OCSP stapling support. (CVE-2016-6304)\n\n* It was discovered that OpenSSL did not always use constant time operations when computing Digital Signature Algorithm (DSA) signatures. A local attacker could possibly use this flaw to obtain a private DSA key belonging to another user or service running on the same system. (CVE-2016-2178)\n\n* It was discovered that the Datagram TLS (DTLS) implementation could fail to release memory in certain cases. A malicious DTLS client could cause a DTLS server using OpenSSL to consume an excessive amount of memory and, possibly, exit unexpectedly after exhausting all available memory. (CVE-2016-2179)\n\n* A flaw was found in the Datagram TLS (DTLS) replay protection implementation in OpenSSL. A remote attacker could possibly use this flaw to make a DTLS server using OpenSSL to reject further packets sent from a DTLS client over an established DTLS connection. (CVE-2016-2181)\n\n* An out of bounds write flaw was discovered in the OpenSSL BN_bn2dec() function. An attacker able to make an application using OpenSSL to process a large BIGNUM could cause the application to crash or, possibly, execute arbitrary code. (CVE-2016-2182)\n\n* A flaw was found in the DES/3DES cipher was used as part of the TLS/SSL protocol. A man-in-the-middle attacker could use this flaw to recover some plaintext data by capturing large amounts of encrypted traffic between TLS/SSL server and client if the communication used a DES/3DES based ciphersuite. (CVE-2016-2183)\n\nThis update mitigates the CVE-2016-2183 issue by lowering priority of DES cipher suites so they are not preferred over cipher suites using AES. For compatibility reasons, DES cipher suites remain enabled by default and included in the set of cipher suites identified by the HIGH cipher string. Future updates may move them to MEDIUM or not enable them by default.\n\n* An integer underflow flaw leading to a buffer over-read was found in the way OpenSSL parsed TLS session tickets. A remote attacker could use this flaw to crash a TLS server using OpenSSL if it used SHA-512 as HMAC for session tickets. (CVE-2016-6302)\n\n* Multiple integer overflow flaws were found in the way OpenSSL performed pointer arithmetic. A remote attacker could possibly use these flaws to cause a TLS/SSL server or client using OpenSSL to crash. (CVE-2016-2177)\n\n* An out of bounds read flaw was found in the way OpenSSL formatted Public Key Infrastructure Time-Stamp Protocol data for printing. An attacker could possibly cause an application using OpenSSL to crash if it printed time stamp data from the attacker. (CVE-2016-2180)\n\n* Multiple out of bounds read flaws were found in the way OpenSSL handled certain TLS/SSL protocol handshake messages. A remote attacker could possibly use these flaws to crash a TLS/SSL server or client using OpenSSL. (CVE-2016-6306)\n\nRed Hat would like to thank the OpenSSL project for reporting CVE-2016-6304 and CVE-2016-6306 and OpenVPN for reporting CVE-2016-2183. Upstream acknowledges Shi Lei (Gear Team of Qihoo 360 Inc.) as the original reporter of CVE-2016-6304 and CVE-2016-6306; and Karthikeyan Bhargavan (Inria) and Gaëtan Leurent (Inria) as the original reporters of CVE-2016-2183.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2016:1940",
+				"Description": "https://access.redhat.com/errata/RHSA-2016:1940"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			},
+			{
+				"type": "External",
+				"URL": "https://www.openssl.org/news/secadv/20160922.txt",
+				"Description": "https://www.openssl.org/news/secadv/20160922.txt"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "openssl: Possible integer overflow vulnerabilities in codebase",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-05-05T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2016-2177",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nFor the update to take effect, all services linked to the OpenSSL library must be restarted, or the system rebooted.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2016:1940"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.openssl.org/news/secadv/20160922.txt",
+						"Description": "https://www.openssl.org/news/secadv/20160922.txt"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2016-2177",
+						"Description": "CVE-2016-2177"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1341705",
+						"Description": "bz#1341705: CVE-2016-2177 openssl: Possible integer overflow vulnerabilities in codebase"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2016-06-01T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6Client-optional-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6ComputeNode-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6ComputeNode-optional-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6Server-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6Server-optional-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6Workstation-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6Workstation-optional-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"7Client-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7Client-optional-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7ComputeNode-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7ComputeNode-optional-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7Server-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7Server-optional-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7Workstation-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7Workstation-optional-7.2.Z:openssl-1:1.0.1e-51.el7_2.7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.6",
+					"Vector": "AV:N/AC:H/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "openssl: Non-constant time codepath followed for certain operations in DSA implementation",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-05-23T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2016-2178",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nFor the update to take effect, all services linked to the OpenSSL library must be restarted, or the system rebooted.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2016:1940"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "http://eprint.iacr.org/2016/594",
+						"Description": "http://eprint.iacr.org/2016/594"
+					},
+					{
+						"URL": "https://www.openssl.org/news/secadv/20160922.txt",
+						"Description": "https://www.openssl.org/news/secadv/20160922.txt"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2016-2178",
+						"Description": "CVE-2016-2178"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1343400",
+						"Description": "bz#1343400: CVE-2016-2178 openssl: Non-constant time codepath followed for certain operations in DSA implementation"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2016-06-06T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6Client-optional-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6ComputeNode-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6ComputeNode-optional-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6Server-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6Server-optional-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6Workstation-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6Workstation-optional-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"7Client-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7Client-optional-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7ComputeNode-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7ComputeNode-optional-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7Server-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7Server-optional-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7Workstation-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7Workstation-optional-7.2.Z:openssl-1:1.0.1e-51.el7_2.7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "1.9",
+					"Vector": "AV:L/AC:M/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "openssl: DTLS memory exhaustion DoS when messages are not removed from fragment buffer",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-06-30T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2016-2179",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nFor the update to take effect, all services linked to the OpenSSL library must be restarted, or the system rebooted.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2016:1940"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.openssl.org/news/secadv/20160922.txt",
+						"Description": "https://www.openssl.org/news/secadv/20160922.txt"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2016-2179",
+						"Description": "CVE-2016-2179"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1369504",
+						"Description": "bz#1369504: CVE-2016-2179 openssl: DTLS memory exhaustion DoS when messages are not removed from fragment buffer"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2016-08-22T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6Client-optional-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6ComputeNode-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6ComputeNode-optional-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6Server-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6Server-optional-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6Workstation-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6Workstation-optional-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"7Client-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7Client-optional-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7ComputeNode-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7ComputeNode-optional-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7Server-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7Server-optional-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7Workstation-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7Workstation-optional-7.2.Z:openssl-1:1.0.1e-51.el7_2.7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.0",
+					"Vector": "AV:N/AC:L/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "OpenSSL: OOB read in TS_OBJ_print_bio()",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-07-21T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2016-2180",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nFor the update to take effect, all services linked to the OpenSSL library must be restarted, or the system rebooted.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2016:1940"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.openssl.org/news/secadv/20160922.txt",
+						"Description": "https://www.openssl.org/news/secadv/20160922.txt"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2016-2180",
+						"Description": "CVE-2016-2180"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1359615",
+						"Description": "bz#1359615: CVE-2016-2180 OpenSSL: OOB read in TS_OBJ_print_bio()"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2016-07-25T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6Client-optional-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6ComputeNode-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6ComputeNode-optional-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6Server-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6Server-optional-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6Workstation-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6Workstation-optional-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"7Client-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7Client-optional-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7ComputeNode-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7ComputeNode-optional-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7Server-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7Server-optional-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7Workstation-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7Workstation-optional-7.2.Z:openssl-1:1.0.1e-51.el7_2.7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "1.9",
+					"Vector": "AV:L/AC:M/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "openssl: DTLS replay protection bypass allows DoS against DTLS connection",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-07-05T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2016-2181",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nFor the update to take effect, all services linked to the OpenSSL library must be restarted, or the system rebooted.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2016:1940"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.openssl.org/news/secadv/20160922.txt",
+						"Description": "https://www.openssl.org/news/secadv/20160922.txt"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2016-2181",
+						"Description": "CVE-2016-2181"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1369113",
+						"Description": "bz#1369113: CVE-2016-2181 openssl: DTLS replay protection bypass allows DoS against DTLS connection"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2016-08-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6Client-optional-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6ComputeNode-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6ComputeNode-optional-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6Server-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6Server-optional-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6Workstation-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6Workstation-optional-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"7Client-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7Client-optional-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7ComputeNode-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7ComputeNode-optional-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7Server-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7Server-optional-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7Workstation-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7Workstation-optional-7.2.Z:openssl-1:1.0.1e-51.el7_2.7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "6",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "openssl: Out-of-bounds write caused by unchecked errors in BN_bn2dec()",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-08-16T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2016-2182",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nFor the update to take effect, all services linked to the OpenSSL library must be restarted, or the system rebooted.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2016:1940"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.openssl.org/news/secadv/20160922.txt",
+						"Description": "https://www.openssl.org/news/secadv/20160922.txt"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2016-2182",
+						"Description": "CVE-2016-2182"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1367340",
+						"Description": "bz#1367340: CVE-2016-2182 openssl: Out-of-bounds write caused by unchecked errors in BN_bn2dec()"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2016-08-16T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6Client-optional-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6ComputeNode-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6ComputeNode-optional-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6Server-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6Server-optional-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6Workstation-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6Workstation-optional-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"7Client-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7Client-optional-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7ComputeNode-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7ComputeNode-optional-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7Server-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7Server-optional-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7Workstation-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7Workstation-optional-7.2.Z:openssl-1:1.0.1e-51.el7_2.7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "7",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "openssl: Insufficient TLS session ticket HMAC length checks",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-08-23T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2016-6302",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nFor the update to take effect, all services linked to the OpenSSL library must be restarted, or the system rebooted.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2016:1940"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.openssl.org/news/secadv/20160922.txt",
+						"Description": "https://www.openssl.org/news/secadv/20160922.txt"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2016-6302",
+						"Description": "CVE-2016-6302"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1369855",
+						"Description": "bz#1369855: CVE-2016-6302 openssl: Insufficient TLS session ticket HMAC length checks"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2016-08-24T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6Client-optional-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6ComputeNode-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6ComputeNode-optional-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6Server-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6Server-optional-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6Workstation-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6Workstation-optional-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"7Client-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7Client-optional-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7ComputeNode-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7ComputeNode-optional-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7Server-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7Server-optional-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7Workstation-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7Workstation-optional-7.2.Z:openssl-1:1.0.1e-51.el7_2.7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "8",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "openssl: OCSP Status Request extension unbounded memory growth",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-09-22T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2016-6304",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nFor the update to take effect, all services linked to the OpenSSL library must be restarted, or the system rebooted.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2016:1940"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.openssl.org/news/secadv/20160922.txt",
+						"Description": "https://www.openssl.org/news/secadv/20160922.txt"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2016-6304",
+						"Description": "CVE-2016-6304"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1377600",
+						"Description": "bz#1377600: CVE-2016-6304 openssl: OCSP Status Request extension unbounded memory growth"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2016-09-19T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6Client-optional-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6ComputeNode-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6ComputeNode-optional-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6Server-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6Server-optional-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6Workstation-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6Workstation-optional-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"7Client-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7Client-optional-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7ComputeNode-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7ComputeNode-optional-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7Server-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7Server-optional-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7Workstation-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7Workstation-optional-7.2.Z:openssl-1:1.0.1e-51.el7_2.7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank the OpenSSL project for reporting this issue. Upstream acknowledges Shi Lei (Gear Team of Qihoo 360 Inc.) as the original reporter."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.0",
+					"Vector": "AV:N/AC:L/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "9",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "openssl: certificate message OOB reads",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-09-21T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2016-6306",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nFor the update to take effect, all services linked to the OpenSSL library must be restarted, or the system rebooted.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2016:1940"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.openssl.org/news/secadv/20160922.txt",
+						"Description": "https://www.openssl.org/news/secadv/20160922.txt"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2016-6306",
+						"Description": "CVE-2016-6306"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1377594",
+						"Description": "bz#1377594: CVE-2016-6306 openssl: certificate message OOB reads"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2016-09-19T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6Client-optional-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6ComputeNode-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6ComputeNode-optional-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6Server-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6Server-optional-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6Workstation-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"6Workstation-optional-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+						"7Client-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7Client-optional-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7ComputeNode-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7ComputeNode-optional-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7Server-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7Server-optional-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7Workstation-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+						"7Workstation-optional-7.2.Z:openssl-1:1.0.1e-51.el7_2.7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank the OpenSSL project for reporting this issue. Upstream acknowledges Shi Lei (Gear Team of Qihoo 360 Inc.) as the original reporter."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "1.2",
+					"Vector": "AV:L/AC:H/Au:N/C:N/I:N/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 6)",
+							"productid": "6Client-6.8.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+							"productid": "6Client-optional-6.8.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node (v. 6)",
+							"productid": "6ComputeNode-6.8.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+							"productid": "6ComputeNode-optional-6.8.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 6)",
+							"productid": "6Server-6.8.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional (v. 6)",
+							"productid": "6Server-optional-6.8.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 6)",
+							"productid": "6Workstation-6.8.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+							"productid": "6Workstation-optional-6.8.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Client (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Client (v. 7)",
+							"productid": "7Client-7.2.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Client Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Client Optional (v. 7)",
+							"productid": "7Client-optional-7.2.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ComputeNode (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ComputeNode (v. 7)",
+							"productid": "7ComputeNode-7.2.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+							"productid": "7ComputeNode-optional-7.2.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 7)",
+							"productid": "7Server-7.2.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional (v. 7)",
+							"productid": "7Server-optional-7.2.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 7)",
+							"productid": "7Workstation-7.2.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation Optional (v. 7)",
+							"productid": "7Workstation-optional-7.2.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "openssl-0:1.0.1e-48.el6_8.3",
+				"fullproductname": {
+					"text": "openssl-1.0.1e-48.el6_8.3.src.rpm",
+					"productid": "openssl-0:1.0.1e-48.el6_8.3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openssl-1:1.0.1e-51.el7_2.7",
+				"fullproductname": {
+					"text": "openssl-1.0.1e-51.el7_2.7.src.rpm",
+					"productid": "openssl-1:1.0.1e-51.el7_2.7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "openssl-0:1.0.1e-48.el6_8.3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-6.8.z",
+				"fullproductname": {
+					"text": "openssl-0:1.0.1e-48.el6_8.3 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"productid": "6Client-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "openssl-0:1.0.1e-48.el6_8.3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-optional-6.8.z",
+				"fullproductname": {
+					"text": "openssl-0:1.0.1e-48.el6_8.3 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"productid": "6Client-optional-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "openssl-0:1.0.1e-48.el6_8.3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-6.8.z",
+				"fullproductname": {
+					"text": "openssl-0:1.0.1e-48.el6_8.3 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"productid": "6ComputeNode-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "openssl-0:1.0.1e-48.el6_8.3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-optional-6.8.z",
+				"fullproductname": {
+					"text": "openssl-0:1.0.1e-48.el6_8.3 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"productid": "6ComputeNode-optional-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "openssl-0:1.0.1e-48.el6_8.3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-6.8.z",
+				"fullproductname": {
+					"text": "openssl-0:1.0.1e-48.el6_8.3 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"productid": "6Server-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "openssl-0:1.0.1e-48.el6_8.3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-optional-6.8.z",
+				"fullproductname": {
+					"text": "openssl-0:1.0.1e-48.el6_8.3 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"productid": "6Server-optional-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "openssl-0:1.0.1e-48.el6_8.3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-6.8.z",
+				"fullproductname": {
+					"text": "openssl-0:1.0.1e-48.el6_8.3 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"productid": "6Workstation-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			},
+			{
+				"productreference": "openssl-0:1.0.1e-48.el6_8.3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-optional-6.8.z",
+				"fullproductname": {
+					"text": "openssl-0:1.0.1e-48.el6_8.3 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"productid": "6Workstation-optional-6.8.z:openssl-0:1.0.1e-48.el6_8.3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			},
+			{
+				"productreference": "openssl-1:1.0.1e-51.el7_2.7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-7.2.Z",
+				"fullproductname": {
+					"text": "openssl-1:1.0.1e-51.el7_2.7 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"productid": "7Client-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "openssl-1:1.0.1e-51.el7_2.7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-optional-7.2.Z",
+				"fullproductname": {
+					"text": "openssl-1:1.0.1e-51.el7_2.7 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"productid": "7Client-optional-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "openssl-1:1.0.1e-51.el7_2.7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-7.2.Z",
+				"fullproductname": {
+					"text": "openssl-1:1.0.1e-51.el7_2.7 as a component of Red Hat Enterprise Linux ComputeNode (v. 7)",
+					"productid": "7ComputeNode-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "openssl-1:1.0.1e-51.el7_2.7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-optional-7.2.Z",
+				"fullproductname": {
+					"text": "openssl-1:1.0.1e-51.el7_2.7 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"productid": "7ComputeNode-optional-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "openssl-1:1.0.1e-51.el7_2.7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-7.2.Z",
+				"fullproductname": {
+					"text": "openssl-1:1.0.1e-51.el7_2.7 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "openssl-1:1.0.1e-51.el7_2.7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-optional-7.2.Z",
+				"fullproductname": {
+					"text": "openssl-1:1.0.1e-51.el7_2.7 as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"productid": "7Server-optional-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "openssl-1:1.0.1e-51.el7_2.7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-7.2.Z",
+				"fullproductname": {
+					"text": "openssl-1:1.0.1e-51.el7_2.7 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"productid": "7Workstation-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "openssl-1:1.0.1e-51.el7_2.7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-optional-7.2.Z",
+				"fullproductname": {
+					"text": "openssl-1:1.0.1e-51.el7_2.7 as a component of Red Hat Enterprise Linux Workstation Optional (v. 7)",
+					"productid": "7Workstation-optional-7.2.Z:openssl-1:1.0.1e-51.el7_2.7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			}
+		]
+	}
+}

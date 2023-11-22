@@ -1,0 +1,269 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: docker security, bug fix, and enhancement update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2015:0623"
+		},
+		"Status": "Final",
+		"Version": "2",
+		"revisionhistory": {
+			"revision": {
+				"Number": "2",
+				"Date": "2015-03-05T10:28:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2015-03-05T03:18:00Z",
+		"CurrentReleaseDate": "2015-03-05T10:28:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:38:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated docker packages that fix two security issues, several bugs, and add\nvarious enhancements are now available for Red Hat Enterprise Linux 7\nExtras.\n\nRed Hat Product Security has rated this update as having Low security\nimpact. Common Vulnerability Scoring System (CVSS) base scores, which give\ndetailed severity ratings, are available for each vulnerability from the\nCVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nDocker is a service providing container management on Linux.\n\nIt was found that a malicious container image could overwrite arbitrary portions of the host file system by including absolute symlinks, potentially leading to privilege escalation. (CVE-2014-9356)\n\nA flaw was found in the way the Docker service unpacked images or builds after a \"docker pull\". An attacker could use this flaw to provide a malicious image or build that, when unpacked, would escalate their privileges on the system. (CVE-2014-9357)\n\nRed Hat would like to thank Docker Inc. for reporting these issues.\n\nThe docker-python subpackage provides the new Atomic tool. The goal of Atomic is to provide a high level, coherent entry point for Red Hat Enterprise Linux Atomic Host. Atomic makes it easier to interact with special kinds of containers, such as super-privileged debugging tools. Comprehensive information and documentation is available in the atomic manual pages.\n\nThe docker packages have been upgraded to upstream version 1.4.1, which provides a number of bug fixes and enhancements over the previous version, most notably an experimental overlayfs storage driver. (BZ#1174351)\n\nBug fixes:\n\n* The JSON configuration files for containers and images were inconsistent. As a consequence, when these files were parsed by the \"docker inspect\" command, the output was unnecessarily complex. This update improves the key naming schema in the configuration files and the output from \"docker inspect\" is now uniform. (BZ#1092773)\n\n* The /run directory had an incorrect SELinux label. As a consequence, containers could not access /run. This update corrects the SELinux label and containers now have access to /run. (BZ#1100009)\n\n* The Docker service contained an incorrect path for the secrets directory. As a consequence, executing \"docker run\" failed to create containers. This update fixes the default path to the secrets directory and \"docker run\" now executes successfully. (BZ#1102568)\n\n* It was not possible to specify a default repository in the configuration file in cases where all docker.io files are inaccessible. As a consequence, running docker commands failed because they could not contact the default repositories. Now, it is possible to specify a local Docker repository, and commands no longer fail because they are able to connect to a local private repository. (BZ#1106430)\n\n* When executing the \"docker attach\" command on a container which was in the process of shutting down, the process did not fail, but became unresponsive. This bug has been fixed, and running \"docker attach\" on a container which is shutting down causes the attach process to fail with an informative error message that it is not possible to attach to a stopped container. (BZ#1113608)\n\n* The \"docker run\" sub-command incorrectly returned non-zero exit codes, when they all should have been zero. As a consequence, it was not possible to differentiate between the exit codes of the docker command line and exit codes of contained processes, which in turn made automated control of \"docker run\" impossible. This update fixes the inconsistencies within the exit codes of \"docker run\". Additionally, this update also fixes inconsistencies of other docker sub-commands and improves the language in the error and warning messages. (BZ#1162807)\n\n* Adding a new registry with the \"--registry-prepend\" option did not follow the correct order to query and download an image. As a consequence, it did not query the prepended new registry first, but rather started with querying docker.io. The \"--registry-prepend\" option has been renamed to \"--registry-add\" and its behavior has been changed to query the registries added in the given order, with docker.io queried last. (BZ#1186153)\n\nAll docker users are advised to upgrade to these updated packages, which correct these issues and add these enhancements.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Low",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2015:0623",
+				"Description": "https://access.redhat.com/errata/RHSA-2015:0623"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#low",
+				"Description": "https://access.redhat.com/security/updates/classification/#low"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "docker: Path traversal during processing of absolute symlinks",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-12-11T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-9356",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:0623"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://groups.google.com/forum/#!topic/docker-user/nFAz-B-n4Bw",
+						"Description": "https://groups.google.com/forum/#!topic/docker-user/nFAz-B-n4Bw"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-9356",
+						"Description": "CVE-2014-9356"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1172761",
+						"Description": "bz#1172761: CVE-2014-9356 docker: Path traversal during processing of absolute symlinks"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2014-12-09T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-EXTRAS:docker-0:1.4.1-37.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.4",
+					"Vector": "AV:N/AC:H/Au:N/C:N/I:C/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "docker: Escalation of privileges during decompression of LZMA archives",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-12-11T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-9357",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:0623"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://groups.google.com/forum/#!topic/docker-user/nFAz-B-n4Bw",
+						"Description": "https://groups.google.com/forum/#!topic/docker-user/nFAz-B-n4Bw"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-9357",
+						"Description": "CVE-2014-9357"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1172782",
+						"Description": "bz#1172782: CVE-2014-9357 docker: Escalation of privileges during decompression of LZMA archives"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2014-12-05T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-EXTRAS:docker-0:1.4.1-37.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.6",
+					"Vector": "AV:A/AC:H/Au:N/C:N/I:C/A:N"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux Extras",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux 7 Extras",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux 7 Extras",
+							"productid": "7Server-EXTRAS",
+							"cpe": "cpe:/a:redhat:rhel_extras_other:7"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "docker-0:1.4.1-37.el7",
+				"fullproductname": {
+					"text": "docker-1.4.1-37.el7.src.rpm",
+					"productid": "docker-0:1.4.1-37.el7",
+					"cpe": "cpe:/a:redhat:rhel_extras_other:7"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "docker-0:1.4.1-37.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-EXTRAS",
+				"fullproductname": {
+					"text": "docker-0:1.4.1-37.el7 as a component of Red Hat Enterprise Linux 7 Extras",
+					"productid": "7Server-EXTRAS:docker-0:1.4.1-37.el7",
+					"cpe": "cpe:/a:redhat:rhel_extras_other:7"
+				}
+			}
+		]
+	}
+}

@@ -1,0 +1,197 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: openstack-heat security, bug fix, and enhancement update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2014:1687"
+		},
+		"Status": "Final",
+		"Version": "2",
+		"revisionhistory": {
+			"revision": {
+				"Number": "2",
+				"Date": "2014-10-22T17:10:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2014-10-22T17:10:00Z",
+		"CurrentReleaseDate": "2014-10-22T17:10:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:33:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated openstack-heat packages that fix one security issue, several bugs,\nand add various enhancements are now available for Red Hat Enterprise Linux\nOpenStack Platform 4.0.\n\nRed Hat Product Security has rated this update as having Moderate security\nimpact. A Common Vulnerability Scoring System (CVSS) base score, which\ngives a detailed severity rating, is available from the CVE link in the\nReferences section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nOpenStack Orchestration (heat) is a template-driven engine used to specify\nand deploy configurations for Compute, Storage, and OpenStack Networking.\nIt can also be used to automate post-deployment actions, which in turn\nallows automated provisioning of infrastructure, services, and\napplications. Orchestration can also be integrated with Telemetry alarms to\nimplement auto-scaling for certain infrastructure resources.\n\nIt was discovered that a user could temporarily be able to see the URL of a\nprovider template used in another tenant. If the template itself could be\naccessed, then additional information could be leaked that would otherwise\nnot be visible. (CVE-2014-3801)\n\nThe openstack-heat packages have been upgraded to upstream version\n2013.2.4, which provides a number of bug fixes and enhancements over the\nprevious version. The most notable enhancements are:\n\n* Added OS profiler support into Orchestration (heat).\n* Multiple environment files can now be specified on the command line.\n* The command 'resource-list' now displays 'physical_resource_id'.\n(BZ#1146092)\n\nThis update also fixes the following bugs:\n\n* Prior to this update, Qpid would attempt to reconnect to a broken message\nbroker, even though multiple hosts were configured. With this update,\nreconnect() selects the next broker in the list for each connection\nattempt. (BZ#1082672)\n\n* Prior to this update, certain Qpid exceptions were not properly handled\nby the Qpid driver. As a result, the Qpid connection would fail and stop\nprocessing subsequent messages. With this update, all possible exceptions\nare handled to ensure the Qpid driver does not enter an unrecoverable\nfailure loop. Consequently, Orchestration (heat) will continue to process\nQpid messages, even after a major exception occur. (BZ#1085996)\n\n* The Qpid driver's v2 topology has been introduced to specifically address\nthe slow growth of orphaned direct exchanges over time. By default,\nhowever, services still used the original v1 topology of the Qpid driver.\nThe v2 topology had to be explicitly configured via the\n'qpid_topology_version = 2' parameter. With this fix, the Orchestration\nservice's distribution configuration file (/usr/share/heat/heat-dist.conf)\nnow contains the 'qpid_topology_version = 2' parameter. This effectively\nsets the Qpid driver's v2 topology as the default. In addition, the default\nvalue in the Qpid implementation has been changed to 2 as well.\n(BZ#1124137)\n\n* Previously, the version of Orchestration (heat) in Red Hat Enterprise\nLinux OpenStack Platform 4 did not include the \"host_routes\" property of\nthe OS::Neutron::Subnet resource that was added in later releases of\nOrchestration. This change adds support for this property, which allows\nhost routes to be specified for a subnet. (BZ#1095752)\n\nAll openstack-heat users are advised to upgrade to these updated packages,\nwhich correct these issues and add these enhancements.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2014:1687",
+				"Description": "https://access.redhat.com/errata/RHSA-2014:1687"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			},
+			{
+				"type": "External",
+				"URL": "https://wiki.openstack.org/wiki/ReleaseNotes/2013.2.4",
+				"Description": "https://wiki.openstack.org/wiki/ReleaseNotes/2013.2.4"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "openstack-heat: authenticated information leak in Heat",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-04-23T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-3801",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to use the\nRed Hat Network to apply this update are available at\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2014:1687"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-3801",
+						"Description": "CVE-2014-3801"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1099748",
+						"Description": "bz#1099748: CVE-2014-3801 openstack-heat: authenticated information leak in Heat"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-05-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-RHOS-4.0:openstack-heat-0:2013.2.4-1.el6ost"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.0",
+					"Vector": "AV:N/AC:L/Au:S/C:P/I:N/A:N"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat OpenStack Platform",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux OpenStack Platform 4.0",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux OpenStack Platform 4.0",
+							"productid": "6Server-RHOS-4.0",
+							"cpe": "cpe:/a:redhat:openstack:4::el6"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "openstack-heat-0:2013.2.4-1.el6ost",
+				"fullproductname": {
+					"text": "openstack-heat-2013.2.4-1.el6ost.src.rpm",
+					"productid": "openstack-heat-0:2013.2.4-1.el6ost",
+					"cpe": "cpe:/a:redhat:openstack:4::el6"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "openstack-heat-0:2013.2.4-1.el6ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RHOS-4.0",
+				"fullproductname": {
+					"text": "openstack-heat-0:2013.2.4-1.el6ost as a component of Red Hat Enterprise Linux OpenStack Platform 4.0",
+					"productid": "6Server-RHOS-4.0:openstack-heat-0:2013.2.4-1.el6ost",
+					"cpe": "cpe:/a:redhat:openstack:4::el6"
+				}
+			}
+		]
+	}
+}

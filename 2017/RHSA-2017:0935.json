@@ -1,0 +1,448 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: tomcat security update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2017:0935"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2017-04-12T15:02:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2017-04-12T15:02:00Z",
+		"CurrentReleaseDate": "2017-04-12T15:02:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:41:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nAn update for tomcat is now available for Red Hat Enterprise Linux 7.\n\nRed Hat Product Security has rated this update as having a security impact of Moderate. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nApache Tomcat is a servlet container for the Java Servlet and JavaServer Pages (JSP) technologies.\n\nSecurity Fix(es):\n\n* It was discovered that the code that parsed the HTTP request line permitted invalid characters. This could be exploited, in conjunction with a proxy that also permitted the invalid characters but with a different interpretation, to inject data into the HTTP response. By manipulating the HTTP response the attacker could poison a web-cache, perform an XSS attack, or obtain sensitive information from requests other then their own. (CVE-2016-6816)\n\nNote: This fix causes Tomcat to respond with an HTTP 400 Bad Request error when request contains characters that are not permitted by the HTTP specification to appear not encoded, even though they were previously accepted. The newly introduced system property tomcat.util.http.parser.HttpParser.requestTargetAllow can be used to configure Tomcat to accept curly braces ({ and }) and the pipe symbol (|) in not encoded form, as these are often used in URLs without being properly encoded. \n\n* A bug was discovered in the error handling of the send file code for the NIO HTTP connector. This led to the current Processor object being added to the Processor cache multiple times allowing information leakage between requests including, and not limited to, session ID and the response body. (CVE-2016-8745)\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2017:0935",
+				"Description": "https://access.redhat.com/errata/RHSA-2017:0935"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "tomcat: HTTP Request smuggling vulnerability due to permitting invalid character in HTTP requests",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-11-22T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2016-6816",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2017:0935"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/articles/2991951",
+						"Description": "https://access.redhat.com/articles/2991951"
+					},
+					{
+						"URL": "https://access.redhat.com/solutions/2891171",
+						"Description": "https://access.redhat.com/solutions/2891171"
+					},
+					{
+						"URL": "https://tomcat.apache.org/security-6.html#Fixed_in_Apache_Tomcat_6.0.48",
+						"Description": "https://tomcat.apache.org/security-6.html#Fixed_in_Apache_Tomcat_6.0.48"
+					},
+					{
+						"URL": "https://tomcat.apache.org/security-7.html#Fixed_in_Apache_Tomcat_7.0.73",
+						"Description": "https://tomcat.apache.org/security-7.html#Fixed_in_Apache_Tomcat_7.0.73"
+					},
+					{
+						"URL": "https://tomcat.apache.org/security-8.html#Fixed_in_Apache_Tomcat_8.0.39",
+						"Description": "https://tomcat.apache.org/security-8.html#Fixed_in_Apache_Tomcat_8.0.39"
+					},
+					{
+						"URL": "https://tomcat.apache.org/security-8.html#Fixed_in_Apache_Tomcat_8.5.8",
+						"Description": "https://tomcat.apache.org/security-8.html#Fixed_in_Apache_Tomcat_8.5.8"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2016-6816",
+						"Description": "CVE-2016-6816"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1397484",
+						"Description": "bz#1397484: CVE-2016-6816 tomcat: HTTP Request smuggling vulnerability due to permitting invalid character in HTTP requests"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2016-11-22T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-7.3.Z:tomcat-0:7.0.69-11.el7_3",
+						"7Client-optional-7.3.Z:tomcat-0:7.0.69-11.el7_3",
+						"7ComputeNode-7.3.Z:tomcat-0:7.0.69-11.el7_3",
+						"7ComputeNode-optional-7.3.Z:tomcat-0:7.0.69-11.el7_3",
+						"7Server-7.3.Z:tomcat-0:7.0.69-11.el7_3",
+						"7Server-optional-7.3.Z:tomcat-0:7.0.69-11.el7_3",
+						"7Workstation-7.3.Z:tomcat-0:7.0.69-11.el7_3",
+						"7Workstation-optional-7.3.Z:tomcat-0:7.0.69-11.el7_3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.8",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "tomcat: information disclosure due to incorrect Processor sharing",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-12-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2016-8745",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2017:0935"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://tomcat.apache.org/security-6.html#Fixed_in_Apache_Tomcat_6.0.49",
+						"Description": "https://tomcat.apache.org/security-6.html#Fixed_in_Apache_Tomcat_6.0.49"
+					},
+					{
+						"URL": "https://tomcat.apache.org/security-7.html#Fixed_in_Apache_Tomcat_7.0.74",
+						"Description": "https://tomcat.apache.org/security-7.html#Fixed_in_Apache_Tomcat_7.0.74"
+					},
+					{
+						"URL": "https://tomcat.apache.org/security-8.html#Fixed_in_Apache_Tomcat_8.0.40",
+						"Description": "https://tomcat.apache.org/security-8.html#Fixed_in_Apache_Tomcat_8.0.40"
+					},
+					{
+						"URL": "https://tomcat.apache.org/security-8.html#Fixed_in_Apache_Tomcat_8.5.9",
+						"Description": "https://tomcat.apache.org/security-8.html#Fixed_in_Apache_Tomcat_8.5.9"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2016-8745",
+						"Description": "CVE-2016-8745"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1403824",
+						"Description": "bz#1403824: CVE-2016-8745 tomcat: information disclosure due to incorrect Processor sharing"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2016-12-12T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-7.3.Z:tomcat-0:7.0.69-11.el7_3",
+						"7Client-optional-7.3.Z:tomcat-0:7.0.69-11.el7_3",
+						"7ComputeNode-7.3.Z:tomcat-0:7.0.69-11.el7_3",
+						"7ComputeNode-optional-7.3.Z:tomcat-0:7.0.69-11.el7_3",
+						"7Server-7.3.Z:tomcat-0:7.0.69-11.el7_3",
+						"7Server-optional-7.3.Z:tomcat-0:7.0.69-11.el7_3",
+						"7Workstation-7.3.Z:tomcat-0:7.0.69-11.el7_3",
+						"7Workstation-optional-7.3.Z:tomcat-0:7.0.69-11.el7_3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:N/A:N"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Client (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Client (v. 7)",
+							"productid": "7Client-7.3.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Client Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Client Optional (v. 7)",
+							"productid": "7Client-optional-7.3.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ComputeNode (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ComputeNode (v. 7)",
+							"productid": "7ComputeNode-7.3.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+							"productid": "7ComputeNode-optional-7.3.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 7)",
+							"productid": "7Server-7.3.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional (v. 7)",
+							"productid": "7Server-optional-7.3.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 7)",
+							"productid": "7Workstation-7.3.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation Optional (v. 7)",
+							"productid": "7Workstation-optional-7.3.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "tomcat-0:7.0.69-11.el7_3",
+				"fullproductname": {
+					"text": "tomcat-7.0.69-11.el7_3.src.rpm",
+					"productid": "tomcat-0:7.0.69-11.el7_3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "tomcat-0:7.0.69-11.el7_3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-7.3.Z",
+				"fullproductname": {
+					"text": "tomcat-0:7.0.69-11.el7_3 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"productid": "7Client-7.3.Z:tomcat-0:7.0.69-11.el7_3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "tomcat-0:7.0.69-11.el7_3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-optional-7.3.Z",
+				"fullproductname": {
+					"text": "tomcat-0:7.0.69-11.el7_3 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"productid": "7Client-optional-7.3.Z:tomcat-0:7.0.69-11.el7_3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "tomcat-0:7.0.69-11.el7_3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-7.3.Z",
+				"fullproductname": {
+					"text": "tomcat-0:7.0.69-11.el7_3 as a component of Red Hat Enterprise Linux ComputeNode (v. 7)",
+					"productid": "7ComputeNode-7.3.Z:tomcat-0:7.0.69-11.el7_3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "tomcat-0:7.0.69-11.el7_3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-optional-7.3.Z",
+				"fullproductname": {
+					"text": "tomcat-0:7.0.69-11.el7_3 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"productid": "7ComputeNode-optional-7.3.Z:tomcat-0:7.0.69-11.el7_3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "tomcat-0:7.0.69-11.el7_3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-7.3.Z",
+				"fullproductname": {
+					"text": "tomcat-0:7.0.69-11.el7_3 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server-7.3.Z:tomcat-0:7.0.69-11.el7_3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "tomcat-0:7.0.69-11.el7_3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-optional-7.3.Z",
+				"fullproductname": {
+					"text": "tomcat-0:7.0.69-11.el7_3 as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"productid": "7Server-optional-7.3.Z:tomcat-0:7.0.69-11.el7_3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "tomcat-0:7.0.69-11.el7_3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-7.3.Z",
+				"fullproductname": {
+					"text": "tomcat-0:7.0.69-11.el7_3 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"productid": "7Workstation-7.3.Z:tomcat-0:7.0.69-11.el7_3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "tomcat-0:7.0.69-11.el7_3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-optional-7.3.Z",
+				"fullproductname": {
+					"text": "tomcat-0:7.0.69-11.el7_3 as a component of Red Hat Enterprise Linux Workstation Optional (v. 7)",
+					"productid": "7Workstation-optional-7.3.Z:tomcat-0:7.0.69-11.el7_3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			}
+		]
+	}
+}

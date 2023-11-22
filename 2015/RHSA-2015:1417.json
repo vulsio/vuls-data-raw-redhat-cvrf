@@ -1,0 +1,282 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: mailman security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2015:1417"
+		},
+		"Status": "Final",
+		"Version": "3",
+		"revisionhistory": {
+			"revision": {
+				"Number": "3",
+				"Date": "2015-07-20T14:06:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2015-07-20T14:06:00Z",
+		"CurrentReleaseDate": "2015-07-20T14:06:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:37:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated mailman packages that fix two security issues and several bugs are\nnow available for Red Hat Enterprise Linux 6.\n\nRed Hat Product Security has rated this update as having Moderate security\nimpact. Common Vulnerability Scoring System (CVSS) base scores, which give\ndetailed severity ratings, are available for each vulnerability from the\nCVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nMailman is a program used to help manage e-mail discussion lists.\n\nIt was found that mailman did not sanitize the list name before passing it\nto certain MTAs. A local attacker could use this flaw to execute arbitrary\ncode as the user running mailman. (CVE-2015-2775)\n\nIt was found that mailman stored private email messages in a world-readable\ndirectory. A local user could use this flaw to read private mailing list\narchives. (CVE-2002-0389)\n\nThis update also fixes the following bugs:\n\n* Previously, it was impossible to configure Mailman in a way that\nDomain-based Message Authentication, Reporting & Conformance (DMARC) would\nrecognize Sender alignment for Domain Key Identified Mail (DKIM)\nsignatures. Consequently, Mailman list subscribers that belonged to a mail\nserver with a \"reject\" policy for DMARC, such as yahoo.com or AOL.com, were\nunable to receive Mailman forwarded messages from senders residing in any\ndomain that provided DKIM signatures. With this update, domains with a\n\"reject\" DMARC policy are recognized correctly, and Mailman list\nadministrators are able to configure the way these messages are handled.\nAs a result, after a proper configuration, subscribers now correctly\nreceive Mailman forwarded messages in this scenario. (BZ#1095359)\n\n* Mailman used a console encoding when generating a subject for a \"welcome\nemail\" when new mailing lists were created by the \"newlist\" command.\nConsequently, when the console encoding did not match the encoding used by\nMailman for that particular language, characters in the \"welcome email\"\ncould be displayed incorrectly. Mailman has been fixed to use the correct\nencoding, and characters in the \"welcome email\" are now displayed properly.\n(BZ#1056366)\n\n* The \"rmlist\" command used a hardcoded path to list data based on the\nVAR_PREFIX configuration variable. As a consequence, when the list was\ncreated outside of VAR_PREFIX, it was impossible to remove it using the\n\"rmlist\" command. With this update, the \"rmlist\" command uses the correct\nLIST_DATA_DIR value instead of VAR_PREFIX, and it is now possible to remove\nthe list in described situation. (BZ#1008139)\n\n* Due to an incompatibility between Python and Mailman in Red Hat\nEnterprise Linux 6, when moderators were approving a moderated message to a\nmailing list and checked the \"Preserve messages for the site administrator\"\ncheckbox, Mailman failed to approve the message and returned an error.\nThis incompatibility has been fixed, and Mailman now approves messages as\nexpected in this scenario. (BZ#765807)\n\n* When Mailman was set to not archive a list but the archive was not set to\nprivate, attachments sent to that list were placed in a public archive.\nConsequently, users of Mailman web interface could list private attachments\nbecause httpd configuration of public archive directory allows listing all\nfiles in the archive directory. The httpd configuration of Mailman has been\nfixed to not allow listing of private archive directory, and users of\nMailman web interface are no longer able to list private attachments.\n(BZ#745409)\n\nUsers of mailman are advised to upgrade to these updated packages, which\ncontain backported patches to correct these issues.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2015:1417",
+				"Description": "https://access.redhat.com/errata/RHSA-2015:1417"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "mailman: Local users able to read private mailing list archives",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2008-08-19T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2002-0389",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1417"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2002-0389",
+						"Description": "CVE-2002-0389"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=723584",
+						"Description": "bz#723584: CVE-2002-0389 mailman: Local users able to read private mailing list archives"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2011-06-13T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server:mailman-3:2.1.12-25.el6",
+						"6Workstation:mailman-3:2.1.12-25.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.1",
+					"Vector": "AV:L/AC:L/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "mailman: directory traversal in MTA transports that deliver programmatically",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-03-31T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-2775",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1417"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-2775",
+						"Description": "CVE-2015-2775"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1208059",
+						"Description": "bz#1208059: CVE-2015-2775 mailman: directory traversal in MTA transports that deliver programmatically"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-04-01T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server:mailman-3:2.1.12-25.el6",
+						"6Workstation:mailman-3:2.1.12-25.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.6",
+					"Vector": "AV:L/AC:L/Au:N/C:P/I:P/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 6)",
+							"productid": "6Server",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 6)",
+							"productid": "6Workstation",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "mailman-3:2.1.12-25.el6",
+				"fullproductname": {
+					"text": "mailman-2.1.12-25.el6.src.rpm",
+					"productid": "mailman-3:2.1.12-25.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "mailman-3:2.1.12-25.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server",
+				"fullproductname": {
+					"text": "mailman-3:2.1.12-25.el6 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"productid": "6Server:mailman-3:2.1.12-25.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "mailman-3:2.1.12-25.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation",
+				"fullproductname": {
+					"text": "mailman-3:2.1.12-25.el6 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"productid": "6Workstation:mailman-3:2.1.12-25.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			}
+		]
+	}
+}

@@ -1,0 +1,503 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Bug Fix Advisory: OpenShift Container Platform 3.11 bug fix and enhancement update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHBA-2020:2215"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2020-06-15T04:55:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2020-05-28T10:55:00Z",
+		"CurrentReleaseDate": "2020-06-15T04:55:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.22.0",
+			"Date": "2023-10-06T19:55:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nRed Hat OpenShift Container Platform release 3.11.219 is now available with\nupdates to packages and images that fix several bugs and add enhancements.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nRed Hat OpenShift Container Platform is Red Hat's cloud computing\nKubernetes application platform solution designed for on-premise or private\ncloud deployments.\n\nThis advisory contains the RPM packages for Red Hat OpenShift Container\nPlatform 3.11.219. See the following advisory for the container images for\nthis release:\n\nhttps://access.redhat.com/errata/RHBA-2020:2216\n\nThis release fixes the following bugs among others:\n\n* Previously, DNS names were queried every time they occurred in an\nEgressNetworkPolicy. Records were queried regardless of whether a particular DNS\nrecord had been refreshed by a previous query, resulting in slow network\nperformance. DNS records are now queried based on unique names rather than per\neach EgressNetworkPolicy. As a result, DNS query performance has been\nsignificantly improved. (BZ#1772594)\n\n* Previously, the PKI directory was not properly mounted to the sync Pod. This\ncaused the `openshift-ca.crt` to be inaccessible, and as a result, was\nrecreated. The missing mounts and volumes have been added to the sync Pod, so\nthe `openshift-ca.crt` is available and is not incorrectly recreated. (BZ#1808068)\n\n* The Google Cloud Storage (GCS) driver was not reporting all errors due to a\nvariable shadowing issue. This issue has been resolved, allowing all errors to\nbe reported by the registry. (BZ#1814722)\n\n* The image registry was using repository names in metrics labels. This caused\nPrometheus to have problems with reporting many metrics. This bug fix removes\nrepository names from labels, resulting in less generated metrics and better\nperformance. (BZ#1827744)\n\n* The variable `openshift_certificate_expiry_warning_days` was hard-coded in an\narea of {product-title}'s underlying code calling the\n`openshift_certificate_expiry` role during upgrades. This prevented the\n`openshift_certificate_expiry_warning_days` variable from being overridden in\nthe inventory. This bug fix replaces the hard-coded value with a task to set a\nvalue of six months if the variable has not been defined by the user. (BZ#1829492)\n\n* When redeploying certificates, the certificate expiry check provided little\nvalue because the expectation was that the certificates would be replaced.\nAdditionally, there were situations where certificates were invalid and\nredeployment was blocked by the check. This bug fix removes the checks, allowing\ncertificate redeployment to proceed without requiring additional inventory\nvariables to override expiry days or invalid/missing certificates. (BZ#1832379)\n\nAll OpenShift Container Platform 3.11 users are advised to upgrade to these\nupdated packages and images.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2023 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHBA-2020:2215",
+				"Description": "https://access.redhat.com/errata/RHBA-2020:2215"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A denial of service vulnerability was found in the Kubernetes API server. This flaw allows a remote attacker to send repeated, crafted HTTP requests to exhaust available memory and cause a crash.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2020-03-23T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2020-8552",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, ensure all previously released errata relevant\nto your system is applied.\n\nSee the following documentation, which will be updated shortly for release\n3.11.219, for important instructions on how to upgrade your cluster and fully\napply this asynchronous errata update:\n\nhttps://docs.openshift.com/container-platform/3.11/release_notes/ocp_3_11_release_notes.html\n\nThis update is available via the Red Hat Network. Details on how to use the\nRed Hat Network to apply this update are available at\nhttps://access.redhat.com/articles/11258.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHBA-2020:2215"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2020-8552",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2020-8552"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2020-8552",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2020-8552"
+					},
+					{
+						"URL": "https://github.com/kubernetes/kubernetes/issues/89378",
+						"Description": "https://github.com/kubernetes/kubernetes/issues/89378"
+					},
+					{
+						"URL": "https://groups.google.com/forum/#!topic/kubernetes-security-announce/2UOlsba2g0s",
+						"Description": "https://groups.google.com/forum/#!topic/kubernetes-security-announce/2UOlsba2g0s"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2020-8552",
+						"Description": "CVE-2020-8552"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1797909",
+						"Description": "bz#1797909: Use of unbounded 'client' label in apiserver_request_total allows for memory exhaustion"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2020-02-01T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-RH7-RHOSE-3.11:atomic-enterprise-service-catalog-1:3.11.219-1.git.1.717017c.el7",
+						"7Server-RH7-RHOSE-3.11:atomic-openshift-0:3.11.219-1.git.0.0c21387.el7",
+						"7Server-RH7-RHOSE-3.11:atomic-openshift-cluster-autoscaler-0:3.11.219-1.git.1.1ad3e34.el7",
+						"7Server-RH7-RHOSE-3.11:atomic-openshift-descheduler-0:3.11.219-1.git.1.7e5b9ee.el7",
+						"7Server-RH7-RHOSE-3.11:atomic-openshift-dockerregistry-0:3.11.219-1.git.1.8323991.el7",
+						"7Server-RH7-RHOSE-3.11:atomic-openshift-metrics-server-0:3.11.219-1.git.1.6fe54fb.el7",
+						"7Server-RH7-RHOSE-3.11:atomic-openshift-node-problem-detector-0:3.11.219-1.git.1.5ae8753.el7",
+						"7Server-RH7-RHOSE-3.11:atomic-openshift-service-idler-0:3.11.219-1.git.1.958cdae.el7",
+						"7Server-RH7-RHOSE-3.11:golang-github-openshift-oauth-proxy-0:3.11.219-1.git.1.076ae14.el7",
+						"7Server-RH7-RHOSE-3.11:golang-github-prometheus-alertmanager-0:3.11.219-1.git.1.9a593f8.el7",
+						"7Server-RH7-RHOSE-3.11:golang-github-prometheus-node_exporter-0:3.11.219-1.git.1.7fa9674.el7",
+						"7Server-RH7-RHOSE-3.11:golang-github-prometheus-prometheus-0:3.11.219-1.git.1.3f6e657.el7",
+						"7Server-RH7-RHOSE-3.11:openshift-ansible-0:3.11.219-1.git.0.8845382.el7",
+						"7Server-RH7-RHOSE-3.11:openshift-enterprise-autoheal-0:3.11.219-1.git.1.c544df9.el7",
+						"7Server-RH7-RHOSE-3.11:openshift-enterprise-cluster-capacity-0:3.11.219-1.git.1.ca1ee51.el7",
+						"7Server-RH7-RHOSE-3.11:openshift-kuryr-0:3.11.219-1.git.1.717d59f.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank Kubernetes Product Security Committee for reporting this issue. Upstream acknowledges Gus Lees (Amazon) as the original reporter."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat OpenShift Enterprise",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat OpenShift Container Platform 3.11",
+						"fullproductname": {
+							"text": "Red Hat OpenShift Container Platform 3.11",
+							"productid": "7Server-RH7-RHOSE-3.11",
+							"cpe": "cpe:/a:redhat:openshift:3.11::el7"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "atomic-enterprise-service-catalog-1:3.11.219-1.git.1.717017c.el7",
+				"fullproductname": {
+					"text": "atomic-enterprise-service-catalog-3.11.219-1.git.1.717017c.el7.src.rpm",
+					"productid": "atomic-enterprise-service-catalog-1:3.11.219-1.git.1.717017c.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.11::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "atomic-openshift-0:3.11.219-1.git.0.0c21387.el7",
+				"fullproductname": {
+					"text": "atomic-openshift-3.11.219-1.git.0.0c21387.el7.src.rpm",
+					"productid": "atomic-openshift-0:3.11.219-1.git.0.0c21387.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.11::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "atomic-openshift-cluster-autoscaler-0:3.11.219-1.git.1.1ad3e34.el7",
+				"fullproductname": {
+					"text": "atomic-openshift-cluster-autoscaler-3.11.219-1.git.1.1ad3e34.el7.src.rpm",
+					"productid": "atomic-openshift-cluster-autoscaler-0:3.11.219-1.git.1.1ad3e34.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.11::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "atomic-openshift-descheduler-0:3.11.219-1.git.1.7e5b9ee.el7",
+				"fullproductname": {
+					"text": "atomic-openshift-descheduler-3.11.219-1.git.1.7e5b9ee.el7.src.rpm",
+					"productid": "atomic-openshift-descheduler-0:3.11.219-1.git.1.7e5b9ee.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.11::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "atomic-openshift-dockerregistry-0:3.11.219-1.git.1.8323991.el7",
+				"fullproductname": {
+					"text": "atomic-openshift-dockerregistry-3.11.219-1.git.1.8323991.el7.src.rpm",
+					"productid": "atomic-openshift-dockerregistry-0:3.11.219-1.git.1.8323991.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.11::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "atomic-openshift-metrics-server-0:3.11.219-1.git.1.6fe54fb.el7",
+				"fullproductname": {
+					"text": "atomic-openshift-metrics-server-3.11.219-1.git.1.6fe54fb.el7.src.rpm",
+					"productid": "atomic-openshift-metrics-server-0:3.11.219-1.git.1.6fe54fb.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.11::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "atomic-openshift-node-problem-detector-0:3.11.219-1.git.1.5ae8753.el7",
+				"fullproductname": {
+					"text": "atomic-openshift-node-problem-detector-3.11.219-1.git.1.5ae8753.el7.src.rpm",
+					"productid": "atomic-openshift-node-problem-detector-0:3.11.219-1.git.1.5ae8753.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.11::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "atomic-openshift-service-idler-0:3.11.219-1.git.1.958cdae.el7",
+				"fullproductname": {
+					"text": "atomic-openshift-service-idler-3.11.219-1.git.1.958cdae.el7.src.rpm",
+					"productid": "atomic-openshift-service-idler-0:3.11.219-1.git.1.958cdae.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.11::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "golang-github-openshift-oauth-proxy-0:3.11.219-1.git.1.076ae14.el7",
+				"fullproductname": {
+					"text": "golang-github-openshift-oauth-proxy-3.11.219-1.git.1.076ae14.el7.src.rpm",
+					"productid": "golang-github-openshift-oauth-proxy-0:3.11.219-1.git.1.076ae14.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.11::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "golang-github-prometheus-alertmanager-0:3.11.219-1.git.1.9a593f8.el7",
+				"fullproductname": {
+					"text": "golang-github-prometheus-alertmanager-3.11.219-1.git.1.9a593f8.el7.src.rpm",
+					"productid": "golang-github-prometheus-alertmanager-0:3.11.219-1.git.1.9a593f8.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.11::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "golang-github-prometheus-node_exporter-0:3.11.219-1.git.1.7fa9674.el7",
+				"fullproductname": {
+					"text": "golang-github-prometheus-node_exporter-3.11.219-1.git.1.7fa9674.el7.src.rpm",
+					"productid": "golang-github-prometheus-node_exporter-0:3.11.219-1.git.1.7fa9674.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.11::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "golang-github-prometheus-prometheus-0:3.11.219-1.git.1.3f6e657.el7",
+				"fullproductname": {
+					"text": "golang-github-prometheus-prometheus-3.11.219-1.git.1.3f6e657.el7.src.rpm",
+					"productid": "golang-github-prometheus-prometheus-0:3.11.219-1.git.1.3f6e657.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.11::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openshift-ansible-0:3.11.219-1.git.0.8845382.el7",
+				"fullproductname": {
+					"text": "openshift-ansible-3.11.219-1.git.0.8845382.el7.src.rpm",
+					"productid": "openshift-ansible-0:3.11.219-1.git.0.8845382.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.11::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openshift-enterprise-autoheal-0:3.11.219-1.git.1.c544df9.el7",
+				"fullproductname": {
+					"text": "openshift-enterprise-autoheal-3.11.219-1.git.1.c544df9.el7.src.rpm",
+					"productid": "openshift-enterprise-autoheal-0:3.11.219-1.git.1.c544df9.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.11::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openshift-enterprise-cluster-capacity-0:3.11.219-1.git.1.ca1ee51.el7",
+				"fullproductname": {
+					"text": "openshift-enterprise-cluster-capacity-3.11.219-1.git.1.ca1ee51.el7.src.rpm",
+					"productid": "openshift-enterprise-cluster-capacity-0:3.11.219-1.git.1.ca1ee51.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.11::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openshift-kuryr-0:3.11.219-1.git.1.717d59f.el7",
+				"fullproductname": {
+					"text": "openshift-kuryr-3.11.219-1.git.1.717d59f.el7.src.rpm",
+					"productid": "openshift-kuryr-0:3.11.219-1.git.1.717d59f.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.11::el7"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "atomic-enterprise-service-catalog-1:3.11.219-1.git.1.717017c.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOSE-3.11",
+				"fullproductname": {
+					"text": "atomic-enterprise-service-catalog-1:3.11.219-1.git.1.717017c.el7 as a component of Red Hat OpenShift Container Platform 3.11",
+					"productid": "7Server-RH7-RHOSE-3.11:atomic-enterprise-service-catalog-1:3.11.219-1.git.1.717017c.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.11::el7"
+				}
+			},
+			{
+				"productreference": "atomic-openshift-0:3.11.219-1.git.0.0c21387.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOSE-3.11",
+				"fullproductname": {
+					"text": "atomic-openshift-0:3.11.219-1.git.0.0c21387.el7 as a component of Red Hat OpenShift Container Platform 3.11",
+					"productid": "7Server-RH7-RHOSE-3.11:atomic-openshift-0:3.11.219-1.git.0.0c21387.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.11::el7"
+				}
+			},
+			{
+				"productreference": "atomic-openshift-cluster-autoscaler-0:3.11.219-1.git.1.1ad3e34.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOSE-3.11",
+				"fullproductname": {
+					"text": "atomic-openshift-cluster-autoscaler-0:3.11.219-1.git.1.1ad3e34.el7 as a component of Red Hat OpenShift Container Platform 3.11",
+					"productid": "7Server-RH7-RHOSE-3.11:atomic-openshift-cluster-autoscaler-0:3.11.219-1.git.1.1ad3e34.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.11::el7"
+				}
+			},
+			{
+				"productreference": "atomic-openshift-descheduler-0:3.11.219-1.git.1.7e5b9ee.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOSE-3.11",
+				"fullproductname": {
+					"text": "atomic-openshift-descheduler-0:3.11.219-1.git.1.7e5b9ee.el7 as a component of Red Hat OpenShift Container Platform 3.11",
+					"productid": "7Server-RH7-RHOSE-3.11:atomic-openshift-descheduler-0:3.11.219-1.git.1.7e5b9ee.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.11::el7"
+				}
+			},
+			{
+				"productreference": "atomic-openshift-dockerregistry-0:3.11.219-1.git.1.8323991.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOSE-3.11",
+				"fullproductname": {
+					"text": "atomic-openshift-dockerregistry-0:3.11.219-1.git.1.8323991.el7 as a component of Red Hat OpenShift Container Platform 3.11",
+					"productid": "7Server-RH7-RHOSE-3.11:atomic-openshift-dockerregistry-0:3.11.219-1.git.1.8323991.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.11::el7"
+				}
+			},
+			{
+				"productreference": "atomic-openshift-metrics-server-0:3.11.219-1.git.1.6fe54fb.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOSE-3.11",
+				"fullproductname": {
+					"text": "atomic-openshift-metrics-server-0:3.11.219-1.git.1.6fe54fb.el7 as a component of Red Hat OpenShift Container Platform 3.11",
+					"productid": "7Server-RH7-RHOSE-3.11:atomic-openshift-metrics-server-0:3.11.219-1.git.1.6fe54fb.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.11::el7"
+				}
+			},
+			{
+				"productreference": "atomic-openshift-node-problem-detector-0:3.11.219-1.git.1.5ae8753.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOSE-3.11",
+				"fullproductname": {
+					"text": "atomic-openshift-node-problem-detector-0:3.11.219-1.git.1.5ae8753.el7 as a component of Red Hat OpenShift Container Platform 3.11",
+					"productid": "7Server-RH7-RHOSE-3.11:atomic-openshift-node-problem-detector-0:3.11.219-1.git.1.5ae8753.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.11::el7"
+				}
+			},
+			{
+				"productreference": "atomic-openshift-service-idler-0:3.11.219-1.git.1.958cdae.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOSE-3.11",
+				"fullproductname": {
+					"text": "atomic-openshift-service-idler-0:3.11.219-1.git.1.958cdae.el7 as a component of Red Hat OpenShift Container Platform 3.11",
+					"productid": "7Server-RH7-RHOSE-3.11:atomic-openshift-service-idler-0:3.11.219-1.git.1.958cdae.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.11::el7"
+				}
+			},
+			{
+				"productreference": "golang-github-openshift-oauth-proxy-0:3.11.219-1.git.1.076ae14.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOSE-3.11",
+				"fullproductname": {
+					"text": "golang-github-openshift-oauth-proxy-0:3.11.219-1.git.1.076ae14.el7 as a component of Red Hat OpenShift Container Platform 3.11",
+					"productid": "7Server-RH7-RHOSE-3.11:golang-github-openshift-oauth-proxy-0:3.11.219-1.git.1.076ae14.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.11::el7"
+				}
+			},
+			{
+				"productreference": "golang-github-prometheus-alertmanager-0:3.11.219-1.git.1.9a593f8.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOSE-3.11",
+				"fullproductname": {
+					"text": "golang-github-prometheus-alertmanager-0:3.11.219-1.git.1.9a593f8.el7 as a component of Red Hat OpenShift Container Platform 3.11",
+					"productid": "7Server-RH7-RHOSE-3.11:golang-github-prometheus-alertmanager-0:3.11.219-1.git.1.9a593f8.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.11::el7"
+				}
+			},
+			{
+				"productreference": "golang-github-prometheus-node_exporter-0:3.11.219-1.git.1.7fa9674.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOSE-3.11",
+				"fullproductname": {
+					"text": "golang-github-prometheus-node_exporter-0:3.11.219-1.git.1.7fa9674.el7 as a component of Red Hat OpenShift Container Platform 3.11",
+					"productid": "7Server-RH7-RHOSE-3.11:golang-github-prometheus-node_exporter-0:3.11.219-1.git.1.7fa9674.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.11::el7"
+				}
+			},
+			{
+				"productreference": "golang-github-prometheus-prometheus-0:3.11.219-1.git.1.3f6e657.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOSE-3.11",
+				"fullproductname": {
+					"text": "golang-github-prometheus-prometheus-0:3.11.219-1.git.1.3f6e657.el7 as a component of Red Hat OpenShift Container Platform 3.11",
+					"productid": "7Server-RH7-RHOSE-3.11:golang-github-prometheus-prometheus-0:3.11.219-1.git.1.3f6e657.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.11::el7"
+				}
+			},
+			{
+				"productreference": "openshift-ansible-0:3.11.219-1.git.0.8845382.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOSE-3.11",
+				"fullproductname": {
+					"text": "openshift-ansible-0:3.11.219-1.git.0.8845382.el7 as a component of Red Hat OpenShift Container Platform 3.11",
+					"productid": "7Server-RH7-RHOSE-3.11:openshift-ansible-0:3.11.219-1.git.0.8845382.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.11::el7"
+				}
+			},
+			{
+				"productreference": "openshift-enterprise-autoheal-0:3.11.219-1.git.1.c544df9.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOSE-3.11",
+				"fullproductname": {
+					"text": "openshift-enterprise-autoheal-0:3.11.219-1.git.1.c544df9.el7 as a component of Red Hat OpenShift Container Platform 3.11",
+					"productid": "7Server-RH7-RHOSE-3.11:openshift-enterprise-autoheal-0:3.11.219-1.git.1.c544df9.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.11::el7"
+				}
+			},
+			{
+				"productreference": "openshift-enterprise-cluster-capacity-0:3.11.219-1.git.1.ca1ee51.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOSE-3.11",
+				"fullproductname": {
+					"text": "openshift-enterprise-cluster-capacity-0:3.11.219-1.git.1.ca1ee51.el7 as a component of Red Hat OpenShift Container Platform 3.11",
+					"productid": "7Server-RH7-RHOSE-3.11:openshift-enterprise-cluster-capacity-0:3.11.219-1.git.1.ca1ee51.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.11::el7"
+				}
+			},
+			{
+				"productreference": "openshift-kuryr-0:3.11.219-1.git.1.717d59f.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOSE-3.11",
+				"fullproductname": {
+					"text": "openshift-kuryr-0:3.11.219-1.git.1.717d59f.el7 as a component of Red Hat OpenShift Container Platform 3.11",
+					"productid": "7Server-RH7-RHOSE-3.11:openshift-kuryr-0:3.11.219-1.git.1.717d59f.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.11::el7"
+				}
+			}
+		]
+	}
+}

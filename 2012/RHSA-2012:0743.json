@@ -1,0 +1,945 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: kernel security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2012:0743"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2012-06-18T13:32:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2012-06-18T13:27:00Z",
+		"CurrentReleaseDate": "2012-06-18T13:32:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:38:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated kernel packages that fix multiple security issues and several bugs\nare now available for Red Hat Enterprise Linux 6.\n\nThe Red Hat Security Response Team has rated this update as having\nimportant security impact. Common Vulnerability Scoring System (CVSS) base\nscores, which give detailed severity ratings, are available for each\nvulnerability from the CVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe kernel packages contain the Linux kernel, the core of any Linux\noperating system.\n\nThis update fixes the following security issues:\n\n* A local, unprivileged user could use an integer overflow flaw in\ndrm_mode_dirtyfb_ioctl() to cause a denial of service or escalate their\nprivileges. (CVE-2012-0044, Important)\n\n* A buffer overflow flaw was found in the macvtap device driver, used for\ncreating a bridged network between the guest and the host in KVM\n(Kernel-based Virtual Machine) environments. A privileged guest user in a\nKVM guest could use this flaw to crash the host. Note: This issue only\naffected hosts that have the vhost_net module loaded with the\nexperimental_zcopytx module option enabled (it is not enabled by default),\nand that also have macvtap configured for at least one guest.\n(CVE-2012-2119, Important)\n\n* When a set user ID (setuid) application is executed, certain personality\nflags for controlling the application's behavior are cleared (that is, a\nprivileged application will not be affected by those flags). It was found\nthat those flags were not cleared if the application was made privileged\nvia file system capabilities. A local, unprivileged user could use this\nflaw to change the behavior of such applications, allowing them to bypass\nintended restrictions. Note that for default installations, no application\nshipped by Red Hat for Red Hat Enterprise Linux is made privileged via file\nsystem capabilities. (CVE-2012-2123, Important)\n\n* It was found that the data_len parameter of the sock_alloc_send_pskb()\nfunction in the Linux kernel's networking implementation was not validated\nbefore use. A privileged guest user in a KVM guest could use this flaw to\ncrash the host or, possibly, escalate their privileges on the host.\n(CVE-2012-2136, Important)\n\n* A buffer overflow flaw was found in the setup_routing_entry() function in\nthe KVM subsystem of the Linux kernel in the way the Message Signaled\nInterrupts (MSI) routing entry was handled. A local, unprivileged user\ncould use this flaw to cause a denial of service or, possibly, escalate\ntheir privileges. (CVE-2012-2137, Important)\n\n* A race condition was found in the Linux kernel's memory management\nsubsystem in the way pmd_none_or_clear_bad(), when called with mmap_sem in\nread mode, and Transparent Huge Pages (THP) page faults interacted. A\nprivileged user in a KVM guest with the ballooning functionality enabled\ncould potentially use this flaw to crash the host. A local, unprivileged\nuser could use this flaw to crash the system. (CVE-2012-1179, Moderate)\n\n* A flaw was found in the way device memory was handled during guest device\nremoval. Upon successful device removal, memory used by the device was not\nproperly unmapped from the corresponding IOMMU or properly released from\nthe kernel, leading to a memory leak. A malicious user on a KVM host who\nhas the ability to assign a device to a guest could use this flaw to crash\nthe host. (CVE-2012-2121, Moderate)\n\n* A flaw was found in the Linux kernel's Reliable Datagram Sockets (RDS)\nprotocol implementation. A local, unprivileged user could use this flaw to\ncause a denial of service. (CVE-2012-2372, Moderate)\n\n* A race condition was found in the Linux kernel's memory management\nsubsystem in the way pmd_populate() and pte_offset_map_lock() interacted on\n32-bit x86 systems with more than 4GB of RAM. A local, unprivileged user\ncould use this flaw to cause a denial of service. (CVE-2012-2373, Moderate)\n\nRed Hat would like to thank Chen Haogang for reporting CVE-2012-0044.\n\nThis update also fixes several bugs. Documentation for these changes will\nbe available shortly from the Technical Notes document linked to in the\nReferences section.\n\nUsers should upgrade to these updated packages, which contain backported\npatches to correct these issues, and fix the bugs noted in the Technical\nNotes. The system must be rebooted for this update to take effect.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2012:0743",
+				"Description": "https://access.redhat.com/errata/RHSA-2012:0743"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			},
+			{
+				"type": "External",
+				"URL": "https://docs.redhat.com/docs/en-US/Red_Hat_Enterprise_Linux/6/html/6.2_Technical_Notes/kernel.html#RHSA-2012-0743",
+				"Description": "https://docs.redhat.com/docs/en-US/Red_Hat_Enterprise_Linux/6/html/6.2_Technical_Notes/kernel.html#RHSA-2012-0743"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: drm: integer overflow in drm_mode_dirtyfb_ioctl()",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2011-11-23T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-0044",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:0743"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-0044",
+						"Description": "CVE-2012-0044"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=772894",
+						"Description": "bz#772894: CVE-2012-0044 kernel: drm: integer overflow in drm_mode_dirtyfb_ioctl()"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2012-01-10T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6Client-optional-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6ComputeNode-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6ComputeNode-optional-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6Server-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6Server-optional-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6Workstation-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6Workstation-optional-6.2.z:kernel-0:2.6.32-220.23.1.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.9",
+					"Vector": "AV:L/AC:M/Au:N/C:C/I:C/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: thp:__split_huge_page() mapcount != page_mapcount BUG_ON()",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-03-15T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-1179",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:0743"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-1179",
+						"Description": "CVE-2012-1179"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=803793",
+						"Description": "bz#803793: CVE-2012-1179 kernel: thp:__split_huge_page() mapcount != page_mapcount BUG_ON()"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2012-03-12T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6Client-optional-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6ComputeNode-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6ComputeNode-optional-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6Server-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6Server-optional-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6Workstation-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6Workstation-optional-6.2.z:kernel-0:2.6.32-220.23.1.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.2",
+					"Vector": "AV:A/AC:M/Au:S/C:N/I:N/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: macvtap: zerocopy: vector length is not validated before pinning user pages",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-04-16T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-2119",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:0743"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-2119",
+						"Description": "CVE-2012-2119"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=814278",
+						"Description": "bz#814278: CVE-2012-2119 kernel: macvtap: zerocopy: vector length is not validated before pinning user pages"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2012-04-16T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6Client-optional-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6ComputeNode-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6ComputeNode-optional-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6Server-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6Server-optional-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6Workstation-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6Workstation-optional-6.2.z:kernel-0:2.6.32-220.23.1.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.2",
+					"Vector": "AV:A/AC:M/Au:S/C:N/I:N/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kvm: device assignment page leak",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-03-29T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-2121",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:0743"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-2121",
+						"Description": "CVE-2012-2121"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=814149",
+						"Description": "bz#814149: CVE-2012-2121 kvm: device assignment page leak"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2012-04-11T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6Client-optional-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6ComputeNode-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6ComputeNode-optional-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6Server-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6Server-optional-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6Workstation-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6Workstation-optional-6.2.z:kernel-0:2.6.32-220.23.1.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.7",
+					"Vector": "AV:L/AC:M/Au:N/C:N/I:N/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: fcaps: clear the same personality flags as suid when fcaps are used",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-04-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-2123",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:0743"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-2123",
+						"Description": "CVE-2012-2123"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=806722",
+						"Description": "bz#806722: CVE-2012-2123 kernel: fcaps: clear the same personality flags as suid when fcaps are used"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2012-03-26T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6Client-optional-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6ComputeNode-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6ComputeNode-optional-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6Server-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6Server-optional-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6Workstation-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6Workstation-optional-6.2.z:kernel-0:2.6.32-220.23.1.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "1.9",
+					"Vector": "AV:L/AC:M/Au:N/C:N/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "6",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: net: insufficient data_len validation in sock_alloc_send_pskb()",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-05-29T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-2136",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:0743"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-2136",
+						"Description": "CVE-2012-2136"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=816289",
+						"Description": "bz#816289: CVE-2012-2136 kernel: net: insufficient data_len validation in sock_alloc_send_pskb()"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2012-04-19T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6Client-optional-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6ComputeNode-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6ComputeNode-optional-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6Server-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6Server-optional-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6Workstation-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6Workstation-optional-6.2.z:kernel-0:2.6.32-220.23.1.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.2",
+					"Vector": "AV:L/AC:H/Au:N/C:C/I:C/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "7",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: kvm: buffer overflow in kvm_set_irq()",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-06-05T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-2137",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:0743"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-2137",
+						"Description": "CVE-2012-2137"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=816151",
+						"Description": "bz#816151: CVE-2012-2137 kernel: kvm: buffer overflow in kvm_set_irq()"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2012-04-18T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6Client-optional-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6ComputeNode-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6ComputeNode-optional-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6Server-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6Server-optional-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6Workstation-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6Workstation-optional-6.2.z:kernel-0:2.6.32-220.23.1.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.9",
+					"Vector": "AV:L/AC:M/Au:N/C:C/I:C/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "8",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: rds-ping cause kernel panic",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-06-05T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-2372",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:0743"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-2372",
+						"Description": "CVE-2012-2372"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=822754",
+						"Description": "bz#822754: CVE-2012-2372 kernel: rds-ping cause kernel panic"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2012-05-18T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6Client-optional-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6ComputeNode-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6ComputeNode-optional-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6Server-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6Server-optional-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6Workstation-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6Workstation-optional-6.2.z:kernel-0:2.6.32-220.23.1.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.9",
+					"Vector": "AV:L/AC:L/Au:N/C:N/I:N/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "9",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: mm: read_pmd_atomic: 32bit PAE pmd walk vs pmd_populate SMP race condition",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-05-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-2373",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:0743"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-2373",
+						"Description": "CVE-2012-2373"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=822821",
+						"Description": "bz#822821: CVE-2012-2373 kernel: mm: read_pmd_atomic: 32bit PAE pmd walk vs pmd_populate SMP race condition"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2012-05-11T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6Client-optional-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6ComputeNode-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6ComputeNode-optional-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6Server-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6Server-optional-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6Workstation-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+						"6Workstation-optional-6.2.z:kernel-0:2.6.32-220.23.1.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.0",
+					"Vector": "AV:L/AC:H/Au:N/C:N/I:N/A:C"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 6)",
+							"productid": "6Client-6.2.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+							"productid": "6Client-optional-6.2.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node (v. 6)",
+							"productid": "6ComputeNode-6.2.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+							"productid": "6ComputeNode-optional-6.2.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 6)",
+							"productid": "6Server-6.2.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional (v. 6)",
+							"productid": "6Server-optional-6.2.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 6)",
+							"productid": "6Workstation-6.2.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+							"productid": "6Workstation-optional-6.2.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-0:2.6.32-220.23.1.el6",
+				"fullproductname": {
+					"text": "kernel-2.6.32-220.23.1.el6.src.rpm",
+					"productid": "kernel-0:2.6.32-220.23.1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "kernel-0:2.6.32-220.23.1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-6.2.z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-220.23.1.el6 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"productid": "6Client-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.32-220.23.1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-optional-6.2.z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-220.23.1.el6 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"productid": "6Client-optional-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.32-220.23.1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-6.2.z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-220.23.1.el6 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"productid": "6ComputeNode-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.32-220.23.1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-optional-6.2.z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-220.23.1.el6 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"productid": "6ComputeNode-optional-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.32-220.23.1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-6.2.z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-220.23.1.el6 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"productid": "6Server-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.32-220.23.1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-optional-6.2.z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-220.23.1.el6 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"productid": "6Server-optional-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.32-220.23.1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-6.2.z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-220.23.1.el6 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"productid": "6Workstation-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.32-220.23.1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-optional-6.2.z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-220.23.1.el6 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"productid": "6Workstation-optional-6.2.z:kernel-0:2.6.32-220.23.1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			}
+		]
+	}
+}

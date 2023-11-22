@@ -1,0 +1,833 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: postgresql84 and postgresql security update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2014:0211"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2014-02-25T16:41:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2014-02-25T16:41:00Z",
+		"CurrentReleaseDate": "2014-02-25T16:41:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:40:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated postgresql84 and postgresql packages that fix multiple security\nissues are now available for Red Hat Enterprise Linux 5 and 6 respectively.\n\nThe Red Hat Security Response Team has rated this update as having\nImportant security impact. Common Vulnerability Scoring System (CVSS) base\nscores, which give detailed severity ratings, are available for each\nvulnerability from the CVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nPostgreSQL is an advanced object-relational database management system\n(DBMS).\n\nMultiple stack-based buffer overflow flaws were found in the date/time\nimplementation of PostgreSQL. An authenticated database user could provide\na specially crafted date/time value that, when processed, could cause\nPostgreSQL to crash or, potentially, execute arbitrary code with the\npermissions of the user running PostgreSQL. (CVE-2014-0063)\n\nMultiple integer overflow flaws, leading to heap-based buffer overflows,\nwere found in various type input functions in PostgreSQL. An authenticated\ndatabase user could possibly use these flaws to crash PostgreSQL or,\npotentially, execute arbitrary code with the permissions of the user\nrunning PostgreSQL. (CVE-2014-0064)\n\nMultiple potential buffer overflow flaws were found in PostgreSQL.\nAn authenticated database user could possibly use these flaws to crash\nPostgreSQL or, potentially, execute arbitrary code with the permissions of\nthe user running PostgreSQL. (CVE-2014-0065)\n\nIt was found that granting an SQL role to a database user in a PostgreSQL\ndatabase without specifying the \"ADMIN\" option allowed the grantee to\nremove other users from their granted role. An authenticated database user\ncould use this flaw to remove a user from an SQL role which they were\ngranted access to. (CVE-2014-0060)\n\nA flaw was found in the validator functions provided by PostgreSQL's\nprocedural languages (PLs). An authenticated database user could possibly\nuse this flaw to escalate their privileges. (CVE-2014-0061)\n\nA race condition was found in the way the CREATE INDEX command performed\nmultiple independent lookups of a table that had to be indexed. An\nauthenticated database user could possibly use this flaw to escalate their\nprivileges. (CVE-2014-0062)\n\nIt was found that the chkpass extension of PostgreSQL did not check the\nreturn value of the crypt() function. An authenticated database user could\npossibly use this flaw to crash PostgreSQL via a null pointer dereference.\n(CVE-2014-0066)\n\nRed Hat would like to thank the PostgreSQL project for reporting these\nissues. Upstream acknowledges Noah Misch as the original reporter of\nCVE-2014-0060 and CVE-2014-0063, Heikki Linnakangas and Noah Misch as the\noriginal reporters of CVE-2014-0064, Peter Eisentraut and Jozef Mlich as\nthe original reporters of CVE-2014-0065, Andres Freund as the original\nreporter of CVE-2014-0061, Robert Haas and Andres Freund as the original\nreporters of CVE-2014-0062, and Honza Horak and Bruce Momjian as the\noriginal reporters of CVE-2014-0066.\n\nThese updated packages upgrade PostgreSQL to version 8.4.20, which fixes\nthese issues as well as several non-security issues. Refer to the\nPostgreSQL Release Notes for a full list of changes:\n\nhttp://www.postgresql.org/docs/8.4/static/release-8-4-19.html\nhttp://www.postgresql.org/docs/8.4/static/release-8-4-20.html\n\nAll PostgreSQL users are advised to upgrade to these updated packages,\nwhich contain backported patches to correct these issues. If the postgresql\nservice is running, it will be automatically restarted after installing\nthis update.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2014:0211",
+				"Description": "https://access.redhat.com/errata/RHSA-2014:0211"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			},
+			{
+				"type": "External",
+				"URL": "http://www.postgresql.org/docs/8.4/static/release-8-4-19.html",
+				"Description": "http://www.postgresql.org/docs/8.4/static/release-8-4-19.html"
+			},
+			{
+				"type": "External",
+				"URL": "http://www.postgresql.org/docs/8.4/static/release-8-4-20.html",
+				"Description": "http://www.postgresql.org/docs/8.4/static/release-8-4-20.html"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "postgresql: SET ROLE without ADMIN OPTION allows adding and removing group members",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-02-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-0060",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to use the\nRed Hat Network to apply this update are available at\nhttps://access.redhat.com/site/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2014:0211"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-0060",
+						"Description": "CVE-2014-0060"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1065219",
+						"Description": "bz#1065219: CVE-2014-0060 postgresql: SET ROLE without ADMIN OPTION allows adding and removing group members"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-02-10T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-5.10.Z:postgresql84-0:8.4.20-1.el5_10",
+						"5Client-Workstation-5.10.Z:postgresql84-0:8.4.20-1.el5_10",
+						"5Server-5.10.Z:postgresql84-0:8.4.20-1.el5_10",
+						"6Client-6.5.z:postgresql-0:8.4.20-1.el6_5",
+						"6Client-optional-6.5.z:postgresql-0:8.4.20-1.el6_5",
+						"6ComputeNode-6.5.z:postgresql-0:8.4.20-1.el6_5",
+						"6ComputeNode-optional-6.5.z:postgresql-0:8.4.20-1.el6_5",
+						"6Server-6.5.z:postgresql-0:8.4.20-1.el6_5",
+						"6Workstation-6.5.z:postgresql-0:8.4.20-1.el6_5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.5",
+					"Vector": "AV:N/AC:L/Au:S/C:N/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "postgresql: privilege escalation via procedural language validator functions",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-02-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-0061",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to use the\nRed Hat Network to apply this update are available at\nhttps://access.redhat.com/site/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2014:0211"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-0061",
+						"Description": "CVE-2014-0061"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1065220",
+						"Description": "bz#1065220: CVE-2014-0061 postgresql: privilege escalation via procedural language validator functions"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-02-10T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-5.10.Z:postgresql84-0:8.4.20-1.el5_10",
+						"5Client-Workstation-5.10.Z:postgresql84-0:8.4.20-1.el5_10",
+						"5Server-5.10.Z:postgresql84-0:8.4.20-1.el5_10",
+						"6Client-6.5.z:postgresql-0:8.4.20-1.el6_5",
+						"6Client-optional-6.5.z:postgresql-0:8.4.20-1.el6_5",
+						"6ComputeNode-6.5.z:postgresql-0:8.4.20-1.el6_5",
+						"6ComputeNode-optional-6.5.z:postgresql-0:8.4.20-1.el6_5",
+						"6Server-6.5.z:postgresql-0:8.4.20-1.el6_5",
+						"6Workstation-6.5.z:postgresql-0:8.4.20-1.el6_5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.5",
+					"Vector": "AV:N/AC:L/Au:S/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "postgresql: CREATE INDEX race condition possibly leading to privilege escalation",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-02-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-0062",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to use the\nRed Hat Network to apply this update are available at\nhttps://access.redhat.com/site/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2014:0211"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-0062",
+						"Description": "CVE-2014-0062"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1065222",
+						"Description": "bz#1065222: CVE-2014-0062 postgresql: CREATE INDEX race condition possibly leading to privilege escalation"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-02-10T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-5.10.Z:postgresql84-0:8.4.20-1.el5_10",
+						"5Client-Workstation-5.10.Z:postgresql84-0:8.4.20-1.el5_10",
+						"5Server-5.10.Z:postgresql84-0:8.4.20-1.el5_10",
+						"6Client-6.5.z:postgresql-0:8.4.20-1.el6_5",
+						"6Client-optional-6.5.z:postgresql-0:8.4.20-1.el6_5",
+						"6ComputeNode-6.5.z:postgresql-0:8.4.20-1.el6_5",
+						"6ComputeNode-optional-6.5.z:postgresql-0:8.4.20-1.el6_5",
+						"6Server-6.5.z:postgresql-0:8.4.20-1.el6_5",
+						"6Workstation-6.5.z:postgresql-0:8.4.20-1.el6_5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "3.5",
+					"Vector": "AV:N/AC:M/Au:S/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "postgresql: stack-based buffer overflow in datetime input/output",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-02-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-0063",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to use the\nRed Hat Network to apply this update are available at\nhttps://access.redhat.com/site/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2014:0211"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-0063",
+						"Description": "CVE-2014-0063"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1065226",
+						"Description": "bz#1065226: CVE-2014-0063 postgresql: stack-based buffer overflow in datetime input/output"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2014-02-10T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-5.10.Z:postgresql84-0:8.4.20-1.el5_10",
+						"5Client-Workstation-5.10.Z:postgresql84-0:8.4.20-1.el5_10",
+						"5Server-5.10.Z:postgresql84-0:8.4.20-1.el5_10",
+						"6Client-6.5.z:postgresql-0:8.4.20-1.el6_5",
+						"6Client-optional-6.5.z:postgresql-0:8.4.20-1.el6_5",
+						"6ComputeNode-6.5.z:postgresql-0:8.4.20-1.el6_5",
+						"6ComputeNode-optional-6.5.z:postgresql-0:8.4.20-1.el6_5",
+						"6Server-6.5.z:postgresql-0:8.4.20-1.el6_5",
+						"6Workstation-6.5.z:postgresql-0:8.4.20-1.el6_5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.5",
+					"Vector": "AV:N/AC:L/Au:S/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "postgresql: integer overflows leading to buffer overflows",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-02-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-0064",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to use the\nRed Hat Network to apply this update are available at\nhttps://access.redhat.com/site/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2014:0211"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-0064",
+						"Description": "CVE-2014-0064"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1065230",
+						"Description": "bz#1065230: CVE-2014-0064 postgresql: integer overflows leading to buffer overflows"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2014-02-10T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-5.10.Z:postgresql84-0:8.4.20-1.el5_10",
+						"5Client-Workstation-5.10.Z:postgresql84-0:8.4.20-1.el5_10",
+						"5Server-5.10.Z:postgresql84-0:8.4.20-1.el5_10",
+						"6Client-6.5.z:postgresql-0:8.4.20-1.el6_5",
+						"6Client-optional-6.5.z:postgresql-0:8.4.20-1.el6_5",
+						"6ComputeNode-6.5.z:postgresql-0:8.4.20-1.el6_5",
+						"6ComputeNode-optional-6.5.z:postgresql-0:8.4.20-1.el6_5",
+						"6Server-6.5.z:postgresql-0:8.4.20-1.el6_5",
+						"6Workstation-6.5.z:postgresql-0:8.4.20-1.el6_5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.5",
+					"Vector": "AV:N/AC:L/Au:S/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "6",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "postgresql: possible buffer overflow flaws",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-02-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-0065",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to use the\nRed Hat Network to apply this update are available at\nhttps://access.redhat.com/site/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2014:0211"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-0065",
+						"Description": "CVE-2014-0065"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1065235",
+						"Description": "bz#1065235: CVE-2014-0065 postgresql: possible buffer overflow flaws"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2014-02-10T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-5.10.Z:postgresql84-0:8.4.20-1.el5_10",
+						"5Client-Workstation-5.10.Z:postgresql84-0:8.4.20-1.el5_10",
+						"5Server-5.10.Z:postgresql84-0:8.4.20-1.el5_10",
+						"6Client-6.5.z:postgresql-0:8.4.20-1.el6_5",
+						"6Client-optional-6.5.z:postgresql-0:8.4.20-1.el6_5",
+						"6ComputeNode-6.5.z:postgresql-0:8.4.20-1.el6_5",
+						"6ComputeNode-optional-6.5.z:postgresql-0:8.4.20-1.el6_5",
+						"6Server-6.5.z:postgresql-0:8.4.20-1.el6_5",
+						"6Workstation-6.5.z:postgresql-0:8.4.20-1.el6_5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.5",
+					"Vector": "AV:N/AC:L/Au:S/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "7",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "postgresql: NULL pointer dereference",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-02-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-0066",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to use the\nRed Hat Network to apply this update are available at\nhttps://access.redhat.com/site/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2014:0211"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-0066",
+						"Description": "CVE-2014-0066"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1065236",
+						"Description": "bz#1065236: CVE-2014-0066 postgresql: NULL pointer dereference"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-02-10T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-5.10.Z:postgresql84-0:8.4.20-1.el5_10",
+						"5Client-Workstation-5.10.Z:postgresql84-0:8.4.20-1.el5_10",
+						"5Server-5.10.Z:postgresql84-0:8.4.20-1.el5_10",
+						"6Client-6.5.z:postgresql-0:8.4.20-1.el6_5",
+						"6Client-optional-6.5.z:postgresql-0:8.4.20-1.el6_5",
+						"6ComputeNode-6.5.z:postgresql-0:8.4.20-1.el6_5",
+						"6ComputeNode-optional-6.5.z:postgresql-0:8.4.20-1.el6_5",
+						"6Server-6.5.z:postgresql-0:8.4.20-1.el6_5",
+						"6Workstation-6.5.z:postgresql-0:8.4.20-1.el6_5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.0",
+					"Vector": "AV:N/AC:L/Au:S/C:N/I:N/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+							"productid": "5Client-5.10.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+							"productid": "5Client-Workstation-5.10.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::client_workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux (v. 5 server)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux (v. 5 server)",
+							"productid": "5Server-5.10.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 6)",
+							"productid": "6Client-6.5.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+							"productid": "6Client-optional-6.5.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node (v. 6)",
+							"productid": "6ComputeNode-6.5.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+							"productid": "6ComputeNode-optional-6.5.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 6)",
+							"productid": "6Server-6.5.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 6)",
+							"productid": "6Workstation-6.5.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "postgresql-0:8.4.20-1.el6_5",
+				"fullproductname": {
+					"text": "postgresql-8.4.20-1.el6_5.src.rpm",
+					"productid": "postgresql-0:8.4.20-1.el6_5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "postgresql84-0:8.4.20-1.el5_10",
+				"fullproductname": {
+					"text": "postgresql84-8.4.20-1.el5_10.src.rpm",
+					"productid": "postgresql84-0:8.4.20-1.el5_10",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "postgresql84-0:8.4.20-1.el5_10",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Client-5.10.Z",
+				"fullproductname": {
+					"text": "postgresql84-0:8.4.20-1.el5_10 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"productid": "5Client-5.10.Z:postgresql84-0:8.4.20-1.el5_10",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+				}
+			},
+			{
+				"productreference": "postgresql84-0:8.4.20-1.el5_10",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Client-Workstation-5.10.Z",
+				"fullproductname": {
+					"text": "postgresql84-0:8.4.20-1.el5_10 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"productid": "5Client-Workstation-5.10.Z:postgresql84-0:8.4.20-1.el5_10",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client_workstation"
+				}
+			},
+			{
+				"productreference": "postgresql84-0:8.4.20-1.el5_10",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-5.10.Z",
+				"fullproductname": {
+					"text": "postgresql84-0:8.4.20-1.el5_10 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"productid": "5Server-5.10.Z:postgresql84-0:8.4.20-1.el5_10",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+				}
+			},
+			{
+				"productreference": "postgresql-0:8.4.20-1.el6_5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-6.5.z",
+				"fullproductname": {
+					"text": "postgresql-0:8.4.20-1.el6_5 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"productid": "6Client-6.5.z:postgresql-0:8.4.20-1.el6_5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "postgresql-0:8.4.20-1.el6_5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-optional-6.5.z",
+				"fullproductname": {
+					"text": "postgresql-0:8.4.20-1.el6_5 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"productid": "6Client-optional-6.5.z:postgresql-0:8.4.20-1.el6_5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "postgresql-0:8.4.20-1.el6_5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-6.5.z",
+				"fullproductname": {
+					"text": "postgresql-0:8.4.20-1.el6_5 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"productid": "6ComputeNode-6.5.z:postgresql-0:8.4.20-1.el6_5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "postgresql-0:8.4.20-1.el6_5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-optional-6.5.z",
+				"fullproductname": {
+					"text": "postgresql-0:8.4.20-1.el6_5 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"productid": "6ComputeNode-optional-6.5.z:postgresql-0:8.4.20-1.el6_5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "postgresql-0:8.4.20-1.el6_5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-6.5.z",
+				"fullproductname": {
+					"text": "postgresql-0:8.4.20-1.el6_5 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"productid": "6Server-6.5.z:postgresql-0:8.4.20-1.el6_5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "postgresql-0:8.4.20-1.el6_5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-6.5.z",
+				"fullproductname": {
+					"text": "postgresql-0:8.4.20-1.el6_5 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"productid": "6Workstation-6.5.z:postgresql-0:8.4.20-1.el6_5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			}
+		]
+	}
+}

@@ -1,0 +1,280 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: Red Hat Ceph Storage 3.0 security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2018:2179"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2018-07-11T18:21:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2018-07-11T18:21:00Z",
+		"CurrentReleaseDate": "2018-07-11T18:21:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:51:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nAn update for ceph is now available for Red Hat Ceph Storage for Ubuntu 16.04.\n\nRed Hat Product Security has rated this update as having a security impact of Moderate. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nRed Hat Ceph Storage is a scalable, open, software-defined storage platform that combines the most stable version of the Ceph storage system with a Ceph management platform, deployment utilities, and support services.\n\nSecurity Fix(es):\n\n* ceph: cephx protocol is vulnerable to replay attack (CVE-2018-1128)\n\n* ceph: cephx uses weak signatures (CVE-2018-1129)\n\n* ceph: ceph-mon does not perform authorization on OSD pool ops (CVE-2018-10861)\n\nFor more details about the security issue(s), including the impact, a CVSS score, and other related information, refer to the CVE page(s) listed in the References section.\n\nBug Fix(es):\n\n* Previously, Ceph RADOS Gateway (RGW) instances in zones configured for multi-site replication would crash if configured to disable sync (\"rgw_run_sync_thread = false\"). Therefor, multi-site replication environments could not start dedicated non-replication RGW instances. With this update, the \"rgw_run_sync_thread\" option can be used to configure RGW instances that will not participate in replication even if their zone is replicated. (BZ#1552202)\n\n* Previously, when increasing \"max_mds\" from \"1\" to \"2\", if the Metadata Server (MDS) daemon was in the starting/resolve state for a long period of time, then restarting the MDS daemon lead to assert. This caused the Ceph File System (CephFS) to be in degraded state. With this update, increasing \"max_mds\" no longer causes CephFS to be in degraded state. (BZ#1566016)\n\n* Previously, the transition to containerized Ceph left some \"ceph-disk\" unit files. The files were harmless, but appeared as failing. With this update, executing the \"switch-from-non-containerized-to-containerized-ceph-daemons.yml\" playbook disables the \"ceph-disk\" unit files too. (BZ#1577846)\n\n* Previously, the \"entries_behind_master\" metric output from the \"rbd mirror image status\" CLI tool did not always reduce to zero under synthetic workloads. This could cause a false alarm that there is an issue with RBD mirroring replications. With this update, the metric is now updated periodically without the need for an explicit I/O flush in the workload. (BZ#1578509)\n\n* Previously, when using the \"pool create\" command with \"expected_num_objects\", placement group (PG) directories were not pre-created at pool creation time as expected, resulting in performance drops when filestore splitting occurred. With this update, the \"expected_num_objects\" parameter is now passed through to filestore correctly, and PG directories for the expected number of objects are pre-created at pool creation time. (BZ#1579039)\n\n* Previously, internal RADOS Gateway (RGW) multi-site sync logic behaved incorrectly when attempting to sync containers with S3 object versioning enabled. Objects in versioning-enabled containers would fail to sync in some scenarios—for example, when using \"s3cmd sync\" to mirror a filesystem directory. With this update, RGW multi-site replication logic has been corrected for the known failure cases. (BZ#1580497)\n\n* When restarting OSD daemons, the \"ceph-ansible\" restart script goes through all the daemons by listing the units with systemctl list-units. Under certain circumstances, the output of the command contains extra spaces, which caused parsing and restart to fail. With this update, the underlying code has been changed to handle the extra space.\n\n* Previously, the Ceph RADOS Gateway (RGW) server treated negative byte-range object requests (\"bytes=0--1\") as invalid. Applications that expect the AWS behavior for negative or other invalid range requests saw unexpected errors and could fail. With this update, a new option \"rgw_ignore_get_invalid_range\" has been added to RGW. When \"rgw_ignore_get_invalid_range\" is set to \"true\", the RGW behavior for invalid range requests is backwards compatible with AWS.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2018:2179",
+				"Description": "https://access.redhat.com/errata/RHSA-2018:2179"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "ceph: cephx protocol is vulnerable to replay attack",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2018-07-09T12:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2018-1128",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2018:2179"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2018-1128",
+						"Description": "CVE-2018-1128"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1575866",
+						"Description": "bz#1575866: CVE-2018-1128 ceph: cephx protocol is vulnerable to replay attack"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2018-05-08T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "ceph: cephx uses weak signatures",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2018-07-09T12:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2018-1129",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2018:2179"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2018-1129",
+						"Description": "CVE-2018-1129"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1576057",
+						"Description": "bz#1576057: CVE-2018-1129 ceph: cephx uses weak signatures"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2018-05-08T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "ceph: ceph-mon does not perform authorization on OSD pool ops",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2018-07-09T12:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2018-10861",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2018:2179"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2018-10861",
+						"Description": "CVE-2018-10861"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1593308",
+						"Description": "bz#1593308: CVE-2018-10861 ceph: ceph-mon does not perform authorization on OSD pool ops"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2018-06-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		}
+	],
+	"producttree": {}
+}

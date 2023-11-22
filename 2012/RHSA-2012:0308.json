@@ -1,0 +1,282 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: busybox security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2012:0308"
+		},
+		"Status": "Final",
+		"Version": "3",
+		"revisionhistory": {
+			"revision": {
+				"Number": "3",
+				"Date": "2012-02-21T02:24:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2012-02-21T02:20:00Z",
+		"CurrentReleaseDate": "2012-02-21T02:24:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:32:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated busybox packages that fix two security issues and two bugs are now\navailable for Red Hat Enterprise Linux 5.\n\nThe Red Hat Security Response Team has rated this update as having low\nsecurity impact. Common Vulnerability Scoring System (CVSS) base scores,\nwhich give detailed severity ratings, are available for each vulnerability\nfrom the CVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nBusyBox provides a single binary that includes versions of a large number\nof system commands, including a shell. This can be very useful for\nrecovering from certain types of system failures, particularly those\ninvolving broken shared libraries.\n\nA buffer underflow flaw was found in the way the uncompress utility of\nBusyBox expanded certain archive files compressed using Lempel-Ziv\ncompression. If a user were tricked into expanding a specially-crafted\narchive file with uncompress, it could cause BusyBox to crash or,\npotentially, execute arbitrary code with the privileges of the user running\nBusyBox. (CVE-2006-1168)\n\nThe BusyBox DHCP client, udhcpc, did not sufficiently sanitize certain\noptions provided in DHCP server replies, such as the client hostname. A\nmalicious DHCP server could send such an option with a specially-crafted\nvalue to a DHCP client. If this option's value was saved on the client\nsystem, and then later insecurely evaluated by a process that assumes the\noption is trusted, it could lead to arbitrary code execution with the\nprivileges of that process. Note: udhcpc is not used on Red Hat Enterprise\nLinux by default, and no DHCP client script is provided with the busybox\npackages. (CVE-2011-2716)\n\nThis update also fixes the following bugs:\n\n* Prior to this update, the cp command wrongly returned the exit code 0 to\nindicate success if a device ran out of space while attempting to copy\nfiles of more than 4 gigabytes. This update modifies BusyBox, so that in\nsuch situations, the exit code 1 is returned. Now, the cp command shows\ncorrectly whether a process failed. (BZ#689659)\n\n* Prior to this update, the findfs command failed to check all existing\nblock devices on a system with thousands of block device nodes in \"/dev/\".\nThis update modifies BusyBox so that findfs checks all block devices even\nin this case. (BZ#756723)\n\nAll users of busybox are advised to upgrade to these updated packages,\nwhich correct these issues.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Low",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2012:0308",
+				"Description": "https://access.redhat.com/errata/RHSA-2012:0308"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#low",
+				"Description": "https://access.redhat.com/security/updates/classification/#low"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "ncompress: .bss buffer underflow in decompression",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2006-08-08T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2006-1168",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/kb/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:0308"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2006-1168",
+						"Description": "CVE-2006-1168"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=201919",
+						"Description": "bz#201919: CVE-2006-1168 ncompress: .bss buffer underflow in decompression"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2006-07-25T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client:busybox-1:1.2.0-13.el5",
+						"5Server:busybox-1:1.2.0-13.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.1",
+					"Vector": "AV:N/AC:H/Au:N/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "busybox: udhcpc insufficient checking of DHCP options",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2011-03-18T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2011-2716",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/kb/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:0308"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2011-2716",
+						"Description": "CVE-2011-2716"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=725364",
+						"Description": "bz#725364: CVE-2011-2716 busybox: udhcpc insufficient checking of DHCP options"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2011-03-23T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client:busybox-1:1.2.0-13.el5",
+						"5Server:busybox-1:1.2.0-13.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.8",
+					"Vector": "AV:A/AC:H/Au:N/C:C/I:C/A:C"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+							"productid": "5Client",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux (v. 5 server)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux (v. 5 server)",
+							"productid": "5Server",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "busybox-1:1.2.0-13.el5",
+				"fullproductname": {
+					"text": "busybox-1.2.0-13.el5.src.rpm",
+					"productid": "busybox-1:1.2.0-13.el5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "busybox-1:1.2.0-13.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Client",
+				"fullproductname": {
+					"text": "busybox-1:1.2.0-13.el5 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"productid": "5Client:busybox-1:1.2.0-13.el5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+				}
+			},
+			{
+				"productreference": "busybox-1:1.2.0-13.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server",
+				"fullproductname": {
+					"text": "busybox-1:1.2.0-13.el5 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"productid": "5Server:busybox-1:1.2.0-13.el5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+				}
+			}
+		]
+	}
+}

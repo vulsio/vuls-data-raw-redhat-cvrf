@@ -1,0 +1,443 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: postgresql and postgresql84 security update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2012:1037"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2012-06-25T18:12:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2012-06-25T18:05:00Z",
+		"CurrentReleaseDate": "2012-06-25T18:12:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:31:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated postgresql84 and postgresql packages that fix two security issues\nare now available for Red Hat Enterprise Linux 5 and 6 respectively.\n\nThe Red Hat Security Response Team has rated this update as having moderate\nsecurity impact. Common Vulnerability Scoring System (CVSS) base scores,\nwhich give detailed severity ratings, are available for each vulnerability\nfrom the CVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nPostgreSQL is an advanced object-relational database management system\n(DBMS).\n\nA flaw was found in the way the crypt() password hashing function from the\noptional PostgreSQL pgcrypto contrib module performed password\ntransformation when used with the DES algorithm. If the password string to\nbe hashed contained the 0x80 byte value, the remainder of the string was\nignored when calculating the hash, significantly reducing the password\nstrength. This made brute-force guessing more efficient as the whole\npassword was not required to gain access to protected resources.\n(CVE-2012-2143)\n\nNote: With this update, the rest of the string is properly included in the\nDES hash; therefore, any previously stored password values that are\naffected by this issue will no longer match. In such cases, it will be\nnecessary for those stored password hashes to be updated.\n\nA denial of service flaw was found in the way the PostgreSQL server\nperformed a user privileges check when applying SECURITY DEFINER or SET\nattributes to a procedural language's (such as PL/Perl or PL/Python) call\nhandler function. A non-superuser database owner could use this flaw to\ncause the PostgreSQL server to crash due to infinite recursion.\n(CVE-2012-2655)\n\nUpstream acknowledges Rubin Xu and Joseph Bonneau as the original reporters\nof the CVE-2012-2143 issue.\n\nThese updated packages upgrade PostgreSQL to version 8.4.12, which fixes\nthese issues as well as several non-security issues. Refer to the\nPostgreSQL Release Notes for a full list of changes:\n\nhttp://www.postgresql.org/docs/8.4/static/release.html\n\nAll PostgreSQL users are advised to upgrade to these updated packages,\nwhich correct these issues. If the postgresql service is running, it will\nbe automatically restarted after installing this update.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2012:1037",
+				"Description": "https://access.redhat.com/errata/RHSA-2012:1037"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			},
+			{
+				"type": "External",
+				"URL": "http://www.postgresql.org/docs/8.4/static/release.html",
+				"Description": "http://www.postgresql.org/docs/8.4/static/release.html"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "BSD crypt(): DES encrypted password weakness",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-05-30T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-2143",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:1037"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-2143",
+						"Description": "CVE-2012-2143"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=816956",
+						"Description": "bz#816956: CVE-2012-2143 BSD crypt(): DES encrypted password weakness"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2012-04-26T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-5.8.Z:postgresql84-0:8.4.12-1.el5_8",
+						"5Client-Workstation-5.8.Z:postgresql84-0:8.4.12-1.el5_8",
+						"5Server-5.8.Z:postgresql84-0:8.4.12-1.el5_8",
+						"6Client-6.3.z:postgresql-0:8.4.12-1.el6_2",
+						"6Client-optional-6.3.z:postgresql-0:8.4.12-1.el6_2",
+						"6ComputeNode-6.3.z:postgresql-0:8.4.12-1.el6_2",
+						"6ComputeNode-optional-6.3.z:postgresql-0:8.4.12-1.el6_2",
+						"6Server-6.3.z:postgresql-0:8.4.12-1.el6_2",
+						"6Workstation-6.3.z:postgresql-0:8.4.12-1.el6_2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.0",
+					"Vector": "AV:N/AC:H/Au:N/C:P/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "postgresql: Ability of database owners to install procedural languages via CREATE LANGUAGE found unsafe (DoS)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-05-30T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-2655",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:1037"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-2655",
+						"Description": "CVE-2012-2655"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=825995",
+						"Description": "bz#825995: CVE-2012-2655 postgresql: Ability of database owners to install procedural languages via CREATE LANGUAGE found unsafe (DoS)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2012-05-28T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-5.8.Z:postgresql84-0:8.4.12-1.el5_8",
+						"5Client-Workstation-5.8.Z:postgresql84-0:8.4.12-1.el5_8",
+						"5Server-5.8.Z:postgresql84-0:8.4.12-1.el5_8",
+						"6Client-6.3.z:postgresql-0:8.4.12-1.el6_2",
+						"6Client-optional-6.3.z:postgresql-0:8.4.12-1.el6_2",
+						"6ComputeNode-6.3.z:postgresql-0:8.4.12-1.el6_2",
+						"6ComputeNode-optional-6.3.z:postgresql-0:8.4.12-1.el6_2",
+						"6Server-6.3.z:postgresql-0:8.4.12-1.el6_2",
+						"6Workstation-6.3.z:postgresql-0:8.4.12-1.el6_2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.2",
+					"Vector": "AV:A/AC:L/Au:M/C:N/I:N/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+							"productid": "5Client-5.8.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "RHEL Desktop Workstation (v. 5 client)",
+						"fullproductname": {
+							"text": "RHEL Desktop Workstation (v. 5 client)",
+							"productid": "5Client-Workstation-5.8.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::client_workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux (v. 5 server)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux (v. 5 server)",
+							"productid": "5Server-5.8.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 6)",
+							"productid": "6Client-6.3.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+							"productid": "6Client-optional-6.3.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node (v. 6)",
+							"productid": "6ComputeNode-6.3.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+							"productid": "6ComputeNode-optional-6.3.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 6)",
+							"productid": "6Server-6.3.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 6)",
+							"productid": "6Workstation-6.3.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "postgresql-0:8.4.12-1.el6_2",
+				"fullproductname": {
+					"text": "postgresql-8.4.12-1.el6_2.src.rpm",
+					"productid": "postgresql-0:8.4.12-1.el6_2",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "postgresql84-0:8.4.12-1.el5_8",
+				"fullproductname": {
+					"text": "postgresql84-8.4.12-1.el5_8.src.rpm",
+					"productid": "postgresql84-0:8.4.12-1.el5_8",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "postgresql84-0:8.4.12-1.el5_8",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Client-5.8.Z",
+				"fullproductname": {
+					"text": "postgresql84-0:8.4.12-1.el5_8 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"productid": "5Client-5.8.Z:postgresql84-0:8.4.12-1.el5_8",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+				}
+			},
+			{
+				"productreference": "postgresql84-0:8.4.12-1.el5_8",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Client-Workstation-5.8.Z",
+				"fullproductname": {
+					"text": "postgresql84-0:8.4.12-1.el5_8 as a component of RHEL Desktop Workstation (v. 5 client)",
+					"productid": "5Client-Workstation-5.8.Z:postgresql84-0:8.4.12-1.el5_8",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client_workstation"
+				}
+			},
+			{
+				"productreference": "postgresql84-0:8.4.12-1.el5_8",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-5.8.Z",
+				"fullproductname": {
+					"text": "postgresql84-0:8.4.12-1.el5_8 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"productid": "5Server-5.8.Z:postgresql84-0:8.4.12-1.el5_8",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+				}
+			},
+			{
+				"productreference": "postgresql-0:8.4.12-1.el6_2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-6.3.z",
+				"fullproductname": {
+					"text": "postgresql-0:8.4.12-1.el6_2 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"productid": "6Client-6.3.z:postgresql-0:8.4.12-1.el6_2",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "postgresql-0:8.4.12-1.el6_2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-optional-6.3.z",
+				"fullproductname": {
+					"text": "postgresql-0:8.4.12-1.el6_2 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"productid": "6Client-optional-6.3.z:postgresql-0:8.4.12-1.el6_2",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "postgresql-0:8.4.12-1.el6_2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-6.3.z",
+				"fullproductname": {
+					"text": "postgresql-0:8.4.12-1.el6_2 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"productid": "6ComputeNode-6.3.z:postgresql-0:8.4.12-1.el6_2",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "postgresql-0:8.4.12-1.el6_2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-optional-6.3.z",
+				"fullproductname": {
+					"text": "postgresql-0:8.4.12-1.el6_2 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"productid": "6ComputeNode-optional-6.3.z:postgresql-0:8.4.12-1.el6_2",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "postgresql-0:8.4.12-1.el6_2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-6.3.z",
+				"fullproductname": {
+					"text": "postgresql-0:8.4.12-1.el6_2 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"productid": "6Server-6.3.z:postgresql-0:8.4.12-1.el6_2",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "postgresql-0:8.4.12-1.el6_2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-6.3.z",
+				"fullproductname": {
+					"text": "postgresql-0:8.4.12-1.el6_2 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"productid": "6Workstation-6.3.z:postgresql-0:8.4.12-1.el6_2",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			}
+		]
+	}
+}

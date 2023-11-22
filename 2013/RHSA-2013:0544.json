@@ -1,0 +1,1042 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: Subscription Asset Manager 1.2 update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2013:0544"
+		},
+		"Status": "Final",
+		"Version": "2",
+		"revisionhistory": {
+			"revision": {
+				"Number": "2",
+				"Date": "2013-02-25T23:08:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2013-02-21T19:04:00Z",
+		"CurrentReleaseDate": "2013-02-25T23:08:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:33:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nRed Hat Subscription Asset Manager 1.2, which fixes several security\nissues, multiple bugs, and adds various enhancements, is now available.\n\nThe Red Hat Security Response Team has rated this update as having\nimportant security impact. Common Vulnerability Scoring System (CVSS) base\nscores, which give detailed severity ratings, are available for each\nvulnerability from the CVE links in the References section.\n\n[Updated 25th February 2013]\nThis erratum previously failed to include the updated rubygem-rack package.\nIt also previously incorrectly documented CVE-2012-5604 as being fixed,\nhowever that issue never affected Subscription Asset Manager and is no\nlonger listed. As well, CVE-2012-6496 was described as being fixed, however\nthat issue had previously been fixed in RHSA-2013:0154.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nRed Hat Subscription Asset Manager acts as a proxy for handling\nsubscription information and software updates on client machines.\n\nIt was discovered that Katello did not properly check user permissions when\nhandling certain requests. An authenticated remote attacker could use this\nflaw to download consumer certificates or change settings of other users'\nsystems if they knew the target system's UUID. (CVE-2012-5603)\n\nIt was found that the\n\"/usr/share/katello/script/katello-generate-passphrase\" utility, which is\nrun during the installation and configuration process, set world-readable\npermissions on the \"/etc/katello/secure/passphrase\" file. A local attacker\ncould use this flaw to obtain the passphrase for Katello, giving them\naccess to information they would otherwise not have access to.\n(CVE-2012-5561)\n\nNote: After installing this update, ensure the\n\"/etc/katello/secure/passphrase\" file is owned by the root user and group\nand mode 0750 permissions. Sites should also consider re-creating the\nKatello passphrase as this issue exposed it to local users.\n\nThree flaws were found in rubygem-rack. A remote attacker could use these\nflaws to perform a denial of service attack against applications using\nrubygem-rack. (CVE-2012-6109, CVE-2013-0183, CVE-2013-0184)\n\nIt was found that ruby_parser from rubygem-ruby_parser created a temporary\nfile in an insecure way. A local attacker could use this flaw to perform a\nsymbolic link attack, overwriting arbitrary files accessible to the\napplication using ruby_parser. (CVE-2013-0162)\n\nThe CVE-2012-5603 issue was discovered by Lukas Zapletal of Red Hat;\nCVE-2012-5561 was discovered by Aaron Weitekamp of the Red Hat Cloud\nQuality Engineering team; and CVE-2013-0162 was discovered by Michael\nScherer of the Red Hat Regional IT team.\n\nThese updated Subscription Asset Manager packages include a number of bug\nfixes and enhancements. Space precludes documenting all of these changes\nin this advisory. Refer to the Red Hat Subscription Asset Manager 1.2\nRelease Notes for information about these changes:\n\nhttps://access.redhat.com/knowledge/docs/en-US/Red_Hat_Subscription_Asset_Manager/1.2/html/Release_Notes/index.html\n\nAll users of Red Hat Subscription Asset Manager are advised to upgrade to\nthese updated packages, which fix these issues and add various\nenhancements.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2013:0544",
+				"Description": "https://access.redhat.com/errata/RHSA-2013:0544"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/knowledge/docs/en-US/Red_Hat_Subscription_Asset_Manager/1.2/html/Release_Notes/index.html",
+				"Description": "https://access.redhat.com/knowledge/docs/en-US/Red_Hat_Subscription_Asset_Manager/1.2/html/Release_Notes/index.html"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Katello: /etc/katello/secure/passphrase is world readable",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-01-03T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-5561",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:0544"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-5561",
+						"Description": "CVE-2012-5561"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=879094",
+						"Description": "bz#879094: CVE-2012-5561 Katello: /etc/katello/secure/passphrase is world readable"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2012-11-21T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-SubscriptionAssetManager12:apache-commons-codec-0:1.7-2.el6_3",
+						"6Server-SubscriptionAssetManager12:apache-mime4j-0:0.6-4_redhat_1.ep6.el6.1",
+						"6Server-SubscriptionAssetManager12:candlepin-0:0.7.23-1.el6_3",
+						"6Server-SubscriptionAssetManager12:elasticsearch-0:0.19.9-5.el6_3",
+						"6Server-SubscriptionAssetManager12:katello-0:1.2.1-15h.el6_3",
+						"6Server-SubscriptionAssetManager12:katello-certs-tools-0:1.2.1-1h.el6_3",
+						"6Server-SubscriptionAssetManager12:katello-cli-0:1.2.1-12h.el6_3",
+						"6Server-SubscriptionAssetManager12:katello-configure-0:1.2.3-3h.el6_3",
+						"6Server-SubscriptionAssetManager12:katello-selinux-0:1.2.1-2h.el6_3",
+						"6Server-SubscriptionAssetManager12:lucene3-0:3.6.1-10h.el6_3",
+						"6Server-SubscriptionAssetManager12:puppet-0:2.6.17-2.el6cf",
+						"6Server-SubscriptionAssetManager12:quartz-0:2.1.5-4.el6_3",
+						"6Server-SubscriptionAssetManager12:rubygem-activesupport-1:3.0.10-10.el6cf",
+						"6Server-SubscriptionAssetManager12:rubygem-apipie-rails-0:0.0.12-2.el6cf",
+						"6Server-SubscriptionAssetManager12:rubygem-ldap_fluff-0:0.1.3-1.el6_3",
+						"6Server-SubscriptionAssetManager12:rubygem-mail-0:2.3.0-3.el6cf",
+						"6Server-SubscriptionAssetManager12:rubygem-rack-1:1.3.0-3.el6cf",
+						"6Server-SubscriptionAssetManager12:rubygem-ruby_parser-0:2.0.4-6.el6cf",
+						"6Server-SubscriptionAssetManager12:sigar-0:1.6.5-0.12.git58097d9h.el6_3",
+						"6Server-SubscriptionAssetManager12:snappy-java-0:1.0.4-2.el6_3",
+						"6Server-SubscriptionAssetManager12:thumbslug-0:0.0.28-1.el6_3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.1",
+					"Vector": "AV:L/AC:L/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "CloudForms Katello: lack of authorization in proxies_controller.rb",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-12-04T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-5603",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:0544"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-5603",
+						"Description": "CVE-2012-5603"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=882129",
+						"Description": "bz#882129: CVE-2012-5603 CloudForms Katello: lack of authorization in proxies_controller.rb"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2012-05-28T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-SubscriptionAssetManager12:apache-commons-codec-0:1.7-2.el6_3",
+						"6Server-SubscriptionAssetManager12:apache-mime4j-0:0.6-4_redhat_1.ep6.el6.1",
+						"6Server-SubscriptionAssetManager12:candlepin-0:0.7.23-1.el6_3",
+						"6Server-SubscriptionAssetManager12:elasticsearch-0:0.19.9-5.el6_3",
+						"6Server-SubscriptionAssetManager12:katello-0:1.2.1-15h.el6_3",
+						"6Server-SubscriptionAssetManager12:katello-certs-tools-0:1.2.1-1h.el6_3",
+						"6Server-SubscriptionAssetManager12:katello-cli-0:1.2.1-12h.el6_3",
+						"6Server-SubscriptionAssetManager12:katello-configure-0:1.2.3-3h.el6_3",
+						"6Server-SubscriptionAssetManager12:katello-selinux-0:1.2.1-2h.el6_3",
+						"6Server-SubscriptionAssetManager12:lucene3-0:3.6.1-10h.el6_3",
+						"6Server-SubscriptionAssetManager12:puppet-0:2.6.17-2.el6cf",
+						"6Server-SubscriptionAssetManager12:quartz-0:2.1.5-4.el6_3",
+						"6Server-SubscriptionAssetManager12:rubygem-activesupport-1:3.0.10-10.el6cf",
+						"6Server-SubscriptionAssetManager12:rubygem-apipie-rails-0:0.0.12-2.el6cf",
+						"6Server-SubscriptionAssetManager12:rubygem-ldap_fluff-0:0.1.3-1.el6_3",
+						"6Server-SubscriptionAssetManager12:rubygem-mail-0:2.3.0-3.el6cf",
+						"6Server-SubscriptionAssetManager12:rubygem-rack-1:1.3.0-3.el6cf",
+						"6Server-SubscriptionAssetManager12:rubygem-ruby_parser-0:2.0.4-6.el6cf",
+						"6Server-SubscriptionAssetManager12:sigar-0:1.6.5-0.12.git58097d9h.el6_3",
+						"6Server-SubscriptionAssetManager12:snappy-java-0:1.0.4-2.el6_3",
+						"6Server-SubscriptionAssetManager12:thumbslug-0:0.0.28-1.el6_3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.5",
+					"Vector": "AV:N/AC:L/Au:S/C:P/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "rubygem-rack: parsing Content-Disposition header DoS",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-05-04T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-6109",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:0544"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-6109",
+						"Description": "CVE-2012-6109"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=895277",
+						"Description": "bz#895277: CVE-2012-6109 rubygem-rack: parsing Content-Disposition header DoS"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2013-01-14T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-SubscriptionAssetManager12:apache-commons-codec-0:1.7-2.el6_3",
+						"6Server-SubscriptionAssetManager12:apache-mime4j-0:0.6-4_redhat_1.ep6.el6.1",
+						"6Server-SubscriptionAssetManager12:candlepin-0:0.7.23-1.el6_3",
+						"6Server-SubscriptionAssetManager12:elasticsearch-0:0.19.9-5.el6_3",
+						"6Server-SubscriptionAssetManager12:katello-0:1.2.1-15h.el6_3",
+						"6Server-SubscriptionAssetManager12:katello-certs-tools-0:1.2.1-1h.el6_3",
+						"6Server-SubscriptionAssetManager12:katello-cli-0:1.2.1-12h.el6_3",
+						"6Server-SubscriptionAssetManager12:katello-configure-0:1.2.3-3h.el6_3",
+						"6Server-SubscriptionAssetManager12:katello-selinux-0:1.2.1-2h.el6_3",
+						"6Server-SubscriptionAssetManager12:lucene3-0:3.6.1-10h.el6_3",
+						"6Server-SubscriptionAssetManager12:puppet-0:2.6.17-2.el6cf",
+						"6Server-SubscriptionAssetManager12:quartz-0:2.1.5-4.el6_3",
+						"6Server-SubscriptionAssetManager12:rubygem-activesupport-1:3.0.10-10.el6cf",
+						"6Server-SubscriptionAssetManager12:rubygem-apipie-rails-0:0.0.12-2.el6cf",
+						"6Server-SubscriptionAssetManager12:rubygem-ldap_fluff-0:0.1.3-1.el6_3",
+						"6Server-SubscriptionAssetManager12:rubygem-mail-0:2.3.0-3.el6cf",
+						"6Server-SubscriptionAssetManager12:rubygem-rack-1:1.3.0-3.el6cf",
+						"6Server-SubscriptionAssetManager12:rubygem-ruby_parser-0:2.0.4-6.el6cf",
+						"6Server-SubscriptionAssetManager12:sigar-0:1.6.5-0.12.git58097d9h.el6_3",
+						"6Server-SubscriptionAssetManager12:snappy-java-0:1.0.4-2.el6_3",
+						"6Server-SubscriptionAssetManager12:thumbslug-0:0.0.28-1.el6_3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "rubygem-ruby_parser: incorrect temporary file usage",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-01-21T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-0162",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:0544"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-0162",
+						"Description": "CVE-2013-0162"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=892806",
+						"Description": "bz#892806: CVE-2013-0162 rubygem-ruby_parser: incorrect temporary file usage"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2013-01-07T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-SubscriptionAssetManager12:apache-commons-codec-0:1.7-2.el6_3",
+						"6Server-SubscriptionAssetManager12:apache-mime4j-0:0.6-4_redhat_1.ep6.el6.1",
+						"6Server-SubscriptionAssetManager12:candlepin-0:0.7.23-1.el6_3",
+						"6Server-SubscriptionAssetManager12:elasticsearch-0:0.19.9-5.el6_3",
+						"6Server-SubscriptionAssetManager12:katello-0:1.2.1-15h.el6_3",
+						"6Server-SubscriptionAssetManager12:katello-certs-tools-0:1.2.1-1h.el6_3",
+						"6Server-SubscriptionAssetManager12:katello-cli-0:1.2.1-12h.el6_3",
+						"6Server-SubscriptionAssetManager12:katello-configure-0:1.2.3-3h.el6_3",
+						"6Server-SubscriptionAssetManager12:katello-selinux-0:1.2.1-2h.el6_3",
+						"6Server-SubscriptionAssetManager12:lucene3-0:3.6.1-10h.el6_3",
+						"6Server-SubscriptionAssetManager12:puppet-0:2.6.17-2.el6cf",
+						"6Server-SubscriptionAssetManager12:quartz-0:2.1.5-4.el6_3",
+						"6Server-SubscriptionAssetManager12:rubygem-activesupport-1:3.0.10-10.el6cf",
+						"6Server-SubscriptionAssetManager12:rubygem-apipie-rails-0:0.0.12-2.el6cf",
+						"6Server-SubscriptionAssetManager12:rubygem-ldap_fluff-0:0.1.3-1.el6_3",
+						"6Server-SubscriptionAssetManager12:rubygem-mail-0:2.3.0-3.el6cf",
+						"6Server-SubscriptionAssetManager12:rubygem-rack-1:1.3.0-3.el6cf",
+						"6Server-SubscriptionAssetManager12:rubygem-ruby_parser-0:2.0.4-6.el6cf",
+						"6Server-SubscriptionAssetManager12:sigar-0:1.6.5-0.12.git58097d9h.el6_3",
+						"6Server-SubscriptionAssetManager12:snappy-java-0:1.0.4-2.el6_3",
+						"6Server-SubscriptionAssetManager12:thumbslug-0:0.0.28-1.el6_3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.1",
+					"Vector": "AV:L/AC:L/Au:N/C:N/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "rubygem-rack: receiving excessively long lines triggers out-of-memory error",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-01-07T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-0183",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:0544"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-0183",
+						"Description": "CVE-2013-0183"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=895282",
+						"Description": "bz#895282: CVE-2013-0183 rubygem-rack: receiving excessively long lines triggers out-of-memory error"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2013-01-14T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-SubscriptionAssetManager12:apache-commons-codec-0:1.7-2.el6_3",
+						"6Server-SubscriptionAssetManager12:apache-mime4j-0:0.6-4_redhat_1.ep6.el6.1",
+						"6Server-SubscriptionAssetManager12:candlepin-0:0.7.23-1.el6_3",
+						"6Server-SubscriptionAssetManager12:elasticsearch-0:0.19.9-5.el6_3",
+						"6Server-SubscriptionAssetManager12:katello-0:1.2.1-15h.el6_3",
+						"6Server-SubscriptionAssetManager12:katello-certs-tools-0:1.2.1-1h.el6_3",
+						"6Server-SubscriptionAssetManager12:katello-cli-0:1.2.1-12h.el6_3",
+						"6Server-SubscriptionAssetManager12:katello-configure-0:1.2.3-3h.el6_3",
+						"6Server-SubscriptionAssetManager12:katello-selinux-0:1.2.1-2h.el6_3",
+						"6Server-SubscriptionAssetManager12:lucene3-0:3.6.1-10h.el6_3",
+						"6Server-SubscriptionAssetManager12:puppet-0:2.6.17-2.el6cf",
+						"6Server-SubscriptionAssetManager12:quartz-0:2.1.5-4.el6_3",
+						"6Server-SubscriptionAssetManager12:rubygem-activesupport-1:3.0.10-10.el6cf",
+						"6Server-SubscriptionAssetManager12:rubygem-apipie-rails-0:0.0.12-2.el6cf",
+						"6Server-SubscriptionAssetManager12:rubygem-ldap_fluff-0:0.1.3-1.el6_3",
+						"6Server-SubscriptionAssetManager12:rubygem-mail-0:2.3.0-3.el6cf",
+						"6Server-SubscriptionAssetManager12:rubygem-rack-1:1.3.0-3.el6cf",
+						"6Server-SubscriptionAssetManager12:rubygem-ruby_parser-0:2.0.4-6.el6cf",
+						"6Server-SubscriptionAssetManager12:sigar-0:1.6.5-0.12.git58097d9h.el6_3",
+						"6Server-SubscriptionAssetManager12:snappy-java-0:1.0.4-2.el6_3",
+						"6Server-SubscriptionAssetManager12:thumbslug-0:0.0.28-1.el6_3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "6",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "rubygem-rack: Rack::Auth::AbstractRequest DoS",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-05-04T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-0184",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:0544"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-0184",
+						"Description": "CVE-2013-0184"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=895384",
+						"Description": "bz#895384: CVE-2013-0184 rubygem-rack: Rack::Auth::AbstractRequest DoS"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2013-01-14T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-SubscriptionAssetManager12:apache-commons-codec-0:1.7-2.el6_3",
+						"6Server-SubscriptionAssetManager12:apache-mime4j-0:0.6-4_redhat_1.ep6.el6.1",
+						"6Server-SubscriptionAssetManager12:candlepin-0:0.7.23-1.el6_3",
+						"6Server-SubscriptionAssetManager12:elasticsearch-0:0.19.9-5.el6_3",
+						"6Server-SubscriptionAssetManager12:katello-0:1.2.1-15h.el6_3",
+						"6Server-SubscriptionAssetManager12:katello-certs-tools-0:1.2.1-1h.el6_3",
+						"6Server-SubscriptionAssetManager12:katello-cli-0:1.2.1-12h.el6_3",
+						"6Server-SubscriptionAssetManager12:katello-configure-0:1.2.3-3h.el6_3",
+						"6Server-SubscriptionAssetManager12:katello-selinux-0:1.2.1-2h.el6_3",
+						"6Server-SubscriptionAssetManager12:lucene3-0:3.6.1-10h.el6_3",
+						"6Server-SubscriptionAssetManager12:puppet-0:2.6.17-2.el6cf",
+						"6Server-SubscriptionAssetManager12:quartz-0:2.1.5-4.el6_3",
+						"6Server-SubscriptionAssetManager12:rubygem-activesupport-1:3.0.10-10.el6cf",
+						"6Server-SubscriptionAssetManager12:rubygem-apipie-rails-0:0.0.12-2.el6cf",
+						"6Server-SubscriptionAssetManager12:rubygem-ldap_fluff-0:0.1.3-1.el6_3",
+						"6Server-SubscriptionAssetManager12:rubygem-mail-0:2.3.0-3.el6cf",
+						"6Server-SubscriptionAssetManager12:rubygem-rack-1:1.3.0-3.el6cf",
+						"6Server-SubscriptionAssetManager12:rubygem-ruby_parser-0:2.0.4-6.el6cf",
+						"6Server-SubscriptionAssetManager12:sigar-0:1.6.5-0.12.git58097d9h.el6_3",
+						"6Server-SubscriptionAssetManager12:snappy-java-0:1.0.4-2.el6_3",
+						"6Server-SubscriptionAssetManager12:thumbslug-0:0.0.28-1.el6_3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Subscription Asset Manager",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Subscription Asset Manager for RHEL 6 Server",
+						"fullproductname": {
+							"text": "Red Hat Subscription Asset Manager for RHEL 6 Server",
+							"productid": "6Server-SubscriptionAssetManager12",
+							"cpe": "cpe:/a:rhel_sam:1.2::el6"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "apache-commons-codec-0:1.7-2.el6_3",
+				"fullproductname": {
+					"text": "apache-commons-codec-1.7-2.el6_3.src.rpm",
+					"productid": "apache-commons-codec-0:1.7-2.el6_3",
+					"cpe": "cpe:/a:rhel_sam:1.2::el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "apache-mime4j-0:0.6-4_redhat_1.ep6.el6.1",
+				"fullproductname": {
+					"text": "apache-mime4j-0.6-4_redhat_1.ep6.el6.1.src.rpm",
+					"productid": "apache-mime4j-0:0.6-4_redhat_1.ep6.el6.1",
+					"cpe": "cpe:/a:rhel_sam:1.2::el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "candlepin-0:0.7.23-1.el6_3",
+				"fullproductname": {
+					"text": "candlepin-0.7.23-1.el6_3.src.rpm",
+					"productid": "candlepin-0:0.7.23-1.el6_3",
+					"cpe": "cpe:/a:rhel_sam:1.2::el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "elasticsearch-0:0.19.9-5.el6_3",
+				"fullproductname": {
+					"text": "elasticsearch-0.19.9-5.el6_3.src.rpm",
+					"productid": "elasticsearch-0:0.19.9-5.el6_3",
+					"cpe": "cpe:/a:rhel_sam:1.2::el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "katello-0:1.2.1-15h.el6_3",
+				"fullproductname": {
+					"text": "katello-1.2.1-15h.el6_3.src.rpm",
+					"productid": "katello-0:1.2.1-15h.el6_3",
+					"cpe": "cpe:/a:rhel_sam:1.2::el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "katello-certs-tools-0:1.2.1-1h.el6_3",
+				"fullproductname": {
+					"text": "katello-certs-tools-1.2.1-1h.el6_3.src.rpm",
+					"productid": "katello-certs-tools-0:1.2.1-1h.el6_3",
+					"cpe": "cpe:/a:rhel_sam:1.2::el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "katello-cli-0:1.2.1-12h.el6_3",
+				"fullproductname": {
+					"text": "katello-cli-1.2.1-12h.el6_3.src.rpm",
+					"productid": "katello-cli-0:1.2.1-12h.el6_3",
+					"cpe": "cpe:/a:rhel_sam:1.2::el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "katello-configure-0:1.2.3-3h.el6_3",
+				"fullproductname": {
+					"text": "katello-configure-1.2.3-3h.el6_3.src.rpm",
+					"productid": "katello-configure-0:1.2.3-3h.el6_3",
+					"cpe": "cpe:/a:rhel_sam:1.2::el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "katello-selinux-0:1.2.1-2h.el6_3",
+				"fullproductname": {
+					"text": "katello-selinux-1.2.1-2h.el6_3.src.rpm",
+					"productid": "katello-selinux-0:1.2.1-2h.el6_3",
+					"cpe": "cpe:/a:rhel_sam:1.2::el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "lucene3-0:3.6.1-10h.el6_3",
+				"fullproductname": {
+					"text": "lucene3-3.6.1-10h.el6_3.src.rpm",
+					"productid": "lucene3-0:3.6.1-10h.el6_3",
+					"cpe": "cpe:/a:rhel_sam:1.2::el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "puppet-0:2.6.17-2.el6cf",
+				"fullproductname": {
+					"text": "puppet-2.6.17-2.el6cf.src.rpm",
+					"productid": "puppet-0:2.6.17-2.el6cf",
+					"cpe": "cpe:/a:rhel_sam:1.2::el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "quartz-0:2.1.5-4.el6_3",
+				"fullproductname": {
+					"text": "quartz-2.1.5-4.el6_3.src.rpm",
+					"productid": "quartz-0:2.1.5-4.el6_3",
+					"cpe": "cpe:/a:rhel_sam:1.2::el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-activesupport-1:3.0.10-10.el6cf",
+				"fullproductname": {
+					"text": "rubygem-activesupport-3.0.10-10.el6cf.src.rpm",
+					"productid": "rubygem-activesupport-1:3.0.10-10.el6cf",
+					"cpe": "cpe:/a:rhel_sam:1.2::el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-apipie-rails-0:0.0.12-2.el6cf",
+				"fullproductname": {
+					"text": "rubygem-apipie-rails-0.0.12-2.el6cf.src.rpm",
+					"productid": "rubygem-apipie-rails-0:0.0.12-2.el6cf",
+					"cpe": "cpe:/a:rhel_sam:1.2::el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-ldap_fluff-0:0.1.3-1.el6_3",
+				"fullproductname": {
+					"text": "rubygem-ldap_fluff-0.1.3-1.el6_3.src.rpm",
+					"productid": "rubygem-ldap_fluff-0:0.1.3-1.el6_3",
+					"cpe": "cpe:/a:rhel_sam:1.2::el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-mail-0:2.3.0-3.el6cf",
+				"fullproductname": {
+					"text": "rubygem-mail-2.3.0-3.el6cf.src.rpm",
+					"productid": "rubygem-mail-0:2.3.0-3.el6cf",
+					"cpe": "cpe:/a:rhel_sam:1.2::el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-rack-1:1.3.0-3.el6cf",
+				"fullproductname": {
+					"text": "rubygem-rack-1.3.0-3.el6cf.src.rpm",
+					"productid": "rubygem-rack-1:1.3.0-3.el6cf",
+					"cpe": "cpe:/a:rhel_sam:1.2::el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-ruby_parser-0:2.0.4-6.el6cf",
+				"fullproductname": {
+					"text": "rubygem-ruby_parser-2.0.4-6.el6cf.src.rpm",
+					"productid": "rubygem-ruby_parser-0:2.0.4-6.el6cf",
+					"cpe": "cpe:/a:rhel_sam:1.2::el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "sigar-0:1.6.5-0.12.git58097d9h.el6_3",
+				"fullproductname": {
+					"text": "sigar-1.6.5-0.12.git58097d9h.el6_3.src.rpm",
+					"productid": "sigar-0:1.6.5-0.12.git58097d9h.el6_3",
+					"cpe": "cpe:/a:rhel_sam:1.2::el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "snappy-java-0:1.0.4-2.el6_3",
+				"fullproductname": {
+					"text": "snappy-java-1.0.4-2.el6_3.src.rpm",
+					"productid": "snappy-java-0:1.0.4-2.el6_3",
+					"cpe": "cpe:/a:rhel_sam:1.2::el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "thumbslug-0:0.0.28-1.el6_3",
+				"fullproductname": {
+					"text": "thumbslug-0.0.28-1.el6_3.src.rpm",
+					"productid": "thumbslug-0:0.0.28-1.el6_3",
+					"cpe": "cpe:/a:rhel_sam:1.2::el6"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "apache-commons-codec-0:1.7-2.el6_3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-SubscriptionAssetManager12",
+				"fullproductname": {
+					"text": "apache-commons-codec-0:1.7-2.el6_3 as a component of Red Hat Subscription Asset Manager for RHEL 6 Server",
+					"productid": "6Server-SubscriptionAssetManager12:apache-commons-codec-0:1.7-2.el6_3",
+					"cpe": "cpe:/a:rhel_sam:1.2::el6"
+				}
+			},
+			{
+				"productreference": "apache-mime4j-0:0.6-4_redhat_1.ep6.el6.1",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-SubscriptionAssetManager12",
+				"fullproductname": {
+					"text": "apache-mime4j-0:0.6-4_redhat_1.ep6.el6.1 as a component of Red Hat Subscription Asset Manager for RHEL 6 Server",
+					"productid": "6Server-SubscriptionAssetManager12:apache-mime4j-0:0.6-4_redhat_1.ep6.el6.1",
+					"cpe": "cpe:/a:rhel_sam:1.2::el6"
+				}
+			},
+			{
+				"productreference": "candlepin-0:0.7.23-1.el6_3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-SubscriptionAssetManager12",
+				"fullproductname": {
+					"text": "candlepin-0:0.7.23-1.el6_3 as a component of Red Hat Subscription Asset Manager for RHEL 6 Server",
+					"productid": "6Server-SubscriptionAssetManager12:candlepin-0:0.7.23-1.el6_3",
+					"cpe": "cpe:/a:rhel_sam:1.2::el6"
+				}
+			},
+			{
+				"productreference": "elasticsearch-0:0.19.9-5.el6_3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-SubscriptionAssetManager12",
+				"fullproductname": {
+					"text": "elasticsearch-0:0.19.9-5.el6_3 as a component of Red Hat Subscription Asset Manager for RHEL 6 Server",
+					"productid": "6Server-SubscriptionAssetManager12:elasticsearch-0:0.19.9-5.el6_3",
+					"cpe": "cpe:/a:rhel_sam:1.2::el6"
+				}
+			},
+			{
+				"productreference": "katello-0:1.2.1-15h.el6_3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-SubscriptionAssetManager12",
+				"fullproductname": {
+					"text": "katello-0:1.2.1-15h.el6_3 as a component of Red Hat Subscription Asset Manager for RHEL 6 Server",
+					"productid": "6Server-SubscriptionAssetManager12:katello-0:1.2.1-15h.el6_3",
+					"cpe": "cpe:/a:rhel_sam:1.2::el6"
+				}
+			},
+			{
+				"productreference": "katello-certs-tools-0:1.2.1-1h.el6_3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-SubscriptionAssetManager12",
+				"fullproductname": {
+					"text": "katello-certs-tools-0:1.2.1-1h.el6_3 as a component of Red Hat Subscription Asset Manager for RHEL 6 Server",
+					"productid": "6Server-SubscriptionAssetManager12:katello-certs-tools-0:1.2.1-1h.el6_3",
+					"cpe": "cpe:/a:rhel_sam:1.2::el6"
+				}
+			},
+			{
+				"productreference": "katello-cli-0:1.2.1-12h.el6_3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-SubscriptionAssetManager12",
+				"fullproductname": {
+					"text": "katello-cli-0:1.2.1-12h.el6_3 as a component of Red Hat Subscription Asset Manager for RHEL 6 Server",
+					"productid": "6Server-SubscriptionAssetManager12:katello-cli-0:1.2.1-12h.el6_3",
+					"cpe": "cpe:/a:rhel_sam:1.2::el6"
+				}
+			},
+			{
+				"productreference": "katello-configure-0:1.2.3-3h.el6_3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-SubscriptionAssetManager12",
+				"fullproductname": {
+					"text": "katello-configure-0:1.2.3-3h.el6_3 as a component of Red Hat Subscription Asset Manager for RHEL 6 Server",
+					"productid": "6Server-SubscriptionAssetManager12:katello-configure-0:1.2.3-3h.el6_3",
+					"cpe": "cpe:/a:rhel_sam:1.2::el6"
+				}
+			},
+			{
+				"productreference": "katello-selinux-0:1.2.1-2h.el6_3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-SubscriptionAssetManager12",
+				"fullproductname": {
+					"text": "katello-selinux-0:1.2.1-2h.el6_3 as a component of Red Hat Subscription Asset Manager for RHEL 6 Server",
+					"productid": "6Server-SubscriptionAssetManager12:katello-selinux-0:1.2.1-2h.el6_3",
+					"cpe": "cpe:/a:rhel_sam:1.2::el6"
+				}
+			},
+			{
+				"productreference": "lucene3-0:3.6.1-10h.el6_3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-SubscriptionAssetManager12",
+				"fullproductname": {
+					"text": "lucene3-0:3.6.1-10h.el6_3 as a component of Red Hat Subscription Asset Manager for RHEL 6 Server",
+					"productid": "6Server-SubscriptionAssetManager12:lucene3-0:3.6.1-10h.el6_3",
+					"cpe": "cpe:/a:rhel_sam:1.2::el6"
+				}
+			},
+			{
+				"productreference": "puppet-0:2.6.17-2.el6cf",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-SubscriptionAssetManager12",
+				"fullproductname": {
+					"text": "puppet-0:2.6.17-2.el6cf as a component of Red Hat Subscription Asset Manager for RHEL 6 Server",
+					"productid": "6Server-SubscriptionAssetManager12:puppet-0:2.6.17-2.el6cf",
+					"cpe": "cpe:/a:rhel_sam:1.2::el6"
+				}
+			},
+			{
+				"productreference": "quartz-0:2.1.5-4.el6_3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-SubscriptionAssetManager12",
+				"fullproductname": {
+					"text": "quartz-0:2.1.5-4.el6_3 as a component of Red Hat Subscription Asset Manager for RHEL 6 Server",
+					"productid": "6Server-SubscriptionAssetManager12:quartz-0:2.1.5-4.el6_3",
+					"cpe": "cpe:/a:rhel_sam:1.2::el6"
+				}
+			},
+			{
+				"productreference": "rubygem-activesupport-1:3.0.10-10.el6cf",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-SubscriptionAssetManager12",
+				"fullproductname": {
+					"text": "rubygem-activesupport-1:3.0.10-10.el6cf as a component of Red Hat Subscription Asset Manager for RHEL 6 Server",
+					"productid": "6Server-SubscriptionAssetManager12:rubygem-activesupport-1:3.0.10-10.el6cf",
+					"cpe": "cpe:/a:rhel_sam:1.2::el6"
+				}
+			},
+			{
+				"productreference": "rubygem-apipie-rails-0:0.0.12-2.el6cf",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-SubscriptionAssetManager12",
+				"fullproductname": {
+					"text": "rubygem-apipie-rails-0:0.0.12-2.el6cf as a component of Red Hat Subscription Asset Manager for RHEL 6 Server",
+					"productid": "6Server-SubscriptionAssetManager12:rubygem-apipie-rails-0:0.0.12-2.el6cf",
+					"cpe": "cpe:/a:rhel_sam:1.2::el6"
+				}
+			},
+			{
+				"productreference": "rubygem-ldap_fluff-0:0.1.3-1.el6_3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-SubscriptionAssetManager12",
+				"fullproductname": {
+					"text": "rubygem-ldap_fluff-0:0.1.3-1.el6_3 as a component of Red Hat Subscription Asset Manager for RHEL 6 Server",
+					"productid": "6Server-SubscriptionAssetManager12:rubygem-ldap_fluff-0:0.1.3-1.el6_3",
+					"cpe": "cpe:/a:rhel_sam:1.2::el6"
+				}
+			},
+			{
+				"productreference": "rubygem-mail-0:2.3.0-3.el6cf",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-SubscriptionAssetManager12",
+				"fullproductname": {
+					"text": "rubygem-mail-0:2.3.0-3.el6cf as a component of Red Hat Subscription Asset Manager for RHEL 6 Server",
+					"productid": "6Server-SubscriptionAssetManager12:rubygem-mail-0:2.3.0-3.el6cf",
+					"cpe": "cpe:/a:rhel_sam:1.2::el6"
+				}
+			},
+			{
+				"productreference": "rubygem-rack-1:1.3.0-3.el6cf",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-SubscriptionAssetManager12",
+				"fullproductname": {
+					"text": "rubygem-rack-1:1.3.0-3.el6cf as a component of Red Hat Subscription Asset Manager for RHEL 6 Server",
+					"productid": "6Server-SubscriptionAssetManager12:rubygem-rack-1:1.3.0-3.el6cf",
+					"cpe": "cpe:/a:rhel_sam:1.2::el6"
+				}
+			},
+			{
+				"productreference": "rubygem-ruby_parser-0:2.0.4-6.el6cf",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-SubscriptionAssetManager12",
+				"fullproductname": {
+					"text": "rubygem-ruby_parser-0:2.0.4-6.el6cf as a component of Red Hat Subscription Asset Manager for RHEL 6 Server",
+					"productid": "6Server-SubscriptionAssetManager12:rubygem-ruby_parser-0:2.0.4-6.el6cf",
+					"cpe": "cpe:/a:rhel_sam:1.2::el6"
+				}
+			},
+			{
+				"productreference": "sigar-0:1.6.5-0.12.git58097d9h.el6_3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-SubscriptionAssetManager12",
+				"fullproductname": {
+					"text": "sigar-0:1.6.5-0.12.git58097d9h.el6_3 as a component of Red Hat Subscription Asset Manager for RHEL 6 Server",
+					"productid": "6Server-SubscriptionAssetManager12:sigar-0:1.6.5-0.12.git58097d9h.el6_3",
+					"cpe": "cpe:/a:rhel_sam:1.2::el6"
+				}
+			},
+			{
+				"productreference": "snappy-java-0:1.0.4-2.el6_3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-SubscriptionAssetManager12",
+				"fullproductname": {
+					"text": "snappy-java-0:1.0.4-2.el6_3 as a component of Red Hat Subscription Asset Manager for RHEL 6 Server",
+					"productid": "6Server-SubscriptionAssetManager12:snappy-java-0:1.0.4-2.el6_3",
+					"cpe": "cpe:/a:rhel_sam:1.2::el6"
+				}
+			},
+			{
+				"productreference": "thumbslug-0:0.0.28-1.el6_3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-SubscriptionAssetManager12",
+				"fullproductname": {
+					"text": "thumbslug-0:0.0.28-1.el6_3 as a component of Red Hat Subscription Asset Manager for RHEL 6 Server",
+					"productid": "6Server-SubscriptionAssetManager12:thumbslug-0:0.0.28-1.el6_3",
+					"cpe": "cpe:/a:rhel_sam:1.2::el6"
+				}
+			}
+		]
+	}
+}

@@ -1,0 +1,329 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: kernel security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2017:0217"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2017-01-31T13:11:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2017-01-31T13:11:00Z",
+		"CurrentReleaseDate": "2017-01-31T13:11:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:37:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nAn update for kernel is now available for Red Hat Enterprise Linux 7.2 Extended Update Support.\n\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe kernel packages contain the Linux kernel, the core of any Linux operating system.\n\nSecurity Fix(es):\n\n* A use-after-free vulnerability was found in the kernel's socket recvmmsg subsystem. This may allow remote attackers to corrupt memory and may allow execution of arbitrary code. This corruption takes place during the error handling routines within __sys_recvmmsg() function. (CVE-2016-7117, Important)\n\n* It is possible for a single process to cause an OOM condition by filling large pipes with data that are never read. A typical process filling 4096 pipes with 1 MB of data will use 4 GB of memory and there can be multiple such processes, up to a per-user-limit. (CVE-2016-2847, Moderate)\n\nRed Hat would like to thank Tetsuo Handa for reporting CVE-2016-2847.\n\nBug Fix(es):\n\n* Previously, an XFS corruption in some cases occurred on Seagate 8TB drive based volumes after a planned system shutdown or reboot, when a disk write back cache was used. With this update, the megaraid_sas driver has been fixed and the XFS corruption no longer occurs in the described scenario. (BZ#1398178)\n\n* This update applies a set of patches for the resizable hash table (rhashtable). This set contains backported bug fixes and enhancements from upstream. (BZ#1382630)\n\n* Previously, a kernel panic in some cases occurred during the boot with the Nonvolatile Memory Express (NVMe) kernel module, because the NVMe driver did not receive legacy PCI interrupts. This update fixes the NVMe driver to always use the Message Signaled Interrupts (MSI/MSI-X) interrupts. As a result, the operating system now boots without panic under the described circumstances. (BZ#1396558)\n\n* Previously, the Advanced Error Reporting (AER) correct error in some cases caused a kernel panic. This update fixes the _scsih_pci_mmio_enabled() function in the mpt3sas driver to not incorrectly return PCI_ERS_RESULT_NEED_RESET return value in the situation when PCI_ERS_RESULT_RECOVERED return value is expected. As a result, the kernel no longer panics due to _scsih_pci_mmio_enabled(). (BZ#1395220)\n\n* When resizing the Transmit (TX) and Receive (RX) rings in the sfc driver with the \"ethtool -G\" command, a kernel protection fault in the napi_hash_add() function occurred on systems with a large number of queues. With this update, the efx_copy_channel()function in the sfc driver has been fixed to correctly clear the napi_hash state. As a result, the sfc kernel module now unloads successfully without the mentioned kernel protection fault. (BZ#1401460)\n\n* When a virtual machine (VM) with 2 PCI-Passthrough Ethernet interfaces attached was created, deleted and recreated, the operating system terminated unexpectedly and rebooted during the recreation. This update fixes the race condition between the eventfd and virqfd signaling mechanisms in the vfio driver. As a result, the operating system now boots without crashing in the described situation. (BZ#1391610)\n\n* Previously, when two NFS shares with different security settings were mounted, the I/O operations to the kerberos-authenticated mount caused the RPC_CRED_KEY_EXPIRE_SOON parameter to be set, but the parameter was not unset when performing the I/O operations on the sec=sys mount. Consequently, writes to both NFS shares had the same parameters, regardless of their security settings. This update fixes this problem by moving the NO_CRKEY_TIMEOUT parameter to the auth->au_flags field. As a result, NFS shares with different security settings are now handled as expected. (BZ#1388603)\n\n* Previously, memory corruption by copying data into the wrong memory locations sometimes occurred, because the __copy_tofrom_user() function was returning incorrect values. This update fixes the __copy_tofrom_user() function so that it no longer returns larger values than the number of bytes it was asked to copy. As a result, memory corruption no longer occurs in he described scenario. (BZ#1398588)\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2017:0217",
+				"Description": "https://access.redhat.com/errata/RHSA-2017:0217"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/vulnerabilities/2706661",
+				"Description": "https://access.redhat.com/security/vulnerabilities/2706661"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: pipe: limit the per-user amount of pages allocated in pipes",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-12-28T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2016-2847",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2017:0217"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2016-2847",
+						"Description": "CVE-2016-2847"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1313428",
+						"Description": "bz#1313428: CVE-2016-2847 kernel: pipe: limit the per-user amount of pages allocated in pipes"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-03-10T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7ComputeNode-7.2.EUS:kernel-0:3.10.0-327.46.1.el7",
+						"7ComputeNode-optional-7.2.EUS:kernel-0:3.10.0-327.46.1.el7",
+						"7Server-7.2.EUS:kernel-0:3.10.0-327.46.1.el7",
+						"7Server-optional-7.2.EUS:kernel-0:3.10.0-327.46.1.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank Tetsuo Handa for reporting this issue."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.9",
+					"Vector": "AV:L/AC:L/Au:N/C:N/I:N/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: Use-after-free in the recvmmsg exit path",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-03-14T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2016-7117",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2017:0217"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2016-7117",
+						"Description": "CVE-2016-7117"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1382268",
+						"Description": "bz#1382268: CVE-2016-7117 kernel: Use-after-free in the recvmmsg exit path"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2016-10-05T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7ComputeNode-7.2.EUS:kernel-0:3.10.0-327.46.1.el7",
+						"7ComputeNode-optional-7.2.EUS:kernel-0:3.10.0-327.46.1.el7",
+						"7Server-7.2.EUS:kernel-0:3.10.0-327.46.1.el7",
+						"7Server-optional-7.2.EUS:kernel-0:3.10.0-327.46.1.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "7.6",
+					"Vector": "AV:N/AC:H/Au:N/C:C/I:C/A:C"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ComputeNode EUS (v. 7.2)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ComputeNode EUS (v. 7.2)",
+							"productid": "7ComputeNode-7.2.EUS",
+							"cpe": "cpe:/o:redhat:rhel_eus:7.2::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ComputeNode Optional EUS (v. 7.2)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ComputeNode Optional EUS (v. 7.2)",
+							"productid": "7ComputeNode-optional-7.2.EUS",
+							"cpe": "cpe:/o:redhat:rhel_eus:7.2::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server EUS (v. 7.2)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server EUS (v. 7.2)",
+							"productid": "7Server-7.2.EUS",
+							"cpe": "cpe:/o:redhat:rhel_eus:7.2::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional EUS (v. 7.2)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional EUS (v. 7.2)",
+							"productid": "7Server-optional-7.2.EUS",
+							"cpe": "cpe:/o:redhat:rhel_eus:7.2::server"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-0:3.10.0-327.46.1.el7",
+				"fullproductname": {
+					"text": "kernel-3.10.0-327.46.1.el7.src.rpm",
+					"productid": "kernel-0:3.10.0-327.46.1.el7",
+					"cpe": "cpe:/o:redhat:rhel_eus:7.2::computenode"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "kernel-0:3.10.0-327.46.1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-7.2.EUS",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-327.46.1.el7 as a component of Red Hat Enterprise Linux ComputeNode EUS (v. 7.2)",
+					"productid": "7ComputeNode-7.2.EUS:kernel-0:3.10.0-327.46.1.el7",
+					"cpe": "cpe:/o:redhat:rhel_eus:7.2::computenode"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-327.46.1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-optional-7.2.EUS",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-327.46.1.el7 as a component of Red Hat Enterprise Linux ComputeNode Optional EUS (v. 7.2)",
+					"productid": "7ComputeNode-optional-7.2.EUS:kernel-0:3.10.0-327.46.1.el7",
+					"cpe": "cpe:/o:redhat:rhel_eus:7.2::computenode"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-327.46.1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-7.2.EUS",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-327.46.1.el7 as a component of Red Hat Enterprise Linux Server EUS (v. 7.2)",
+					"productid": "7Server-7.2.EUS:kernel-0:3.10.0-327.46.1.el7",
+					"cpe": "cpe:/o:redhat:rhel_eus:7.2::server"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-327.46.1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-optional-7.2.EUS",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-327.46.1.el7 as a component of Red Hat Enterprise Linux Server Optional EUS (v. 7.2)",
+					"productid": "7Server-optional-7.2.EUS:kernel-0:3.10.0-327.46.1.el7",
+					"cpe": "cpe:/o:redhat:rhel_eus:7.2::server"
+				}
+			}
+		]
+	}
+}

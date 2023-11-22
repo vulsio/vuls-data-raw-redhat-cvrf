@@ -1,0 +1,252 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: nss_ldap security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2008:0715"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2008-07-24T12:57:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2008-07-24T16:53:00Z",
+		"CurrentReleaseDate": "2008-07-24T12:57:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:28:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nAn updated nss_ldap package that fixes a security issue and several bugs is\nnow available.\n\nThis update has been rated as having low security impact by the Red Hat\nSecurity Response Team.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe nss_ldap package contains the nss_ldap and pam_ldap modules. The\nnss_ldap module is a plug-in which allows applications to retrieve\ninformation about users and groups from a directory server. The pam_ldap\nmodule allows PAM-aware applications to use a directory server to verify\nuser passwords.\n\nA race condition was discovered in nss_ldap, which affected certain\napplications that make LDAP connections, such as Dovecot. This could cause\nnss_ldap to answer a request for information about one user with the\ninformation about a different user. (CVE-2007-5794)\n\nAs well, this updated package fixes the following bugs:\n\n* in certain situations, on Itanium(R) architectures, when an application\nperformed an LDAP lookup for a highly populated group, for example,\ncontaining more than 150 members, the application crashed, or may have\ncaused a segmentation fault. As well, this issue may have caused commands,\nsuch as \"ls\", to return a \"ber_free_buf: Assertion\" error.\n\n* when an application enumerated members of a netgroup, the nss_ldap\nmodule returned a successful status result and the netgroup name, even\nwhen the netgroup did not exist. This behavior was not consistent with\nother modules. In this updated package, nss_ldap no longer returns a\nsuccessful status when the netgroup does not exist.\n\n* in master and slave server environments, with systems that were\nconfigured to use a read-only directory server, if user log in attempts\nwere denied because their passwords had expired, and users attempted to\nimmediately change their passwords, the replication server returned an LDAP\nreferral, instructing the pam_ldap module to resissue its request to a\ndifferent server; however, the pam_ldap module failed to do so. In these\nsituations, an error such as the following occurred:\n\nLDAP password information update failed: Can't contact LDAP server\nInsufficient 'write' privilege to the 'userPassword' attribute of entry\n[entry]\n\nIn this updated package, password changes are allowed when binding against\na slave server, which resolves this issue.\n\n* when a system used a directory server for naming information, and\n\"nss_initgroups_ignoreusers root\" was configured in \"/etc/ldap.conf\",\ndbus-daemon-1 would hang. Running the \"service messagebus start\" command\ndid not start the service, and it did not fail, which would stop the boot\nprocess if it was not cancelled.\n\nAs well, this updated package upgrades nss_ldap to the version as shipped\nwith Red Hat Enterprise Linux 5.\n\nUsers of nss_ldap are advised to upgrade to this updated package, which\nresolves these issues.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Low",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2008:0715",
+				"Description": "https://access.redhat.com/errata/RHSA-2008:0715"
+			},
+			{
+				"type": "External",
+				"URL": "http://www.redhat.com/security/updates/classification/#low",
+				"Description": "http://www.redhat.com/security/updates/classification/#low"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "nss_ldap randomly replying with wrong user's data",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2005-04-09T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2007-5794",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/FAQ_58_10188\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2008:0715"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2007-5794",
+						"Description": "CVE-2007-5794"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=367461",
+						"Description": "bz#367461: CVE-2007-5794 nss_ldap randomly replying with wrong user's data"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2005-04-09T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"4AS:nss_ldap-0:253-5.el4",
+						"4Desktop:nss_ldap-0:253-5.el4",
+						"4ES:nss_ldap-0:253-5.el4",
+						"4WS:nss_ldap-0:253-5.el4"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux AS version 4",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux AS version 4",
+							"productid": "4AS",
+							"cpe": "cpe:/o:redhat:enterprise_linux:4::as"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop version 4",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop version 4",
+							"productid": "4Desktop",
+							"cpe": "cpe:/o:redhat:enterprise_linux:4::desktop"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ES version 4",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ES version 4",
+							"productid": "4ES",
+							"cpe": "cpe:/o:redhat:enterprise_linux:4::es"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux WS version 4",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux WS version 4",
+							"productid": "4WS",
+							"cpe": "cpe:/o:redhat:enterprise_linux:4::ws"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "nss_ldap-0:253-5.el4",
+				"fullproductname": {
+					"text": "nss_ldap-253-5.el4.src.rpm",
+					"productid": "nss_ldap-0:253-5.el4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:4::as"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "nss_ldap-0:253-5.el4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "4AS",
+				"fullproductname": {
+					"text": "nss_ldap-0:253-5.el4 as a component of Red Hat Enterprise Linux AS version 4",
+					"productid": "4AS:nss_ldap-0:253-5.el4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:4::as"
+				}
+			},
+			{
+				"productreference": "nss_ldap-0:253-5.el4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "4Desktop",
+				"fullproductname": {
+					"text": "nss_ldap-0:253-5.el4 as a component of Red Hat Enterprise Linux Desktop version 4",
+					"productid": "4Desktop:nss_ldap-0:253-5.el4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:4::desktop"
+				}
+			},
+			{
+				"productreference": "nss_ldap-0:253-5.el4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "4ES",
+				"fullproductname": {
+					"text": "nss_ldap-0:253-5.el4 as a component of Red Hat Enterprise Linux ES version 4",
+					"productid": "4ES:nss_ldap-0:253-5.el4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:4::es"
+				}
+			},
+			{
+				"productreference": "nss_ldap-0:253-5.el4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "4WS",
+				"fullproductname": {
+					"text": "nss_ldap-0:253-5.el4 as a component of Red Hat Enterprise Linux WS version 4",
+					"productid": "4WS:nss_ldap-0:253-5.el4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:4::ws"
+				}
+			}
+		]
+	}
+}

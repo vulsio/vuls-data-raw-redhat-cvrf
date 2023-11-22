@@ -1,0 +1,257 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: freeradius security, bug fix, and enhancement update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2015:1287"
+		},
+		"Status": "Final",
+		"Version": "3",
+		"revisionhistory": {
+			"revision": {
+				"Number": "3",
+				"Date": "2015-07-20T13:48:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2015-07-20T13:48:00Z",
+		"CurrentReleaseDate": "2015-07-20T13:48:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:38:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated freeradius packages that fix one security issue, several bugs, and\nadd various enhancements are now available for Red Hat Enterprise Linux 6.\n\nRed Hat Product Security has rated this update as having Moderate security\nimpact. A Common Vulnerability Scoring System (CVSS) base score, which\ngives a detailed severity rating, is available from the CVE link in the\nReferences section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nFreeRADIUS is a high-performance and highly configurable free Remote\nAuthentication Dial In User Service (RADIUS) server, designed to allow\ncentralized authentication and authorization for a network.\n\nA stack-based buffer overflow was found in the way the FreeRADIUS rlm_pap\nmodule handled long password hashes. An attacker able to make radiusd\nprocess a malformed password hash could cause the daemon to crash.\n(CVE-2014-2015)\n\nThe freeradius packages have been upgraded to upstream version 2.2.6, which\nprovides a number of bug fixes and enhancements over the previous version,\nincluding:\n\n* The number of dictionaries have been updated.\n\n* This update implements several Extensible Authentication Protocol\n(EAP) improvements.\n\n* A number of new expansions have been added, including: %{randstr:...},\n%{hex:...}, %{sha1:...}, %{base64:...}, %{tobase64:...}, and\n%{base64tohex:...}.\n\n* Hexadecimal numbers (0x...) are now supported in %{expr:...} expansions.\n\n* This update adds operator support to the rlm_python module.\n\n* The Dynamic Host Configuration Protocol (DHCP) and DHCP relay code have\nbeen finalized.\n\n* This update adds the rlm_cache module to cache arbitrary attributes.\n\nFor a complete list of bug fixes and enhancements provided by this rebase,\nsee the freeradius changelog linked to in the References section.\n\n(BZ#1078736)\n\nThis update also fixes the following bugs:\n\n* The /var/log/radius/radutmp file was configured to rotate at one-month\nintervals, even though this was unnecessary. This update removes\n/var/log/radius/radutmp from the installed logrotate utility configuration\nin the /etc/logrotate.d/radiusd file, and /var/log/radius/radutmp is no\nlonger rotated. (BZ#904578)\n\n* The radiusd service could not write the output file created by the\nraddebug utility. The raddebug utility now sets appropriate ownership to\nthe output file, allowing radiusd to write the output. (BZ#921563)\n\n* After starting raddebug using the \"raddebug -t 0\" command, raddebug\nexited immediately. A typo in the special case comparison has been fixed,\nand raddebug now runs for 11.5 days in this situation. (BZ#921567)\n\n* MS-CHAP authentication failed when the User-Name and MS-CHAP-User-Name\nattributes used different encodings, even when the user provided correct\ncredentials. Now, MS-CHAP authentication properly handles mismatching\ncharacter encodings. Authentication with correct credentials no longer\nfails in this situation. (BZ#1060319)\n\n* Automatically generated default certificates used the SHA-1 algorithm\nmessage digest, which is considered insecure. The default certificates now\nuse the more secure SHA-256 algorithm message digest. (BZ#1135439)\n\n* During the Online Certificate Status Protocol (OCSP) validation, radiusd\nterminated unexpectedly with a segmentation fault after attempting to\naccess the next update field that was not provided by the OCSP responder.\nNow, radiusd does not crash in this situation and instead continues to\ncomplete the OCSP validation. (BZ#1142669)\n\n* Prior to this update, radiusd failed to work with some of the more recent\nMikroTIK attributes, because the installed directory.mikrotik file did not\ninclude them. This update adds MikroTIK attributes with IDs up to 22 to\ndictionary.mikrotik, and radiusd now works as expected with these\nattributes. (BZ#1173388)\n\nUsers of freeradius are advised to upgrade to these updated packages, which\ncorrect these issues and add these enhancements. After installing this\nupdate, the radiusd service will be restarted automatically.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2015:1287",
+				"Description": "https://access.redhat.com/errata/RHSA-2015:1287"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			},
+			{
+				"type": "External",
+				"URL": "https://raw.githubusercontent.com/FreeRADIUS/freeradius-server/v3.0.x/doc/ChangeLog",
+				"Description": "https://raw.githubusercontent.com/FreeRADIUS/freeradius-server/v3.0.x/doc/ChangeLog"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "freeradius: stack-based buffer overflow flaw in rlm_pap module",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-02-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-2015",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1287"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-2015",
+						"Description": "CVE-2014-2015"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1066761",
+						"Description": "bz#1066761: CVE-2014-2015 freeradius: stack-based buffer overflow flaw in rlm_pap module"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-02-12T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-optional:freeradius-0:2.2.6-4.el6",
+						"6Server:freeradius-0:2.2.6-4.el6",
+						"6Workstation-optional:freeradius-0:2.2.6-4.el6",
+						"6Workstation:freeradius-0:2.2.6-4.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.5",
+					"Vector": "AV:N/AC:L/Au:S/C:P/I:P/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 6)",
+							"productid": "6Server",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional (v. 6)",
+							"productid": "6Server-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 6)",
+							"productid": "6Workstation",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+							"productid": "6Workstation-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "freeradius-0:2.2.6-4.el6",
+				"fullproductname": {
+					"text": "freeradius-2.2.6-4.el6.src.rpm",
+					"productid": "freeradius-0:2.2.6-4.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "freeradius-0:2.2.6-4.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server",
+				"fullproductname": {
+					"text": "freeradius-0:2.2.6-4.el6 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"productid": "6Server:freeradius-0:2.2.6-4.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "freeradius-0:2.2.6-4.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-optional",
+				"fullproductname": {
+					"text": "freeradius-0:2.2.6-4.el6 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"productid": "6Server-optional:freeradius-0:2.2.6-4.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "freeradius-0:2.2.6-4.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation",
+				"fullproductname": {
+					"text": "freeradius-0:2.2.6-4.el6 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"productid": "6Workstation:freeradius-0:2.2.6-4.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			},
+			{
+				"productreference": "freeradius-0:2.2.6-4.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-optional",
+				"fullproductname": {
+					"text": "freeradius-0:2.2.6-4.el6 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"productid": "6Workstation-optional:freeradius-0:2.2.6-4.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			}
+		]
+	}
+}

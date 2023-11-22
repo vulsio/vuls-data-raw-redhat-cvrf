@@ -1,0 +1,212 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: nfs-utils security, bug fix, and enhancement update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2012:0310"
+		},
+		"Status": "Final",
+		"Version": "3",
+		"revisionhistory": {
+			"revision": {
+				"Number": "3",
+				"Date": "2012-02-21T02:25:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2012-02-21T02:20:00Z",
+		"CurrentReleaseDate": "2012-02-21T02:25:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:32:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nAn updated nfs-utils package that fixes one security issue, various bugs,\nand adds one enhancement is now available for Red Hat Enterprise Linux 5.\n\nThe Red Hat Security Response Team has rated this update as having low\nsecurity impact. A Common Vulnerability Scoring System (CVSS) base score,\nwhich gives a detailed severity rating, is available from the CVE link in\nthe References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe nfs-utils package provides a daemon for the kernel Network File System\n(NFS) server, and related tools such as the mount.nfs, umount.nfs, and\nshowmount programs.\n\nIt was found that the mount.nfs tool did not handle certain errors\ncorrectly when updating the mtab (mounted file systems table) file. A\nlocal attacker could use this flaw to corrupt the mtab file.\n(CVE-2011-1749)\n\nThis update also fixes the following bugs:\n\n* The nfs service failed to start if the NFSv1, NFSv2, and NFSv4 support\nwas disabled (the MOUNTD_NFS_V1=\"no\", MOUNTD_NFS_V2=\"no\" MOUNTD_NFS_V3=\"no\"\nlines in /etc/sysconfig/nfs were uncommented) because the mountd daemon\nfailed to handle the settings correctly. With this update, the underlying\ncode has been modified and the nfs service starts successfully in the\ndescribed scenario. (BZ#529588)\n\n* When a user's Kerberos ticket expired, the \"sh rpc.gssd\" messages flooded\nthe /var/log/messages file. With this update, the excessive logging has\nbeen suppressed. (BZ#593097)\n\n* The crash simulation (SM_SIMU_CRASH) of the rpc.statd service had a\nvulnerability that could be detected by ISS (Internet Security Scanner). As\na result, the rpc.statd service terminated unexpectedly with the following\nerror after an ISS scan:\n\n  rpc.statd[xxxx]: recv_rply: can't decode RPC message!\n  rpc.statd[xxxx]: *** SIMULATING CRASH! ***\n  rpc.statd[xxxx]: unable to register (statd, 1, udp).\n\nHowever, the rpc.statd service ignored SM_SIMU_CRASH. This update removes\nthe simulation crash support from the service and the problem no longer\noccurs. (BZ#600497)\n\n* The nfs-utils init scripts returned incorrect status codes in the\nfollowing cases: if the rpcgssd and rpcsvcgssd daemon were not configured,\nwere provided an unknown argument, their function call failed, if a program\nwas no longer running and a /var/lock/subsys/$SERVICE file existed, if\nstarting a service under an unprivileged user, if a program was no longer\nrunning and its pid file still existed in the /var/run/ directory. With\nthis update, the correct codes are returned in these scenarios. (BZ#710020)\n\n* The \"nfsstat -m\" command did not display NFSv4 mounts. With this update,\nthe underlying code has been modified and the command returns the list of\nall mounts, including any NFSv4 mounts, as expected. (BZ#712438)\n\n* Previously, the nfs manual pages described the fsc mount option; however,\nthis option is not supported. This update removes the option description\nfrom the manual pages. (BZ#715523)\n\n* The nfs-utils preinstall scriptlet failed to change the default group ID\nfor the nfsnobody user to 65534. This update modifies the preinstall\nscriptlet and the default group ID is changed to 65534 after nfs-utils\nupgrade as expected. (BZ#729603)\n\n* The mount.nfs command with the \"-o retry\" option did not try to mount for\nthe time specified in the \"retry=X\" configuration option. This occurred due\nto incorrect error handling by the command. With this update, the\nunderlying code has been fixed and the \"-o retry\" option works as expected.\n(BZ#736677)\n\nIn addition, this update adds the following enhancement:\n\n* The noresvport option, which allows NFS clients to use insecure ports\n(ports above 1023), has been added to the NFS server configuration options.\n(BZ#513094)\n\nAll nfs-utils users are advised to upgrade to this updated package, which\nresolves these issues and adds this enhancement. After installing this\nupdate, the nfs service will be restarted automatically.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Low",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2012:0310",
+				"Description": "https://access.redhat.com/errata/RHSA-2012:0310"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#low",
+				"Description": "https://access.redhat.com/security/updates/classification/#low"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "nfs-utils: mount.nfs fails to anticipate RLIMIT_FSIZE",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2011-04-19T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2011-1749",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/kb/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:0310"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2011-1749",
+						"Description": "CVE-2011-1749"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=697975",
+						"Description": "bz#697975: CVE-2011-1749 nfs-utils: mount.nfs fails to anticipate RLIMIT_FSIZE"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2011-04-19T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client:nfs-utils-1:1.0.9-60.el5",
+						"5Server:nfs-utils-1:1.0.9-60.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "1.9",
+					"Vector": "AV:L/AC:M/Au:N/C:N/I:P/A:N"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+							"productid": "5Client",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux (v. 5 server)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux (v. 5 server)",
+							"productid": "5Server",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "nfs-utils-1:1.0.9-60.el5",
+				"fullproductname": {
+					"text": "nfs-utils-1.0.9-60.el5.src.rpm",
+					"productid": "nfs-utils-1:1.0.9-60.el5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "nfs-utils-1:1.0.9-60.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Client",
+				"fullproductname": {
+					"text": "nfs-utils-1:1.0.9-60.el5 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"productid": "5Client:nfs-utils-1:1.0.9-60.el5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+				}
+			},
+			{
+				"productreference": "nfs-utils-1:1.0.9-60.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server",
+				"fullproductname": {
+					"text": "nfs-utils-1:1.0.9-60.el5 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"productid": "5Server:nfs-utils-1:1.0.9-60.el5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+				}
+			}
+		]
+	}
+}

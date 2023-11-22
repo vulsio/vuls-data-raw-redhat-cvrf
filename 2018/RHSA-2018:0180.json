@@ -1,0 +1,212 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: kernel-alt security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2018:0180"
+		},
+		"Status": "Final",
+		"Version": "2",
+		"revisionhistory": {
+			"revision": {
+				"Number": "2",
+				"Date": "2018-01-25T11:02:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2018-01-25T11:02:00Z",
+		"CurrentReleaseDate": "2018-01-25T11:02:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:39:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nAn update for kernel-alt is now available for Red Hat Enterprise Linux 7.\n\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe kernel-alt packages provide the Linux kernel version 4.x.\n\nSecurity Fix(es):\n\n* A flaw was found in the patches used to fix the 'dirtycow' vulnerability (CVE-2016-5195). An attacker, able to run local code, can exploit a race condition in transparent huge pages to modify usually read-only huge pages. (CVE-2017-1000405)\n\nRed Hat would like to thank Eylon Ben Yaakov and Daniel Shapiro for reporting this issue.\n\nBug Fix(es):\n\n* Previously, Red Hat Enterprise Linux 7.4 with the kernel version provided by the kernel-alt package, did not support turning off transactional memory (TM) on the POWER9 systems. With this update it is now possible to turn off TM on the POWER9 systems. (BZ#1509974)\n\n* Due to a bug in the ixgbe and i40e drivers, the socket buffer list (skb list) in some cases got corrupted when running Red Hat Enterprise Linux 7.4 with the kernel version provided by the kernel-alt package on the POWER9 systems. Consequently, a kernel panic occurred. This update fixes ixgbe and i40e, and the kernel no longer panics due to this behavior. (BZ#1518412)\n\n* Users can lower the max_sectors_kb setting in the sysfs file system to accommodate certain workloads. Previously, users needed to set the maximum I/O size to either the block layer default or the optional preferred I/O size reported by the device. This update fixes the scsi driver to keep the current heuristic function for the initial setting of max_sectors_kb. As a result, for subsequent invocations, the driver now only updates the current queue limit if it exceeds the capabilities of the hardware. (BZ#1518432)\n\n* When performing full-bootme tests on Boston ESS systems running Red Hat Enterprise Linux 7.4 with the kernel version provided in the kernel-alt package, a kernel panic occurred and the operating system dropped into the XMON software. This update fixes the Multi-Queue Block IO Queueing Mechanism (blk-mq), and the kernel no longer panics in these circumstances. (BZ#1518433)\n\n* When running the stress test on the file system with the gssstress command, and pulling one disk from one recovery group, \"kernel I/O error\" was reported, and gssstress became unresponsive. Gssstress now works as expected under the described circumstances. (BZ#1522645)\n\n* When using the fwupdate_xl710 utility to apply updates for NVM Intel Ethernet Converged Network Adapter XL710 on machines running Red Hat Enterpise Linux 7.4 with the kernel version provided in the kernel-alt package, a deadlock sometimes occurred when the i40e driver was acquiring access to the Non-Volatile Memory (NVM) of the device. Consequently, NVM acquire timeouts occurred, the firmware update failed with the following error message: \"Failed Acquiring NVM resource for read err=-53 status=0xa\", and left the device's memory in a corrupted state. This update fixes the i40e driver, and the firmware updates no longer fail due to this behavior. (BZ#1522843)\n\n* Previously, on POWER9 systems with more than 100 Pstates, the cpufreq driver did not handle the cases when the NxN matrix denominated transition table (trans_table) overflowed beyond the PAGE_SIZE boundary correctly. Consequently, reading trans_table for any of the CPUs failed with the following error:\n\n\"fill_read_buffer: show+0x0/0xa0 returned bad count\"\n\nWith this update reading trans_table for any of the CPUs now proceeds as expected under the described circumstances. (BZ#1522844)\n\n* Previously, the /sys/firmware/opal/exports directory did not contain an export node. Consequently, a range of memory in the Open Power Abstraction Layer (OPAL) that the operating system attempted to export to user space for debugging purposes was not available. With this update the sysfs file under /sys/firmware/opal/exports is now available for each property found there, and this file can be used for debugging purposes. (BZ#1522845)\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2018:0180",
+				"Description": "https://access.redhat.com/errata/RHSA-2018:0180"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: pmd can become dirty without going through a COW cycle",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2017-11-30T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2017-1000405",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2018:0180"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2017-1000405",
+						"Description": "CVE-2017-1000405"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1516514",
+						"Description": "bz#1516514: CVE-2017-1000405 kernel: pmd can become dirty without going through a COW cycle"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2017-11-22T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-RHELALT-7.4:kernel-alt-0:4.11.0-44.4.1.el7a",
+						"7Server-optional-RHELALT-7.4:kernel-alt-0:4.11.0-44.4.1.el7a"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank Daniel Shapiro and Eylon Ben Yaakov for reporting this issue."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux for ARM and IBM Power LE (POWER9) Server Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux for ARM and IBM Power LE (POWER9) Server Optional (v. 7)",
+							"productid": "7Server-optional-RHELALT-7.4",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux for ARM and IBM Power LE (POWER9) Server (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux for ARM and IBM Power LE (POWER9) Server (v. 7)",
+							"productid": "7Server-RHELALT-7.4",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-alt-0:4.11.0-44.4.1.el7a",
+				"fullproductname": {
+					"text": "kernel-alt-4.11.0-44.4.1.el7a.src.rpm",
+					"productid": "kernel-alt-0:4.11.0-44.4.1.el7a",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "kernel-alt-0:4.11.0-44.4.1.el7a",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RHELALT-7.4",
+				"fullproductname": {
+					"text": "kernel-alt-0:4.11.0-44.4.1.el7a as a component of Red Hat Enterprise Linux for ARM and IBM Power LE (POWER9) Server (v. 7)",
+					"productid": "7Server-RHELALT-7.4:kernel-alt-0:4.11.0-44.4.1.el7a",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "kernel-alt-0:4.11.0-44.4.1.el7a",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-optional-RHELALT-7.4",
+				"fullproductname": {
+					"text": "kernel-alt-0:4.11.0-44.4.1.el7a as a component of Red Hat Enterprise Linux for ARM and IBM Power LE (POWER9) Server Optional (v. 7)",
+					"productid": "7Server-optional-RHELALT-7.4:kernel-alt-0:4.11.0-44.4.1.el7a",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			}
+		]
+	}
+}

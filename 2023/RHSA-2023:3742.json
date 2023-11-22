@@ -1,0 +1,4101 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: Red Hat OpenShift Data Foundation 4.13.0 security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2023:3742"
+		},
+		"Status": "Final",
+		"Version": "2",
+		"revisionhistory": {
+			"revision": {
+				"Number": "2",
+				"Date": "2023-06-22T19:51:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2023-06-21T15:22:00Z",
+		"CurrentReleaseDate": "2023-06-22T19:51:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.18.0",
+			"Date": "2023-06-22T23:14:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated images that include numerous enhancements, security, and bug fixes are now available in Red Hat Container Registry for Red Hat OpenShift Data Foundation 4.13.0 on Red Hat Enterprise Linux 9.\n\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nRed Hat OpenShift Data Foundation is software-defined storage integrated with and optimized for the Red Hat OpenShift Container Platform. Red Hat OpenShift Data Foundation is a highly scalable, production-grade persistent storage for stateful applications running in the Red Hat OpenShift Container Platform. In addition to persistent storage, Red Hat OpenShift Data Foundation provisions a multicloud data management service with an S3 compatible API.\n\nSecurity Fix(es):\n\n* goutils: RandomAlphaNumeric and CryptoRandomAlphaNumeric are not as random as they should be (CVE-2021-4238)\n\n* decode-uri-component: improper input validation resulting in DoS (CVE-2022-38900)\n\n* vault: Hashicorp Vault AWS IAM Integration Authentication Bypass (CVE-2020-16250)\n\n* vault: GCP Auth Method Allows Authentication Bypass (CVE-2020-16251)\n\n* nodejs-ansi-regex: Regular expression denial of service (ReDoS) matching ANSI escape codes (CVE-2021-3807)\n\n* go-yaml: Denial of Service in go-yaml (CVE-2021-4235)\n\n* vault: incorrect policy enforcement (CVE-2021-43998)\n\n* nodejs: Improper handling of URI Subject Alternative Names (CVE-2021-44531)\n\n* nodejs: Certificate Verification Bypass via String Injection (CVE-2021-44532)\n\n* nodejs: Incorrect handling of certificate subject and issuer fields (CVE-2021-44533)\n\n* golang: archive/tar: unbounded memory consumption when reading headers (CVE-2022-2879)\n\n* golang: net/http/httputil: ReverseProxy should not forward unparseable query parameters (CVE-2022-2880)\n\n* nodejs-minimatch: ReDoS via the braceExpand function (CVE-2022-3517)\n\n* jsonwebtoken: Insecure default algorithm in jwt.verify() could lead to signature validation bypass (CVE-2022-23540)\n\n* jsonwebtoken: Insecure implementation of key retrieval function could lead to Forgeable Public/Private Tokens from RSA to HMAC (CVE-2022-23541)\n\n* golang: net/http: handle server errors after sending GOAWAY (CVE-2022-27664)\n\n* golang: encoding/gob: stack exhaustion in Decoder.Decode (CVE-2022-30635)\n\n* golang: net/url: JoinPath does not strip relative path components in all circumstances (CVE-2022-32190)\n\n* consul: Consul Template May Expose Vault Secrets When Processing Invalid Input (CVE-2022-38149)\n\n* vault: insufficient certificate revocation list checking (CVE-2022-41316)\n\n* golang: regexp/syntax: limit memory used by parsing regexps (CVE-2022-41715)\n\n* golang: net/http: excessive memory growth in a Go server accepting HTTP/2 requests (CVE-2022-41717)\n\n* net/http, golang.org/x/net/http2: avoid quadratic complexity in HPACK decoding (CVE-2022-41723)\n\n* golang: crypto/tls: large handshake records may cause panics (CVE-2022-41724)\n\n* golang: net/http, mime/multipart: denial of service from excessive resource consumption (CVE-2022-41725)\n\n* json5: Prototype Pollution in JSON5 via Parse Method (CVE-2022-46175)\n\n* vault: Vault’s Microsoft SQL Database Storage Backend Vulnerable to SQL Injection Via Configuration File (CVE-2023-0620)\n\n* hashicorp/vault: Vault’s PKI Issuer Endpoint Did Not Correctly Authorize Access to Issuer Metadata (CVE-2023-0665)\n\n* Hashicorp/vault: Vault Fails to Verify if Approle SecretID Belongs to Role During a Destroy Operation (CVE-2023-24999)\n\n* hashicorp/vault: Cache-Timing Attacks During Seal and Unseal Operations (CVE-2023-25000)\n\n* validator: Inefficient Regular Expression Complexity in Validator.js (CVE-2021-3765)\n\n* nodejs: Prototype pollution via console.table properties (CVE-2022-21824)\n\n* golang: math/big: decoding big.Float and big.Rat types can panic if the encoded message is too short, potentially allowing a denial of service (CVE-2022-32189)\n\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2023 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2023:3742",
+				"Description": "https://access.redhat.com/errata/RHSA-2023:3742"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/documentation/en-us/red_hat_openshift_data_foundation/4.13/html/4.13_release_notes/index",
+				"Description": "https://access.redhat.com/documentation/en-us/red_hat_openshift_data_foundation/4.13/html/4.13_release_notes/index"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in Vault and Vault Enterprise (“Vault”). In the affected versions of Vault, with the AWS Auth Method configured and under certain circumstances, the values relied upon by Vault to validate AWS IAM identities and roles may be manipulated and bypass authentication.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2020-08-26T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2020-16250",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThese updated images include numerous enhancements and bug fixes. Space precludes documenting all of these changes in this advisory. Users are directed to the Red Hat OpenShift Data Foundation Release Notes for information on the most significant of these changes:\n\nhttps://access.redhat.com/documentation/en-us/red_hat_openshift_data_foundation/4.13/html/4.13_release_notes/index\n\nAll Red Hat OpenShift Data Foundation users are advised to upgrade to these updated images that provide numerous bug fixes and enhancements.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:3742"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2020-16250",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2020-16250"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2020-16250",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2020-16250"
+					},
+					{
+						"URL": "https://discuss.hashicorp.com/t/hcsec-2020-16-vault-s-aws-auth-method-allows-authentication-bypass/18101",
+						"Description": "https://discuss.hashicorp.com/t/hcsec-2020-16-vault-s-aws-auth-method-allows-authentication-bypass/18101"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2020-16250",
+						"Description": "CVE-2020-16250"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2167337",
+						"Description": "bz#2167337: Hashicorp Vault AWS IAM Integration Authentication Bypass"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2023-02-06T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"9Base-RHODF-4.13:cephcsi-container-v4.13.0-35",
+						"9Base-RHODF-4.13:mcg-cli-container-v4.13.0-17",
+						"9Base-RHODF-4.13:mcg-core-container-v4.13.0-41",
+						"9Base-RHODF-4.13:mcg-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:mcg-operator-container-v4.13.0-41",
+						"9Base-RHODF-4.13:ocs-client-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-client-operator-container-v4.13.0-17",
+						"9Base-RHODF-4.13:ocs-metrics-exporter-container-v4.13.0-78",
+						"9Base-RHODF-4.13:ocs-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-operator-container-v4.13.0-67",
+						"9Base-RHODF-4.13:odf-console-container-v4.13.0-85",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-csi-addons-sidecar-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-multicluster-console-container-v4.13.0-81",
+						"9Base-RHODF-4.13:odf-multicluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-multicluster-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-must-gather-container-v4.13.0-35",
+						"9Base-RHODF-4.13:odf-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-operator-container-v4.13.0-24",
+						"9Base-RHODF-4.13:odr-cluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odr-hub-operator-bundle-container-v4.13.0-217",
+						"9Base-RHODF-4.13:odr-operator-container-v4.13.0-33",
+						"9Base-RHODF-4.13:rook-ceph-operator-container-v4.13.0-70"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in Vault and Vault Enterprise (“Vault”). In affected versions of Vault, with the GCP Auth Method configured and under certain circumstances, the values relied upon by Vault to validate Google Compute Engine (GCE) VMs may be manipulated and bypass authentication.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2020-08-26T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2020-16251",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThese updated images include numerous enhancements and bug fixes. Space precludes documenting all of these changes in this advisory. Users are directed to the Red Hat OpenShift Data Foundation Release Notes for information on the most significant of these changes:\n\nhttps://access.redhat.com/documentation/en-us/red_hat_openshift_data_foundation/4.13/html/4.13_release_notes/index\n\nAll Red Hat OpenShift Data Foundation users are advised to upgrade to these updated images that provide numerous bug fixes and enhancements.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:3742"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2020-16251",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2020-16251"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2020-16251",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2020-16251"
+					},
+					{
+						"URL": "https://discuss.hashicorp.com/t/hcsec-2020-17-vault-s-gcp-auth-method-allows-authentication-bypass/18102",
+						"Description": "https://discuss.hashicorp.com/t/hcsec-2020-17-vault-s-gcp-auth-method-allows-authentication-bypass/18102"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2020-16251",
+						"Description": "CVE-2020-16251"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2167340",
+						"Description": "bz#2167340: GCP Auth Method Allows Authentication Bypass"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2023-02-06T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"9Base-RHODF-4.13:cephcsi-container-v4.13.0-35",
+						"9Base-RHODF-4.13:mcg-cli-container-v4.13.0-17",
+						"9Base-RHODF-4.13:mcg-core-container-v4.13.0-41",
+						"9Base-RHODF-4.13:mcg-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:mcg-operator-container-v4.13.0-41",
+						"9Base-RHODF-4.13:ocs-client-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-client-operator-container-v4.13.0-17",
+						"9Base-RHODF-4.13:ocs-metrics-exporter-container-v4.13.0-78",
+						"9Base-RHODF-4.13:ocs-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-operator-container-v4.13.0-67",
+						"9Base-RHODF-4.13:odf-console-container-v4.13.0-85",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-csi-addons-sidecar-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-multicluster-console-container-v4.13.0-81",
+						"9Base-RHODF-4.13:odf-multicluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-multicluster-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-must-gather-container-v4.13.0-35",
+						"9Base-RHODF-4.13:odf-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-operator-container-v4.13.0-24",
+						"9Base-RHODF-4.13:odr-cluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odr-hub-operator-bundle-container-v4.13.0-217",
+						"9Base-RHODF-4.13:odr-operator-container-v4.13.0-33",
+						"9Base-RHODF-4.13:rook-ceph-operator-container-v4.13.0-70"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A vulnerability was found in the validator package. Affected versions of this package are vulnerable to Regular expression denial of service (ReDoS) attacks, affecting system availability.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2021-11-02T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2021-3765",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThese updated images include numerous enhancements and bug fixes. Space precludes documenting all of these changes in this advisory. Users are directed to the Red Hat OpenShift Data Foundation Release Notes for information on the most significant of these changes:\n\nhttps://access.redhat.com/documentation/en-us/red_hat_openshift_data_foundation/4.13/html/4.13_release_notes/index\n\nAll Red Hat OpenShift Data Foundation users are advised to upgrade to these updated images that provide numerous bug fixes and enhancements.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:3742"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2021-3765",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2021-3765"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2021-3765",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2021-3765"
+					},
+					{
+						"URL": "https://huntr.dev/bounties/c37e975c-21a3-4c5f-9b57-04d63b28cfc9",
+						"Description": "https://huntr.dev/bounties/c37e975c-21a3-4c5f-9b57-04d63b28cfc9"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2021-3765",
+						"Description": "CVE-2021-3765"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2126299",
+						"Description": "bz#2126299: Inefficient Regular Expression Complexity in Validator.js"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2022-09-13T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"9Base-RHODF-4.13:cephcsi-container-v4.13.0-35",
+						"9Base-RHODF-4.13:mcg-cli-container-v4.13.0-17",
+						"9Base-RHODF-4.13:mcg-core-container-v4.13.0-41",
+						"9Base-RHODF-4.13:mcg-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:mcg-operator-container-v4.13.0-41",
+						"9Base-RHODF-4.13:ocs-client-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-client-operator-container-v4.13.0-17",
+						"9Base-RHODF-4.13:ocs-metrics-exporter-container-v4.13.0-78",
+						"9Base-RHODF-4.13:ocs-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-operator-container-v4.13.0-67",
+						"9Base-RHODF-4.13:odf-console-container-v4.13.0-85",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-csi-addons-sidecar-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-multicluster-console-container-v4.13.0-81",
+						"9Base-RHODF-4.13:odf-multicluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-multicluster-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-must-gather-container-v4.13.0-35",
+						"9Base-RHODF-4.13:odf-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-operator-container-v4.13.0-24",
+						"9Base-RHODF-4.13:odr-cluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odr-hub-operator-bundle-container-v4.13.0-217",
+						"9Base-RHODF-4.13:odr-operator-container-v4.13.0-33",
+						"9Base-RHODF-4.13:rook-ceph-operator-container-v4.13.0-70"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A regular expression denial of service (ReDoS) vulnerability was found in nodejs-ansi-regex. This could possibly cause an application using ansi-regex to use an excessive amount of CPU time when matching crafted ANSI escape codes.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2021-09-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2021-3807",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThese updated images include numerous enhancements and bug fixes. Space precludes documenting all of these changes in this advisory. Users are directed to the Red Hat OpenShift Data Foundation Release Notes for information on the most significant of these changes:\n\nhttps://access.redhat.com/documentation/en-us/red_hat_openshift_data_foundation/4.13/html/4.13_release_notes/index\n\nAll Red Hat OpenShift Data Foundation users are advised to upgrade to these updated images that provide numerous bug fixes and enhancements.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:3742"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2021-3807",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2021-3807"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2021-3807",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2021-3807"
+					},
+					{
+						"URL": "https://huntr.dev/bounties/5b3cf33b-ede0-4398-9974-800876dfd994",
+						"Description": "https://huntr.dev/bounties/5b3cf33b-ede0-4398-9974-800876dfd994"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2021-3807",
+						"Description": "CVE-2021-3807"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2007557",
+						"Description": "bz#2007557: Regular expression denial of service (ReDoS) matching ANSI escape codes"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2021-09-17T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"9Base-RHODF-4.13:cephcsi-container-v4.13.0-35",
+						"9Base-RHODF-4.13:mcg-cli-container-v4.13.0-17",
+						"9Base-RHODF-4.13:mcg-core-container-v4.13.0-41",
+						"9Base-RHODF-4.13:mcg-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:mcg-operator-container-v4.13.0-41",
+						"9Base-RHODF-4.13:ocs-client-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-client-operator-container-v4.13.0-17",
+						"9Base-RHODF-4.13:ocs-metrics-exporter-container-v4.13.0-78",
+						"9Base-RHODF-4.13:ocs-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-operator-container-v4.13.0-67",
+						"9Base-RHODF-4.13:odf-console-container-v4.13.0-85",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-csi-addons-sidecar-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-multicluster-console-container-v4.13.0-81",
+						"9Base-RHODF-4.13:odf-multicluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-multicluster-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-must-gather-container-v4.13.0-35",
+						"9Base-RHODF-4.13:odf-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-operator-container-v4.13.0-24",
+						"9Base-RHODF-4.13:odr-cluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odr-hub-operator-bundle-container-v4.13.0-217",
+						"9Base-RHODF-4.13:odr-operator-container-v4.13.0-33",
+						"9Base-RHODF-4.13:rook-ceph-operator-container-v4.13.0-70"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in go-yaml. This issue occurs due to unbounded alias chasing, where a maliciously crafted YAML file can cause the system to consume significant system resources. If parsing user input, this may be used as a denial of service vector.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-12-27T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2021-4235",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThese updated images include numerous enhancements and bug fixes. Space precludes documenting all of these changes in this advisory. Users are directed to the Red Hat OpenShift Data Foundation Release Notes for information on the most significant of these changes:\n\nhttps://access.redhat.com/documentation/en-us/red_hat_openshift_data_foundation/4.13/html/4.13_release_notes/index\n\nAll Red Hat OpenShift Data Foundation users are advised to upgrade to these updated images that provide numerous bug fixes and enhancements.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:3742"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2021-4235",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2021-4235"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2021-4235",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2021-4235"
+					},
+					{
+						"URL": "https://github.com/go-yaml/yaml/commit/bb4e33bf68bf89cad44d386192cbed201f35b241",
+						"Description": "https://github.com/go-yaml/yaml/commit/bb4e33bf68bf89cad44d386192cbed201f35b241"
+					},
+					{
+						"URL": "https://github.com/go-yaml/yaml/pull/375",
+						"Description": "https://github.com/go-yaml/yaml/pull/375"
+					},
+					{
+						"URL": "https://pkg.go.dev/vuln/GO-2021-0061",
+						"Description": "https://pkg.go.dev/vuln/GO-2021-0061"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2021-4235",
+						"Description": "CVE-2021-4235"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2156727",
+						"Description": "bz#2156727: Denial of Service in go-yaml"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2022-12-28T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"9Base-RHODF-4.13:cephcsi-container-v4.13.0-35",
+						"9Base-RHODF-4.13:mcg-cli-container-v4.13.0-17",
+						"9Base-RHODF-4.13:mcg-core-container-v4.13.0-41",
+						"9Base-RHODF-4.13:mcg-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:mcg-operator-container-v4.13.0-41",
+						"9Base-RHODF-4.13:ocs-client-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-client-operator-container-v4.13.0-17",
+						"9Base-RHODF-4.13:ocs-metrics-exporter-container-v4.13.0-78",
+						"9Base-RHODF-4.13:ocs-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-operator-container-v4.13.0-67",
+						"9Base-RHODF-4.13:odf-console-container-v4.13.0-85",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-csi-addons-sidecar-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-multicluster-console-container-v4.13.0-81",
+						"9Base-RHODF-4.13:odf-multicluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-multicluster-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-must-gather-container-v4.13.0-35",
+						"9Base-RHODF-4.13:odf-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-operator-container-v4.13.0-24",
+						"9Base-RHODF-4.13:odr-cluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odr-hub-operator-bundle-container-v4.13.0-217",
+						"9Base-RHODF-4.13:odr-operator-container-v4.13.0-33",
+						"9Base-RHODF-4.13:rook-ceph-operator-container-v4.13.0-70"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "6",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in goutils where randomly generated alphanumeric strings contain significantly less entropy than expected. Both the `RandomAlphaNumeric` and `CryptoRandomAlphaNumeric` functions always return strings containing at least one digit from 0 to 9. This issue significantly reduces the amount of entropy generated in short strings by these functions.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-12-27T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2021-4238",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThese updated images include numerous enhancements and bug fixes. Space precludes documenting all of these changes in this advisory. Users are directed to the Red Hat OpenShift Data Foundation Release Notes for information on the most significant of these changes:\n\nhttps://access.redhat.com/documentation/en-us/red_hat_openshift_data_foundation/4.13/html/4.13_release_notes/index\n\nAll Red Hat OpenShift Data Foundation users are advised to upgrade to these updated images that provide numerous bug fixes and enhancements.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:3742"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2021-4238",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2021-4238"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2021-4238",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2021-4238"
+					},
+					{
+						"URL": "https://github.com/Masterminds/goutils/commit/869801f20f9f1e7ecdbdb6422049d8241270d5e1",
+						"Description": "https://github.com/Masterminds/goutils/commit/869801f20f9f1e7ecdbdb6422049d8241270d5e1"
+					},
+					{
+						"URL": "https://github.com/advisories/GHSA-3839-6r69-m497",
+						"Description": "https://github.com/advisories/GHSA-3839-6r69-m497"
+					},
+					{
+						"URL": "https://pkg.go.dev/vuln/GO-2022-0411",
+						"Description": "https://pkg.go.dev/vuln/GO-2022-0411"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2021-4238",
+						"Description": "CVE-2021-4238"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2156729",
+						"Description": "bz#2156729: RandomAlphaNumeric and CryptoRandomAlphaNumeric are not as random as they should be"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2022-12-28T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"9Base-RHODF-4.13:cephcsi-container-v4.13.0-35",
+						"9Base-RHODF-4.13:mcg-cli-container-v4.13.0-17",
+						"9Base-RHODF-4.13:mcg-core-container-v4.13.0-41",
+						"9Base-RHODF-4.13:mcg-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:mcg-operator-container-v4.13.0-41",
+						"9Base-RHODF-4.13:ocs-client-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-client-operator-container-v4.13.0-17",
+						"9Base-RHODF-4.13:ocs-metrics-exporter-container-v4.13.0-78",
+						"9Base-RHODF-4.13:ocs-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-operator-container-v4.13.0-67",
+						"9Base-RHODF-4.13:odf-console-container-v4.13.0-85",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-csi-addons-sidecar-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-multicluster-console-container-v4.13.0-81",
+						"9Base-RHODF-4.13:odf-multicluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-multicluster-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-must-gather-container-v4.13.0-35",
+						"9Base-RHODF-4.13:odf-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-operator-container-v4.13.0-24",
+						"9Base-RHODF-4.13:odr-cluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odr-hub-operator-bundle-container-v4.13.0-217",
+						"9Base-RHODF-4.13:odr-operator-container-v4.13.0-33",
+						"9Base-RHODF-4.13:rook-ceph-operator-container-v4.13.0-70"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "7",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in HashiCorp Vault. In affected versions of HashiCorp Vault and Vault Enterprise, templated ACL policies would always match the first-created entity alias if multiple entity aliases exist for a specified entity and mount combination, potentially resulting in incorrect policy enforcement.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2021-11-18T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2021-43998",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThese updated images include numerous enhancements and bug fixes. Space precludes documenting all of these changes in this advisory. Users are directed to the Red Hat OpenShift Data Foundation Release Notes for information on the most significant of these changes:\n\nhttps://access.redhat.com/documentation/en-us/red_hat_openshift_data_foundation/4.13/html/4.13_release_notes/index\n\nAll Red Hat OpenShift Data Foundation users are advised to upgrade to these updated images that provide numerous bug fixes and enhancements.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:3742"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2021-43998",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2021-43998"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2021-43998",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2021-43998"
+					},
+					{
+						"URL": "https://discuss.hashicorp.com/t/hcsec-2021-30-vaults-templated-acl-policies-matched-first-created-alias-per-entity-and-auth-backend/32132",
+						"Description": "https://discuss.hashicorp.com/t/hcsec-2021-30-vaults-templated-acl-policies-matched-first-created-alias-per-entity-and-auth-backend/32132"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2021-43998",
+						"Description": "CVE-2021-43998"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2028193",
+						"Description": "bz#2028193: incorrect policy enforcement"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2021-11-30T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"9Base-RHODF-4.13:cephcsi-container-v4.13.0-35",
+						"9Base-RHODF-4.13:mcg-cli-container-v4.13.0-17",
+						"9Base-RHODF-4.13:mcg-core-container-v4.13.0-41",
+						"9Base-RHODF-4.13:mcg-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:mcg-operator-container-v4.13.0-41",
+						"9Base-RHODF-4.13:ocs-client-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-client-operator-container-v4.13.0-17",
+						"9Base-RHODF-4.13:ocs-metrics-exporter-container-v4.13.0-78",
+						"9Base-RHODF-4.13:ocs-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-operator-container-v4.13.0-67",
+						"9Base-RHODF-4.13:odf-console-container-v4.13.0-85",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-csi-addons-sidecar-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-multicluster-console-container-v4.13.0-81",
+						"9Base-RHODF-4.13:odf-multicluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-multicluster-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-must-gather-container-v4.13.0-35",
+						"9Base-RHODF-4.13:odf-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-operator-container-v4.13.0-24",
+						"9Base-RHODF-4.13:odr-cluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odr-hub-operator-bundle-container-v4.13.0-217",
+						"9Base-RHODF-4.13:odr-operator-container-v4.13.0-33",
+						"9Base-RHODF-4.13:rook-ceph-operator-container-v4.13.0-70"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "8",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in node.js where it accepted a certificate's Subject Alternative Names (SAN) entry, as opposed to what is specified by the HTTPS protocol. This flaw allows an active person-in-the-middle to forge a certificate and impersonate a trusted host.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-01-10T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2021-44531",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThese updated images include numerous enhancements and bug fixes. Space precludes documenting all of these changes in this advisory. Users are directed to the Red Hat OpenShift Data Foundation Release Notes for information on the most significant of these changes:\n\nhttps://access.redhat.com/documentation/en-us/red_hat_openshift_data_foundation/4.13/html/4.13_release_notes/index\n\nAll Red Hat OpenShift Data Foundation users are advised to upgrade to these updated images that provide numerous bug fixes and enhancements.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:3742"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2021-44531",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2021-44531"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2021-44531",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2021-44531"
+					},
+					{
+						"URL": "https://nodejs.org/en/blog/vulnerability/jan-2022-security-releases/",
+						"Description": "https://nodejs.org/en/blog/vulnerability/jan-2022-security-releases/"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2021-44531",
+						"Description": "CVE-2021-44531"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2040839",
+						"Description": "bz#2040839: Improper handling of URI Subject Alternative Names"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2022-01-11T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"9Base-RHODF-4.13:cephcsi-container-v4.13.0-35",
+						"9Base-RHODF-4.13:mcg-cli-container-v4.13.0-17",
+						"9Base-RHODF-4.13:mcg-core-container-v4.13.0-41",
+						"9Base-RHODF-4.13:mcg-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:mcg-operator-container-v4.13.0-41",
+						"9Base-RHODF-4.13:ocs-client-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-client-operator-container-v4.13.0-17",
+						"9Base-RHODF-4.13:ocs-metrics-exporter-container-v4.13.0-78",
+						"9Base-RHODF-4.13:ocs-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-operator-container-v4.13.0-67",
+						"9Base-RHODF-4.13:odf-console-container-v4.13.0-85",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-csi-addons-sidecar-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-multicluster-console-container-v4.13.0-81",
+						"9Base-RHODF-4.13:odf-multicluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-multicluster-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-must-gather-container-v4.13.0-35",
+						"9Base-RHODF-4.13:odf-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-operator-container-v4.13.0-24",
+						"9Base-RHODF-4.13:odr-cluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odr-hub-operator-bundle-container-v4.13.0-217",
+						"9Base-RHODF-4.13:odr-operator-container-v4.13.0-33",
+						"9Base-RHODF-4.13:rook-ceph-operator-container-v4.13.0-70"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "9",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "It was found that node.js did not safely read the x509 certificate generalName format properly, resulting in data injection. A certificate could use a specially crafted extension in order to be successfully validated, permitting an attacker to impersonate a trusted host.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-01-10T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2021-44532",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThese updated images include numerous enhancements and bug fixes. Space precludes documenting all of these changes in this advisory. Users are directed to the Red Hat OpenShift Data Foundation Release Notes for information on the most significant of these changes:\n\nhttps://access.redhat.com/documentation/en-us/red_hat_openshift_data_foundation/4.13/html/4.13_release_notes/index\n\nAll Red Hat OpenShift Data Foundation users are advised to upgrade to these updated images that provide numerous bug fixes and enhancements.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:3742"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2021-44532",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2021-44532"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2021-44532",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2021-44532"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2021-44532",
+						"Description": "CVE-2021-44532"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2040846",
+						"Description": "bz#2040846: Certificate Verification Bypass via String Injection"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2022-01-11T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"9Base-RHODF-4.13:cephcsi-container-v4.13.0-35",
+						"9Base-RHODF-4.13:mcg-cli-container-v4.13.0-17",
+						"9Base-RHODF-4.13:mcg-core-container-v4.13.0-41",
+						"9Base-RHODF-4.13:mcg-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:mcg-operator-container-v4.13.0-41",
+						"9Base-RHODF-4.13:ocs-client-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-client-operator-container-v4.13.0-17",
+						"9Base-RHODF-4.13:ocs-metrics-exporter-container-v4.13.0-78",
+						"9Base-RHODF-4.13:ocs-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-operator-container-v4.13.0-67",
+						"9Base-RHODF-4.13:odf-console-container-v4.13.0-85",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-csi-addons-sidecar-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-multicluster-console-container-v4.13.0-81",
+						"9Base-RHODF-4.13:odf-multicluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-multicluster-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-must-gather-container-v4.13.0-35",
+						"9Base-RHODF-4.13:odf-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-operator-container-v4.13.0-24",
+						"9Base-RHODF-4.13:odr-cluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odr-hub-operator-bundle-container-v4.13.0-217",
+						"9Base-RHODF-4.13:odr-operator-container-v4.13.0-33",
+						"9Base-RHODF-4.13:rook-ceph-operator-container-v4.13.0-70"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "10",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in node.js, where it did not properly handle multi-value Relative Distinguished Names. This flaw allows a specially crafted x509 certificate to produce a false multi-value Relative Distinguished Name and to inject arbitrary data in node.js libraries.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-01-10T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2021-44533",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThese updated images include numerous enhancements and bug fixes. Space precludes documenting all of these changes in this advisory. Users are directed to the Red Hat OpenShift Data Foundation Release Notes for information on the most significant of these changes:\n\nhttps://access.redhat.com/documentation/en-us/red_hat_openshift_data_foundation/4.13/html/4.13_release_notes/index\n\nAll Red Hat OpenShift Data Foundation users are advised to upgrade to these updated images that provide numerous bug fixes and enhancements.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:3742"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2021-44533",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2021-44533"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2021-44533",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2021-44533"
+					},
+					{
+						"URL": "https://nodejs.org/en/blog/vulnerability/jan-2022-security-releases/",
+						"Description": "https://nodejs.org/en/blog/vulnerability/jan-2022-security-releases/"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2021-44533",
+						"Description": "CVE-2021-44533"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2040856",
+						"Description": "bz#2040856: Incorrect handling of certificate subject and issuer fields"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2022-01-11T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"9Base-RHODF-4.13:cephcsi-container-v4.13.0-35",
+						"9Base-RHODF-4.13:mcg-cli-container-v4.13.0-17",
+						"9Base-RHODF-4.13:mcg-core-container-v4.13.0-41",
+						"9Base-RHODF-4.13:mcg-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:mcg-operator-container-v4.13.0-41",
+						"9Base-RHODF-4.13:ocs-client-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-client-operator-container-v4.13.0-17",
+						"9Base-RHODF-4.13:ocs-metrics-exporter-container-v4.13.0-78",
+						"9Base-RHODF-4.13:ocs-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-operator-container-v4.13.0-67",
+						"9Base-RHODF-4.13:odf-console-container-v4.13.0-85",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-csi-addons-sidecar-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-multicluster-console-container-v4.13.0-81",
+						"9Base-RHODF-4.13:odf-multicluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-multicluster-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-must-gather-container-v4.13.0-35",
+						"9Base-RHODF-4.13:odf-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-operator-container-v4.13.0-24",
+						"9Base-RHODF-4.13:odr-cluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odr-hub-operator-bundle-container-v4.13.0-217",
+						"9Base-RHODF-4.13:odr-operator-container-v4.13.0-33",
+						"9Base-RHODF-4.13:rook-ceph-operator-container-v4.13.0-70"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "11",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in the golang package, where Reader.Read does not set a limit on the maximum size of file headers. After fixing, Reader.Read limits the maximum size of header blocks to 1 MiB. This flaw allows a maliciously crafted archive to cause Read to allocate unbounded amounts of memory, potentially causing resource exhaustion or panic.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-10-04T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-2879",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThese updated images include numerous enhancements and bug fixes. Space precludes documenting all of these changes in this advisory. Users are directed to the Red Hat OpenShift Data Foundation Release Notes for information on the most significant of these changes:\n\nhttps://access.redhat.com/documentation/en-us/red_hat_openshift_data_foundation/4.13/html/4.13_release_notes/index\n\nAll Red Hat OpenShift Data Foundation users are advised to upgrade to these updated images that provide numerous bug fixes and enhancements.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:3742"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2022-2879",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2022-2879"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2022-2879",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2022-2879"
+					},
+					{
+						"URL": "https://github.com/golang/go/issues/54853",
+						"Description": "https://github.com/golang/go/issues/54853"
+					},
+					{
+						"URL": "https://groups.google.com/g/golang-announce/c/xtuG5faxtaU?pli=1",
+						"Description": "https://groups.google.com/g/golang-announce/c/xtuG5faxtaU?pli=1"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-2879",
+						"Description": "CVE-2022-2879"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2132867",
+						"Description": "bz#2132867: unbounded memory consumption when reading headers"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2022-10-07T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"9Base-RHODF-4.13:cephcsi-container-v4.13.0-35",
+						"9Base-RHODF-4.13:mcg-cli-container-v4.13.0-17",
+						"9Base-RHODF-4.13:mcg-core-container-v4.13.0-41",
+						"9Base-RHODF-4.13:mcg-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:mcg-operator-container-v4.13.0-41",
+						"9Base-RHODF-4.13:ocs-client-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-client-operator-container-v4.13.0-17",
+						"9Base-RHODF-4.13:ocs-metrics-exporter-container-v4.13.0-78",
+						"9Base-RHODF-4.13:ocs-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-operator-container-v4.13.0-67",
+						"9Base-RHODF-4.13:odf-console-container-v4.13.0-85",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-csi-addons-sidecar-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-multicluster-console-container-v4.13.0-81",
+						"9Base-RHODF-4.13:odf-multicluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-multicluster-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-must-gather-container-v4.13.0-35",
+						"9Base-RHODF-4.13:odf-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-operator-container-v4.13.0-24",
+						"9Base-RHODF-4.13:odr-cluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odr-hub-operator-bundle-container-v4.13.0-217",
+						"9Base-RHODF-4.13:odr-operator-container-v4.13.0-33",
+						"9Base-RHODF-4.13:rook-ceph-operator-container-v4.13.0-70"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank Adam Korczynski (ADA Logics) and OSS-Fuzz for reporting this issue."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "12",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in the golang package, where requests forwarded by reverse proxy include the raw query parameters from the inbound request, including unparseable parameters rejected by net/http. This issue could permit query parameter smuggling when a Go proxy forwards a parameter with an unparseable value. After the fix, the reverse proxy sanitizes the query parameters in the forwarded query when the outbound request's form field is set after the reverse proxy. The director function returns, indicating that the proxy has parsed the query parameters. Proxies that do not parse query parameters continue to forward the original query parameters unchanged.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-10-04T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-2880",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThese updated images include numerous enhancements and bug fixes. Space precludes documenting all of these changes in this advisory. Users are directed to the Red Hat OpenShift Data Foundation Release Notes for information on the most significant of these changes:\n\nhttps://access.redhat.com/documentation/en-us/red_hat_openshift_data_foundation/4.13/html/4.13_release_notes/index\n\nAll Red Hat OpenShift Data Foundation users are advised to upgrade to these updated images that provide numerous bug fixes and enhancements.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:3742"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2022-2880",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2022-2880"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2022-2880",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2022-2880"
+					},
+					{
+						"URL": "https://github.com/golang/go/issues/54663",
+						"Description": "https://github.com/golang/go/issues/54663"
+					},
+					{
+						"URL": "https://groups.google.com/g/golang-announce/c/xtuG5faxtaU?pli=1",
+						"Description": "https://groups.google.com/g/golang-announce/c/xtuG5faxtaU?pli=1"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-2880",
+						"Description": "CVE-2022-2880"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2132868",
+						"Description": "bz#2132868: ReverseProxy should not forward unparseable query parameters"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2022-10-07T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"9Base-RHODF-4.13:cephcsi-container-v4.13.0-35",
+						"9Base-RHODF-4.13:mcg-cli-container-v4.13.0-17",
+						"9Base-RHODF-4.13:mcg-core-container-v4.13.0-41",
+						"9Base-RHODF-4.13:mcg-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:mcg-operator-container-v4.13.0-41",
+						"9Base-RHODF-4.13:ocs-client-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-client-operator-container-v4.13.0-17",
+						"9Base-RHODF-4.13:ocs-metrics-exporter-container-v4.13.0-78",
+						"9Base-RHODF-4.13:ocs-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-operator-container-v4.13.0-67",
+						"9Base-RHODF-4.13:odf-console-container-v4.13.0-85",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-csi-addons-sidecar-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-multicluster-console-container-v4.13.0-81",
+						"9Base-RHODF-4.13:odf-multicluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-multicluster-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-must-gather-container-v4.13.0-35",
+						"9Base-RHODF-4.13:odf-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-operator-container-v4.13.0-24",
+						"9Base-RHODF-4.13:odr-cluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odr-hub-operator-bundle-container-v4.13.0-217",
+						"9Base-RHODF-4.13:odr-operator-container-v4.13.0-33",
+						"9Base-RHODF-4.13:rook-ceph-operator-container-v4.13.0-70"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank Daniel Abeles (Head of Research, Oxeye) and Gal Goldstein (Security Researcher, Oxeye) for reporting this issue."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "13",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A vulnerability was found in the nodejs-minimatch package. This flaw allows a Regular Expression Denial of Service (ReDoS) when calling the braceExpand function with specific arguments, resulting in a Denial of Service.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-02-06T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-3517",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThese updated images include numerous enhancements and bug fixes. Space precludes documenting all of these changes in this advisory. Users are directed to the Red Hat OpenShift Data Foundation Release Notes for information on the most significant of these changes:\n\nhttps://access.redhat.com/documentation/en-us/red_hat_openshift_data_foundation/4.13/html/4.13_release_notes/index\n\nAll Red Hat OpenShift Data Foundation users are advised to upgrade to these updated images that provide numerous bug fixes and enhancements.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:3742"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2022-3517",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2022-3517"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2022-3517",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2022-3517"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-3517",
+						"Description": "CVE-2022-3517"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2134609",
+						"Description": "bz#2134609: ReDoS via the braceExpand function"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2022-06-01T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"9Base-RHODF-4.13:cephcsi-container-v4.13.0-35",
+						"9Base-RHODF-4.13:mcg-cli-container-v4.13.0-17",
+						"9Base-RHODF-4.13:mcg-core-container-v4.13.0-41",
+						"9Base-RHODF-4.13:mcg-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:mcg-operator-container-v4.13.0-41",
+						"9Base-RHODF-4.13:ocs-client-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-client-operator-container-v4.13.0-17",
+						"9Base-RHODF-4.13:ocs-metrics-exporter-container-v4.13.0-78",
+						"9Base-RHODF-4.13:ocs-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-operator-container-v4.13.0-67",
+						"9Base-RHODF-4.13:odf-console-container-v4.13.0-85",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-csi-addons-sidecar-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-multicluster-console-container-v4.13.0-81",
+						"9Base-RHODF-4.13:odf-multicluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-multicluster-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-must-gather-container-v4.13.0-35",
+						"9Base-RHODF-4.13:odf-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-operator-container-v4.13.0-24",
+						"9Base-RHODF-4.13:odr-cluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odr-hub-operator-bundle-container-v4.13.0-217",
+						"9Base-RHODF-4.13:odr-operator-container-v4.13.0-33",
+						"9Base-RHODF-4.13:rook-ceph-operator-container-v4.13.0-70"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "14",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Due to the formatting logic of the \"console.table()\" function it was not safe to allow user controlled input to be passed to the \"properties\" parameter while simultaneously passing a plain object with at least one property as the first parameter, which could be \"__proto__\". The prototype pollution has very limited control, in that it only allows an empty string to be assigned to numerical keys of the object prototype.Node.js >= 12.22.9, >= 14.18.3, >= 16.13.2, and >= 17.3.1 use a null protoype for the object these properties are being assigned to.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-01-10T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-21824",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThese updated images include numerous enhancements and bug fixes. Space precludes documenting all of these changes in this advisory. Users are directed to the Red Hat OpenShift Data Foundation Release Notes for information on the most significant of these changes:\n\nhttps://access.redhat.com/documentation/en-us/red_hat_openshift_data_foundation/4.13/html/4.13_release_notes/index\n\nAll Red Hat OpenShift Data Foundation users are advised to upgrade to these updated images that provide numerous bug fixes and enhancements.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:3742"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2022-21824",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2022-21824"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2022-21824",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2022-21824"
+					},
+					{
+						"URL": "https://nodejs.org/en/blog/vulnerability/jan-2022-security-releases/",
+						"Description": "https://nodejs.org/en/blog/vulnerability/jan-2022-security-releases/"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-21824",
+						"Description": "CVE-2022-21824"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2040862",
+						"Description": "bz#2040862: Prototype pollution via console.table properties"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2022-01-11T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"9Base-RHODF-4.13:cephcsi-container-v4.13.0-35",
+						"9Base-RHODF-4.13:mcg-cli-container-v4.13.0-17",
+						"9Base-RHODF-4.13:mcg-core-container-v4.13.0-41",
+						"9Base-RHODF-4.13:mcg-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:mcg-operator-container-v4.13.0-41",
+						"9Base-RHODF-4.13:ocs-client-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-client-operator-container-v4.13.0-17",
+						"9Base-RHODF-4.13:ocs-metrics-exporter-container-v4.13.0-78",
+						"9Base-RHODF-4.13:ocs-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-operator-container-v4.13.0-67",
+						"9Base-RHODF-4.13:odf-console-container-v4.13.0-85",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-csi-addons-sidecar-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-multicluster-console-container-v4.13.0-81",
+						"9Base-RHODF-4.13:odf-multicluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-multicluster-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-must-gather-container-v4.13.0-35",
+						"9Base-RHODF-4.13:odf-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-operator-container-v4.13.0-24",
+						"9Base-RHODF-4.13:odr-cluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odr-hub-operator-bundle-container-v4.13.0-217",
+						"9Base-RHODF-4.13:odr-operator-container-v4.13.0-33",
+						"9Base-RHODF-4.13:rook-ceph-operator-container-v4.13.0-70"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "15",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in the jsonwebtoken library. In affected versions of the jsonwebtoken library, lack of algorithm definition and a falsy secret or key in the jwt.verify() function may lead to signature validation bypass due to defaulting to the none algorithm for signature verification.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-12-22T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-23540",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThese updated images include numerous enhancements and bug fixes. Space precludes documenting all of these changes in this advisory. Users are directed to the Red Hat OpenShift Data Foundation Release Notes for information on the most significant of these changes:\n\nhttps://access.redhat.com/documentation/en-us/red_hat_openshift_data_foundation/4.13/html/4.13_release_notes/index\n\nAll Red Hat OpenShift Data Foundation users are advised to upgrade to these updated images that provide numerous bug fixes and enhancements.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:3742"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2022-23540",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2022-23540"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2022-23540",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2022-23540"
+					},
+					{
+						"URL": "https://github.com/auth0/node-jsonwebtoken/security/advisories/GHSA-qwph-4952-7xr6",
+						"Description": "https://github.com/auth0/node-jsonwebtoken/security/advisories/GHSA-qwph-4952-7xr6"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-23540",
+						"Description": "CVE-2022-23540"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2169378",
+						"Description": "bz#2169378: Insecure default algorithm in jwt.verify() could lead to signature validation bypass"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2023-02-13T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"9Base-RHODF-4.13:cephcsi-container-v4.13.0-35",
+						"9Base-RHODF-4.13:mcg-cli-container-v4.13.0-17",
+						"9Base-RHODF-4.13:mcg-core-container-v4.13.0-41",
+						"9Base-RHODF-4.13:mcg-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:mcg-operator-container-v4.13.0-41",
+						"9Base-RHODF-4.13:ocs-client-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-client-operator-container-v4.13.0-17",
+						"9Base-RHODF-4.13:ocs-metrics-exporter-container-v4.13.0-78",
+						"9Base-RHODF-4.13:ocs-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-operator-container-v4.13.0-67",
+						"9Base-RHODF-4.13:odf-console-container-v4.13.0-85",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-csi-addons-sidecar-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-multicluster-console-container-v4.13.0-81",
+						"9Base-RHODF-4.13:odf-multicluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-multicluster-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-must-gather-container-v4.13.0-35",
+						"9Base-RHODF-4.13:odf-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-operator-container-v4.13.0-24",
+						"9Base-RHODF-4.13:odr-cluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odr-hub-operator-bundle-container-v4.13.0-217",
+						"9Base-RHODF-4.13:odr-operator-container-v4.13.0-33",
+						"9Base-RHODF-4.13:rook-ceph-operator-container-v4.13.0-70"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "16",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in the jsonwebtoken library. Affected versions of jsonwebtoken library can be misconfigured so that passing a poorly implemented key retrieval function will result in incorrect verification of tokens. Using a different algorithm and key combination in verification than what was used to sign the tokens, specifically, tokens signed with an asymmetric public key could be verified with a symmetric HS256 algorithm. This can lead to the successful validation of forged tokens.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-12-22T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-23541",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThese updated images include numerous enhancements and bug fixes. Space precludes documenting all of these changes in this advisory. Users are directed to the Red Hat OpenShift Data Foundation Release Notes for information on the most significant of these changes:\n\nhttps://access.redhat.com/documentation/en-us/red_hat_openshift_data_foundation/4.13/html/4.13_release_notes/index\n\nAll Red Hat OpenShift Data Foundation users are advised to upgrade to these updated images that provide numerous bug fixes and enhancements.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:3742"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2022-23541",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2022-23541"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2022-23541",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2022-23541"
+					},
+					{
+						"URL": "https://github.com/auth0/node-jsonwebtoken/security/advisories/GHSA-hjrf-2m68-5959",
+						"Description": "https://github.com/auth0/node-jsonwebtoken/security/advisories/GHSA-hjrf-2m68-5959"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-23541",
+						"Description": "CVE-2022-23541"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2169375",
+						"Description": "bz#2169375: Insecure implementation of key retrieval function could lead to Forgeable Public/Private Tokens from RSA to HMAC"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2023-02-13T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"9Base-RHODF-4.13:cephcsi-container-v4.13.0-35",
+						"9Base-RHODF-4.13:mcg-cli-container-v4.13.0-17",
+						"9Base-RHODF-4.13:mcg-core-container-v4.13.0-41",
+						"9Base-RHODF-4.13:mcg-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:mcg-operator-container-v4.13.0-41",
+						"9Base-RHODF-4.13:ocs-client-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-client-operator-container-v4.13.0-17",
+						"9Base-RHODF-4.13:ocs-metrics-exporter-container-v4.13.0-78",
+						"9Base-RHODF-4.13:ocs-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-operator-container-v4.13.0-67",
+						"9Base-RHODF-4.13:odf-console-container-v4.13.0-85",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-csi-addons-sidecar-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-multicluster-console-container-v4.13.0-81",
+						"9Base-RHODF-4.13:odf-multicluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-multicluster-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-must-gather-container-v4.13.0-35",
+						"9Base-RHODF-4.13:odf-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-operator-container-v4.13.0-24",
+						"9Base-RHODF-4.13:odr-cluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odr-hub-operator-bundle-container-v4.13.0-217",
+						"9Base-RHODF-4.13:odr-operator-container-v4.13.0-33",
+						"9Base-RHODF-4.13:rook-ceph-operator-container-v4.13.0-70"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "17",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in the golang package. In net/http in Go, attackers can cause a denial of service because an HTTP/2 connection can hang during closing if a fatal error preempts the shutdown.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-09-06T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-27664",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThese updated images include numerous enhancements and bug fixes. Space precludes documenting all of these changes in this advisory. Users are directed to the Red Hat OpenShift Data Foundation Release Notes for information on the most significant of these changes:\n\nhttps://access.redhat.com/documentation/en-us/red_hat_openshift_data_foundation/4.13/html/4.13_release_notes/index\n\nAll Red Hat OpenShift Data Foundation users are advised to upgrade to these updated images that provide numerous bug fixes and enhancements.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:3742"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2022-27664",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2022-27664"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2022-27664",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2022-27664"
+					},
+					{
+						"URL": "https://go.dev/issue/54658",
+						"Description": "https://go.dev/issue/54658"
+					},
+					{
+						"URL": "https://groups.google.com/g/golang-announce/c/x49AQzIVX-s/m/0tgO0pjiBQAJ",
+						"Description": "https://groups.google.com/g/golang-announce/c/x49AQzIVX-s/m/0tgO0pjiBQAJ"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-27664",
+						"Description": "CVE-2022-27664"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2124669",
+						"Description": "bz#2124669: handle server errors after sending GOAWAY"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2022-09-06T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"9Base-RHODF-4.13:cephcsi-container-v4.13.0-35",
+						"9Base-RHODF-4.13:mcg-cli-container-v4.13.0-17",
+						"9Base-RHODF-4.13:mcg-core-container-v4.13.0-41",
+						"9Base-RHODF-4.13:mcg-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:mcg-operator-container-v4.13.0-41",
+						"9Base-RHODF-4.13:ocs-client-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-client-operator-container-v4.13.0-17",
+						"9Base-RHODF-4.13:ocs-metrics-exporter-container-v4.13.0-78",
+						"9Base-RHODF-4.13:ocs-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-operator-container-v4.13.0-67",
+						"9Base-RHODF-4.13:odf-console-container-v4.13.0-85",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-csi-addons-sidecar-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-multicluster-console-container-v4.13.0-81",
+						"9Base-RHODF-4.13:odf-multicluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-multicluster-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-must-gather-container-v4.13.0-35",
+						"9Base-RHODF-4.13:odf-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-operator-container-v4.13.0-24",
+						"9Base-RHODF-4.13:odr-cluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odr-hub-operator-bundle-container-v4.13.0-217",
+						"9Base-RHODF-4.13:odr-operator-container-v4.13.0-33",
+						"9Base-RHODF-4.13:rook-ceph-operator-container-v4.13.0-70"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "18",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in golang. When calling Decoder, Decode on a message that contains deeply nested structures, a panic can occur due to stack exhaustion and allows an attacker to impact system availability.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-07-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-30635",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThese updated images include numerous enhancements and bug fixes. Space precludes documenting all of these changes in this advisory. Users are directed to the Red Hat OpenShift Data Foundation Release Notes for information on the most significant of these changes:\n\nhttps://access.redhat.com/documentation/en-us/red_hat_openshift_data_foundation/4.13/html/4.13_release_notes/index\n\nAll Red Hat OpenShift Data Foundation users are advised to upgrade to these updated images that provide numerous bug fixes and enhancements.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:3742"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2022-30635",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2022-30635"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2022-30635",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2022-30635"
+					},
+					{
+						"URL": "https://go.dev/issue/53615",
+						"Description": "https://go.dev/issue/53615"
+					},
+					{
+						"URL": "https://groups.google.com/g/golang-announce/c/nqrv9fbR0zE",
+						"Description": "https://groups.google.com/g/golang-announce/c/nqrv9fbR0zE"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-30635",
+						"Description": "CVE-2022-30635"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2107388",
+						"Description": "bz#2107388: stack exhaustion in Decoder.Decode"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2022-07-14T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"9Base-RHODF-4.13:cephcsi-container-v4.13.0-35",
+						"9Base-RHODF-4.13:mcg-cli-container-v4.13.0-17",
+						"9Base-RHODF-4.13:mcg-core-container-v4.13.0-41",
+						"9Base-RHODF-4.13:mcg-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:mcg-operator-container-v4.13.0-41",
+						"9Base-RHODF-4.13:ocs-client-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-client-operator-container-v4.13.0-17",
+						"9Base-RHODF-4.13:ocs-metrics-exporter-container-v4.13.0-78",
+						"9Base-RHODF-4.13:ocs-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-operator-container-v4.13.0-67",
+						"9Base-RHODF-4.13:odf-console-container-v4.13.0-85",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-csi-addons-sidecar-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-multicluster-console-container-v4.13.0-81",
+						"9Base-RHODF-4.13:odf-multicluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-multicluster-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-must-gather-container-v4.13.0-35",
+						"9Base-RHODF-4.13:odf-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-operator-container-v4.13.0-24",
+						"9Base-RHODF-4.13:odr-cluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odr-hub-operator-bundle-container-v4.13.0-217",
+						"9Base-RHODF-4.13:odr-operator-container-v4.13.0-33",
+						"9Base-RHODF-4.13:rook-ceph-operator-container-v4.13.0-70"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "19",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "An uncontrolled resource consumption flaw was found in Golang math/big. A too-short encoded message can cause a panic in Float.GobDecode and Rat.GobDecode in math/big in Go, potentially allowing an attacker to create a denial of service, impacting availability.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-08-01T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-32189",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThese updated images include numerous enhancements and bug fixes. Space precludes documenting all of these changes in this advisory. Users are directed to the Red Hat OpenShift Data Foundation Release Notes for information on the most significant of these changes:\n\nhttps://access.redhat.com/documentation/en-us/red_hat_openshift_data_foundation/4.13/html/4.13_release_notes/index\n\nAll Red Hat OpenShift Data Foundation users are advised to upgrade to these updated images that provide numerous bug fixes and enhancements.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:3742"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2022-32189",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2022-32189"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2022-32189",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2022-32189"
+					},
+					{
+						"URL": "https://go.dev/issue/53871",
+						"Description": "https://go.dev/issue/53871"
+					},
+					{
+						"URL": "https://groups.google.com/g/golang-nuts/c/DCFSyTGM0wU",
+						"Description": "https://groups.google.com/g/golang-nuts/c/DCFSyTGM0wU"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-32189",
+						"Description": "CVE-2022-32189"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2113814",
+						"Description": "bz#2113814: decoding big.Float and big.Rat types can panic if the encoded message is too short, potentially allowing a denial of service"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2022-08-02T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"9Base-RHODF-4.13:cephcsi-container-v4.13.0-35",
+						"9Base-RHODF-4.13:mcg-cli-container-v4.13.0-17",
+						"9Base-RHODF-4.13:mcg-core-container-v4.13.0-41",
+						"9Base-RHODF-4.13:mcg-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:mcg-operator-container-v4.13.0-41",
+						"9Base-RHODF-4.13:ocs-client-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-client-operator-container-v4.13.0-17",
+						"9Base-RHODF-4.13:ocs-metrics-exporter-container-v4.13.0-78",
+						"9Base-RHODF-4.13:ocs-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-operator-container-v4.13.0-67",
+						"9Base-RHODF-4.13:odf-console-container-v4.13.0-85",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-csi-addons-sidecar-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-multicluster-console-container-v4.13.0-81",
+						"9Base-RHODF-4.13:odf-multicluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-multicluster-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-must-gather-container-v4.13.0-35",
+						"9Base-RHODF-4.13:odf-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-operator-container-v4.13.0-24",
+						"9Base-RHODF-4.13:odr-cluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odr-hub-operator-bundle-container-v4.13.0-217",
+						"9Base-RHODF-4.13:odr-operator-container-v4.13.0-33",
+						"9Base-RHODF-4.13:rook-ceph-operator-container-v4.13.0-70"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "20",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in the golang package. The JoinPath doesn't remove the ../ path components appended to a domain that is not terminated by a slash, possibly leading to a directory traversal attack.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-09-06T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-32190",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThese updated images include numerous enhancements and bug fixes. Space precludes documenting all of these changes in this advisory. Users are directed to the Red Hat OpenShift Data Foundation Release Notes for information on the most significant of these changes:\n\nhttps://access.redhat.com/documentation/en-us/red_hat_openshift_data_foundation/4.13/html/4.13_release_notes/index\n\nAll Red Hat OpenShift Data Foundation users are advised to upgrade to these updated images that provide numerous bug fixes and enhancements.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:3742"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2022-32190",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2022-32190"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2022-32190",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2022-32190"
+					},
+					{
+						"URL": "https://go.dev/issue/54385",
+						"Description": "https://go.dev/issue/54385"
+					},
+					{
+						"URL": "https://groups.google.com/g/golang-announce/c/x49AQzIVX-s/m/0tgO0pjiBQAJ",
+						"Description": "https://groups.google.com/g/golang-announce/c/x49AQzIVX-s/m/0tgO0pjiBQAJ"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-32190",
+						"Description": "CVE-2022-32190"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2124668",
+						"Description": "bz#2124668: JoinPath does not strip relative path components in all circumstances"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2022-09-06T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"9Base-RHODF-4.13:cephcsi-container-v4.13.0-35",
+						"9Base-RHODF-4.13:mcg-cli-container-v4.13.0-17",
+						"9Base-RHODF-4.13:mcg-core-container-v4.13.0-41",
+						"9Base-RHODF-4.13:mcg-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:mcg-operator-container-v4.13.0-41",
+						"9Base-RHODF-4.13:ocs-client-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-client-operator-container-v4.13.0-17",
+						"9Base-RHODF-4.13:ocs-metrics-exporter-container-v4.13.0-78",
+						"9Base-RHODF-4.13:ocs-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-operator-container-v4.13.0-67",
+						"9Base-RHODF-4.13:odf-console-container-v4.13.0-85",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-csi-addons-sidecar-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-multicluster-console-container-v4.13.0-81",
+						"9Base-RHODF-4.13:odf-multicluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-multicluster-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-must-gather-container-v4.13.0-35",
+						"9Base-RHODF-4.13:odf-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-operator-container-v4.13.0-24",
+						"9Base-RHODF-4.13:odr-cluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odr-hub-operator-bundle-container-v4.13.0-217",
+						"9Base-RHODF-4.13:odr-operator-container-v4.13.0-33",
+						"9Base-RHODF-4.13:rook-ceph-operator-container-v4.13.0-70"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "21",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A vulnerability was found in the HashiCorp Consul Template. This issue may reveal the contents of a Vault secret when used with an invalid template.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-08-16T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-38149",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThese updated images include numerous enhancements and bug fixes. Space precludes documenting all of these changes in this advisory. Users are directed to the Red Hat OpenShift Data Foundation Release Notes for information on the most significant of these changes:\n\nhttps://access.redhat.com/documentation/en-us/red_hat_openshift_data_foundation/4.13/html/4.13_release_notes/index\n\nAll Red Hat OpenShift Data Foundation users are advised to upgrade to these updated images that provide numerous bug fixes and enhancements.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:3742"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2022-38149",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2022-38149"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2022-38149",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2022-38149"
+					},
+					{
+						"URL": "https://discuss.hashicorp.com/t/hsec-2022-16-consul-template-may-expose-vault-secrets-when-processing-invalid-input/43215",
+						"Description": "https://discuss.hashicorp.com/t/hsec-2022-16-consul-template-may-expose-vault-secrets-when-processing-invalid-input/43215"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-38149",
+						"Description": "CVE-2022-38149"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2119551",
+						"Description": "bz#2119551: Consul Template May Expose Vault Secrets When Processing Invalid Input"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2022-08-18T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"9Base-RHODF-4.13:cephcsi-container-v4.13.0-35",
+						"9Base-RHODF-4.13:mcg-cli-container-v4.13.0-17",
+						"9Base-RHODF-4.13:mcg-core-container-v4.13.0-41",
+						"9Base-RHODF-4.13:mcg-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:mcg-operator-container-v4.13.0-41",
+						"9Base-RHODF-4.13:ocs-client-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-client-operator-container-v4.13.0-17",
+						"9Base-RHODF-4.13:ocs-metrics-exporter-container-v4.13.0-78",
+						"9Base-RHODF-4.13:ocs-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-operator-container-v4.13.0-67",
+						"9Base-RHODF-4.13:odf-console-container-v4.13.0-85",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-csi-addons-sidecar-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-multicluster-console-container-v4.13.0-81",
+						"9Base-RHODF-4.13:odf-multicluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-multicluster-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-must-gather-container-v4.13.0-35",
+						"9Base-RHODF-4.13:odf-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-operator-container-v4.13.0-24",
+						"9Base-RHODF-4.13:odr-cluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odr-hub-operator-bundle-container-v4.13.0-217",
+						"9Base-RHODF-4.13:odr-operator-container-v4.13.0-33",
+						"9Base-RHODF-4.13:rook-ceph-operator-container-v4.13.0-70"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "22",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in decode-uri-component. This issue occurs due to a specially crafted input, resulting in a denial of service.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-11-28T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-38900",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThese updated images include numerous enhancements and bug fixes. Space precludes documenting all of these changes in this advisory. Users are directed to the Red Hat OpenShift Data Foundation Release Notes for information on the most significant of these changes:\n\nhttps://access.redhat.com/documentation/en-us/red_hat_openshift_data_foundation/4.13/html/4.13_release_notes/index\n\nAll Red Hat OpenShift Data Foundation users are advised to upgrade to these updated images that provide numerous bug fixes and enhancements.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:3742"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2022-38900",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2022-38900"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2022-38900",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2022-38900"
+					},
+					{
+						"URL": "https://github.com/SamVerschueren/decode-uri-component/issues/5",
+						"Description": "https://github.com/SamVerschueren/decode-uri-component/issues/5"
+					},
+					{
+						"URL": "https://github.com/advisories/GHSA-w573-4hg7-7wgq",
+						"Description": "https://github.com/advisories/GHSA-w573-4hg7-7wgq"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-38900",
+						"Description": "CVE-2022-38900"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2170644",
+						"Description": "bz#2170644: improper input validation resulting in DoS"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2023-02-16T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"9Base-RHODF-4.13:cephcsi-container-v4.13.0-35",
+						"9Base-RHODF-4.13:mcg-cli-container-v4.13.0-17",
+						"9Base-RHODF-4.13:mcg-core-container-v4.13.0-41",
+						"9Base-RHODF-4.13:mcg-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:mcg-operator-container-v4.13.0-41",
+						"9Base-RHODF-4.13:ocs-client-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-client-operator-container-v4.13.0-17",
+						"9Base-RHODF-4.13:ocs-metrics-exporter-container-v4.13.0-78",
+						"9Base-RHODF-4.13:ocs-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-operator-container-v4.13.0-67",
+						"9Base-RHODF-4.13:odf-console-container-v4.13.0-85",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-csi-addons-sidecar-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-multicluster-console-container-v4.13.0-81",
+						"9Base-RHODF-4.13:odf-multicluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-multicluster-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-must-gather-container-v4.13.0-35",
+						"9Base-RHODF-4.13:odf-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-operator-container-v4.13.0-24",
+						"9Base-RHODF-4.13:odr-cluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odr-hub-operator-bundle-container-v4.13.0-217",
+						"9Base-RHODF-4.13:odr-operator-container-v4.13.0-33",
+						"9Base-RHODF-4.13:rook-ceph-operator-container-v4.13.0-70"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "23",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in HashiCorp Vault and Vault Enterprise. Vault’s TLS certificate auth method did not initially load the optionally-configured CRL issued by the role’s Certificate Authority (CA) into memory on startup, resulting in the revocation list not being checked if the CRL has not yet been retrieved.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-10-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-41316",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThese updated images include numerous enhancements and bug fixes. Space precludes documenting all of these changes in this advisory. Users are directed to the Red Hat OpenShift Data Foundation Release Notes for information on the most significant of these changes:\n\nhttps://access.redhat.com/documentation/en-us/red_hat_openshift_data_foundation/4.13/html/4.13_release_notes/index\n\nAll Red Hat OpenShift Data Foundation users are advised to upgrade to these updated images that provide numerous bug fixes and enhancements.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:3742"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2022-41316",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2022-41316"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2022-41316",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2022-41316"
+					},
+					{
+						"URL": "https://discuss.hashicorp.com/t/hcsec-2022-24-vaults-tls-cert-auth-method-only-loaded-crl-after-first-request/45483",
+						"Description": "https://discuss.hashicorp.com/t/hcsec-2022-24-vaults-tls-cert-auth-method-only-loaded-crl-after-first-request/45483"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-41316",
+						"Description": "CVE-2022-41316"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2135339",
+						"Description": "bz#2135339: insufficient certificate revocation list checking"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2022-10-17T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"9Base-RHODF-4.13:cephcsi-container-v4.13.0-35",
+						"9Base-RHODF-4.13:mcg-cli-container-v4.13.0-17",
+						"9Base-RHODF-4.13:mcg-core-container-v4.13.0-41",
+						"9Base-RHODF-4.13:mcg-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:mcg-operator-container-v4.13.0-41",
+						"9Base-RHODF-4.13:ocs-client-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-client-operator-container-v4.13.0-17",
+						"9Base-RHODF-4.13:ocs-metrics-exporter-container-v4.13.0-78",
+						"9Base-RHODF-4.13:ocs-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-operator-container-v4.13.0-67",
+						"9Base-RHODF-4.13:odf-console-container-v4.13.0-85",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-csi-addons-sidecar-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-multicluster-console-container-v4.13.0-81",
+						"9Base-RHODF-4.13:odf-multicluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-multicluster-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-must-gather-container-v4.13.0-35",
+						"9Base-RHODF-4.13:odf-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-operator-container-v4.13.0-24",
+						"9Base-RHODF-4.13:odr-cluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odr-hub-operator-bundle-container-v4.13.0-217",
+						"9Base-RHODF-4.13:odr-operator-container-v4.13.0-33",
+						"9Base-RHODF-4.13:rook-ceph-operator-container-v4.13.0-70"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "24",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in the golang package, where programs that compile regular expressions from untrusted sources are vulnerable to memory exhaustion or a denial of service. The parsed regexp representation is linear in the input size. Still, in some cases, the constant factor can be as high as 40,000, making a relatively small regexp consume larger amounts of memory. After the fix, each regexp being parsed is limited to a 256 MB memory footprint. Regular expressions whose representation would use more space than that are rejected. Routine use of regular expressions is unaffected.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-10-04T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-41715",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThese updated images include numerous enhancements and bug fixes. Space precludes documenting all of these changes in this advisory. Users are directed to the Red Hat OpenShift Data Foundation Release Notes for information on the most significant of these changes:\n\nhttps://access.redhat.com/documentation/en-us/red_hat_openshift_data_foundation/4.13/html/4.13_release_notes/index\n\nAll Red Hat OpenShift Data Foundation users are advised to upgrade to these updated images that provide numerous bug fixes and enhancements.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:3742"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2022-41715",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2022-41715"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2022-41715",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2022-41715"
+					},
+					{
+						"URL": "https://github.com/golang/go/issues/55949",
+						"Description": "https://github.com/golang/go/issues/55949"
+					},
+					{
+						"URL": "https://groups.google.com/g/golang-announce/c/xtuG5faxtaU?pli=1",
+						"Description": "https://groups.google.com/g/golang-announce/c/xtuG5faxtaU?pli=1"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-41715",
+						"Description": "CVE-2022-41715"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2132872",
+						"Description": "bz#2132872: limit memory used by parsing regexps"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2022-10-07T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"9Base-RHODF-4.13:cephcsi-container-v4.13.0-35",
+						"9Base-RHODF-4.13:mcg-cli-container-v4.13.0-17",
+						"9Base-RHODF-4.13:mcg-core-container-v4.13.0-41",
+						"9Base-RHODF-4.13:mcg-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:mcg-operator-container-v4.13.0-41",
+						"9Base-RHODF-4.13:ocs-client-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-client-operator-container-v4.13.0-17",
+						"9Base-RHODF-4.13:ocs-metrics-exporter-container-v4.13.0-78",
+						"9Base-RHODF-4.13:ocs-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-operator-container-v4.13.0-67",
+						"9Base-RHODF-4.13:odf-console-container-v4.13.0-85",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-csi-addons-sidecar-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-multicluster-console-container-v4.13.0-81",
+						"9Base-RHODF-4.13:odf-multicluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-multicluster-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-must-gather-container-v4.13.0-35",
+						"9Base-RHODF-4.13:odf-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-operator-container-v4.13.0-24",
+						"9Base-RHODF-4.13:odr-cluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odr-hub-operator-bundle-container-v4.13.0-217",
+						"9Base-RHODF-4.13:odr-operator-container-v4.13.0-33",
+						"9Base-RHODF-4.13:rook-ceph-operator-container-v4.13.0-70"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank Adam Korczynski (ADA Logics) and OSS-Fuzz for reporting this issue."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "25",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in the net/http library of the golang package. This flaw allows an attacker to cause excessive memory growth in a Go server accepting HTTP/2 requests. HTTP/2 server connections contain a cache of HTTP header keys sent by the client. While the total number of entries in this cache is capped, an attacker sending very large keys can cause the server to allocate approximately 64 MiB per open connection.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-11-30T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-41717",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThese updated images include numerous enhancements and bug fixes. Space precludes documenting all of these changes in this advisory. Users are directed to the Red Hat OpenShift Data Foundation Release Notes for information on the most significant of these changes:\n\nhttps://access.redhat.com/documentation/en-us/red_hat_openshift_data_foundation/4.13/html/4.13_release_notes/index\n\nAll Red Hat OpenShift Data Foundation users are advised to upgrade to these updated images that provide numerous bug fixes and enhancements.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:3742"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2022-41717",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2022-41717"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2022-41717",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2022-41717"
+					},
+					{
+						"URL": "https://go.dev/cl/455635",
+						"Description": "https://go.dev/cl/455635"
+					},
+					{
+						"URL": "https://go.dev/cl/455717",
+						"Description": "https://go.dev/cl/455717"
+					},
+					{
+						"URL": "https://go.dev/issue/56350",
+						"Description": "https://go.dev/issue/56350"
+					},
+					{
+						"URL": "https://groups.google.com/g/golang-announce/c/L_3rmdT0BMU/m/yZDrXjIiBQAJ",
+						"Description": "https://groups.google.com/g/golang-announce/c/L_3rmdT0BMU/m/yZDrXjIiBQAJ"
+					},
+					{
+						"URL": "https://pkg.go.dev/vuln/GO-2022-1144",
+						"Description": "https://pkg.go.dev/vuln/GO-2022-1144"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-41717",
+						"Description": "CVE-2022-41717"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2161274",
+						"Description": "bz#2161274: excessive memory growth in a Go server accepting HTTP/2 requests"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2023-01-16T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"9Base-RHODF-4.13:cephcsi-container-v4.13.0-35",
+						"9Base-RHODF-4.13:mcg-cli-container-v4.13.0-17",
+						"9Base-RHODF-4.13:mcg-core-container-v4.13.0-41",
+						"9Base-RHODF-4.13:mcg-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:mcg-operator-container-v4.13.0-41",
+						"9Base-RHODF-4.13:ocs-client-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-client-operator-container-v4.13.0-17",
+						"9Base-RHODF-4.13:ocs-metrics-exporter-container-v4.13.0-78",
+						"9Base-RHODF-4.13:ocs-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-operator-container-v4.13.0-67",
+						"9Base-RHODF-4.13:odf-console-container-v4.13.0-85",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-csi-addons-sidecar-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-multicluster-console-container-v4.13.0-81",
+						"9Base-RHODF-4.13:odf-multicluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-multicluster-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-must-gather-container-v4.13.0-35",
+						"9Base-RHODF-4.13:odf-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-operator-container-v4.13.0-24",
+						"9Base-RHODF-4.13:odr-cluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odr-hub-operator-bundle-container-v4.13.0-217",
+						"9Base-RHODF-4.13:odr-operator-container-v4.13.0-33",
+						"9Base-RHODF-4.13:rook-ceph-operator-container-v4.13.0-70"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "26",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in golang. A maliciously crafted HTTP/2 stream could cause excessive CPU consumption in the HPACK decoder, sufficient to cause a denial of service from a small number of small requests.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2023-02-17T14:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-41723",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThese updated images include numerous enhancements and bug fixes. Space precludes documenting all of these changes in this advisory. Users are directed to the Red Hat OpenShift Data Foundation Release Notes for information on the most significant of these changes:\n\nhttps://access.redhat.com/documentation/en-us/red_hat_openshift_data_foundation/4.13/html/4.13_release_notes/index\n\nAll Red Hat OpenShift Data Foundation users are advised to upgrade to these updated images that provide numerous bug fixes and enhancements.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:3742"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2022-41723",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2022-41723"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2022-41723",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2022-41723"
+					},
+					{
+						"URL": "https://github.com/advisories/GHSA-vvpx-j8f3-3w6h",
+						"Description": "https://github.com/advisories/GHSA-vvpx-j8f3-3w6h"
+					},
+					{
+						"URL": "https://go.dev/cl/468135",
+						"Description": "https://go.dev/cl/468135"
+					},
+					{
+						"URL": "https://go.dev/cl/468295",
+						"Description": "https://go.dev/cl/468295"
+					},
+					{
+						"URL": "https://go.dev/issue/57855",
+						"Description": "https://go.dev/issue/57855"
+					},
+					{
+						"URL": "https://groups.google.com/g/golang-announce/c/V0aBFqaFs_E",
+						"Description": "https://groups.google.com/g/golang-announce/c/V0aBFqaFs_E"
+					},
+					{
+						"URL": "https://pkg.go.dev/vuln/GO-2023-1571",
+						"Description": "https://pkg.go.dev/vuln/GO-2023-1571"
+					},
+					{
+						"URL": "https://vuln.go.dev/ID/GO-2023-1571.json",
+						"Description": "https://vuln.go.dev/ID/GO-2023-1571.json"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-41723",
+						"Description": "CVE-2022-41723"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2178358",
+						"Description": "bz#2178358: avoid quadratic complexity in HPACK decoding"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2023-03-14T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"9Base-RHODF-4.13:cephcsi-container-v4.13.0-35",
+						"9Base-RHODF-4.13:mcg-cli-container-v4.13.0-17",
+						"9Base-RHODF-4.13:mcg-core-container-v4.13.0-41",
+						"9Base-RHODF-4.13:mcg-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:mcg-operator-container-v4.13.0-41",
+						"9Base-RHODF-4.13:ocs-client-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-client-operator-container-v4.13.0-17",
+						"9Base-RHODF-4.13:ocs-metrics-exporter-container-v4.13.0-78",
+						"9Base-RHODF-4.13:ocs-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-operator-container-v4.13.0-67",
+						"9Base-RHODF-4.13:odf-console-container-v4.13.0-85",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-csi-addons-sidecar-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-multicluster-console-container-v4.13.0-81",
+						"9Base-RHODF-4.13:odf-multicluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-multicluster-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-must-gather-container-v4.13.0-35",
+						"9Base-RHODF-4.13:odf-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-operator-container-v4.13.0-24",
+						"9Base-RHODF-4.13:odr-cluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odr-hub-operator-bundle-container-v4.13.0-217",
+						"9Base-RHODF-4.13:odr-operator-container-v4.13.0-33",
+						"9Base-RHODF-4.13:rook-ceph-operator-container-v4.13.0-70"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank Philippe Antoine (Catena Cyber) for reporting this issue."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "27",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in Golang Go, where it is vulnerable to a denial of service caused when processing large TLS handshake records. By sending specially-crafted TLS handshake records, a remote, authenticated attacker can cause a denial of service condition.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2023-02-15T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-41724",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThese updated images include numerous enhancements and bug fixes. Space precludes documenting all of these changes in this advisory. Users are directed to the Red Hat OpenShift Data Foundation Release Notes for information on the most significant of these changes:\n\nhttps://access.redhat.com/documentation/en-us/red_hat_openshift_data_foundation/4.13/html/4.13_release_notes/index\n\nAll Red Hat OpenShift Data Foundation users are advised to upgrade to these updated images that provide numerous bug fixes and enhancements.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:3742"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2022-41724",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2022-41724"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2022-41724",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2022-41724"
+					},
+					{
+						"URL": "https://go.dev/cl/468125",
+						"Description": "https://go.dev/cl/468125"
+					},
+					{
+						"URL": "https://go.dev/issue/58001",
+						"Description": "https://go.dev/issue/58001"
+					},
+					{
+						"URL": "https://groups.google.com/g/golang-announce/c/V0aBFqaFs_E",
+						"Description": "https://groups.google.com/g/golang-announce/c/V0aBFqaFs_E"
+					},
+					{
+						"URL": "https://pkg.go.dev/vuln/GO-2023-1570",
+						"Description": "https://pkg.go.dev/vuln/GO-2023-1570"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-41724",
+						"Description": "CVE-2022-41724"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2178492",
+						"Description": "bz#2178492: large handshake records may cause panics"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2023-03-15T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"9Base-RHODF-4.13:cephcsi-container-v4.13.0-35",
+						"9Base-RHODF-4.13:mcg-cli-container-v4.13.0-17",
+						"9Base-RHODF-4.13:mcg-core-container-v4.13.0-41",
+						"9Base-RHODF-4.13:mcg-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:mcg-operator-container-v4.13.0-41",
+						"9Base-RHODF-4.13:ocs-client-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-client-operator-container-v4.13.0-17",
+						"9Base-RHODF-4.13:ocs-metrics-exporter-container-v4.13.0-78",
+						"9Base-RHODF-4.13:ocs-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-operator-container-v4.13.0-67",
+						"9Base-RHODF-4.13:odf-console-container-v4.13.0-85",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-csi-addons-sidecar-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-multicluster-console-container-v4.13.0-81",
+						"9Base-RHODF-4.13:odf-multicluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-multicluster-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-must-gather-container-v4.13.0-35",
+						"9Base-RHODF-4.13:odf-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-operator-container-v4.13.0-24",
+						"9Base-RHODF-4.13:odr-cluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odr-hub-operator-bundle-container-v4.13.0-217",
+						"9Base-RHODF-4.13:odr-operator-container-v4.13.0-33",
+						"9Base-RHODF-4.13:rook-ceph-operator-container-v4.13.0-70"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "28",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in Go, where it is vulnerable to a denial of service caused by an excessive resource consumption flaw in the net/http and mime/multipart packages. By sending a specially-crafted request, a remote attacker can cause a denial of service.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2023-02-15T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-41725",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThese updated images include numerous enhancements and bug fixes. Space precludes documenting all of these changes in this advisory. Users are directed to the Red Hat OpenShift Data Foundation Release Notes for information on the most significant of these changes:\n\nhttps://access.redhat.com/documentation/en-us/red_hat_openshift_data_foundation/4.13/html/4.13_release_notes/index\n\nAll Red Hat OpenShift Data Foundation users are advised to upgrade to these updated images that provide numerous bug fixes and enhancements.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:3742"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2022-41725",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2022-41725"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2022-41725",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2022-41725"
+					},
+					{
+						"URL": "https://go.dev/cl/468124",
+						"Description": "https://go.dev/cl/468124"
+					},
+					{
+						"URL": "https://go.dev/issue/58006",
+						"Description": "https://go.dev/issue/58006"
+					},
+					{
+						"URL": "https://groups.google.com/g/golang-announce/c/V0aBFqaFs_E",
+						"Description": "https://groups.google.com/g/golang-announce/c/V0aBFqaFs_E"
+					},
+					{
+						"URL": "https://pkg.go.dev/vuln/GO-2023-1569",
+						"Description": "https://pkg.go.dev/vuln/GO-2023-1569"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-41725",
+						"Description": "CVE-2022-41725"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2178488",
+						"Description": "bz#2178488: denial of service from excessive resource consumption"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2023-03-15T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"9Base-RHODF-4.13:cephcsi-container-v4.13.0-35",
+						"9Base-RHODF-4.13:mcg-cli-container-v4.13.0-17",
+						"9Base-RHODF-4.13:mcg-core-container-v4.13.0-41",
+						"9Base-RHODF-4.13:mcg-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:mcg-operator-container-v4.13.0-41",
+						"9Base-RHODF-4.13:ocs-client-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-client-operator-container-v4.13.0-17",
+						"9Base-RHODF-4.13:ocs-metrics-exporter-container-v4.13.0-78",
+						"9Base-RHODF-4.13:ocs-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-operator-container-v4.13.0-67",
+						"9Base-RHODF-4.13:odf-console-container-v4.13.0-85",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-csi-addons-sidecar-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-multicluster-console-container-v4.13.0-81",
+						"9Base-RHODF-4.13:odf-multicluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-multicluster-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-must-gather-container-v4.13.0-35",
+						"9Base-RHODF-4.13:odf-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-operator-container-v4.13.0-24",
+						"9Base-RHODF-4.13:odr-cluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odr-hub-operator-bundle-container-v4.13.0-217",
+						"9Base-RHODF-4.13:odr-operator-container-v4.13.0-33",
+						"9Base-RHODF-4.13:rook-ceph-operator-container-v4.13.0-70"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "29",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in the json5 package. The affected version of the json5 package could allow an attacker to set arbitrary and unexpected keys on the object returned from JSON5.parse.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-12-24T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-46175",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThese updated images include numerous enhancements and bug fixes. Space precludes documenting all of these changes in this advisory. Users are directed to the Red Hat OpenShift Data Foundation Release Notes for information on the most significant of these changes:\n\nhttps://access.redhat.com/documentation/en-us/red_hat_openshift_data_foundation/4.13/html/4.13_release_notes/index\n\nAll Red Hat OpenShift Data Foundation users are advised to upgrade to these updated images that provide numerous bug fixes and enhancements.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:3742"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2022-46175",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2022-46175"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2022-46175",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2022-46175"
+					},
+					{
+						"URL": "https://github.com/json5/json5/security/advisories/GHSA-9c47-m6qq-7p4h",
+						"Description": "https://github.com/json5/json5/security/advisories/GHSA-9c47-m6qq-7p4h"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-46175",
+						"Description": "CVE-2022-46175"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2156263",
+						"Description": "bz#2156263: Prototype Pollution in JSON5 via Parse Method"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2022-12-26T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"9Base-RHODF-4.13:cephcsi-container-v4.13.0-35",
+						"9Base-RHODF-4.13:mcg-cli-container-v4.13.0-17",
+						"9Base-RHODF-4.13:mcg-core-container-v4.13.0-41",
+						"9Base-RHODF-4.13:mcg-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:mcg-operator-container-v4.13.0-41",
+						"9Base-RHODF-4.13:ocs-client-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-client-operator-container-v4.13.0-17",
+						"9Base-RHODF-4.13:ocs-metrics-exporter-container-v4.13.0-78",
+						"9Base-RHODF-4.13:ocs-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-operator-container-v4.13.0-67",
+						"9Base-RHODF-4.13:odf-console-container-v4.13.0-85",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-csi-addons-sidecar-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-multicluster-console-container-v4.13.0-81",
+						"9Base-RHODF-4.13:odf-multicluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-multicluster-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-must-gather-container-v4.13.0-35",
+						"9Base-RHODF-4.13:odf-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-operator-container-v4.13.0-24",
+						"9Base-RHODF-4.13:odr-cluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odr-hub-operator-bundle-container-v4.13.0-217",
+						"9Base-RHODF-4.13:odr-operator-container-v4.13.0-33",
+						"9Base-RHODF-4.13:rook-ceph-operator-container-v4.13.0-70"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "30",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in HashiCorp Vault and Vault Enterprise, which are vulnerable to SQL injection. This flaw allows a local authenticated attacker to send specially-crafted SQL statements to the Microsoft SQL (MSSQL) Database Storage Backend, which could allow the attacker to view, add, modify, or delete information in the backend database.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2023-03-30T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2023-0620",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThese updated images include numerous enhancements and bug fixes. Space precludes documenting all of these changes in this advisory. Users are directed to the Red Hat OpenShift Data Foundation Release Notes for information on the most significant of these changes:\n\nhttps://access.redhat.com/documentation/en-us/red_hat_openshift_data_foundation/4.13/html/4.13_release_notes/index\n\nAll Red Hat OpenShift Data Foundation users are advised to upgrade to these updated images that provide numerous bug fixes and enhancements.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:3742"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2023-0620",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2023-0620"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2023-0620",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2023-0620"
+					},
+					{
+						"URL": "https://discuss.hashicorp.com/t/hcsec-2023-12-vault-s-microsoft-sql-database-storage-backend-vulnerable-to-sql-injection-via-configuration-file/52080",
+						"Description": "https://discuss.hashicorp.com/t/hcsec-2023-12-vault-s-microsoft-sql-database-storage-backend-vulnerable-to-sql-injection-via-configuration-file/52080"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2023-0620",
+						"Description": "CVE-2023-0620"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2184663",
+						"Description": "bz#2184663: Vault’s Microsoft SQL Database Storage Backend Vulnerable to SQL Injection Via Configuration File"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2023-04-05T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"9Base-RHODF-4.13:cephcsi-container-v4.13.0-35",
+						"9Base-RHODF-4.13:mcg-cli-container-v4.13.0-17",
+						"9Base-RHODF-4.13:mcg-core-container-v4.13.0-41",
+						"9Base-RHODF-4.13:mcg-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:mcg-operator-container-v4.13.0-41",
+						"9Base-RHODF-4.13:ocs-client-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-client-operator-container-v4.13.0-17",
+						"9Base-RHODF-4.13:ocs-metrics-exporter-container-v4.13.0-78",
+						"9Base-RHODF-4.13:ocs-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-operator-container-v4.13.0-67",
+						"9Base-RHODF-4.13:odf-console-container-v4.13.0-85",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-csi-addons-sidecar-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-multicluster-console-container-v4.13.0-81",
+						"9Base-RHODF-4.13:odf-multicluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-multicluster-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-must-gather-container-v4.13.0-35",
+						"9Base-RHODF-4.13:odf-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-operator-container-v4.13.0-24",
+						"9Base-RHODF-4.13:odr-cluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odr-hub-operator-bundle-container-v4.13.0-217",
+						"9Base-RHODF-4.13:odr-operator-container-v4.13.0-33",
+						"9Base-RHODF-4.13:rook-ceph-operator-container-v4.13.0-70"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "31",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in the Hashicorp vault. Vault’s PKI mount issuer endpoints did not correctly authorize access to remove an issuer or modify issuer metadata, potentially resulting in a denial of service of the PKI mount. This bug did not affect public or private key material, trust chains, or certificate issuance.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2023-03-30T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2023-0665",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThese updated images include numerous enhancements and bug fixes. Space precludes documenting all of these changes in this advisory. Users are directed to the Red Hat OpenShift Data Foundation Release Notes for information on the most significant of these changes:\n\nhttps://access.redhat.com/documentation/en-us/red_hat_openshift_data_foundation/4.13/html/4.13_release_notes/index\n\nAll Red Hat OpenShift Data Foundation users are advised to upgrade to these updated images that provide numerous bug fixes and enhancements.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:3742"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2023-0665",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2023-0665"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2023-0665",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2023-0665"
+					},
+					{
+						"URL": "https://discuss.hashicorp.com/t/hcsec-2023-11-vault-s-pki-issuer-endpoint-did-not-correctly-authorize-access-to-issuer-metadata/52079/1",
+						"Description": "https://discuss.hashicorp.com/t/hcsec-2023-11-vault-s-pki-issuer-endpoint-did-not-correctly-authorize-access-to-issuer-metadata/52079/1"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2023-0665",
+						"Description": "CVE-2023-0665"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2182981",
+						"Description": "bz#2182981: Vault’s PKI Issuer Endpoint Did Not Correctly Authorize Access to Issuer Metadata"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2023-03-30T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"9Base-RHODF-4.13:cephcsi-container-v4.13.0-35",
+						"9Base-RHODF-4.13:mcg-cli-container-v4.13.0-17",
+						"9Base-RHODF-4.13:mcg-core-container-v4.13.0-41",
+						"9Base-RHODF-4.13:mcg-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:mcg-operator-container-v4.13.0-41",
+						"9Base-RHODF-4.13:ocs-client-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-client-operator-container-v4.13.0-17",
+						"9Base-RHODF-4.13:ocs-metrics-exporter-container-v4.13.0-78",
+						"9Base-RHODF-4.13:ocs-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-operator-container-v4.13.0-67",
+						"9Base-RHODF-4.13:odf-console-container-v4.13.0-85",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-csi-addons-sidecar-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-multicluster-console-container-v4.13.0-81",
+						"9Base-RHODF-4.13:odf-multicluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-multicluster-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-must-gather-container-v4.13.0-35",
+						"9Base-RHODF-4.13:odf-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-operator-container-v4.13.0-24",
+						"9Base-RHODF-4.13:odr-cluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odr-hub-operator-bundle-container-v4.13.0-217",
+						"9Base-RHODF-4.13:odr-operator-container-v4.13.0-33",
+						"9Base-RHODF-4.13:rook-ceph-operator-container-v4.13.0-70"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "32",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in the Hashicorp vault. When using the Vault and Vault Enterprise approle auth method, any authenticated user with access to the /auth/approle/role/:role_name/secret-id-accessor/destroy endpoint can destroy the secret ID of another role by providing the secret ID accessor.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2023-03-10T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2023-24999",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThese updated images include numerous enhancements and bug fixes. Space precludes documenting all of these changes in this advisory. Users are directed to the Red Hat OpenShift Data Foundation Release Notes for information on the most significant of these changes:\n\nhttps://access.redhat.com/documentation/en-us/red_hat_openshift_data_foundation/4.13/html/4.13_release_notes/index\n\nAll Red Hat OpenShift Data Foundation users are advised to upgrade to these updated images that provide numerous bug fixes and enhancements.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:3742"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2023-24999",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2023-24999"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2023-24999",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2023-24999"
+					},
+					{
+						"URL": "https://discuss.hashicorp.com/t/hcsec-2023-07-vault-fails-to-verify-if-approle-secretid-belongs-to-role-during-a-destroy-operation/51305",
+						"Description": "https://discuss.hashicorp.com/t/hcsec-2023-07-vault-fails-to-verify-if-approle-secretid-belongs-to-role-during-a-destroy-operation/51305"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2023-24999",
+						"Description": "CVE-2023-24999"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2177844",
+						"Description": "bz#2177844: Vault Fails to Verify if Approle SecretID Belongs to Role During a Destroy Operation"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2023-03-13T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"9Base-RHODF-4.13:cephcsi-container-v4.13.0-35",
+						"9Base-RHODF-4.13:mcg-cli-container-v4.13.0-17",
+						"9Base-RHODF-4.13:mcg-core-container-v4.13.0-41",
+						"9Base-RHODF-4.13:mcg-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:mcg-operator-container-v4.13.0-41",
+						"9Base-RHODF-4.13:ocs-client-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-client-operator-container-v4.13.0-17",
+						"9Base-RHODF-4.13:ocs-metrics-exporter-container-v4.13.0-78",
+						"9Base-RHODF-4.13:ocs-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-operator-container-v4.13.0-67",
+						"9Base-RHODF-4.13:odf-console-container-v4.13.0-85",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-csi-addons-sidecar-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-multicluster-console-container-v4.13.0-81",
+						"9Base-RHODF-4.13:odf-multicluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-multicluster-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-must-gather-container-v4.13.0-35",
+						"9Base-RHODF-4.13:odf-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-operator-container-v4.13.0-24",
+						"9Base-RHODF-4.13:odr-cluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odr-hub-operator-bundle-container-v4.13.0-217",
+						"9Base-RHODF-4.13:odr-operator-container-v4.13.0-33",
+						"9Base-RHODF-4.13:rook-ceph-operator-container-v4.13.0-70"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "33",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in the Hashicorp vault. This flaw allows an attacker with access to and the ability to observe a large number of unseal operations on the host through a side channel to reduce the search space of a brute-force effort to recover the Shamir shares.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2023-03-30T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2023-25000",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThese updated images include numerous enhancements and bug fixes. Space precludes documenting all of these changes in this advisory. Users are directed to the Red Hat OpenShift Data Foundation Release Notes for information on the most significant of these changes:\n\nhttps://access.redhat.com/documentation/en-us/red_hat_openshift_data_foundation/4.13/html/4.13_release_notes/index\n\nAll Red Hat OpenShift Data Foundation users are advised to upgrade to these updated images that provide numerous bug fixes and enhancements.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:3742"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2023-25000",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2023-25000"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2023-25000",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2023-25000"
+					},
+					{
+						"URL": "https://discuss.hashicorp.com/t/hcsec-2023-10-vault-vulnerable-to-cache-timing-attacks-during-seal-and-unseal-operations/52078",
+						"Description": "https://discuss.hashicorp.com/t/hcsec-2023-10-vault-vulnerable-to-cache-timing-attacks-during-seal-and-unseal-operations/52078"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2023-25000",
+						"Description": "CVE-2023-25000"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2182972",
+						"Description": "bz#2182972: Cache-Timing Attacks During Seal and Unseal Operations"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2023-03-30T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"9Base-RHODF-4.13:cephcsi-container-v4.13.0-35",
+						"9Base-RHODF-4.13:mcg-cli-container-v4.13.0-17",
+						"9Base-RHODF-4.13:mcg-core-container-v4.13.0-41",
+						"9Base-RHODF-4.13:mcg-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:mcg-operator-container-v4.13.0-41",
+						"9Base-RHODF-4.13:ocs-client-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-client-operator-container-v4.13.0-17",
+						"9Base-RHODF-4.13:ocs-metrics-exporter-container-v4.13.0-78",
+						"9Base-RHODF-4.13:ocs-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:ocs-operator-container-v4.13.0-67",
+						"9Base-RHODF-4.13:odf-console-container-v4.13.0-85",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-csi-addons-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-csi-addons-sidecar-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-multicluster-console-container-v4.13.0-81",
+						"9Base-RHODF-4.13:odf-multicluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-multicluster-operator-container-v4.13.0-18",
+						"9Base-RHODF-4.13:odf-must-gather-container-v4.13.0-35",
+						"9Base-RHODF-4.13:odf-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odf-operator-container-v4.13.0-24",
+						"9Base-RHODF-4.13:odr-cluster-operator-bundle-container-v4.13.0-218",
+						"9Base-RHODF-4.13:odr-hub-operator-bundle-container-v4.13.0-217",
+						"9Base-RHODF-4.13:odr-operator-container-v4.13.0-33",
+						"9Base-RHODF-4.13:rook-ceph-operator-container-v4.13.0-70"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat OpenShift Data Foundation",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "RHODF 4.13 for RHEL 9",
+						"fullproductname": {
+							"text": "RHODF 4.13 for RHEL 9",
+							"productid": "9Base-RHODF-4.13",
+							"cpe": "cpe:/a:redhat:openshift_data_foundation:4.13::el9"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "odf4/cephcsi-rhel9:v4.13.0-35",
+				"fullproductname": {
+					"text": "odf4/cephcsi-rhel9:v4.13.0-35",
+					"productid": "odf4/cephcsi-rhel9:v4.13.0-35",
+					"cpe": "cpe:/a:redhat:openshift_data_foundation:4.13::el9"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "odf4/mcg-cli-rhel9:v4.13.0-17",
+				"fullproductname": {
+					"text": "odf4/mcg-cli-rhel9:v4.13.0-17",
+					"productid": "odf4/mcg-cli-rhel9:v4.13.0-17",
+					"cpe": "cpe:/a:redhat:openshift_data_foundation:4.13::el9"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "odf4/mcg-core-rhel9:v4.13.0-41",
+				"fullproductname": {
+					"text": "odf4/mcg-core-rhel9:v4.13.0-41",
+					"productid": "odf4/mcg-core-rhel9:v4.13.0-41",
+					"cpe": "cpe:/a:redhat:openshift_data_foundation:4.13::el9"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "odf4/mcg-operator-bundle:v4.13.0-218",
+				"fullproductname": {
+					"text": "odf4/mcg-operator-bundle:v4.13.0-218",
+					"productid": "odf4/mcg-operator-bundle:v4.13.0-218",
+					"cpe": "cpe:/a:redhat:openshift_data_foundation:4.13::el9"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "odf4/mcg-rhel9-operator:v4.13.0-41",
+				"fullproductname": {
+					"text": "odf4/mcg-rhel9-operator:v4.13.0-41",
+					"productid": "odf4/mcg-rhel9-operator:v4.13.0-41",
+					"cpe": "cpe:/a:redhat:openshift_data_foundation:4.13::el9"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "odf4/ocs-client-operator-bundle:v4.13.0-218",
+				"fullproductname": {
+					"text": "odf4/ocs-client-operator-bundle:v4.13.0-218",
+					"productid": "odf4/ocs-client-operator-bundle:v4.13.0-218",
+					"cpe": "cpe:/a:redhat:openshift_data_foundation:4.13::el9"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "odf4/ocs-client-rhel9-operator:v4.13.0-17",
+				"fullproductname": {
+					"text": "odf4/ocs-client-rhel9-operator:v4.13.0-17",
+					"productid": "odf4/ocs-client-rhel9-operator:v4.13.0-17",
+					"cpe": "cpe:/a:redhat:openshift_data_foundation:4.13::el9"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "odf4/ocs-metrics-exporter-rhel9:v4.13.0-78",
+				"fullproductname": {
+					"text": "odf4/ocs-metrics-exporter-rhel9:v4.13.0-78",
+					"productid": "odf4/ocs-metrics-exporter-rhel9:v4.13.0-78",
+					"cpe": "cpe:/a:redhat:openshift_data_foundation:4.13::el9"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "odf4/ocs-operator-bundle:v4.13.0-218",
+				"fullproductname": {
+					"text": "odf4/ocs-operator-bundle:v4.13.0-218",
+					"productid": "odf4/ocs-operator-bundle:v4.13.0-218",
+					"cpe": "cpe:/a:redhat:openshift_data_foundation:4.13::el9"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "odf4/ocs-rhel9-operator:v4.13.0-67",
+				"fullproductname": {
+					"text": "odf4/ocs-rhel9-operator:v4.13.0-67",
+					"productid": "odf4/ocs-rhel9-operator:v4.13.0-67",
+					"cpe": "cpe:/a:redhat:openshift_data_foundation:4.13::el9"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "odf4/odf-console-rhel9:v4.13.0-85",
+				"fullproductname": {
+					"text": "odf4/odf-console-rhel9:v4.13.0-85",
+					"productid": "odf4/odf-console-rhel9:v4.13.0-85",
+					"cpe": "cpe:/a:redhat:openshift_data_foundation:4.13::el9"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "odf4/odf-csi-addons-operator-bundle:v4.13.0-218",
+				"fullproductname": {
+					"text": "odf4/odf-csi-addons-operator-bundle:v4.13.0-218",
+					"productid": "odf4/odf-csi-addons-operator-bundle:v4.13.0-218",
+					"cpe": "cpe:/a:redhat:openshift_data_foundation:4.13::el9"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "odf4/odf-csi-addons-rhel9-operator:v4.13.0-18",
+				"fullproductname": {
+					"text": "odf4/odf-csi-addons-rhel9-operator:v4.13.0-18",
+					"productid": "odf4/odf-csi-addons-rhel9-operator:v4.13.0-18",
+					"cpe": "cpe:/a:redhat:openshift_data_foundation:4.13::el9"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "odf4/odf-csi-addons-sidecar-rhel9:v4.13.0-18",
+				"fullproductname": {
+					"text": "odf4/odf-csi-addons-sidecar-rhel9:v4.13.0-18",
+					"productid": "odf4/odf-csi-addons-sidecar-rhel9:v4.13.0-18",
+					"cpe": "cpe:/a:redhat:openshift_data_foundation:4.13::el9"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "odf4/odf-multicluster-console-rhel9:v4.13.0-81",
+				"fullproductname": {
+					"text": "odf4/odf-multicluster-console-rhel9:v4.13.0-81",
+					"productid": "odf4/odf-multicluster-console-rhel9:v4.13.0-81",
+					"cpe": "cpe:/a:redhat:openshift_data_foundation:4.13::el9"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "odf4/odf-multicluster-operator-bundle:v4.13.0-218",
+				"fullproductname": {
+					"text": "odf4/odf-multicluster-operator-bundle:v4.13.0-218",
+					"productid": "odf4/odf-multicluster-operator-bundle:v4.13.0-218",
+					"cpe": "cpe:/a:redhat:openshift_data_foundation:4.13::el9"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "odf4/odf-multicluster-rhel9-operator:v4.13.0-18",
+				"fullproductname": {
+					"text": "odf4/odf-multicluster-rhel9-operator:v4.13.0-18",
+					"productid": "odf4/odf-multicluster-rhel9-operator:v4.13.0-18",
+					"cpe": "cpe:/a:redhat:openshift_data_foundation:4.13::el9"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "odf4/odf-must-gather-rhel9:v4.13.0-35",
+				"fullproductname": {
+					"text": "odf4/odf-must-gather-rhel9:v4.13.0-35",
+					"productid": "odf4/odf-must-gather-rhel9:v4.13.0-35",
+					"cpe": "cpe:/a:redhat:openshift_data_foundation:4.13::el9"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "odf4/odf-operator-bundle:v4.13.0-218",
+				"fullproductname": {
+					"text": "odf4/odf-operator-bundle:v4.13.0-218",
+					"productid": "odf4/odf-operator-bundle:v4.13.0-218",
+					"cpe": "cpe:/a:redhat:openshift_data_foundation:4.13::el9"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "odf4/odf-rhel9-operator:v4.13.0-24",
+				"fullproductname": {
+					"text": "odf4/odf-rhel9-operator:v4.13.0-24",
+					"productid": "odf4/odf-rhel9-operator:v4.13.0-24",
+					"cpe": "cpe:/a:redhat:openshift_data_foundation:4.13::el9"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "odf4/odr-cluster-operator-bundle:v4.13.0-218",
+				"fullproductname": {
+					"text": "odf4/odr-cluster-operator-bundle:v4.13.0-218",
+					"productid": "odf4/odr-cluster-operator-bundle:v4.13.0-218",
+					"cpe": "cpe:/a:redhat:openshift_data_foundation:4.13::el9"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "odf4/odr-hub-operator-bundle:v4.13.0-217",
+				"fullproductname": {
+					"text": "odf4/odr-hub-operator-bundle:v4.13.0-217",
+					"productid": "odf4/odr-hub-operator-bundle:v4.13.0-217",
+					"cpe": "cpe:/a:redhat:openshift_data_foundation:4.13::el9"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "odf4/odr-rhel9-operator:v4.13.0-33",
+				"fullproductname": {
+					"text": "odf4/odr-rhel9-operator:v4.13.0-33",
+					"productid": "odf4/odr-rhel9-operator:v4.13.0-33",
+					"cpe": "cpe:/a:redhat:openshift_data_foundation:4.13::el9"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "odf4/rook-ceph-rhel9-operator:v4.13.0-70",
+				"fullproductname": {
+					"text": "odf4/rook-ceph-rhel9-operator:v4.13.0-70",
+					"productid": "odf4/rook-ceph-rhel9-operator:v4.13.0-70",
+					"cpe": "cpe:/a:redhat:openshift_data_foundation:4.13::el9"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "cephcsi-container-v4.13.0-35",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "9Base-RHODF-4.13",
+				"fullproductname": {
+					"text": "cephcsi-container-v4.13.0-35 as a component of RHODF 4.13 for RHEL 9",
+					"productid": "9Base-RHODF-4.13:cephcsi-container-v4.13.0-35",
+					"cpe": "cpe:/a:redhat:openshift_data_foundation:4.13::el9"
+				}
+			},
+			{
+				"productreference": "mcg-cli-container-v4.13.0-17",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "9Base-RHODF-4.13",
+				"fullproductname": {
+					"text": "mcg-cli-container-v4.13.0-17 as a component of RHODF 4.13 for RHEL 9",
+					"productid": "9Base-RHODF-4.13:mcg-cli-container-v4.13.0-17",
+					"cpe": "cpe:/a:redhat:openshift_data_foundation:4.13::el9"
+				}
+			},
+			{
+				"productreference": "mcg-core-container-v4.13.0-41",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "9Base-RHODF-4.13",
+				"fullproductname": {
+					"text": "mcg-core-container-v4.13.0-41 as a component of RHODF 4.13 for RHEL 9",
+					"productid": "9Base-RHODF-4.13:mcg-core-container-v4.13.0-41",
+					"cpe": "cpe:/a:redhat:openshift_data_foundation:4.13::el9"
+				}
+			},
+			{
+				"productreference": "mcg-operator-bundle-container-v4.13.0-218",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "9Base-RHODF-4.13",
+				"fullproductname": {
+					"text": "mcg-operator-bundle-container-v4.13.0-218 as a component of RHODF 4.13 for RHEL 9",
+					"productid": "9Base-RHODF-4.13:mcg-operator-bundle-container-v4.13.0-218",
+					"cpe": "cpe:/a:redhat:openshift_data_foundation:4.13::el9"
+				}
+			},
+			{
+				"productreference": "mcg-operator-container-v4.13.0-41",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "9Base-RHODF-4.13",
+				"fullproductname": {
+					"text": "mcg-operator-container-v4.13.0-41 as a component of RHODF 4.13 for RHEL 9",
+					"productid": "9Base-RHODF-4.13:mcg-operator-container-v4.13.0-41",
+					"cpe": "cpe:/a:redhat:openshift_data_foundation:4.13::el9"
+				}
+			},
+			{
+				"productreference": "ocs-client-operator-bundle-container-v4.13.0-218",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "9Base-RHODF-4.13",
+				"fullproductname": {
+					"text": "ocs-client-operator-bundle-container-v4.13.0-218 as a component of RHODF 4.13 for RHEL 9",
+					"productid": "9Base-RHODF-4.13:ocs-client-operator-bundle-container-v4.13.0-218",
+					"cpe": "cpe:/a:redhat:openshift_data_foundation:4.13::el9"
+				}
+			},
+			{
+				"productreference": "ocs-client-operator-container-v4.13.0-17",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "9Base-RHODF-4.13",
+				"fullproductname": {
+					"text": "ocs-client-operator-container-v4.13.0-17 as a component of RHODF 4.13 for RHEL 9",
+					"productid": "9Base-RHODF-4.13:ocs-client-operator-container-v4.13.0-17",
+					"cpe": "cpe:/a:redhat:openshift_data_foundation:4.13::el9"
+				}
+			},
+			{
+				"productreference": "ocs-metrics-exporter-container-v4.13.0-78",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "9Base-RHODF-4.13",
+				"fullproductname": {
+					"text": "ocs-metrics-exporter-container-v4.13.0-78 as a component of RHODF 4.13 for RHEL 9",
+					"productid": "9Base-RHODF-4.13:ocs-metrics-exporter-container-v4.13.0-78",
+					"cpe": "cpe:/a:redhat:openshift_data_foundation:4.13::el9"
+				}
+			},
+			{
+				"productreference": "ocs-operator-bundle-container-v4.13.0-218",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "9Base-RHODF-4.13",
+				"fullproductname": {
+					"text": "ocs-operator-bundle-container-v4.13.0-218 as a component of RHODF 4.13 for RHEL 9",
+					"productid": "9Base-RHODF-4.13:ocs-operator-bundle-container-v4.13.0-218",
+					"cpe": "cpe:/a:redhat:openshift_data_foundation:4.13::el9"
+				}
+			},
+			{
+				"productreference": "ocs-operator-container-v4.13.0-67",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "9Base-RHODF-4.13",
+				"fullproductname": {
+					"text": "ocs-operator-container-v4.13.0-67 as a component of RHODF 4.13 for RHEL 9",
+					"productid": "9Base-RHODF-4.13:ocs-operator-container-v4.13.0-67",
+					"cpe": "cpe:/a:redhat:openshift_data_foundation:4.13::el9"
+				}
+			},
+			{
+				"productreference": "odf-console-container-v4.13.0-85",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "9Base-RHODF-4.13",
+				"fullproductname": {
+					"text": "odf-console-container-v4.13.0-85 as a component of RHODF 4.13 for RHEL 9",
+					"productid": "9Base-RHODF-4.13:odf-console-container-v4.13.0-85",
+					"cpe": "cpe:/a:redhat:openshift_data_foundation:4.13::el9"
+				}
+			},
+			{
+				"productreference": "odf-csi-addons-operator-bundle-container-v4.13.0-218",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "9Base-RHODF-4.13",
+				"fullproductname": {
+					"text": "odf-csi-addons-operator-bundle-container-v4.13.0-218 as a component of RHODF 4.13 for RHEL 9",
+					"productid": "9Base-RHODF-4.13:odf-csi-addons-operator-bundle-container-v4.13.0-218",
+					"cpe": "cpe:/a:redhat:openshift_data_foundation:4.13::el9"
+				}
+			},
+			{
+				"productreference": "odf-csi-addons-operator-container-v4.13.0-18",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "9Base-RHODF-4.13",
+				"fullproductname": {
+					"text": "odf-csi-addons-operator-container-v4.13.0-18 as a component of RHODF 4.13 for RHEL 9",
+					"productid": "9Base-RHODF-4.13:odf-csi-addons-operator-container-v4.13.0-18",
+					"cpe": "cpe:/a:redhat:openshift_data_foundation:4.13::el9"
+				}
+			},
+			{
+				"productreference": "odf-csi-addons-sidecar-container-v4.13.0-18",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "9Base-RHODF-4.13",
+				"fullproductname": {
+					"text": "odf-csi-addons-sidecar-container-v4.13.0-18 as a component of RHODF 4.13 for RHEL 9",
+					"productid": "9Base-RHODF-4.13:odf-csi-addons-sidecar-container-v4.13.0-18",
+					"cpe": "cpe:/a:redhat:openshift_data_foundation:4.13::el9"
+				}
+			},
+			{
+				"productreference": "odf-multicluster-console-container-v4.13.0-81",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "9Base-RHODF-4.13",
+				"fullproductname": {
+					"text": "odf-multicluster-console-container-v4.13.0-81 as a component of RHODF 4.13 for RHEL 9",
+					"productid": "9Base-RHODF-4.13:odf-multicluster-console-container-v4.13.0-81",
+					"cpe": "cpe:/a:redhat:openshift_data_foundation:4.13::el9"
+				}
+			},
+			{
+				"productreference": "odf-multicluster-operator-bundle-container-v4.13.0-218",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "9Base-RHODF-4.13",
+				"fullproductname": {
+					"text": "odf-multicluster-operator-bundle-container-v4.13.0-218 as a component of RHODF 4.13 for RHEL 9",
+					"productid": "9Base-RHODF-4.13:odf-multicluster-operator-bundle-container-v4.13.0-218",
+					"cpe": "cpe:/a:redhat:openshift_data_foundation:4.13::el9"
+				}
+			},
+			{
+				"productreference": "odf-multicluster-operator-container-v4.13.0-18",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "9Base-RHODF-4.13",
+				"fullproductname": {
+					"text": "odf-multicluster-operator-container-v4.13.0-18 as a component of RHODF 4.13 for RHEL 9",
+					"productid": "9Base-RHODF-4.13:odf-multicluster-operator-container-v4.13.0-18",
+					"cpe": "cpe:/a:redhat:openshift_data_foundation:4.13::el9"
+				}
+			},
+			{
+				"productreference": "odf-must-gather-container-v4.13.0-35",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "9Base-RHODF-4.13",
+				"fullproductname": {
+					"text": "odf-must-gather-container-v4.13.0-35 as a component of RHODF 4.13 for RHEL 9",
+					"productid": "9Base-RHODF-4.13:odf-must-gather-container-v4.13.0-35",
+					"cpe": "cpe:/a:redhat:openshift_data_foundation:4.13::el9"
+				}
+			},
+			{
+				"productreference": "odf-operator-bundle-container-v4.13.0-218",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "9Base-RHODF-4.13",
+				"fullproductname": {
+					"text": "odf-operator-bundle-container-v4.13.0-218 as a component of RHODF 4.13 for RHEL 9",
+					"productid": "9Base-RHODF-4.13:odf-operator-bundle-container-v4.13.0-218",
+					"cpe": "cpe:/a:redhat:openshift_data_foundation:4.13::el9"
+				}
+			},
+			{
+				"productreference": "odf-operator-container-v4.13.0-24",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "9Base-RHODF-4.13",
+				"fullproductname": {
+					"text": "odf-operator-container-v4.13.0-24 as a component of RHODF 4.13 for RHEL 9",
+					"productid": "9Base-RHODF-4.13:odf-operator-container-v4.13.0-24",
+					"cpe": "cpe:/a:redhat:openshift_data_foundation:4.13::el9"
+				}
+			},
+			{
+				"productreference": "odr-cluster-operator-bundle-container-v4.13.0-218",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "9Base-RHODF-4.13",
+				"fullproductname": {
+					"text": "odr-cluster-operator-bundle-container-v4.13.0-218 as a component of RHODF 4.13 for RHEL 9",
+					"productid": "9Base-RHODF-4.13:odr-cluster-operator-bundle-container-v4.13.0-218",
+					"cpe": "cpe:/a:redhat:openshift_data_foundation:4.13::el9"
+				}
+			},
+			{
+				"productreference": "odr-hub-operator-bundle-container-v4.13.0-217",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "9Base-RHODF-4.13",
+				"fullproductname": {
+					"text": "odr-hub-operator-bundle-container-v4.13.0-217 as a component of RHODF 4.13 for RHEL 9",
+					"productid": "9Base-RHODF-4.13:odr-hub-operator-bundle-container-v4.13.0-217",
+					"cpe": "cpe:/a:redhat:openshift_data_foundation:4.13::el9"
+				}
+			},
+			{
+				"productreference": "odr-operator-container-v4.13.0-33",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "9Base-RHODF-4.13",
+				"fullproductname": {
+					"text": "odr-operator-container-v4.13.0-33 as a component of RHODF 4.13 for RHEL 9",
+					"productid": "9Base-RHODF-4.13:odr-operator-container-v4.13.0-33",
+					"cpe": "cpe:/a:redhat:openshift_data_foundation:4.13::el9"
+				}
+			},
+			{
+				"productreference": "rook-ceph-operator-container-v4.13.0-70",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "9Base-RHODF-4.13",
+				"fullproductname": {
+					"text": "rook-ceph-operator-container-v4.13.0-70 as a component of RHODF 4.13 for RHEL 9",
+					"productid": "9Base-RHODF-4.13:rook-ceph-operator-container-v4.13.0-70",
+					"cpe": "cpe:/a:redhat:openshift_data_foundation:4.13::el9"
+				}
+			}
+		]
+	}
+}

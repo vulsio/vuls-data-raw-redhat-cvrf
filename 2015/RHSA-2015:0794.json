@@ -1,0 +1,600 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: krb5 security update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2015:0794"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2015-04-09T05:09:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2015-04-09T05:09:00Z",
+		"CurrentReleaseDate": "2015-04-09T05:09:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:38:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated krb5 packages that fix multiple security issues are now available\nfor Red Hat Enterprise Linux 6.\n\nRed Hat Product Security has rated this update as having Moderate security\nimpact. Common Vulnerability Scoring System (CVSS) base scores, which give\ndetailed severity ratings, are available for each vulnerability from the\nCVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nKerberos is a networked authentication system which allows clients and\nservers to authenticate to each other with the help of a trusted third\nparty, the Kerberos KDC.\n\nThe following security issues are fixed with this release:\n\nA use-after-free flaw was found in the way the MIT Kerberos libgssapi_krb5\nlibrary processed valid context deletion tokens. An attacker able to make\nan application using the GSS-API library (libgssapi) could call the\ngss_process_context_token() function and use this flaw to crash that\napplication. (CVE-2014-5352)\n\nIf kadmind were used with an LDAP back end for the KDC database, a remote,\nauthenticated attacker who has the permissions to set the password policy\ncould crash kadmind by attempting to use a named ticket policy object as a\npassword policy for a principal. (CVE-2014-5353)\n\nIt was found that the krb5_read_message() function of MIT Kerberos did not\ncorrectly sanitize input, and could create invalid krb5_data objects.\nA remote, unauthenticated attacker could use this flaw to crash a Kerberos\nchild process via a specially crafted request. (CVE-2014-5355)\n\nA double-free flaw was found in the way MIT Kerberos handled invalid\nExternal Data Representation (XDR) data. An authenticated user could use\nthis flaw to crash the MIT Kerberos administration server (kadmind), or\nother applications using Kerberos libraries, via specially crafted XDR\npackets. (CVE-2014-9421)\n\nIt was found that the MIT Kerberos administration server (kadmind)\nincorrectly accepted certain authentication requests for two-component\nserver principal names. A remote attacker able to acquire a key with a\nparticularly named principal (such as \"kad/x\") could use this flaw to\nimpersonate any user to kadmind, and perform administrative actions as that\nuser. (CVE-2014-9422)\n\nRed Hat would like to thank the MIT Kerberos project for reporting\nCVE-2014-5352, CVE-2014-9421, and CVE-2014-9422. The MIT Kerberos project\nacknowledges Nico Williams for assisting with the analysis of\nCVE-2014-5352.\n\nAll krb5 users are advised to upgrade to these updated packages, which\ncontain backported patches to correct these issues.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2015:0794",
+				"Description": "https://access.redhat.com/errata/RHSA-2015:0794"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "krb5: gss_process_context_token() incorrectly frees context (MITKRB5-SA-2015-001)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-02-03T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-5352",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:0794"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "http://web.mit.edu/Kerberos/advisories/MITKRB5-SA-2015-001.txt",
+						"Description": "http://web.mit.edu/Kerberos/advisories/MITKRB5-SA-2015-001.txt"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-5352",
+						"Description": "CVE-2014-5352"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1179856",
+						"Description": "bz#1179856: CVE-2014-5352 krb5: gss_process_context_token() incorrectly frees context (MITKRB5-SA-2015-001)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-01-07T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.6.z:krb5-0:1.10.3-37.el6_6",
+						"6Client-optional-6.6.z:krb5-0:1.10.3-37.el6_6",
+						"6ComputeNode-6.6.z:krb5-0:1.10.3-37.el6_6",
+						"6ComputeNode-optional-6.6.z:krb5-0:1.10.3-37.el6_6",
+						"6Server-6.6.z:krb5-0:1.10.3-37.el6_6",
+						"6Workstation-6.6.z:krb5-0:1.10.3-37.el6_6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.5",
+					"Vector": "AV:N/AC:L/Au:S/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "krb5: NULL pointer dereference when using a ticket policy name as a password policy name",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-12-06T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-5353",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:0794"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-5353",
+						"Description": "CVE-2014-5353"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1174543",
+						"Description": "bz#1174543: CVE-2014-5353 krb5: NULL pointer dereference when using a ticket policy name as a password policy name"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-12-15T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.6.z:krb5-0:1.10.3-37.el6_6",
+						"6Client-optional-6.6.z:krb5-0:1.10.3-37.el6_6",
+						"6ComputeNode-6.6.z:krb5-0:1.10.3-37.el6_6",
+						"6ComputeNode-optional-6.6.z:krb5-0:1.10.3-37.el6_6",
+						"6Server-6.6.z:krb5-0:1.10.3-37.el6_6",
+						"6Workstation-6.6.z:krb5-0:1.10.3-37.el6_6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "3.5",
+					"Vector": "AV:N/AC:M/Au:S/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "krb5: unauthenticated denial of service in recvauth_common() and others",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-12-09T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-5355",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:0794"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-5355",
+						"Description": "CVE-2014-5355"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1193939",
+						"Description": "bz#1193939: CVE-2014-5355 krb5: unauthenticated denial of service in recvauth_common() and others"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-02-18T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.6.z:krb5-0:1.10.3-37.el6_6",
+						"6Client-optional-6.6.z:krb5-0:1.10.3-37.el6_6",
+						"6ComputeNode-6.6.z:krb5-0:1.10.3-37.el6_6",
+						"6ComputeNode-optional-6.6.z:krb5-0:1.10.3-37.el6_6",
+						"6Server-6.6.z:krb5-0:1.10.3-37.el6_6",
+						"6Workstation-6.6.z:krb5-0:1.10.3-37.el6_6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.0",
+					"Vector": "AV:N/AC:L/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "krb5: kadmind doubly frees partial deserialization results (MITKRB5-SA-2015-001)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-02-03T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-9421",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:0794"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "http://web.mit.edu/Kerberos/advisories/MITKRB5-SA-2015-001.txt",
+						"Description": "http://web.mit.edu/Kerberos/advisories/MITKRB5-SA-2015-001.txt"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-9421",
+						"Description": "CVE-2014-9421"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1179857",
+						"Description": "bz#1179857: CVE-2014-9421 krb5: kadmind doubly frees partial deserialization results (MITKRB5-SA-2015-001)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-01-07T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.6.z:krb5-0:1.10.3-37.el6_6",
+						"6Client-optional-6.6.z:krb5-0:1.10.3-37.el6_6",
+						"6ComputeNode-6.6.z:krb5-0:1.10.3-37.el6_6",
+						"6ComputeNode-optional-6.6.z:krb5-0:1.10.3-37.el6_6",
+						"6Server-6.6.z:krb5-0:1.10.3-37.el6_6",
+						"6Workstation-6.6.z:krb5-0:1.10.3-37.el6_6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.5",
+					"Vector": "AV:N/AC:L/Au:S/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "krb5: kadmind incorrectly validates server principal name (MITKRB5-SA-2015-001)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-02-03T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-9422",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:0794"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "http://web.mit.edu/Kerberos/advisories/MITKRB5-SA-2015-001.txt",
+						"Description": "http://web.mit.edu/Kerberos/advisories/MITKRB5-SA-2015-001.txt"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-9422",
+						"Description": "CVE-2014-9422"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1179861",
+						"Description": "bz#1179861: CVE-2014-9422 krb5: kadmind incorrectly validates server principal name (MITKRB5-SA-2015-001)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-01-07T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.6.z:krb5-0:1.10.3-37.el6_6",
+						"6Client-optional-6.6.z:krb5-0:1.10.3-37.el6_6",
+						"6ComputeNode-6.6.z:krb5-0:1.10.3-37.el6_6",
+						"6ComputeNode-optional-6.6.z:krb5-0:1.10.3-37.el6_6",
+						"6Server-6.6.z:krb5-0:1.10.3-37.el6_6",
+						"6Workstation-6.6.z:krb5-0:1.10.3-37.el6_6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.6",
+					"Vector": "AV:N/AC:H/Au:S/C:P/I:P/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 6)",
+							"productid": "6Client-6.6.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+							"productid": "6Client-optional-6.6.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node (v. 6)",
+							"productid": "6ComputeNode-6.6.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+							"productid": "6ComputeNode-optional-6.6.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 6)",
+							"productid": "6Server-6.6.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 6)",
+							"productid": "6Workstation-6.6.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "krb5-0:1.10.3-37.el6_6",
+				"fullproductname": {
+					"text": "krb5-1.10.3-37.el6_6.src.rpm",
+					"productid": "krb5-0:1.10.3-37.el6_6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "krb5-0:1.10.3-37.el6_6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-6.6.z",
+				"fullproductname": {
+					"text": "krb5-0:1.10.3-37.el6_6 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"productid": "6Client-6.6.z:krb5-0:1.10.3-37.el6_6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "krb5-0:1.10.3-37.el6_6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-optional-6.6.z",
+				"fullproductname": {
+					"text": "krb5-0:1.10.3-37.el6_6 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"productid": "6Client-optional-6.6.z:krb5-0:1.10.3-37.el6_6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "krb5-0:1.10.3-37.el6_6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-6.6.z",
+				"fullproductname": {
+					"text": "krb5-0:1.10.3-37.el6_6 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"productid": "6ComputeNode-6.6.z:krb5-0:1.10.3-37.el6_6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "krb5-0:1.10.3-37.el6_6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-optional-6.6.z",
+				"fullproductname": {
+					"text": "krb5-0:1.10.3-37.el6_6 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"productid": "6ComputeNode-optional-6.6.z:krb5-0:1.10.3-37.el6_6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "krb5-0:1.10.3-37.el6_6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-6.6.z",
+				"fullproductname": {
+					"text": "krb5-0:1.10.3-37.el6_6 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"productid": "6Server-6.6.z:krb5-0:1.10.3-37.el6_6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "krb5-0:1.10.3-37.el6_6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-6.6.z",
+				"fullproductname": {
+					"text": "krb5-0:1.10.3-37.el6_6 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"productid": "6Workstation-6.6.z:krb5-0:1.10.3-37.el6_6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			}
+		]
+	}
+}

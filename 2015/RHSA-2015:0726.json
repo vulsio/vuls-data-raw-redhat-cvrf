@@ -1,0 +1,459 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: kernel security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2015:0726"
+		},
+		"Status": "Final",
+		"Version": "3",
+		"revisionhistory": {
+			"revision": {
+				"Number": "3",
+				"Date": "2015-03-26T16:52:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2015-03-26T16:52:00Z",
+		"CurrentReleaseDate": "2015-03-26T16:52:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:34:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated kernel packages that fix two security issues and several bugs are\nnow available for Red Hat Enterprise Linux 7.\n\nRed Hat Product Security has rated this update as having Important security\nimpact. Common Vulnerability Scoring System (CVSS) base scores, which give\ndetailed severity ratings, are available for each vulnerability from the\nCVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe kernel packages contain the Linux kernel, the core of any Linux\noperating system.\n\n* It was found that the Linux kernel's Infiniband subsystem did not\nproperly sanitize input parameters while registering memory regions from\nuser space via the (u)verbs API. A local user with access to a\n/dev/infiniband/uverbsX device could use this flaw to crash the system or,\npotentially, escalate their privileges on the system. (CVE-2014-8159,\nImportant)\n\n* A use-after-free flaw was found in the way the Linux kernel's SCTP\nimplementation handled authentication key reference counting during INIT\ncollisions. A remote attacker could use this flaw to crash the system or,\npotentially, escalate their privileges on the system. (CVE-2015-1421,\nImportant)\n\nRed Hat would like to thank Mellanox for reporting the CVE-2014-8159 issue.\nThe CVE-2015-1421 issue was discovered by Sun Baoliang of Red Hat.\n\nThis update also fixes the following bugs:\n\n* In certain systems with multiple CPUs, when a crash was triggered on one\nCPU with an interrupt handler and this CPU sent Non-Maskable Interrupt\n(NMI) to another CPU, and, at the same time, ioapic_lock had already been\nacquired, a deadlock occurred in ioapic_lock. As a consequence, the kdump\nservice could become unresponsive. This bug has been fixed and kdump now\nworks as expected. (BZ#1197742)\n\n* On Lenovo X1 Carbon 3rd Gen, X250, and T550 laptops, the thinkpad_acpi\nmodule was not properly loaded, and thus the function keys and radio\nswitches did not work. This update applies a new string pattern of BIOS\nversion, which fixes this bug, and function keys and radio switches now\nwork as intended. (BZ#1197743)\n\n* During a heavy file system load involving many worker threads, all worker\nthreads in the pool became blocked on a resource, and no manager thread\nexisted to create more workers. As a consequence, the running processes\nbecame unresponsive. With this update, the logic around manager creation\nhas been changed to assure that the last worker thread becomes a manager\nthread and does not start executing work items. Now, a manager thread\nexists, spawns new workers as needed, and processes no longer hang.\n(BZ#1197744)\n\n* If a thin-pool's metadata enters read-only or fail mode, for example, due\nto thin-pool running out of metadata or data space, any attempt to make\nmetadata changes such as creating a thin device or snapshot thin device\nshould error out cleanly. However, previously, the kernel code returned\nverbose and alarming error messages to the user. With this update, due to\nearly trapping of attempt to make metadata changes, informative errors are\ndisplayed, no longer unnecessarily alarming the user. (BZ#1197745)\n\n* When running Red Hat Enterprise Linux as a guest on Microsoft Hyper-V\nhypervisor, the storvsc module did not return the correct error code for\nthe upper level Small Computer System Interface (SCSI) subsystem. As a\nconsequence, a SCSI command failed and storvsc did not handle such a\nfailure properly under some conditions, for example, when RAID devices were\ncreated on top of storvsc devices. An upstream patch has been applied to\nfix this bug, and storvsc now returns the correct error code in the\ndescribed situation. (BZ#1197749)\n\nAll kernel users are advised to upgrade to these updated packages, which\ncontain backported patches to correct these issues. The system must be\nrebooted for this update to take effect.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2015:0726",
+				"Description": "https://access.redhat.com/errata/RHSA-2015:0726"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: infiniband: uverbs: unprotected physical memory access",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-03-11T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-8159",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:0726"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-8159",
+						"Description": "CVE-2014-8159"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1181166",
+						"Description": "bz#1181166: CVE-2014-8159 kernel: infiniband: uverbs: unprotected physical memory access"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2015-01-05T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-7.1.Z:kernel-0:3.10.0-229.1.2.el7",
+						"7Client-optional-7.1.Z:kernel-0:3.10.0-229.1.2.el7",
+						"7ComputeNode-7.1.Z:kernel-0:3.10.0-229.1.2.el7",
+						"7ComputeNode-optional-7.1.Z:kernel-0:3.10.0-229.1.2.el7",
+						"7Server-7.1.Z:kernel-0:3.10.0-229.1.2.el7",
+						"7Server-LE-7.1.Z:kernel-0:3.10.0-229.1.2.ael7b",
+						"7Server-optional-7.1.Z:kernel-0:3.10.0-229.1.2.el7",
+						"7Server-optional-LE-7.1.Z:kernel-0:3.10.0-229.1.2.ael7b",
+						"7Workstation-7.1.Z:kernel-0:3.10.0-229.1.2.el7",
+						"7Workstation-optional-7.1.Z:kernel-0:3.10.0-229.1.2.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.2",
+					"Vector": "AV:L/AC:H/Au:N/C:C/I:C/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: net: slab corruption from use after free on INIT collisions",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-01-22T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-1421",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:0726"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-1421",
+						"Description": "CVE-2015-1421"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1196581",
+						"Description": "bz#1196581: CVE-2015-1421 kernel: net: slab corruption from use after free on INIT collisions"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2015-01-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-7.1.Z:kernel-0:3.10.0-229.1.2.el7",
+						"7Client-optional-7.1.Z:kernel-0:3.10.0-229.1.2.el7",
+						"7ComputeNode-7.1.Z:kernel-0:3.10.0-229.1.2.el7",
+						"7ComputeNode-optional-7.1.Z:kernel-0:3.10.0-229.1.2.el7",
+						"7Server-7.1.Z:kernel-0:3.10.0-229.1.2.el7",
+						"7Server-LE-7.1.Z:kernel-0:3.10.0-229.1.2.ael7b",
+						"7Server-optional-7.1.Z:kernel-0:3.10.0-229.1.2.el7",
+						"7Server-optional-LE-7.1.Z:kernel-0:3.10.0-229.1.2.ael7b",
+						"7Workstation-7.1.Z:kernel-0:3.10.0-229.1.2.el7",
+						"7Workstation-optional-7.1.Z:kernel-0:3.10.0-229.1.2.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "7.1",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:C"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Client (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Client (v. 7)",
+							"productid": "7Client-7.1.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Client Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Client Optional (v. 7)",
+							"productid": "7Client-optional-7.1.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ComputeNode (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ComputeNode (v. 7)",
+							"productid": "7ComputeNode-7.1.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+							"productid": "7ComputeNode-optional-7.1.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 7)",
+							"productid": "7Server-7.1.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 7)",
+							"productid": "7Server-LE-7.1.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::ppc64le:server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional (v. 7)",
+							"productid": "7Server-optional-7.1.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional (v. 7)",
+							"productid": "7Server-optional-LE-7.1.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::ppc64le:server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 7)",
+							"productid": "7Workstation-7.1.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation Optional (v. 7)",
+							"productid": "7Workstation-optional-7.1.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-0:3.10.0-229.1.2.ael7b",
+				"fullproductname": {
+					"text": "kernel-3.10.0-229.1.2.ael7b.src.rpm",
+					"productid": "kernel-0:3.10.0-229.1.2.ael7b",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::ppc64le:server"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-0:3.10.0-229.1.2.el7",
+				"fullproductname": {
+					"text": "kernel-3.10.0-229.1.2.el7.src.rpm",
+					"productid": "kernel-0:3.10.0-229.1.2.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "kernel-0:3.10.0-229.1.2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-7.1.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-229.1.2.el7 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"productid": "7Client-7.1.Z:kernel-0:3.10.0-229.1.2.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-229.1.2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-optional-7.1.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-229.1.2.el7 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"productid": "7Client-optional-7.1.Z:kernel-0:3.10.0-229.1.2.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-229.1.2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-7.1.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-229.1.2.el7 as a component of Red Hat Enterprise Linux ComputeNode (v. 7)",
+					"productid": "7ComputeNode-7.1.Z:kernel-0:3.10.0-229.1.2.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-229.1.2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-optional-7.1.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-229.1.2.el7 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"productid": "7ComputeNode-optional-7.1.Z:kernel-0:3.10.0-229.1.2.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-229.1.2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-7.1.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-229.1.2.el7 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server-7.1.Z:kernel-0:3.10.0-229.1.2.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-229.1.2.ael7b",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-LE-7.1.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-229.1.2.ael7b as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server-LE-7.1.Z:kernel-0:3.10.0-229.1.2.ael7b",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::ppc64le:server"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-229.1.2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-optional-7.1.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-229.1.2.el7 as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"productid": "7Server-optional-7.1.Z:kernel-0:3.10.0-229.1.2.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-229.1.2.ael7b",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-optional-LE-7.1.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-229.1.2.ael7b as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"productid": "7Server-optional-LE-7.1.Z:kernel-0:3.10.0-229.1.2.ael7b",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::ppc64le:server"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-229.1.2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-7.1.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-229.1.2.el7 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"productid": "7Workstation-7.1.Z:kernel-0:3.10.0-229.1.2.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-229.1.2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-optional-7.1.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-229.1.2.el7 as a component of Red Hat Enterprise Linux Workstation Optional (v. 7)",
+					"productid": "7Workstation-optional-7.1.Z:kernel-0:3.10.0-229.1.2.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			}
+		]
+	}
+}

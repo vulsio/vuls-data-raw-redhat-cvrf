@@ -1,0 +1,282 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: kernel security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2014:0926"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2014-07-23T16:04:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2014-07-23T16:04:00Z",
+		"CurrentReleaseDate": "2014-07-23T16:04:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:35:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated kernel packages that fix two security issues and several bugs are\nnow available for Red Hat Enterprise Linux 5.\n\nThe Red Hat Security Response Team has rated this update as having\nModerate security impact. Common Vulnerability Scoring System (CVSS) base\nscores, which give detailed severity ratings, are available for each\nvulnerability from the CVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe kernel packages contain the Linux kernel, the core of any Linux\noperating system.\n\n* A NULL pointer dereference flaw was found in the rds_iw_laddr_check()\nfunction in the Linux kernel's implementation of Reliable Datagram Sockets\n(RDS). A local, unprivileged user could use this flaw to crash the system.\n(CVE-2014-2678, Moderate)\n\n* It was found that the Xen hypervisor implementation did not properly\nclean memory pages previously allocated by the hypervisor. A privileged\nguest user could potentially use this flaw to read data relating to other\nguests or the hypervisor itself. (CVE-2014-4021, Moderate)\n\nRed Hat would like to thank the Xen project for reporting CVE-2014-4021.\nUpstream acknowledges Jan Beulich as the original reporter.\n\nThis update also fixes the following bugs:\n\n* A bug in the journaling block device (jbd and jbd2) code could, under\ncertain circumstances, trigger a BUG_ON() assertion and result in a kernel\noops. This happened when an application performed an extensive number of\ncommits to the journal of the ext3 file system and there was no currently\nactive transaction while synchronizing the file's in-core state. This\nproblem has been resolved by correcting respective test conditions in the\njbd and jbd2 code. (BZ#1097528)\n\n* After a statically defined gateway became unreachable and its\ncorresponding neighbor entry entered a FAILED state, the gateway stayed in\nthe FAILED state even after it became reachable again. As a consequence,\ntraffic was not routed through that gateway. This update allows probing\nsuch a gateway automatically so that the traffic can be routed through\nthis gateway again once it becomes reachable. (BZ#1106354)\n\n* Due to an incorrect condition check in the IPv6 code, the ipv6 driver\nwas unable to correctly assemble incoming packet fragments, which resulted\nin a high IPv6 packet loss rate. This update fixes the said check for a\nfragment overlap and ensures that incoming IPv6 packet fragments are now\nprocessed as expected. (BZ#1107932)\n\n* Recent changes in the d_splice_alias() function introduced a bug that\nallowed d_splice_alias() to return a dentry from a different directory\nthan the directory being looked up. As a consequence in cluster\nenvironment, a kernel panic could be triggered when a directory was being\nremoved while a concurrent cross-directory operation was performed on this\ndirectory on another cluster node. This update avoids the kernel panic in\nthis situation by correcting the search logic in the d_splice_alias()\nfunction so that the function can no longer return a dentry from an\nincorrect directory. (BZ#1109720)\n\n* The NFSv4 server did not handle multiple OPEN operations to the same file\nseparately, which could cause the NFSv4 client to repeatedly send CLOSE\nrequests with the same state ID, even though the NFS server rejected the\nrequest with an NFS4ERR_OLD_STATEID (10024) error code. This update\nensures that the NFSv4 client no longer re-sends the same CLOSE request\nafter receiving NFS4ERR_OLD_STATEID. (BZ#1113468)\n\nAll kernel users are advised to upgrade to these updated packages, which\ncontain backported patches to correct these issues. The system must be\nrebooted for this update to take effect.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2014:0926",
+				"Description": "https://access.redhat.com/errata/RHSA-2014:0926"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: net: rds: dereference of a NULL device in rds_iw_laddr_check()",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-03-29T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-2678",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to use the\nRed Hat Network to apply this update are available at\nhttps://access.redhat.com/articles/11258\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not use\n\"rpm -Uvh\" as that will remove the running kernel binaries from your\nsystem. You may use \"rpm -e\" to remove old kernels after determining that\nthe new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2014:0926"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-2678",
+						"Description": "CVE-2014-2678"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1083274",
+						"Description": "bz#1083274: CVE-2014-2678 kernel: net: rds: dereference of a NULL device in rds_iw_laddr_check()"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-03-31T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-5.10.Z:kernel-0:2.6.18-371.11.1.el5",
+						"5Server-5.10.Z:kernel-0:2.6.18-371.11.1.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.7",
+					"Vector": "AV:L/AC:M/Au:N/C:N/I:N/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "xen: Hypervisor heap contents leaked to guests (xsa-100)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-06-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-4021",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to use the\nRed Hat Network to apply this update are available at\nhttps://access.redhat.com/articles/11258\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not use\n\"rpm -Uvh\" as that will remove the running kernel binaries from your\nsystem. You may use \"rpm -e\" to remove old kernels after determining that\nthe new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2014:0926"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-4021",
+						"Description": "CVE-2014-4021"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1103646",
+						"Description": "bz#1103646: CVE-2014-4021 xen: Hypervisor heap contents leaked to guests (xsa-100)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-05-30T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-5.10.Z:kernel-0:2.6.18-371.11.1.el5",
+						"5Server-5.10.Z:kernel-0:2.6.18-371.11.1.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.3",
+					"Vector": "AV:A/AC:M/Au:S/C:P/I:N/A:N"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+							"productid": "5Client-5.10.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux (v. 5 server)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux (v. 5 server)",
+							"productid": "5Server-5.10.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-0:2.6.18-371.11.1.el5",
+				"fullproductname": {
+					"text": "kernel-2.6.18-371.11.1.el5.src.rpm",
+					"productid": "kernel-0:2.6.18-371.11.1.el5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "kernel-0:2.6.18-371.11.1.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Client-5.10.Z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.18-371.11.1.el5 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"productid": "5Client-5.10.Z:kernel-0:2.6.18-371.11.1.el5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.18-371.11.1.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-5.10.Z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.18-371.11.1.el5 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"productid": "5Server-5.10.Z:kernel-0:2.6.18-371.11.1.el5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+				}
+			}
+		]
+	}
+}

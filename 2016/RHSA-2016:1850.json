@@ -1,0 +1,766 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: libarchive security update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2016:1850"
+		},
+		"Status": "Final",
+		"Version": "3",
+		"revisionhistory": {
+			"revision": {
+				"Number": "3",
+				"Date": "2016-09-12T19:54:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2016-09-12T19:54:00Z",
+		"CurrentReleaseDate": "2016-09-12T19:54:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:36:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nAn update for libarchive is now available for Red Hat Enterprise Linux 6.\n\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe libarchive programming library can create and read several different streaming archive formats, including GNU tar, cpio and ISO 9660 CD-ROM images. Libarchive is used notably in the bsdtar utility, scripting language bindings such as python-libarchive, and several popular desktop file managers.\n\nSecurity Fix(es):\n\n* A flaw was found in the way libarchive handled hardlink archive entries of non-zero size. Combined with flaws in libarchive's file system sandboxing, this issue could cause an application using libarchive to overwrite arbitrary files with arbitrary data from the archive. (CVE-2016-5418)\n\n* Multiple out-of-bounds read flaws were found in libarchive. Specially crafted AR or MTREE files could cause the application to read data out of bounds, potentially disclosing a small amount of application memory, or causing an application crash. (CVE-2015-8920, CVE-2015-8921)\n\n* A denial of service vulnerability was found in libarchive's handling of GZIP streams. A crafted GZIP file could cause libarchive to allocate an excessive amount of memory, eventually leading to a crash. (CVE-2016-7166)\n\n* A denial of service vulnerability was found in libarchive. A specially crafted CPIO archive containing a symbolic link to a large target path could cause memory allocation to fail, causing an application using libarchive that attempted to view or extract such archive to crash. (CVE-2016-4809)\n\n* Multiple instances of undefined behavior due to arithmetic overflow were found in libarchive. Specially crafted Compress streams or ISO9660 volumes could potentially cause the application to fail to read the archive, or to crash. (CVE-2015-8932, CVE-2016-5844)\n\nRed Hat would like to thank Insomnia Security for reporting CVE-2016-5418.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2016:1850",
+				"Description": "https://access.redhat.com/errata/RHSA-2016:1850"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "libarchive: Stack out of bounds read in ar parser",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-06-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-8920",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2016:1850"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-8920",
+						"Description": "CVE-2015-8920"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1348416",
+						"Description": "bz#1348416: CVE-2015-8920 libarchive: Stack out of bounds read in ar parser"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2016-06-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.8.z:libarchive-0:2.8.3-7.el6_8",
+						"6Client-optional-6.8.z:libarchive-0:2.8.3-7.el6_8",
+						"6ComputeNode-optional-6.8.z:libarchive-0:2.8.3-7.el6_8",
+						"6Server-6.8.z:libarchive-0:2.8.3-7.el6_8",
+						"6Server-optional-6.8.z:libarchive-0:2.8.3-7.el6_8",
+						"6Workstation-6.8.z:libarchive-0:2.8.3-7.el6_8",
+						"6Workstation-optional-6.8.z:libarchive-0:2.8.3-7.el6_8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "3.5",
+					"Vector": "AV:N/AC:M/Au:S/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "libarchive: Global out of bounds read in mtree parser",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-06-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-8921",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2016:1850"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-8921",
+						"Description": "CVE-2015-8921"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1348772",
+						"Description": "bz#1348772: CVE-2015-8921 libarchive: Global out of bounds read in mtree parser"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2016-06-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.8.z:libarchive-0:2.8.3-7.el6_8",
+						"6Client-optional-6.8.z:libarchive-0:2.8.3-7.el6_8",
+						"6ComputeNode-optional-6.8.z:libarchive-0:2.8.3-7.el6_8",
+						"6Server-6.8.z:libarchive-0:2.8.3-7.el6_8",
+						"6Server-optional-6.8.z:libarchive-0:2.8.3-7.el6_8",
+						"6Workstation-6.8.z:libarchive-0:2.8.3-7.el6_8",
+						"6Workstation-optional-6.8.z:libarchive-0:2.8.3-7.el6_8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "3.5",
+					"Vector": "AV:N/AC:M/Au:S/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "libarchive: Undefined behavior / invalid shiftleft in TAR parser",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-06-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-8932",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2016:1850"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-8932",
+						"Description": "CVE-2015-8932"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1348780",
+						"Description": "bz#1348780: CVE-2015-8932 libarchive: Undefined behavior / invalid shiftleft in TAR parser"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2016-06-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.8.z:libarchive-0:2.8.3-7.el6_8",
+						"6Client-optional-6.8.z:libarchive-0:2.8.3-7.el6_8",
+						"6ComputeNode-optional-6.8.z:libarchive-0:2.8.3-7.el6_8",
+						"6Server-6.8.z:libarchive-0:2.8.3-7.el6_8",
+						"6Server-optional-6.8.z:libarchive-0:2.8.3-7.el6_8",
+						"6Workstation-6.8.z:libarchive-0:2.8.3-7.el6_8",
+						"6Workstation-optional-6.8.z:libarchive-0:2.8.3-7.el6_8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "3.5",
+					"Vector": "AV:N/AC:M/Au:S/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "libarchive: Memory allocate error with symbolic links in cpio archives",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-05-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2016-4809",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2016:1850"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2016-4809",
+						"Description": "CVE-2016-4809"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1347084",
+						"Description": "bz#1347084: CVE-2016-4809 libarchive: Memory allocate error with symbolic links in cpio archives"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2016-06-15T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.8.z:libarchive-0:2.8.3-7.el6_8",
+						"6Client-optional-6.8.z:libarchive-0:2.8.3-7.el6_8",
+						"6ComputeNode-optional-6.8.z:libarchive-0:2.8.3-7.el6_8",
+						"6Server-6.8.z:libarchive-0:2.8.3-7.el6_8",
+						"6Server-optional-6.8.z:libarchive-0:2.8.3-7.el6_8",
+						"6Workstation-6.8.z:libarchive-0:2.8.3-7.el6_8",
+						"6Workstation-optional-6.8.z:libarchive-0:2.8.3-7.el6_8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "3.5",
+					"Vector": "AV:N/AC:M/Au:S/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "libarchive: Archive Entry with type 1 (hardlink), but has a non-zero data size file overwrite",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-09-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2016-5418",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2016:1850"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "http://seclists.org/oss-sec/2016/q3/255",
+						"Description": "http://seclists.org/oss-sec/2016/q3/255"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2016-5418",
+						"Description": "CVE-2016-5418"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1362601",
+						"Description": "bz#1362601: CVE-2016-5418 libarchive: Archive Entry with type 1 (hardlink), but has a non-zero data size file overwrite"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2016-07-28T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.8.z:libarchive-0:2.8.3-7.el6_8",
+						"6Client-optional-6.8.z:libarchive-0:2.8.3-7.el6_8",
+						"6ComputeNode-optional-6.8.z:libarchive-0:2.8.3-7.el6_8",
+						"6Server-6.8.z:libarchive-0:2.8.3-7.el6_8",
+						"6Server-optional-6.8.z:libarchive-0:2.8.3-7.el6_8",
+						"6Workstation-6.8.z:libarchive-0:2.8.3-7.el6_8",
+						"6Workstation-optional-6.8.z:libarchive-0:2.8.3-7.el6_8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank Insomnia Security for reporting this issue."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.6",
+					"Vector": "AV:N/AC:H/Au:S/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "6",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "libarchive: undefined behaviour (integer overflow) in iso parser",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-06-24T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2016-5844",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2016:1850"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2016-5844",
+						"Description": "CVE-2016-5844"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1350280",
+						"Description": "bz#1350280: CVE-2016-5844 libarchive: undefined behaviour (integer overflow) in iso parser"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2016-06-27T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.8.z:libarchive-0:2.8.3-7.el6_8",
+						"6Client-optional-6.8.z:libarchive-0:2.8.3-7.el6_8",
+						"6ComputeNode-optional-6.8.z:libarchive-0:2.8.3-7.el6_8",
+						"6Server-6.8.z:libarchive-0:2.8.3-7.el6_8",
+						"6Server-optional-6.8.z:libarchive-0:2.8.3-7.el6_8",
+						"6Workstation-6.8.z:libarchive-0:2.8.3-7.el6_8",
+						"6Workstation-optional-6.8.z:libarchive-0:2.8.3-7.el6_8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "3.5",
+					"Vector": "AV:N/AC:M/Au:S/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "7",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "libarchive: Denial of service using a crafted gzip file",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-02-22T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2016-7166",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2016:1850"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2016-7166",
+						"Description": "CVE-2016-7166"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1347086",
+						"Description": "bz#1347086: CVE-2016-7166 libarchive: Denial of service using a crafted gzip file"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2016-06-15T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.8.z:libarchive-0:2.8.3-7.el6_8",
+						"6Client-optional-6.8.z:libarchive-0:2.8.3-7.el6_8",
+						"6ComputeNode-optional-6.8.z:libarchive-0:2.8.3-7.el6_8",
+						"6Server-6.8.z:libarchive-0:2.8.3-7.el6_8",
+						"6Server-optional-6.8.z:libarchive-0:2.8.3-7.el6_8",
+						"6Workstation-6.8.z:libarchive-0:2.8.3-7.el6_8",
+						"6Workstation-optional-6.8.z:libarchive-0:2.8.3-7.el6_8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "3.5",
+					"Vector": "AV:N/AC:M/Au:S/C:N/I:N/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 6)",
+							"productid": "6Client-6.8.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+							"productid": "6Client-optional-6.8.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+							"productid": "6ComputeNode-optional-6.8.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 6)",
+							"productid": "6Server-6.8.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional (v. 6)",
+							"productid": "6Server-optional-6.8.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 6)",
+							"productid": "6Workstation-6.8.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+							"productid": "6Workstation-optional-6.8.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "libarchive-0:2.8.3-7.el6_8",
+				"fullproductname": {
+					"text": "libarchive-2.8.3-7.el6_8.src.rpm",
+					"productid": "libarchive-0:2.8.3-7.el6_8",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "libarchive-0:2.8.3-7.el6_8",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-6.8.z",
+				"fullproductname": {
+					"text": "libarchive-0:2.8.3-7.el6_8 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"productid": "6Client-6.8.z:libarchive-0:2.8.3-7.el6_8",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "libarchive-0:2.8.3-7.el6_8",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-optional-6.8.z",
+				"fullproductname": {
+					"text": "libarchive-0:2.8.3-7.el6_8 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"productid": "6Client-optional-6.8.z:libarchive-0:2.8.3-7.el6_8",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "libarchive-0:2.8.3-7.el6_8",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-optional-6.8.z",
+				"fullproductname": {
+					"text": "libarchive-0:2.8.3-7.el6_8 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"productid": "6ComputeNode-optional-6.8.z:libarchive-0:2.8.3-7.el6_8",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "libarchive-0:2.8.3-7.el6_8",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-6.8.z",
+				"fullproductname": {
+					"text": "libarchive-0:2.8.3-7.el6_8 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"productid": "6Server-6.8.z:libarchive-0:2.8.3-7.el6_8",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "libarchive-0:2.8.3-7.el6_8",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-optional-6.8.z",
+				"fullproductname": {
+					"text": "libarchive-0:2.8.3-7.el6_8 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"productid": "6Server-optional-6.8.z:libarchive-0:2.8.3-7.el6_8",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "libarchive-0:2.8.3-7.el6_8",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-6.8.z",
+				"fullproductname": {
+					"text": "libarchive-0:2.8.3-7.el6_8 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"productid": "6Workstation-6.8.z:libarchive-0:2.8.3-7.el6_8",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			},
+			{
+				"productreference": "libarchive-0:2.8.3-7.el6_8",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-optional-6.8.z",
+				"fullproductname": {
+					"text": "libarchive-0:2.8.3-7.el6_8 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"productid": "6Workstation-optional-6.8.z:libarchive-0:2.8.3-7.el6_8",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			}
+		]
+	}
+}

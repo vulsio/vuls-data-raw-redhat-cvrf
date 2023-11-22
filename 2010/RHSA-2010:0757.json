@@ -1,0 +1,357 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: Red Hat Enterprise MRG Messaging security and bug fix update 1.2.2",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2010:0757"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2010-10-07T21:55:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2010-10-08T01:55:00Z",
+		"CurrentReleaseDate": "2010-10-07T21:55:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:37:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated Red Hat Enterprise MRG Messaging packages that fix two security\nissues and several bugs are now available for Red Hat Enterprise Linux 4.\n\nThe Red Hat Security Response Team has rated this update as having moderate\nsecurity impact. Common Vulnerability Scoring System (CVSS) base scores,\nwhich give detailed severity ratings, are available for each vulnerability\nfrom the CVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nRed Hat Enterprise MRG (Messaging, Realtime and Grid) is a real-time IT\ninfrastructure for enterprise computing. MRG Messaging implements the\nAdvanced Message Queuing Protocol (AMQP) standard, adding persistence\noptions, kernel optimizations, and operating system services.\n\nA flaw was found in the way SSL connections to the MRG Messaging broker\nwere handled. A connection (from a user or client application) to the\nbroker's SSL port would prevent the broker from responding to any other\nconnections on that port, until the first connection's SSL handshake\ncompleted or failed. A remote user could use this flaw to block connections\nfrom legitimate clients. Note that this issue only affected connections to\nthe SSL port. The broker does not listen for SSL connections by default.\n(CVE-2010-3083)\n\nA flaw was found in the way the MRG Messaging broker handled the receipt of\nlarge persistent messages. If a remote, authenticated user sent a very\nlarge persistent message, the broker could exhaust stack memory, causing\nthe broker to crash. (CVE-2010-3701)\n\nThis update also includes a number of MRG Messaging bug fixes, including\nupdated qpidc and rhm packages:\n\n* The Messaging broker failed when first a new durable exchange was\nsupplied by a plug-in, and then the broker was restarted. The startup\nsequence has been reordered so that the plug-in modules are loaded before\nthe store is recovered. With this update, the new exchange is now\nrecognized and recovered successfully and the broker starts up. (BZ#550151)\n\n* qpid-route could not delete an existing route due to a problem with the\nmanagement object for the bridge. With this update, qpid-route follows the\nnormal path. (BZ#560696)\n\n* Previously, clients connecting over SSL needed to use some other username\nto authenticate themselves to have permission granted via ACLs. This update\nadds the option to use the client identity as authenticated by SSL.\n(BZ#601222)\n\n* New brokers did not see a durable exchange even though it existed in a\ncluster. This update checks for any durable exchanges to be replicated when\na new broker is added to the cluster. Now, the exchange is visible on the\nnew broker. (BZ#601230)\n\n* Cluster members occasionally failed when a new member was added to a\ncluster with active consumers, because some of the consumer information was\nnot being replicated to new members joining a cluster. With this update,\nthe missing information is replicated to new members when joining a\ncluster. (BZ#601236)\n\n* Performance decreased when reading messages from a queue sequentially\nwithout taking them off the queue. With this update, the algorithm for\ntraversing through messages has been changed, and the next message is found\nmore quickly, even for large queues. (BZ#611907)\n\n* Wire level protocol violation or segmentation faults occurred when adding\ntags due to possible modification of the message concurrent with its\nencoding. This update clones messages before adding tags to prevent\nconcurrent modification as they are being delivered and encoded.\n(BZ#619919)\n\nAll Red Hat Enterprise MRG users are advised to upgrade to these updated\npackages, which correct these issues. After installing the updated\npackages, the qpidd service must be restarted (\"service qpidd restart\") for\nthis update to take effect.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2010:0757",
+				"Description": "https://access.redhat.com/errata/RHSA-2010:0757"
+			},
+			{
+				"type": "External",
+				"URL": "http://www.redhat.com/security/updates/classification/#moderate",
+				"Description": "http://www.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "MRG: SSL connections to MRG broker can be blocked",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2010-10-07T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2010-3083",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2010:0757"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2010-3083",
+						"Description": "CVE-2010-3083"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=632657",
+						"Description": "bz#632657: CVE-2010-3083 MRG: SSL connections to MRG broker can be blocked"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2010-05-17T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"4AS-MRG-Messaging-1.0:qpidc-0:0.5.752581-42.el4",
+						"4AS-MRG-Messaging-1.0:rhm-0:0.5.3206-36.el4",
+						"4AS-MRG-Messaging-Base-1.0:qpidc-0:0.5.752581-42.el4",
+						"4ES-MRG-Messaging-1.0:qpidc-0:0.5.752581-42.el4",
+						"4ES-MRG-Messaging-1.0:rhm-0:0.5.3206-36.el4",
+						"4ES-MRG-Messaging-Base-1.0:qpidc-0:0.5.752581-42.el4"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.0",
+					"Vector": "AV:N/AC:L/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "MRG: remote authenticated DoS in broker",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2010-09-14T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2010-3701",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2010:0757"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2010-3701",
+						"Description": "CVE-2010-3701"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=640006",
+						"Description": "bz#640006: CVE-2010-3701 MRG: remote authenticated DoS in broker"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2010-09-29T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"4AS-MRG-Messaging-1.0:qpidc-0:0.5.752581-42.el4",
+						"4AS-MRG-Messaging-1.0:rhm-0:0.5.3206-36.el4",
+						"4AS-MRG-Messaging-Base-1.0:qpidc-0:0.5.752581-42.el4",
+						"4ES-MRG-Messaging-1.0:qpidc-0:0.5.752581-42.el4",
+						"4ES-MRG-Messaging-1.0:rhm-0:0.5.3206-36.el4",
+						"4ES-MRG-Messaging-Base-1.0:qpidc-0:0.5.752581-42.el4"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.5",
+					"Vector": "AV:N/AC:L/Au:S/C:N/I:P/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise MRG for RHEL-4",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat MRG Messaging for RHEL-4 AS",
+						"fullproductname": {
+							"text": "Red Hat MRG Messaging for RHEL-4 AS",
+							"productid": "4AS-MRG-Messaging-1.0",
+							"cpe": "cpe:/a:redhat:enterprise_mrg:1.0::el4"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat MRG Messaging Base for RHEL-4 AS",
+						"fullproductname": {
+							"text": "Red Hat MRG Messaging Base for RHEL-4 AS",
+							"productid": "4AS-MRG-Messaging-Base-1.0",
+							"cpe": "cpe:/a:redhat:enterprise_mrg:1.0::el4"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat MRG Messaging for RHEL-4 ES",
+						"fullproductname": {
+							"text": "Red Hat MRG Messaging for RHEL-4 ES",
+							"productid": "4ES-MRG-Messaging-1.0",
+							"cpe": "cpe:/a:redhat:enterprise_mrg:1.0::el4"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat MRG Messaging Base for RHEL-4 ES",
+						"fullproductname": {
+							"text": "Red Hat MRG Messaging Base for RHEL-4 ES",
+							"productid": "4ES-MRG-Messaging-Base-1.0",
+							"cpe": "cpe:/a:redhat:enterprise_mrg:1.0::el4"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "qpidc-0:0.5.752581-42.el4",
+				"fullproductname": {
+					"text": "qpidc-0.5.752581-42.el4.src.rpm",
+					"productid": "qpidc-0:0.5.752581-42.el4",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:1.0::el4"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhm-0:0.5.3206-36.el4",
+				"fullproductname": {
+					"text": "rhm-0.5.3206-36.el4.src.rpm",
+					"productid": "rhm-0:0.5.3206-36.el4",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:1.0::el4"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "qpidc-0:0.5.752581-42.el4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "4AS-MRG-Messaging-1.0",
+				"fullproductname": {
+					"text": "qpidc-0:0.5.752581-42.el4 as a component of Red Hat MRG Messaging for RHEL-4 AS",
+					"productid": "4AS-MRG-Messaging-1.0:qpidc-0:0.5.752581-42.el4",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:1.0::el4"
+				}
+			},
+			{
+				"productreference": "rhm-0:0.5.3206-36.el4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "4AS-MRG-Messaging-1.0",
+				"fullproductname": {
+					"text": "rhm-0:0.5.3206-36.el4 as a component of Red Hat MRG Messaging for RHEL-4 AS",
+					"productid": "4AS-MRG-Messaging-1.0:rhm-0:0.5.3206-36.el4",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:1.0::el4"
+				}
+			},
+			{
+				"productreference": "qpidc-0:0.5.752581-42.el4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "4AS-MRG-Messaging-Base-1.0",
+				"fullproductname": {
+					"text": "qpidc-0:0.5.752581-42.el4 as a component of Red Hat MRG Messaging Base for RHEL-4 AS",
+					"productid": "4AS-MRG-Messaging-Base-1.0:qpidc-0:0.5.752581-42.el4",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:1.0::el4"
+				}
+			},
+			{
+				"productreference": "qpidc-0:0.5.752581-42.el4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "4ES-MRG-Messaging-1.0",
+				"fullproductname": {
+					"text": "qpidc-0:0.5.752581-42.el4 as a component of Red Hat MRG Messaging for RHEL-4 ES",
+					"productid": "4ES-MRG-Messaging-1.0:qpidc-0:0.5.752581-42.el4",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:1.0::el4"
+				}
+			},
+			{
+				"productreference": "rhm-0:0.5.3206-36.el4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "4ES-MRG-Messaging-1.0",
+				"fullproductname": {
+					"text": "rhm-0:0.5.3206-36.el4 as a component of Red Hat MRG Messaging for RHEL-4 ES",
+					"productid": "4ES-MRG-Messaging-1.0:rhm-0:0.5.3206-36.el4",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:1.0::el4"
+				}
+			},
+			{
+				"productreference": "qpidc-0:0.5.752581-42.el4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "4ES-MRG-Messaging-Base-1.0",
+				"fullproductname": {
+					"text": "qpidc-0:0.5.752581-42.el4 as a component of Red Hat MRG Messaging Base for RHEL-4 ES",
+					"productid": "4ES-MRG-Messaging-Base-1.0:qpidc-0:0.5.752581-42.el4",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:1.0::el4"
+				}
+			}
+		]
+	}
+}

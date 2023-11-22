@@ -1,0 +1,392 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: jbossas security update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2007:0360"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2007-05-24T14:47:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2007-05-24T18:47:00Z",
+		"CurrentReleaseDate": "2007-05-24T14:47:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:45:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated jbossas packages that fix multiple security issues in tomcat are\nnow available for Red Hat Application Stack.\n\nThis update has been rated as having Important security impact by the Red\nHat Security Response Team.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nTomcat is a servlet container for Java Servlet and JavaServer Pages\ntechnologies.\n\nThis update addresses the following issues:\n\nTomcat was found to accept multiple content-length headers in a\nrequest. This could allow attackers to poison a web-cache, bypass web\napplication firewall protection, or conduct cross-site scripting attacks. \n(CVE-2005-2090)\n\nTomcat permitted various characters as path delimiters. If Tomcat was used\nbehind certain proxies and configured to only proxy some contexts, an\nattacker could construct an HTTP request to work around the context\nrestriction and potentially access non-proxied content. (CVE-2007-0450)\n\nUsers should upgrade to these erratum packages, which contain an update to\njbossas to include a version of Tomcat that resolves these issues.  Updated\njakarta-commons-modeler packages are also included which correct a bug when\nused with Tomcat 5.5.23.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2007:0360",
+				"Description": "https://access.redhat.com/errata/RHSA-2007:0360"
+			},
+			{
+				"type": "External",
+				"URL": "http://tomcat.apache.org/security-5.html",
+				"Description": "http://tomcat.apache.org/security-5.html"
+			},
+			{
+				"type": "External",
+				"URL": "http://www.redhat.com/security/updates/classification/#important",
+				"Description": "http://www.redhat.com/security/updates/classification/#important"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "tomcat multiple content-length header poisioning",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2005-06-06T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2005-2090",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nNote: /etc/tomcat5/web.xml has been updated to disable directory listing by\ndefault.  If you have previously modified /etc/tomcat5/web.xml, this change\nwill not be made automatically and you should manually update the value for\nthe \"listings\" parameter to \"false\".  \n\nNote: In response to CVE-2007-0450, JBoss AS considers encoded slashes and\nbackslashes in URLs invalid and its usage will result in HTTP 400 error. It\nis possible to allow encoded slashes and backslashes by following the steps\noutlined below, however doing so will expose you to CVE-2007-0450 related\nattacks:\n\na) If you use the /var/lib/jbossas/bin/run.sh setup, please edit \n/etc/jbossas/run.conf and append\n-Dorg.apache.tomcat.util.buf.UDecoder.ALLOW_ENCODED_SLASH=true\n-Dorg.apache.catalina.connector.CoyoteAdapter.ALLOW_BACKSLASH=true to the\nstring assigned to JAVA_OPTS\n\nb) If you use the init script setup to run multiple JBoss AS services and\nyou wish to allow encoding by default on all services, please edit\n/etc/jbossas/jbossas.conf and add the line JAVA_OPTS=\"${JAVA_OPTS}\n-Dorg.apache.tomcat.util.buf.UDecoder.ALLOW_ENCODED_SLASH=true\n-Dorg.apache.catalina.connector.CoyoteAdapter.ALLOW_BACKSLASH=true\"\n\nc) If you use the init script setup to run multiple JBoss AS services and\nwant to allow encoding of slashes and backslashes for a particular service,\nplease edit /etc/sysconfig/${NAME} (where NAME is the name of your service)\nand add the line JAVA_OPTS=\"${JAVA_OPTS}\n-Dorg.apache.tomcat.util.buf.UDecoder.ALLOW_ENCODED_SLASH=true\n-Dorg.apache.catalina.connector.CoyoteAdapter.ALLOW_BACKSLASH=true\"\n\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network. Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/FAQ_58_10188\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2007:0360"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2005-2090",
+						"Description": "CVE-2005-2090"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=237079",
+						"Description": "bz#237079: CVE-2005-2090 tomcat multiple content-length header poisioning"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2005-06-06T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"4AS-RHWAS:jbossas-0:4.0.5-2.CP04.el4s1.2",
+						"4AS-RHWAS:jbossas-ejb3-0:1.0.0-0.2.rc9.CP04.el4s1.2",
+						"4ES-RHWAS:jbossas-0:4.0.5-2.CP04.el4s1.2",
+						"4ES-RHWAS:jbossas-ejb3-0:1.0.0-0.2.rc9.CP04.el4s1.2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "tomcat directory traversal",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2007-03-14T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2007-0450",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nNote: /etc/tomcat5/web.xml has been updated to disable directory listing by\ndefault.  If you have previously modified /etc/tomcat5/web.xml, this change\nwill not be made automatically and you should manually update the value for\nthe \"listings\" parameter to \"false\".  \n\nNote: In response to CVE-2007-0450, JBoss AS considers encoded slashes and\nbackslashes in URLs invalid and its usage will result in HTTP 400 error. It\nis possible to allow encoded slashes and backslashes by following the steps\noutlined below, however doing so will expose you to CVE-2007-0450 related\nattacks:\n\na) If you use the /var/lib/jbossas/bin/run.sh setup, please edit \n/etc/jbossas/run.conf and append\n-Dorg.apache.tomcat.util.buf.UDecoder.ALLOW_ENCODED_SLASH=true\n-Dorg.apache.catalina.connector.CoyoteAdapter.ALLOW_BACKSLASH=true to the\nstring assigned to JAVA_OPTS\n\nb) If you use the init script setup to run multiple JBoss AS services and\nyou wish to allow encoding by default on all services, please edit\n/etc/jbossas/jbossas.conf and add the line JAVA_OPTS=\"${JAVA_OPTS}\n-Dorg.apache.tomcat.util.buf.UDecoder.ALLOW_ENCODED_SLASH=true\n-Dorg.apache.catalina.connector.CoyoteAdapter.ALLOW_BACKSLASH=true\"\n\nc) If you use the init script setup to run multiple JBoss AS services and\nwant to allow encoding of slashes and backslashes for a particular service,\nplease edit /etc/sysconfig/${NAME} (where NAME is the name of your service)\nand add the line JAVA_OPTS=\"${JAVA_OPTS}\n-Dorg.apache.tomcat.util.buf.UDecoder.ALLOW_ENCODED_SLASH=true\n-Dorg.apache.catalina.connector.CoyoteAdapter.ALLOW_BACKSLASH=true\"\n\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network. Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/FAQ_58_10188\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2007:0360"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2007-0450",
+						"Description": "CVE-2007-0450"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=237080",
+						"Description": "bz#237080: CVE-2007-0450 tomcat directory traversal"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2007-03-14T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"4AS-RHWAS:jbossas-0:4.0.5-2.CP04.el4s1.2",
+						"4AS-RHWAS:jbossas-ejb3-0:1.0.0-0.2.rc9.CP04.el4s1.2",
+						"4ES-RHWAS:jbossas-0:4.0.5-2.CP04.el4s1.2",
+						"4ES-RHWAS:jbossas-ejb3-0:1.0.0-0.2.rc9.CP04.el4s1.2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "tomcat accept-language xss flaw",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2007-06-06T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2007-1358",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nNote: /etc/tomcat5/web.xml has been updated to disable directory listing by\ndefault.  If you have previously modified /etc/tomcat5/web.xml, this change\nwill not be made automatically and you should manually update the value for\nthe \"listings\" parameter to \"false\".  \n\nNote: In response to CVE-2007-0450, JBoss AS considers encoded slashes and\nbackslashes in URLs invalid and its usage will result in HTTP 400 error. It\nis possible to allow encoded slashes and backslashes by following the steps\noutlined below, however doing so will expose you to CVE-2007-0450 related\nattacks:\n\na) If you use the /var/lib/jbossas/bin/run.sh setup, please edit \n/etc/jbossas/run.conf and append\n-Dorg.apache.tomcat.util.buf.UDecoder.ALLOW_ENCODED_SLASH=true\n-Dorg.apache.catalina.connector.CoyoteAdapter.ALLOW_BACKSLASH=true to the\nstring assigned to JAVA_OPTS\n\nb) If you use the init script setup to run multiple JBoss AS services and\nyou wish to allow encoding by default on all services, please edit\n/etc/jbossas/jbossas.conf and add the line JAVA_OPTS=\"${JAVA_OPTS}\n-Dorg.apache.tomcat.util.buf.UDecoder.ALLOW_ENCODED_SLASH=true\n-Dorg.apache.catalina.connector.CoyoteAdapter.ALLOW_BACKSLASH=true\"\n\nc) If you use the init script setup to run multiple JBoss AS services and\nwant to allow encoding of slashes and backslashes for a particular service,\nplease edit /etc/sysconfig/${NAME} (where NAME is the name of your service)\nand add the line JAVA_OPTS=\"${JAVA_OPTS}\n-Dorg.apache.tomcat.util.buf.UDecoder.ALLOW_ENCODED_SLASH=true\n-Dorg.apache.catalina.connector.CoyoteAdapter.ALLOW_BACKSLASH=true\"\n\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network. Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/FAQ_58_10188\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2007:0360"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2007-1358",
+						"Description": "CVE-2007-1358"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=244803",
+						"Description": "bz#244803: CVE-2007-1358 tomcat accept-language xss flaw"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2007-04-10T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"4AS-RHWAS:jbossas-0:4.0.5-2.CP04.el4s1.2",
+						"4AS-RHWAS:jbossas-ejb3-0:1.0.0-0.2.rc9.CP04.el4s1.2",
+						"4ES-RHWAS:jbossas-0:4.0.5-2.CP04.el4s1.2",
+						"4ES-RHWAS:jbossas-ejb3-0:1.0.0-0.2.rc9.CP04.el4s1.2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Application Stack",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Application Stack v1 for Enterprise Linux AS (v.4)",
+						"fullproductname": {
+							"text": "Red Hat Application Stack v1 for Enterprise Linux AS (v.4)",
+							"productid": "4AS-RHWAS",
+							"cpe": "cpe:/a:redhat:rhel_application_stack:1"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Application Stack v1 for Enterprise Linux ES (v.4)",
+						"fullproductname": {
+							"text": "Red Hat Application Stack v1 for Enterprise Linux ES (v.4)",
+							"productid": "4ES-RHWAS",
+							"cpe": "cpe:/a:redhat:rhel_application_stack:1"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "jbossas-0:4.0.5-2.CP04.el4s1.2",
+				"fullproductname": {
+					"text": "jbossas-4.0.5-2.CP04.el4s1.2.src.rpm",
+					"productid": "jbossas-0:4.0.5-2.CP04.el4s1.2",
+					"cpe": "cpe:/a:redhat:rhel_application_stack:1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "jbossas-ejb3-0:1.0.0-0.2.rc9.CP04.el4s1.2",
+				"fullproductname": {
+					"text": "jbossas-ejb3-1.0.0-0.2.rc9.CP04.el4s1.2.src.rpm",
+					"productid": "jbossas-ejb3-0:1.0.0-0.2.rc9.CP04.el4s1.2",
+					"cpe": "cpe:/a:redhat:rhel_application_stack:1"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "jbossas-0:4.0.5-2.CP04.el4s1.2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "4AS-RHWAS",
+				"fullproductname": {
+					"text": "jbossas-0:4.0.5-2.CP04.el4s1.2 as a component of Red Hat Application Stack v1 for Enterprise Linux AS (v.4)",
+					"productid": "4AS-RHWAS:jbossas-0:4.0.5-2.CP04.el4s1.2",
+					"cpe": "cpe:/a:redhat:rhel_application_stack:1"
+				}
+			},
+			{
+				"productreference": "jbossas-ejb3-0:1.0.0-0.2.rc9.CP04.el4s1.2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "4AS-RHWAS",
+				"fullproductname": {
+					"text": "jbossas-ejb3-0:1.0.0-0.2.rc9.CP04.el4s1.2 as a component of Red Hat Application Stack v1 for Enterprise Linux AS (v.4)",
+					"productid": "4AS-RHWAS:jbossas-ejb3-0:1.0.0-0.2.rc9.CP04.el4s1.2",
+					"cpe": "cpe:/a:redhat:rhel_application_stack:1"
+				}
+			},
+			{
+				"productreference": "jbossas-0:4.0.5-2.CP04.el4s1.2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "4ES-RHWAS",
+				"fullproductname": {
+					"text": "jbossas-0:4.0.5-2.CP04.el4s1.2 as a component of Red Hat Application Stack v1 for Enterprise Linux ES (v.4)",
+					"productid": "4ES-RHWAS:jbossas-0:4.0.5-2.CP04.el4s1.2",
+					"cpe": "cpe:/a:redhat:rhel_application_stack:1"
+				}
+			},
+			{
+				"productreference": "jbossas-ejb3-0:1.0.0-0.2.rc9.CP04.el4s1.2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "4ES-RHWAS",
+				"fullproductname": {
+					"text": "jbossas-ejb3-0:1.0.0-0.2.rc9.CP04.el4s1.2 as a component of Red Hat Application Stack v1 for Enterprise Linux ES (v.4)",
+					"productid": "4ES-RHWAS:jbossas-ejb3-0:1.0.0-0.2.rc9.CP04.el4s1.2",
+					"cpe": "cpe:/a:redhat:rhel_application_stack:1"
+				}
+			}
+		]
+	}
+}

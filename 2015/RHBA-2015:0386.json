@@ -1,0 +1,671 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Bug Fix Advisory: cups bug fix and enhancement update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHBA-2015:0386"
+		},
+		"Status": "Final",
+		"Version": "2",
+		"revisionhistory": {
+			"revision": {
+				"Number": "2",
+				"Date": "2015-03-26T21:46:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2015-03-05T09:06:00Z",
+		"CurrentReleaseDate": "2015-03-26T21:46:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.14.1",
+			"Date": "2023-05-12T14:21:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated cups packages that fix several bugs and add one enhancement are now available for Red Hat Enterprise Linux 7.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nCUPS provides a portable printing layer for Linux, UNIX, and similar operating systems. \n\nThis update fixes the following bugs:\n\n* When using the cupsEnumDests() API call, the libcups utility failed to take note of the client callback function. As a consequence, applications using this API could terminate unexpectedly. The cupsEnumDests() implementation has been fixed and callbacks now function as expected. (BZ#1072954) \n\n* Previously, the CUPS scheduler used an incorrect D-Bus interface when trying to add a colord profile, which led to colord profiles not working correctly. With this update, the correct D-Bus interface is used, and colord profiles now function as expected. (BZ#1087323)\n\n* When handling an incoming Internet Printing Protocol (IPP) request with an associated document to follow, the CUPS scheduler did not check whether the client connection had data available to read before starting to handle the document data. Consequently, in some instances, a 10-second timeout could occur. The scheduler now checks for data availability before reading the document data, thus fixing this bug. (BZ#1110259) \n\n* When the CUPS scheduler read data from a client, it did not check for data availability in between reading the HTTP headers and the Internet Printing Protocol (IPP) request. This led to a race condition causing client requests to fail depending on the timing of the data packets. With this update, the scheduler checks for data availability, preventing the race condition from occurring. (BZ#1113045) \n\n* Previously, the manual page for the cupsd.conf(5) configuration file did not mention the ErrorPolicy directive. Text describing this directive has now been added to the manual page. (BZ#1120591) \n\n* Prior to this update, the cups utility was started before networking, and therefore it was not available in some configurations. A patch has been applied to fix this bug, and CUPS is now available throughout the network. (BZ#1144780) \n\n* A prior security update changed the /etc/cups/ppd/ directory not to be world-readable. However, the cupsGetPPD() function still assumed the files in the directory were world-readable. As a consequence, cupsGetPPD() returned a symbolic link to a file in /etc/cups/ppd/ to the caller even though the caller was not able to read it, which caused a variety of failures when printing. This update fixes cupsGetPPD3() to check for readability, and these failures thus no longer occur. (BZ#1153708)\n\n* A prior fix for setting the value of the FINAL_CONTENT_TYPE variable caused unintended problems: the back end could not reliably determine the format of the input data and forced FINAL_CONTENT_TYPE to always be \"printer/[queue name]\". The incorrect fix has been reverted. Nevertheless, users who have files configured on both the local and remote ends of their queues will still encounter this problem, and thus need to make the local ends of their queues \"raw\". (BZ#1149245)\n\nIn addition, this update adds the following enhancement:\n\n* Prior to this update, the commands required by the redhat-lsb-core package were provided by the cups packages, which itself has other requirements on other packages. To prevent redhat-lsb-core causing a larger dependency chain than needed, the CUPS client commands required by redhat-lsb-core have been moved into a new sub-package, cups-clients. (BZ#1115057) \n\nUsers of cups are advised to upgrade to these updated packages, which fix these bugs and add this enhancement. After installing this update, the cupsd daemon will be restarted automatically.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2023 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHBA-2015:0386",
+				"Description": "https://access.redhat.com/errata/RHBA-2015:0386"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A cross-site scripting (XSS) flaw was found in the CUPS web interface. An attacker could use this flaw to perform a cross-site scripting attack against users of the CUPS web interface.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-01-30T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-2856",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHBA-2015:0386"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2014-2856",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2014-2856"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2014-2856",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2014-2856"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-2856",
+						"Description": "CVE-2014-2856"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1087122",
+						"Description": "bz#1087122: CVE-2014-2856 cups: cross-site scripting flaw fixed in the 1.7.2 release"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-04-11T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-optional:cups-1:1.6.3-17.el7",
+						"7Client:cups-1:1.6.3-17.el7",
+						"7ComputeNode-optional:cups-1:1.6.3-17.el7",
+						"7ComputeNode:cups-1:1.6.3-17.el7",
+						"7Server-optional:cups-1:1.6.3-17.el7",
+						"7Server:cups-1:1.6.3-17.el7",
+						"7Workstation-optional:cups-1:1.6.3-17.el7",
+						"7Workstation:cups-1:1.6.3-17.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "It was discovered that CUPS allowed certain users to create symbolic links in certain directories under /var/cache/cups/. A local user with the 'lp' group privileges could use this flaw to read the contents of arbitrary files on the system or, potentially, escalate their privileges on the system.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-07-14T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-3537",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHBA-2015:0386"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2014-3537",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2014-3537"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2014-3537",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2014-3537"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-3537",
+						"Description": "CVE-2014-3537"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1115576",
+						"Description": "bz#1115576: insufficient checking leads to privilege escalation"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-07-02T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-optional:cups-1:1.6.3-17.el7",
+						"7Client:cups-1:1.6.3-17.el7",
+						"7ComputeNode-optional:cups-1:1.6.3-17.el7",
+						"7ComputeNode:cups-1:1.6.3-17.el7",
+						"7Server-optional:cups-1:1.6.3-17.el7",
+						"7Server:cups-1:1.6.3-17.el7",
+						"7Workstation-optional:cups-1:1.6.3-17.el7",
+						"7Workstation:cups-1:1.6.3-17.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "This issue was discovered by Francisco Alonso (Red Hat Security Response Team)."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.0",
+					"Vector": "AV:L/AC:M/Au:S/C:C/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "It was discovered that CUPS allowed certain users to create symbolic links in certain directories under /var/cache/cups/. A local user with the 'lp' group privileges could use this flaw to read the contents of arbitrary files on the system or, potentially, escalate their privileges on the system.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-07-22T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-5029",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHBA-2015:0386"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2014-5029",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2014-5029"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2014-5029",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2014-5029"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-5029",
+						"Description": "CVE-2014-5029"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1122600",
+						"Description": "bz#1122600: CVE-2014-5029 cups: Incomplete fix for CVE-2014-3537"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-07-23T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-optional:cups-1:1.6.3-17.el7",
+						"7Client:cups-1:1.6.3-17.el7",
+						"7ComputeNode-optional:cups-1:1.6.3-17.el7",
+						"7ComputeNode:cups-1:1.6.3-17.el7",
+						"7Server-optional:cups-1:1.6.3-17.el7",
+						"7Server:cups-1:1.6.3-17.el7",
+						"7Workstation-optional:cups-1:1.6.3-17.el7",
+						"7Workstation:cups-1:1.6.3-17.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.0",
+					"Vector": "AV:L/AC:M/Au:S/C:C/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "It was discovered that CUPS allowed certain users to create symbolic links in certain directories under /var/cache/cups/. A local user with the 'lp' group privileges could use this flaw to read the contents of arbitrary files on the system or, potentially, escalate their privileges on the system.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-07-22T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-5030",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHBA-2015:0386"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2014-5030",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2014-5030"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2014-5030",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2014-5030"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-5030",
+						"Description": "CVE-2014-5030"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1128764",
+						"Description": "bz#1128764: CVE-2014-5030 cups: allows local users to read arbitrary files via a symlink attack"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-07-23T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-optional:cups-1:1.6.3-17.el7",
+						"7Client:cups-1:1.6.3-17.el7",
+						"7ComputeNode-optional:cups-1:1.6.3-17.el7",
+						"7ComputeNode:cups-1:1.6.3-17.el7",
+						"7Server-optional:cups-1:1.6.3-17.el7",
+						"7Server:cups-1:1.6.3-17.el7",
+						"7Workstation-optional:cups-1:1.6.3-17.el7",
+						"7Workstation:cups-1:1.6.3-17.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.0",
+					"Vector": "AV:L/AC:M/Au:S/C:C/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "It was discovered that CUPS allowed certain users to create symbolic links in certain directories under /var/cache/cups/. A local user with the 'lp' group privileges could use this flaw to read the contents of arbitrary files on the system or, potentially, escalate their privileges on the system.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-07-22T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-5031",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHBA-2015:0386"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2014-5031",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2014-5031"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2014-5031",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2014-5031"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-5031",
+						"Description": "CVE-2014-5031"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1128767",
+						"Description": "bz#1128767: CVE-2014-5031 cups: world-readable permissions"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-07-23T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-optional:cups-1:1.6.3-17.el7",
+						"7Client:cups-1:1.6.3-17.el7",
+						"7ComputeNode-optional:cups-1:1.6.3-17.el7",
+						"7ComputeNode:cups-1:1.6.3-17.el7",
+						"7Server-optional:cups-1:1.6.3-17.el7",
+						"7Server:cups-1:1.6.3-17.el7",
+						"7Workstation-optional:cups-1:1.6.3-17.el7",
+						"7Workstation:cups-1:1.6.3-17.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.0",
+					"Vector": "AV:L/AC:M/Au:S/C:C/I:P/A:N"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Client (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Client (v. 7)",
+							"productid": "7Client",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Client Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Client Optional (v. 7)",
+							"productid": "7Client-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ComputeNode (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ComputeNode (v. 7)",
+							"productid": "7ComputeNode",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+							"productid": "7ComputeNode-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 7)",
+							"productid": "7Server",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional (v. 7)",
+							"productid": "7Server-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 7)",
+							"productid": "7Workstation",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation Optional (v. 7)",
+							"productid": "7Workstation-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "cups-1:1.6.3-17.el7",
+				"fullproductname": {
+					"text": "cups-1.6.3-17.el7.src.rpm",
+					"productid": "cups-1:1.6.3-17.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "cups-1:1.6.3-17.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client",
+				"fullproductname": {
+					"text": "cups-1:1.6.3-17.el7 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"productid": "7Client:cups-1:1.6.3-17.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "cups-1:1.6.3-17.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-optional",
+				"fullproductname": {
+					"text": "cups-1:1.6.3-17.el7 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"productid": "7Client-optional:cups-1:1.6.3-17.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "cups-1:1.6.3-17.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode",
+				"fullproductname": {
+					"text": "cups-1:1.6.3-17.el7 as a component of Red Hat Enterprise Linux ComputeNode (v. 7)",
+					"productid": "7ComputeNode:cups-1:1.6.3-17.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "cups-1:1.6.3-17.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-optional",
+				"fullproductname": {
+					"text": "cups-1:1.6.3-17.el7 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"productid": "7ComputeNode-optional:cups-1:1.6.3-17.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "cups-1:1.6.3-17.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server",
+				"fullproductname": {
+					"text": "cups-1:1.6.3-17.el7 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server:cups-1:1.6.3-17.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "cups-1:1.6.3-17.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-optional",
+				"fullproductname": {
+					"text": "cups-1:1.6.3-17.el7 as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"productid": "7Server-optional:cups-1:1.6.3-17.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "cups-1:1.6.3-17.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation",
+				"fullproductname": {
+					"text": "cups-1:1.6.3-17.el7 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"productid": "7Workstation:cups-1:1.6.3-17.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "cups-1:1.6.3-17.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-optional",
+				"fullproductname": {
+					"text": "cups-1:1.6.3-17.el7 as a component of Red Hat Enterprise Linux Workstation Optional (v. 7)",
+					"productid": "7Workstation-optional:cups-1:1.6.3-17.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			}
+		]
+	}
+}

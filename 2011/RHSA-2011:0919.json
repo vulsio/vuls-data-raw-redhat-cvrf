@@ -1,0 +1,324 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: qemu-kvm security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2011:0919"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2011-07-05T14:07:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2011-07-05T18:05:00Z",
+		"CurrentReleaseDate": "2011-07-05T14:07:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:30:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated qemu-kvm packages that fix two security issues and one bug are now\navailable for Red Hat Enterprise Linux 6.\n\nThe Red Hat Security Response Team has rated this update as having\nimportant security impact. Common Vulnerability Scoring System (CVSS) base\nscores, which give detailed severity ratings, are available for each\nvulnerability from the CVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nKVM (Kernel-based Virtual Machine) is a full virtualization solution for\nLinux on AMD64 and Intel 64 systems. qemu-kvm is the user-space component\nfor running virtual machines using KVM.\n\nIt was found that the virtio subsystem in qemu-kvm did not properly\nvalidate virtqueue in and out requests from the guest. A privileged guest\nuser could use this flaw to trigger a buffer overflow, allowing them to\ncrash the guest (denial of service) or, possibly, escalate their privileges\non the host. (CVE-2011-2212)\n\nIt was found that the virtio_queue_notify() function in qemu-kvm did not\nperform sufficient input validation on the value later used as an index\ninto the array of virtqueues. An unprivileged guest user could use this\nflaw to crash the guest (denial of service) or, possibly, escalate their\nprivileges on the host. (CVE-2011-2512)\n\nRed Hat would like to thank Nelson Elhage for reporting CVE-2011-2212.\n\nThis update also fixes the following bug:\n\n* A bug was found in the way vhost (in qemu-kvm) set up mappings with the\nhost kernel's vhost module. This could result in the host kernel's vhost\nmodule not having a complete view of a guest system's memory, if that guest\nhad more than 4 GB of memory. Consequently, hot plugging a vhost-net\nnetwork device and restarting the guest may have resulted in that device no\nlonger working. (BZ#701771)\n\nAll users of qemu-kvm should upgrade to these updated packages, which\ncontain backported patches to resolve these issues. After installing this\nupdate, shut down all running virtual machines. Once all virtual machines\nhave shut down, start them again for this update to take effect.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2011:0919",
+				"Description": "https://access.redhat.com/errata/RHSA-2011:0919"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "qemu-kvm: virtqueue: too-large indirect descriptor buffer overflow",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2011-07-05T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2011-2212",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/kb/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2011:0919"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2011-2212",
+						"Description": "CVE-2011-2212"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=713589",
+						"Description": "bz#713589: CVE-2011-2212 qemu-kvm: virtqueue: too-large indirect descriptor buffer overflow"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2011-06-15T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.1.z:qemu-kvm-2:0.12.1.2-2.160.el6_1.2",
+						"6ComputeNode-6.1.z:qemu-kvm-2:0.12.1.2-2.160.el6_1.2",
+						"6Server-6.1.z:qemu-kvm-2:0.12.1.2-2.160.el6_1.2",
+						"6Workstation-6.1.z:qemu-kvm-2:0.12.1.2-2.160.el6_1.2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "7.4",
+					"Vector": "AV:A/AC:M/Au:S/C:C/I:C/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "qemu-kvm: OOB memory access caused by negative vq notifies",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2011-05-08T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2011-2512",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/kb/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2011:0919"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2011-2512",
+						"Description": "CVE-2011-2512"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=717399",
+						"Description": "bz#717399: CVE-2011-2512 qemu-kvm: OOB memory access caused by negative vq notifies"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2011-06-27T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.1.z:qemu-kvm-2:0.12.1.2-2.160.el6_1.2",
+						"6ComputeNode-6.1.z:qemu-kvm-2:0.12.1.2-2.160.el6_1.2",
+						"6Server-6.1.z:qemu-kvm-2:0.12.1.2-2.160.el6_1.2",
+						"6Workstation-6.1.z:qemu-kvm-2:0.12.1.2-2.160.el6_1.2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.5",
+					"Vector": "AV:A/AC:H/Au:S/C:C/I:C/A:C"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 6)",
+							"productid": "6Client-6.1.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node (v. 6)",
+							"productid": "6ComputeNode-6.1.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 6)",
+							"productid": "6Server-6.1.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 6)",
+							"productid": "6Workstation-6.1.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "qemu-kvm-2:0.12.1.2-2.160.el6_1.2",
+				"fullproductname": {
+					"text": "qemu-kvm-0.12.1.2-2.160.el6_1.2.src.rpm",
+					"productid": "qemu-kvm-2:0.12.1.2-2.160.el6_1.2",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "qemu-kvm-2:0.12.1.2-2.160.el6_1.2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-6.1.z",
+				"fullproductname": {
+					"text": "qemu-kvm-2:0.12.1.2-2.160.el6_1.2 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"productid": "6Client-6.1.z:qemu-kvm-2:0.12.1.2-2.160.el6_1.2",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "qemu-kvm-2:0.12.1.2-2.160.el6_1.2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-6.1.z",
+				"fullproductname": {
+					"text": "qemu-kvm-2:0.12.1.2-2.160.el6_1.2 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"productid": "6ComputeNode-6.1.z:qemu-kvm-2:0.12.1.2-2.160.el6_1.2",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "qemu-kvm-2:0.12.1.2-2.160.el6_1.2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-6.1.z",
+				"fullproductname": {
+					"text": "qemu-kvm-2:0.12.1.2-2.160.el6_1.2 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"productid": "6Server-6.1.z:qemu-kvm-2:0.12.1.2-2.160.el6_1.2",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "qemu-kvm-2:0.12.1.2-2.160.el6_1.2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-6.1.z",
+				"fullproductname": {
+					"text": "qemu-kvm-2:0.12.1.2-2.160.el6_1.2 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"productid": "6Workstation-6.1.z:qemu-kvm-2:0.12.1.2-2.160.el6_1.2",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			}
+		]
+	}
+}

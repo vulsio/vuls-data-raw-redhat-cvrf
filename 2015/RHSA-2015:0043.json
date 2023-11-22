@@ -1,0 +1,396 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: kernel security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2015:0043"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2015-01-13T18:27:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2015-01-13T18:27:00Z",
+		"CurrentReleaseDate": "2015-01-13T18:27:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:38:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated kernel packages that fix three security issues and several bugs are\nnow available for Red Hat Enterprise Linux 6.4 Extended Update Support.\n\nRed Hat Product Security has rated this update as having Important security\nimpact. Common Vulnerability Scoring System (CVSS) base scores, which give\ndetailed severity ratings, are available for each vulnerability from the\nCVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe kernel packages contain the Linux kernel, the core of any Linux\noperating system.\n\n* A flaw was found in the way the Linux kernel's SCTP implementation\nhandled malformed or duplicate Address Configuration Change Chunks\n(ASCONF). A remote attacker could use either of these flaws to crash the\nsystem. (CVE-2014-3673, CVE-2014-3687, Important)\n\n* A flaw was found in the way the Linux kernel's SCTP implementation\nhandled the association's output queue. A remote attacker could send\nspecially crafted packets that would cause the system to use an excessive\namount of memory, leading to a denial of service. (CVE-2014-3688,\nImportant)\n\nThe CVE-2014-3673 issue was discovered by Liu Wei of Red Hat.\n\nThis update also fixes the following bugs:\n\n* When the Baseboard Management Controller (BMC) was reset, the settings\nfor the ipmi_watchdog driver were not restored correctly causing error 80\nto be returned. With this update, Intelligent Platform Management Interface\n(IPMI) is reset as expected in the described situation, and the error is no\nlonger returned. (BZ#1109268)\n\n* Under certain conditions, XFS log flushes could exceed the kernel thread\nstack size. As a consequence, a kernel panic occurred on systems using XFS\nfile systems. This update provides a patch that moves this code path to a\nwork queue, and therefore the stack overflow no longer occurs. (BZ#1154086)\n\n* Due to a race condition, an attempt to unmount an XFS file system using\nthe umount command could fail, causing the system to become unresponsive.\nThe underlying source code has been modified to fix this bug, and the\nsystem no longer hangs in the described situation. (BZ#1158320)\n\n* Previously, the printk_ratelimited() function printed messages which were\nsupposed to be suppressed, and failed to print messages that were supposed\nto be printed. This was caused by the incorrect usage of the __ratelimit()\nfunction. This bug has been fixed with this update, and now\nprintk_ratelimit() behaves as expected. (BZ#1169401)\n\nAll kernel users are advised to upgrade to these updated packages, which\ncontain backported patches to correct these issues. The system must be\nrebooted for this update to take effect.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2015:0043",
+				"Description": "https://access.redhat.com/errata/RHSA-2015:0043"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: sctp: skb_over_panic when receiving malformed ASCONF chunks",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-10-09T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-3673",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to use the\nRed Hat Network to apply this update are available at\nhttps://access.redhat.com/articles/11258\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not use\n\"rpm -Uvh\" as that will remove the running kernel binaries from your\nsystem. You may use \"rpm -e\" to remove old kernels after determining that\nthe new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:0043"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-3673",
+						"Description": "CVE-2014-3673"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1147850",
+						"Description": "bz#1147850: CVE-2014-3673 kernel: sctp: skb_over_panic when receiving malformed ASCONF chunks"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2014-09-30T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6ComputeNode-6.4.EUS:kernel-0:2.6.32-358.55.1.el6",
+						"6ComputeNode-optional-6.4.EUS:kernel-0:2.6.32-358.55.1.el6",
+						"6Server-6.4.EUS:kernel-0:2.6.32-358.55.1.el6",
+						"6Server-optional-6.4.EUS:kernel-0:2.6.32-358.55.1.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "7.1",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: net: sctp: fix panic on duplicate ASCONF chunks",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-10-09T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-3687",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to use the\nRed Hat Network to apply this update are available at\nhttps://access.redhat.com/articles/11258\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not use\n\"rpm -Uvh\" as that will remove the running kernel binaries from your\nsystem. You may use \"rpm -e\" to remove old kernels after determining that\nthe new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:0043"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-3687",
+						"Description": "CVE-2014-3687"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1155731",
+						"Description": "bz#1155731: CVE-2014-3687 kernel: net: sctp: fix panic on duplicate ASCONF chunks"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2014-09-30T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6ComputeNode-6.4.EUS:kernel-0:2.6.32-358.55.1.el6",
+						"6ComputeNode-optional-6.4.EUS:kernel-0:2.6.32-358.55.1.el6",
+						"6Server-6.4.EUS:kernel-0:2.6.32-358.55.1.el6",
+						"6Server-optional-6.4.EUS:kernel-0:2.6.32-358.55.1.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "7.1",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: net: sctp: remote memory pressure from excessive queueing",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-10-09T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-3688",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to use the\nRed Hat Network to apply this update are available at\nhttps://access.redhat.com/articles/11258\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not use\n\"rpm -Uvh\" as that will remove the running kernel binaries from your\nsystem. You may use \"rpm -e\" to remove old kernels after determining that\nthe new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:0043"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-3688",
+						"Description": "CVE-2014-3688"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1155745",
+						"Description": "bz#1155745: CVE-2014-3688 kernel: net: sctp: remote memory pressure from excessive queueing"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2014-09-30T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6ComputeNode-6.4.EUS:kernel-0:2.6.32-358.55.1.el6",
+						"6ComputeNode-optional-6.4.EUS:kernel-0:2.6.32-358.55.1.el6",
+						"6Server-6.4.EUS:kernel-0:2.6.32-358.55.1.el6",
+						"6Server-optional-6.4.EUS:kernel-0:2.6.32-358.55.1.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "7.1",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:C"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node EUS (v. 6.4)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node EUS (v. 6.4)",
+							"productid": "6ComputeNode-6.4.EUS",
+							"cpe": "cpe:/o:redhat:rhel_eus:6.4::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Compute Node Optional EUS (v. 6.4)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Compute Node Optional EUS (v. 6.4)",
+							"productid": "6ComputeNode-optional-6.4.EUS",
+							"cpe": "cpe:/o:redhat:rhel_eus:6.4::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server EUS (v. 6.4)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server EUS (v. 6.4)",
+							"productid": "6Server-6.4.EUS",
+							"cpe": "cpe:/o:redhat:rhel_eus:6.4::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional EUS (v. 6.4)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional EUS (v. 6.4)",
+							"productid": "6Server-optional-6.4.EUS",
+							"cpe": "cpe:/o:redhat:rhel_eus:6.4::server"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-0:2.6.32-358.55.1.el6",
+				"fullproductname": {
+					"text": "kernel-2.6.32-358.55.1.el6.src.rpm",
+					"productid": "kernel-0:2.6.32-358.55.1.el6",
+					"cpe": "cpe:/o:redhat:rhel_eus:6.4::computenode"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "kernel-0:2.6.32-358.55.1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-6.4.EUS",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-358.55.1.el6 as a component of Red Hat Enterprise Linux HPC Node EUS (v. 6.4)",
+					"productid": "6ComputeNode-6.4.EUS:kernel-0:2.6.32-358.55.1.el6",
+					"cpe": "cpe:/o:redhat:rhel_eus:6.4::computenode"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.32-358.55.1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-optional-6.4.EUS",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-358.55.1.el6 as a component of Red Hat Enterprise Linux Compute Node Optional EUS (v. 6.4)",
+					"productid": "6ComputeNode-optional-6.4.EUS:kernel-0:2.6.32-358.55.1.el6",
+					"cpe": "cpe:/o:redhat:rhel_eus:6.4::computenode"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.32-358.55.1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-6.4.EUS",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-358.55.1.el6 as a component of Red Hat Enterprise Linux Server EUS (v. 6.4)",
+					"productid": "6Server-6.4.EUS:kernel-0:2.6.32-358.55.1.el6",
+					"cpe": "cpe:/o:redhat:rhel_eus:6.4::server"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.32-358.55.1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-optional-6.4.EUS",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-358.55.1.el6 as a component of Red Hat Enterprise Linux Server Optional EUS (v. 6.4)",
+					"productid": "6Server-optional-6.4.EUS:kernel-0:2.6.32-358.55.1.el6",
+					"cpe": "cpe:/o:redhat:rhel_eus:6.4::server"
+				}
+			}
+		]
+	}
+}

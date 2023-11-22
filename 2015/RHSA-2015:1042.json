@@ -1,0 +1,212 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: kernel security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2015:1042"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2015-06-02T15:53:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2015-06-02T15:53:00Z",
+		"CurrentReleaseDate": "2015-06-02T15:53:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:42:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated kernel packages that fix one security issue and several bugs are\nnow available for Red Hat Enterprise Linux 5.\n\nRed Hat Product Security has rated this update as having Important security\nimpact. A Common Vulnerability Scoring System (CVSS) base score, which\ngives a detailed severity rating, is available from the CVE link in the\nReferences section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe kernel packages contain the Linux kernel, the core of any Linux\noperating system.\n\n* It was found that the Linux kernel's implementation of vectored pipe read\nand write functionality did not take into account the I/O vectors that were\nalready processed when retrying after a failed atomic access operation,\npotentially resulting in memory corruption due to an I/O vector array\noverrun. A local, unprivileged user could use this flaw to crash the system\nor, potentially, escalate their privileges on the system. (CVE-2015-1805,\nImportant)\n\nThe security impact of this issue was discovered by Red Hat.\n\nThis update fixes the following bugs:\n\n* Due to a bug in the lpfc_device_reset_handler() function, a scsi command\ntimeout could lead to a system crash. With this update,\nlpfc_device_reset_handler recovers storage without crashing. (BZ#1070964)\n\n* Due to the code decrementing the reclaim_in_progress counter without\nhaving incremented it first, severe spinlock contention occurred in the\nshrink_zone() function even though the vm.max_reclaims_in_progress feature\nwas set to 1. This update provides a patch fixing the underlying source\ncode, and spinlock contention no longer occurs in this scenario.\n(BZ#1164105)\n\n* A TCP socket using SACK that had a retransmission but recovered from it,\nfailed to reset the retransmission timestamp. As a consequence, on certain\nconnections, if a packet had to be re-transmitted, the retrans_stamp\nvariable was only cleared when the next acked packet was received.\nThis could lead to an early abortion of the TCP connection if this next\npacket also got lost. With this update, the socket clears retrans_stamp\nwhen the recovery is completed, thus fixing the bug. (BZ#1205521)\n\n* Previously, the signal delivery paths did not clear the TS_USEDFPU flag,\nwhich could cause problems in the switch_to() function and lead to\nfloating-point unit (FPU) corruption. With this update, TS_USEDFPU is\ncleared as expected, and FPU is no longer under threat of corruption.\n(BZ#1193505)\n\n* A race condition in the exit_sem() function previously caused the\nsemaphore undo list corruption. As a consequence, a kernel crash could\noccur. The corruption in the semaphore undo list has been fixed, and the\nkernel no longer crashes in this situation. (BZ#1124574)\n\n* Previously, when running the \"virsh blockresize [Device] [Newsize]\"\ncommand to resize the disk, the new size was not reflected in a Red Hat\nEnterprise Linux 5 Virtual Machine (VM). With this update, the new size is\nnow reflected online immediately in a Red Hat Enterprise Linux 5 VM so it\nis no longer necessary to reboot the VM to see the new disk size.\n(BZ#1200855)\n\nAll kernel users are advised to upgrade to these updated packages, which\ncontain backported patches to correct these issues. The system must be\nrebooted for this update to take effect.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2015:1042",
+				"Description": "https://access.redhat.com/errata/RHSA-2015:1042"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: pipe: iovec overrun leading to memory corruption",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-06-02T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-1805",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1042"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-1805",
+						"Description": "CVE-2015-1805"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1202855",
+						"Description": "bz#1202855: CVE-2015-1805 kernel: pipe: iovec overrun leading to memory corruption"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2015-03-02T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-5.11.Z:kernel-0:2.6.18-406.el5",
+						"5Server-5.11.Z:kernel-0:2.6.18-406.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.9",
+					"Vector": "AV:L/AC:M/Au:N/C:C/I:C/A:C"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+							"productid": "5Client-5.11.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux (v. 5 server)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux (v. 5 server)",
+							"productid": "5Server-5.11.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-0:2.6.18-406.el5",
+				"fullproductname": {
+					"text": "kernel-2.6.18-406.el5.src.rpm",
+					"productid": "kernel-0:2.6.18-406.el5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "kernel-0:2.6.18-406.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Client-5.11.Z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.18-406.el5 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"productid": "5Client-5.11.Z:kernel-0:2.6.18-406.el5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.18-406.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-5.11.Z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.18-406.el5 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"productid": "5Server-5.11.Z:kernel-0:2.6.18-406.el5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+				}
+			}
+		]
+	}
+}

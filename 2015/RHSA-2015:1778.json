@@ -1,0 +1,854 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: kernel security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2015:1778"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2015-09-15T12:03:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2015-09-15T12:03:00Z",
+		"CurrentReleaseDate": "2015-09-15T12:03:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:37:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated kernel packages that fix multiple security issues and several bugs\nare now available for Red Hat Enterprise Linux 7.\n\nRed Hat Product Security has rated this update as having Important security\nimpact. Common Vulnerability Scoring System (CVSS) base scores, which give\ndetailed severity ratings, are available for each vulnerability from the\nCVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe kernel packages contain the Linux kernel, the core of any Linux\noperating system.\n\n* A flaw was found in the kernel's implementation of the Berkeley Packet\nFilter (BPF). A local attacker could craft BPF code to crash the system by\ncreating a situation in which the JIT compiler would fail to correctly\noptimize the JIT image on the last pass. This would lead to the CPU\nexecuting instructions that were not part of the JIT code. (CVE-2015-4700,\nImportant)\n\n* Two flaws were found in the way the Linux kernel's networking\nimplementation handled UDP packets with incorrect checksum values. A remote\nattacker could potentially use these flaws to trigger an infinite loop in\nthe kernel, resulting in a denial of service on the system, or cause a\ndenial of service in applications using the edge triggered epoll\nfunctionality. (CVE-2015-5364, CVE-2015-5366, Important)\n\n* A flaw was found in the way the Linux kernel's ext4 file system handled\nthe \"page size > block size\" condition when the fallocate zero range\nfunctionality was used. A local attacker could use this flaw to crash the\nsystem. (CVE-2015-0275, Moderate)\n\n* It was found that the Linux kernel's keyring implementation would leak\nmemory when adding a key to a keyring via the add_key() function. A local\nattacker could use this flaw to exhaust all available memory on the system.\n(CVE-2015-1333, Moderate)\n\n* A race condition flaw was found in the way the Linux kernel's SCTP\nimplementation handled Address Configuration lists when performing Address\nConfiguration Change (ASCONF). A local attacker could use this flaw to\ncrash the system via a race condition triggered by setting certain ASCONF\noptions on a socket. (CVE-2015-3212, Moderate)\n\n* An information leak flaw was found in the way the Linux kernel's Virtual\nDynamic Shared Object (vDSO) implementation performed address\nrandomization. A local, unprivileged user could use this flaw to leak\nkernel memory addresses to user-space. (CVE-2014-9585, Low)\n\nRed Hat would like to thank Daniel Borkmann for reporting CVE-2015-4700,\nand Canonical for reporting the CVE-2015-1333 issue. The CVE-2015-0275\nissue was discovered by Xiong Zhou of Red Hat, and the CVE-2015-3212 issue\nwas discovered by Ji Jianwen of Red Hat Engineering.\n\nThis update also fixes several bugs. Refer to the following Knowledgebase\narticle for further information:\n\nhttps://access.redhat.com/articles/1614563\n\nAll kernel users are advised to upgrade to these updated packages, which\ncontain backported patches to correct these issues. The system must be\nrebooted for this update to take effect.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2015:1778",
+				"Description": "https://access.redhat.com/errata/RHSA-2015:1778"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/articles/1614563",
+				"Description": "https://access.redhat.com/articles/1614563"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: ASLR bruteforce possible for vdso library",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-12-11T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-9585",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1778"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-9585",
+						"Description": "CVE-2014-9585"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1181054",
+						"Description": "bz#1181054: CVE-2014-9585 kernel: ASLR bruteforce possible for vdso library"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2015-01-12T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-7.1.Z:kernel-0:3.10.0-229.14.1.el7",
+						"7Client-optional-7.1.Z:kernel-0:3.10.0-229.14.1.el7",
+						"7ComputeNode-7.1.Z:kernel-0:3.10.0-229.14.1.el7",
+						"7ComputeNode-optional-7.1.Z:kernel-0:3.10.0-229.14.1.el7",
+						"7Server-7.1.Z:kernel-0:3.10.0-229.14.1.el7",
+						"7Server-LE-7.1.Z:kernel-0:3.10.0-229.14.1.ael7b",
+						"7Server-optional-7.1.Z:kernel-0:3.10.0-229.14.1.el7",
+						"7Server-optional-LE-7.1.Z:kernel-0:3.10.0-229.14.1.ael7b",
+						"7Workstation-7.1.Z:kernel-0:3.10.0-229.14.1.el7",
+						"7Workstation-optional-7.1.Z:kernel-0:3.10.0-229.14.1.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "1.9",
+					"Vector": "AV:L/AC:M/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: fs: ext4: fallocate zero range page size > block size BUG()",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-02-18T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-0275",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1778"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-0275",
+						"Description": "CVE-2015-0275"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1193907",
+						"Description": "bz#1193907: CVE-2015-0275 kernel: fs: ext4: fallocate zero range page size > block size BUG()"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-02-17T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-7.1.Z:kernel-0:3.10.0-229.14.1.el7",
+						"7Client-optional-7.1.Z:kernel-0:3.10.0-229.14.1.el7",
+						"7ComputeNode-7.1.Z:kernel-0:3.10.0-229.14.1.el7",
+						"7ComputeNode-optional-7.1.Z:kernel-0:3.10.0-229.14.1.el7",
+						"7Server-7.1.Z:kernel-0:3.10.0-229.14.1.el7",
+						"7Server-LE-7.1.Z:kernel-0:3.10.0-229.14.1.ael7b",
+						"7Server-optional-7.1.Z:kernel-0:3.10.0-229.14.1.el7",
+						"7Server-optional-LE-7.1.Z:kernel-0:3.10.0-229.14.1.ael7b",
+						"7Workstation-7.1.Z:kernel-0:3.10.0-229.14.1.el7",
+						"7Workstation-optional-7.1.Z:kernel-0:3.10.0-229.14.1.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.7",
+					"Vector": "AV:L/AC:M/Au:N/C:N/I:N/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: denial of service due to memory leak in add_key()",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-07-27T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-1333",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1778"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-1333",
+						"Description": "CVE-2015-1333"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1245658",
+						"Description": "bz#1245658: CVE-2015-1333 kernel: denial of service due to memory leak in add_key()"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-07-17T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-7.1.Z:kernel-0:3.10.0-229.14.1.el7",
+						"7Client-optional-7.1.Z:kernel-0:3.10.0-229.14.1.el7",
+						"7ComputeNode-7.1.Z:kernel-0:3.10.0-229.14.1.el7",
+						"7ComputeNode-optional-7.1.Z:kernel-0:3.10.0-229.14.1.el7",
+						"7Server-7.1.Z:kernel-0:3.10.0-229.14.1.el7",
+						"7Server-LE-7.1.Z:kernel-0:3.10.0-229.14.1.ael7b",
+						"7Server-optional-7.1.Z:kernel-0:3.10.0-229.14.1.el7",
+						"7Server-optional-LE-7.1.Z:kernel-0:3.10.0-229.14.1.ael7b",
+						"7Workstation-7.1.Z:kernel-0:3.10.0-229.14.1.el7",
+						"7Workstation-optional-7.1.Z:kernel-0:3.10.0-229.14.1.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.9",
+					"Vector": "AV:L/AC:L/Au:N/C:N/I:N/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: SCTP race condition allows list corruption and panic from userlevel",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-06-30T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-3212",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1778"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-3212",
+						"Description": "CVE-2015-3212"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1226442",
+						"Description": "bz#1226442: CVE-2015-3212 kernel: SCTP race condition allows list corruption and panic from userlevel"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-06-17T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-7.1.Z:kernel-0:3.10.0-229.14.1.el7",
+						"7Client-optional-7.1.Z:kernel-0:3.10.0-229.14.1.el7",
+						"7ComputeNode-7.1.Z:kernel-0:3.10.0-229.14.1.el7",
+						"7ComputeNode-optional-7.1.Z:kernel-0:3.10.0-229.14.1.el7",
+						"7Server-7.1.Z:kernel-0:3.10.0-229.14.1.el7",
+						"7Server-LE-7.1.Z:kernel-0:3.10.0-229.14.1.ael7b",
+						"7Server-optional-7.1.Z:kernel-0:3.10.0-229.14.1.el7",
+						"7Server-optional-LE-7.1.Z:kernel-0:3.10.0-229.14.1.ael7b",
+						"7Workstation-7.1.Z:kernel-0:3.10.0-229.14.1.el7",
+						"7Workstation-optional-7.1.Z:kernel-0:3.10.0-229.14.1.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.6",
+					"Vector": "AV:L/AC:L/Au:N/C:N/I:P/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: Crafted BPF filters may crash kernel during JIT optimisation",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-06-23T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-4700",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1778"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-4700",
+						"Description": "CVE-2015-4700"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1233615",
+						"Description": "bz#1233615: CVE-2015-4700 kernel: Crafted BPF filters may crash kernel during JIT optimisation"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2015-05-28T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-7.1.Z:kernel-0:3.10.0-229.14.1.el7",
+						"7Client-optional-7.1.Z:kernel-0:3.10.0-229.14.1.el7",
+						"7ComputeNode-7.1.Z:kernel-0:3.10.0-229.14.1.el7",
+						"7ComputeNode-optional-7.1.Z:kernel-0:3.10.0-229.14.1.el7",
+						"7Server-7.1.Z:kernel-0:3.10.0-229.14.1.el7",
+						"7Server-LE-7.1.Z:kernel-0:3.10.0-229.14.1.ael7b",
+						"7Server-optional-7.1.Z:kernel-0:3.10.0-229.14.1.el7",
+						"7Server-optional-LE-7.1.Z:kernel-0:3.10.0-229.14.1.ael7b",
+						"7Workstation-7.1.Z:kernel-0:3.10.0-229.14.1.el7",
+						"7Workstation-optional-7.1.Z:kernel-0:3.10.0-229.14.1.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "7.2",
+					"Vector": "AV:L/AC:L/Au:N/C:C/I:C/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "6",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: net: incorrect processing of checksums in UDP implementation",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-07-01T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-5364",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1778"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-5364",
+						"Description": "CVE-2015-5364"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1239029",
+						"Description": "bz#1239029: CVE-2015-5366 CVE-2015-5364 kernel: net: incorrect processing of checksums in UDP implementation"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2015-07-01T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-7.1.Z:kernel-0:3.10.0-229.14.1.el7",
+						"7Client-optional-7.1.Z:kernel-0:3.10.0-229.14.1.el7",
+						"7ComputeNode-7.1.Z:kernel-0:3.10.0-229.14.1.el7",
+						"7ComputeNode-optional-7.1.Z:kernel-0:3.10.0-229.14.1.el7",
+						"7Server-7.1.Z:kernel-0:3.10.0-229.14.1.el7",
+						"7Server-LE-7.1.Z:kernel-0:3.10.0-229.14.1.ael7b",
+						"7Server-optional-7.1.Z:kernel-0:3.10.0-229.14.1.el7",
+						"7Server-optional-LE-7.1.Z:kernel-0:3.10.0-229.14.1.ael7b",
+						"7Workstation-7.1.Z:kernel-0:3.10.0-229.14.1.el7",
+						"7Workstation-optional-7.1.Z:kernel-0:3.10.0-229.14.1.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "7.1",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "7",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: net: incorrect processing of checksums in UDP implementation",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-07-01T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-5366",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1778"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-5366",
+						"Description": "CVE-2015-5366"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1239029",
+						"Description": "bz#1239029: CVE-2015-5366 CVE-2015-5364 kernel: net: incorrect processing of checksums in UDP implementation"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2015-07-01T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-7.1.Z:kernel-0:3.10.0-229.14.1.el7",
+						"7Client-optional-7.1.Z:kernel-0:3.10.0-229.14.1.el7",
+						"7ComputeNode-7.1.Z:kernel-0:3.10.0-229.14.1.el7",
+						"7ComputeNode-optional-7.1.Z:kernel-0:3.10.0-229.14.1.el7",
+						"7Server-7.1.Z:kernel-0:3.10.0-229.14.1.el7",
+						"7Server-LE-7.1.Z:kernel-0:3.10.0-229.14.1.ael7b",
+						"7Server-optional-7.1.Z:kernel-0:3.10.0-229.14.1.el7",
+						"7Server-optional-LE-7.1.Z:kernel-0:3.10.0-229.14.1.ael7b",
+						"7Workstation-7.1.Z:kernel-0:3.10.0-229.14.1.el7",
+						"7Workstation-optional-7.1.Z:kernel-0:3.10.0-229.14.1.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "7.1",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:C"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Client (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Client (v. 7)",
+							"productid": "7Client-7.1.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Client Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Client Optional (v. 7)",
+							"productid": "7Client-optional-7.1.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ComputeNode (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ComputeNode (v. 7)",
+							"productid": "7ComputeNode-7.1.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+							"productid": "7ComputeNode-optional-7.1.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 7)",
+							"productid": "7Server-7.1.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 7)",
+							"productid": "7Server-LE-7.1.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::ppc64le:server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional (v. 7)",
+							"productid": "7Server-optional-7.1.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional (v. 7)",
+							"productid": "7Server-optional-LE-7.1.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::ppc64le:server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 7)",
+							"productid": "7Workstation-7.1.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation Optional (v. 7)",
+							"productid": "7Workstation-optional-7.1.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-0:3.10.0-229.14.1.ael7b",
+				"fullproductname": {
+					"text": "kernel-3.10.0-229.14.1.ael7b.src.rpm",
+					"productid": "kernel-0:3.10.0-229.14.1.ael7b",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::ppc64le:server"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-0:3.10.0-229.14.1.el7",
+				"fullproductname": {
+					"text": "kernel-3.10.0-229.14.1.el7.src.rpm",
+					"productid": "kernel-0:3.10.0-229.14.1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "kernel-0:3.10.0-229.14.1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-7.1.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-229.14.1.el7 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"productid": "7Client-7.1.Z:kernel-0:3.10.0-229.14.1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-229.14.1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-optional-7.1.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-229.14.1.el7 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"productid": "7Client-optional-7.1.Z:kernel-0:3.10.0-229.14.1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-229.14.1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-7.1.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-229.14.1.el7 as a component of Red Hat Enterprise Linux ComputeNode (v. 7)",
+					"productid": "7ComputeNode-7.1.Z:kernel-0:3.10.0-229.14.1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-229.14.1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-optional-7.1.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-229.14.1.el7 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"productid": "7ComputeNode-optional-7.1.Z:kernel-0:3.10.0-229.14.1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-229.14.1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-7.1.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-229.14.1.el7 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server-7.1.Z:kernel-0:3.10.0-229.14.1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-229.14.1.ael7b",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-LE-7.1.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-229.14.1.ael7b as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server-LE-7.1.Z:kernel-0:3.10.0-229.14.1.ael7b",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::ppc64le:server"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-229.14.1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-optional-7.1.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-229.14.1.el7 as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"productid": "7Server-optional-7.1.Z:kernel-0:3.10.0-229.14.1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-229.14.1.ael7b",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-optional-LE-7.1.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-229.14.1.ael7b as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"productid": "7Server-optional-LE-7.1.Z:kernel-0:3.10.0-229.14.1.ael7b",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::ppc64le:server"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-229.14.1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-7.1.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-229.14.1.el7 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"productid": "7Workstation-7.1.Z:kernel-0:3.10.0-229.14.1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-229.14.1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-optional-7.1.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-229.14.1.el7 as a component of Red Hat Enterprise Linux Workstation Optional (v. 7)",
+					"productid": "7Workstation-optional-7.1.Z:kernel-0:3.10.0-229.14.1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			}
+		]
+	}
+}

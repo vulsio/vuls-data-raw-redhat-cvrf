@@ -1,0 +1,489 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: glibc security, bug fix, and enhancement update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2013:1605"
+		},
+		"Status": "Final",
+		"Version": "2",
+		"revisionhistory": {
+			"revision": {
+				"Number": "2",
+				"Date": "2013-11-20T16:54:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2013-11-20T16:41:00Z",
+		"CurrentReleaseDate": "2013-11-20T16:54:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:36:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated glibc packages that fix three security issues, several bugs, and\nadd various enhancements are now available for Red Hat Enterprise Linux 6.\n\nThe Red Hat Security Response Team has rated this update as having moderate\nsecurity impact. Common Vulnerability Scoring System (CVSS) base scores,\nwhich give detailed severity ratings, are available for each vulnerability\nfrom the CVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe glibc packages provide the standard C libraries (libc), POSIX thread\nlibraries (libpthread), standard math libraries (libm), and the Name Server\nCaching Daemon (nscd) used by multiple programs on the system. Without\nthese libraries, the Linux system cannot function correctly.\n\nMultiple integer overflow flaws, leading to heap-based buffer overflows,\nwere found in glibc's memory allocator functions (pvalloc, valloc, and\nmemalign). If an application used such a function, it could cause the\napplication to crash or, potentially, execute arbitrary code with the\nprivileges of the user running the application. (CVE-2013-4332)\n\nA flaw was found in the regular expression matching routines that process\nmultibyte character input. If an application utilized the glibc regular\nexpression matching mechanism, an attacker could provide specially-crafted\ninput that, when processed, would cause the application to crash.\n(CVE-2013-0242)\n\nIt was found that getaddrinfo() did not limit the amount of stack memory\nused during name resolution. An attacker able to make an application\nresolve an attacker-controlled hostname or IP address could possibly cause\nthe application to exhaust all stack memory and crash. (CVE-2013-1914)\n\nAmong other changes, this update includes an important fix for the following bug:\n\n* Due to a defect in the initial release of the getaddrinfo() system call in Red Hat enterprise Linux 6.0, AF_INET and AF_INET6 queries resolved from the /etc/hosts file returned queried names as canonical names. This incorrect behavior is, however, still considered to be the expected behavior. As a result of a recent change in getaddrinfo(), AF_INET6 queries started resolving the canonical names correctly. However, this behavior was unexpected by applications that relied on queries resolved from the /etc/hosts file, and these applications could thus fail to operate properly. This update applies a fix ensuring that AF_INET6 queries resolved from /etc/hosts always return the queried name as canonical. Note that DNS lookups are resolved properly and always return the correct canonical names. A proper fix to AF_INET6 queries resolution from /etc/hosts may be applied in future releases; for now, due to a lack of standard, Red Hat suggests the first entry in the /etc/hosts file, that applies for the IP address being resolved, to be considered the canonical entry. (BZ#1022022)\n\nThese updated glibc packages also include additional bug fixes and \nvarious enhancements. Space precludes documenting all of these changes \nin this advisory. Users are directed to the Red Hat Enterprise Linux 6.5 \nTechnical Notes, linked to in the References, for information on the \nmost significant of these changes.\n\nAll glibc users are advised to upgrade to these updated packages, which\ncontain backported patches to correct these issues and add these\nenhancements.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2013:1605",
+				"Description": "https://access.redhat.com/errata/RHSA-2013:1605"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/site/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/6.5_Technical_Notes/glibc.html#RHSA-2013-1605",
+				"Description": "https://access.redhat.com/site/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/6.5_Technical_Notes/glibc.html#RHSA-2013-1605"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "glibc: Buffer overrun (DoS) in regexp matcher by processing multibyte characters",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-01-29T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-0242",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to use the\nRed Hat Network to apply this update are available at\nhttps://access.redhat.com/site/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:1605"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-0242",
+						"Description": "CVE-2013-0242"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=905874",
+						"Description": "bz#905874: CVE-2013-0242 glibc: Buffer overrun (DoS) in regexp matcher by processing multibyte characters"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2013-01-29T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional:glibc-0:2.12-1.132.el6",
+						"6Client:glibc-0:2.12-1.132.el6",
+						"6ComputeNode-optional:glibc-0:2.12-1.132.el6",
+						"6ComputeNode:glibc-0:2.12-1.132.el6",
+						"6Server-optional:glibc-0:2.12-1.132.el6",
+						"6Server:glibc-0:2.12-1.132.el6",
+						"6Workstation-optional:glibc-0:2.12-1.132.el6",
+						"6Workstation:glibc-0:2.12-1.132.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "glibc: Stack (frame) overflow in getaddrinfo() when processing entry mapping to long list of address structures",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-04-03T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-1914",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to use the\nRed Hat Network to apply this update are available at\nhttps://access.redhat.com/site/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:1605"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-1914",
+						"Description": "CVE-2013-1914"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=947882",
+						"Description": "bz#947882: CVE-2013-1914 glibc: Stack (frame) overflow in getaddrinfo() when processing entry mapping to long list of address structures"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2013-04-03T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional:glibc-0:2.12-1.132.el6",
+						"6Client:glibc-0:2.12-1.132.el6",
+						"6ComputeNode-optional:glibc-0:2.12-1.132.el6",
+						"6ComputeNode:glibc-0:2.12-1.132.el6",
+						"6Server-optional:glibc-0:2.12-1.132.el6",
+						"6Server:glibc-0:2.12-1.132.el6",
+						"6Workstation-optional:glibc-0:2.12-1.132.el6",
+						"6Workstation:glibc-0:2.12-1.132.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "glibc: three integer overflows in memory allocator",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-08-20T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-4332",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to use the\nRed Hat Network to apply this update are available at\nhttps://access.redhat.com/site/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:1605"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-4332",
+						"Description": "CVE-2013-4332"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1007545",
+						"Description": "bz#1007545: CVE-2013-4332 glibc: three integer overflows in memory allocator"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2013-09-11T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional:glibc-0:2.12-1.132.el6",
+						"6Client:glibc-0:2.12-1.132.el6",
+						"6ComputeNode-optional:glibc-0:2.12-1.132.el6",
+						"6ComputeNode:glibc-0:2.12-1.132.el6",
+						"6Server-optional:glibc-0:2.12-1.132.el6",
+						"6Server:glibc-0:2.12-1.132.el6",
+						"6Workstation-optional:glibc-0:2.12-1.132.el6",
+						"6Workstation:glibc-0:2.12-1.132.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.4",
+					"Vector": "AV:L/AC:M/Au:N/C:P/I:P/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 6)",
+							"productid": "6Client",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+							"productid": "6Client-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node (v. 6)",
+							"productid": "6ComputeNode",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+							"productid": "6ComputeNode-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 6)",
+							"productid": "6Server",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional (v. 6)",
+							"productid": "6Server-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 6)",
+							"productid": "6Workstation",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+							"productid": "6Workstation-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "glibc-0:2.12-1.132.el6",
+				"fullproductname": {
+					"text": "glibc-2.12-1.132.el6.src.rpm",
+					"productid": "glibc-0:2.12-1.132.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "glibc-0:2.12-1.132.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client",
+				"fullproductname": {
+					"text": "glibc-0:2.12-1.132.el6 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"productid": "6Client:glibc-0:2.12-1.132.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "glibc-0:2.12-1.132.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-optional",
+				"fullproductname": {
+					"text": "glibc-0:2.12-1.132.el6 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"productid": "6Client-optional:glibc-0:2.12-1.132.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "glibc-0:2.12-1.132.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode",
+				"fullproductname": {
+					"text": "glibc-0:2.12-1.132.el6 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"productid": "6ComputeNode:glibc-0:2.12-1.132.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "glibc-0:2.12-1.132.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-optional",
+				"fullproductname": {
+					"text": "glibc-0:2.12-1.132.el6 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"productid": "6ComputeNode-optional:glibc-0:2.12-1.132.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "glibc-0:2.12-1.132.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server",
+				"fullproductname": {
+					"text": "glibc-0:2.12-1.132.el6 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"productid": "6Server:glibc-0:2.12-1.132.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "glibc-0:2.12-1.132.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-optional",
+				"fullproductname": {
+					"text": "glibc-0:2.12-1.132.el6 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"productid": "6Server-optional:glibc-0:2.12-1.132.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "glibc-0:2.12-1.132.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation",
+				"fullproductname": {
+					"text": "glibc-0:2.12-1.132.el6 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"productid": "6Workstation:glibc-0:2.12-1.132.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			},
+			{
+				"productreference": "glibc-0:2.12-1.132.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-optional",
+				"fullproductname": {
+					"text": "glibc-0:2.12-1.132.el6 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"productid": "6Workstation-optional:glibc-0:2.12-1.132.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			}
+		]
+	}
+}

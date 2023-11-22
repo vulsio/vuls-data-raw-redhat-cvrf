@@ -1,0 +1,335 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Bug Fix Advisory: netcf bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHBA-2015:1307"
+		},
+		"Status": "Final",
+		"Version": "3",
+		"revisionhistory": {
+			"revision": {
+				"Number": "3",
+				"Date": "2015-07-27T04:55:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2015-07-22T00:00:00Z",
+		"CurrentReleaseDate": "2015-07-27T04:55:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.14.1",
+			"Date": "2023-05-12T06:51:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated netcf packages that fix several bugs are now available for Red Hat Enterprise Linux 6.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe netcf packages contain a library for modifying the network configuration of a system. Network configuration is expressed in a platform-independent XML format, which netcf translates into changes to the system's \"native\" network configuration files.\n\nThis update fixes the following bugs:\n\n* Previously, when the XML configuration for an interface enabled dynamic host configuration protocol (DHCP) for IPv6, the netcf library erroneously set the variable named \"DHCPV6\" in the ifcfg configuration file instead of \"DHCPV6C\". The underlying source code has been patched, and netcf now passes the correct \"DHCPV6C\" option to ifcfg. (BZ#1113978)\n\n* Prior to this update, when requested to configure an interface with an IPv4 netmask of 255.255.255.255, the netcf library logged an error as the\ninterface configuration was rejected. This update fixes the netmask for the 32-bit interface prefix, and netcf now configures IPv4 interfaces successfully. (BZ#1116314) \n\n* Due to a parsing error, the ifcfg files with comments starting anywhere beyond column 1 or multiple variables on a single line caused the netcf library to generate errors when attempting to list host interfaces. The parsing error has been fixed, and any tool using netcf now lists active interfaces as expected. (BZ#1208897) \n\n* When multiple static IPv6 addresses were specified in an interface configuration, an extra set of quotes appeared in the IPV6ADDR_SECONDARIES entry in the generated configuration file. This update removes extraneous single quotes from IPV6ADDR_SECONDARIES, thus fixing this bug. (BZ#1208894)\n\n* Due to a denial of a service flaw in the netcf library, a specially crafted interface name previously caused applications using netcf, such as the libvirt daemon, to terminate unexpectedly. An upstream patch has been applied to fix this bug, and applications using netcf no longer crash in the aforementioned situation. (BZ#1165966) \n\nUsers of netcf are advised to upgrade to these updated packages, which fix these bugs.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2023 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHBA-2015:1307",
+				"Description": "https://access.redhat.com/errata/RHBA-2015:1307"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A denial of service flaw was found in netcf. A specially crafted interface name could cause an application using netcf (such as the libvirt daemon) to crash.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-03-30T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-8119",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata relevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHBA-2015:1307"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2014-8119",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2014-8119"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2014-8119",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2014-8119"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-8119",
+						"Description": "CVE-2014-8119"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1172176",
+						"Description": "bz#1172176: augeas path expression injection via interface name"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-11-27T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional:netcf-0:0.2.4-3.el6",
+						"6Client:netcf-0:0.2.4-3.el6",
+						"6ComputeNode-optional:netcf-0:0.2.4-3.el6",
+						"6ComputeNode:netcf-0:0.2.4-3.el6",
+						"6Server-optional:netcf-0:0.2.4-3.el6",
+						"6Server:netcf-0:0.2.4-3.el6",
+						"6Workstation-optional:netcf-0:0.2.4-3.el6",
+						"6Workstation:netcf-0:0.2.4-3.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "This issue was discovered by Hao Liu (Red Hat)."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.0",
+					"Vector": "AV:N/AC:L/Au:S/C:N/I:N/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 6)",
+							"productid": "6Client",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+							"productid": "6Client-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node (v. 6)",
+							"productid": "6ComputeNode",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+							"productid": "6ComputeNode-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 6)",
+							"productid": "6Server",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional (v. 6)",
+							"productid": "6Server-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 6)",
+							"productid": "6Workstation",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+							"productid": "6Workstation-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "netcf-0:0.2.4-3.el6",
+				"fullproductname": {
+					"text": "netcf-0.2.4-3.el6.src.rpm",
+					"productid": "netcf-0:0.2.4-3.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "netcf-0:0.2.4-3.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client",
+				"fullproductname": {
+					"text": "netcf-0:0.2.4-3.el6 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"productid": "6Client:netcf-0:0.2.4-3.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "netcf-0:0.2.4-3.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-optional",
+				"fullproductname": {
+					"text": "netcf-0:0.2.4-3.el6 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"productid": "6Client-optional:netcf-0:0.2.4-3.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "netcf-0:0.2.4-3.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode",
+				"fullproductname": {
+					"text": "netcf-0:0.2.4-3.el6 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"productid": "6ComputeNode:netcf-0:0.2.4-3.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "netcf-0:0.2.4-3.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-optional",
+				"fullproductname": {
+					"text": "netcf-0:0.2.4-3.el6 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"productid": "6ComputeNode-optional:netcf-0:0.2.4-3.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "netcf-0:0.2.4-3.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server",
+				"fullproductname": {
+					"text": "netcf-0:0.2.4-3.el6 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"productid": "6Server:netcf-0:0.2.4-3.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "netcf-0:0.2.4-3.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-optional",
+				"fullproductname": {
+					"text": "netcf-0:0.2.4-3.el6 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"productid": "6Server-optional:netcf-0:0.2.4-3.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "netcf-0:0.2.4-3.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation",
+				"fullproductname": {
+					"text": "netcf-0:0.2.4-3.el6 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"productid": "6Workstation:netcf-0:0.2.4-3.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			},
+			{
+				"productreference": "netcf-0:0.2.4-3.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-optional",
+				"fullproductname": {
+					"text": "netcf-0:0.2.4-3.el6 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"productid": "6Workstation-optional:netcf-0:0.2.4-3.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			}
+		]
+	}
+}

@@ -1,0 +1,315 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: satellite and spacewalk security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2017:2645"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2017-09-06T12:26:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2017-09-06T12:26:00Z",
+		"CurrentReleaseDate": "2017-09-06T12:26:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:38:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nAn update for satellite-schema, spacewalk-backend, spacewalk-java, and spacewalk-schema is now available for Red Hat Satellite 5.8 and Red Hat Satellite 5.8 ELS.\n\nRed Hat Product Security has rated this update as having a security impact of Moderate. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nSpacewalk is an Open Source systems management solution that provides system provisioning, configuration and patching capabilities.\n\nRed Hat Satellite is a system management tool for Linux-based infrastructures. It allows for provisioning, monitoring, and the remote management of multiple Linux deployments with a single, centralized tool.\n\nSecurity Fix(es):\n\n* A cross-site scripting (XSS) flaw was found in how an organization name is displayed in Satellite 5. A user able to change an organization's name could exploit this flaw to perform XSS attacks against other Satellite users. (CVE-2017-7538)\n\nThis issue was discovered by Ales Dujicek (Red Hat).\n\nBug Fix(es):\n\n* Prior to this update, transferring content between Satellites using Inter-Satellite Synchronization or channel-dumps failed to transfer the product-name related to channels. This interfered with the process of moving a server between EUS channels. The 'satellite-export' tool now correctly provides associated product-names, fixing this behavior. (BZ#1446271)\n\n* Prior to this update, the API call 'schedule.failSystemAction()' allowed overwriting a system's event history. This is undesirable from an auditing standpoint. The API now no longer allows affecting completed or failed events. (BZ#1455887)\n\n* Prior to this update, organization administrators who were not allowed to change their organization's attributes could do so by modifying form elements. The associated form controller no longer allows this behavior. (BZ#1458722)\n\n* Prior to this update, the 'download' tool's retry limit would be incorrect if there were more available mirrors than its retry count. It could also produce a harmless but unhelpful traceback in some situations. Both of these behaviors have been fixed. (BZ#1458765)\n\n* Prior to this update, it was possible for parallel registrations using reactivation keys, that were creating snapshot entries, to occasionally deadlock. Both the reactivation-key registration and snapshot-creation paths have been updated to prevent these deadlocks. (BZ#1458880)\n\n* Prior to this update, if there was some problem with a single erratum in a given repository, the 'reposync' command would complain and exit. The tool now logs such errors but continues to synchronize any remaining errata. (BZ#1466229)\n\n* The Satellite 5.8 release failed to include an update to a registration-failure error message that had been released for Satellite 5.7. This restores the missing update. (BZ#1467632)\n\n* Prior to this update, the list of systems in the System Set Manager failed to display the correct icons for a system's update status. This has been corrected. (BZ#1475067)\n\n* Prior to this update, a timing window in the 'cdn-sync' command, when synchronizing multiple channels at once, could cause some of the synchronization attempts to be refused with a 403 error. This update fixes the timing window so that multiple syncs should now work reliably. (BZ#1476924)\n\n* Prior to this update, attempting to view the systems in the System Set Manager that are affected by a given erratum would result in an internal server error. This has been fixed. (BZ#1477508)\n\n* Prior to this update, using 'cdn-sync --no-packages' on a specific channel would disassociate all packages from that channel. This behavior has been fixed, so that '--no-packages' now just skips that step as intended. (BZ#1477667)\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2017:2645",
+				"Description": "https://access.redhat.com/errata/RHSA-2017:2645"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/site/articles/273633",
+				"Description": "https://access.redhat.com/site/articles/273633"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/site/articles/11258",
+				"Description": "https://access.redhat.com/site/articles/11258"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Satellite 5: organization name allows XSS",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2017-07-14T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2017-7538",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nApplication of this errata involves updating the database schema.\n\nBefore applying this update, make sure all previously-released errata relevant to your system have been applied. To apply this erratum, take the following steps:\n\n* Shut down Red Hat Satellite by running the following command as root:\n\nrhn-satellite stop\n\n* Backup the database. For embedded or managed database variants, please consult Red Hat Satellite 5.8 documentation. For an external database, consult your database administrator.\n\n* Upgrade the errata packages. Details on how to apply this update are available at https://access.redhat.com/site/articles/11258\n\n* Update the database schema using the spacewalk-schema-upgrade command. To do so, run as root:\n\nspacewalk-schema-upgrade\n\nThis process will update your database schema to the latest version. The\nspacewalk-schema-upgrade command will inform you about the results of the\nupgrade and exact locations of schema upgrade log files.\n\n* Restart Red Hat Satellite by running the following as root:\n\nrhn-satellite start\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2017:2645"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2017-7538",
+						"Description": "CVE-2017-7538"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1471262",
+						"Description": "bz#1471262: CVE-2017-7538 Satellite 5: organization name allows XSS"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2017-06-09T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-Satellite58-ELS:satellite-schema-0:5.8.0.33-1.el6sat",
+						"6Server-Satellite58-ELS:spacewalk-backend-0:2.5.3-151.el6sat",
+						"6Server-Satellite58-ELS:spacewalk-java-0:2.5.14-95.el6sat",
+						"6Server-Satellite58-ELS:spacewalk-schema-0:2.5.1-50.el6sat",
+						"6Server-Satellite58:satellite-schema-0:5.8.0.33-1.el6sat",
+						"6Server-Satellite58:spacewalk-backend-0:2.5.3-151.el6sat",
+						"6Server-Satellite58:spacewalk-java-0:2.5.14-95.el6sat",
+						"6Server-Satellite58:spacewalk-schema-0:2.5.1-50.el6sat"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "This issue was discovered by Ales Dujicek (Red Hat)."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Satellite",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Satellite 5.8 (RHEL v.6)",
+						"fullproductname": {
+							"text": "Red Hat Satellite 5.8 (RHEL v.6)",
+							"productid": "6Server-Satellite58",
+							"cpe": "cpe:/a:redhat:network_satellite:5.8::el6"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Satellite 5.8 ELS (RHEL v.6)",
+						"fullproductname": {
+							"text": "Red Hat Satellite 5.8 ELS (RHEL v.6)",
+							"productid": "6Server-Satellite58-ELS",
+							"cpe": "cpe:/a:redhat:network_satellite:5.8::el6"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "satellite-schema-0:5.8.0.33-1.el6sat",
+				"fullproductname": {
+					"text": "satellite-schema-5.8.0.33-1.el6sat.src.rpm",
+					"productid": "satellite-schema-0:5.8.0.33-1.el6sat",
+					"cpe": "cpe:/a:redhat:network_satellite:5.8::el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-backend-0:2.5.3-151.el6sat",
+				"fullproductname": {
+					"text": "spacewalk-backend-2.5.3-151.el6sat.src.rpm",
+					"productid": "spacewalk-backend-0:2.5.3-151.el6sat",
+					"cpe": "cpe:/a:redhat:network_satellite:5.8::el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-java-0:2.5.14-95.el6sat",
+				"fullproductname": {
+					"text": "spacewalk-java-2.5.14-95.el6sat.src.rpm",
+					"productid": "spacewalk-java-0:2.5.14-95.el6sat",
+					"cpe": "cpe:/a:redhat:network_satellite:5.8::el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-schema-0:2.5.1-50.el6sat",
+				"fullproductname": {
+					"text": "spacewalk-schema-2.5.1-50.el6sat.src.rpm",
+					"productid": "spacewalk-schema-0:2.5.1-50.el6sat",
+					"cpe": "cpe:/a:redhat:network_satellite:5.8::el6"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "satellite-schema-0:5.8.0.33-1.el6sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-Satellite58",
+				"fullproductname": {
+					"text": "satellite-schema-0:5.8.0.33-1.el6sat as a component of Red Hat Satellite 5.8 (RHEL v.6)",
+					"productid": "6Server-Satellite58:satellite-schema-0:5.8.0.33-1.el6sat",
+					"cpe": "cpe:/a:redhat:network_satellite:5.8::el6"
+				}
+			},
+			{
+				"productreference": "spacewalk-backend-0:2.5.3-151.el6sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-Satellite58",
+				"fullproductname": {
+					"text": "spacewalk-backend-0:2.5.3-151.el6sat as a component of Red Hat Satellite 5.8 (RHEL v.6)",
+					"productid": "6Server-Satellite58:spacewalk-backend-0:2.5.3-151.el6sat",
+					"cpe": "cpe:/a:redhat:network_satellite:5.8::el6"
+				}
+			},
+			{
+				"productreference": "spacewalk-java-0:2.5.14-95.el6sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-Satellite58",
+				"fullproductname": {
+					"text": "spacewalk-java-0:2.5.14-95.el6sat as a component of Red Hat Satellite 5.8 (RHEL v.6)",
+					"productid": "6Server-Satellite58:spacewalk-java-0:2.5.14-95.el6sat",
+					"cpe": "cpe:/a:redhat:network_satellite:5.8::el6"
+				}
+			},
+			{
+				"productreference": "spacewalk-schema-0:2.5.1-50.el6sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-Satellite58",
+				"fullproductname": {
+					"text": "spacewalk-schema-0:2.5.1-50.el6sat as a component of Red Hat Satellite 5.8 (RHEL v.6)",
+					"productid": "6Server-Satellite58:spacewalk-schema-0:2.5.1-50.el6sat",
+					"cpe": "cpe:/a:redhat:network_satellite:5.8::el6"
+				}
+			},
+			{
+				"productreference": "satellite-schema-0:5.8.0.33-1.el6sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-Satellite58-ELS",
+				"fullproductname": {
+					"text": "satellite-schema-0:5.8.0.33-1.el6sat as a component of Red Hat Satellite 5.8 ELS (RHEL v.6)",
+					"productid": "6Server-Satellite58-ELS:satellite-schema-0:5.8.0.33-1.el6sat",
+					"cpe": "cpe:/a:redhat:network_satellite:5.8::el6"
+				}
+			},
+			{
+				"productreference": "spacewalk-backend-0:2.5.3-151.el6sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-Satellite58-ELS",
+				"fullproductname": {
+					"text": "spacewalk-backend-0:2.5.3-151.el6sat as a component of Red Hat Satellite 5.8 ELS (RHEL v.6)",
+					"productid": "6Server-Satellite58-ELS:spacewalk-backend-0:2.5.3-151.el6sat",
+					"cpe": "cpe:/a:redhat:network_satellite:5.8::el6"
+				}
+			},
+			{
+				"productreference": "spacewalk-java-0:2.5.14-95.el6sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-Satellite58-ELS",
+				"fullproductname": {
+					"text": "spacewalk-java-0:2.5.14-95.el6sat as a component of Red Hat Satellite 5.8 ELS (RHEL v.6)",
+					"productid": "6Server-Satellite58-ELS:spacewalk-java-0:2.5.14-95.el6sat",
+					"cpe": "cpe:/a:redhat:network_satellite:5.8::el6"
+				}
+			},
+			{
+				"productreference": "spacewalk-schema-0:2.5.1-50.el6sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-Satellite58-ELS",
+				"fullproductname": {
+					"text": "spacewalk-schema-0:2.5.1-50.el6sat as a component of Red Hat Satellite 5.8 ELS (RHEL v.6)",
+					"productid": "6Server-Satellite58-ELS:spacewalk-schema-0:2.5.1-50.el6sat",
+					"cpe": "cpe:/a:redhat:network_satellite:5.8::el6"
+				}
+			}
+		]
+	}
+}

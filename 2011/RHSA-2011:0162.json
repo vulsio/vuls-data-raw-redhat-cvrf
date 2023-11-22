@@ -1,0 +1,972 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: kernel security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2011:0162"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2011-01-18T12:45:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2011-01-18T17:41:00Z",
+		"CurrentReleaseDate": "2011-01-18T12:45:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:31:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated kernel packages that fix multiple security issues and two bugs are\nnow available for Red Hat Enterprise Linux 4.\n\nThe Red Hat Security Response Team has rated this update as having\nimportant security impact. Common Vulnerability Scoring System (CVSS) base\nscores, which give detailed severity ratings, are available for each\nvulnerability from the CVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe kernel packages contain the Linux kernel, the core of any Linux\noperating system.\n\nThis update fixes the following security issues:\n\n* A heap overflow flaw was found in the Linux kernel's Transparent\nInter-Process Communication protocol (TIPC) implementation. A local,\nunprivileged user could use this flaw to escalate their privileges.\n(CVE-2010-3859, Important)\n\n* Missing sanity checks were found in gdth_ioctl_alloc() in the gdth driver\nin the Linux kernel. A local user with access to \"/dev/gdth\" on a 64-bit\nsystem could use these flaws to cause a denial of service or escalate their\nprivileges. (CVE-2010-4157, Moderate)\n\n* A NULL pointer dereference flaw was found in the Bluetooth HCI UART\ndriver in the Linux kernel. A local, unprivileged user could use this flaw\nto cause a denial of service. (CVE-2010-4242, Moderate)\n\n* A flaw was found in the Linux kernel's garbage collector for AF_UNIX\nsockets. A local, unprivileged user could use this flaw to trigger a\ndenial of service (out-of-memory condition). (CVE-2010-4249, Moderate)\n\n* Missing initialization flaws were found in the Linux kernel. A local,\nunprivileged user could use these flaws to cause information leaks.\n(CVE-2010-3876, CVE-2010-4072, CVE-2010-4073, CVE-2010-4075, CVE-2010-4080,\nCVE-2010-4083, CVE-2010-4158, Low)\n\nRed Hat would like to thank Alan Cox for reporting CVE-2010-4242; Vegard\nNossum for reporting CVE-2010-4249; Vasiliy Kulikov for reporting\nCVE-2010-3876; Kees Cook for reporting CVE-2010-4072; and Dan Rosenberg for\nreporting CVE-2010-4073, CVE-2010-4075, CVE-2010-4080, CVE-2010-4083, and\nCVE-2010-4158.\n\nThis update also fixes the following bugs:\n\n* A flaw was found in the Linux kernel where, if used in conjunction with\nanother flaw that can result in a kernel Oops, could possibly lead to\nprivilege escalation. It does not affect Red Hat Enterprise Linux 4 as the\nsysctl panic_on_oops variable is turned on by default. However, as a\npreventive measure if the variable is turned off by an administrator, this\nupdate addresses the issue. Red Hat would like to thank Nelson Elhage for\nreporting this vulnerability. (BZ#659568)\n\n* On Intel I/O Controller Hub 9 (ICH9) hardware, jumbo frame support is\nachieved by using page-based sk_buff buffers without any packet split. The\nentire frame data is copied to the page(s) rather than some to the\nskb->data area and some to the page(s) when performing a typical\npacket-split. This caused problems with the filtering code and frames were\ngetting dropped before they were received by listening applications. This\nbug could eventually lead to the IP address being released and not being\nable to be re-acquired from DHCP if the MTU (Maximum Transfer Unit) was\nchanged (for an affected interface using the e1000e driver). With this\nupdate, frames are no longer dropped and an IP address is correctly\nre-acquired after a previous release. (BZ#664667)\n\nUsers should upgrade to these updated packages, which contain backported\npatches to correct these issues. The system must be rebooted for this\nupdate to take effect.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2011:0162",
+				"Description": "https://access.redhat.com/errata/RHSA-2011:0162"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: tipc: heap overflow in tipc_msg_build()",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2010-10-22T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2010-3859",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2011:0162"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2010-3859",
+						"Description": "CVE-2010-3859"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=645867",
+						"Description": "bz#645867: CVE-2010-3859 kernel: tipc: heap overflow in tipc_msg_build()"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2010-10-22T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"4AS:kernel-0:2.6.9-89.35.1.EL",
+						"4Desktop:kernel-0:2.6.9-89.35.1.EL",
+						"4ES:kernel-0:2.6.9-89.35.1.EL",
+						"4WS:kernel-0:2.6.9-89.35.1.EL"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.9",
+					"Vector": "AV:L/AC:M/Au:N/C:C/I:C/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: net/packet/af_packet.c: reading uninitialized stack memory",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2010-10-31T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2010-3876",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2011:0162"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2010-3876",
+						"Description": "CVE-2010-3876"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=649715",
+						"Description": "bz#649715: CVE-2010-3876 kernel: net/packet/af_packet.c: reading uninitialized stack memory"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2010-11-02T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"4AS:kernel-0:2.6.9-89.35.1.EL",
+						"4Desktop:kernel-0:2.6.9-89.35.1.EL",
+						"4ES:kernel-0:2.6.9-89.35.1.EL",
+						"4WS:kernel-0:2.6.9-89.35.1.EL"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "1.9",
+					"Vector": "AV:L/AC:M/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: ipc/shm.c: reading uninitialized stack memory",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2010-10-06T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2010-4072",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2011:0162"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2010-4072",
+						"Description": "CVE-2010-4072"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=648656",
+						"Description": "bz#648656: CVE-2010-4072 kernel: ipc/shm.c: reading uninitialized stack memory"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2010-10-07T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"4AS:kernel-0:2.6.9-89.35.1.EL",
+						"4Desktop:kernel-0:2.6.9-89.35.1.EL",
+						"4ES:kernel-0:2.6.9-89.35.1.EL",
+						"4WS:kernel-0:2.6.9-89.35.1.EL"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "1.9",
+					"Vector": "AV:L/AC:M/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: ipc/compat*.c: reading uninitialized stack memory",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2010-10-06T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2010-4073",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2011:0162"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2010-4073",
+						"Description": "CVE-2010-4073"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=648658",
+						"Description": "bz#648658: CVE-2010-4073 kernel: ipc/compat*.c: reading uninitialized stack memory"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2010-10-07T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"4AS:kernel-0:2.6.9-89.35.1.EL",
+						"4Desktop:kernel-0:2.6.9-89.35.1.EL",
+						"4ES:kernel-0:2.6.9-89.35.1.EL",
+						"4WS:kernel-0:2.6.9-89.35.1.EL"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "1.9",
+					"Vector": "AV:L/AC:M/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: drivers/serial/serial_core.c: reading uninitialized stack memory",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2010-09-15T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2010-4075",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2011:0162"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2010-4075",
+						"Description": "CVE-2010-4075"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=648660",
+						"Description": "bz#648660: CVE-2010-4075 kernel: drivers/serial/serial_core.c: reading uninitialized stack memory"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2010-10-06T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"4AS:kernel-0:2.6.9-89.35.1.EL",
+						"4Desktop:kernel-0:2.6.9-89.35.1.EL",
+						"4ES:kernel-0:2.6.9-89.35.1.EL",
+						"4WS:kernel-0:2.6.9-89.35.1.EL"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "1.9",
+					"Vector": "AV:L/AC:M/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "6",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: drivers/sound/pci/rme9652/hdsp.c: reading uninitialized stack memory",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2010-09-25T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2010-4080",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2011:0162"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2010-4080",
+						"Description": "CVE-2010-4080"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=648669",
+						"Description": "bz#648669: CVE-2010-4080 kernel: drivers/sound/pci/rme9652/hdsp.c: reading uninitialized stack memory"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2010-10-06T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"4AS:kernel-0:2.6.9-89.35.1.EL",
+						"4Desktop:kernel-0:2.6.9-89.35.1.EL",
+						"4ES:kernel-0:2.6.9-89.35.1.EL",
+						"4WS:kernel-0:2.6.9-89.35.1.EL"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "1.9",
+					"Vector": "AV:L/AC:M/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "7",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: ipc/sem.c: reading uninitialized stack memory",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2010-09-23T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2010-4083",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2011:0162"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2010-4083",
+						"Description": "CVE-2010-4083"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=648673",
+						"Description": "bz#648673: CVE-2010-4083 kernel: ipc/sem.c: reading uninitialized stack memory"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2010-10-06T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"4AS:kernel-0:2.6.9-89.35.1.EL",
+						"4Desktop:kernel-0:2.6.9-89.35.1.EL",
+						"4ES:kernel-0:2.6.9-89.35.1.EL",
+						"4WS:kernel-0:2.6.9-89.35.1.EL"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "1.9",
+					"Vector": "AV:L/AC:M/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "8",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: gdth: integer overflow in ioc_general()",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2010-11-08T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2010-4157",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2011:0162"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2010-4157",
+						"Description": "CVE-2010-4157"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=651147",
+						"Description": "bz#651147: CVE-2010-4157 kernel: gdth: integer overflow in ioc_general()"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2010-11-08T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"4AS:kernel-0:2.6.9-89.35.1.EL",
+						"4Desktop:kernel-0:2.6.9-89.35.1.EL",
+						"4ES:kernel-0:2.6.9-89.35.1.EL",
+						"4WS:kernel-0:2.6.9-89.35.1.EL"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.0",
+					"Vector": "AV:L/AC:H/Au:S/C:C/I:C/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "9",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: socket filters infoleak",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2010-11-10T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2010-4158",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2011:0162"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2010-4158",
+						"Description": "CVE-2010-4158"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=651698",
+						"Description": "bz#651698: CVE-2010-4158 kernel: socket filters infoleak"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2010-11-10T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"4AS:kernel-0:2.6.9-89.35.1.EL",
+						"4Desktop:kernel-0:2.6.9-89.35.1.EL",
+						"4ES:kernel-0:2.6.9-89.35.1.EL",
+						"4WS:kernel-0:2.6.9-89.35.1.EL"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.9",
+					"Vector": "AV:L/AC:L/Au:N/C:N/I:N/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "10",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: missing tty ops write function presence check in hci_uart_tty_open()",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2010-10-08T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2010-4242",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2011:0162"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2010-4242",
+						"Description": "CVE-2010-4242"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=641410",
+						"Description": "bz#641410: CVE-2010-4242 kernel: missing tty ops write function presence check in hci_uart_tty_open()"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2010-10-08T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"4AS:kernel-0:2.6.9-89.35.1.EL",
+						"4Desktop:kernel-0:2.6.9-89.35.1.EL",
+						"4ES:kernel-0:2.6.9-89.35.1.EL",
+						"4WS:kernel-0:2.6.9-89.35.1.EL"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.0",
+					"Vector": "AV:L/AC:H/Au:N/C:N/I:N/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "11",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: unix socket local dos",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2010-11-24T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2010-4249",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2011:0162"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2010-4249",
+						"Description": "CVE-2010-4249"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=656756",
+						"Description": "bz#656756: CVE-2010-4249 kernel: unix socket local dos"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2010-11-24T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"4AS:kernel-0:2.6.9-89.35.1.EL",
+						"4Desktop:kernel-0:2.6.9-89.35.1.EL",
+						"4ES:kernel-0:2.6.9-89.35.1.EL",
+						"4WS:kernel-0:2.6.9-89.35.1.EL"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.9",
+					"Vector": "AV:L/AC:L/Au:N/C:N/I:N/A:C"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux AS version 4",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux AS version 4",
+							"productid": "4AS",
+							"cpe": "cpe:/o:redhat:enterprise_linux:4::as"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop version 4",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop version 4",
+							"productid": "4Desktop",
+							"cpe": "cpe:/o:redhat:enterprise_linux:4::desktop"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ES version 4",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ES version 4",
+							"productid": "4ES",
+							"cpe": "cpe:/o:redhat:enterprise_linux:4::es"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux WS version 4",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux WS version 4",
+							"productid": "4WS",
+							"cpe": "cpe:/o:redhat:enterprise_linux:4::ws"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-0:2.6.9-89.35.1.EL",
+				"fullproductname": {
+					"text": "kernel-2.6.9-89.35.1.EL.src.rpm",
+					"productid": "kernel-0:2.6.9-89.35.1.EL",
+					"cpe": "cpe:/o:redhat:enterprise_linux:4::as"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "kernel-0:2.6.9-89.35.1.EL",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "4AS",
+				"fullproductname": {
+					"text": "kernel-0:2.6.9-89.35.1.EL as a component of Red Hat Enterprise Linux AS version 4",
+					"productid": "4AS:kernel-0:2.6.9-89.35.1.EL",
+					"cpe": "cpe:/o:redhat:enterprise_linux:4::as"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.9-89.35.1.EL",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "4Desktop",
+				"fullproductname": {
+					"text": "kernel-0:2.6.9-89.35.1.EL as a component of Red Hat Enterprise Linux Desktop version 4",
+					"productid": "4Desktop:kernel-0:2.6.9-89.35.1.EL",
+					"cpe": "cpe:/o:redhat:enterprise_linux:4::desktop"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.9-89.35.1.EL",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "4ES",
+				"fullproductname": {
+					"text": "kernel-0:2.6.9-89.35.1.EL as a component of Red Hat Enterprise Linux ES version 4",
+					"productid": "4ES:kernel-0:2.6.9-89.35.1.EL",
+					"cpe": "cpe:/o:redhat:enterprise_linux:4::es"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.9-89.35.1.EL",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "4WS",
+				"fullproductname": {
+					"text": "kernel-0:2.6.9-89.35.1.EL as a component of Red Hat Enterprise Linux WS version 4",
+					"productid": "4WS:kernel-0:2.6.9-89.35.1.EL",
+					"cpe": "cpe:/o:redhat:enterprise_linux:4::ws"
+				}
+			}
+		]
+	}
+}

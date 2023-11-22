@@ -1,0 +1,689 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: RHUI 4.1.1 release - Security Fixes and Enhancement Update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2022:5602"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2022-07-19T13:06:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2022-07-19T13:06:00Z",
+		"CurrentReleaseDate": "2022-07-19T13:06:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.8.3",
+			"Date": "2022-07-19T17:26:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nAn updated version of Red Hat Update Infrastructure (RHUI) is now available. RHUI 4.1.1 introduces important enhancements and fixes several security bugs.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nRed Hat Update Infrastructure (RHUI) offers a highly scalable, highly redundant framework that enables you to manage repositories and content. It also enables cloud providers to deliver content and updates to Red Hat Enterprise Linux (RHEL) instances.\n\nSecurity Fix(es):\n* Django: SQL injection via QuerySet's annotate, aggregate, and extra functions (CVE-2022-28346)\n* Django: SQL injection via QuerySet's explain function on PostgreSQL (CVE-2022-28347)\n\nThis update fixes the following bugs:\n\n* Previously, when a path for a non-RHUI repository was used in the entitlement certificate, RHUI Manager logged the following error message in the `/var/log/messages` file:\n...\nInvalid entitlement path %s found\n...\n\nWith this update, the error message has been clarified and reworded to the following message:\n...\nInvalid repository download URL: %s provided\n...\n\nIn addition, this RHUI update introduces the following enhancements:\n\n* With this update, containers are now supported on RHUI. You can perform the following operations:\n** Add containers to RHUI\n** Synchronize these containers regularly along with containers from `registry.redhat.io` or any other registry of your choice\n** Offer the containers to client virtual machines using a special client configuration RPM. You can create the configuration RPM using the `rhui-manager` text user interface.\n\n* With this update, the repository synchronization status, the validity status of the RHUI CA certificate, and the statuses of services running on the RHUA, CDS, and HAProxy nodes are now available. In the case of services running on the nodes, you can view the statuses by running the `rhui-manager status` command on the RHUA node.(BZ#1636435)\n\n* With this update, you can specify the following certificates and keys during RHUI installation:\n** Custom CA certificates and keys on the RHUA node\n** Custom CA certificate and key that will be used to generate client entitlement certificates\n** Custom CA certificate and key that will be used to generate client SSL certificates\n** Custom SSL certificate and key for the web server when adding a CDS node. Note that this certificate must be usable for all the load balancers and CDS host names that you are using with your RHUI installation(BZ#2010343)\n\n* Previously, you could only access repositories by using paths with the `/pulp/content` prefix. With this update, you can now access repositories using paths containing other predefined prefixes. In addition, you can also configure protected and unprotected custom repositories to use custom prefixes.(BZ#2079376)\n\nUsers of RHUI are advised to upgrade to these updated packages that fix\nthese bugs and add these enhancements.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2022 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2022:5602",
+				"Description": "https://access.redhat.com/errata/RHSA-2022:5602"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Django: SQL injection in QuerySet.annotate(),aggregate() and extra()",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-04-11T08:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-28346",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata relevant to your system have been applied.\n\nFor detailed instructions on how to apply this update, see:\nhttps://access.redhat.com/documentation/en-us/red_hat_update_infrastructure/4/html/migrating_red_hat_update_infrastructure/assembly_upgrading-red-hat-update-infrastructure_migrating-red-hat-update-infrastructure\n\nFor other information, consult the product documentation at:\nhttps://access.redhat.com/documentation/en-us/red_hat_update_infrastructure/4\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2022:5602"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.djangoproject.com/weblog/2022/apr/11/security-releases/",
+						"Description": "https://www.djangoproject.com/weblog/2022/apr/11/security-releases/"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-28346",
+						"Description": "CVE-2022-28346"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2072447",
+						"Description": "bz#2072447: CVE-2022-28346 Django: SQL injection in QuerySet.annotate(),aggregate() and extra()"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2022-04-06T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-RHUI-4:ansible-collection-community-crypto-0:1.7.0-4.el8ui",
+						"8Base-RHUI-4:createrepo_c-0:0.20.0-2.el8ui",
+						"8Base-RHUI-4:pulpcore-selinux-0:1.3.0-1.el8ui",
+						"8Base-RHUI-4:python-cryptography-0:3.1.1-2.el8ui",
+						"8Base-RHUI-4:python-django-0:3.2.13-2.el8ui",
+						"8Base-RHUI-4:python-ecdsa-0:0.14.1-2.el8ui",
+						"8Base-RHUI-4:python-future-0:0.18.2-5.el8ui",
+						"8Base-RHUI-4:python-pulp-container-0:2.10.3-2.el8ui",
+						"8Base-RHUI-4:python-pulp-container-client-0:2.7.1-6.el8ui",
+						"8Base-RHUI-4:python-pulp-rpm-0:3.17.5-2.el8ui",
+						"8Base-RHUI-4:python-pulpcore-0:3.17.6-3.el8ui",
+						"8Base-RHUI-4:python-pyOpenSSL-0:19.1.0-3.el8ui",
+						"8Base-RHUI-4:python-pycryptodomex-0:3.14.1-2.el8ui",
+						"8Base-RHUI-4:python-pyjwkest-0:1.4.2-6.el8ui",
+						"8Base-RHUI-4:python-pyjwt-0:1.7.1-8.el8ui",
+						"8Base-RHUI-4:python-requests-0:2.27.1-2.el8ui",
+						"8Base-RHUI-4:python-url-normalize-0:1.4.3-4.el8ui",
+						"8Base-RHUI-4:rhui-cds-plugin-authorizer-cert-0:1.0.5-1.el8ui",
+						"8Base-RHUI-4:rhui-cds-plugin-fetcher-0:1.0.5-1.el8ui",
+						"8Base-RHUI-4:rhui-installer-0:4.1.1.8-1.el8ui",
+						"8Base-RHUI-4:rhui-tools-0:4.1.1.16-1.el8ui"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Django: SQL injection via QuerySet.explain(options) on PostgreSQL",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-04-11T08:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-28347",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata relevant to your system have been applied.\n\nFor detailed instructions on how to apply this update, see:\nhttps://access.redhat.com/documentation/en-us/red_hat_update_infrastructure/4/html/migrating_red_hat_update_infrastructure/assembly_upgrading-red-hat-update-infrastructure_migrating-red-hat-update-infrastructure\n\nFor other information, consult the product documentation at:\nhttps://access.redhat.com/documentation/en-us/red_hat_update_infrastructure/4\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2022:5602"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.djangoproject.com/weblog/2022/apr/11/security-releases/",
+						"Description": "https://www.djangoproject.com/weblog/2022/apr/11/security-releases/"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-28347",
+						"Description": "CVE-2022-28347"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2072459",
+						"Description": "bz#2072459: CVE-2022-28347 Django: SQL injection via QuerySet.explain(options) on PostgreSQL"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2022-04-06T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-RHUI-4:ansible-collection-community-crypto-0:1.7.0-4.el8ui",
+						"8Base-RHUI-4:createrepo_c-0:0.20.0-2.el8ui",
+						"8Base-RHUI-4:pulpcore-selinux-0:1.3.0-1.el8ui",
+						"8Base-RHUI-4:python-cryptography-0:3.1.1-2.el8ui",
+						"8Base-RHUI-4:python-django-0:3.2.13-2.el8ui",
+						"8Base-RHUI-4:python-ecdsa-0:0.14.1-2.el8ui",
+						"8Base-RHUI-4:python-future-0:0.18.2-5.el8ui",
+						"8Base-RHUI-4:python-pulp-container-0:2.10.3-2.el8ui",
+						"8Base-RHUI-4:python-pulp-container-client-0:2.7.1-6.el8ui",
+						"8Base-RHUI-4:python-pulp-rpm-0:3.17.5-2.el8ui",
+						"8Base-RHUI-4:python-pulpcore-0:3.17.6-3.el8ui",
+						"8Base-RHUI-4:python-pyOpenSSL-0:19.1.0-3.el8ui",
+						"8Base-RHUI-4:python-pycryptodomex-0:3.14.1-2.el8ui",
+						"8Base-RHUI-4:python-pyjwkest-0:1.4.2-6.el8ui",
+						"8Base-RHUI-4:python-pyjwt-0:1.7.1-8.el8ui",
+						"8Base-RHUI-4:python-requests-0:2.27.1-2.el8ui",
+						"8Base-RHUI-4:python-url-normalize-0:1.4.3-4.el8ui",
+						"8Base-RHUI-4:rhui-cds-plugin-authorizer-cert-0:1.0.5-1.el8ui",
+						"8Base-RHUI-4:rhui-cds-plugin-fetcher-0:1.0.5-1.el8ui",
+						"8Base-RHUI-4:rhui-installer-0:4.1.1.8-1.el8ui",
+						"8Base-RHUI-4:rhui-tools-0:4.1.1.16-1.el8ui"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Update Infrastructure",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "RHUI 4 for RHEL 8",
+						"fullproductname": {
+							"text": "RHUI 4 for RHEL 8",
+							"productid": "8Base-RHUI-4",
+							"cpe": "cpe:/a:redhat:rhui:4::el8"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "ansible-collection-community-crypto-0:1.7.0-4.el8ui",
+				"fullproductname": {
+					"text": "ansible-collection-community-crypto-1.7.0-4.el8ui.src.rpm",
+					"productid": "ansible-collection-community-crypto-0:1.7.0-4.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "createrepo_c-0:0.20.0-2.el8ui",
+				"fullproductname": {
+					"text": "createrepo_c-0.20.0-2.el8ui.src.rpm",
+					"productid": "createrepo_c-0:0.20.0-2.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pulpcore-selinux-0:1.3.0-1.el8ui",
+				"fullproductname": {
+					"text": "pulpcore-selinux-1.3.0-1.el8ui.src.rpm",
+					"productid": "pulpcore-selinux-0:1.3.0-1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-cryptography-0:3.1.1-2.el8ui",
+				"fullproductname": {
+					"text": "python-cryptography-3.1.1-2.el8ui.src.rpm",
+					"productid": "python-cryptography-0:3.1.1-2.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-django-0:3.2.13-2.el8ui",
+				"fullproductname": {
+					"text": "python-django-3.2.13-2.el8ui.src.rpm",
+					"productid": "python-django-0:3.2.13-2.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-ecdsa-0:0.14.1-2.el8ui",
+				"fullproductname": {
+					"text": "python-ecdsa-0.14.1-2.el8ui.src.rpm",
+					"productid": "python-ecdsa-0:0.14.1-2.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-future-0:0.18.2-5.el8ui",
+				"fullproductname": {
+					"text": "python-future-0.18.2-5.el8ui.src.rpm",
+					"productid": "python-future-0:0.18.2-5.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-pulp-container-0:2.10.3-2.el8ui",
+				"fullproductname": {
+					"text": "python-pulp-container-2.10.3-2.el8ui.src.rpm",
+					"productid": "python-pulp-container-0:2.10.3-2.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-pulp-container-client-0:2.7.1-6.el8ui",
+				"fullproductname": {
+					"text": "python-pulp-container-client-2.7.1-6.el8ui.src.rpm",
+					"productid": "python-pulp-container-client-0:2.7.1-6.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-pulp-rpm-0:3.17.5-2.el8ui",
+				"fullproductname": {
+					"text": "python-pulp-rpm-3.17.5-2.el8ui.src.rpm",
+					"productid": "python-pulp-rpm-0:3.17.5-2.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-pulpcore-0:3.17.6-3.el8ui",
+				"fullproductname": {
+					"text": "python-pulpcore-3.17.6-3.el8ui.src.rpm",
+					"productid": "python-pulpcore-0:3.17.6-3.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-pyOpenSSL-0:19.1.0-3.el8ui",
+				"fullproductname": {
+					"text": "python-pyOpenSSL-19.1.0-3.el8ui.src.rpm",
+					"productid": "python-pyOpenSSL-0:19.1.0-3.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-pycryptodomex-0:3.14.1-2.el8ui",
+				"fullproductname": {
+					"text": "python-pycryptodomex-3.14.1-2.el8ui.src.rpm",
+					"productid": "python-pycryptodomex-0:3.14.1-2.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-pyjwkest-0:1.4.2-6.el8ui",
+				"fullproductname": {
+					"text": "python-pyjwkest-1.4.2-6.el8ui.src.rpm",
+					"productid": "python-pyjwkest-0:1.4.2-6.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-pyjwt-0:1.7.1-8.el8ui",
+				"fullproductname": {
+					"text": "python-pyjwt-1.7.1-8.el8ui.src.rpm",
+					"productid": "python-pyjwt-0:1.7.1-8.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-requests-0:2.27.1-2.el8ui",
+				"fullproductname": {
+					"text": "python-requests-2.27.1-2.el8ui.src.rpm",
+					"productid": "python-requests-0:2.27.1-2.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-url-normalize-0:1.4.3-4.el8ui",
+				"fullproductname": {
+					"text": "python-url-normalize-1.4.3-4.el8ui.src.rpm",
+					"productid": "python-url-normalize-0:1.4.3-4.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhui-cds-plugin-authorizer-cert-0:1.0.5-1.el8ui",
+				"fullproductname": {
+					"text": "rhui-cds-plugin-authorizer-cert-1.0.5-1.el8ui.src.rpm",
+					"productid": "rhui-cds-plugin-authorizer-cert-0:1.0.5-1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhui-cds-plugin-fetcher-0:1.0.5-1.el8ui",
+				"fullproductname": {
+					"text": "rhui-cds-plugin-fetcher-1.0.5-1.el8ui.src.rpm",
+					"productid": "rhui-cds-plugin-fetcher-0:1.0.5-1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhui-installer-0:4.1.1.8-1.el8ui",
+				"fullproductname": {
+					"text": "rhui-installer-4.1.1.8-1.el8ui.src.rpm",
+					"productid": "rhui-installer-0:4.1.1.8-1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhui-tools-0:4.1.1.16-1.el8ui",
+				"fullproductname": {
+					"text": "rhui-tools-4.1.1.16-1.el8ui.src.rpm",
+					"productid": "rhui-tools-0:4.1.1.16-1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "ansible-collection-community-crypto-0:1.7.0-4.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "ansible-collection-community-crypto-0:1.7.0-4.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:ansible-collection-community-crypto-0:1.7.0-4.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "createrepo_c-0:0.20.0-2.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "createrepo_c-0:0.20.0-2.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:createrepo_c-0:0.20.0-2.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "pulpcore-selinux-0:1.3.0-1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "pulpcore-selinux-0:1.3.0-1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:pulpcore-selinux-0:1.3.0-1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-cryptography-0:3.1.1-2.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-cryptography-0:3.1.1-2.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-cryptography-0:3.1.1-2.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-django-0:3.2.13-2.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-django-0:3.2.13-2.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-django-0:3.2.13-2.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-ecdsa-0:0.14.1-2.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-ecdsa-0:0.14.1-2.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-ecdsa-0:0.14.1-2.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-future-0:0.18.2-5.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-future-0:0.18.2-5.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-future-0:0.18.2-5.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-pulp-container-0:2.10.3-2.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-pulp-container-0:2.10.3-2.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-pulp-container-0:2.10.3-2.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-pulp-container-client-0:2.7.1-6.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-pulp-container-client-0:2.7.1-6.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-pulp-container-client-0:2.7.1-6.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-pulp-rpm-0:3.17.5-2.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-pulp-rpm-0:3.17.5-2.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-pulp-rpm-0:3.17.5-2.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-pulpcore-0:3.17.6-3.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-pulpcore-0:3.17.6-3.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-pulpcore-0:3.17.6-3.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-pyOpenSSL-0:19.1.0-3.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-pyOpenSSL-0:19.1.0-3.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-pyOpenSSL-0:19.1.0-3.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-pycryptodomex-0:3.14.1-2.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-pycryptodomex-0:3.14.1-2.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-pycryptodomex-0:3.14.1-2.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-pyjwkest-0:1.4.2-6.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-pyjwkest-0:1.4.2-6.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-pyjwkest-0:1.4.2-6.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-pyjwt-0:1.7.1-8.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-pyjwt-0:1.7.1-8.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-pyjwt-0:1.7.1-8.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-requests-0:2.27.1-2.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-requests-0:2.27.1-2.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-requests-0:2.27.1-2.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-url-normalize-0:1.4.3-4.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-url-normalize-0:1.4.3-4.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-url-normalize-0:1.4.3-4.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "rhui-cds-plugin-authorizer-cert-0:1.0.5-1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "rhui-cds-plugin-authorizer-cert-0:1.0.5-1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:rhui-cds-plugin-authorizer-cert-0:1.0.5-1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "rhui-cds-plugin-fetcher-0:1.0.5-1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "rhui-cds-plugin-fetcher-0:1.0.5-1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:rhui-cds-plugin-fetcher-0:1.0.5-1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "rhui-installer-0:4.1.1.8-1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "rhui-installer-0:4.1.1.8-1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:rhui-installer-0:4.1.1.8-1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "rhui-tools-0:4.1.1.16-1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "rhui-tools-0:4.1.1.16-1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:rhui-tools-0:4.1.1.16-1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			}
+		]
+	}
+}

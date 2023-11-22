@@ -1,0 +1,2163 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: kernel security, bug fix, and enhancement update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2021:1578"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2023-03-16T13:19:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2021-05-18T15:49:00Z",
+		"CurrentReleaseDate": "2023-03-16T13:19:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.12.2",
+			"Date": "2023-03-16T14:13:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nAn update for kernel is now available for Red Hat Enterprise Linux 8.\n\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe kernel packages contain the Linux kernel, the core of any Linux operating system.\n\nSecurity Fix(es):\n\n* kernel: Integer overflow in Intel(R) Graphics Drivers (CVE-2020-12362)\n\n* kernel: memory leak in sof_set_get_large_ctrl_data() function in sound/soc/sof/ipc.c (CVE-2019-18811)\n\n* kernel: use-after-free caused by a malicious USB device in the drivers/usb/misc/adutux.c driver (CVE-2019-19523)\n\n* kernel: use-after-free bug caused by a malicious USB device in the drivers/usb/misc/iowarrior.c driver (CVE-2019-19528)\n\n* kernel: possible out of bounds write in kbd_keycode of keyboard.c (CVE-2020-0431)\n\n* kernel: DoS by corrupting mountpoint reference counter (CVE-2020-12114)\n\n* kernel: use-after-free in usb_sg_cancel function in drivers/usb/core/message.c (CVE-2020-12464)\n\n* kernel: buffer uses out of index in ext3/4 filesystem (CVE-2020-14314)\n\n* kernel: Use After Free vulnerability in cgroup BPF component (CVE-2020-14356)\n\n* kernel: NULL pointer dereference in serial8250_isa_init_ports function in drivers/tty/serial/8250/8250_core.c (CVE-2020-15437)\n\n* kernel: umask not applied on filesystem without ACL support (CVE-2020-24394)\n\n* kernel: TOCTOU mismatch in the NFS client code (CVE-2020-25212)\n\n* kernel: incomplete permission checking for access to rbd devices (CVE-2020-25284)\n\n* kernel: race condition between hugetlb sysctl handlers in mm/hugetlb.c (CVE-2020-25285)\n\n* kernel: improper input validation in ppp_cp_parse_cr function leads to memory corruption and read overflow (CVE-2020-25643)\n\n* kernel: perf_event_parse_addr_filter memory (CVE-2020-25704)\n\n* kernel: use-after-free in kernel midi subsystem (CVE-2020-27786)\n\n* kernel: child process is able to access parent mm through hfi dev file handle (CVE-2020-27835)\n\n* kernel: slab-out-of-bounds read in fbcon (CVE-2020-28974)\n\n* kernel: fork: fix copy_process(CLONE_PARENT) race with the exiting ->real_parent (CVE-2020-35508)\n\n* kernel: fuse: fuse_do_getattr() calls make_bad_inode() in inappropriate situations (CVE-2020-36322)\n\n* kernel: use after free in tun_get_user of tun.c could lead to local escalation of privilege (CVE-2021-0342)\n\n* kernel: NULL pointer dereferences in ov511_mode_init_regs and ov518_mode_init_regs in drivers/media/usb/gspca/ov519.c (CVE-2020-11608)\n\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\n\nAdditional Changes:\n\nFor detailed information on changes in this release, see the Red Hat Enterprise Linux 8.4 Release Notes linked from the References section.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2023 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2021:1578",
+				"Description": "https://access.redhat.com/errata/RHSA-2021:1578"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/8.4_release_notes/",
+				"Description": "https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/8.4_release_notes/"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in the Linux kernel’s\nsof_set_get_large_ctrl_data function, in the way it handled memory cleanup in a specific error path. A local attacker could use this flaw to crash the system.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2019-11-27T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2019-18811",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2021:1578"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2019-18811",
+						"Description": "CVE-2019-18811"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1777455",
+						"Description": "bz#1777455: CVE-2019-18811 kernel: memory leak in sof_set_get_large_ctrl_data() function in sound/soc/sof/ipc.c"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2019-10-28T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"BaseOS-8.4.0.GA:kernel-0:4.18.0-305.el8",
+						"CRB-8.4.0.GA:kernel-0:4.18.0-305.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in the Linux kernel’s implementation for ADU devices from Ontrak Control Systems, where an attacker with administrative privileges and access to a local account could pre-groom the memory and physically disconnect or unload a module. The attacker must be able to access either of these two events to trigger the use-after-free, and then race the access to the use-after-free, to create a situation where key USB structs can be manipulated into corrupting memory.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2019-10-04T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2019-19523",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2021:1578"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2019-19523",
+						"Description": "CVE-2019-19523"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1783434",
+						"Description": "bz#1783434: CVE-2019-19523 kernel: use-after-free caused by a malicious USB device in the drivers/usb/misc/adutux.c driver"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2019-12-09T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"BaseOS-8.4.0.GA:kernel-0:4.18.0-305.el8",
+						"CRB-8.4.0.GA:kernel-0:4.18.0-305.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A use-after-free flaw was found in iowarrior_disconnect  in iowarrior USB driver module were a flag was simultaneously modified causing a race between a device open and disconnect. This flaw could allow a physical attacker to cause a denial of service (DoS) attack. This vulnerability could even lead to a kernel information leak problem.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2019-10-09T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2019-19528",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2021:1578"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2019-19528",
+						"Description": "CVE-2019-19528"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1783507",
+						"Description": "bz#1783507: CVE-2019-19528 kernel: use-after-free bug caused by a malicious USB device in the drivers/usb/misc/iowarrior.c driver"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2019-12-04T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"BaseOS-8.4.0.GA:kernel-0:4.18.0-305.el8",
+						"CRB-8.4.0.GA:kernel-0:4.18.0-305.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw out of bounds write in the Linux kernel human interface devices subsystem was found in the way user calls find key code by index. A local user could use this flaw to crash the system or escalate privileges on the system.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2021-01-14T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2020-0431",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2021:1578"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://patchwork.kernel.org/project/linux-input/patch/20191207210518.GA181006@dtor-ws/",
+						"Description": "https://patchwork.kernel.org/project/linux-input/patch/20191207210518.GA181006@dtor-ws/"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2020-0431",
+						"Description": "CVE-2020-0431"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1919889",
+						"Description": "bz#1919889: CVE-2020-0431 kernel: possible out of bounds write in kbd_keycode of keyboard.c"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2021-01-24T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"BaseOS-8.4.0.GA:kernel-0:4.18.0-305.el8",
+						"CRB-8.4.0.GA:kernel-0:4.18.0-305.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in the way the ov519 driver in the Linux kernel handled certain types of USB descriptors. This flaw allows an attacker with the ability to induce the error conditions to crash the system.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2020-03-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2020-11608",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2021:1578"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2020-11608",
+						"Description": "CVE-2020-11608"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1833445",
+						"Description": "bz#1833445: CVE-2020-11608 kernel: NULL pointer dereferences in ov511_mode_init_regs and ov518_mode_init_regs in drivers/media/usb/gspca/ov519.c"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2020-04-07T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"BaseOS-8.4.0.GA:kernel-0:4.18.0-305.el8",
+						"CRB-8.4.0.GA:kernel-0:4.18.0-305.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "6",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in the Linux kernel’s implementation of the pivot_root syscall. This flaw allows a local privileged user (root outside or root inside a privileged container) to exploit a race condition to manipulate the reference count of the root filesystem. To be able to abuse this flaw, the process or user calling pivot_root must have advanced permissions. The highest threat from this vulnerability is to system availability.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2020-05-04T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2020-12114",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2021:1578"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2020-12114",
+						"Description": "CVE-2020-12114"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1848652",
+						"Description": "bz#1848652: CVE-2020-12114 kernel: DoS by corrupting mountpoint reference counter"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2020-05-04T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"BaseOS-8.4.0.GA:kernel-0:4.18.0-305.el8",
+						"CRB-8.4.0.GA:kernel-0:4.18.0-305.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "7",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in the Linux kernel. An integer overflow in the firmware for some Intel(R) Graphics Drivers may allow a privileged user to potentially enable an escalation of privilege via local access. The highest threat from this vulnerability is to data confidentiality and integrity as well as system availability.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2021-02-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2020-12362",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2021:1578"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2020-12362",
+						"Description": "CVE-2020-12362"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1930246",
+						"Description": "bz#1930246: CVE-2020-12362 kernel: Integer overflow in Intel(R) Graphics Drivers"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2021-02-17T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"BaseOS-8.4.0.GA:kernel-0:4.18.0-305.el8",
+						"CRB-8.4.0.GA:kernel-0:4.18.0-305.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "8",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in the Linux kernel. Improper input validation in some Intel(R) Graphics Drivers may allow a privileged user to potentially enable a denial of service via local access.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2021-02-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2020-12363",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2021:1578"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.intel.com/content/www/us/en/security-center/advisory/intel-sa-00438.html",
+						"Description": "https://www.intel.com/content/www/us/en/security-center/advisory/intel-sa-00438.html"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2020-12363",
+						"Description": "CVE-2020-12363"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1930249",
+						"Description": "bz#1930249: CVE-2020-12363 kernel: Improper input validation in some Intel(R) Graphics Drivers"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2021-02-17T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"BaseOS-8.4.0.GA:kernel-0:4.18.0-305.el8",
+						"CRB-8.4.0.GA:kernel-0:4.18.0-305.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "9",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Null pointer reference in some Intel(R) Graphics Drivers for Microsoft Windows and the Linux kernel may allow a privileged user to potentially enable a denial of service via local access.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2021-02-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2020-12364",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2021:1578"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.intel.com/content/www/us/en/security-center/advisory/intel-sa-00438.html",
+						"Description": "https://www.intel.com/content/www/us/en/security-center/advisory/intel-sa-00438.html"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2020-12364",
+						"Description": "CVE-2020-12364"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1930251",
+						"Description": "bz#1930251: CVE-2020-12364 kernel: Null pointer dereference in some Intel(R) Graphics Drivers"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2021-02-17T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"BaseOS-8.4.0.GA:kernel-0:4.18.0-305.el8",
+						"CRB-8.4.0.GA:kernel-0:4.18.0-305.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "10",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A use-after-free flaw was found in usb_sg_cancel in drivers/usb/core/message.c in the USB core subsystem. This flaw allows a local attacker with a special user or root privileges to crash the system due to a race problem in the scatter-gather cancellation and transfer completion in usb_sg_wait. This vulnerability can also lead to a leak of internal kernel information.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2020-03-23T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2020-12464",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2021:1578"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2020-12464",
+						"Description": "CVE-2020-12464"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1831726",
+						"Description": "bz#1831726: CVE-2020-12464 kernel: use-after-free in usb_sg_cancel function in drivers/usb/core/message.c"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2020-04-29T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"BaseOS-8.4.0.GA:kernel-0:4.18.0-305.el8",
+						"CRB-8.4.0.GA:kernel-0:4.18.0-305.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "11",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A memory out-of-bounds read flaw was found in the Linux kernel's ext3/ext4 file system, in the way it accesses a directory with broken indexing. This flaw allows a local user to crash the system if the directory exists. The highest threat from this vulnerability is to system availability.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2020-06-05T16:45:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2020-14314",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2021:1578"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://lore.kernel.org/linux-ext4/f53e246b-647c-64bb-16ec-135383c70ad7@redhat.com/T/#u",
+						"Description": "https://lore.kernel.org/linux-ext4/f53e246b-647c-64bb-16ec-135383c70ad7@redhat.com/T/#u"
+					},
+					{
+						"URL": "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=5872331b3d91820e14716632ebb56b1399b34fe1",
+						"Description": "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=5872331b3d91820e14716632ebb56b1399b34fe1"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2020-14314",
+						"Description": "CVE-2020-14314"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1853922",
+						"Description": "bz#1853922: CVE-2020-14314 kernel: buffer uses out of index in ext3/4 filesystem"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2020-06-03T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"BaseOS-8.4.0.GA:kernel-0:4.18.0-305.el8",
+						"CRB-8.4.0.GA:kernel-0:4.18.0-305.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "This issue was discovered by Jay Shin (Red Hat)."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "12",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A use-after-free flaw was found in the Linux kernel’s cgroupv2 subsystem when rebooting the system. This flaw allows a local user to crash the system or escalate their privileges. The highest threat from this vulnerability is to system availability.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2020-05-31T12:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2020-14356",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2021:1578"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2020-14356",
+						"Description": "CVE-2020-14356"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1868453",
+						"Description": "bz#1868453: CVE-2020-14356 kernel: Use After Free vulnerability in cgroup BPF component"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2020-07-21T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"BaseOS-8.4.0.GA:kernel-0:4.18.0-305.el8",
+						"CRB-8.4.0.GA:kernel-0:4.18.0-305.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank Adam Zabrocki (pi3.com.pl) for reporting this issue."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "13",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A NULL pointer dereference flaw was found in the Linux kernel’s UART 8250 functionality, in the way certain hardware architectures handled situations where default ports (0x2E8, 0x2F8, 0x3E8, 0x3F8) are not available. This flaw allows a local user to crash the system. The highest threat from this vulnerability is to system availability.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2020-07-21T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2020-15437",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2021:1578"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2020-15437",
+						"Description": "CVE-2020-15437"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1901161",
+						"Description": "bz#1901161: CVE-2020-15437 kernel: NULL pointer dereference in serial8250_isa_init_ports function in drivers/tty/serial/8250/8250_core.c"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2020-11-24T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"BaseOS-8.4.0.GA:kernel-0:4.18.0-305.el8",
+						"CRB-8.4.0.GA:kernel-0:4.18.0-305.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank Yang Yingliang for reporting this issue."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "14",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A vulnerability was found in NFSv4.2 in the Linux kernel, where a server fails to correctly apply umask when creating a new object on filesystem without ACL support (for example, ext4 with the \"noacl\" mount option). This flaw allows a local attacker with a user privilege to cause a kernel information leak problem.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2020-06-05T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2020-24394",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2021:1578"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2020-24394",
+						"Description": "CVE-2020-24394"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1869141",
+						"Description": "bz#1869141: CVE-2020-24394 kernel: umask not applied on filesystem without ACL support"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2020-06-09T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"BaseOS-8.4.0.GA:kernel-0:4.18.0-305.el8",
+						"CRB-8.4.0.GA:kernel-0:4.18.0-305.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "15",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in the NFSv4 implementation where when mounting a remote attacker controlled server it could return specially crafted response allow for local memory corruption and possibly privilege escalation.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2020-09-09T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2020-25212",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2021:1578"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2020-25212",
+						"Description": "CVE-2020-25212"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1877575",
+						"Description": "bz#1877575: CVE-2020-25212 kernel: TOCTOU mismatch in the NFS client code"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2020-09-09T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"BaseOS-8.4.0.GA:kernel-0:4.18.0-305.el8",
+						"CRB-8.4.0.GA:kernel-0:4.18.0-305.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "16",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in the capabilities check of the rados block device functionality in the Linux kernel. Incorrect capability checks could alllow a local user with root priviledges (but no capabilities) to add or remove Rados Block Devices from the system.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2020-09-13T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2020-25284",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2021:1578"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2020-25284",
+						"Description": "CVE-2020-25284"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1882594",
+						"Description": "bz#1882594: CVE-2020-25284 kernel: incomplete permission checking for access to rbd devices"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2020-09-25T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"BaseOS-8.4.0.GA:kernel-0:4.18.0-305.el8",
+						"CRB-8.4.0.GA:kernel-0:4.18.0-305.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "17",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in the Linux kernels sysctl handling code for hugepages management. When multiple root level processes would write to modify the /proc/sys/vm/nr_hugepages file it could create a race on internal variables leading to a system crash or memory corruption.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2020-09-13T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2020-25285",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2021:1578"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2020-25285",
+						"Description": "CVE-2020-25285"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1882591",
+						"Description": "bz#1882591: CVE-2020-25285 kernel: race condition between hugetlb sysctl handlers in mm/hugetlb.c"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2020-09-25T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"BaseOS-8.4.0.GA:kernel-0:4.18.0-305.el8",
+						"CRB-8.4.0.GA:kernel-0:4.18.0-305.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "18",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in the HDLC_PPP module of the Linux kernel.  Memory corruption and a read overflow is caused by improper input validation in the ppp_cp_parse_cr function which can cause the system to crash or cause a denial of service.  The highest threat from this vulnerability is to data confidentiality and integrity as well as system availability.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2020-09-25T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2020-25643",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2021:1578"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=66d42ed8b25b64eb63111a2b8582c5afc8bf1105",
+						"Description": "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=66d42ed8b25b64eb63111a2b8582c5afc8bf1105"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2020-25643",
+						"Description": "CVE-2020-25643"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1879981",
+						"Description": "bz#1879981: CVE-2020-25643 kernel: improper input validation in ppp_cp_parse_cr function leads to memory corruption and read overflow"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2020-09-10T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"BaseOS-8.4.0.GA:kernel-0:4.18.0-305.el8",
+						"CRB-8.4.0.GA:kernel-0:4.18.0-305.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank ChenNan Of Chaitin (Security Research Lab) for reporting this issue."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "19",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A memory leak flaw was found in the Linux kernel’s performance monitoring subsystem when using PERF_EVENT_IOC_SET_FILTER. This flaw allows a local user to starve the resources, causing a denial of service. The highest threat from this vulnerability is to system availability.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2020-11-09T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2020-25704",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2021:1578"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=7bdb157cdebbf95a1cd94ed2e01b338714075d00",
+						"Description": "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=7bdb157cdebbf95a1cd94ed2e01b338714075d00"
+					},
+					{
+						"URL": "https://www.openwall.com/lists/oss-security/2020/11/09/1",
+						"Description": "https://www.openwall.com/lists/oss-security/2020/11/09/1"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2020-25704",
+						"Description": "CVE-2020-25704"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1895961",
+						"Description": "bz#1895961: CVE-2020-25704 kernel: perf_event_parse_addr_filter memory"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2020-11-03T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"BaseOS-8.4.0.GA:kernel-0:4.18.0-305.el8",
+						"CRB-8.4.0.GA:kernel-0:4.18.0-305.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "20",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in the Linux kernel’s implementation of MIDI, where an attacker with a local account and the permissions to issue ioctl commands to midi devices could trigger a use-after-free issue. A write to this specific memory while freed and before use causes the flow of execution to change and possibly allow for memory corruption or privilege escalation. The highest threat from this vulnerability is to confidentiality, integrity, as well as system availability.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2020-12-02T02:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2020-27786",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2021:1578"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=c1f6e3c818dd734c30f6a7eeebf232ba2cf3181d",
+						"Description": "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=c1f6e3c818dd734c30f6a7eeebf232ba2cf3181d"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2020-27786",
+						"Description": "CVE-2020-27786"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1900933",
+						"Description": "bz#1900933: CVE-2020-27786 kernel: use-after-free in kernel midi subsystem"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2020-11-24T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"BaseOS-8.4.0.GA:kernel-0:4.18.0-305.el8",
+						"CRB-8.4.0.GA:kernel-0:4.18.0-305.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "21",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw use after free in the Linux kernel infiniband hfi1 driver was found in the way user calls Ioctl after open dev file and fork. A local user could use this flaw to crash the system.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2020-11-25T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2020-27835",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2021:1578"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2020-27835",
+						"Description": "CVE-2020-27835"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1901709",
+						"Description": "bz#1901709: CVE-2020-27835 kernel: child process is able to access parent mm through hfi dev file handle"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2020-10-12T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"BaseOS-8.4.0.GA:kernel-0:4.18.0-305.el8",
+						"CRB-8.4.0.GA:kernel-0:4.18.0-305.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "22",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "An out-of-bounds (OOB) SLAB memory access flaw was found in the Linux kernel's fbcon driver module. A bounds check failure allows a local attacker with special user privileges to gain access to out-of-bounds memory, leading to a system crash or leaking of internal kernel information. The highest threat from this vulnerability is to system availability.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2020-11-09T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2020-28974",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2021:1578"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2020-28974",
+						"Description": "CVE-2020-28974"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1903126",
+						"Description": "bz#1903126: CVE-2020-28974 kernel: slab-out-of-bounds read in fbcon"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2020-11-09T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"BaseOS-8.4.0.GA:kernel-0:4.18.0-305.el8",
+						"CRB-8.4.0.GA:kernel-0:4.18.0-305.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank Yuan Ming <yuanmingbuaa@gmail com> (Tsinghua University) for reporting this issue."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "23",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw possibility of race condition and incorrect initialization of the process id was found in the Linux kernel child/parent process identification handling while filtering signal handlers.  A local attacker is able to abuse this flaw to bypass checks to send any signal to a privileged process.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2020-12-09T10:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2020-35508",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2021:1578"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2020-35508",
+						"Description": "CVE-2020-35508"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1902724",
+						"Description": "bz#1902724: CVE-2020-35508 kernel: fork: fix copy_process(CLONE_PARENT) race with the exiting ->real_parent"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2020-11-09T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"BaseOS-8.4.0.GA:kernel-0:4.18.0-305.el8",
+						"CRB-8.4.0.GA:kernel-0:4.18.0-305.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank Eddy Wu (trendmicro.com) for reporting this issue."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "24",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A denial of service flaw was found in fuse_do_getattr in fs/fuse/dir.c in the kernel side of the FUSE filesystem in the Linux kernel. A local user could use this flaw to crash the system.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2020-12-10T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2020-36322",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2021:1578"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=5d069dbe8aaf2a197142558b6fb2978189ba3454",
+						"Description": "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=5d069dbe8aaf2a197142558b6fb2978189ba3454"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2020-36322",
+						"Description": "CVE-2020-36322"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1949560",
+						"Description": "bz#1949560: CVE-2020-36322 kernel: fuse: fuse_do_getattr() calls make_bad_inode() in inappropriate situations"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2021-04-14T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"BaseOS-8.4.0.GA:kernel-0:4.18.0-305.el8",
+						"CRB-8.4.0.GA:kernel-0:4.18.0-305.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "25",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A use-after-free flaw was found in the Linux kernel’s Virtual Terminal subsystem in how a user calls the VT_DISALLOCATE ioctl during the closing/opening of ttys. This flaw allows a local user to crash the system.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2020-03-21T10:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2020-36557",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2021:1578"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=ca4463bf8438b403596edd0ec961ca0d4fbe0220",
+						"Description": "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=ca4463bf8438b403596edd0ec961ca0d4fbe0220"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2020-36557",
+						"Description": "CVE-2020-36557"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2112688",
+						"Description": "bz#2112688: CVE-2020-36557 kernel: race condition between the VT_DISALLOCATE ioctl and closing/opening of ttys, causing a use-after-free in con_shutdown()."
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2022-07-31T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"BaseOS-8.4.0.GA:kernel-0:4.18.0-305.el8",
+						"CRB-8.4.0.GA:kernel-0:4.18.0-305.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "26",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw use after free in the Linux kernel TUN/TAP device driver functionality was found in the way user create and use tun/tap device. A local user could use this flaw to crash the system or possibly escalate their privileges on the system.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2021-01-11T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2021-0342",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2021:1578"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://lore.kernel.org/netdev/20200608230607.3361041-84-sashal@kernel.org/",
+						"Description": "https://lore.kernel.org/netdev/20200608230607.3361041-84-sashal@kernel.org/"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2021-0342",
+						"Description": "CVE-2021-0342"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1915799",
+						"Description": "bz#1915799: CVE-2021-0342 kernel: use after free in tun_get_user of tun.c could lead to local escalation of privilege"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2021-01-13T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"BaseOS-8.4.0.GA:kernel-0:4.18.0-305.el8",
+						"CRB-8.4.0.GA:kernel-0:4.18.0-305.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "27",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in the way the Linux kernel's pfkey_dump function trusted the provided filter size parameters. A local, sufficiently privileged user could use this flaw to leak information from the kernel.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2021-06-22T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2021-0605",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2021:1578"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2021-0605",
+						"Description": "CVE-2021-0605"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1974823",
+						"Description": "bz#1974823: CVE-2021-0605 kernel: In pfkey_dump() dplen and splen can both be specified to access the xfrm_address_t structure out of bounds"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2021-06-22T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"BaseOS-8.4.0.GA:kernel-0:4.18.0-305.el8",
+						"CRB-8.4.0.GA:kernel-0:4.18.0-305.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "28",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A remote denial of service vulnerability was found in the Linux kernel’s TIPC kernel module. The while loop in tipc_link_xmit() hits an unknown state while attempting to parse SKBs, which are not in the queue. Sending two small UDP packets to a system with a UDP bearer results in the CPU utilization for the system to instantly spike to 100%, causing a denial of service condition.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2021-01-09T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2023-1390",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2021:1578"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://gist.github.com/netspooky/bee2d07022f6350bb88eaa48e571d9b5",
+						"Description": "https://gist.github.com/netspooky/bee2d07022f6350bb88eaa48e571d9b5"
+					},
+					{
+						"URL": "https://infosec.exchange/@_mattata/109427999461122360",
+						"Description": "https://infosec.exchange/@_mattata/109427999461122360"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2023-1390",
+						"Description": "CVE-2023-1390"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2178212",
+						"Description": "bz#2178212: CVE-2023-1390 kernel: remote DoS in TIPC kernel module"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2022-11-30T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"BaseOS-8.4.0.GA:kernel-0:4.18.0-305.el8",
+						"CRB-8.4.0.GA:kernel-0:4.18.0-305.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank Remy (GreyNoiseIO) for reporting this issue."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux BaseOS (v. 8)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux BaseOS (v. 8)",
+							"productid": "BaseOS-8.4.0.GA",
+							"cpe": "cpe:/o:redhat:enterprise_linux:8::baseos"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat CodeReady Linux Builder (v. 8)",
+						"fullproductname": {
+							"text": "Red Hat CodeReady Linux Builder (v. 8)",
+							"productid": "CRB-8.4.0.GA",
+							"cpe": "cpe:/a:redhat:enterprise_linux:8::crb"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-0:4.18.0-305.el8",
+				"fullproductname": {
+					"text": "kernel-4.18.0-305.el8.src.rpm",
+					"productid": "kernel-0:4.18.0-305.el8",
+					"cpe": "cpe:/a:redhat:enterprise_linux:8::crb"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "kernel-0:4.18.0-305.el8",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "BaseOS-8.4.0.GA",
+				"fullproductname": {
+					"text": "kernel-0:4.18.0-305.el8 as a component of Red Hat Enterprise Linux BaseOS (v. 8)",
+					"productid": "BaseOS-8.4.0.GA:kernel-0:4.18.0-305.el8",
+					"cpe": "cpe:/o:redhat:enterprise_linux:8::baseos"
+				}
+			},
+			{
+				"productreference": "kernel-0:4.18.0-305.el8",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "CRB-8.4.0.GA",
+				"fullproductname": {
+					"text": "kernel-0:4.18.0-305.el8 as a component of Red Hat CodeReady Linux Builder (v. 8)",
+					"productid": "CRB-8.4.0.GA:kernel-0:4.18.0-305.el8",
+					"cpe": "cpe:/a:redhat:enterprise_linux:8::crb"
+				}
+			}
+		]
+	}
+}

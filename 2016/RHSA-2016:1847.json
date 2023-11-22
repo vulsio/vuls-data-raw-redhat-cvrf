@@ -1,0 +1,641 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: kernel security, bug fix, and enhancement update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2016:1847"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2016-11-03T03:24:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2016-09-15T07:38:00Z",
+		"CurrentReleaseDate": "2016-11-03T03:24:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:43:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nAn update for kernel is now available for Red Hat Enterprise Linux 7.\n\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe kernel packages contain the Linux kernel, the core of any Linux operating system.\n\nSecurity Fix(es):\n\n* A security flaw was found in the Linux kernel in the mark_source_chains() function in \"net/ipv4/netfilter/ip_tables.c\". It is possible for a user-supplied \"ipt_entry\" structure to have a large \"next_offset\" field. This field is not bounds checked prior to writing to a counter value at the supplied offset. (CVE-2016-3134, Important)\n\n* A flaw was discovered in processing setsockopt for 32 bit processes on 64 bit systems. This flaw will allow attackers to alter arbitrary kernel memory when unloading a kernel module. This action is usually restricted to root-privileged users but can also be leveraged if the kernel is compiled with CONFIG_USER_NS and CONFIG_NET_NS and the user is granted elevated privileges. (CVE-2016-4997, Important)\n\n* An out-of-bounds heap memory access leading to a Denial of Service, heap disclosure, or further impact was found in setsockopt(). The function call is normally restricted to root, however some processes with cap_sys_admin may also be able to trigger this flaw in privileged container environments. (CVE-2016-4998, Moderate)\n\nBug Fix(es):\n\n* In some cases, running the ipmitool command caused a kernel panic due to a race condition in the ipmi message handler. This update fixes the race condition, and the kernel panic no longer occurs in the described scenario. (BZ#1353947)\n\n* Previously, running I/O-intensive operations in some cases caused the system to terminate unexpectedly after a null pointer dereference in the kernel. With this update, a set of patches has been applied to the 3w-9xxx and 3w-sas drivers that fix this bug. As a result, the system no longer crashes in the described scenario. (BZ#1362040)\n\n* Previously, the Stream Control Transmission Protocol (SCTP) sockets did not inherit the SELinux labels properly. As a consequence, the sockets were labeled with the unlabeled_t SELinux type which caused SCTP connections to fail. The underlying source code has been modified, and SCTP connections now works as expected. (BZ#1354302)\n\n* Previously, the bnx2x driver waited for transmission completions when recovering from a parity event, which substantially increased the recovery time. With this update, bnx2x does not wait for transmission completion in the described circumstances. As a result, the recovery of bnx2x after a parity event now takes less time. (BZ#1351972)\n\nEnhancement(s):\n\n* With this update, the audit subsystem enables filtering of processes by name besides filtering by PID. Users can now audit by executable name (with the \"-F exe=<path-to-executable>\" option), which allows expression of many new audit rules. This functionality can be used to create events when specific applications perform a syscall. (BZ#1345774)\n\n* With this update, the Nonvolatile Memory Express (NVMe) and the multi-queue block layer (blk_mq) have been upgraded to the Linux 4.5 upstream version. Previously, a race condition between timeout and freeing request in blk_mq occurred, which could affect the blk_mq_tag_to_rq() function and consequently a kernel oops could occur. The provided patch fixes this race condition by updating the tags with the active request. The patch simplifies blk_mq_tag_to_rq() and ensures that the two requests are not active at the same time. (BZ#1350352)\n\n* The Hyper-V storage driver (storvsc) has been upgraded from upstream. This update provides moderate performance improvement of I/O operations when using storvscr for certain workloads. (BZ#1360161)\n\nAdditional Changes:\n\nSpace precludes documenting all of the bug fixes and enhancements included in this advisory. To see the complete list of bug fixes and enhancements, refer to the following KnowledgeBase article: https://access.redhat.com/articles/2592321\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2016:1847",
+				"Description": "https://access.redhat.com/errata/RHSA-2016:1847"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/articles/2592321",
+				"Description": "https://access.redhat.com/articles/2592321"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: netfilter: missing bounds check in ipt_entry structure",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-03-10T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2016-3134",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2016:1847"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2016-3134",
+						"Description": "CVE-2016-3134"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1317383",
+						"Description": "bz#1317383: CVE-2016-3134 kernel: netfilter: missing bounds check in ipt_entry structure"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2016-03-10T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-7.2.Z:kernel-0:3.10.0-327.36.1.el7",
+						"7Client-optional-7.2.Z:kernel-0:3.10.0-327.36.1.el7",
+						"7ComputeNode-7.2.Z:kernel-0:3.10.0-327.36.1.el7",
+						"7ComputeNode-optional-7.2.Z:kernel-0:3.10.0-327.36.1.el7",
+						"7Server-7.2.Z:kernel-0:3.10.0-327.36.1.el7",
+						"7Server-optional-7.2.Z:kernel-0:3.10.0-327.36.1.el7",
+						"7Workstation-7.2.Z:kernel-0:3.10.0-327.36.1.el7",
+						"7Workstation-optional-7.2.Z:kernel-0:3.10.0-327.36.1.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.2",
+					"Vector": "AV:L/AC:H/Au:N/C:C/I:C/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: compat IPT_SO_SET_REPLACE setsockopt",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-06-24T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2016-4997",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2016:1847"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2016-4997",
+						"Description": "CVE-2016-4997"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1349722",
+						"Description": "bz#1349722: CVE-2016-4997 kernel: compat IPT_SO_SET_REPLACE setsockopt"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2016-06-24T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-7.2.Z:kernel-0:3.10.0-327.36.1.el7",
+						"7Client-optional-7.2.Z:kernel-0:3.10.0-327.36.1.el7",
+						"7ComputeNode-7.2.Z:kernel-0:3.10.0-327.36.1.el7",
+						"7ComputeNode-optional-7.2.Z:kernel-0:3.10.0-327.36.1.el7",
+						"7Server-7.2.Z:kernel-0:3.10.0-327.36.1.el7",
+						"7Server-optional-7.2.Z:kernel-0:3.10.0-327.36.1.el7",
+						"7Workstation-7.2.Z:kernel-0:3.10.0-327.36.1.el7",
+						"7Workstation-optional-7.2.Z:kernel-0:3.10.0-327.36.1.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "7.2",
+					"Vector": "AV:L/AC:L/Au:N/C:C/I:C/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: out of bounds reads when processing IPT_SO_SET_REPLACE setsockopt",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-06-24T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2016-4998",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2016:1847"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2016-4998",
+						"Description": "CVE-2016-4998"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1349886",
+						"Description": "bz#1349886: CVE-2016-4998 kernel: out of bounds reads when processing IPT_SO_SET_REPLACE setsockopt"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2016-06-24T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-7.2.Z:kernel-0:3.10.0-327.36.1.el7",
+						"7Client-optional-7.2.Z:kernel-0:3.10.0-327.36.1.el7",
+						"7ComputeNode-7.2.Z:kernel-0:3.10.0-327.36.1.el7",
+						"7ComputeNode-optional-7.2.Z:kernel-0:3.10.0-327.36.1.el7",
+						"7Server-7.2.Z:kernel-0:3.10.0-327.36.1.el7",
+						"7Server-optional-7.2.Z:kernel-0:3.10.0-327.36.1.el7",
+						"7Workstation-7.2.Z:kernel-0:3.10.0-327.36.1.el7",
+						"7Workstation-optional-7.2.Z:kernel-0:3.10.0-327.36.1.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.6",
+					"Vector": "AV:L/AC:L/Au:N/C:P/I:N/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: overlayfs: missing upper dentry verification before unlink and rename",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-07-11T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2016-6197",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2016:1847"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2016-6197",
+						"Description": "CVE-2016-6197"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1355650",
+						"Description": "bz#1355650: CVE-2016-6197 kernel: overlayfs: missing upper dentry verification before unlink and rename"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2016-07-05T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-7.2.Z:kernel-0:3.10.0-327.36.1.el7",
+						"7Client-optional-7.2.Z:kernel-0:3.10.0-327.36.1.el7",
+						"7ComputeNode-7.2.Z:kernel-0:3.10.0-327.36.1.el7",
+						"7ComputeNode-optional-7.2.Z:kernel-0:3.10.0-327.36.1.el7",
+						"7Server-7.2.Z:kernel-0:3.10.0-327.36.1.el7",
+						"7Server-optional-7.2.Z:kernel-0:3.10.0-327.36.1.el7",
+						"7Workstation-7.2.Z:kernel-0:3.10.0-327.36.1.el7",
+						"7Workstation-optional-7.2.Z:kernel-0:3.10.0-327.36.1.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "This issue was discovered by CAI Qian (Red Hat)."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.7",
+					"Vector": "AV:L/AC:M/Au:N/C:N/I:N/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: vfs: missing detection of hardlinks in vfs_rename() on overlayfs",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-07-11T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2016-6198",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2016:1847"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2016-6198",
+						"Description": "CVE-2016-6198"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1355654",
+						"Description": "bz#1355654: CVE-2016-6198 kernel: vfs: missing detection of hardlinks in vfs_rename() on overlayfs"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2016-07-05T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-7.2.Z:kernel-0:3.10.0-327.36.1.el7",
+						"7Client-optional-7.2.Z:kernel-0:3.10.0-327.36.1.el7",
+						"7ComputeNode-7.2.Z:kernel-0:3.10.0-327.36.1.el7",
+						"7ComputeNode-optional-7.2.Z:kernel-0:3.10.0-327.36.1.el7",
+						"7Server-7.2.Z:kernel-0:3.10.0-327.36.1.el7",
+						"7Server-optional-7.2.Z:kernel-0:3.10.0-327.36.1.el7",
+						"7Workstation-7.2.Z:kernel-0:3.10.0-327.36.1.el7",
+						"7Workstation-optional-7.2.Z:kernel-0:3.10.0-327.36.1.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "This issue was discovered by CAI Qian (Red Hat)."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.7",
+					"Vector": "AV:L/AC:M/Au:N/C:N/I:N/A:C"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Client (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Client (v. 7)",
+							"productid": "7Client-7.2.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Client Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Client Optional (v. 7)",
+							"productid": "7Client-optional-7.2.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ComputeNode (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ComputeNode (v. 7)",
+							"productid": "7ComputeNode-7.2.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+							"productid": "7ComputeNode-optional-7.2.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 7)",
+							"productid": "7Server-7.2.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional (v. 7)",
+							"productid": "7Server-optional-7.2.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 7)",
+							"productid": "7Workstation-7.2.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation Optional (v. 7)",
+							"productid": "7Workstation-optional-7.2.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-0:3.10.0-327.36.1.el7",
+				"fullproductname": {
+					"text": "kernel-3.10.0-327.36.1.el7.src.rpm",
+					"productid": "kernel-0:3.10.0-327.36.1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "kernel-0:3.10.0-327.36.1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-7.2.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-327.36.1.el7 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"productid": "7Client-7.2.Z:kernel-0:3.10.0-327.36.1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-327.36.1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-optional-7.2.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-327.36.1.el7 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"productid": "7Client-optional-7.2.Z:kernel-0:3.10.0-327.36.1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-327.36.1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-7.2.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-327.36.1.el7 as a component of Red Hat Enterprise Linux ComputeNode (v. 7)",
+					"productid": "7ComputeNode-7.2.Z:kernel-0:3.10.0-327.36.1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-327.36.1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-optional-7.2.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-327.36.1.el7 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"productid": "7ComputeNode-optional-7.2.Z:kernel-0:3.10.0-327.36.1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-327.36.1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-7.2.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-327.36.1.el7 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server-7.2.Z:kernel-0:3.10.0-327.36.1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-327.36.1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-optional-7.2.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-327.36.1.el7 as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"productid": "7Server-optional-7.2.Z:kernel-0:3.10.0-327.36.1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-327.36.1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-7.2.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-327.36.1.el7 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"productid": "7Workstation-7.2.Z:kernel-0:3.10.0-327.36.1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-327.36.1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-optional-7.2.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-327.36.1.el7 as a component of Red Hat Enterprise Linux Workstation Optional (v. 7)",
+					"productid": "7Workstation-optional-7.2.Z:kernel-0:3.10.0-327.36.1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			}
+		]
+	}
+}

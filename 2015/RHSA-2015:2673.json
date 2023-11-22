@@ -1,0 +1,272 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: openstack-nova security and bug fix advisory",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2015:2673"
+		},
+		"Status": "Final",
+		"Version": "2",
+		"revisionhistory": {
+			"revision": {
+				"Number": "2",
+				"Date": "2015-12-21T16:51:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2015-12-21T16:51:00Z",
+		"CurrentReleaseDate": "2015-12-21T16:51:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:35:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated OpenStack Compute packages that resolve various issues are now\navailable for Red Hat Enterprise Linux OpenStack Platform 7.0 for\nRHEL 7.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nOpenStack Compute (nova) launches and schedules large networks of virtual\nmachines, creating a redundant and scalable cloud computing platform.\nCompute provides the software, control panels, and APIs required to\norchestrate a cloud, including running virtual machine instances and\ncontrolling access through users and projects.\n\nA vulnerability was discovered in the way OpenStack Compute (nova)\nnetworking handled security group updates; changes were not applied to\nalready running VM instances. A remote attacker could use this flaw to\naccess running VM instances. (CVE-2015-7713)\n\nAdditional updates include:\n\n* The openstack-nova packages have been upgraded to upstream version \n2015.1.2. See https://launchpad.net/nova/kilo/2015.1.2 for a complete list\nof bug fixes and enhancements. (BZ#1274875)\n\n* When using huge pages, the back-end memory for a guest was configured as\nprivate. This disallowed an external process connected to a vhostuser VIF\ntype to access the QEMU guest's memory, which is required by the QEMU\nnetwork driver functionality. The memory mappings are now marked as\nshared, and the external process to provide QEMU network is able to access\nthe guest's memory. (BZ#1215790)\n\n* The termination of a WSGI application or an RPC server immediately\nstopped the service and interrupted requests that were in progress. This\nupdate adds a graceful handler for the SIGTERM signal sent to the parent\nWSGI process, so the termination is performed gracefully, which allows\nongoing processes to continue. (BZ#1250269)\n\n* Previously, novaclient records requested time even when timing was set \nto False. As a consequence, system memory kept increasing. With this\nupdate, when timing is set to True, the time of each request is recorded \nand the timings are reset to clear the memory, which no longer\nincreases. (BZ#1260868)\n\n* An earlier update changed the return value when no host devices were\nfound when connecting to an iSCSI or iSER volume. Consequently, when no\nhost devices were found, an exception was thrown and the connect volume\nattempt failed. This update adds an additional check to ensure\nos.path.exists(None) is never called. As a result, an exception is no\nlonger thrown and the connect logic correctly retries finding present\nhost devices. (BZ#1268051)\n\n* Compute's rootwrap filters restricted an `ln` command used by the volume\nencryption providers to a specific iSCSI related target path. Consequently,\niSER, NFS, and FC volumes encountered failures because the `ln` command was\nrejected by Compute's rootwrap filters. This update makes Nova's rootwrap\nfilters more generic when calling `ln` allowing the volume encryption\nproviders to succeed. (BZ#1273466)\n\n* FCoE devices have different sysfs paths to standard FC devices.\nConsequently, Nova failed when attempting to attach an FCoE based volume\nto an instance as it assumed these paths were the same. This update ensures\nthat the required PCI information is parsed from both FC and FCoE sysfs\ndevice paths. As a result, Nova now succeeds in attaching FCoE based\nvolumes to instances. (BZ#1274054)\n\n* Nova failed to parse the output from the `multipath -l ${device}` command\nwhen errors were present. Consequently, the attaching and detaching of\nvolumes could fail. This update corrects the find_multipath_device method\nto ensure that any errors present in the output from the aforementioned\ncommand are ignored. As a result, both the attaching and detaching of\nvolumes will now succeed even if errors occur. (BZ#1275937)\n\n* Volumes were not correctly detached if an error was encountered during\nthe attach process, and could be left attached to an instance, resulting\nin data loss. This update ensures that the volume is both detached\nand the connection to the volume closed in the event of a failure during\nthe attach process. (BZ#1276011)\n\n* The ability of the libvirt driver to set the admin password has been \nadded. To use this feature, run the following command:  \n    nova root-password [server]\n(BZ#1261100)\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2015:2673",
+				"Description": "https://access.redhat.com/errata/RHSA-2015:2673"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "openstack-nova: network security group changes are not applied to running instances",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-10-05T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-7713",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, ensure all previously released errata relevant\nto your system have been applied.\n\nRed Hat Enterprise Linux OpenStack Platform 7 runs on Red Hat Enterprise\nLinux 7.2.\n\nThe Red Hat Enterprise Linux OpenStack Platform 7 Release Notes contain the\nfollowing:\n* An explanation of the way in which the provided components interact to\nform a working cloud computing environment.\n* Technology Previews, Recommended Practices, and Known Issues.\n* The channels required for Red Hat Enterprise Linux OpenStack Platform 7,\nincluding which channels need to be enabled and disabled.\n\nThe Release Notes are available at:\nhttps://access.redhat.com/documentation/en/red-hat-enterprise-linux-openstack-platform/version-7/release-notes/\n\nThis update is available through 'yum update' on systems registered through\nRed Hat Subscription Manager. For more information about Red Hat\nSubscription Manager, see:\n\nhttps://access.redhat.com/documentation/en-US/Red_Hat_Subscription_Management/1/html/RHSM/index.html\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:2673"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-7713",
+						"Description": "CVE-2015-7713"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1269119",
+						"Description": "bz#1269119: CVE-2015-7713 openstack-nova: network security group changes are not applied to running instances"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-10-05T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-RH7-RHOS-TOOLS-7.0:python-novaclient-1:2.23.0-2.el7ost",
+						"7Server-RH7-RHOS-7.0:openstack-nova-0:2015.1.2-7.el7ost",
+						"7Server-RH7-RHOS-7.0:python-novaclient-1:2.23.0-2.el7ost",
+						"7Server-RH7-RHOS-TOOLS-7.0:python-novaclient-1:2.23.0-2.el7ost",
+						"7Workstation-RH7-RHOS-TOOLS-7.0:python-novaclient-1:2.23.0-2.el7ost"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.5",
+					"Vector": "AV:N/AC:L/Au:S/C:P/I:P/A:N"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat OpenStack Platform",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "OpenStack 7.0 Tools for RHEL 7",
+						"fullproductname": {
+							"text": "OpenStack 7.0 Tools for RHEL 7",
+							"productid": "7Client-RH7-RHOS-TOOLS-7.0",
+							"cpe": "cpe:/a:redhat:openstack:7::el7"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux OpenStack Platform 7.0 (Kilo) for RHEL 7",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux OpenStack Platform 7.0 (Kilo) for RHEL 7",
+							"productid": "7Server-RH7-RHOS-7.0",
+							"cpe": "cpe:/a:redhat:openstack:7::el7"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "OpenStack 7.0 Tools for RHEL 7",
+						"fullproductname": {
+							"text": "OpenStack 7.0 Tools for RHEL 7",
+							"productid": "7Server-RH7-RHOS-TOOLS-7.0",
+							"cpe": "cpe:/a:redhat:openstack:7::el7"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "OpenStack 7.0 Tools for RHEL 7",
+						"fullproductname": {
+							"text": "OpenStack 7.0 Tools for RHEL 7",
+							"productid": "7Workstation-RH7-RHOS-TOOLS-7.0",
+							"cpe": "cpe:/a:redhat:openstack:7::el7"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "openstack-nova-0:2015.1.2-7.el7ost",
+				"fullproductname": {
+					"text": "openstack-nova-2015.1.2-7.el7ost.src.rpm",
+					"productid": "openstack-nova-0:2015.1.2-7.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:7::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-novaclient-1:2.23.0-2.el7ost",
+				"fullproductname": {
+					"text": "python-novaclient-2.23.0-2.el7ost.src.rpm",
+					"productid": "python-novaclient-1:2.23.0-2.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:7::el7"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "python-novaclient-1:2.23.0-2.el7ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-RH7-RHOS-TOOLS-7.0",
+				"fullproductname": {
+					"text": "python-novaclient-1:2.23.0-2.el7ost as a component of OpenStack 7.0 Tools for RHEL 7",
+					"productid": "7Client-RH7-RHOS-TOOLS-7.0:python-novaclient-1:2.23.0-2.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:7::el7"
+				}
+			},
+			{
+				"productreference": "openstack-nova-0:2015.1.2-7.el7ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOS-7.0",
+				"fullproductname": {
+					"text": "openstack-nova-0:2015.1.2-7.el7ost as a component of Red Hat Enterprise Linux OpenStack Platform 7.0 (Kilo) for RHEL 7",
+					"productid": "7Server-RH7-RHOS-7.0:openstack-nova-0:2015.1.2-7.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:7::el7"
+				}
+			},
+			{
+				"productreference": "python-novaclient-1:2.23.0-2.el7ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOS-7.0",
+				"fullproductname": {
+					"text": "python-novaclient-1:2.23.0-2.el7ost as a component of Red Hat Enterprise Linux OpenStack Platform 7.0 (Kilo) for RHEL 7",
+					"productid": "7Server-RH7-RHOS-7.0:python-novaclient-1:2.23.0-2.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:7::el7"
+				}
+			},
+			{
+				"productreference": "python-novaclient-1:2.23.0-2.el7ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOS-TOOLS-7.0",
+				"fullproductname": {
+					"text": "python-novaclient-1:2.23.0-2.el7ost as a component of OpenStack 7.0 Tools for RHEL 7",
+					"productid": "7Server-RH7-RHOS-TOOLS-7.0:python-novaclient-1:2.23.0-2.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:7::el7"
+				}
+			},
+			{
+				"productreference": "python-novaclient-1:2.23.0-2.el7ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-RH7-RHOS-TOOLS-7.0",
+				"fullproductname": {
+					"text": "python-novaclient-1:2.23.0-2.el7ost as a component of OpenStack 7.0 Tools for RHEL 7",
+					"productid": "7Workstation-RH7-RHOS-TOOLS-7.0:python-novaclient-1:2.23.0-2.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:7::el7"
+				}
+			}
+		]
+	}
+}

@@ -1,0 +1,505 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: RHACS 3.73 enhancement and security update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2022:8827"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2022-12-06T14:00:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2022-12-06T14:00:00Z",
+		"CurrentReleaseDate": "2022-12-06T14:00:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.9.4",
+			"Date": "2022-12-06T19:14:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated images are now available for Red Hat Advanced Cluster Security (RHACS). The updated image includes new features and bug fixes.\n\nRed Hat Product Security has rated this update as having a security impact of Low. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nRelease of RHACS 3.73 provides these changes:\n\nNew features:\n\n* Red Hat Advanced Cluster Security Cloud Service (ACSCS) is a Red Hat managed service that simplifies and accelerates RHACS deployments. ACSCS is available as a Field Trial release. For more information about accessing ACSCS, contact Red Hat Sales.\n* Improved Vulnerability Management dashboard for ACSCS users.\n* PostgreSQL database option is available as Technology Preview feature. If you are interested in participating in the Tech Preview program, contact your Red Hat account representative.\n* A new build-time network policy generator as Technology Preview feature, to generate Kubernetes network policies based on Application YAML manifests.\n\nNotable technical changes:\n\n* RHACS uses GraphQL internally to show data in the RHACS portal. However, Red Hat does not support querying RHACS using GraphQL. If you are using GraphQL, see https://access.redhat.com/articles/6986289 and contact Red Hat Consulting.\n* Sensor no longer uses `anyuid` Security Context Constraint (SCC). Instead, the default SCC for Sensor is now `restricted[-v2]` or `stackrox-sensor`, depending on the settings. In addition, the `runAsUser` and `fsGroup` for the Admission control and Sensor deployments are no longer hard-coded to `4000` on OpenShift clusters to allow using the `restricted` and `restricted-v2` SCCs. (ROX-9342)\n* The service account `central`, which the Central deployment uses, now includes `get` and `list` access to the pods, events, and namespaces resources in the namespace where you deploy Central.\n* The CSV export API `/api/vm/export/csv` now requires the `CVE Type` filter as part of the input query parameter. Supported values for `CVE Type` are `IMAGE_CVE`, `K8S_CVE`, `ISTIO_CVE`, `NODE_CVE`, and `OPENSHIFT_CVE`.\n\nNotice of in-product docs removal:\n\n* Beginning in the RHACS 3.74 release, Red Hat will remove the in-product docs accessible from the help menu. If you are using the in-product docs, you can instead download the required documentation in PDF format from Red Hat Customer Portal. (ROX-12839)\n\nBug fixes:\n\n* Previously, if you were using StackRox Kubernetes Security Platform - Splunk Technology Add-on, results for the `ocp4-cis-node` compliance standard was missing from Splunk. This issue is now fixed. The Splunk integration now includes the `ocp4-cis-node` compliance standard results. (ROX-11937)\n* Previously, Central would fail on the v1 CronJob deployment check. This issue is fixed. (ROX-13500)\n\nSecurity Fix(es):\n\n* imgcrypt: Unauthorized access to encryted container image on a shared system due to missing check in CheckAuthorization() code path (CVE-2022-24778)\n\n* app-containers/cosign: false positive verification (CVE-2022-36056)\n\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2022 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Low",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2022:8827",
+				"Description": "https://access.redhat.com/errata/RHSA-2022:8827"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#low",
+				"Description": "https://access.redhat.com/security/updates/classification/#low"
+			},
+			{
+				"type": "External",
+				"URL": "https://docs.openshift.com/acs/3.73/release_notes/373-release-notes.html",
+				"Description": "https://docs.openshift.com/acs/3.73/release_notes/373-release-notes.html"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "imgcrypt: Unauthorized access to encryted container image on a shared system due to missing check in CheckAuthorization() code path",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-03-25T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-24778",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nTo take advantage of the new features, bug fixes, and enhancements in RHACS 3.73 you are advised to upgrade to RHACS 3.73.0.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2022:8827"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://github.com/containerd/imgcrypt/security/advisories/GHSA-8v99-48m9-c8pm",
+						"Description": "https://github.com/containerd/imgcrypt/security/advisories/GHSA-8v99-48m9-c8pm"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-24778",
+						"Description": "CVE-2022-24778"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2069368",
+						"Description": "bz#2069368: CVE-2022-24778 imgcrypt: Unauthorized access to encryted container image on a shared system due to missing check in CheckAuthorization() code path"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2022-03-28T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-RHACS-3.73:rhacs-central-db-container-3.73.0-4",
+						"8Base-RHACS-3.73:rhacs-collector-container-3.73.0-4",
+						"8Base-RHACS-3.73:rhacs-collector-slim-container-3.73.0-2",
+						"8Base-RHACS-3.73:rhacs-docs-container-3.73.0-4",
+						"8Base-RHACS-3.73:rhacs-main-container-3.73.0-4",
+						"8Base-RHACS-3.73:rhacs-operator-bundle-container-3.73.0-6",
+						"8Base-RHACS-3.73:rhacs-operator-container-3.73.0-4",
+						"8Base-RHACS-3.73:rhacs-roxctl-container-3.73.0-4",
+						"8Base-RHACS-3.73:rhacs-scanner-container-3.73.0-4",
+						"8Base-RHACS-3.73:rhacs-scanner-db-container-3.73.0-4",
+						"8Base-RHACS-3.73:rhacs-scanner-db-slim-container-3.73.0-3",
+						"8Base-RHACS-3.73:rhacs-scanner-slim-container-3.73.0-4"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "app-containers/cosign: false positive verification",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-09-14T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-36056",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nTo take advantage of the new features, bug fixes, and enhancements in RHACS 3.73 you are advised to upgrade to RHACS 3.73.0.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2022:8827"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://github.com/sigstore/cosign/security/advisories/GHSA-8gw7-4j42-w388",
+						"Description": "https://github.com/sigstore/cosign/security/advisories/GHSA-8gw7-4j42-w388"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-36056",
+						"Description": "CVE-2022-36056"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2128820",
+						"Description": "bz#2128820: CVE-2022-36056 app-containers/cosign: false positive verification"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2022-09-21T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-RHACS-3.73:rhacs-central-db-container-3.73.0-4",
+						"8Base-RHACS-3.73:rhacs-collector-container-3.73.0-4",
+						"8Base-RHACS-3.73:rhacs-collector-slim-container-3.73.0-2",
+						"8Base-RHACS-3.73:rhacs-docs-container-3.73.0-4",
+						"8Base-RHACS-3.73:rhacs-main-container-3.73.0-4",
+						"8Base-RHACS-3.73:rhacs-operator-bundle-container-3.73.0-6",
+						"8Base-RHACS-3.73:rhacs-operator-container-3.73.0-4",
+						"8Base-RHACS-3.73:rhacs-roxctl-container-3.73.0-4",
+						"8Base-RHACS-3.73:rhacs-scanner-container-3.73.0-4",
+						"8Base-RHACS-3.73:rhacs-scanner-db-container-3.73.0-4",
+						"8Base-RHACS-3.73:rhacs-scanner-db-slim-container-3.73.0-3",
+						"8Base-RHACS-3.73:rhacs-scanner-slim-container-3.73.0-4"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "RHACS",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "RHACS 3.73 for RHEL 8",
+						"fullproductname": {
+							"text": "RHACS 3.73 for RHEL 8",
+							"productid": "8Base-RHACS-3.73",
+							"cpe": "cpe:/a:redhat:advanced_cluster_security:3.73::el8"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacs-central-db-container-3.73.0-4",
+				"fullproductname": {
+					"text": "rhacs-central-db-container-3.73.0-4",
+					"productid": "rhacs-central-db-container-3.73.0-4",
+					"cpe": "cpe:/a:redhat:advanced_cluster_security:3.73::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacs-collector-container-3.73.0-4",
+				"fullproductname": {
+					"text": "rhacs-collector-container-3.73.0-4",
+					"productid": "rhacs-collector-container-3.73.0-4",
+					"cpe": "cpe:/a:redhat:advanced_cluster_security:3.73::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacs-collector-slim-container-3.73.0-2",
+				"fullproductname": {
+					"text": "rhacs-collector-slim-container-3.73.0-2",
+					"productid": "rhacs-collector-slim-container-3.73.0-2",
+					"cpe": "cpe:/a:redhat:advanced_cluster_security:3.73::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacs-docs-container-3.73.0-4",
+				"fullproductname": {
+					"text": "rhacs-docs-container-3.73.0-4",
+					"productid": "rhacs-docs-container-3.73.0-4",
+					"cpe": "cpe:/a:redhat:advanced_cluster_security:3.73::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacs-main-container-3.73.0-4",
+				"fullproductname": {
+					"text": "rhacs-main-container-3.73.0-4",
+					"productid": "rhacs-main-container-3.73.0-4",
+					"cpe": "cpe:/a:redhat:advanced_cluster_security:3.73::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacs-operator-bundle-container-3.73.0-6",
+				"fullproductname": {
+					"text": "rhacs-operator-bundle-container-3.73.0-6",
+					"productid": "rhacs-operator-bundle-container-3.73.0-6",
+					"cpe": "cpe:/a:redhat:advanced_cluster_security:3.73::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacs-operator-container-3.73.0-4",
+				"fullproductname": {
+					"text": "rhacs-operator-container-3.73.0-4",
+					"productid": "rhacs-operator-container-3.73.0-4",
+					"cpe": "cpe:/a:redhat:advanced_cluster_security:3.73::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacs-roxctl-container-3.73.0-4",
+				"fullproductname": {
+					"text": "rhacs-roxctl-container-3.73.0-4",
+					"productid": "rhacs-roxctl-container-3.73.0-4",
+					"cpe": "cpe:/a:redhat:advanced_cluster_security:3.73::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacs-scanner-container-3.73.0-4",
+				"fullproductname": {
+					"text": "rhacs-scanner-container-3.73.0-4",
+					"productid": "rhacs-scanner-container-3.73.0-4",
+					"cpe": "cpe:/a:redhat:advanced_cluster_security:3.73::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacs-scanner-db-container-3.73.0-4",
+				"fullproductname": {
+					"text": "rhacs-scanner-db-container-3.73.0-4",
+					"productid": "rhacs-scanner-db-container-3.73.0-4",
+					"cpe": "cpe:/a:redhat:advanced_cluster_security:3.73::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacs-scanner-db-slim-container-3.73.0-3",
+				"fullproductname": {
+					"text": "rhacs-scanner-db-slim-container-3.73.0-3",
+					"productid": "rhacs-scanner-db-slim-container-3.73.0-3",
+					"cpe": "cpe:/a:redhat:advanced_cluster_security:3.73::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacs-scanner-slim-container-3.73.0-4",
+				"fullproductname": {
+					"text": "rhacs-scanner-slim-container-3.73.0-4",
+					"productid": "rhacs-scanner-slim-container-3.73.0-4",
+					"cpe": "cpe:/a:redhat:advanced_cluster_security:3.73::el8"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "rhacs-central-db-container-3.73.0-4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACS-3.73",
+				"fullproductname": {
+					"text": "rhacs-central-db-container-3.73.0-4 as a component of RHACS 3.73 for RHEL 8",
+					"productid": "8Base-RHACS-3.73:rhacs-central-db-container-3.73.0-4",
+					"cpe": "cpe:/a:redhat:advanced_cluster_security:3.73::el8"
+				}
+			},
+			{
+				"productreference": "rhacs-collector-container-3.73.0-4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACS-3.73",
+				"fullproductname": {
+					"text": "rhacs-collector-container-3.73.0-4 as a component of RHACS 3.73 for RHEL 8",
+					"productid": "8Base-RHACS-3.73:rhacs-collector-container-3.73.0-4",
+					"cpe": "cpe:/a:redhat:advanced_cluster_security:3.73::el8"
+				}
+			},
+			{
+				"productreference": "rhacs-collector-slim-container-3.73.0-2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACS-3.73",
+				"fullproductname": {
+					"text": "rhacs-collector-slim-container-3.73.0-2 as a component of RHACS 3.73 for RHEL 8",
+					"productid": "8Base-RHACS-3.73:rhacs-collector-slim-container-3.73.0-2",
+					"cpe": "cpe:/a:redhat:advanced_cluster_security:3.73::el8"
+				}
+			},
+			{
+				"productreference": "rhacs-docs-container-3.73.0-4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACS-3.73",
+				"fullproductname": {
+					"text": "rhacs-docs-container-3.73.0-4 as a component of RHACS 3.73 for RHEL 8",
+					"productid": "8Base-RHACS-3.73:rhacs-docs-container-3.73.0-4",
+					"cpe": "cpe:/a:redhat:advanced_cluster_security:3.73::el8"
+				}
+			},
+			{
+				"productreference": "rhacs-main-container-3.73.0-4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACS-3.73",
+				"fullproductname": {
+					"text": "rhacs-main-container-3.73.0-4 as a component of RHACS 3.73 for RHEL 8",
+					"productid": "8Base-RHACS-3.73:rhacs-main-container-3.73.0-4",
+					"cpe": "cpe:/a:redhat:advanced_cluster_security:3.73::el8"
+				}
+			},
+			{
+				"productreference": "rhacs-operator-bundle-container-3.73.0-6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACS-3.73",
+				"fullproductname": {
+					"text": "rhacs-operator-bundle-container-3.73.0-6 as a component of RHACS 3.73 for RHEL 8",
+					"productid": "8Base-RHACS-3.73:rhacs-operator-bundle-container-3.73.0-6",
+					"cpe": "cpe:/a:redhat:advanced_cluster_security:3.73::el8"
+				}
+			},
+			{
+				"productreference": "rhacs-operator-container-3.73.0-4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACS-3.73",
+				"fullproductname": {
+					"text": "rhacs-operator-container-3.73.0-4 as a component of RHACS 3.73 for RHEL 8",
+					"productid": "8Base-RHACS-3.73:rhacs-operator-container-3.73.0-4",
+					"cpe": "cpe:/a:redhat:advanced_cluster_security:3.73::el8"
+				}
+			},
+			{
+				"productreference": "rhacs-roxctl-container-3.73.0-4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACS-3.73",
+				"fullproductname": {
+					"text": "rhacs-roxctl-container-3.73.0-4 as a component of RHACS 3.73 for RHEL 8",
+					"productid": "8Base-RHACS-3.73:rhacs-roxctl-container-3.73.0-4",
+					"cpe": "cpe:/a:redhat:advanced_cluster_security:3.73::el8"
+				}
+			},
+			{
+				"productreference": "rhacs-scanner-container-3.73.0-4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACS-3.73",
+				"fullproductname": {
+					"text": "rhacs-scanner-container-3.73.0-4 as a component of RHACS 3.73 for RHEL 8",
+					"productid": "8Base-RHACS-3.73:rhacs-scanner-container-3.73.0-4",
+					"cpe": "cpe:/a:redhat:advanced_cluster_security:3.73::el8"
+				}
+			},
+			{
+				"productreference": "rhacs-scanner-db-container-3.73.0-4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACS-3.73",
+				"fullproductname": {
+					"text": "rhacs-scanner-db-container-3.73.0-4 as a component of RHACS 3.73 for RHEL 8",
+					"productid": "8Base-RHACS-3.73:rhacs-scanner-db-container-3.73.0-4",
+					"cpe": "cpe:/a:redhat:advanced_cluster_security:3.73::el8"
+				}
+			},
+			{
+				"productreference": "rhacs-scanner-db-slim-container-3.73.0-3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACS-3.73",
+				"fullproductname": {
+					"text": "rhacs-scanner-db-slim-container-3.73.0-3 as a component of RHACS 3.73 for RHEL 8",
+					"productid": "8Base-RHACS-3.73:rhacs-scanner-db-slim-container-3.73.0-3",
+					"cpe": "cpe:/a:redhat:advanced_cluster_security:3.73::el8"
+				}
+			},
+			{
+				"productreference": "rhacs-scanner-slim-container-3.73.0-4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACS-3.73",
+				"fullproductname": {
+					"text": "rhacs-scanner-slim-container-3.73.0-4 as a component of RHACS 3.73 for RHEL 8",
+					"productid": "8Base-RHACS-3.73:rhacs-scanner-slim-container-3.73.0-4",
+					"cpe": "cpe:/a:redhat:advanced_cluster_security:3.73::el8"
+				}
+			}
+		]
+	}
+}

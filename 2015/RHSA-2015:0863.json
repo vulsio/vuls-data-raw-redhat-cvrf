@@ -1,0 +1,408 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: glibc security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2015:0863"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2015-04-21T11:34:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2015-04-21T11:34:00Z",
+		"CurrentReleaseDate": "2015-04-21T11:34:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:40:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated glibc packages that fix two security issues and one bug are now\navailable for Red Hat Enterprise Linux 6.\n\nRed Hat Product Security has rated this update as having Moderate security\nimpact. Common Vulnerability Scoring System (CVSS) base scores, which give\ndetailed severity ratings, are available for each vulnerability from the\nCVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe glibc packages provide the standard C libraries (libc), POSIX thread\nlibraries (libpthread), standard math libraries (libm), and the Name\nServer Caching Daemon (nscd) used by multiple programs on the system.\nWithout these libraries, the Linux system cannot function correctly.\n\nA buffer overflow flaw was found in the way glibc's gethostbyname_r() and\nother related functions computed the size of a buffer when passed a\nmisaligned buffer as input. An attacker able to make an application call\nany of these functions with a misaligned buffer could use this flaw to\ncrash the application or, potentially, execute arbitrary code with the\npermissions of the user running the application. (CVE-2015-1781)\n\nIt was discovered that, under certain circumstances, glibc's getaddrinfo()\nfunction would send DNS queries to random file descriptors. An attacker\ncould potentially use this flaw to send DNS queries to unintended\nrecipients, resulting in information disclosure or data loss due to the\napplication encountering corrupted data. (CVE-2013-7423)\n\nThe CVE-2015-1781 issue was discovered by Arjun Shankar of Red Hat.\n\nThis update also fixes the following bug:\n\n* Previously, the nscd daemon did not properly reload modified data when\nthe user edited monitored nscd configuration files. As a consequence, nscd\nreturned stale data to system processes. This update adds a system of\ninotify-based monitoring and stat-based backup monitoring for nscd\nconfiguration files. As a result, nscd now detects changes to its\nconfiguration files and reloads the data properly, which prevents it from\nreturning stale data. (BZ#1194149)\n\nAll glibc users are advised to upgrade to these updated packages, which\ncontain backported patches to correct these issues.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2015:0863",
+				"Description": "https://access.redhat.com/errata/RHSA-2015:0863"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "glibc: getaddrinfo() writes DNS queries to random file descriptors under high load",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-09-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-7423",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:0863"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-7423",
+						"Description": "CVE-2013-7423"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1187109",
+						"Description": "bz#1187109: CVE-2013-7423 glibc: getaddrinfo() writes DNS queries to random file descriptors under high load"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-01-29T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.6.z:glibc-0:2.12-1.149.el6_6.7",
+						"6Client-optional-6.6.z:glibc-0:2.12-1.149.el6_6.7",
+						"6ComputeNode-6.6.z:glibc-0:2.12-1.149.el6_6.7",
+						"6ComputeNode-optional-6.6.z:glibc-0:2.12-1.149.el6_6.7",
+						"6Server-6.6.z:glibc-0:2.12-1.149.el6_6.7",
+						"6Server-optional-6.6.z:glibc-0:2.12-1.149.el6_6.7",
+						"6Workstation-6.6.z:glibc-0:2.12-1.149.el6_6.7",
+						"6Workstation-optional-6.6.z:glibc-0:2.12-1.149.el6_6.7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "1.2",
+					"Vector": "AV:L/AC:H/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "glibc: buffer overflow in gethostbyname_r() and related functions with misaligned buffer",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-04-21T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-1781",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:0863"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-1781",
+						"Description": "CVE-2015-1781"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1199525",
+						"Description": "bz#1199525: CVE-2015-1781 glibc: buffer overflow in gethostbyname_r() and related functions with misaligned buffer"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-03-06T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.6.z:glibc-0:2.12-1.149.el6_6.7",
+						"6Client-optional-6.6.z:glibc-0:2.12-1.149.el6_6.7",
+						"6ComputeNode-6.6.z:glibc-0:2.12-1.149.el6_6.7",
+						"6ComputeNode-optional-6.6.z:glibc-0:2.12-1.149.el6_6.7",
+						"6Server-6.6.z:glibc-0:2.12-1.149.el6_6.7",
+						"6Server-optional-6.6.z:glibc-0:2.12-1.149.el6_6.7",
+						"6Workstation-6.6.z:glibc-0:2.12-1.149.el6_6.7",
+						"6Workstation-optional-6.6.z:glibc-0:2.12-1.149.el6_6.7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.1",
+					"Vector": "AV:N/AC:H/Au:N/C:P/I:P/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 6)",
+							"productid": "6Client-6.6.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+							"productid": "6Client-optional-6.6.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node (v. 6)",
+							"productid": "6ComputeNode-6.6.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+							"productid": "6ComputeNode-optional-6.6.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 6)",
+							"productid": "6Server-6.6.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional (v. 6)",
+							"productid": "6Server-optional-6.6.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 6)",
+							"productid": "6Workstation-6.6.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+							"productid": "6Workstation-optional-6.6.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "glibc-0:2.12-1.149.el6_6.7",
+				"fullproductname": {
+					"text": "glibc-2.12-1.149.el6_6.7.src.rpm",
+					"productid": "glibc-0:2.12-1.149.el6_6.7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "glibc-0:2.12-1.149.el6_6.7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-6.6.z",
+				"fullproductname": {
+					"text": "glibc-0:2.12-1.149.el6_6.7 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"productid": "6Client-6.6.z:glibc-0:2.12-1.149.el6_6.7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "glibc-0:2.12-1.149.el6_6.7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-optional-6.6.z",
+				"fullproductname": {
+					"text": "glibc-0:2.12-1.149.el6_6.7 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"productid": "6Client-optional-6.6.z:glibc-0:2.12-1.149.el6_6.7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "glibc-0:2.12-1.149.el6_6.7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-6.6.z",
+				"fullproductname": {
+					"text": "glibc-0:2.12-1.149.el6_6.7 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"productid": "6ComputeNode-6.6.z:glibc-0:2.12-1.149.el6_6.7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "glibc-0:2.12-1.149.el6_6.7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-optional-6.6.z",
+				"fullproductname": {
+					"text": "glibc-0:2.12-1.149.el6_6.7 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"productid": "6ComputeNode-optional-6.6.z:glibc-0:2.12-1.149.el6_6.7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "glibc-0:2.12-1.149.el6_6.7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-6.6.z",
+				"fullproductname": {
+					"text": "glibc-0:2.12-1.149.el6_6.7 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"productid": "6Server-6.6.z:glibc-0:2.12-1.149.el6_6.7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "glibc-0:2.12-1.149.el6_6.7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-optional-6.6.z",
+				"fullproductname": {
+					"text": "glibc-0:2.12-1.149.el6_6.7 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"productid": "6Server-optional-6.6.z:glibc-0:2.12-1.149.el6_6.7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "glibc-0:2.12-1.149.el6_6.7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-6.6.z",
+				"fullproductname": {
+					"text": "glibc-0:2.12-1.149.el6_6.7 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"productid": "6Workstation-6.6.z:glibc-0:2.12-1.149.el6_6.7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			},
+			{
+				"productreference": "glibc-0:2.12-1.149.el6_6.7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-optional-6.6.z",
+				"fullproductname": {
+					"text": "glibc-0:2.12-1.149.el6_6.7 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"productid": "6Workstation-optional-6.6.z:glibc-0:2.12-1.149.el6_6.7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			}
+		]
+	}
+}

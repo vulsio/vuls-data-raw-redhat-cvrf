@@ -1,0 +1,252 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: kernel security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2015:1583"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2015-08-11T14:39:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2015-08-11T14:39:00Z",
+		"CurrentReleaseDate": "2015-08-11T14:39:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:40:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated kernel packages that fix one security issue and several bugs are\nnow available for Red Hat Enterprise Linux 6.5 Extended Update Support.\n\nRed Hat Product Security has rated this update as having Moderate security\nimpact. A Common Vulnerability Scoring System (CVSS) base score, which\ngives a detailed severity rating, is available from the CVE link in the\nReferences section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe kernel packages contain the Linux kernel, the core of any Linux\noperating system.\n\n* It was found that the Linux kernel's ping socket implementation did not\nproperly handle socket unhashing during spurious disconnects, which could\nlead to a use-after-free flaw. On x86-64 architecture systems, a local user\nable to create ping sockets could use this flaw to crash the system.\nOn non-x86-64 architecture systems, a local user able to create ping\nsockets could use this flaw to escalate their privileges on the system.\n(CVE-2015-3636, Moderate)\n\nThis update also fixes the following bugs:\n\n* Previously, the bridge device did not propagate VLAN information to its\nports and Generic Receive Offload (GRO) information to devices that sit on\ntop. This resulted in lower receive performance of VLANs over bridge\ndevices because GRO was not enabled. An attempt to resolve this problem was\nmade with BZ#858198 by introducing a patch that allows VLANs to be\nregistered with the participating bridge ports and adds GRO to the bridge\ndevice feature set, however, that attempt introduced a number of\nregressions, which broke the vast majority of stacked setups involving\nbridge devices and VLANs. This update reverts the patch provided by\nBZ#858198 and removes support for this capability. (BZ#1131697)\n\n* The backlog data could previously not be consumed when the\naudit_log_start() function was running even if audit_log_start() called the\nwait_for_auditd() function to consume it. As only auditd could consume the\nbacklog data, audit_log_start() terminated unexpectedly. Consequently, the\nsystem became unresponsive until the backlog timeout was up again.\nWith this update, audit_log_start() no longer terminates and the system\nshuts down and reboots gracefully in a timely manner. (BZ#1140490)\n\n* This update introduces a set of patches with a new VLAN model to conform\nto upstream standards. In addition, this set of patches fixes other issues\nsuch as transmission of Internet Control Message Protocol (ICMP) fragments.\n(BZ#1173560)\n\n* Due to a bug in the audit code, a kernel panic occurred in the\ntasklist_lock variable if SELinux was in permissive or enforcing mode.\nA patch has been applied to fix this bug, and the operating system now\ncontinues to work normally. (BZ#1236103)\n\n* If a server returned an empty or malformed READDIR response, the NFS\nclient could previously terminate unexpectedly while attempting to decode\nthat response. This update uses the response size to determine if existing\npages of data are available for decoding, and the client only decodes the\nresponses if they exist. As a result, the NFS client no longer attempts to\ndecode pages of data that may not exist, and the aforementioned crash is\nthus avoided. (BZ#1232133)\n\n* Previously, if a slave device had a receive handler registered, then an\nerror unwind of bonding device enslave function became broken, which led to\na kernel oops. This update detaches the slave in the unwind path, and the\naforementioned oops no longer occurs. (BZ#1222482)\n\n* Due to bad memory or memory corruption, an isolated BUG_ON(mm->nr_ptes)\nwas sometimes reported, indicating that not all the page tables allocated\ncould be found and freed when the exit_mmap() function cleared the user\naddress space. As a consequence, a kernel panic occurred. To fix this bug,\nthe BUG_ON() function has been replaced by WARN_ON(), which prevents the\nkernel from panicking in the aforementioned situation. (BZ#1235930)\n\nAll kernel users are advised to upgrade to these updated packages, which\ncontain backported patches to correct these issues. The system must be\nrebooted for this update to take effect.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2015:1583",
+				"Description": "https://access.redhat.com/errata/RHSA-2015:1583"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: ping sockets: use-after-free leading to local privilege escalation",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-05-02T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-3636",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1583"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-3636",
+						"Description": "CVE-2015-3636"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1218074",
+						"Description": "bz#1218074: CVE-2015-3636 kernel: ping sockets: use-after-free leading to local privilege escalation"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-05-02T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6ComputeNode-6.5.EUS:kernel-0:2.6.32-431.61.2.el6",
+						"6ComputeNode-optional-6.5.EUS:kernel-0:2.6.32-431.61.2.el6",
+						"6Server-6.5.EUS:kernel-0:2.6.32-431.61.2.el6",
+						"6Server-optional-6.5.EUS:kernel-0:2.6.32-431.61.2.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.0",
+					"Vector": "AV:L/AC:H/Au:S/C:C/I:C/A:C"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node EUS (v. 6.5)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node EUS (v. 6.5)",
+							"productid": "6ComputeNode-6.5.EUS",
+							"cpe": "cpe:/o:redhat:rhel_eus:6.5::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Compute Node Optional EUS (v. 6.5)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Compute Node Optional EUS (v. 6.5)",
+							"productid": "6ComputeNode-optional-6.5.EUS",
+							"cpe": "cpe:/o:redhat:rhel_eus:6.5::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server EUS (v. 6.5)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server EUS (v. 6.5)",
+							"productid": "6Server-6.5.EUS",
+							"cpe": "cpe:/o:redhat:rhel_eus:6.5::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional EUS (v. 6.5)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional EUS (v. 6.5)",
+							"productid": "6Server-optional-6.5.EUS",
+							"cpe": "cpe:/o:redhat:rhel_eus:6.5::server"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-0:2.6.32-431.61.2.el6",
+				"fullproductname": {
+					"text": "kernel-2.6.32-431.61.2.el6.src.rpm",
+					"productid": "kernel-0:2.6.32-431.61.2.el6",
+					"cpe": "cpe:/o:redhat:rhel_eus:6.5::computenode"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "kernel-0:2.6.32-431.61.2.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-6.5.EUS",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-431.61.2.el6 as a component of Red Hat Enterprise Linux HPC Node EUS (v. 6.5)",
+					"productid": "6ComputeNode-6.5.EUS:kernel-0:2.6.32-431.61.2.el6",
+					"cpe": "cpe:/o:redhat:rhel_eus:6.5::computenode"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.32-431.61.2.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-optional-6.5.EUS",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-431.61.2.el6 as a component of Red Hat Enterprise Linux Compute Node Optional EUS (v. 6.5)",
+					"productid": "6ComputeNode-optional-6.5.EUS:kernel-0:2.6.32-431.61.2.el6",
+					"cpe": "cpe:/o:redhat:rhel_eus:6.5::computenode"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.32-431.61.2.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-6.5.EUS",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-431.61.2.el6 as a component of Red Hat Enterprise Linux Server EUS (v. 6.5)",
+					"productid": "6Server-6.5.EUS:kernel-0:2.6.32-431.61.2.el6",
+					"cpe": "cpe:/o:redhat:rhel_eus:6.5::server"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.32-431.61.2.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-optional-6.5.EUS",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-431.61.2.el6 as a component of Red Hat Enterprise Linux Server Optional EUS (v. 6.5)",
+					"productid": "6Server-optional-6.5.EUS:kernel-0:2.6.32-431.61.2.el6",
+					"cpe": "cpe:/o:redhat:rhel_eus:6.5::server"
+				}
+			}
+		]
+	}
+}

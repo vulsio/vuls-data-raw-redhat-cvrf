@@ -1,0 +1,2395 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: kernel-rt security, bug fix, and enhancement update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2020:1567"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2021-02-09T13:08:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2020-04-28T15:41:00Z",
+		"CurrentReleaseDate": "2021-02-09T13:08:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:44:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nAn update for kernel-rt is now available for Red Hat Enterprise Linux 8.\n\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe kernel-rt packages provide the Real Time Linux Kernel, which enables fine-tuning for systems with extremely high determinism requirements.\n\nSecurity Fix(es):\n\n* kernel: use-after-free in __blk_add_trace in kernel/trace/blktrace.c (CVE-2019-19768)\n\n* kernel: nfs: NULL pointer dereference due to an anomalized NFS message sequence (CVE-2018-16871)\n\n* kernel: memory leak in the kernel_read_file function in fs/exec.c allows to cause a denial of service (CVE-2019-8980)\n\n* kernel: unprivileged users able to create RAW sockets  in AF_IEEE802154 network protocol. (CVE-2019-17053)\n\n* kernel: unprivileged users able to create RAW sockets in AF_ISDN  network protocol. (CVE-2019-17055)\n\n* kernel: integer overflow in tcp_ack_update_rtt in net/ipv4/tcp_input.c (CVE-2019-18805)\n\n* kernel: information leak bug caused  by a malicious USB device in the drivers/net/can/usb/peak_usb/pcan_usb_core.c driver (CVE-2019-19534)\n\n* kernel: some ipv6 protocols not encrypted over ipsec tunnel. (CVE-2020-1749)\n\n* Kernel: net: using kernel space address bits to derive IP ID may potentially break KASLR (CVE-2019-10639)\n\n* kernel: An out-of-bounds read in drivers/scsi/qedi/qedi_dbg.c leading to crash or information disclosure (CVE-2019-15090)\n\n* kernel: a NULL pointer dereference in drivers/net/wireless/ath/ath10k/usb.c leads to a crash (CVE-2019-15099)\n\n* kernel: Null pointer dereference in the sound/usb/line6/pcm.c (CVE-2019-15221)\n\n* kernel: Two memory leaks in the mwifiex_pcie_init_evt_ring() function in drivers/net/wireless/marvell/mwifiex/pcie.c allows for a DoS (CVE-2019-19057)\n\n* kernel: Memory leaks in drivers/net/wireless/ath/ath9k/htc_hst.c in the Linux kernel (DOS) (CVE-2019-19073)\n\n* kernel: a memory leak in the ath9k management function in allows local DoS (CVE-2019-19074)\n\n* kernel: when cpu.cfs_quota_us is used allows attackers to cause a denial of service against non-cpu-bound applications (CVE-2019-19922)\n\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\n\nBug Fix(es):\n\n* RT: update RT source tree to the RHEL-8.2 tree (BZ#1708716)\n\n* KVM-RT guest fails boot with emulatorsched (BZ#1712781)\n\n* 8 vCPU guest need max latency < 20 us with stress [RT-8.2] (BZ#1757165)\n\n* Request nx_huge_pages=N as default value to avoid kvm-rt guest large latency spike [rt-8] (BZ#1788352)\n\n* RT: Add rpm Provide of 'kernel' to indicate that this is a kernel package (BZ#1796284)\n\n* [RHEL8] RT kernel signed by test certificate and not Red Hat Secure Boot (BZ#1806871)\n\nEnhancement(s):\n\n* update to the upstream 5.x RT patchset (BZ#1680161)\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2020:1567",
+				"Description": "https://access.redhat.com/errata/RHSA-2020:1567"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/8.2_release_notes/index",
+				"Description": "https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/8.2_release_notes/index"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: nfs: NULL pointer dereference due to an anomalized NFS message sequence",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2019-06-03T02:23:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2018-16871",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2020:1567"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2018-16871",
+						"Description": "CVE-2018-16871"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1655162",
+						"Description": "bz#1655162: CVE-2018-16871 kernel: nfs: NULL pointer dereference due to an anomalized NFS message sequence"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2018-11-21T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"NFV-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8",
+						"RT-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "This issue was discovered by Hangbin Liu (Red Hat) and Jasu Liedes (Synopsys SIG)."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: triggering AP to send IAPP location updates for stations before the required authentication process has completed can lead to DoS",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2019-12-11T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2019-5108",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2020:1567"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2019-5108",
+						"Description": "CVE-2019-5108"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1789927",
+						"Description": "bz#1789927: CVE-2019-5108 kernel: triggering AP to send IAPP location updates for stations before the required authentication process has completed can lead to DoS"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2020-01-10T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"NFV-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8",
+						"RT-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: memory leak in the kernel_read_file function in fs/exec.c allows to cause a denial of service",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2019-02-18T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2019-8980",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2020:1567"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2019-8980",
+						"Description": "CVE-2019-8980"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1679972",
+						"Description": "bz#1679972: CVE-2019-8980 kernel: memory leak in the kernel_read_file function in fs/exec.c allows to cause a denial of service"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2019-02-21T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"NFV-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8",
+						"RT-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Kernel: net: using kernel space address bits to derive IP ID may potentially break KASLR",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2019-07-15T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2019-10639",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2020:1567"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://arxiv.org/pdf/1906.10478.pdf",
+						"Description": "https://arxiv.org/pdf/1906.10478.pdf"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2019-10639",
+						"Description": "CVE-2019-10639"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1729933",
+						"Description": "bz#1729933: CVE-2019-10639 Kernel: net: using kernel space address bits to derive IP ID may potentially break KASLR"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2019-07-06T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"NFV-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8",
+						"RT-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: use-after-free in function __mdiobus_register() in drivers/net/phy/mdio_bus.c",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2019-06-13T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2019-12819",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2020:1567"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2019-12819",
+						"Description": "CVE-2019-12819"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1721962",
+						"Description": "bz#1721962: CVE-2019-12819 kernel: use-after-free in function __mdiobus_register() in drivers/net/phy/mdio_bus.c"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2019-06-14T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"NFV-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8",
+						"RT-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "6",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: An out-of-bounds read in drivers/scsi/qedi/qedi_dbg.c leading to crash or information disclosure",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2019-08-20T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2019-15090",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2020:1567"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2019-15090",
+						"Description": "CVE-2019-15090"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1743526",
+						"Description": "bz#1743526: CVE-2019-15090 kernel: An out-of-bounds read in drivers/scsi/qedi/qedi_dbg.c leading to crash or information disclosure"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2019-08-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"NFV-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8",
+						"RT-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "7",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: a NULL pointer dereference in drivers/net/wireless/ath/ath10k/usb.c leads to a crash",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2019-08-20T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2019-15099",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2020:1567"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2019-15099",
+						"Description": "CVE-2019-15099"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1743560",
+						"Description": "bz#1743560: CVE-2019-15099 kernel: a NULL pointer dereference in drivers/net/wireless/ath/ath10k/usb.c leads to a crash"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2019-08-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"NFV-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8",
+						"RT-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "8",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: Null pointer dereference in the sound/usb/line6/pcm.c",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2019-08-02T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2019-15221",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2020:1567"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2019-15221",
+						"Description": "CVE-2019-15221"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1749974",
+						"Description": "bz#1749974: CVE-2019-15221 kernel: Null pointer dereference in the sound/usb/line6/pcm.c"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2019-08-02T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"NFV-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8",
+						"RT-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "9",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: Null pointer dereference in the sound/usb/line6/driver.c",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2019-08-02T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2019-15223",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2020:1567"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2019-15223",
+						"Description": "CVE-2019-15223"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1749976",
+						"Description": "bz#1749976: CVE-2019-15223 kernel: Null pointer dereference in the sound/usb/line6/driver.c"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2019-08-02T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"NFV-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8",
+						"RT-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "10",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: null pointer dereference in drivers/net/wireless/intel/iwlwifi/pcie/trans.c",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2019-09-09T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2019-16234",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2020:1567"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://lkml.org/lkml/2019/9/9/487",
+						"Description": "https://lkml.org/lkml/2019/9/9/487"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2019-16234",
+						"Description": "CVE-2019-16234"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1760441",
+						"Description": "bz#1760441: CVE-2019-16234 kernel: null pointer dereference in drivers/net/wireless/intel/iwlwifi/pcie/trans.c"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2019-10-10T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"NFV-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8",
+						"RT-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "11",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: unprivileged users able to create RAW sockets in AF_IEEE802154 network protocol",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2019-09-20T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2019-17053",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2020:1567"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2019-17053",
+						"Description": "CVE-2019-17053"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1758242",
+						"Description": "bz#1758242: CVE-2019-17053 kernel: unprivileged users able to create RAW sockets in AF_IEEE802154 network protocol"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2019-10-03T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"NFV-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8",
+						"RT-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "12",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: unprivileged users able to create RAW sockets in AF_ISDN network protocol",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2019-09-20T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2019-17055",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2020:1567"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2019-17055",
+						"Description": "CVE-2019-17055"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1758248",
+						"Description": "bz#1758248: CVE-2019-17055 kernel: unprivileged users able to create RAW sockets in AF_ISDN network protocol"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2019-10-03T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"NFV-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8",
+						"RT-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "13",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: The flow_dissector feature allows device tracking",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2019-10-22T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2019-18282",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2020:1567"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2019-18282",
+						"Description": "CVE-2019-18282"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1796360",
+						"Description": "bz#1796360: CVE-2019-18282 kernel: The flow_dissector feature allows device tracking"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2020-01-17T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"NFV-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8",
+						"RT-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "14",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: integer overflow in tcp_ack_update_rtt in net/ipv4/tcp_input.c",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2019-04-16T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2019-18805",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2020:1567"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2019-18805",
+						"Description": "CVE-2019-18805"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1771496",
+						"Description": "bz#1771496: CVE-2019-18805 kernel: integer overflow in tcp_ack_update_rtt in net/ipv4/tcp_input.c"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2019-11-12T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"NFV-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8",
+						"RT-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "15",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: dos in mlx5_fpga_conn_create_cq() function in drivers/net/ethernet/mellanox/mlx5/core/fpga/conn.c",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2019-11-18T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2019-19045",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2020:1567"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2019-19045",
+						"Description": "CVE-2019-19045"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1774983",
+						"Description": "bz#1774983: CVE-2019-19045 kernel: dos in mlx5_fpga_conn_create_cq() function in drivers/net/ethernet/mellanox/mlx5/core/fpga/conn.c"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2019-11-18T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"NFV-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8",
+						"RT-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "16",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: dos in mlx5_fw_fatal_reporter_dump() function in drivers/net/ethernet/mellanox/mlx5/core/health.c",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2019-11-18T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2019-19047",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2020:1567"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2019-19047",
+						"Description": "CVE-2019-19047"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1774991",
+						"Description": "bz#1774991: CVE-2019-19047 kernel: dos in mlx5_fw_fatal_reporter_dump() function in drivers/net/ethernet/mellanox/mlx5/core/health.c"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2019-11-18T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"NFV-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8",
+						"RT-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "17",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: memory leak in the nl80211_get_ftm_responder_stats() function in net/wireless/nl80211.c allows DoS",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2019-10-05T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2019-19055",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2020:1567"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2019-19055",
+						"Description": "CVE-2019-19055"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1775074",
+						"Description": "bz#1775074: CVE-2019-19055 kernel: memory leak in the nl80211_get_ftm_responder_stats() function in net/wireless/nl80211.c allows DoS"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2019-11-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"NFV-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8",
+						"RT-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "18",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: Two memory leaks in the mwifiex_pcie_init_evt_ring() function in drivers/net/wireless/marvell/mwifiex/pcie.c allows for a DoS",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2019-11-21T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2019-19057",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2020:1567"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2019-19057",
+						"Description": "CVE-2019-19057"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1775050",
+						"Description": "bz#1775050: CVE-2019-19057 kernel: Two memory leaks in the mwifiex_pcie_init_evt_ring() function in drivers/net/wireless/marvell/mwifiex/pcie.c allows for a DoS"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2019-11-18T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"NFV-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8",
+						"RT-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "19",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: A memory leak in the alloc_sgtable() function in drivers/net/wireless/intel/iwlwifi/fw/dbg.c allows for a DoS",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2019-11-21T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2019-19058",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2020:1567"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2019-19058",
+						"Description": "CVE-2019-19058"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1775047",
+						"Description": "bz#1775047: CVE-2019-19058 kernel: A memory leak in the alloc_sgtable() function in drivers/net/wireless/intel/iwlwifi/fw/dbg.c allows for a DoS"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2019-11-18T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"NFV-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8",
+						"RT-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "20",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: Multiple memory leaks in the iwl_pcie_ctxt_info_gen3_init() function in drivers/net/wireless/intel/iwlwifi/pcie/ctxt-info-gen3.c allows for a DoS",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2019-11-21T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2019-19059",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2020:1567"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2019-19059",
+						"Description": "CVE-2019-19059"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1775042",
+						"Description": "bz#1775042: CVE-2019-19059 kernel: Multiple memory leaks in the iwl_pcie_ctxt_info_gen3_init() function in drivers/net/wireless/intel/iwlwifi/pcie/ctxt-info-gen3.c allows for a DoS"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2019-11-18T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"NFV-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8",
+						"RT-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "21",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: A memory leak in the sdma_init() function in drivers/infiniband/hw/hfi1/sdma.c allows for a DoS",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2019-11-21T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2019-19065",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2020:1567"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2019-19065",
+						"Description": "CVE-2019-19065"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1775000",
+						"Description": "bz#1775000: CVE-2019-19065 kernel: A memory leak in the sdma_init() function in drivers/infiniband/hw/hfi1/sdma.c allows for a DoS"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2019-11-18T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"NFV-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8",
+						"RT-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "22",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: Four memory leaks in the acp_hw_init() function in drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c allow for a DoS",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2019-11-21T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2019-19067",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2020:1567"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2019-19067",
+						"Description": "CVE-2019-19067"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1774968",
+						"Description": "bz#1774968: CVE-2019-19067 kernel: Four memory leaks in the acp_hw_init() function in drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c allow for a DoS"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2019-11-18T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"NFV-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8",
+						"RT-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "23",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: Memory leaks in drivers/net/wireless/ath/ath9k/htc_hst.c in the Linux kernel (DOS)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2019-11-21T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2019-19073",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2020:1567"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2019-19073",
+						"Description": "CVE-2019-19073"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1774937",
+						"Description": "bz#1774937: CVE-2019-19073 kernel: Memory leaks in drivers/net/wireless/ath/ath9k/htc_hst.c in the Linux kernel (DOS)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2019-11-18T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"NFV-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8",
+						"RT-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "24",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: a memory leak in the ath9k management function in allows local DoS",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2019-11-21T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2019-19074",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2020:1567"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2019-19074",
+						"Description": "CVE-2019-19074"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1774933",
+						"Description": "bz#1774933: CVE-2019-19074 kernel: a memory leak in the ath9k management function in allows local DoS"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2019-11-18T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"NFV-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8",
+						"RT-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "25",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: memory leak in bnxt_re_create_srq function in drivers/infiniband/hw/bnxt_re/ib_verbs.c",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2019-09-10T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2019-19077",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2020:1567"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2019-19077",
+						"Description": "CVE-2019-19077"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1775724",
+						"Description": "bz#1775724: CVE-2019-19077 kernel: memory leak in bnxt_re_create_srq function in drivers/infiniband/hw/bnxt_re/ib_verbs.c"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2019-11-22T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"NFV-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8",
+						"RT-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "26",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: malicious USB devices can lead to multiple out-of-bounds write",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2019-12-03T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2019-19532",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2020:1567"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2019-19532",
+						"Description": "CVE-2019-19532"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1781821",
+						"Description": "bz#1781821: CVE-2019-19532 kernel: malicious USB devices can lead to multiple out-of-bounds write"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2019-12-10T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"NFV-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8",
+						"RT-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "27",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: information leak bug caused by a malicious USB device in the drivers/net/can/usb/peak_usb/pcan_usb_core.c driver",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2019-11-04T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2019-19534",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2020:1567"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2019-19534",
+						"Description": "CVE-2019-19534"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1783540",
+						"Description": "bz#1783540: CVE-2019-19534 kernel: information leak bug caused by a malicious USB device in the drivers/net/can/usb/peak_usb/pcan_usb_core.c driver"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2019-12-04T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"NFV-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8",
+						"RT-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "28",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: use-after-free in __blk_add_trace in kernel/trace/blktrace.c",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2019-11-29T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2019-19768",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2020:1567"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2019-19768",
+						"Description": "CVE-2019-19768"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1786164",
+						"Description": "bz#1786164: CVE-2019-19768 kernel: use-after-free in __blk_add_trace in kernel/trace/blktrace.c"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2019-12-23T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"NFV-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8",
+						"RT-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "29",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: when cpu.cfs_quota_us is used allows attackers to cause a denial of service against non-cpu-bound applications",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2019-12-22T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2019-19922",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2020:1567"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2019-19922",
+						"Description": "CVE-2019-19922"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1792512",
+						"Description": "bz#1792512: CVE-2019-19922 kernel: when cpu.cfs_quota_us is used allows attackers to cause a denial of service against non-cpu-bound applications"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2020-01-17T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"NFV-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8",
+						"RT-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "30",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: some ipv6 protocols not encrypted over ipsec tunnel",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2020-03-04T01:29:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2020-1749",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2020:1567"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2020-1749",
+						"Description": "CVE-2020-1749"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1809833",
+						"Description": "bz#1809833: CVE-2020-1749 kernel: some ipv6 protocols not encrypted over ipsec tunnel"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2020-03-04T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"NFV-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8",
+						"RT-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "This issue was discovered by Xiumei Mu (Red Hat QE Engineering)."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "31",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: use-after-free in i915_ppgtt_close in drivers/gpu/drm/i915/i915_gem_gtt.c",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2020-01-14T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2020-7053",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2020:1567"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2020-7053",
+						"Description": "CVE-2020-7053"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1795624",
+						"Description": "bz#1795624: CVE-2020-7053 kernel: use-after-free in i915_ppgtt_close in drivers/gpu/drm/i915/i915_gem_gtt.c"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2020-01-28T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"NFV-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8",
+						"RT-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "32",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: use-after-free in cdev_put() when a PTP device is removed while it's chardev is open",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2019-11-25T12:53:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2020-10690",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2020:1567"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2020-10690",
+						"Description": "CVE-2020-10690"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1817141",
+						"Description": "bz#1817141: CVE-2020-10690 kernel: use-after-free in cdev_put() when a PTP device is removed while it's chardev is open"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2019-11-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"NFV-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8",
+						"RT-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Real Time for NFV (v. 8)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Real Time for NFV (v. 8)",
+							"productid": "NFV-8.2.0.GA",
+							"cpe": "cpe:/a:redhat:enterprise_linux:8::nfv"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Real Time (v. 8)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Real Time (v. 8)",
+							"productid": "RT-8.2.0.GA",
+							"cpe": "cpe:/a:redhat:enterprise_linux:8::realtime"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-rt-0:4.18.0-193.rt13.51.el8",
+				"fullproductname": {
+					"text": "kernel-rt-4.18.0-193.rt13.51.el8.src.rpm",
+					"productid": "kernel-rt-0:4.18.0-193.rt13.51.el8",
+					"cpe": "cpe:/a:redhat:enterprise_linux:8::nfv"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "kernel-rt-0:4.18.0-193.rt13.51.el8",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "NFV-8.2.0.GA",
+				"fullproductname": {
+					"text": "kernel-rt-0:4.18.0-193.rt13.51.el8 as a component of Red Hat Enterprise Linux Real Time for NFV (v. 8)",
+					"productid": "NFV-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8",
+					"cpe": "cpe:/a:redhat:enterprise_linux:8::nfv"
+				}
+			},
+			{
+				"productreference": "kernel-rt-0:4.18.0-193.rt13.51.el8",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "RT-8.2.0.GA",
+				"fullproductname": {
+					"text": "kernel-rt-0:4.18.0-193.rt13.51.el8 as a component of Red Hat Enterprise Linux Real Time (v. 8)",
+					"productid": "RT-8.2.0.GA:kernel-rt-0:4.18.0-193.rt13.51.el8",
+					"cpe": "cpe:/a:redhat:enterprise_linux:8::realtime"
+				}
+			}
+		]
+	}
+}

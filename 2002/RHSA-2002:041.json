@@ -1,0 +1,153 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: Updated mod_ssl packages available",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2002:041"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2002-03-01T00:00:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2002-03-08T00:36:00Z",
+		"CurrentReleaseDate": "2002-03-01T00:00:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:43:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated mod_ssl packages for Red Hat Linux 7, 7.1, and\n7.2 are available which close a buffer overflow in mod_ssl.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nWhen session caching is enabled, mod_ssl will serialize SSL session\nvariables to store them for later use.  Unpatched versions of mod_ssl prior\nto version 2.8.7 which use the 'shm' or 'dbm' session caches would store\nsession variables using a buffer with a fixed size, making it vulnerable to\noverflow.\n\nTo exploit the overflow, the server must be configured to require client\ncertificates, and an attacker must obtain a carefully crafted client\ncertificate that has been signed by a Certificate Authority which is\ntrusted by the server. If these conditions are met, it would be possible\nfor an attacker to execute arbitrary code on the server.\n\nRed Hat Linux 6.2 and earlier releases which did not include the mod_ssl\npackage are not vulnerable to this bug.  Users who utilize client\ncertificate authentication are strongly advised to upgrade or switch to\nshared memory session cache, shmcb, which is not vulnerable to this issue.\n\nThe Common Vulnerabilities and Exposures project (cve.mitre.org) has\nassigned the name CAN-2002-0082 to this issue.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2002:041",
+				"Description": "https://access.redhat.com/errata/RHSA-2002:041"
+			},
+			{
+				"type": "External",
+				"URL": "http://marc.theaimsgroup.com/?l=apache-modssl&m=101449247201254",
+				"Description": "http://marc.theaimsgroup.com/?l=apache-modssl&m=101449247201254"
+			},
+			{
+				"type": "External",
+				"URL": "http://online.securityfocus.com/archive/1/258646",
+				"Description": "http://online.securityfocus.com/archive/1/258646"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "security flaw",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2002-02-27T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2002-0082",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure to apply all previously released\nerrata relevant to your system.\n\nTo update all RPMs for your particular architecture, run:\n\nrpm -Fvh [filenames]\n\nwhere [filenames] is a list of the RPMs you wish to upgrade.  Only those\nRPMs which are currently installed will be updated.  Those RPMs which are\nnot installed but included in the list will not be updated.  Note that you\ncan also use wildcards (*.rpm) if your current directory *only* contains\nthe desired RPMs.\n\nPlease note that this update is also available via Red Hat Network.  Many\npeople find this an easier way to apply updates.  To use Red Hat Network,\nlaunch the Red Hat Update Agent with the following command:\n\nup2date\n\nThis will start an interactive process that will result in the appropriate\nRPMs being upgraded on your system.\n\nAfter applying these updates, you will need to restart an active server by \nperforming the following:\n\n/etc/rc.d/init.d/httpd restart \n\nThis step must be performed manually to keep SSL-capable servers from\nstalling when the server's key is password-protected.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2002:041"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2002-0082",
+						"Description": "CVE-2002-0082"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1616740",
+						"Description": "bz#1616740: CVE-2002-0082 security flaw"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		}
+	],
+	"producttree": {}
+}

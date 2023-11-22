@@ -1,0 +1,282 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: dovecot security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2009:0205"
+		},
+		"Status": "Final",
+		"Version": "2",
+		"revisionhistory": {
+			"revision": {
+				"Number": "2",
+				"Date": "2009-01-20T11:06:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2009-01-20T15:45:00Z",
+		"CurrentReleaseDate": "2009-01-20T11:06:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:29:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nAn updated dovecot package that corrects two security flaws and various bugs\nis now available for Red Hat Enterprise Linux 5.\n\nThis update has been rated as having low security impact by the Red Hat\nSecurity Response Team.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nDovecot is an IMAP server for Linux and UNIX-like systems, primarily\nwritten with security in mind.\n\nA flaw was found in Dovecot's ACL plug-in. The ACL plug-in treated negative\naccess rights as positive rights, which could allow an attacker to bypass\nintended access restrictions. (CVE-2008-4577)\n\nA password disclosure flaw was found with Dovecot's configuration file. If\na system had the \"ssl_key_password\" option defined, any local user could\nview the SSL key password. (CVE-2008-4870)\n\nNote: This flaw did not allow the attacker to acquire the contents of the\nSSL key. The password has no value without the key file which arbitrary\nusers should not have read access to.\n\nTo better protect even this value, however, the dovecot.conf file now\nsupports the \"!include_try\" directive. The ssl_key_password option should\nbe moved from dovecot.conf to a new file owned by, and only readable and\nwritable by, root (ie 0600). This file should be referenced from\ndovecot.conf by setting the \"!include_try [/path/to/password/file]\" option.\n\nAdditionally, this update addresses the following bugs:\n\n* the dovecot init script -- /etc/rc.d/init.d/dovecot -- did not check if\nthe dovecot binary or configuration files existed. It also used the wrong\npid file for checking the dovecot service's status. This update includes a\nnew init script that corrects these errors.\n\n* the %files section of the dovecot spec file did not include \"%dir\n%{ssldir}/private\". As a consequence, the /etc/pki/private/ directory was\nnot owned by dovecot. (Note: files inside /etc/pki/private/ were and are\nowned by dovecot.) With this update, the missing line has been added to the\nspec file, and the noted directory is now owned by dovecot.\n\n* in some previously released versions of dovecot, the authentication\nprocess accepted (and passed along un-escaped) passwords containing\ncharacters that had special meaning to dovecot's internal protocols. This\nupdated release prevents such passwords from being passed back, instead\nreturning the error, \"Attempted login with password having illegal chars\".\n\nNote: dovecot versions previously shipped with Red Hat Enterprise Linux 5\ndid not allow this behavior. This update addresses the issue above but said\nissue was only present in versions of dovecot not previously included with\nRed Hat Enterprise Linux 5.\n\nUsers of dovecot are advised to upgrade to this updated package, which\naddresses these vulnerabilities and resolves these issues.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Low",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2009:0205",
+				"Description": "https://access.redhat.com/errata/RHSA-2009:0205"
+			},
+			{
+				"type": "External",
+				"URL": "http://www.redhat.com/security/updates/classification/#low",
+				"Description": "http://www.redhat.com/security/updates/classification/#low"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "dovecot: incorrect handling of negative rights in the ACL plugin",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2008-10-05T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2008-4577",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network. Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/FAQ_58_10188\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2009:0205"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2008-4577",
+						"Description": "CVE-2008-4577"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=467436",
+						"Description": "bz#467436: CVE-2008-4577 dovecot: incorrect handling of negative rights in the ACL plugin"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2008-10-07T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-Workstation:dovecot-0:1.0.7-7.el5",
+						"5Server:dovecot-0:1.0.7-7.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "3.6",
+					"Vector": "AV:N/AC:H/Au:S/C:P/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "dovecot: ssl_key_password disclosure due to an insecure dovecot.conf permissions",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2008-03-06T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2008-4870",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network. Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/FAQ_58_10188\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2009:0205"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2008-4870",
+						"Description": "CVE-2008-4870"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=469659",
+						"Description": "bz#469659: CVE-2008-4870 dovecot: ssl_key_password disclosure due to an insecure dovecot.conf permissions"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2008-03-06T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-Workstation:dovecot-0:1.0.7-7.el5",
+						"5Server:dovecot-0:1.0.7-7.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+							"productid": "5Client-Workstation",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::client_workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux (v. 5 server)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux (v. 5 server)",
+							"productid": "5Server",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "dovecot-0:1.0.7-7.el5",
+				"fullproductname": {
+					"text": "dovecot-1.0.7-7.el5.src.rpm",
+					"productid": "dovecot-0:1.0.7-7.el5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client_workstation"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "dovecot-0:1.0.7-7.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Client-Workstation",
+				"fullproductname": {
+					"text": "dovecot-0:1.0.7-7.el5 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"productid": "5Client-Workstation:dovecot-0:1.0.7-7.el5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client_workstation"
+				}
+			},
+			{
+				"productreference": "dovecot-0:1.0.7-7.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server",
+				"fullproductname": {
+					"text": "dovecot-0:1.0.7-7.el5 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"productid": "5Server:dovecot-0:1.0.7-7.el5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+				}
+			}
+		]
+	}
+}

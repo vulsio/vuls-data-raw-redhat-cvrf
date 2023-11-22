@@ -1,0 +1,212 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: pacemaker security, bug fix, and enhancement update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2015:2383"
+		},
+		"Status": "Final",
+		"Version": "3",
+		"revisionhistory": {
+			"revision": {
+				"Number": "3",
+				"Date": "2015-11-19T05:49:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2015-11-19T05:49:00Z",
+		"CurrentReleaseDate": "2015-11-19T05:49:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:42:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated pacemaker packages that fix one security issue, several bugs, and\nadd two enhancements are now available for Red Hat Enterprise Linux 7.\n\nRed Hat Product Security has rated this update as having Moderate security\nimpact. A Common Vulnerability Scoring System (CVSS) base score, which\ngives a detailed severity rating, is available from the CVE link in the\nReferences section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe Pacemaker Resource Manager is a collection of technologies working\ntogether to provide data integrity and the ability to maintain\napplication availability in the event of a failure.\n\nA flaw was found in the way pacemaker, a cluster resource manager,\nevaluated added nodes in certain situations. A user with read-only access\ncould potentially assign any other existing roles to themselves and then\nadd privileges to other users as well. (CVE-2015-1867)\n\nThe pacemaker packages have been upgraded to upstream version 1.1.13, which\nprovides a number of bug fixes and enhancements over the previous version.\n(BZ#1234680)\n\nThis update also fixes the following bugs:\n\n* When a Pacemaker cluster included an Apache resource, and Apache's\nmod_systemd module was enabled, systemd rejected notifications sent by\nApache. As a consequence, a large number of errors in the following format\nappeared in the system log:\n\n  Got notification message from PID XXXX, but reception only permitted\n  for PID YYYY\n\nWith this update, the lrmd daemon now unsets the \"NOTIFY_SOCKET\" variable\nin the described circumstances, and these error messages are no longer\nlogged. (BZ#1150184)\n\n* Previously, specifying a remote guest node as a part of a group resource\nin a Pacemaker cluster caused the node to stop working. This update adds\nsupport for remote guests in Pacemaker group resources, and the described\nproblem no longer occurs. (BZ#1168637)\n\n* When a resource in a Pacemaker cluster failed to start, Pacemaker updated\nthe resource's last failure time and incremented its fail count even if the\n\"on-fail=ignore\" option was used. This in some cases caused unintended\nresource migrations when a resource start failure occurred. Now, Pacemaker\ndoes not update the fail count when \"on-fail=ignore\" is used. As a result,\nthe failure is displayed in the cluster status output, but is properly\nignored and thus does not cause resource migration. (BZ#1200849)\n\n* Previously, Pacemaker supported semicolon characters (\";\") as delimiters\nwhen parsing the pcmk_host_map string, but not when parsing the\npcmk_host_list string. To ensure consistent user experience, semicolons are\nnow supported as delimiters for parsing pcmk_host_list, as well.\n(BZ#1206232)\n\nIn addition, this update adds the following enhancements:\n\n* If a Pacemaker location constraint has the \"resource-discovery=never\"\noption, Pacemaker now does not attempt to determine whether a specified\nservice is running on the specified node. In addition, if multiple location\nconstraints for a given resource specify \"resource-discovery=exclusive\",\nthen Pacemaker attempts resource discovery only on the nodes specified in\nthose constraints. This allows Pacemaker to skip resource discovery on\nnodes where attempting the operation would lead to error or other\nundesirable behavior. (BZ#1108853)\n\n* The procedure of configuring fencing for redundant power supplies has\nbeen simplified in order to prevent multiple nodes accessing cluster\nresources at the same time and thus causing data corruption. For further\ninformation, see the \"Fencing: Configuring STONITH\" chapter of the High\nAvailability Add-On Reference manual. (BZ#1206647)\n\n* The output of the \"crm_mon\" and \"pcs_status\" commands has been modified\nto be clearer and more concise, and thus easier to read when reporting\nthe status of a Pacemaker cluster with a large number of remote nodes and\ncloned resources. (BZ#1115840)\n\nAll pacemaker users are advised to upgrade to these updated packages, which\ncorrect these issues and add these enhancements.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2015:2383",
+				"Description": "https://access.redhat.com/errata/RHSA-2015:2383"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "pacemaker: acl read-only access allow role assignment",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-03-31T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-1867",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:2383"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-1867",
+						"Description": "CVE-2015-1867"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1211370",
+						"Description": "bz#1211370: CVE-2015-1867 pacemaker: acl read-only access allow role assignment"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-04-13T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-HighAvailability:pacemaker-0:1.1.13-10.el7",
+						"7Server-ResilientStorage:pacemaker-0:1.1.13-10.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.0",
+					"Vector": "AV:N/AC:M/Au:S/C:P/I:P/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server High Availability (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server High Availability (v. 7)",
+							"productid": "7Server-HighAvailability",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Resilient Storage (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Resilient Storage (v. 7)",
+							"productid": "7Server-ResilientStorage",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "pacemaker-0:1.1.13-10.el7",
+				"fullproductname": {
+					"text": "pacemaker-1.1.13-10.el7.src.rpm",
+					"productid": "pacemaker-0:1.1.13-10.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "pacemaker-0:1.1.13-10.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-HighAvailability",
+				"fullproductname": {
+					"text": "pacemaker-0:1.1.13-10.el7 as a component of Red Hat Enterprise Linux Server High Availability (v. 7)",
+					"productid": "7Server-HighAvailability:pacemaker-0:1.1.13-10.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "pacemaker-0:1.1.13-10.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-ResilientStorage",
+				"fullproductname": {
+					"text": "pacemaker-0:1.1.13-10.el7 as a component of Red Hat Enterprise Linux Server Resilient Storage (v. 7)",
+					"productid": "7Server-ResilientStorage:pacemaker-0:1.1.13-10.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			}
+		]
+	}
+}

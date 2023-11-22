@@ -1,0 +1,536 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: Red Hat Gluster Storage 3.1 update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2015:1846"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2017-03-23T06:46:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2015-10-05T10:43:00Z",
+		"CurrentReleaseDate": "2017-03-23T06:46:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:34:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nRed Hat Gluster Storage 3.1 Update 1, which fixes one security issue,\nseveral bugs, and adds various enhancements, is now available for Red Hat\nEnterprise Linux 7.\n\nRed Hat Product Security has rated this update as having Moderate security\nimpact. A Common Vulnerability Scoring System (CVSS) base score, which\ngives a detailed severity rating, is available from the CVE link in the\nReferences section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nRed Hat Gluster Storage is a software only scale-out storage solution that\nprovides flexible and affordable unstructured data storage. It unifies data\nstorage and infrastructure, increases performance, and improves\navailability and manageability to meet enterprise-level storage challenges.\n\nRed Hat Gluster Storage's Unified File and Object Storage is built on\nOpenStack's Object Storage (swift).\n\nA flaw was found in the metadata constraints in Red Hat Gluster Storage's\nOpenStack Object Storage (swiftonfile). By adding metadata in several\nseparate calls, a malicious user could bypass the max_meta_count\nconstraint, and store more metadata than allowed by the configuration.\n(CVE-2014-8177)\n\nThis update also fixes numerous bugs and adds various enhancements. Space\nprecludes documenting all of these changes in this advisory. Users are\ndirected to the Red Hat Gluster Storage 3.1 Technical Notes, linked to in\nthe References section, for information on the most significant of these\nchanges.\n\nThis advisory introduces the following new features:\n\n* Gdeploy is a tool which automates the process of creating, formatting,\nand mounting bricks. When setting up a fresh cluster, gdeploy could be the\npreferred choice of cluster set up, as manually executing numerous commands\ncan be error prone. The advantages of using gdeploy includes automated\nbrick creation, flexibility in choosing the drives to configure (sd, vd,\netc.), and flexibility in naming the logical volumes (LV) and volume groups\n(VG). (BZ#1248899)\n\n* The gstatus command is now fully supported. The gstatus command provides\nan easy-to-use, high-level view of the health of a trusted storage pool\nwith a single command. It gathers information about the health of a Red Hat\nGluster Storage trusted storage pool for distributed, replicated,\ndistributed-replicated, dispersed, and distributed-dispersed volumes.\n(BZ#1250453)\n\n* You can now recover a bad file detected by BitRot from a replicated\nvolume. The information about the bad file will be logged in the scrubber\nlog file located at /var/log/glusterfs/scrub.log. (BZ#1238171)\n\n* Two tailored tuned profiles are introduced to improve the performance for\nspecific Red Hat Gluster Storage workloads. They are: rhgs-sequential-io,\nwhich improves performance of large files with sequential I/O workloads,\nand rhgs-random-io, which improves performance of small files with random\nI/O workloads (BZ# 1251360)\n\nAll users of Red Hat Gluster Storage are advised to apply this update.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2015:1846",
+				"Description": "https://access.redhat.com/errata/RHSA-2015:1846"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/documentation/en-US/Red_Hat_Storage/3.1/html/Technical_Notes/index.html",
+				"Description": "https://access.redhat.com/documentation/en-US/Red_Hat_Storage/3.1/html/Technical_Notes/index.html"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "gluster-swift metadata constraints are not correctly enforced",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-08-21T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-8177",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1846"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-8177",
+						"Description": "CVE-2014-8177"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1257525",
+						"Description": "bz#1257525: CVE-2014-8177 gluster-swift metadata constraints are not correctly enforced"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-08-21T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-RH-Gluster-3-NFS:nfs-ganesha-0:2.2.0-9.el7rhgs",
+						"7Server-RH-Gluster-3-Nagios-Server:gluster-nagios-common-0:0.2.2-1.el7rhgs",
+						"7Server-RH-Gluster-3-Nagios-Server:nagios-server-addons-0:0.2.2-1.el7rhgs",
+						"7Server-RH-Gluster-3-Server:gdeploy-0:1.0-12.el7rhgs",
+						"7Server-RH-Gluster-3-Server:gluster-nagios-addons-0:0.2.5-1.el7rhgs",
+						"7Server-RH-Gluster-3-Server:gluster-nagios-common-0:0.2.2-1.el7rhgs",
+						"7Server-RH-Gluster-3-Server:glusterfs-0:3.7.1-16.el7rhgs",
+						"7Server-RH-Gluster-3-Server:gstatus-0:0.65-1.el7rhgs",
+						"7Server-RH-Gluster-3-Server:openstack-swift-0:1.13.1-6.el7ost",
+						"7Server-RH-Gluster-3-Server:redhat-storage-server-0:3.1.1.0-2.el7rhgs",
+						"7Server-RH-Gluster-3-Server:swiftonfile-0:1.13.1-5.el7rhgs",
+						"7Server-RH-Gluster-3-Server:vdsm-0:4.16.20-1.3.el7rhgs",
+						"7Server-RHSClient:glusterfs-0:3.7.1-16.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.0",
+					"Vector": "AV:N/AC:L/Au:S/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "OpenStack Swift: unauthorized deletion of versioned Swift object",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-04-15T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-1856",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1846"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-1856",
+						"Description": "CVE-2015-1856"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1209994",
+						"Description": "bz#1209994: CVE-2015-1856 OpenStack Swift: unauthorized deletion of versioned Swift object"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-04-08T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-RH-Gluster-3-NFS:nfs-ganesha-0:2.2.0-9.el7rhgs",
+						"7Server-RH-Gluster-3-Nagios-Server:gluster-nagios-common-0:0.2.2-1.el7rhgs",
+						"7Server-RH-Gluster-3-Nagios-Server:nagios-server-addons-0:0.2.2-1.el7rhgs",
+						"7Server-RH-Gluster-3-Server:gdeploy-0:1.0-12.el7rhgs",
+						"7Server-RH-Gluster-3-Server:gluster-nagios-addons-0:0.2.5-1.el7rhgs",
+						"7Server-RH-Gluster-3-Server:gluster-nagios-common-0:0.2.2-1.el7rhgs",
+						"7Server-RH-Gluster-3-Server:glusterfs-0:3.7.1-16.el7rhgs",
+						"7Server-RH-Gluster-3-Server:gstatus-0:0.65-1.el7rhgs",
+						"7Server-RH-Gluster-3-Server:openstack-swift-0:1.13.1-6.el7ost",
+						"7Server-RH-Gluster-3-Server:redhat-storage-server-0:3.1.1.0-2.el7rhgs",
+						"7Server-RH-Gluster-3-Server:swiftonfile-0:1.13.1-5.el7rhgs",
+						"7Server-RH-Gluster-3-Server:vdsm-0:4.16.20-1.3.el7rhgs",
+						"7Server-RHSClient:glusterfs-0:3.7.1-16.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "3.5",
+					"Vector": "AV:N/AC:M/Au:S/C:N/I:N/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Gluster Storage",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Gluster Storage Nagios 3.1 on RHEL-7",
+						"fullproductname": {
+							"text": "Red Hat Gluster Storage Nagios 3.1 on RHEL-7",
+							"productid": "7Server-RH-Gluster-3-Nagios-Server",
+							"cpe": "cpe:/a:redhat:storage:3.1:nagios:el7"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Gluster Storage NFS 3.1 on RHEL-7",
+						"fullproductname": {
+							"text": "Red Hat Gluster Storage NFS 3.1 on RHEL-7",
+							"productid": "7Server-RH-Gluster-3-NFS",
+							"cpe": "cpe:/a:redhat:storage:3.1:nfs:el7"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Gluster Storage Server 3.1 on RHEL-7",
+						"fullproductname": {
+							"text": "Red Hat Gluster Storage Server 3.1 on RHEL-7",
+							"productid": "7Server-RH-Gluster-3-Server",
+							"cpe": "cpe:/a:redhat:storage:3.1:server:el7"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Storage Native Client for Red Hat Enterprise Linux 7",
+						"fullproductname": {
+							"text": "Red Hat Storage Native Client for Red Hat Enterprise Linux 7",
+							"productid": "7Server-RHSClient",
+							"cpe": "cpe:/a:redhat:storage:3:client:el7"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "gdeploy-0:1.0-12.el7rhgs",
+				"fullproductname": {
+					"text": "gdeploy-1.0-12.el7rhgs.src.rpm",
+					"productid": "gdeploy-0:1.0-12.el7rhgs",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "gluster-nagios-addons-0:0.2.5-1.el7rhgs",
+				"fullproductname": {
+					"text": "gluster-nagios-addons-0.2.5-1.el7rhgs.src.rpm",
+					"productid": "gluster-nagios-addons-0:0.2.5-1.el7rhgs",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "gluster-nagios-common-0:0.2.2-1.el7rhgs",
+				"fullproductname": {
+					"text": "gluster-nagios-common-0.2.2-1.el7rhgs.src.rpm",
+					"productid": "gluster-nagios-common-0:0.2.2-1.el7rhgs",
+					"cpe": "cpe:/a:redhat:storage:3.1:nagios:el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "glusterfs-0:3.7.1-16.el7",
+				"fullproductname": {
+					"text": "glusterfs-3.7.1-16.el7.src.rpm",
+					"productid": "glusterfs-0:3.7.1-16.el7",
+					"cpe": "cpe:/a:redhat:storage:3:client:el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "glusterfs-0:3.7.1-16.el7rhgs",
+				"fullproductname": {
+					"text": "glusterfs-3.7.1-16.el7rhgs.src.rpm",
+					"productid": "glusterfs-0:3.7.1-16.el7rhgs",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "gstatus-0:0.65-1.el7rhgs",
+				"fullproductname": {
+					"text": "gstatus-0.65-1.el7rhgs.src.rpm",
+					"productid": "gstatus-0:0.65-1.el7rhgs",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "nagios-server-addons-0:0.2.2-1.el7rhgs",
+				"fullproductname": {
+					"text": "nagios-server-addons-0.2.2-1.el7rhgs.src.rpm",
+					"productid": "nagios-server-addons-0:0.2.2-1.el7rhgs",
+					"cpe": "cpe:/a:redhat:storage:3.1:nagios:el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "nfs-ganesha-0:2.2.0-9.el7rhgs",
+				"fullproductname": {
+					"text": "nfs-ganesha-2.2.0-9.el7rhgs.src.rpm",
+					"productid": "nfs-ganesha-0:2.2.0-9.el7rhgs",
+					"cpe": "cpe:/a:redhat:storage:3.1:nfs:el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openstack-swift-0:1.13.1-6.el7ost",
+				"fullproductname": {
+					"text": "openstack-swift-1.13.1-6.el7ost.src.rpm",
+					"productid": "openstack-swift-0:1.13.1-6.el7ost",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "redhat-storage-server-0:3.1.1.0-2.el7rhgs",
+				"fullproductname": {
+					"text": "redhat-storage-server-3.1.1.0-2.el7rhgs.src.rpm",
+					"productid": "redhat-storage-server-0:3.1.1.0-2.el7rhgs",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "swiftonfile-0:1.13.1-5.el7rhgs",
+				"fullproductname": {
+					"text": "swiftonfile-1.13.1-5.el7rhgs.src.rpm",
+					"productid": "swiftonfile-0:1.13.1-5.el7rhgs",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "vdsm-0:4.16.20-1.3.el7rhgs",
+				"fullproductname": {
+					"text": "vdsm-4.16.20-1.3.el7rhgs.src.rpm",
+					"productid": "vdsm-0:4.16.20-1.3.el7rhgs",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el7"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "nfs-ganesha-0:2.2.0-9.el7rhgs",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH-Gluster-3-NFS",
+				"fullproductname": {
+					"text": "nfs-ganesha-0:2.2.0-9.el7rhgs as a component of Red Hat Gluster Storage NFS 3.1 on RHEL-7",
+					"productid": "7Server-RH-Gluster-3-NFS:nfs-ganesha-0:2.2.0-9.el7rhgs",
+					"cpe": "cpe:/a:redhat:storage:3.1:nfs:el7"
+				}
+			},
+			{
+				"productreference": "gluster-nagios-common-0:0.2.2-1.el7rhgs",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH-Gluster-3-Nagios-Server",
+				"fullproductname": {
+					"text": "gluster-nagios-common-0:0.2.2-1.el7rhgs as a component of Red Hat Gluster Storage Nagios 3.1 on RHEL-7",
+					"productid": "7Server-RH-Gluster-3-Nagios-Server:gluster-nagios-common-0:0.2.2-1.el7rhgs",
+					"cpe": "cpe:/a:redhat:storage:3.1:nagios:el7"
+				}
+			},
+			{
+				"productreference": "nagios-server-addons-0:0.2.2-1.el7rhgs",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH-Gluster-3-Nagios-Server",
+				"fullproductname": {
+					"text": "nagios-server-addons-0:0.2.2-1.el7rhgs as a component of Red Hat Gluster Storage Nagios 3.1 on RHEL-7",
+					"productid": "7Server-RH-Gluster-3-Nagios-Server:nagios-server-addons-0:0.2.2-1.el7rhgs",
+					"cpe": "cpe:/a:redhat:storage:3.1:nagios:el7"
+				}
+			},
+			{
+				"productreference": "gdeploy-0:1.0-12.el7rhgs",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH-Gluster-3-Server",
+				"fullproductname": {
+					"text": "gdeploy-0:1.0-12.el7rhgs as a component of Red Hat Gluster Storage Server 3.1 on RHEL-7",
+					"productid": "7Server-RH-Gluster-3-Server:gdeploy-0:1.0-12.el7rhgs",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el7"
+				}
+			},
+			{
+				"productreference": "gluster-nagios-addons-0:0.2.5-1.el7rhgs",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH-Gluster-3-Server",
+				"fullproductname": {
+					"text": "gluster-nagios-addons-0:0.2.5-1.el7rhgs as a component of Red Hat Gluster Storage Server 3.1 on RHEL-7",
+					"productid": "7Server-RH-Gluster-3-Server:gluster-nagios-addons-0:0.2.5-1.el7rhgs",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el7"
+				}
+			},
+			{
+				"productreference": "gluster-nagios-common-0:0.2.2-1.el7rhgs",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH-Gluster-3-Server",
+				"fullproductname": {
+					"text": "gluster-nagios-common-0:0.2.2-1.el7rhgs as a component of Red Hat Gluster Storage Server 3.1 on RHEL-7",
+					"productid": "7Server-RH-Gluster-3-Server:gluster-nagios-common-0:0.2.2-1.el7rhgs",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el7"
+				}
+			},
+			{
+				"productreference": "glusterfs-0:3.7.1-16.el7rhgs",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH-Gluster-3-Server",
+				"fullproductname": {
+					"text": "glusterfs-0:3.7.1-16.el7rhgs as a component of Red Hat Gluster Storage Server 3.1 on RHEL-7",
+					"productid": "7Server-RH-Gluster-3-Server:glusterfs-0:3.7.1-16.el7rhgs",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el7"
+				}
+			},
+			{
+				"productreference": "gstatus-0:0.65-1.el7rhgs",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH-Gluster-3-Server",
+				"fullproductname": {
+					"text": "gstatus-0:0.65-1.el7rhgs as a component of Red Hat Gluster Storage Server 3.1 on RHEL-7",
+					"productid": "7Server-RH-Gluster-3-Server:gstatus-0:0.65-1.el7rhgs",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el7"
+				}
+			},
+			{
+				"productreference": "openstack-swift-0:1.13.1-6.el7ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH-Gluster-3-Server",
+				"fullproductname": {
+					"text": "openstack-swift-0:1.13.1-6.el7ost as a component of Red Hat Gluster Storage Server 3.1 on RHEL-7",
+					"productid": "7Server-RH-Gluster-3-Server:openstack-swift-0:1.13.1-6.el7ost",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el7"
+				}
+			},
+			{
+				"productreference": "redhat-storage-server-0:3.1.1.0-2.el7rhgs",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH-Gluster-3-Server",
+				"fullproductname": {
+					"text": "redhat-storage-server-0:3.1.1.0-2.el7rhgs as a component of Red Hat Gluster Storage Server 3.1 on RHEL-7",
+					"productid": "7Server-RH-Gluster-3-Server:redhat-storage-server-0:3.1.1.0-2.el7rhgs",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el7"
+				}
+			},
+			{
+				"productreference": "swiftonfile-0:1.13.1-5.el7rhgs",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH-Gluster-3-Server",
+				"fullproductname": {
+					"text": "swiftonfile-0:1.13.1-5.el7rhgs as a component of Red Hat Gluster Storage Server 3.1 on RHEL-7",
+					"productid": "7Server-RH-Gluster-3-Server:swiftonfile-0:1.13.1-5.el7rhgs",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el7"
+				}
+			},
+			{
+				"productreference": "vdsm-0:4.16.20-1.3.el7rhgs",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH-Gluster-3-Server",
+				"fullproductname": {
+					"text": "vdsm-0:4.16.20-1.3.el7rhgs as a component of Red Hat Gluster Storage Server 3.1 on RHEL-7",
+					"productid": "7Server-RH-Gluster-3-Server:vdsm-0:4.16.20-1.3.el7rhgs",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el7"
+				}
+			},
+			{
+				"productreference": "glusterfs-0:3.7.1-16.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RHSClient",
+				"fullproductname": {
+					"text": "glusterfs-0:3.7.1-16.el7 as a component of Red Hat Storage Native Client for Red Hat Enterprise Linux 7",
+					"productid": "7Server-RHSClient:glusterfs-0:3.7.1-16.el7",
+					"cpe": "cpe:/a:redhat:storage:3:client:el7"
+				}
+			}
+		]
+	}
+}

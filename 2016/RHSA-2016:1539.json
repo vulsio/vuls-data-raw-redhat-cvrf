@@ -1,0 +1,489 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: kernel security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2016:1539"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2016-08-02T18:21:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2016-08-02T18:21:00Z",
+		"CurrentReleaseDate": "2016-08-02T18:21:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:42:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nAn update for kernel is now available for Red Hat Enterprise Linux 7.\n\nRed Hat Product Security has rated this update as having a security impact\nof Important. A Common Vulnerability Scoring System (CVSS) base score,\nwhich gives a detailed severity rating, is available for each vulnerability\nfrom the CVE link(s) in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe kernel packages contain the Linux kernel, the core of any Linux\noperating system.\n\nThese updated kernel packages include several security issues and numerous\nbug fixes, some of which you can see below. Space precludes documenting\nall of these bug fixes in this advisory. To see the complete list of bug\nfixes, users are directed to the related Knowledge Article:\nhttps://access.redhat.com/articles/2460971.\n\nSecurity Fix(es):\n\n* A flaw was found in the Linux kernel's keyring handling code, where in\nkey_reject_and_link() an uninitialised variable would eventually lead to\narbitrary free address which could allow attacker to use a use-after-free\nstyle attack. (CVE-2016-4470, Important)\n\n* The ovl_setattr function in fs/overlayfs/inode.c in the Linux kernel\nthrough 4.3.3 attempts to merge distinct setattr operations, which allows\nlocal users to bypass intended access restrictions and modify the\nattributes of arbitrary overlay files via a crafted application.\n(CVE-2015-8660, Moderate)\n\n* It was reported that on s390x, the fork of a process with four page table\nlevels will cause memory corruption with a variety of symptoms. All\nprocesses are created with three level page table and a limit of 4TB for\nthe address space. If the parent process has four page table levels with a\nlimit of 8PB, the function that duplicates the address space will try to\ncopy memory areas outside of the address space limit for the child process.\n(CVE-2016-2143, Moderate)\n\nRed Hat would like to thank Nathan Williams for reporting CVE-2015-8660.\nThe CVE-2016-4470 issue was discovered by David Howells (Red Hat Inc.).\n\nBug Fix(es):\n\n* The glibc headers and the Linux headers share certain definitions of\nkey structures that are required to be defined in kernel and in userspace.\nIn some instances both userspace and sanitized kernel headers have to be\nincluded in order to get the structure definitions required by the user\nprogram. Unfortunately because the glibc and Linux headers don't\ncoordinate this can result in compilation errors. The glibc headers have\ntherefore been fixed to coordinate with Linux UAPI-based headers. With\nthe header coordination compilation errors no longer occur. (BZ#1331285)\n\n* When running the TCP/IPv6 traffic over the mlx4_en networking interface\non the big endian architectures, call traces reporting about a \"hw csum\nfailure\" could occur. With this update, the mlx4_en driver has been fixed\nby correction of the checksum calculation for the big endian\narchitectures. As a result, the call trace error no longer appears\nin the log messages. (BZ#1337431)\n\n* Under significant load, some applications such as logshifter could\ngenerate bursts of log messages too large for the system logger to spool.\nDue to a race condition, log messages from that application could then be\nlost even after the log volume dropped to manageable levels. This update\nfixes the kernel mechanism used to notify the transmitter end of the\nsocket used by the system logger that more space is available on the\nreceiver side, removing a race condition which previously caused the\nsender to stop transmitting new messages and allowing all log messages\nto be processed correctly. (BZ#1337513)\n\n* Previously, after heavy open or close of the Accelerator Function Unit\n(AFU) contexts, the interrupt packet went out and the AFU context did not\nsee any interrupts. Consequently, a kernel panic could occur. The provided\npatch set fixes handling of the interrupt requests, and kernel panic no\nlonger occurs in the described situation. (BZ#1338886)\n\n* net: recvfrom would fail on short buffer. (BZ#1339115)\n* Backport rhashtable changes from upstream. (BZ#1343639)\n* Server Crashing after starting Glusterd & creating volumes. (BZ#1344234)\n* RAID5 reshape deadlock fix. (BZ#1344313)\n* BDX perf uncore support fix. (BZ#1347374)\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2016:1539",
+				"Description": "https://access.redhat.com/errata/RHSA-2016:1539"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/articles/2460971",
+				"Description": "https://access.redhat.com/articles/2460971"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: Permission bypass on overlayfs during copy_up",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-12-04T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-8660",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes\ndescribed in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2016:1539"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-8660",
+						"Description": "CVE-2015-8660"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1291329",
+						"Description": "bz#1291329: CVE-2015-8660 kernel: Permission bypass on overlayfs during copy_up"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-12-14T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-7.2.Z:kernel-0:3.10.0-327.28.2.el7",
+						"7Client-optional-7.2.Z:kernel-0:3.10.0-327.28.2.el7",
+						"7ComputeNode-7.2.Z:kernel-0:3.10.0-327.28.2.el7",
+						"7ComputeNode-optional-7.2.Z:kernel-0:3.10.0-327.28.2.el7",
+						"7Server-7.2.Z:kernel-0:3.10.0-327.28.2.el7",
+						"7Server-optional-7.2.Z:kernel-0:3.10.0-327.28.2.el7",
+						"7Workstation-7.2.Z:kernel-0:3.10.0-327.28.2.el7",
+						"7Workstation-optional-7.2.Z:kernel-0:3.10.0-327.28.2.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank Nathan Williams for reporting this issue."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.0",
+					"Vector": "AV:L/AC:H/Au:S/C:C/I:C/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: Fork of large process causes memory corruption",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-06-01T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2016-2143",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes\ndescribed in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2016:1539"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2016-2143",
+						"Description": "CVE-2016-2143"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1308908",
+						"Description": "bz#1308908: CVE-2016-2143 kernel: Fork of large process causes memory corruption"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2016-02-16T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-7.2.Z:kernel-0:3.10.0-327.28.2.el7",
+						"7Client-optional-7.2.Z:kernel-0:3.10.0-327.28.2.el7",
+						"7ComputeNode-7.2.Z:kernel-0:3.10.0-327.28.2.el7",
+						"7ComputeNode-optional-7.2.Z:kernel-0:3.10.0-327.28.2.el7",
+						"7Server-7.2.Z:kernel-0:3.10.0-327.28.2.el7",
+						"7Server-optional-7.2.Z:kernel-0:3.10.0-327.28.2.el7",
+						"7Workstation-7.2.Z:kernel-0:3.10.0-327.28.2.el7",
+						"7Workstation-optional-7.2.Z:kernel-0:3.10.0-327.28.2.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.2",
+					"Vector": "AV:L/AC:H/Au:N/C:C/I:C/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: Uninitialized variable in request_key handling causes kernel crash in error handling path",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-06-15T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2016-4470",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes\ndescribed in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2016:1539"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2016-4470",
+						"Description": "CVE-2016-4470"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1341716",
+						"Description": "bz#1341716: CVE-2016-4470 kernel: Uninitialized variable in request_key handling causes kernel crash in error handling path"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2016-06-01T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-7.2.Z:kernel-0:3.10.0-327.28.2.el7",
+						"7Client-optional-7.2.Z:kernel-0:3.10.0-327.28.2.el7",
+						"7ComputeNode-7.2.Z:kernel-0:3.10.0-327.28.2.el7",
+						"7ComputeNode-optional-7.2.Z:kernel-0:3.10.0-327.28.2.el7",
+						"7Server-7.2.Z:kernel-0:3.10.0-327.28.2.el7",
+						"7Server-optional-7.2.Z:kernel-0:3.10.0-327.28.2.el7",
+						"7Workstation-7.2.Z:kernel-0:3.10.0-327.28.2.el7",
+						"7Workstation-optional-7.2.Z:kernel-0:3.10.0-327.28.2.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "This issue was discovered by David Howells (Red Hat)."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.9",
+					"Vector": "AV:L/AC:M/Au:N/C:C/I:C/A:C"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Client (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Client (v. 7)",
+							"productid": "7Client-7.2.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Client Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Client Optional (v. 7)",
+							"productid": "7Client-optional-7.2.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ComputeNode (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ComputeNode (v. 7)",
+							"productid": "7ComputeNode-7.2.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+							"productid": "7ComputeNode-optional-7.2.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 7)",
+							"productid": "7Server-7.2.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional (v. 7)",
+							"productid": "7Server-optional-7.2.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 7)",
+							"productid": "7Workstation-7.2.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation Optional (v. 7)",
+							"productid": "7Workstation-optional-7.2.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-0:3.10.0-327.28.2.el7",
+				"fullproductname": {
+					"text": "kernel-3.10.0-327.28.2.el7.src.rpm",
+					"productid": "kernel-0:3.10.0-327.28.2.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "kernel-0:3.10.0-327.28.2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-7.2.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-327.28.2.el7 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"productid": "7Client-7.2.Z:kernel-0:3.10.0-327.28.2.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-327.28.2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-optional-7.2.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-327.28.2.el7 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"productid": "7Client-optional-7.2.Z:kernel-0:3.10.0-327.28.2.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-327.28.2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-7.2.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-327.28.2.el7 as a component of Red Hat Enterprise Linux ComputeNode (v. 7)",
+					"productid": "7ComputeNode-7.2.Z:kernel-0:3.10.0-327.28.2.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-327.28.2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-optional-7.2.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-327.28.2.el7 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"productid": "7ComputeNode-optional-7.2.Z:kernel-0:3.10.0-327.28.2.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-327.28.2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-7.2.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-327.28.2.el7 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server-7.2.Z:kernel-0:3.10.0-327.28.2.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-327.28.2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-optional-7.2.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-327.28.2.el7 as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"productid": "7Server-optional-7.2.Z:kernel-0:3.10.0-327.28.2.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-327.28.2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-7.2.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-327.28.2.el7 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"productid": "7Workstation-7.2.Z:kernel-0:3.10.0-327.28.2.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-327.28.2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-optional-7.2.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-327.28.2.el7 as a component of Red Hat Enterprise Linux Workstation Optional (v. 7)",
+					"productid": "7Workstation-optional-7.2.Z:kernel-0:3.10.0-327.28.2.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			}
+		]
+	}
+}

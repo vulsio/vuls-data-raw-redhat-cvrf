@@ -1,0 +1,247 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Bug Fix Advisory: freeradius bug fix and enhancement update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHBA-2012:0881"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2012-06-19T16:47:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2012-06-20T00:00:00Z",
+		"CurrentReleaseDate": "2012-06-19T16:47:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.12.2",
+			"Date": "2023-03-24T15:01:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated freeradius packages that fix several bugs and add various enhancements are now available for Red Hat Enterprise Linux 6.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nFreeRADIUS is an open-source Remote Authentication Dial In User Service (RADIUS) server which allows RADIUS clients to perform authentication against the RADIUS server. The RADIUS server may optionally perform accounting of its operations using the RADIUS protocol.\n\nThe freeradius packages have been upgraded to upstream version 2.1.12, which provides a number of bug fixes and enhancements over the previous version. (BZ#736878)\n\nThis update fixes the following bugs:\n\n* The radtest command-line argument to request the PPP hint option was not parsed correctly. Consequently, radclient did not add the PPP hint to the request packet and the test failed. This update corrects the problem and radtest now functions as expected. (BZ#787116)\n\n* After log rotation, the freeradius logrotate script failed to reload the radiusd daemon after a log rotation and log messages were lost. This update has added a command to the freeradius logrotate script to reload the radiusd daemon and the radiusd daemon reinitializes and reopens its log files after log rotation as expected. (BZ#705723)\n\n* The radtest argument with the eap-md5 option failed because it passed the IP family argument when invoking the radeapclient utility and the radeapclient utility did not recognize the IP family. The radeapclient now recognizes the IP family argument and radtest now works with eap-md5 as expected. (BZ#712803)\n\n* Previously, freeradius was compiled without the \"--with-udpfromto\" option. Consequently, with a multihomed server and explicitly specifying the IP address, freeradius sent the reply from the wrong IP address. With this update, freeradius has been built with the --with-udpfromto configuration option and the RADIUS reply is always sourced from the IP the request was sent to. (BZ#700870)\n\n* The password expiration field for local passwords was not checked by the unix module and the debug information was erroneous. Consequently, a user with an expired password in the local password file was authenticated despite having an expired password. With this update, check of the password expiration has been modified. A user with an expired local password is denied access and correct debugging information is written to the log file. (BZ#753764)\n\n* Due to invalid syntax in the PostgreSQL admin schema file, the FreeRADIUS PostgreSQL tables failed to be created. With this update, the syntax has been adjusted and the tables are created as expected. (BZ#690756)\n\n* When FreeRADIUS received a request, it sometimes failed with the following message:\n\n    WARNING: Internal sanity check failed in event handler for request 6\n\nThis bug was fixed by upgrading to upstream version 2.1.12. (BZ#782905)\n\n* FreeRADIUS has a thread pool that will dynamically grow based on load.  If multiple threads using the rlm_perl() function are spawned in quick succession, freeradius sometimes terminated unexpectedly with a segmentation fault due to parallel calls to the rlm_perl_clone() function. With this update, mutex for the threads has been added and the problem no longer occurs. (BZ#810605)\n\nAll users of freeradius are advised to upgrade to these updated packages, which fix these bugs and add these enhancements.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2023 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Low",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHBA-2012:0881",
+				"Description": "https://access.redhat.com/errata/RHBA-2012:0881"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "modules/rlm_unix/rlm_unix.c in FreeRADIUS before 2.2.0, when unix mode is enabled for user authentication, does not properly check the password expiration in /etc/shadow, which allows remote authenticated users to authenticate using an expired password.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2011-11-14T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2011-4966",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHBA-2012:0881"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2011-4966",
+						"Description": "CVE-2011-4966"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=879045",
+						"Description": "bz#879045: CVE-2011-4966 freeradius: does not respect expired passwords when using the unix module"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2012-09-07T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-optional:freeradius-0:2.1.12-3.el6",
+						"6Server:freeradius-0:2.1.12-3.el6",
+						"6Workstation-optional:freeradius-0:2.1.12-3.el6",
+						"6Workstation:freeradius-0:2.1.12-3.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.1",
+					"Vector": "AV:N/AC:H/Au:S/C:N/I:P/A:N"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 6)",
+							"productid": "6Server",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional (v. 6)",
+							"productid": "6Server-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 6)",
+							"productid": "6Workstation",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+							"productid": "6Workstation-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "freeradius-0:2.1.12-3.el6",
+				"fullproductname": {
+					"text": "freeradius-2.1.12-3.el6.src.rpm",
+					"productid": "freeradius-0:2.1.12-3.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "freeradius-0:2.1.12-3.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server",
+				"fullproductname": {
+					"text": "freeradius-0:2.1.12-3.el6 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"productid": "6Server:freeradius-0:2.1.12-3.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "freeradius-0:2.1.12-3.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-optional",
+				"fullproductname": {
+					"text": "freeradius-0:2.1.12-3.el6 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"productid": "6Server-optional:freeradius-0:2.1.12-3.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "freeradius-0:2.1.12-3.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation",
+				"fullproductname": {
+					"text": "freeradius-0:2.1.12-3.el6 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"productid": "6Workstation:freeradius-0:2.1.12-3.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			},
+			{
+				"productreference": "freeradius-0:2.1.12-3.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-optional",
+				"fullproductname": {
+					"text": "freeradius-0:2.1.12-3.el6 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"productid": "6Workstation-optional:freeradius-0:2.1.12-3.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			}
+		]
+	}
+}

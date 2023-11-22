@@ -1,0 +1,266 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: openstack-keystone security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2014:1688"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2014-10-22T17:21:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2014-10-22T17:21:00Z",
+		"CurrentReleaseDate": "2014-10-22T17:21:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:52:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated openstack-keystone packages that fix two security issues and\nmultiple bugs are now available for Red Hat Enterprise Linux OpenStack\nPlatform 4.0.\n\nRed Hat Product Security has rated this update as having Important security\nimpact. Common Vulnerability Scoring System (CVSS) base scores, which give\ndetailed severity ratings, are available for each vulnerability from the\nCVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe OpenStack Identity service (keystone) authenticates and authorizes\nOpenStack users by keeping track of users and their permitted activities.\nThe Identity service supports multiple forms of authentication, including\nuser name and password credentials, token-based systems, and AWS-style\nlogins.\n\nA flaw was found in the keystone V3 API. An attacker could send a single\nrequest with the same authentication method multiple times, possibly\nleading to a denial of service due to generating excessive load with\nminimal requests. Only keystone setups with the V3 API enabled were\naffected by this issue. (CVE-2014-2828)\n\nA flaw was found in the keystone catalog URL replacement. A user with\npermissions to register an endpoint could use this flaw to leak\nconfiguration data, including the master admin_token. Only keystone setups\nthat allow non-cloud-admin users to create endpoints were affected by this\nissue. (CVE-2014-3621)\n\nRed Hat would like to thank the OpenStack project for reporting\nCVE-2014-3621. Upstream acknowledges Brant Knudson from IBM as the original\nreporter of this issue.\n\nThe openstack-keystone packages have been upgraded to upstream version\n2013.2.4, which provides a number of bug fixes over the previous version.\n(BZ#1146083)\n\nThis update fixes the following bugs:\n\n* When using an LDAP back end, the Identity service failed with a 'Bad\nsearch filter' error whenever a token request was made for a user whose ID\ncontained a comma (for example, 'Doe, John'). However, if the user's ID\ncontained no comma ('John Doe'), the Identity service grants token requests\nas expected. This was because the LDAP back end code of the Identity server\ndid not properly escape special characters when creating search filters.\nThis update adds the necessary escaping, thereby allowing the Identity\nserver to perform LDAP search operations correctly. (BZ#1099628)\n\n* Previously, if the Identity service encountered a failed connection to a\nmessage broker, re-connection attempts kept failing as well. This was\nbecause the Identity service tried to reconnect to the same failing message\nbroker, even if there were multiple hosts configured. This has been fixed\nby making the reconnect() implementation select the next broker in the\nlist. As a result, when multiple broker hosts are provided, the Identity\nservice will try the next one in the list at every connection attempt.\nThis means that non-failure reconnect attempts will also switch from the\ncurrent broker to the next in the list. Hence, users should not rely on any\nparticular order when using brokers from the list. (BZ#1082669)\n\n* The Identity service now logs successful authentications of users.\nIn previous releases, only authentication failures were logged.\n(BZ#1098635)\n\n* When using the LDAP back end and connecting to Active Directory\nanonymously, trying to use the top-level suffix as the user_tree_dn (or\ntenant/role_tree_dn) failed with a communication error. This is because the\nIdentity service attempted to chase returned referrals, which is not\nallowed by default in Active Directory for security reasons. This update\nadds a new configuration option to disable referral chasing for LDAP search\noperations, namely chase_referrals. When this option is disabled, the\nIdentity service will skip over any returned referrals without chasing\nthem. (BZ#1093833)\n\nAll openstack-keystone users are advised to upgrade to these updated\npackages, which correct these issues.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2014:1688",
+				"Description": "https://access.redhat.com/errata/RHSA-2014:1688"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			},
+			{
+				"type": "External",
+				"URL": "https://wiki.openstack.org/wiki/ReleaseNotes/2013.2.4",
+				"Description": "https://wiki.openstack.org/wiki/ReleaseNotes/2013.2.4"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "openstack-keystone: denial of service via V3 API authentication chaining",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-03-31T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-2828",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2014:1688"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-2828",
+						"Description": "CVE-2014-2828"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1086211",
+						"Description": "bz#1086211: CVE-2014-2828 openstack-keystone: denial of service via V3 API authentication chaining"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-04-09T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-RHOS-4.0:openstack-keystone-0:2013.2.4-1.el6ost"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.0",
+					"Vector": "AV:N/AC:L/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "openstack-keystone: configuration data information leak through Keystone catalog",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-09-16T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-3621",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2014:1688"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-3621",
+						"Description": "CVE-2014-3621"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1139937",
+						"Description": "bz#1139937: CVE-2014-3621 openstack-keystone: configuration data information leak through Keystone catalog"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2014-09-08T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-RHOS-4.0:openstack-keystone-0:2013.2.4-1.el6ost"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "3.6",
+					"Vector": "AV:N/AC:H/Au:S/C:P/I:P/A:N"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat OpenStack Platform",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux OpenStack Platform 4.0",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux OpenStack Platform 4.0",
+							"productid": "6Server-RHOS-4.0",
+							"cpe": "cpe:/a:redhat:openstack:4::el6"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "openstack-keystone-0:2013.2.4-1.el6ost",
+				"fullproductname": {
+					"text": "openstack-keystone-2013.2.4-1.el6ost.src.rpm",
+					"productid": "openstack-keystone-0:2013.2.4-1.el6ost",
+					"cpe": "cpe:/a:redhat:openstack:4::el6"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "openstack-keystone-0:2013.2.4-1.el6ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RHOS-4.0",
+				"fullproductname": {
+					"text": "openstack-keystone-0:2013.2.4-1.el6ost as a component of Red Hat Enterprise Linux OpenStack Platform 4.0",
+					"productid": "6Server-RHOS-4.0:openstack-keystone-0:2013.2.4-1.el6ost",
+					"cpe": "cpe:/a:redhat:openstack:4::el6"
+				}
+			}
+		]
+	}
+}

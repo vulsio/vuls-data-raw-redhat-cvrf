@@ -1,0 +1,1466 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: Service Telemetry Framework 1.5 security update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2023:1529"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2023-03-30T00:42:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2023-03-30T00:42:00Z",
+		"CurrentReleaseDate": "2023-03-30T00:42:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.12.2",
+			"Date": "2023-03-30T04:31:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nAn update is now available for Service Telemetry Framework 1.5.\n\nRed Hat Product Security has rated this update as having a security impact of Moderate. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nService Telemetry Framework (STF) provides automated collection of measurements and data from remote clients, such as Red Hat OpenStack Platform or third-party nodes. STF then transmits the information to a centralized, receiving Red Hat OpenShift Container Platform (OCP) deployment for storage, retrieval, and monitoring.\n\nSecurity Fix(es):\n\n* golang: crypto/elliptic: IsOnCurve returns true for invalid field elements (CVE-2022-23806)\n\n* golang: math/big: uncontrolled memory consumption due to an unhandled overflow via Rat.SetString (CVE-2022-23772)\n\n* golang: cmd/go: misinterpretation of branch names can lead to incorrect access control (CVE-2022-23773)\n\n* golang: encoding/pem: fix stack overflow in Decode (CVE-2022-24675)\n\n* golang: crypto/elliptic: panic caused by oversized scalar (CVE-2022-28327)\n\n* golang: syscall: faccessat checks wrong group (CVE-2022-29526)\n\n* golang: compress/gzip: stack exhaustion in Reader.Read (CVE-2022-30631)\n\n* golang: io/fs: stack exhaustion in Glob (CVE-2022-30630)\n\n* golang: net/http: improper sanitization of Transfer-Encoding header (CVE-2022-1705)\n\n* golang: path/filepath: stack exhaustion in Glob (CVE-2022-30632)\n\n* golang: net/http: handle server errors after sending GOAWAY (CVE-2022-27664)\n\n* golang: regexp/syntax: limit memory used by parsing regexps (CVE-2022-41715)\n\n* golang: net/http: An attacker can cause excessive memory growth in a Go server accepting HTTP/2 requests (CVE-2022-41717)\n\n* golang: crypto/tls: session tickets lack random ticket_age_add (CVE-2022-30629)\n\n* golang: math/big: decoding big.Float and big.Rat types can panic if the encoded message is too short, potentially allowing a denial of service (CVE-2022-32189)\n\nFor more details about the security issue(s), including the impact, a CVSS score, and other related information, refer to the CVE page(s) listed in the References section.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2023 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2023:1529",
+				"Description": "https://access.redhat.com/errata/RHSA-2023:1529"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in golang. The HTTP/1 client accepted invalid Transfer-Encoding headers indicating \"chunked\" encoding. This issue could allow request smuggling, but only if combined with an intermediate server that also improperly accepts the header as invalid.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-07-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-1705",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThe Service Telemetry Framework container image provided by this update can be downloaded from the Red Hat Container Registry at registry.access.redhat.com. Installation instructions for your platform are available at Red Hat Container Catalog (see References).\n\nDockerfiles and scripts should be amended either to refer to this new image specifically, or to the latest image generally.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:1529"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://groups.google.com/g/golang-announce/c/nqrv9fbR0zE",
+						"Description": "https://groups.google.com/g/golang-announce/c/nqrv9fbR0zE"
+					},
+					{
+						"URL": "https://go.dev/issue/53188",
+						"Description": "https://go.dev/issue/53188"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-1705",
+						"Description": "CVE-2022-1705"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2107374",
+						"Description": "bz#2107374: CVE-2022-1705 golang: net/http: improper sanitization of Transfer-Encoding header"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2022-07-14T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-STF-1.5:prometheus-webhook-snmp-container-1.5.2-2",
+						"8Base-STF-1.5:service-telemetry-operator-bundle-container-1.5.1678301890-1",
+						"8Base-STF-1.5:service-telemetry-operator-container-1.5.1-2",
+						"8Base-STF-1.5:sg-bridge-container-1.5.0-12",
+						"8Base-STF-1.5:sg-core-container-5.1.1-2",
+						"8Base-STF-1.5:smart-gateway-operator-bundle-container-5.0.1678301890-1",
+						"8Base-STF-1.5:smart-gateway-operator-container-5.0.1-3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in the big package of the math library in golang. The Rat.SetString could cause an overflow, and if left unhandled, it could lead to excessive memory use. This issue could allow a remote attacker to impact the availability of the system.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-01-19T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-23772",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThe Service Telemetry Framework container image provided by this update can be downloaded from the Red Hat Container Registry at registry.access.redhat.com. Installation instructions for your platform are available at Red Hat Container Catalog (see References).\n\nDockerfiles and scripts should be amended either to refer to this new image specifically, or to the latest image generally.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:1529"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://groups.google.com/g/golang-announce/c/SUsQn0aSgPQ",
+						"Description": "https://groups.google.com/g/golang-announce/c/SUsQn0aSgPQ"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-23772",
+						"Description": "CVE-2022-23772"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2053532",
+						"Description": "bz#2053532: CVE-2022-23772 golang: math/big: uncontrolled memory consumption due to an unhandled overflow via Rat.SetString"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2022-02-11T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-STF-1.5:prometheus-webhook-snmp-container-1.5.2-2",
+						"8Base-STF-1.5:service-telemetry-operator-bundle-container-1.5.1678301890-1",
+						"8Base-STF-1.5:service-telemetry-operator-container-1.5.1-2",
+						"8Base-STF-1.5:sg-bridge-container-1.5.0-12",
+						"8Base-STF-1.5:sg-core-container-5.1.1-2",
+						"8Base-STF-1.5:smart-gateway-operator-bundle-container-5.0.1678301890-1",
+						"8Base-STF-1.5:smart-gateway-operator-container-5.0.1-3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in the go package of the cmd library in golang. The go command could be tricked into accepting a branch, which resembles a version tag. This issue could allow a remote unauthenticated attacker to bypass security restrictions and introduce invalid or incorrect tags, reducing the integrity of the environment.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-02-11T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-23773",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThe Service Telemetry Framework container image provided by this update can be downloaded from the Red Hat Container Registry at registry.access.redhat.com. Installation instructions for your platform are available at Red Hat Container Catalog (see References).\n\nDockerfiles and scripts should be amended either to refer to this new image specifically, or to the latest image generally.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:1529"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://groups.google.com/g/golang-announce/c/SUsQn0aSgPQ",
+						"Description": "https://groups.google.com/g/golang-announce/c/SUsQn0aSgPQ"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-23773",
+						"Description": "CVE-2022-23773"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2053541",
+						"Description": "bz#2053541: CVE-2022-23773 golang: cmd/go: misinterpretation of branch names can lead to incorrect access control"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2022-02-11T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-STF-1.5:prometheus-webhook-snmp-container-1.5.2-2",
+						"8Base-STF-1.5:service-telemetry-operator-bundle-container-1.5.1678301890-1",
+						"8Base-STF-1.5:service-telemetry-operator-container-1.5.1-2",
+						"8Base-STF-1.5:sg-bridge-container-1.5.0-12",
+						"8Base-STF-1.5:sg-core-container-5.1.1-2",
+						"8Base-STF-1.5:smart-gateway-operator-bundle-container-5.0.1678301890-1",
+						"8Base-STF-1.5:smart-gateway-operator-container-5.0.1-3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in the elliptic package of the crypto library in golang when the IsOnCurve function could return true for invalid field elements. This flaw allows an attacker to take advantage of this undefined behavior, affecting the availability and integrity of the resource.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-02-11T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-23806",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThe Service Telemetry Framework container image provided by this update can be downloaded from the Red Hat Container Registry at registry.access.redhat.com. Installation instructions for your platform are available at Red Hat Container Catalog (see References).\n\nDockerfiles and scripts should be amended either to refer to this new image specifically, or to the latest image generally.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:1529"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://groups.google.com/g/golang-announce/c/SUsQn0aSgPQ",
+						"Description": "https://groups.google.com/g/golang-announce/c/SUsQn0aSgPQ"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-23806",
+						"Description": "CVE-2022-23806"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2053429",
+						"Description": "bz#2053429: CVE-2022-23806 golang: crypto/elliptic: IsOnCurve returns true for invalid field elements"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2022-02-11T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-STF-1.5:prometheus-webhook-snmp-container-1.5.2-2",
+						"8Base-STF-1.5:service-telemetry-operator-bundle-container-1.5.1678301890-1",
+						"8Base-STF-1.5:service-telemetry-operator-container-1.5.1-2",
+						"8Base-STF-1.5:sg-bridge-container-1.5.0-12",
+						"8Base-STF-1.5:sg-core-container-5.1.1-2",
+						"8Base-STF-1.5:smart-gateway-operator-bundle-container-5.0.1678301890-1",
+						"8Base-STF-1.5:smart-gateway-operator-container-5.0.1-3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A buffer overflow flaw was found in Golang's library encoding/pem. This flaw allows an attacker to use a large PEM input (more than 5 MB), causing a stack overflow in Decode, which leads to a loss of availability.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-04-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-24675",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThe Service Telemetry Framework container image provided by this update can be downloaded from the Red Hat Container Registry at registry.access.redhat.com. Installation instructions for your platform are available at Red Hat Container Catalog (see References).\n\nDockerfiles and scripts should be amended either to refer to this new image specifically, or to the latest image generally.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:1529"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://groups.google.com/g/golang-announce/c/oecdBNLOml8",
+						"Description": "https://groups.google.com/g/golang-announce/c/oecdBNLOml8"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-24675",
+						"Description": "CVE-2022-24675"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2077688",
+						"Description": "bz#2077688: CVE-2022-24675 golang: encoding/pem: fix stack overflow in Decode"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2022-04-21T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-STF-1.5:prometheus-webhook-snmp-container-1.5.2-2",
+						"8Base-STF-1.5:service-telemetry-operator-bundle-container-1.5.1678301890-1",
+						"8Base-STF-1.5:service-telemetry-operator-container-1.5.1-2",
+						"8Base-STF-1.5:sg-bridge-container-1.5.0-12",
+						"8Base-STF-1.5:sg-core-container-5.1.1-2",
+						"8Base-STF-1.5:smart-gateway-operator-bundle-container-5.0.1678301890-1",
+						"8Base-STF-1.5:smart-gateway-operator-container-5.0.1-3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "6",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in the golang package. In net/http in Go, attackers can cause a denial of service because an HTTP/2 connection can hang during closing if a fatal error preempts the shutdown.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-09-06T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-27664",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThe Service Telemetry Framework container image provided by this update can be downloaded from the Red Hat Container Registry at registry.access.redhat.com. Installation instructions for your platform are available at Red Hat Container Catalog (see References).\n\nDockerfiles and scripts should be amended either to refer to this new image specifically, or to the latest image generally.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:1529"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://go.dev/issue/54658",
+						"Description": "https://go.dev/issue/54658"
+					},
+					{
+						"URL": "https://groups.google.com/g/golang-announce/c/x49AQzIVX-s/m/0tgO0pjiBQAJ",
+						"Description": "https://groups.google.com/g/golang-announce/c/x49AQzIVX-s/m/0tgO0pjiBQAJ"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-27664",
+						"Description": "CVE-2022-27664"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2124669",
+						"Description": "bz#2124669: CVE-2022-27664 golang: net/http: handle server errors after sending GOAWAY"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2022-09-06T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-STF-1.5:prometheus-webhook-snmp-container-1.5.2-2",
+						"8Base-STF-1.5:service-telemetry-operator-bundle-container-1.5.1678301890-1",
+						"8Base-STF-1.5:service-telemetry-operator-container-1.5.1-2",
+						"8Base-STF-1.5:sg-bridge-container-1.5.0-12",
+						"8Base-STF-1.5:sg-core-container-5.1.1-2",
+						"8Base-STF-1.5:smart-gateway-operator-bundle-container-5.0.1678301890-1",
+						"8Base-STF-1.5:smart-gateway-operator-container-5.0.1-3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "7",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "An integer overflow flaw was found in Golang's crypto/elliptic library. This flaw allows an attacker to use a crafted scaler input longer than 32 bytes, causing P256().ScalarMult or P256().ScalarBaseMult to panic, leading to a loss of availability.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-04-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-28327",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThe Service Telemetry Framework container image provided by this update can be downloaded from the Red Hat Container Registry at registry.access.redhat.com. Installation instructions for your platform are available at Red Hat Container Catalog (see References).\n\nDockerfiles and scripts should be amended either to refer to this new image specifically, or to the latest image generally.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:1529"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://groups.google.com/g/golang-announce/c/oecdBNLOml8",
+						"Description": "https://groups.google.com/g/golang-announce/c/oecdBNLOml8"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-28327",
+						"Description": "CVE-2022-28327"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2077689",
+						"Description": "bz#2077689: CVE-2022-28327 golang: crypto/elliptic: panic caused by oversized scalar"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2022-04-21T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-STF-1.5:prometheus-webhook-snmp-container-1.5.2-2",
+						"8Base-STF-1.5:service-telemetry-operator-bundle-container-1.5.1678301890-1",
+						"8Base-STF-1.5:service-telemetry-operator-container-1.5.1-2",
+						"8Base-STF-1.5:sg-bridge-container-1.5.0-12",
+						"8Base-STF-1.5:sg-core-container-5.1.1-2",
+						"8Base-STF-1.5:smart-gateway-operator-bundle-container-5.0.1678301890-1",
+						"8Base-STF-1.5:smart-gateway-operator-container-5.0.1-3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "8",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in the syscall.Faccessat function when calling a process by checking the group. This flaw allows an attacker to check the process group permissions rather than a member of the file's group, affecting system availability.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-05-11T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-29526",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThe Service Telemetry Framework container image provided by this update can be downloaded from the Red Hat Container Registry at registry.access.redhat.com. Installation instructions for your platform are available at Red Hat Container Catalog (see References).\n\nDockerfiles and scripts should be amended either to refer to this new image specifically, or to the latest image generally.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:1529"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://groups.google.com/g/golang-announce/c/Y5qrqw_lWdU",
+						"Description": "https://groups.google.com/g/golang-announce/c/Y5qrqw_lWdU"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-29526",
+						"Description": "CVE-2022-29526"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2084085",
+						"Description": "bz#2084085: CVE-2022-29526 golang: syscall: faccessat checks wrong group"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2022-05-11T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-STF-1.5:prometheus-webhook-snmp-container-1.5.2-2",
+						"8Base-STF-1.5:service-telemetry-operator-bundle-container-1.5.1678301890-1",
+						"8Base-STF-1.5:service-telemetry-operator-container-1.5.1-2",
+						"8Base-STF-1.5:sg-bridge-container-1.5.0-12",
+						"8Base-STF-1.5:sg-core-container-5.1.1-2",
+						"8Base-STF-1.5:smart-gateway-operator-bundle-container-5.0.1678301890-1",
+						"8Base-STF-1.5:smart-gateway-operator-container-5.0.1-3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": " Upstream acknowledges Joël Gähwiler as the original reporter."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "9",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in the crypto/tls golang package. When session tickets are generated by crypto/tls, it is missing the ticket expiration. This issue may allow an attacker to observe the TLS handshakes to correlate successive connections during session resumption.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-06-02T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-30629",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThe Service Telemetry Framework container image provided by this update can be downloaded from the Red Hat Container Registry at registry.access.redhat.com. Installation instructions for your platform are available at Red Hat Container Catalog (see References).\n\nDockerfiles and scripts should be amended either to refer to this new image specifically, or to the latest image generally.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:1529"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://groups.google.com/g/golang-announce/c/TzIC9-t8Ytg",
+						"Description": "https://groups.google.com/g/golang-announce/c/TzIC9-t8Ytg"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-30629",
+						"Description": "CVE-2022-30629"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2092793",
+						"Description": "bz#2092793: CVE-2022-30629 golang: crypto/tls: session tickets lack random ticket_age_add"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2022-06-02T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-STF-1.5:prometheus-webhook-snmp-container-1.5.2-2",
+						"8Base-STF-1.5:service-telemetry-operator-bundle-container-1.5.1678301890-1",
+						"8Base-STF-1.5:service-telemetry-operator-container-1.5.1-2",
+						"8Base-STF-1.5:sg-bridge-container-1.5.0-12",
+						"8Base-STF-1.5:sg-core-container-5.1.1-2",
+						"8Base-STF-1.5:smart-gateway-operator-bundle-container-5.0.1678301890-1",
+						"8Base-STF-1.5:smart-gateway-operator-container-5.0.1-3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "10",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in the golang standard library, io/fs. Calling Glob on a path that contains a large number of path separators can cause a panic issue due to stack exhaustion. This could allow an attacker to impact availability.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-07-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-30630",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThe Service Telemetry Framework container image provided by this update can be downloaded from the Red Hat Container Registry at registry.access.redhat.com. Installation instructions for your platform are available at Red Hat Container Catalog (see References).\n\nDockerfiles and scripts should be amended either to refer to this new image specifically, or to the latest image generally.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:1529"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://go.dev/issue/53415",
+						"Description": "https://go.dev/issue/53415"
+					},
+					{
+						"URL": "https://groups.google.com/g/golang-announce/c/nqrv9fbR0zE",
+						"Description": "https://groups.google.com/g/golang-announce/c/nqrv9fbR0zE"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-30630",
+						"Description": "CVE-2022-30630"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2107371",
+						"Description": "bz#2107371: CVE-2022-30630 golang: io/fs: stack exhaustion in Glob"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2022-07-14T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-STF-1.5:prometheus-webhook-snmp-container-1.5.2-2",
+						"8Base-STF-1.5:service-telemetry-operator-bundle-container-1.5.1678301890-1",
+						"8Base-STF-1.5:service-telemetry-operator-container-1.5.1-2",
+						"8Base-STF-1.5:sg-bridge-container-1.5.0-12",
+						"8Base-STF-1.5:sg-core-container-5.1.1-2",
+						"8Base-STF-1.5:smart-gateway-operator-bundle-container-5.0.1678301890-1",
+						"8Base-STF-1.5:smart-gateway-operator-container-5.0.1-3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "11",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in golang. Calling the Reader, Read method on an archive that contains a large number of concatenated 0-length compressed files can cause a panic issue due to stack exhaustion.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-07-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-30631",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThe Service Telemetry Framework container image provided by this update can be downloaded from the Red Hat Container Registry at registry.access.redhat.com. Installation instructions for your platform are available at Red Hat Container Catalog (see References).\n\nDockerfiles and scripts should be amended either to refer to this new image specifically, or to the latest image generally.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:1529"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://go.dev/issue/53168",
+						"Description": "https://go.dev/issue/53168"
+					},
+					{
+						"URL": "https://groups.google.com/g/golang-announce/c/nqrv9fbR0zE",
+						"Description": "https://groups.google.com/g/golang-announce/c/nqrv9fbR0zE"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-30631",
+						"Description": "CVE-2022-30631"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2107342",
+						"Description": "bz#2107342: CVE-2022-30631 golang: compress/gzip: stack exhaustion in Reader.Read"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2022-07-14T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-STF-1.5:prometheus-webhook-snmp-container-1.5.2-2",
+						"8Base-STF-1.5:service-telemetry-operator-bundle-container-1.5.1678301890-1",
+						"8Base-STF-1.5:service-telemetry-operator-container-1.5.1-2",
+						"8Base-STF-1.5:sg-bridge-container-1.5.0-12",
+						"8Base-STF-1.5:sg-core-container-5.1.1-2",
+						"8Base-STF-1.5:smart-gateway-operator-bundle-container-5.0.1678301890-1",
+						"8Base-STF-1.5:smart-gateway-operator-container-5.0.1-3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "12",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in golang. Calling Glob on a path that contains a large number of path separators can cause a panic issue due to stack exhaustion. This can cause an attacker to impact availability.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-07-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-30632",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThe Service Telemetry Framework container image provided by this update can be downloaded from the Red Hat Container Registry at registry.access.redhat.com. Installation instructions for your platform are available at Red Hat Container Catalog (see References).\n\nDockerfiles and scripts should be amended either to refer to this new image specifically, or to the latest image generally.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:1529"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://go.dev/issue/53416",
+						"Description": "https://go.dev/issue/53416"
+					},
+					{
+						"URL": "https://groups.google.com/g/golang-announce/c/nqrv9fbR0zE",
+						"Description": "https://groups.google.com/g/golang-announce/c/nqrv9fbR0zE"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-30632",
+						"Description": "CVE-2022-30632"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2107386",
+						"Description": "bz#2107386: CVE-2022-30632 golang: path/filepath: stack exhaustion in Glob"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2022-07-14T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-STF-1.5:prometheus-webhook-snmp-container-1.5.2-2",
+						"8Base-STF-1.5:service-telemetry-operator-bundle-container-1.5.1678301890-1",
+						"8Base-STF-1.5:service-telemetry-operator-container-1.5.1-2",
+						"8Base-STF-1.5:sg-bridge-container-1.5.0-12",
+						"8Base-STF-1.5:sg-core-container-5.1.1-2",
+						"8Base-STF-1.5:smart-gateway-operator-bundle-container-5.0.1678301890-1",
+						"8Base-STF-1.5:smart-gateway-operator-container-5.0.1-3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "13",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "An uncontrolled resource consumption flaw was found in Golang math/big. A too-short encoded message can cause a panic in Float.GobDecode and Rat.GobDecode in math/big in Go, potentially allowing an attacker to create a denial of service, impacting availability.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-08-01T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-32189",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThe Service Telemetry Framework container image provided by this update can be downloaded from the Red Hat Container Registry at registry.access.redhat.com. Installation instructions for your platform are available at Red Hat Container Catalog (see References).\n\nDockerfiles and scripts should be amended either to refer to this new image specifically, or to the latest image generally.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:1529"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://groups.google.com/g/golang-nuts/c/DCFSyTGM0wU",
+						"Description": "https://groups.google.com/g/golang-nuts/c/DCFSyTGM0wU"
+					},
+					{
+						"URL": "https://go.dev/issue/53871",
+						"Description": "https://go.dev/issue/53871"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-32189",
+						"Description": "CVE-2022-32189"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2113814",
+						"Description": "bz#2113814: CVE-2022-32189 golang: math/big: decoding big.Float and big.Rat types can panic if the encoded message is too short, potentially allowing a denial of service"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2022-08-02T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-STF-1.5:prometheus-webhook-snmp-container-1.5.2-2",
+						"8Base-STF-1.5:service-telemetry-operator-bundle-container-1.5.1678301890-1",
+						"8Base-STF-1.5:service-telemetry-operator-container-1.5.1-2",
+						"8Base-STF-1.5:sg-bridge-container-1.5.0-12",
+						"8Base-STF-1.5:sg-core-container-5.1.1-2",
+						"8Base-STF-1.5:smart-gateway-operator-bundle-container-5.0.1678301890-1",
+						"8Base-STF-1.5:smart-gateway-operator-container-5.0.1-3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "14",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in the golang package, where programs that compile regular expressions from untrusted sources are vulnerable to memory exhaustion or a denial of service. The parsed regexp representation is linear in the input size. Still, in some cases, the constant factor can be as high as 40,000, making a relatively small regexp consume larger amounts of memory. After the fix, each regexp being parsed is limited to a 256 MB memory footprint. Regular expressions whose representation would use more space than that are rejected. Routine use of regular expressions is unaffected.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-10-04T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-41715",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThe Service Telemetry Framework container image provided by this update can be downloaded from the Red Hat Container Registry at registry.access.redhat.com. Installation instructions for your platform are available at Red Hat Container Catalog (see References).\n\nDockerfiles and scripts should be amended either to refer to this new image specifically, or to the latest image generally.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:1529"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://github.com/golang/go/issues/55949",
+						"Description": "https://github.com/golang/go/issues/55949"
+					},
+					{
+						"URL": "https://groups.google.com/g/golang-announce/c/xtuG5faxtaU?pli=1",
+						"Description": "https://groups.google.com/g/golang-announce/c/xtuG5faxtaU?pli=1"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-41715",
+						"Description": "CVE-2022-41715"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2132872",
+						"Description": "bz#2132872: CVE-2022-41715 golang: regexp/syntax: limit memory used by parsing regexps"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2022-10-07T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-STF-1.5:prometheus-webhook-snmp-container-1.5.2-2",
+						"8Base-STF-1.5:service-telemetry-operator-bundle-container-1.5.1678301890-1",
+						"8Base-STF-1.5:service-telemetry-operator-container-1.5.1-2",
+						"8Base-STF-1.5:sg-bridge-container-1.5.0-12",
+						"8Base-STF-1.5:sg-core-container-5.1.1-2",
+						"8Base-STF-1.5:smart-gateway-operator-bundle-container-5.0.1678301890-1",
+						"8Base-STF-1.5:smart-gateway-operator-container-5.0.1-3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank Adam Korczynski (ADA Logics) and OSS-Fuzz for reporting this issue."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "15",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in the net/http library of the golang package. This flaw allows an attacker to cause excessive memory growth in a Go server accepting HTTP/2 requests. HTTP/2 server connections contain a cache of HTTP header keys sent by the client. While the total number of entries in this cache is capped, an attacker sending very large keys can cause the server to allocate approximately 64 MiB per open connection.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-11-30T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-41717",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThe Service Telemetry Framework container image provided by this update can be downloaded from the Red Hat Container Registry at registry.access.redhat.com. Installation instructions for your platform are available at Red Hat Container Catalog (see References).\n\nDockerfiles and scripts should be amended either to refer to this new image specifically, or to the latest image generally.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:1529"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://go.dev/cl/455635",
+						"Description": "https://go.dev/cl/455635"
+					},
+					{
+						"URL": "https://go.dev/cl/455717",
+						"Description": "https://go.dev/cl/455717"
+					},
+					{
+						"URL": "https://go.dev/issue/56350",
+						"Description": "https://go.dev/issue/56350"
+					},
+					{
+						"URL": "https://groups.google.com/g/golang-announce/c/L_3rmdT0BMU/m/yZDrXjIiBQAJ",
+						"Description": "https://groups.google.com/g/golang-announce/c/L_3rmdT0BMU/m/yZDrXjIiBQAJ"
+					},
+					{
+						"URL": "https://pkg.go.dev/vuln/GO-2022-1144",
+						"Description": "https://pkg.go.dev/vuln/GO-2022-1144"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-41717",
+						"Description": "CVE-2022-41717"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2161274",
+						"Description": "bz#2161274: CVE-2022-41717 golang: net/http: An attacker can cause excessive memory growth in a Go server accepting HTTP/2 requests"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2023-01-16T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-STF-1.5:prometheus-webhook-snmp-container-1.5.2-2",
+						"8Base-STF-1.5:service-telemetry-operator-bundle-container-1.5.1678301890-1",
+						"8Base-STF-1.5:service-telemetry-operator-container-1.5.1-2",
+						"8Base-STF-1.5:sg-bridge-container-1.5.0-12",
+						"8Base-STF-1.5:sg-core-container-5.1.1-2",
+						"8Base-STF-1.5:smart-gateway-operator-bundle-container-5.0.1678301890-1",
+						"8Base-STF-1.5:smart-gateway-operator-container-5.0.1-3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat OpenStack Platform",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Service Telemetry Framework 1.5 for RHEL 8",
+						"fullproductname": {
+							"text": "Service Telemetry Framework 1.5 for RHEL 8",
+							"productid": "8Base-STF-1.5",
+							"cpe": "cpe:/a:redhat:service_telemetry_framework:1.5::el8"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "stf/prometheus-webhook-snmp-rhel8:1.5.2-2",
+				"fullproductname": {
+					"text": "stf/prometheus-webhook-snmp-rhel8:1.5.2-2",
+					"productid": "stf/prometheus-webhook-snmp-rhel8:1.5.2-2",
+					"cpe": "cpe:/a:redhat:service_telemetry_framework:1.5::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "stf/service-telemetry-operator-bundle:1.5.1678301890-1",
+				"fullproductname": {
+					"text": "stf/service-telemetry-operator-bundle:1.5.1678301890-1",
+					"productid": "stf/service-telemetry-operator-bundle:1.5.1678301890-1",
+					"cpe": "cpe:/a:redhat:service_telemetry_framework:1.5::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "stf/service-telemetry-rhel8-operator:1.5.1-2",
+				"fullproductname": {
+					"text": "stf/service-telemetry-rhel8-operator:1.5.1-2",
+					"productid": "stf/service-telemetry-rhel8-operator:1.5.1-2",
+					"cpe": "cpe:/a:redhat:service_telemetry_framework:1.5::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "stf/sg-bridge-rhel8:1.5.0-12",
+				"fullproductname": {
+					"text": "stf/sg-bridge-rhel8:1.5.0-12",
+					"productid": "stf/sg-bridge-rhel8:1.5.0-12",
+					"cpe": "cpe:/a:redhat:service_telemetry_framework:1.5::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "stf/sg-core-rhel8:5.1.1-2",
+				"fullproductname": {
+					"text": "stf/sg-core-rhel8:5.1.1-2",
+					"productid": "stf/sg-core-rhel8:5.1.1-2",
+					"cpe": "cpe:/a:redhat:service_telemetry_framework:1.5::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "stf/smart-gateway-operator-bundle:5.0.1678301890-1",
+				"fullproductname": {
+					"text": "stf/smart-gateway-operator-bundle:5.0.1678301890-1",
+					"productid": "stf/smart-gateway-operator-bundle:5.0.1678301890-1",
+					"cpe": "cpe:/a:redhat:service_telemetry_framework:1.5::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "stf/smart-gateway-rhel8-operator:5.0.1-3",
+				"fullproductname": {
+					"text": "stf/smart-gateway-rhel8-operator:5.0.1-3",
+					"productid": "stf/smart-gateway-rhel8-operator:5.0.1-3",
+					"cpe": "cpe:/a:redhat:service_telemetry_framework:1.5::el8"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "prometheus-webhook-snmp-container-1.5.2-2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-STF-1.5",
+				"fullproductname": {
+					"text": "prometheus-webhook-snmp-container-1.5.2-2 as a component of Service Telemetry Framework 1.5 for RHEL 8",
+					"productid": "8Base-STF-1.5:prometheus-webhook-snmp-container-1.5.2-2",
+					"cpe": "cpe:/a:redhat:service_telemetry_framework:1.5::el8"
+				}
+			},
+			{
+				"productreference": "service-telemetry-operator-bundle-container-1.5.1678301890-1",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-STF-1.5",
+				"fullproductname": {
+					"text": "service-telemetry-operator-bundle-container-1.5.1678301890-1 as a component of Service Telemetry Framework 1.5 for RHEL 8",
+					"productid": "8Base-STF-1.5:service-telemetry-operator-bundle-container-1.5.1678301890-1",
+					"cpe": "cpe:/a:redhat:service_telemetry_framework:1.5::el8"
+				}
+			},
+			{
+				"productreference": "service-telemetry-operator-container-1.5.1-2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-STF-1.5",
+				"fullproductname": {
+					"text": "service-telemetry-operator-container-1.5.1-2 as a component of Service Telemetry Framework 1.5 for RHEL 8",
+					"productid": "8Base-STF-1.5:service-telemetry-operator-container-1.5.1-2",
+					"cpe": "cpe:/a:redhat:service_telemetry_framework:1.5::el8"
+				}
+			},
+			{
+				"productreference": "sg-bridge-container-1.5.0-12",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-STF-1.5",
+				"fullproductname": {
+					"text": "sg-bridge-container-1.5.0-12 as a component of Service Telemetry Framework 1.5 for RHEL 8",
+					"productid": "8Base-STF-1.5:sg-bridge-container-1.5.0-12",
+					"cpe": "cpe:/a:redhat:service_telemetry_framework:1.5::el8"
+				}
+			},
+			{
+				"productreference": "sg-core-container-5.1.1-2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-STF-1.5",
+				"fullproductname": {
+					"text": "sg-core-container-5.1.1-2 as a component of Service Telemetry Framework 1.5 for RHEL 8",
+					"productid": "8Base-STF-1.5:sg-core-container-5.1.1-2",
+					"cpe": "cpe:/a:redhat:service_telemetry_framework:1.5::el8"
+				}
+			},
+			{
+				"productreference": "smart-gateway-operator-bundle-container-5.0.1678301890-1",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-STF-1.5",
+				"fullproductname": {
+					"text": "smart-gateway-operator-bundle-container-5.0.1678301890-1 as a component of Service Telemetry Framework 1.5 for RHEL 8",
+					"productid": "8Base-STF-1.5:smart-gateway-operator-bundle-container-5.0.1678301890-1",
+					"cpe": "cpe:/a:redhat:service_telemetry_framework:1.5::el8"
+				}
+			},
+			{
+				"productreference": "smart-gateway-operator-container-5.0.1-3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-STF-1.5",
+				"fullproductname": {
+					"text": "smart-gateway-operator-container-5.0.1-3 as a component of Service Telemetry Framework 1.5 for RHEL 8",
+					"productid": "8Base-STF-1.5:smart-gateway-operator-container-5.0.1-3",
+					"cpe": "cpe:/a:redhat:service_telemetry_framework:1.5::el8"
+				}
+			}
+		]
+	}
+}

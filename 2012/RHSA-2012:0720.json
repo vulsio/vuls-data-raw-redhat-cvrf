@@ -1,0 +1,261 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: kernel security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2012:0720"
+		},
+		"Status": "Final",
+		"Version": "2",
+		"revisionhistory": {
+			"revision": {
+				"Number": "2",
+				"Date": "2012-06-20T07:47:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2012-06-12T14:02:00Z",
+		"CurrentReleaseDate": "2012-06-20T07:47:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:38:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated kernel packages that fix two security issues and multiple bugs are\nnow available for Red Hat Enterprise Linux 5.6 Extended Update Support.\n\nThe Red Hat Security Response Team has rated this update as having\nimportant security impact. Common Vulnerability Scoring System (CVSS) base\nscores, which give detailed severity ratings, are available for each\nvulnerability from the CVE links in the References section.\n\n[Updated 19th June 2012]\nThe original erratum text provided an incorrect description for BZ#807929.\nThe text has been updated to provide the correct description. No changes\nhave been made to the packages.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe kernel packages contain the Linux kernel, the core of any Linux\noperating system.\n\nThis update fixes the following security issues:\n\n* It was found that the Xen hypervisor implementation as shipped with Red\nHat Enterprise Linux 5 did not properly restrict the syscall return\naddresses in the sysret return path to canonical addresses. An\nunprivileged user in a 64-bit para-virtualized guest, that is running on a\n64-bit host that has an Intel CPU, could use this flaw to crash the host\nor, potentially, escalate their privileges, allowing them to execute\narbitrary code at the hypervisor level. (CVE-2012-0217, Important)\n\nNote: For Red Hat Enterprise Linux guests, only privileged guest users can\nexploit CVE-2012-0217.\n\n* A flaw in the xfrm6_tunnel_rcv() function in the Linux kernel's IPv6\nimplementation could lead to a use-after-free or double free flaw in\ntunnel6_rcv(). A remote attacker could use this flaw to send\nspecially-crafted packets to a target system that is using IPv6 and also\nhas the xfrm6_tunnel kernel module loaded, causing it to crash.\n(CVE-2012-1583, Important)\n\nIf you do not run applications that use xfrm6_tunnel, you can prevent the\nxfrm6_tunnel module from being loaded by creating (as the root user) a\n\"/etc/modprobe.d/xfrm6_tunnel.conf\" file, and adding the following line to\nit:\n\nblacklist xfrm6_tunnel\n\nThis way, the xfrm6_tunnel module cannot be loaded accidentally. A reboot\nis not necessary for this change to take effect.\n\nRed Hat would like to thank the Xen project for reporting CVE-2012-0217.\nUpstream acknowledges Rafal Wojtczuk as the original reporter of\nCVE-2012-0217.\n\nThis update also fixes the following bugs:\n\n* A bug in the vsyscall interface caused 32-bit multi-threaded programs,\nwhich received the SIGCANCEL signal right after they returned from a system\ncall, to terminate unexpectedly with a segmentation fault when run on the\nAMD64 or Intel 64 architecture. A patch has been provided to address this\nissue and the crashes no longer occur in the described scenario.\n(BZ#807929)\n\n* Incorrect duplicate MAC addresses were being used on a rack network\ndaughter card that contained a quad-port Intel I350 Gigabit Ethernet\nController. With this update, the underlying source code has been modified\nto address this issue, and correct MAC addresses are now used under all\ncircumstances. (BZ#813195)\n\n* When the Fibre Channel (FC) layer sets a device to \"running\", the layer\nalso scans for other new devices. Previously, there was a race condition\nbetween these two operations. Consequently, for certain targets, thousands\nof invalid devices were created by the SCSI layer and the udev service.\nThis update ensures that the FC layer always sets a device to \"online\"\nbefore scanning for others, thus fixing this bug.\n\nAdditionally, when attempting to transition priority groups on a busy FC\ndevice, the multipath layer retried immediately. If this was the only\navailable path, a large number of retry operations were performed in a\nshort period of time. Consequently, the logging of retry messages slowed\ndown the system. This bug has been fixed by ensuring that the DM Multipath\nfeature delays retry operations in the described scenario. (BZ#816683)\n\n* Due to incorrect use of the list_for_each_entry_safe() macro, the\nenumeration of remote procedure calls (RPCs) priority wait queue tasks\nstored in the tk_wait.links list failed. As a consequence, the\nrpc_wake_up() and rpc_wake_up_status() functions failed to wake up all\ntasks. This caused the system to become unresponsive and could\nsignificantly decrease system performance. Now, the\nlist_for_each_entry_safe() macro is no longer used in rpc_wake_up(),\nensuring reasonable system performance. (BZ#817570)\n\nUsers should upgrade to these updated packages, which contain backported\npatches to correct these issues. The system must be rebooted for this\nupdate to take effect.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2012:0720",
+				"Description": "https://access.redhat.com/errata/RHSA-2012:0720"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: x86-64: avoid sysret to non-canonical address",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-06-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-0217",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:0720"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-0217",
+						"Description": "CVE-2012-0217"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=813428",
+						"Description": "bz#813428: CVE-2012-0217 kernel: x86-64: avoid sysret to non-canonical address"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2012-04-17T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Server-5.6.EUS:kernel-0:2.6.18-238.39.1.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "7.9",
+					"Vector": "AV:A/AC:M/Au:N/C:C/I:C/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: ipv6: panic using raw sockets",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-04-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-1583",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:0720"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-1583",
+						"Description": "CVE-2012-1583"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=752304",
+						"Description": "bz#752304: CVE-2012-1583 kernel: ipv6: panic using raw sockets"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2011-11-09T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Server-5.6.EUS:kernel-0:2.6.18-238.39.1.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "7.8",
+					"Vector": "AV:N/AC:L/Au:N/C:N/I:N/A:C"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux EUS (v. 5.6 server)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux EUS (v. 5.6 server)",
+							"productid": "5Server-5.6.EUS",
+							"cpe": "cpe:/o:redhat:rhel_eus:5.6"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-0:2.6.18-238.39.1.el5",
+				"fullproductname": {
+					"text": "kernel-2.6.18-238.39.1.el5.src.rpm",
+					"productid": "kernel-0:2.6.18-238.39.1.el5",
+					"cpe": "cpe:/o:redhat:rhel_eus:5.6"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "kernel-0:2.6.18-238.39.1.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-5.6.EUS",
+				"fullproductname": {
+					"text": "kernel-0:2.6.18-238.39.1.el5 as a component of Red Hat Enterprise Linux EUS (v. 5.6 server)",
+					"productid": "5Server-5.6.EUS:kernel-0:2.6.18-238.39.1.el5",
+					"cpe": "cpe:/o:redhat:rhel_eus:5.6"
+				}
+			}
+		]
+	}
+}

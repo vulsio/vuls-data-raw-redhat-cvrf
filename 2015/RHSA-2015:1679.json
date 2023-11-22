@@ -1,0 +1,261 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: python-django-horizon security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2015:1679"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2015-08-24T20:15:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2015-08-24T20:15:00Z",
+		"CurrentReleaseDate": "2015-08-24T20:15:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:55:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated python-django-horizon packages that fix multiple security issues\nare now available for Red Hat Enterprise Linux OpenStack Platform 6.0.\n\nRed Hat Product Security has rated this update as having Moderate security\nimpact. Common Vulnerability Scoring System (CVSS) base scores, which give\ndetailed severity ratings, are available for each vulnerability from the\nCVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nOpenStack Dashboard (Horizon) provides administrators and users with a\ngraphical interface to access, provision, and automate cloud-based\nresources.\n\nTwo security issues were discovered in the Horizon dashboard and are\naddressed in this update: \n\n* A cross-site scripting (XSS) flaw was found in the Horizon Orchestration\ndashboard. An attacker able to trick a Horizon user into using a malicious\ntemplate during the stack creation could use this flaw to perform an XSS\nattack on that user. (CVE-2015-3219)\n\nRed Hat would like to thank the OpenStack Project for reporting the\nCVE-2015-3219 issue. Upstream acknowledges Nikita Konovalov from Mirantis\nas the original reporter of CVE-2015-3219.\n\n* A flaw was discovered in the Horizon metadata dashboard whereby\npotentially untrusted data was displayed from Glance images, Nova flavors,\nor host aggregates without correct clean up. An attacker could use this\nflaw to conduct an XSS attack.(CVE-2015-3988)\n\nAdditionally, the following non-security issues are addressed:\n\n* It was impossible to associate a floating IP address to a port for an\ninstance. This occurred if the gateway router was not in the same tenant as\nthe instance but was attached to a network shared across tenants because\nonly ports within the tenant were used to find reachable gateway routers.\n(BZ#1187992)\n\n* If two or more regions were configured in Horizon, then the User, Help,\nand Current Project links would no longer work and the region selector\nwas in the wrong location in the UI. (BZ#1189887)\n\n* A load balancer monitor was erroneously displayed as associated with\nevery tenant in every pool. The load balancer monitor was not actually\nassociated with any tenants, but the improper display prevented users \nfrom using the Horizon dashboard to create a tenant association.\n(BZ#1196249)\n\n* When logging into the Horizon dashboard, Horizon sends a query to Nova to\nupdate usage statistics. One of the calls would erroneously query deleted\nvirtual machines; if there were thousands of deleted virtual machines, the\nCPU usage for Nova would spike and the Nova process could crash.\n(BZ#1243301)\n\n* The network profile was not supported by Cisco N1KV ML2 drivers. This\nprofile has been removed to maintain Horizon compatibility with the Cisco\ndriver. (BZ#1246690)\n\n* A neutron attribute extension was renamed from profile_id to profile for\nnetworks and ports. This caused create operations for networks and ports to\nfail from the dashboard since the dashboard was still using the attribute\nname n1kv:profile_id rather than n1kv:profile.(BZ#1248367)\n\n* If a virtual machine instance failed to launch, then the stale port\nassignments were left in the configuration rather than being cleaned up.\n(BZ#1249228)\n\nAll python-django-horizon users are advised to upgrade to these updated\npackages, which correct these issues.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2015:1679",
+				"Description": "https://access.redhat.com/errata/RHSA-2015:1679"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "python-django-horizon: XSS in Heat stack creation",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-06-09T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-3219",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1679"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-3219",
+						"Description": "CVE-2015-3219"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1228534",
+						"Description": "bz#1228534: CVE-2015-3219 python-django-horizon: XSS in Heat stack creation"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-06-04T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-RH7-RHOS-6.0:python-django-horizon-0:2014.2.3-7.el7ost"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "python-django-horizon: persistent XSS in Horizon metadata dashboard",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-05-01T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-3988",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1679"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-3988",
+						"Description": "CVE-2015-3988"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1222871",
+						"Description": "bz#1222871: CVE-2015-3988 python-django-horizon: persistent XSS in Horizon metadata dashboard"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-05-19T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-RH7-RHOS-6.0:python-django-horizon-0:2014.2.3-7.el7ost"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:P/A:N"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat OpenStack Platform",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux OpenStack Platform 6.0 (Juno) for RHEL 7",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux OpenStack Platform 6.0 (Juno) for RHEL 7",
+							"productid": "7Server-RH7-RHOS-6.0",
+							"cpe": "cpe:/a:redhat:openstack:6::el7"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-django-horizon-0:2014.2.3-7.el7ost",
+				"fullproductname": {
+					"text": "python-django-horizon-2014.2.3-7.el7ost.src.rpm",
+					"productid": "python-django-horizon-0:2014.2.3-7.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:6::el7"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "python-django-horizon-0:2014.2.3-7.el7ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOS-6.0",
+				"fullproductname": {
+					"text": "python-django-horizon-0:2014.2.3-7.el7ost as a component of Red Hat Enterprise Linux OpenStack Platform 6.0 (Juno) for RHEL 7",
+					"productid": "7Server-RH7-RHOS-6.0:python-django-horizon-0:2014.2.3-7.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:6::el7"
+				}
+			}
+		]
+	}
+}

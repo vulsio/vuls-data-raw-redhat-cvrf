@@ -1,0 +1,332 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: kernel security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2014:1281"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2014-09-22T18:23:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2014-09-22T18:23:00Z",
+		"CurrentReleaseDate": "2014-09-22T18:23:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:34:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated kernel packages that fix one security issue and several bugs are\nnow available for Red Hat Enterprise Linux 7.\n\nRed Hat Product Security has rated this update as having Moderate security\nimpact. A Common Vulnerability Scoring System (CVSS) base score, which\ngives a detailed severity rating, is available from the CVE link in the\nReferences section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe kernel packages contain the Linux kernel, the core of any Linux\noperating system.\n\n* An out-of-bounds memory access flaw was found in the Linux kernel's\nsystem call auditing implementation. On a system with existing audit rules\ndefined, a local, unprivileged user could use this flaw to leak kernel\nmemory to user space or, potentially, crash the system. (CVE-2014-3917,\nModerate)\n\nThis update also fixes the following bugs: \n\n* A bug in the mtip32xx driver could prevent the Micron P420m PCIe SSD\ndevices with unaligned I/O access from completing the submitted I/O\nrequests. This resulted in a livelock situation and rendered the Micron\nP420m PCIe SSD devices unusable. To fix this problem, mtip32xx now checks\nwhether an I/O access is unaligned and if so, it uses the correct\nsemaphore. (BZ#1125776)\n\n* A series of patches has been backported to improve the functionality of\na touch pad on the latest Lenovo laptops in Red Hat Enterprise Linux 7.\n(BZ#1122559)\n\n* Due to a bug in the bnx2x driver, a network adapter could be unable to\nrecover from EEH error injection. The network adapter had to be taken\noffline and rebooted in order to function properly again. With this update,\nthe bnx2x driver has been corrected and network adapters now recover from\nEEH errors as expected. (BZ#1107722)\n\n* Previously, if an hrtimer interrupt was delayed, all future pending\nhrtimer events that were queued on the same processor were also delayed\nuntil the initial hrtimer event was handled. This could cause all hrtimer\nprocessing to stop for a significant period of time. To prevent this\nproblem, the kernel has been modified to handle all expired hrtimer events\nwhen handling the initially delayed hrtimer event. (BZ#1113175)\n\n* A previous change to the nouveau driver introduced a bit shift error,\nwhich resulted in a wrong display resolution being set with some models\nof NVIDIA controllers. With this update, the erroneous code has been\ncorrected, and the affected NVIDIA controllers can now set the correct\ndisplay resolution. (BZ#1114869)\n\n* Due to a NULL pointer dereference bug in the be2net driver, the system\ncould experience a kernel oops and reboot when disabling a network adapter\nafter a permanent failure. This problem has been fixed by introducing a\nflag to keep track of the setup state. The failing adapter can now be\ndisabled successfully without a kernel crash. (BZ#1122558)\n\n* Previously, the Huge Translation Lookaside Buffer (HugeTLB) allowed\naccess to huge pages access by default. However, huge pages may be\nunsupported in some environments, such as a KVM guest on a PowerPC\narchitecture, and an attempt to access a huge page in memory would result\nin a kernel oops. This update ensures that HugeTLB denies access to huge\npages if the huge pages are not supported on the system. (BZ#1122115)\n\n* If an NVMe device becomes ready but fails to create I/O queues, the nvme\ndriver creates a character device handle to manage such a device.\nPreviously, a character device could be created before a device reference\ncounter was initialized, which resulted in a kernel oops. This problem has\nbeen fixed by calling the relevant initialization function earlier in the\ncode. (BZ#1119720)\n\n* On some firmware versions of the BladeEngine 3 (BE3) controller,\ninterrupts remain disabled after a hardware reset. This was a problem for\nall Emulex-based network adapters using such a BE3 controller because\nthese adapters would fail to recover from an EEH error if it occurred. To\nresolve this problem, the be2net driver has been modified to enable the\ninterrupts in the eeh_resume handler explicitly. (BZ#1121712)\n\nAll kernel users are advised to upgrade to these updated packages, which\ncontain backported patches to correct these issues. The system must be\nrebooted for this update to take effect.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2014:1281",
+				"Description": "https://access.redhat.com/errata/RHSA-2014:1281"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: DoS with syscall auditing",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-05-28T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-3917",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to use the\nRed Hat Network to apply this update are available at\nhttps://access.redhat.com/articles/11258\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not use\n\"rpm -Uvh\" as that will remove the running kernel binaries from your\nsystem. You may use \"rpm -e\" to remove old kernels after determining that\nthe new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2014:1281"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-3917",
+						"Description": "CVE-2014-3917"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1102571",
+						"Description": "bz#1102571: CVE-2014-3917 kernel: DoS with syscall auditing"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-05-28T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-7.0.Z:kernel-0:3.10.0-123.8.1.el7",
+						"7Client-optional-7.0.Z:kernel-0:3.10.0-123.8.1.el7",
+						"7ComputeNode-7.0.Z:kernel-0:3.10.0-123.8.1.el7",
+						"7ComputeNode-optional-7.0.Z:kernel-0:3.10.0-123.8.1.el7",
+						"7Server-7.0.Z:kernel-0:3.10.0-123.8.1.el7",
+						"7Server-optional-7.0.Z:kernel-0:3.10.0-123.8.1.el7",
+						"7Workstation-7.0.Z:kernel-0:3.10.0-123.8.1.el7",
+						"7Workstation-optional-7.0.Z:kernel-0:3.10.0-123.8.1.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.7",
+					"Vector": "AV:L/AC:H/Au:N/C:P/I:N/A:C"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Client (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Client (v. 7)",
+							"productid": "7Client-7.0.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Client Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Client Optional (v. 7)",
+							"productid": "7Client-optional-7.0.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ComputeNode (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ComputeNode (v. 7)",
+							"productid": "7ComputeNode-7.0.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+							"productid": "7ComputeNode-optional-7.0.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 7)",
+							"productid": "7Server-7.0.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional (v. 7)",
+							"productid": "7Server-optional-7.0.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 7)",
+							"productid": "7Workstation-7.0.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation Optional (v. 7)",
+							"productid": "7Workstation-optional-7.0.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-0:3.10.0-123.8.1.el7",
+				"fullproductname": {
+					"text": "kernel-3.10.0-123.8.1.el7.src.rpm",
+					"productid": "kernel-0:3.10.0-123.8.1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "kernel-0:3.10.0-123.8.1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-7.0.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-123.8.1.el7 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"productid": "7Client-7.0.Z:kernel-0:3.10.0-123.8.1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-123.8.1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-optional-7.0.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-123.8.1.el7 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"productid": "7Client-optional-7.0.Z:kernel-0:3.10.0-123.8.1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-123.8.1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-7.0.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-123.8.1.el7 as a component of Red Hat Enterprise Linux ComputeNode (v. 7)",
+					"productid": "7ComputeNode-7.0.Z:kernel-0:3.10.0-123.8.1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-123.8.1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-optional-7.0.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-123.8.1.el7 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"productid": "7ComputeNode-optional-7.0.Z:kernel-0:3.10.0-123.8.1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-123.8.1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-7.0.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-123.8.1.el7 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server-7.0.Z:kernel-0:3.10.0-123.8.1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-123.8.1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-optional-7.0.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-123.8.1.el7 as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"productid": "7Server-optional-7.0.Z:kernel-0:3.10.0-123.8.1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-123.8.1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-7.0.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-123.8.1.el7 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"productid": "7Workstation-7.0.Z:kernel-0:3.10.0-123.8.1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-123.8.1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-optional-7.0.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-123.8.1.el7 as a component of Red Hat Enterprise Linux Workstation Optional (v. 7)",
+					"productid": "7Workstation-optional-7.0.Z:kernel-0:3.10.0-123.8.1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			}
+		]
+	}
+}

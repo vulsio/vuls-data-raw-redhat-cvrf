@@ -1,0 +1,1410 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: java-1.7.0-openjdk security update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2017:0269"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2017-02-13T11:17:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2017-02-13T11:17:00Z",
+		"CurrentReleaseDate": "2017-02-13T11:17:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:43:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nAn update for java-1.7.0-openjdk is now available for Red Hat Enterprise Linux 5, Red Hat Enterprise Linux 6, and Red Hat Enterprise Linux 7.\n\nRed Hat Product Security has rated this update as having a security impact of Critical. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe java-1.7.0-openjdk packages provide the OpenJDK 7 Java Runtime Environment and the OpenJDK 7 Java Software Development Kit.\n\nSecurity Fix(es):\n\n* It was discovered that the RMI registry and DCG implementations in the RMI component of OpenJDK performed deserialization of untrusted inputs. A remote attacker could possibly use this flaw to execute arbitrary code with the privileges of RMI registry or a Java RMI application. (CVE-2017-3241)\n\nThis issue was addressed by introducing whitelists of classes that can be deserialized by RMI registry or DCG. These whitelists can be customized using the newly introduced sun.rmi.registry.registryFilter and sun.rmi.transport.dgcFilter security properties.\n\n* Multiple flaws were discovered in the Libraries and Hotspot components in OpenJDK. An untrusted Java application or applet could use these flaws to completely bypass Java sandbox restrictions. (CVE-2017-3272, CVE-2017-3289)\n\n* A covert timing channel flaw was found in the DSA implementation in the Libraries component of OpenJDK. A remote attacker could possibly use this flaw to extract certain information about the used key via a timing side channel. (CVE-2016-5548)\n\n* It was discovered that the Libraries component of OpenJDK accepted ECSDA signatures using non-canonical DER encoding. This could cause a Java application to accept signature in an incorrect format not accepted by other cryptographic tools. (CVE-2016-5546)\n\n* It was discovered that the 2D component of OpenJDK performed parsing of iTXt and zTXt PNG image chunks even when configured to ignore metadata. An attacker able to make a Java application parse a specially crafted PNG image could cause the application to consume an excessive amount of memory. (CVE-2017-3253)\n\n* It was discovered that the Libraries component of OpenJDK did not validate the length of the object identifier read from the DER input before allocating memory to store the OID. An attacker able to make a Java application decode a specially crafted DER input could cause the application to consume an excessive amount of memory. (CVE-2016-5547)\n\n* It was discovered that the JAAS component of OpenJDK did not use the correct way to extract user DN from the result of the user search LDAP query. A specially crafted user LDAP entry could cause the application to use an incorrect DN. (CVE-2017-3252)\n\n* It was discovered that the Networking component of OpenJDK failed to properly parse user info from the URL. A remote attacker could cause a Java application to incorrectly parse an attacker supplied URL and interpret it differently from other applications processing the same URL. (CVE-2016-5552)\n\n* Multiple flaws were found in the Networking components in OpenJDK. An untrusted Java application or applet could use these flaws to bypass certain Java sandbox restrictions. (CVE-2017-3261, CVE-2017-3231)\n\n* A flaw was found in the way the DES/3DES cipher was used as part of the TLS/SSL protocol. A man-in-the-middle attacker could use this flaw to recover some plaintext data by capturing large amounts of encrypted traffic between TLS/SSL server and client if the communication used a DES/3DES based ciphersuite. (CVE-2016-2183)\n\nThis update mitigates the CVE-2016-2183 issue by adding 3DES cipher suites to the list of legacy algorithms (defined using the jdk.tls.legacyAlgorithms security property) so they are only used if connecting TLS/SSL client and server do not share any other non-legacy cipher suite.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Critical",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2017:0269",
+				"Description": "https://access.redhat.com/errata/RHSA-2017:0269"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#critical",
+				"Description": "https://access.redhat.com/security/updates/classification/#critical"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "OpenJDK: incorrect ECDSA signature extraction from the DER input (Libraries, 8168714)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2017-01-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2016-5546",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nAll running instances of OpenJDK Java must be restarted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2017:0269"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2016-5546",
+						"Description": "CVE-2016-5546"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1413911",
+						"Description": "bz#1413911: CVE-2016-5546 OpenJDK: incorrect ECDSA signature extraction from the DER input (Libraries, 8168714)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2017-01-15T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-5.11.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el5_11",
+						"5Server-5.11.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el5_11",
+						"6Client-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6Client-optional-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6ComputeNode-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6ComputeNode-optional-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6Server-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6Server-optional-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6Workstation-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6Workstation-optional-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"7Client-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7Client-optional-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7ComputeNode-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7ComputeNode-optional-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7Server-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7Server-optional-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7Workstation-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7Workstation-optional-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "OpenJDK: missing ObjectIdentifier length check (Libraries, 8168705)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2017-01-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2016-5547",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nAll running instances of OpenJDK Java must be restarted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2017:0269"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2016-5547",
+						"Description": "CVE-2016-5547"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1413764",
+						"Description": "bz#1413764: CVE-2016-5547 OpenJDK: missing ObjectIdentifier length check (Libraries, 8168705)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2017-01-15T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-5.11.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el5_11",
+						"5Server-5.11.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el5_11",
+						"6Client-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6Client-optional-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6ComputeNode-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6ComputeNode-optional-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6Server-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6Server-optional-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6Workstation-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6Workstation-optional-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"7Client-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7Client-optional-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7ComputeNode-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7ComputeNode-optional-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7Server-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7Server-optional-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7Workstation-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7Workstation-optional-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "OpenJDK: DSA implementation timing attack (Libraries, 8168728)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2017-01-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2016-5548",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nAll running instances of OpenJDK Java must be restarted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2017:0269"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2016-5548",
+						"Description": "CVE-2016-5548"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1413920",
+						"Description": "bz#1413920: CVE-2016-5548 OpenJDK: DSA implementation timing attack (Libraries, 8168728)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2017-01-15T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-5.11.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el5_11",
+						"5Server-5.11.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el5_11",
+						"6Client-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6Client-optional-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6ComputeNode-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6ComputeNode-optional-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6Server-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6Server-optional-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6Workstation-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6Workstation-optional-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"7Client-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7Client-optional-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7ComputeNode-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7ComputeNode-optional-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7Server-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7Server-optional-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7Workstation-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7Workstation-optional-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "OpenJDK: incorrect URL parsing in URLStreamHandler (Networking, 8167223)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2017-01-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2016-5552",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nAll running instances of OpenJDK Java must be restarted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2017:0269"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2016-5552",
+						"Description": "CVE-2016-5552"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1413882",
+						"Description": "bz#1413882: CVE-2016-5552 OpenJDK: incorrect URL parsing in URLStreamHandler (Networking, 8167223)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2017-01-15T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-5.11.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el5_11",
+						"5Server-5.11.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el5_11",
+						"6Client-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6Client-optional-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6ComputeNode-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6ComputeNode-optional-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6Server-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6Server-optional-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6Workstation-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6Workstation-optional-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"7Client-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7Client-optional-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7ComputeNode-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7ComputeNode-optional-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7Server-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7Server-optional-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7Workstation-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7Workstation-optional-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "OpenJDK: URLClassLoader insufficient access control checks (Networking, 8151934)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2017-01-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2017-3231",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nAll running instances of OpenJDK Java must be restarted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2017:0269"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2017-3231",
+						"Description": "CVE-2017-3231"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1413717",
+						"Description": "bz#1413717: CVE-2017-3231 OpenJDK: URLClassLoader insufficient access control checks (Networking, 8151934)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2017-01-15T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-5.11.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el5_11",
+						"5Server-5.11.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el5_11",
+						"6Client-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6Client-optional-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6ComputeNode-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6ComputeNode-optional-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6Server-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6Server-optional-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6Workstation-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6Workstation-optional-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"7Client-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7Client-optional-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7ComputeNode-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7ComputeNode-optional-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7Server-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7Server-optional-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7Workstation-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7Workstation-optional-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "6",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "OpenJDK: untrusted input deserialization in RMI registry and DCG (RMI, 8156802)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2017-01-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2017-3241",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nAll running instances of OpenJDK Java must be restarted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2017:0269"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2017-3241",
+						"Description": "CVE-2017-3241"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1413955",
+						"Description": "bz#1413955: CVE-2017-3241 OpenJDK: untrusted input deserialization in RMI registry and DCG (RMI, 8156802)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Critical"
+				}
+			},
+			"DiscoveryDate": "2017-01-15T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-5.11.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el5_11",
+						"5Server-5.11.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el5_11",
+						"6Client-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6Client-optional-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6ComputeNode-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6ComputeNode-optional-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6Server-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6Server-optional-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6Workstation-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6Workstation-optional-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"7Client-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7Client-optional-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7ComputeNode-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7ComputeNode-optional-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7Server-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7Server-optional-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7Workstation-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7Workstation-optional-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "7",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "OpenJDK: LdapLoginModule incorrect userDN extraction (JAAS, 8161743)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2017-01-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2017-3252",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nAll running instances of OpenJDK Java must be restarted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2017:0269"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2017-3252",
+						"Description": "CVE-2017-3252"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1413906",
+						"Description": "bz#1413906: CVE-2017-3252 OpenJDK: LdapLoginModule incorrect userDN extraction (JAAS, 8161743)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2017-01-15T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-5.11.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el5_11",
+						"5Server-5.11.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el5_11",
+						"6Client-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6Client-optional-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6ComputeNode-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6ComputeNode-optional-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6Server-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6Server-optional-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6Workstation-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6Workstation-optional-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"7Client-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7Client-optional-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7ComputeNode-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7ComputeNode-optional-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7Server-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7Server-optional-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7Workstation-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7Workstation-optional-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "8",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "OpenJDK: imageio PNGImageReader failed to honor ignoreMetadata for iTXt and zTXt chunks (2D, 8166988)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2017-01-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2017-3253",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nAll running instances of OpenJDK Java must be restarted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2017:0269"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2017-3253",
+						"Description": "CVE-2017-3253"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1413583",
+						"Description": "bz#1413583: CVE-2017-3253 OpenJDK: imageio PNGImageReader failed to honor ignoreMetadata for iTXt and zTXt chunks (2D, 8166988)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2017-01-15T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-5.11.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el5_11",
+						"5Server-5.11.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el5_11",
+						"6Client-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6Client-optional-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6ComputeNode-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6ComputeNode-optional-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6Server-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6Server-optional-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6Workstation-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6Workstation-optional-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"7Client-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7Client-optional-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7ComputeNode-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7ComputeNode-optional-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7Server-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7Server-optional-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7Workstation-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7Workstation-optional-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "9",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "OpenJDK: integer overflow in SocketOutputStream boundary check (Networking, 8164147)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2017-01-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2017-3261",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nAll running instances of OpenJDK Java must be restarted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2017:0269"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2017-3261",
+						"Description": "CVE-2017-3261"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1413653",
+						"Description": "bz#1413653: CVE-2017-3261 OpenJDK: integer overflow in SocketOutputStream boundary check (Networking, 8164147)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2017-01-15T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-5.11.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el5_11",
+						"5Server-5.11.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el5_11",
+						"6Client-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6Client-optional-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6ComputeNode-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6ComputeNode-optional-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6Server-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6Server-optional-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6Workstation-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6Workstation-optional-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"7Client-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7Client-optional-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7ComputeNode-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7ComputeNode-optional-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7Server-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7Server-optional-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7Workstation-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7Workstation-optional-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "10",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "OpenJDK: insufficient protected field access checks in atomic field updaters (Libraries, 8165344)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2017-01-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2017-3272",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nAll running instances of OpenJDK Java must be restarted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2017:0269"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2017-3272",
+						"Description": "CVE-2017-3272"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1413554",
+						"Description": "bz#1413554: CVE-2017-3272 OpenJDK: insufficient protected field access checks in atomic field updaters (Libraries, 8165344)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Critical"
+				}
+			},
+			"DiscoveryDate": "2017-01-15T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-5.11.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el5_11",
+						"5Server-5.11.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el5_11",
+						"6Client-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6Client-optional-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6ComputeNode-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6ComputeNode-optional-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6Server-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6Server-optional-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6Workstation-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6Workstation-optional-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"7Client-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7Client-optional-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7ComputeNode-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7ComputeNode-optional-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7Server-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7Server-optional-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7Workstation-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7Workstation-optional-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "11",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "OpenJDK: insecure class construction (Hotspot, 8167104)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2017-01-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2017-3289",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nAll running instances of OpenJDK Java must be restarted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2017:0269"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2017-3289",
+						"Description": "CVE-2017-3289"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1413562",
+						"Description": "bz#1413562: CVE-2017-3289 OpenJDK: insecure class construction (Hotspot, 8167104)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Critical"
+				}
+			},
+			"DiscoveryDate": "2017-01-15T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-5.11.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el5_11",
+						"5Server-5.11.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el5_11",
+						"6Client-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6Client-optional-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6ComputeNode-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6ComputeNode-optional-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6Server-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6Server-optional-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6Workstation-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"6Workstation-optional-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+						"7Client-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7Client-optional-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7ComputeNode-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7ComputeNode-optional-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7Server-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7Server-optional-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7Workstation-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+						"7Workstation-optional-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+							"productid": "5Client-5.11.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux (v. 5 server)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux (v. 5 server)",
+							"productid": "5Server-5.11.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 6)",
+							"productid": "6Client-6.8.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+							"productid": "6Client-optional-6.8.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node (v. 6)",
+							"productid": "6ComputeNode-6.8.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+							"productid": "6ComputeNode-optional-6.8.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 6)",
+							"productid": "6Server-6.8.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional (v. 6)",
+							"productid": "6Server-optional-6.8.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 6)",
+							"productid": "6Workstation-6.8.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+							"productid": "6Workstation-optional-6.8.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Client (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Client (v. 7)",
+							"productid": "7Client-7.3.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Client Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Client Optional (v. 7)",
+							"productid": "7Client-optional-7.3.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ComputeNode (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ComputeNode (v. 7)",
+							"productid": "7ComputeNode-7.3.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+							"productid": "7ComputeNode-optional-7.3.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 7)",
+							"productid": "7Server-7.3.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional (v. 7)",
+							"productid": "7Server-optional-7.3.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 7)",
+							"productid": "7Workstation-7.3.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation Optional (v. 7)",
+							"productid": "7Workstation-optional-7.3.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el5_11",
+				"fullproductname": {
+					"text": "java-1.7.0-openjdk-1.7.0.131-2.6.9.0.el5_11.src.rpm",
+					"productid": "java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el5_11",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+				"fullproductname": {
+					"text": "java-1.7.0-openjdk-1.7.0.131-2.6.9.0.el6_8.src.rpm",
+					"productid": "java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+				"fullproductname": {
+					"text": "java-1.7.0-openjdk-1.7.0.131-2.6.9.0.el7_3.src.rpm",
+					"productid": "java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el5_11",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Client-5.11.Z",
+				"fullproductname": {
+					"text": "java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el5_11 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"productid": "5Client-5.11.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el5_11",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+				}
+			},
+			{
+				"productreference": "java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el5_11",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-5.11.Z",
+				"fullproductname": {
+					"text": "java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el5_11 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"productid": "5Server-5.11.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el5_11",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+				}
+			},
+			{
+				"productreference": "java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-6.8.z",
+				"fullproductname": {
+					"text": "java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"productid": "6Client-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-optional-6.8.z",
+				"fullproductname": {
+					"text": "java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"productid": "6Client-optional-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-6.8.z",
+				"fullproductname": {
+					"text": "java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"productid": "6ComputeNode-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-optional-6.8.z",
+				"fullproductname": {
+					"text": "java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"productid": "6ComputeNode-optional-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-6.8.z",
+				"fullproductname": {
+					"text": "java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"productid": "6Server-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-optional-6.8.z",
+				"fullproductname": {
+					"text": "java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"productid": "6Server-optional-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-6.8.z",
+				"fullproductname": {
+					"text": "java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"productid": "6Workstation-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			},
+			{
+				"productreference": "java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-optional-6.8.z",
+				"fullproductname": {
+					"text": "java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"productid": "6Workstation-optional-6.8.z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el6_8",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			},
+			{
+				"productreference": "java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-7.3.Z",
+				"fullproductname": {
+					"text": "java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"productid": "7Client-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-optional-7.3.Z",
+				"fullproductname": {
+					"text": "java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"productid": "7Client-optional-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-7.3.Z",
+				"fullproductname": {
+					"text": "java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3 as a component of Red Hat Enterprise Linux ComputeNode (v. 7)",
+					"productid": "7ComputeNode-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-optional-7.3.Z",
+				"fullproductname": {
+					"text": "java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"productid": "7ComputeNode-optional-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-7.3.Z",
+				"fullproductname": {
+					"text": "java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-optional-7.3.Z",
+				"fullproductname": {
+					"text": "java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3 as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"productid": "7Server-optional-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-7.3.Z",
+				"fullproductname": {
+					"text": "java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"productid": "7Workstation-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-optional-7.3.Z",
+				"fullproductname": {
+					"text": "java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3 as a component of Red Hat Enterprise Linux Workstation Optional (v. 7)",
+					"productid": "7Workstation-optional-7.3.Z:java-1.7.0-openjdk-1:1.7.0.131-2.6.9.0.el7_3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			}
+		]
+	}
+}

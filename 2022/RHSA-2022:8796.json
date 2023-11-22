@@ -1,0 +1,192 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: Red Hat OpenStack 16.1.9 (openstack-tripleo-heat-templates) security update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2022:8796"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2022-12-07T20:27:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2022-12-07T20:27:00Z",
+		"CurrentReleaseDate": "2022-12-07T20:27:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.10.0",
+			"Date": "2022-12-08T05:03:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nAn update for openstack-tripleo-heat-templates is now available for Red Hat OpenStack Platform 16.1.9 (Train) for Red Hat Enterprise Linux (RHEL) 8.2.\n\nRed Hat Product Security has rated this update as having a security impact of Moderate. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nHeat templates for TripleO\n\nSecurity Fix(es):\n\n* data leak of internal URL through keystone_authtoken (CVE-2021-4180)\n\nOther fixes:\n\n* Before this update, NTP validation did not occur during deployments. Some users reported issues with cloud authentication failing with invalid tokens due to time not being synchronized between nodes. With this update, NTP synchronization validation during deployment has been re-enabled. Hosts must be able to connect to the defined NTP server list. If you previously performed a deployment with invalid or unreachable NTP servers, after update, the deployment might fail when NTP is validated. Ensure that you have valid and reachable NTP servers before updating. (BZ#2034095)\n\n* With this update, director supports specifying overrides for NVSv4 ID mapping when using a CephFS-NFS back end with the Shared File Systems service (manila). Ceph-NFS with the Shared File Systems service only allows client access through NFSv4.1+. With NFSv4.1, usernames and group names are sent over the wire and translated by both the server and the client. Deployers might want to customize their domain settings to better represent organization users who can access Shared File Systems service shares from multiple clients. Director supports customizing NFS ID mapping settings through these parameters:\n- ManilaCephFSNFSIdmapOverrides: Allows specifying configuration objects for override with the default idmapd.conf file used by the NFS service\n- ManilaCephFSNFSIdmapConf: Allows specifying a custom idmapd.conf file for the NFS service (BZ#1917356)\n\n* Before this update, the ceilometer-agent-compute container could not read the /var/run/libvirt directory because of an improper volume mount to /var/run/libvirt in the ceilometer-agent-compute container, resulting in the inability to poll for CPU metrics on Compute nodes. With this update, the appropriate global permissions have been applied to the /var/run/libvirt directory, and you can poll for CPU telemetry with the ceilometer-agent-compute container on the Compute nodes. CPU telemetry data is available through the Compute service (nova). (BZ#2103971)\n\n* Before this update, the libvirt service started after the ceilometer-agent-compute service and the ceilometer-agent-compute service did not communicate with libvirt, resulting in missing libvirt metrics. With this update, the ceilometer-agent-compute service starts after the libvirt service and can poll libvirt metrics without \"Permission denied\" errors. (BZ#2130078)\n\n* Before this update, a Telemetry service (ceilometer) user had insufficient privileges to poll objects from the Object Storage service (swift). The Object Storage service client did not allow the Telemetry service user to fetch object details. With this update, the Telemetry service user is associated with the ResellerAdmin role.\n+\nExecute the following command to workaround this issue manually:\n+\n----\n$ openstack role add --user ceilometer --project service ResellerAdmin\n----\n+\nThe associated Telemetry service user can poll Object Storage service object metrics successfully. (BZ#2130849)\n\n* Before this update, systemd stopped the Load-balancing services (octavia) during shutdown, leaving resources in the PENDING_UPDATE status. With this update, the graceful shutdown duration of the Load-balancing services is increased, preventing the services from being stopped by systemd. (BZ#2063031)\n\n* In Red Hat OpenStack Platform (RHOSP) 16.1.9, the collectd processes plugin is removed from the default list of plugins. Loading the plugin can cause flooding issues and does not provide value when running in a containerized environment because it only recognizes the collectd and sensubility processes rather than the expected system processes. Bug fixes and support will be provided through the end of the 16.1.9 lifecycle but no new feature enhancements will be made. (BZ#2101949)\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2022 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2022:8796",
+				"Description": "https://access.redhat.com/errata/RHSA-2022:8796"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "openstack-tripleo-heat-templates: data leak of internal URL through keystone_authtoken",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2021-12-20T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2021-4180",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes\ndescribed in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2022:8796"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2021-4180",
+						"Description": "CVE-2021-4180"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2035793",
+						"Description": "bz#2035793: CVE-2021-4180 openstack-tripleo-heat-templates: data leak of internal URL through keystone_authtoken"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2021-12-21T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-RHOS-16.1:openstack-tripleo-heat-templates-0:11.3.2-1.20221013153262.el8ost"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "This issue was discovered by Takashi Kajinami (Red Hat)."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat OpenStack Platform",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat OpenStack Platform 16.1",
+						"fullproductname": {
+							"text": "Red Hat OpenStack Platform 16.1",
+							"productid": "8Base-RHOS-16.1",
+							"cpe": "cpe:/a:redhat:openstack:16.1::el8"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "openstack-tripleo-heat-templates-0:11.3.2-1.20221013153262.el8ost",
+				"fullproductname": {
+					"text": "openstack-tripleo-heat-templates-11.3.2-1.20221013153262.el8ost.src.rpm",
+					"productid": "openstack-tripleo-heat-templates-0:11.3.2-1.20221013153262.el8ost",
+					"cpe": "cpe:/a:redhat:openstack:16.1::el8"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "openstack-tripleo-heat-templates-0:11.3.2-1.20221013153262.el8ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHOS-16.1",
+				"fullproductname": {
+					"text": "openstack-tripleo-heat-templates-0:11.3.2-1.20221013153262.el8ost as a component of Red Hat OpenStack Platform 16.1",
+					"productid": "8Base-RHOS-16.1:openstack-tripleo-heat-templates-0:11.3.2-1.20221013153262.el8ost",
+					"cpe": "cpe:/a:redhat:openstack:16.1::el8"
+				}
+			}
+		]
+	}
+}

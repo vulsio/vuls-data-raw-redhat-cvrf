@@ -1,0 +1,212 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: pam_krb5 security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2010:0258"
+		},
+		"Status": "Final",
+		"Version": "4",
+		"revisionhistory": {
+			"revision": {
+				"Number": "4",
+				"Date": "2010-03-29T08:48:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2010-03-29T12:00:00Z",
+		"CurrentReleaseDate": "2010-03-29T08:48:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:47:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated pam_krb5 packages that fix one security issue and various bugs are\nnow available for Red Hat Enterprise Linux 5.\n\nThe Red Hat Security Response Team has rated this update as having low\nsecurity impact. A Common Vulnerability Scoring System (CVSS) base score,\nwhich gives a detailed severity rating, is available from the CVE link in\nthe References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe pam_krb5 module allows Pluggable Authentication Modules (PAM) aware\napplications to use Kerberos to verify user identities by obtaining user\ncredentials at log in time.\n\nA flaw was found in pam_krb5. In some non-default configurations\n(specifically, those where pam_krb5 would be the first module to prompt for\na password), the text of the password prompt varied based on whether or not\nthe username provided was a username known to the system. A remote attacker\ncould use this flaw to recognize valid usernames, which would aid a\ndictionary-based password guess attack. (CVE-2009-1384)\n\nThis update also fixes the following bugs:\n\n* certain applications which do not properly implement PAM conversations\nmay fail to authenticate users whose passwords have expired and must be\nchanged, or may succeed without forcing the user's password to be changed.\nThis bug is triggered by a previously-applied fix to pam_krb5 which makes\nit comply more closely to PAM specifications. If an application misbehaves,\nenabling the \"chpw_prompt\" option for its service should restore the old\nbehavior. (BZ#509092)\n\n* pam_krb5 does not allow the user to change an expired password in cases\nwhere the Key Distribution Center (KDC) is configured to refuse attempts to\nobtain forwardable password-changing credentials. This update fixes this\nissue. (BZ#489015)\n\n* failure to verify TGT because of wrong keytab handling. (BZ#450776)\n\nUsers of pam_krb5 are advised to upgrade to these updated packages, which\nresolve these issues.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Low",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2010:0258",
+				"Description": "https://access.redhat.com/errata/RHSA-2010:0258"
+			},
+			{
+				"type": "External",
+				"URL": "http://www.redhat.com/security/updates/classification/#low",
+				"Description": "http://www.redhat.com/security/updates/classification/#low"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "pam_krb5: Password prompt varies for existent and non-existent users",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2009-05-27T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2009-1384",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2010:0258"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2009-1384",
+						"Description": "CVE-2009-1384"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=502602",
+						"Description": "bz#502602: CVE-2009-1384 pam_krb5: Password prompt varies for existent and non-existent users"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2009-05-18T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client:pam_krb5-0:2.2.14-15",
+						"5Server:pam_krb5-0:2.2.14-15"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.6",
+					"Vector": "AV:N/AC:H/Au:N/C:P/I:N/A:N"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+							"productid": "5Client",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux (v. 5 server)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux (v. 5 server)",
+							"productid": "5Server",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "pam_krb5-0:2.2.14-15",
+				"fullproductname": {
+					"text": "pam_krb5-2.2.14-15.src.rpm",
+					"productid": "pam_krb5-0:2.2.14-15",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "pam_krb5-0:2.2.14-15",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Client",
+				"fullproductname": {
+					"text": "pam_krb5-0:2.2.14-15 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"productid": "5Client:pam_krb5-0:2.2.14-15",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+				}
+			},
+			{
+				"productreference": "pam_krb5-0:2.2.14-15",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server",
+				"fullproductname": {
+					"text": "pam_krb5-0:2.2.14-15 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"productid": "5Server:pam_krb5-0:2.2.14-15",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+				}
+			}
+		]
+	}
+}

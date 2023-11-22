@@ -1,0 +1,804 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: kernel security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2020:5437"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2020-12-15T15:06:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2020-12-15T15:06:00Z",
+		"CurrentReleaseDate": "2020-12-15T15:06:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:48:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nAn update for kernel is now available for Red Hat Enterprise Linux 7.\n\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe kernel packages contain the Linux kernel, the core of any Linux operating system.\n\nSecurity Fix(es):\n\n* kernel: metadata validator in XFS may cause an inode with a valid, user-creatable extended attribute to be flagged as corrupt (CVE-2020-14385)\n\n* kernel: The flow_dissector feature allows device tracking (CVE-2019-18282)\n\n* kernel: Buffer over-read in crypto_authenc_extractkeys() when a payload longer than 4 bytes is not aligned. (CVE-2020-10769)\n\n* kernel: buffer uses out of index in ext3/4 filesystem (CVE-2020-14314)\n\n* kernel: umask not applied on filesystem without ACL support (CVE-2020-24394)\n\n* kernel: TOCTOU mismatch in the NFS client code (CVE-2020-25212)\n\n* kernel: improper input validation in ppp_cp_parse_cr function leads to memory corruption and read overflow (CVE-2020-25643)\n\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\n\nBug Fix(es):\n\n* WARNING in set_restore_sigmask  at ./arch/x86/include/asm/thread_info.h:298 sigsuspend+0x6d/0x70 (BZ#1704650)\n\n* [i40e] VFs see other VF's outgoing traffic (BZ#1845677)\n\n* [Hyper-V][RHEL7] Two fixes for kdump over network (BZ#1846667)\n\n* Loop in __run_timers() because base->timer_jiffies is very far behind causes a lockup condition. (BZ#1849716)\n\n* XFS transaction overrun when running docker on VMWARE  (overlay fs) (BZ#1857203)\n\n* RHEL 7.9 NVMe/IB - Host crash encountered during array upgrade (BZ#1857397)\n\n* False positive hard lockup detected while disabling the hard lockup detector via sysctl -w kernel.watchdog=0 (BZ#1860661)\n\n* [Hyper-V][RHEL-7] Only notify Hyper-V for die events that are oops (BZ#1868130)\n\n* Linux kernel crash due to openvswitch module (BZ#1869190)\n\n* 'nodfs' option not working when using SMB2+ (BZ#1873033)\n\n* RHEL7.7 zstream - ESS - kernel panic triggered by freelist pointer corruption (BZ#1873189)\n\n* destroy_cfs_bandwidth() is called by free_fair_sched_group() without calling init_cfs_bandwidth() (BZ#1878000)\n\n* NULL pointer at nvme_rdma_setup_ctrl+0x1c2/0x8d0 [nvme_rdma] when discover E5700 (BZ#1878950)\n\n* IB Infiniband RDMA mlx5_ib is freeing a kmalloc-512 cache that it does not own causing memory corruption. (BZ#1880184)\n\n* [Azure][RHEL7] Two Patches Needed To Enable Azure Host Time-syncing in VMs (BZ#1884735)\n\n* connect AF_UNSPEC on a connecting AF_INET6 socket returns an error (BZ#1886305)\n\n* Rebuilding the grub with the CPU flag 'avx' disabled (clearcpuid=156) triggers kernel panic in xor_avx_2() (BZ#1886792)\n\n* nf_conntrack_sctp.h is not usable due to a missing commit (BZ#1887975)\n\n* Starting pvmove on top of physical volumes on MD devices causes IO error on ongoing IO (BZ#1890059)\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2020:5437",
+				"Description": "https://access.redhat.com/errata/RHSA-2020:5437"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: The flow_dissector feature allows device tracking",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2019-10-22T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2019-18282",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2020:5437"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2019-18282",
+						"Description": "CVE-2019-18282"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1796360",
+						"Description": "bz#1796360: CVE-2019-18282 kernel: The flow_dissector feature allows device tracking"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2020-01-17T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-7.9.Z:kernel-0:3.10.0-1160.11.1.el7",
+						"7Client-optional-7.9.Z:kernel-0:3.10.0-1160.11.1.el7",
+						"7ComputeNode-7.9.Z:kernel-0:3.10.0-1160.11.1.el7",
+						"7ComputeNode-optional-7.9.Z:kernel-0:3.10.0-1160.11.1.el7",
+						"7Server-7.9.Z:kernel-0:3.10.0-1160.11.1.el7",
+						"7Server-optional-7.9.Z:kernel-0:3.10.0-1160.11.1.el7",
+						"7Workstation-7.9.Z:kernel-0:3.10.0-1160.11.1.el7",
+						"7Workstation-optional-7.9.Z:kernel-0:3.10.0-1160.11.1.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: Buffer over-read in crypto_authenc_extractkeys() when a payload longer than 4 bytes is not aligned.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2019-11-05T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2020-10769",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2020:5437"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2020-10769",
+						"Description": "CVE-2020-10769"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1708775",
+						"Description": "bz#1708775: CVE-2020-10769 kernel: Buffer over-read in crypto_authenc_extractkeys() when a payload longer than 4 bytes is not aligned."
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2019-05-11T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-7.9.Z:kernel-0:3.10.0-1160.11.1.el7",
+						"7Client-optional-7.9.Z:kernel-0:3.10.0-1160.11.1.el7",
+						"7ComputeNode-7.9.Z:kernel-0:3.10.0-1160.11.1.el7",
+						"7ComputeNode-optional-7.9.Z:kernel-0:3.10.0-1160.11.1.el7",
+						"7Server-7.9.Z:kernel-0:3.10.0-1160.11.1.el7",
+						"7Server-optional-7.9.Z:kernel-0:3.10.0-1160.11.1.el7",
+						"7Workstation-7.9.Z:kernel-0:3.10.0-1160.11.1.el7",
+						"7Workstation-optional-7.9.Z:kernel-0:3.10.0-1160.11.1.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: buffer uses out of index in ext3/4 filesystem",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2020-06-05T16:45:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2020-14314",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2020:5437"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=5872331b3d91820e14716632ebb56b1399b34fe1",
+						"Description": "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=5872331b3d91820e14716632ebb56b1399b34fe1"
+					},
+					{
+						"URL": "https://lore.kernel.org/linux-ext4/f53e246b-647c-64bb-16ec-135383c70ad7@redhat.com/T/#u",
+						"Description": "https://lore.kernel.org/linux-ext4/f53e246b-647c-64bb-16ec-135383c70ad7@redhat.com/T/#u"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2020-14314",
+						"Description": "CVE-2020-14314"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1853922",
+						"Description": "bz#1853922: CVE-2020-14314 kernel: buffer uses out of index in ext3/4 filesystem"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2020-06-03T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-7.9.Z:kernel-0:3.10.0-1160.11.1.el7",
+						"7Client-optional-7.9.Z:kernel-0:3.10.0-1160.11.1.el7",
+						"7ComputeNode-7.9.Z:kernel-0:3.10.0-1160.11.1.el7",
+						"7ComputeNode-optional-7.9.Z:kernel-0:3.10.0-1160.11.1.el7",
+						"7Server-7.9.Z:kernel-0:3.10.0-1160.11.1.el7",
+						"7Server-optional-7.9.Z:kernel-0:3.10.0-1160.11.1.el7",
+						"7Workstation-7.9.Z:kernel-0:3.10.0-1160.11.1.el7",
+						"7Workstation-optional-7.9.Z:kernel-0:3.10.0-1160.11.1.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "This issue was discovered by Jay Shin (Red Hat)."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: metadata validator in XFS may cause an inode with a valid, user-creatable extended attribute to be flagged as corrupt",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2020-08-25T09:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2020-14385",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2020:5437"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=f4020438fab05364018c91f7e02ebdd192085933",
+						"Description": "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=f4020438fab05364018c91f7e02ebdd192085933"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2020-14385",
+						"Description": "CVE-2020-14385"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1874800",
+						"Description": "bz#1874800: CVE-2020-14385 kernel: metadata validator in XFS may cause an inode with a valid, user-creatable extended attribute to be flagged as corrupt"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2020-08-26T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-7.9.Z:kernel-0:3.10.0-1160.11.1.el7",
+						"7Client-optional-7.9.Z:kernel-0:3.10.0-1160.11.1.el7",
+						"7ComputeNode-7.9.Z:kernel-0:3.10.0-1160.11.1.el7",
+						"7ComputeNode-optional-7.9.Z:kernel-0:3.10.0-1160.11.1.el7",
+						"7Server-7.9.Z:kernel-0:3.10.0-1160.11.1.el7",
+						"7Server-optional-7.9.Z:kernel-0:3.10.0-1160.11.1.el7",
+						"7Workstation-7.9.Z:kernel-0:3.10.0-1160.11.1.el7",
+						"7Workstation-optional-7.9.Z:kernel-0:3.10.0-1160.11.1.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank Dr. David Alan Gilbert (redhat.com) for reporting this issue."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: umask not applied on filesystem without ACL support",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2020-06-05T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2020-24394",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2020:5437"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2020-24394",
+						"Description": "CVE-2020-24394"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1869141",
+						"Description": "bz#1869141: CVE-2020-24394 kernel: umask not applied on filesystem without ACL support"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2020-06-09T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-7.9.Z:kernel-0:3.10.0-1160.11.1.el7",
+						"7Client-optional-7.9.Z:kernel-0:3.10.0-1160.11.1.el7",
+						"7ComputeNode-7.9.Z:kernel-0:3.10.0-1160.11.1.el7",
+						"7ComputeNode-optional-7.9.Z:kernel-0:3.10.0-1160.11.1.el7",
+						"7Server-7.9.Z:kernel-0:3.10.0-1160.11.1.el7",
+						"7Server-optional-7.9.Z:kernel-0:3.10.0-1160.11.1.el7",
+						"7Workstation-7.9.Z:kernel-0:3.10.0-1160.11.1.el7",
+						"7Workstation-optional-7.9.Z:kernel-0:3.10.0-1160.11.1.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "6",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: TOCTOU mismatch in the NFS client code",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2020-09-09T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2020-25212",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2020:5437"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2020-25212",
+						"Description": "CVE-2020-25212"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1877575",
+						"Description": "bz#1877575: CVE-2020-25212 kernel: TOCTOU mismatch in the NFS client code"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2020-09-09T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-7.9.Z:kernel-0:3.10.0-1160.11.1.el7",
+						"7Client-optional-7.9.Z:kernel-0:3.10.0-1160.11.1.el7",
+						"7ComputeNode-7.9.Z:kernel-0:3.10.0-1160.11.1.el7",
+						"7ComputeNode-optional-7.9.Z:kernel-0:3.10.0-1160.11.1.el7",
+						"7Server-7.9.Z:kernel-0:3.10.0-1160.11.1.el7",
+						"7Server-optional-7.9.Z:kernel-0:3.10.0-1160.11.1.el7",
+						"7Workstation-7.9.Z:kernel-0:3.10.0-1160.11.1.el7",
+						"7Workstation-optional-7.9.Z:kernel-0:3.10.0-1160.11.1.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "7",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: improper input validation in ppp_cp_parse_cr function leads to memory corruption and read overflow",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2020-09-25T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2020-25643",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2020:5437"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=66d42ed8b25b64eb63111a2b8582c5afc8bf1105",
+						"Description": "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=66d42ed8b25b64eb63111a2b8582c5afc8bf1105"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2020-25643",
+						"Description": "CVE-2020-25643"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1879981",
+						"Description": "bz#1879981: CVE-2020-25643 kernel: improper input validation in ppp_cp_parse_cr function leads to memory corruption and read overflow"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2020-09-10T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-7.9.Z:kernel-0:3.10.0-1160.11.1.el7",
+						"7Client-optional-7.9.Z:kernel-0:3.10.0-1160.11.1.el7",
+						"7ComputeNode-7.9.Z:kernel-0:3.10.0-1160.11.1.el7",
+						"7ComputeNode-optional-7.9.Z:kernel-0:3.10.0-1160.11.1.el7",
+						"7Server-7.9.Z:kernel-0:3.10.0-1160.11.1.el7",
+						"7Server-optional-7.9.Z:kernel-0:3.10.0-1160.11.1.el7",
+						"7Workstation-7.9.Z:kernel-0:3.10.0-1160.11.1.el7",
+						"7Workstation-optional-7.9.Z:kernel-0:3.10.0-1160.11.1.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank ChenNan Of Chaitin (Security Research Lab) for reporting this issue."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Client (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Client (v. 7)",
+							"productid": "7Client-7.9.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Client Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Client Optional (v. 7)",
+							"productid": "7Client-optional-7.9.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ComputeNode (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ComputeNode (v. 7)",
+							"productid": "7ComputeNode-7.9.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+							"productid": "7ComputeNode-optional-7.9.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 7)",
+							"productid": "7Server-7.9.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional (v. 7)",
+							"productid": "7Server-optional-7.9.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 7)",
+							"productid": "7Workstation-7.9.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation Optional (v. 7)",
+							"productid": "7Workstation-optional-7.9.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-0:3.10.0-1160.11.1.el7",
+				"fullproductname": {
+					"text": "kernel-3.10.0-1160.11.1.el7.src.rpm",
+					"productid": "kernel-0:3.10.0-1160.11.1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "kernel-0:3.10.0-1160.11.1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-7.9.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-1160.11.1.el7 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"productid": "7Client-7.9.Z:kernel-0:3.10.0-1160.11.1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-1160.11.1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-optional-7.9.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-1160.11.1.el7 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"productid": "7Client-optional-7.9.Z:kernel-0:3.10.0-1160.11.1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-1160.11.1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-7.9.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-1160.11.1.el7 as a component of Red Hat Enterprise Linux ComputeNode (v. 7)",
+					"productid": "7ComputeNode-7.9.Z:kernel-0:3.10.0-1160.11.1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-1160.11.1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-optional-7.9.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-1160.11.1.el7 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"productid": "7ComputeNode-optional-7.9.Z:kernel-0:3.10.0-1160.11.1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-1160.11.1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-7.9.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-1160.11.1.el7 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server-7.9.Z:kernel-0:3.10.0-1160.11.1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-1160.11.1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-optional-7.9.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-1160.11.1.el7 as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"productid": "7Server-optional-7.9.Z:kernel-0:3.10.0-1160.11.1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-1160.11.1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-7.9.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-1160.11.1.el7 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"productid": "7Workstation-7.9.Z:kernel-0:3.10.0-1160.11.1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-1160.11.1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-optional-7.9.Z",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-1160.11.1.el7 as a component of Red Hat Enterprise Linux Workstation Optional (v. 7)",
+					"productid": "7Workstation-optional-7.9.Z:kernel-0:3.10.0-1160.11.1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			}
+		]
+	}
+}

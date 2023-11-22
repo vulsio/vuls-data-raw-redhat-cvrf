@@ -1,0 +1,217 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: sudo security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2012:1149"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2012-08-07T16:52:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2012-08-07T16:49:00Z",
+		"CurrentReleaseDate": "2012-08-07T16:52:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:35:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nAn updated sudo package that fixes one security issue and several bugs is\nnow available for Red Hat Enterprise Linux 5.\n\nThe Red Hat Security Response Team has rated this update as having moderate\nsecurity impact. A Common Vulnerability Scoring System (CVSS) base score,\nwhich gives a detailed severity rating, is available from the CVE link in\nthe References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe sudo (superuser do) utility allows system administrators to give\ncertain users the ability to run commands as root.\n\nAn insecure temporary file use flaw was found in the sudo package's\npost-uninstall script. A local attacker could possibly use this flaw to\noverwrite an arbitrary file via a symbolic link attack, or modify the\ncontents of the \"/etc/nsswitch.conf\" file during the upgrade or removal of\nthe sudo package. (CVE-2012-3440)\n\nThis update also fixes the following bugs:\n\n* Previously, sudo escaped non-alphanumeric characters in commands using\n\"sudo -s\" or \"sudo -\" at the wrong place and interfered with the\nauthorization process. Some valid commands were not permitted. Now,\nnon-alphanumeric characters escape immediately before the command is\nexecuted and no longer interfere with the authorization process.\n(BZ#844418)\n\n* Prior to this update, the sudo utility could, under certain\ncircumstances, fail to receive the SIGCHLD signal when it was executed\nfrom a process that blocked the SIGCHLD signal. As a consequence, sudo\ncould become suspended and fail to exit. This update modifies the signal\nprocess mask so that sudo can exit and sends the correct output.\n(BZ#844419)\n\n* The sudo update RHSA-2012:0309 introduced a regression that caused the\nSecurity-Enhanced Linux (SELinux) context of the \"/etc/nsswitch.conf\" file\nto change during the installation or upgrade of the sudo package. This\ncould cause various services confined by SELinux to no longer be permitted\nto access the file. In reported cases, this issue prevented PostgreSQL and\nPostfix from starting. (BZ#842759)\n\n* Updating the sudo package resulted in the \"sudoers\" line in\n\"/etc/nsswitch.conf\" being removed. This update corrects the bug in the\nsudo package's post-uninstall script that caused this issue. (BZ#844420)\n\n* Prior to this update, a race condition bug existed in sudo. When a\nprogram was executed with sudo, the program could possibly exit\nsuccessfully before sudo started waiting for it. In this situation, the\nprogram would be left in a zombie state and sudo would wait for it\nendlessly, expecting it to still be running. (BZ#844978)\n\nAll users of sudo are advised to upgrade to this updated package, which\ncontains backported patches to correct these issues.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2012:1149",
+				"Description": "https://access.redhat.com/errata/RHSA-2012:1149"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			},
+			{
+				"type": "External",
+				"URL": "https://rhn.redhat.com/errata/RHSA-2012-0309.html",
+				"Description": "https://rhn.redhat.com/errata/RHSA-2012-0309.html"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "sudo: insecure temporary file use in RPM %postun script",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-08-07T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-3440",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:1149"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-3440",
+						"Description": "CVE-2012-3440"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=844442",
+						"Description": "bz#844442: CVE-2012-3440 sudo: insecure temporary file use in RPM %postun script"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2012-07-19T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-5.8.Z:sudo-0:1.7.2p1-14.el5_8.2",
+						"5Server-5.8.Z:sudo-0:1.7.2p1-14.el5_8.2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.6",
+					"Vector": "AV:L/AC:H/Au:N/C:N/I:C/A:C"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+							"productid": "5Client-5.8.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux (v. 5 server)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux (v. 5 server)",
+							"productid": "5Server-5.8.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "sudo-0:1.7.2p1-14.el5_8.2",
+				"fullproductname": {
+					"text": "sudo-1.7.2p1-14.el5_8.2.src.rpm",
+					"productid": "sudo-0:1.7.2p1-14.el5_8.2",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "sudo-0:1.7.2p1-14.el5_8.2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Client-5.8.Z",
+				"fullproductname": {
+					"text": "sudo-0:1.7.2p1-14.el5_8.2 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"productid": "5Client-5.8.Z:sudo-0:1.7.2p1-14.el5_8.2",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+				}
+			},
+			{
+				"productreference": "sudo-0:1.7.2p1-14.el5_8.2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-5.8.Z",
+				"fullproductname": {
+					"text": "sudo-0:1.7.2p1-14.el5_8.2 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"productid": "5Server-5.8.Z:sudo-0:1.7.2p1-14.el5_8.2",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+				}
+			}
+		]
+	}
+}

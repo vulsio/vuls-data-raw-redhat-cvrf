@@ -1,0 +1,336 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: kernel security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2016:1664"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2016-08-23T18:34:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2016-08-23T18:34:00Z",
+		"CurrentReleaseDate": "2016-08-23T18:34:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:44:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nAn update for kernel is now available for Red Hat Enterprise Linux 6.\n\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe kernel packages contain the Linux kernel, the core of any Linux operating system.\n\nSecurity Fix(es):\n\nIt was found that the RFC 5961 challenge ACK rate limiting as implemented in the Linux kernel's networking subsystem allowed an off-path attacker to leak certain information about a given connection by creating congestion on the global challenge ACK rate limit counter and then measuring the changes by probing packets. An off-path attacker could use this flaw to either terminate TCP connection and/or inject payload into non-secured TCP connection between two endpoints on the network. (CVE-2016-5696, Important)\n\nRed Hat would like to thank Yue Cao (Cyber Security Group of the CS department of University of California in Riverside) for reporting this issue.\n\nBug Fix(es):\n\n* When loading the Direct Rendering Manager (DRM) kernel module, the kernel panicked if DRM was previously unloaded. The kernel panic was caused by a memory leak of the ID Resolver (IDR2). With this update, IDR2 is loaded during kernel boot, and the kernel panic no longer occurs in the described scenario. (BZ#1353827)\n\n* When more than one process attempted to use the \"configfs\" directory entry at the same time, a kernel panic in some cases occurred. With this update, a race condition between a directory entry and a lookup operation has been fixed. As a result, the kernel no longer panics in the described scenario. (BZ#1353828)\n\n* When shutting down the system by running the halt -p command, a kernel panic occurred due to a conflict between the kernel offlining CPUs and the sched command, which used the sched group and the sched domain data without first checking the data. The underlying source code has been fixed by adding a check to avoid the conflict. As a result, the described scenario no longer results in a kernel panic. (BZ#1343894)\n\n* In some cases, running the ipmitool command caused a kernel panic due to a race condition in the ipmi message handler. This update fixes the race condition, and the kernel panic no longer occurs in the described scenario. (BZ#1355980)\n\n* Previously, multiple Very Secure FTP daemon (vsftpd) processes on a directory with a large number of files led to a high contention rate on each inode's spinlock, which caused excessive CPU usage. With this update, a spinlock to protect a single memory-to-memory copy has been removed from the ext4_getattr() function. As a result, system CPU usage has been reduced and is no longer excessive in the described situation. (BZ#1355981)\n\n* When the gfs2_grow utility is used to extend Global File System 2 (GFS2), the next block allocation causes the GFS2 kernel module to re-read its resource group index. If multiple processes in the GFS2 module raced to do the same thing, one process sometimes overwrote a valid object pointer with an invalid pointer, which caused either a kernel panic or a file system corruption. This update ensures that the resource group object pointer is not overwritten. As a result, neither kernel panic nor file system corruption occur in the described scenario. (BZ#1347539)\n\n* Previously, the SCSI Remote Protocol over InfiniBand (IB-SRP) was disabled due to a bug in the srp_queue() function. As a consequence, an attempt to enable the Remote Direct Memory Access (RDMA) at boot caused the kernel to crash. With this update, srp_queue() has been fixed, and the system now boots as expected when RDMA is enabled. (BZ#1348062)\n\nEnhancement(s):\n\n* This update optimizes the efficiency of the Transmission Control Protocol (TCP) when the peer is using a window under 537 bytes in size. As a result, devices that use maximum segment size (MSS) of 536 bytes or fewer will experience improved network performance. (BZ#1354446)\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2016:1664",
+				"Description": "https://access.redhat.com/errata/RHSA-2016:1664"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: challenge ACK counter information disclosure.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-07-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2016-5696",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2016:1664"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "http://lwn.net/Articles/696868/",
+						"Description": "http://lwn.net/Articles/696868/"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2016-5696",
+						"Description": "CVE-2016-5696"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1354708",
+						"Description": "bz#1354708: CVE-2016-5696 kernel: challenge ACK counter information disclosure."
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2016-07-12T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.8.z:kernel-0:2.6.32-642.4.2.el6",
+						"6Client-optional-6.8.z:kernel-0:2.6.32-642.4.2.el6",
+						"6ComputeNode-6.8.z:kernel-0:2.6.32-642.4.2.el6",
+						"6ComputeNode-optional-6.8.z:kernel-0:2.6.32-642.4.2.el6",
+						"6Server-6.8.z:kernel-0:2.6.32-642.4.2.el6",
+						"6Server-optional-6.8.z:kernel-0:2.6.32-642.4.2.el6",
+						"6Workstation-6.8.z:kernel-0:2.6.32-642.4.2.el6",
+						"6Workstation-optional-6.8.z:kernel-0:2.6.32-642.4.2.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank Yue Cao (Cyber Security Group of the CS department of University of California in Riverside) for reporting this issue."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.8",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:P/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 6)",
+							"productid": "6Client-6.8.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+							"productid": "6Client-optional-6.8.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node (v. 6)",
+							"productid": "6ComputeNode-6.8.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+							"productid": "6ComputeNode-optional-6.8.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 6)",
+							"productid": "6Server-6.8.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional (v. 6)",
+							"productid": "6Server-optional-6.8.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 6)",
+							"productid": "6Workstation-6.8.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+							"productid": "6Workstation-optional-6.8.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-0:2.6.32-642.4.2.el6",
+				"fullproductname": {
+					"text": "kernel-2.6.32-642.4.2.el6.src.rpm",
+					"productid": "kernel-0:2.6.32-642.4.2.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "kernel-0:2.6.32-642.4.2.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-6.8.z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-642.4.2.el6 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"productid": "6Client-6.8.z:kernel-0:2.6.32-642.4.2.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.32-642.4.2.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-optional-6.8.z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-642.4.2.el6 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"productid": "6Client-optional-6.8.z:kernel-0:2.6.32-642.4.2.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.32-642.4.2.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-6.8.z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-642.4.2.el6 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"productid": "6ComputeNode-6.8.z:kernel-0:2.6.32-642.4.2.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.32-642.4.2.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-optional-6.8.z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-642.4.2.el6 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"productid": "6ComputeNode-optional-6.8.z:kernel-0:2.6.32-642.4.2.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.32-642.4.2.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-6.8.z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-642.4.2.el6 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"productid": "6Server-6.8.z:kernel-0:2.6.32-642.4.2.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.32-642.4.2.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-optional-6.8.z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-642.4.2.el6 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"productid": "6Server-optional-6.8.z:kernel-0:2.6.32-642.4.2.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.32-642.4.2.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-6.8.z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-642.4.2.el6 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"productid": "6Workstation-6.8.z:kernel-0:2.6.32-642.4.2.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.32-642.4.2.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-optional-6.8.z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.32-642.4.2.el6 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"productid": "6Workstation-optional-6.8.z:kernel-0:2.6.32-642.4.2.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			}
+		]
+	}
+}

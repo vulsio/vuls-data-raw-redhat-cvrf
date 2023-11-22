@@ -1,0 +1,1031 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: Red Hat Application Stack v2.1 security and enhancement update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2008:0505"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2008-07-02T09:15:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2008-07-02T13:15:00Z",
+		"CurrentReleaseDate": "2008-07-02T09:15:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:36:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nRed Hat Application Stack v2.1 is now available. This update fixes various\nsecurity issues and adds several enhancements.\n\nThis update has been rated as having moderate security impact by the Red\nHat Security Response Team.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe Red Hat Application Stack is an integrated open source application\nstack, and includes JBoss Enterprise Application Platform (EAP).\n\nStarting with this update, JBoss EAP is no longer provided via the\nApplication Stack channels. Instead, all Application Stack customers are\nautomatically entitled to the JBoss EAP channels. This ensures all users\nhave immediate access to JBoss EAP packages when they are released,\nensuring lesser wait for security and critical patches.\n\nAs a result, you must MANUALLY subscribe to the appropriate JBoss EAP\nchannel, as all further JBoss EAP updates will only go to that channel.\n\nThis update also entitles all customers to the JBoss EAP 4.3.0 channels.\nUsers receive support for JBoss EAP 4.3.0 if they choose to install it.\nImportant: downgrading from JBoss EAP 4.3.0 to 4.2.0 is unsupported.\n\nPHP was updated to version 5.2.6, fixing the following security issues:\n\nIt was discovered that the PHP escapeshellcmd() function did not properly\nescape multi-byte characters which are not valid in the locale used by the\nscript. This could allow an attacker to bypass quoting restrictions imposed\nby escapeshellcmd() and execute arbitrary commands if the PHP script was\nusing certain locales. Scripts using the default UTF-8 locale are not\naffected by this issue. (CVE-2008-2051)\n\nThe PHP functions htmlentities() and htmlspecialchars() did not properly\nrecognize partial multi-byte sequences. Certain sequences of bytes could be\npassed through these functions without being correctly HTML-escaped.\nDepending on the browser being used, an attacker could use this flaw to\nconduct cross-site scripting attacks. (CVE-2007-5898)\n\nA PHP script which used the transparent session ID configuration option, or\nwhich used the output_add_rewrite_var() function, could leak session\nidentifiers to external web sites. If a page included an HTML form with an\nACTION attribute referencing a non-local URL, the user's session ID would\nbe included in the form data passed to that URL. (CVE-2007-5899)\n\nIt was discovered that the PHP fnmatch() function did not restrict the\nlength of the string argument. An attacker could use this flaw to crash the\nPHP interpreter where a script used fnmatch() on untrusted input data.\n(CVE-2007-4782)\n\nIt was discovered that PHP did not properly seed its pseudo-random number\ngenerator used by functions such as rand() and mt_rand(), possibly allowing\nan attacker to easily predict the generated pseudo-random values.\n(CVE-2008-2107, CVE-2008-2108)\n\nA flaw was found in PHP's CGI server API. If the web server did not set\nDOCUMENT_ROOT environment variable for PHP (e.g. when running PHP in the\nFastCGI server mode), an attacker could cause a crash of the PHP child\nprocess, causing a temporary denial of service. (CVE-2008-0599)\n\nMySQL was updated to version 5.0.50sp1a, fixing the following security\nissue:\n\nMySQL did not correctly check directories used as arguments for the DATA\nDIRECTORY and INDEX DIRECTORY directives. Using this flaw, an authenticated\nattacker could elevate their access privileges to tables created by other\ndatabase users. Note: this attack does not work on existing tables. An\nattacker can only elevate their access to another user's tables as the\ntables are created. As well, the names of these created tables need to be\npredicted correctly for this attack to succeed. (CVE-2008-2079)\n\nThe following packages are updated:\n\n* httpd to 2.2.8\n* mod_jk to 1.2.26\n* mod_perl to 2.0.4\n* the MySQL Connector/ODBC to 3.51.24r1071\n* the MySQL Connector/J (JDBC driver) to 5.0.8\n* perl-DBD-MySQL to 4.006\n* perl-DBI to 1.604\n* postgresql to 8.2.7\n* postgresql-jdbc to 8.2.508\n* postgresqlclient81 to 8.1.11\n* postgresql-odbc to 8.02.0500\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2008:0505",
+				"Description": "https://access.redhat.com/errata/RHSA-2008:0505"
+			},
+			{
+				"type": "External",
+				"URL": "http://www.redhat.com/docs/en-US/Red_Hat_Application_Stack/2.1/html-single/Release_Notes/",
+				"Description": "http://www.redhat.com/docs/en-US/Red_Hat_Application_Stack/2.1/html-single/Release_Notes/"
+			},
+			{
+				"type": "External",
+				"URL": "http://www.redhat.com/security/updates/classification/#moderate",
+				"Description": "http://www.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "php crash in glob() and fnmatch() functions",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2007-09-04T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2007-4782",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use \nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/FAQ_58_10188\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2008:0505"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2007-4782",
+						"Description": "CVE-2007-4782"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=285881",
+						"Description": "bz#285881: CVE-2007-4782 php crash in glob() and fnmatch() functions"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2007-09-11T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Server-Stacks:httpd-0:2.2.8-1.el5s2",
+						"5Server-Stacks:mod_jk-0:1.2.26-1.el5s2",
+						"5Server-Stacks:mod_perl-0:2.0.4-3.el5s2",
+						"5Server-Stacks:mysql-0:5.0.50sp1a-2.el5s2",
+						"5Server-Stacks:mysql-connector-odbc-0:3.51.24r1071-1.el5s2",
+						"5Server-Stacks:mysql-jdbc-0:5.0.8-1jpp.1.el5s2",
+						"5Server-Stacks:perl-DBD-MySQL-0:4.006-1.el5s2",
+						"5Server-Stacks:perl-DBI-0:1.604-1.el5s2",
+						"5Server-Stacks:php-0:5.2.6-2.el5s2",
+						"5Server-Stacks:postgresql-0:8.2.9-1.el5s2",
+						"5Server-Stacks:postgresql-jdbc-0:8.2.508-1jpp.el5s2",
+						"5Server-Stacks:postgresql-odbc-0:08.02.0500-1.el5s2",
+						"5Server-Stacks:postgresqlclient81-0:8.1.11-1.el5s2",
+						"5Server-Stacks:unixODBC-0:2.2.12-8.el5s2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "php htmlentities/htmlspecialchars multibyte sequences",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2007-11-08T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2007-5898",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use \nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/FAQ_58_10188\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2008:0505"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2007-5898",
+						"Description": "CVE-2007-5898"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=382411",
+						"Description": "bz#382411: CVE-2007-5898 php htmlentities/htmlspecialchars multibyte sequences"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2007-11-08T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Server-Stacks:httpd-0:2.2.8-1.el5s2",
+						"5Server-Stacks:mod_jk-0:1.2.26-1.el5s2",
+						"5Server-Stacks:mod_perl-0:2.0.4-3.el5s2",
+						"5Server-Stacks:mysql-0:5.0.50sp1a-2.el5s2",
+						"5Server-Stacks:mysql-connector-odbc-0:3.51.24r1071-1.el5s2",
+						"5Server-Stacks:mysql-jdbc-0:5.0.8-1jpp.1.el5s2",
+						"5Server-Stacks:perl-DBD-MySQL-0:4.006-1.el5s2",
+						"5Server-Stacks:perl-DBI-0:1.604-1.el5s2",
+						"5Server-Stacks:php-0:5.2.6-2.el5s2",
+						"5Server-Stacks:postgresql-0:8.2.9-1.el5s2",
+						"5Server-Stacks:postgresql-jdbc-0:8.2.508-1jpp.el5s2",
+						"5Server-Stacks:postgresql-odbc-0:08.02.0500-1.el5s2",
+						"5Server-Stacks:postgresqlclient81-0:8.1.11-1.el5s2",
+						"5Server-Stacks:unixODBC-0:2.2.12-8.el5s2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "php session ID leakage",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2007-11-08T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2007-5899",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use \nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/FAQ_58_10188\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2008:0505"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2007-5899",
+						"Description": "CVE-2007-5899"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=382431",
+						"Description": "bz#382431: CVE-2007-5899 php session ID leakage"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2007-11-08T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Server-Stacks:httpd-0:2.2.8-1.el5s2",
+						"5Server-Stacks:mod_jk-0:1.2.26-1.el5s2",
+						"5Server-Stacks:mod_perl-0:2.0.4-3.el5s2",
+						"5Server-Stacks:mysql-0:5.0.50sp1a-2.el5s2",
+						"5Server-Stacks:mysql-connector-odbc-0:3.51.24r1071-1.el5s2",
+						"5Server-Stacks:mysql-jdbc-0:5.0.8-1jpp.1.el5s2",
+						"5Server-Stacks:perl-DBD-MySQL-0:4.006-1.el5s2",
+						"5Server-Stacks:perl-DBI-0:1.604-1.el5s2",
+						"5Server-Stacks:php-0:5.2.6-2.el5s2",
+						"5Server-Stacks:postgresql-0:8.2.9-1.el5s2",
+						"5Server-Stacks:postgresql-jdbc-0:8.2.508-1jpp.el5s2",
+						"5Server-Stacks:postgresql-odbc-0:08.02.0500-1.el5s2",
+						"5Server-Stacks:postgresqlclient81-0:8.1.11-1.el5s2",
+						"5Server-Stacks:unixODBC-0:2.2.12-8.el5s2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "php: buffer overflow in a CGI path translation",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2008-05-01T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2008-0599",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use \nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/FAQ_58_10188\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2008:0505"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2008-0599",
+						"Description": "CVE-2008-0599"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=445003",
+						"Description": "bz#445003: CVE-2008-0599 php: buffer overflow in a CGI path translation"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2008-05-02T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Server-Stacks:httpd-0:2.2.8-1.el5s2",
+						"5Server-Stacks:mod_jk-0:1.2.26-1.el5s2",
+						"5Server-Stacks:mod_perl-0:2.0.4-3.el5s2",
+						"5Server-Stacks:mysql-0:5.0.50sp1a-2.el5s2",
+						"5Server-Stacks:mysql-connector-odbc-0:3.51.24r1071-1.el5s2",
+						"5Server-Stacks:mysql-jdbc-0:5.0.8-1jpp.1.el5s2",
+						"5Server-Stacks:perl-DBD-MySQL-0:4.006-1.el5s2",
+						"5Server-Stacks:perl-DBI-0:1.604-1.el5s2",
+						"5Server-Stacks:php-0:5.2.6-2.el5s2",
+						"5Server-Stacks:postgresql-0:8.2.9-1.el5s2",
+						"5Server-Stacks:postgresql-jdbc-0:8.2.508-1jpp.el5s2",
+						"5Server-Stacks:postgresql-odbc-0:08.02.0500-1.el5s2",
+						"5Server-Stacks:postgresqlclient81-0:8.1.11-1.el5s2",
+						"5Server-Stacks:unixODBC-0:2.2.12-8.el5s2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "PHP multibyte shell escape flaw",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2008-05-01T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2008-2051",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use \nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/FAQ_58_10188\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2008:0505"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2008-2051",
+						"Description": "CVE-2008-2051"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=445006",
+						"Description": "bz#445006: CVE-2008-2051 PHP multibyte shell escape flaw"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2008-05-02T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Server-Stacks:httpd-0:2.2.8-1.el5s2",
+						"5Server-Stacks:mod_jk-0:1.2.26-1.el5s2",
+						"5Server-Stacks:mod_perl-0:2.0.4-3.el5s2",
+						"5Server-Stacks:mysql-0:5.0.50sp1a-2.el5s2",
+						"5Server-Stacks:mysql-connector-odbc-0:3.51.24r1071-1.el5s2",
+						"5Server-Stacks:mysql-jdbc-0:5.0.8-1jpp.1.el5s2",
+						"5Server-Stacks:perl-DBD-MySQL-0:4.006-1.el5s2",
+						"5Server-Stacks:perl-DBI-0:1.604-1.el5s2",
+						"5Server-Stacks:php-0:5.2.6-2.el5s2",
+						"5Server-Stacks:postgresql-0:8.2.9-1.el5s2",
+						"5Server-Stacks:postgresql-jdbc-0:8.2.508-1jpp.el5s2",
+						"5Server-Stacks:postgresql-odbc-0:08.02.0500-1.el5s2",
+						"5Server-Stacks:postgresqlclient81-0:8.1.11-1.el5s2",
+						"5Server-Stacks:unixODBC-0:2.2.12-8.el5s2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "6",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "mysql: privilege escalation via DATA/INDEX DIRECTORY directives",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2008-03-13T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2008-2079",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use \nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/FAQ_58_10188\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2008:0505"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2008-2079",
+						"Description": "CVE-2008-2079"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=445222",
+						"Description": "bz#445222: CVE-2008-2079 mysql: privilege escalation via DATA/INDEX DIRECTORY directives"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2008-05-02T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Server-Stacks:httpd-0:2.2.8-1.el5s2",
+						"5Server-Stacks:mod_jk-0:1.2.26-1.el5s2",
+						"5Server-Stacks:mod_perl-0:2.0.4-3.el5s2",
+						"5Server-Stacks:mysql-0:5.0.50sp1a-2.el5s2",
+						"5Server-Stacks:mysql-connector-odbc-0:3.51.24r1071-1.el5s2",
+						"5Server-Stacks:mysql-jdbc-0:5.0.8-1jpp.1.el5s2",
+						"5Server-Stacks:perl-DBD-MySQL-0:4.006-1.el5s2",
+						"5Server-Stacks:perl-DBI-0:1.604-1.el5s2",
+						"5Server-Stacks:php-0:5.2.6-2.el5s2",
+						"5Server-Stacks:postgresql-0:8.2.9-1.el5s2",
+						"5Server-Stacks:postgresql-jdbc-0:8.2.508-1jpp.el5s2",
+						"5Server-Stacks:postgresql-odbc-0:08.02.0500-1.el5s2",
+						"5Server-Stacks:postgresqlclient81-0:8.1.11-1.el5s2",
+						"5Server-Stacks:unixODBC-0:2.2.12-8.el5s2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.9",
+					"Vector": "AV:N/AC:M/Au:S/C:P/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "7",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "PHP 32 bit weak random seed",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2008-05-06T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2008-2107",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use \nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/FAQ_58_10188\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2008:0505"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2008-2107",
+						"Description": "CVE-2008-2107"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=445684",
+						"Description": "bz#445684: CVE-2008-2107 PHP 32 bit weak random seed"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2008-05-08T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Server-Stacks:httpd-0:2.2.8-1.el5s2",
+						"5Server-Stacks:mod_jk-0:1.2.26-1.el5s2",
+						"5Server-Stacks:mod_perl-0:2.0.4-3.el5s2",
+						"5Server-Stacks:mysql-0:5.0.50sp1a-2.el5s2",
+						"5Server-Stacks:mysql-connector-odbc-0:3.51.24r1071-1.el5s2",
+						"5Server-Stacks:mysql-jdbc-0:5.0.8-1jpp.1.el5s2",
+						"5Server-Stacks:perl-DBD-MySQL-0:4.006-1.el5s2",
+						"5Server-Stacks:perl-DBI-0:1.604-1.el5s2",
+						"5Server-Stacks:php-0:5.2.6-2.el5s2",
+						"5Server-Stacks:postgresql-0:8.2.9-1.el5s2",
+						"5Server-Stacks:postgresql-jdbc-0:8.2.508-1jpp.el5s2",
+						"5Server-Stacks:postgresql-odbc-0:08.02.0500-1.el5s2",
+						"5Server-Stacks:postgresqlclient81-0:8.1.11-1.el5s2",
+						"5Server-Stacks:unixODBC-0:2.2.12-8.el5s2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "8",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "PHP weak 64 bit random seed",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2008-05-06T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2008-2108",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use \nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/FAQ_58_10188\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2008:0505"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2008-2108",
+						"Description": "CVE-2008-2108"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=445685",
+						"Description": "bz#445685: CVE-2008-2108 PHP weak 64 bit random seed"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2008-05-08T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Server-Stacks:httpd-0:2.2.8-1.el5s2",
+						"5Server-Stacks:mod_jk-0:1.2.26-1.el5s2",
+						"5Server-Stacks:mod_perl-0:2.0.4-3.el5s2",
+						"5Server-Stacks:mysql-0:5.0.50sp1a-2.el5s2",
+						"5Server-Stacks:mysql-connector-odbc-0:3.51.24r1071-1.el5s2",
+						"5Server-Stacks:mysql-jdbc-0:5.0.8-1jpp.1.el5s2",
+						"5Server-Stacks:perl-DBD-MySQL-0:4.006-1.el5s2",
+						"5Server-Stacks:perl-DBI-0:1.604-1.el5s2",
+						"5Server-Stacks:php-0:5.2.6-2.el5s2",
+						"5Server-Stacks:postgresql-0:8.2.9-1.el5s2",
+						"5Server-Stacks:postgresql-jdbc-0:8.2.508-1jpp.el5s2",
+						"5Server-Stacks:postgresql-odbc-0:08.02.0500-1.el5s2",
+						"5Server-Stacks:postgresqlclient81-0:8.1.11-1.el5s2",
+						"5Server-Stacks:unixODBC-0:2.2.12-8.el5s2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Application Stack",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Application Stack v2 for Enterprise Linux (v.5)",
+						"fullproductname": {
+							"text": "Red Hat Application Stack v2 for Enterprise Linux (v.5)",
+							"productid": "5Server-Stacks",
+							"cpe": "cpe:/a:redhat:rhel_application_stack:2"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "httpd-0:2.2.8-1.el5s2",
+				"fullproductname": {
+					"text": "httpd-2.2.8-1.el5s2.src.rpm",
+					"productid": "httpd-0:2.2.8-1.el5s2",
+					"cpe": "cpe:/a:redhat:rhel_application_stack:2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "mod_jk-0:1.2.26-1.el5s2",
+				"fullproductname": {
+					"text": "mod_jk-1.2.26-1.el5s2.src.rpm",
+					"productid": "mod_jk-0:1.2.26-1.el5s2",
+					"cpe": "cpe:/a:redhat:rhel_application_stack:2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "mod_perl-0:2.0.4-3.el5s2",
+				"fullproductname": {
+					"text": "mod_perl-2.0.4-3.el5s2.src.rpm",
+					"productid": "mod_perl-0:2.0.4-3.el5s2",
+					"cpe": "cpe:/a:redhat:rhel_application_stack:2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "mysql-0:5.0.50sp1a-2.el5s2",
+				"fullproductname": {
+					"text": "mysql-5.0.50sp1a-2.el5s2.src.rpm",
+					"productid": "mysql-0:5.0.50sp1a-2.el5s2",
+					"cpe": "cpe:/a:redhat:rhel_application_stack:2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "mysql-connector-odbc-0:3.51.24r1071-1.el5s2",
+				"fullproductname": {
+					"text": "mysql-connector-odbc-3.51.24r1071-1.el5s2.src.rpm",
+					"productid": "mysql-connector-odbc-0:3.51.24r1071-1.el5s2",
+					"cpe": "cpe:/a:redhat:rhel_application_stack:2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "mysql-jdbc-0:5.0.8-1jpp.1.el5s2",
+				"fullproductname": {
+					"text": "mysql-jdbc-5.0.8-1jpp.1.el5s2.src.rpm",
+					"productid": "mysql-jdbc-0:5.0.8-1jpp.1.el5s2",
+					"cpe": "cpe:/a:redhat:rhel_application_stack:2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "perl-DBD-MySQL-0:4.006-1.el5s2",
+				"fullproductname": {
+					"text": "perl-DBD-MySQL-4.006-1.el5s2.src.rpm",
+					"productid": "perl-DBD-MySQL-0:4.006-1.el5s2",
+					"cpe": "cpe:/a:redhat:rhel_application_stack:2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "perl-DBI-0:1.604-1.el5s2",
+				"fullproductname": {
+					"text": "perl-DBI-1.604-1.el5s2.src.rpm",
+					"productid": "perl-DBI-0:1.604-1.el5s2",
+					"cpe": "cpe:/a:redhat:rhel_application_stack:2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "php-0:5.2.6-2.el5s2",
+				"fullproductname": {
+					"text": "php-5.2.6-2.el5s2.src.rpm",
+					"productid": "php-0:5.2.6-2.el5s2",
+					"cpe": "cpe:/a:redhat:rhel_application_stack:2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "postgresql-0:8.2.9-1.el5s2",
+				"fullproductname": {
+					"text": "postgresql-8.2.9-1.el5s2.src.rpm",
+					"productid": "postgresql-0:8.2.9-1.el5s2",
+					"cpe": "cpe:/a:redhat:rhel_application_stack:2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "postgresql-jdbc-0:8.2.508-1jpp.el5s2",
+				"fullproductname": {
+					"text": "postgresql-jdbc-8.2.508-1jpp.el5s2.src.rpm",
+					"productid": "postgresql-jdbc-0:8.2.508-1jpp.el5s2",
+					"cpe": "cpe:/a:redhat:rhel_application_stack:2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "postgresql-odbc-0:08.02.0500-1.el5s2",
+				"fullproductname": {
+					"text": "postgresql-odbc-08.02.0500-1.el5s2.src.rpm",
+					"productid": "postgresql-odbc-0:08.02.0500-1.el5s2",
+					"cpe": "cpe:/a:redhat:rhel_application_stack:2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "postgresqlclient81-0:8.1.11-1.el5s2",
+				"fullproductname": {
+					"text": "postgresqlclient81-8.1.11-1.el5s2.src.rpm",
+					"productid": "postgresqlclient81-0:8.1.11-1.el5s2",
+					"cpe": "cpe:/a:redhat:rhel_application_stack:2"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "unixODBC-0:2.2.12-8.el5s2",
+				"fullproductname": {
+					"text": "unixODBC-2.2.12-8.el5s2.src.rpm",
+					"productid": "unixODBC-0:2.2.12-8.el5s2",
+					"cpe": "cpe:/a:redhat:rhel_application_stack:2"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "httpd-0:2.2.8-1.el5s2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-Stacks",
+				"fullproductname": {
+					"text": "httpd-0:2.2.8-1.el5s2 as a component of Red Hat Application Stack v2 for Enterprise Linux (v.5)",
+					"productid": "5Server-Stacks:httpd-0:2.2.8-1.el5s2",
+					"cpe": "cpe:/a:redhat:rhel_application_stack:2"
+				}
+			},
+			{
+				"productreference": "mod_jk-0:1.2.26-1.el5s2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-Stacks",
+				"fullproductname": {
+					"text": "mod_jk-0:1.2.26-1.el5s2 as a component of Red Hat Application Stack v2 for Enterprise Linux (v.5)",
+					"productid": "5Server-Stacks:mod_jk-0:1.2.26-1.el5s2",
+					"cpe": "cpe:/a:redhat:rhel_application_stack:2"
+				}
+			},
+			{
+				"productreference": "mod_perl-0:2.0.4-3.el5s2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-Stacks",
+				"fullproductname": {
+					"text": "mod_perl-0:2.0.4-3.el5s2 as a component of Red Hat Application Stack v2 for Enterprise Linux (v.5)",
+					"productid": "5Server-Stacks:mod_perl-0:2.0.4-3.el5s2",
+					"cpe": "cpe:/a:redhat:rhel_application_stack:2"
+				}
+			},
+			{
+				"productreference": "mysql-0:5.0.50sp1a-2.el5s2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-Stacks",
+				"fullproductname": {
+					"text": "mysql-0:5.0.50sp1a-2.el5s2 as a component of Red Hat Application Stack v2 for Enterprise Linux (v.5)",
+					"productid": "5Server-Stacks:mysql-0:5.0.50sp1a-2.el5s2",
+					"cpe": "cpe:/a:redhat:rhel_application_stack:2"
+				}
+			},
+			{
+				"productreference": "mysql-connector-odbc-0:3.51.24r1071-1.el5s2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-Stacks",
+				"fullproductname": {
+					"text": "mysql-connector-odbc-0:3.51.24r1071-1.el5s2 as a component of Red Hat Application Stack v2 for Enterprise Linux (v.5)",
+					"productid": "5Server-Stacks:mysql-connector-odbc-0:3.51.24r1071-1.el5s2",
+					"cpe": "cpe:/a:redhat:rhel_application_stack:2"
+				}
+			},
+			{
+				"productreference": "mysql-jdbc-0:5.0.8-1jpp.1.el5s2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-Stacks",
+				"fullproductname": {
+					"text": "mysql-jdbc-0:5.0.8-1jpp.1.el5s2 as a component of Red Hat Application Stack v2 for Enterprise Linux (v.5)",
+					"productid": "5Server-Stacks:mysql-jdbc-0:5.0.8-1jpp.1.el5s2",
+					"cpe": "cpe:/a:redhat:rhel_application_stack:2"
+				}
+			},
+			{
+				"productreference": "perl-DBD-MySQL-0:4.006-1.el5s2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-Stacks",
+				"fullproductname": {
+					"text": "perl-DBD-MySQL-0:4.006-1.el5s2 as a component of Red Hat Application Stack v2 for Enterprise Linux (v.5)",
+					"productid": "5Server-Stacks:perl-DBD-MySQL-0:4.006-1.el5s2",
+					"cpe": "cpe:/a:redhat:rhel_application_stack:2"
+				}
+			},
+			{
+				"productreference": "perl-DBI-0:1.604-1.el5s2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-Stacks",
+				"fullproductname": {
+					"text": "perl-DBI-0:1.604-1.el5s2 as a component of Red Hat Application Stack v2 for Enterprise Linux (v.5)",
+					"productid": "5Server-Stacks:perl-DBI-0:1.604-1.el5s2",
+					"cpe": "cpe:/a:redhat:rhel_application_stack:2"
+				}
+			},
+			{
+				"productreference": "php-0:5.2.6-2.el5s2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-Stacks",
+				"fullproductname": {
+					"text": "php-0:5.2.6-2.el5s2 as a component of Red Hat Application Stack v2 for Enterprise Linux (v.5)",
+					"productid": "5Server-Stacks:php-0:5.2.6-2.el5s2",
+					"cpe": "cpe:/a:redhat:rhel_application_stack:2"
+				}
+			},
+			{
+				"productreference": "postgresql-0:8.2.9-1.el5s2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-Stacks",
+				"fullproductname": {
+					"text": "postgresql-0:8.2.9-1.el5s2 as a component of Red Hat Application Stack v2 for Enterprise Linux (v.5)",
+					"productid": "5Server-Stacks:postgresql-0:8.2.9-1.el5s2",
+					"cpe": "cpe:/a:redhat:rhel_application_stack:2"
+				}
+			},
+			{
+				"productreference": "postgresql-jdbc-0:8.2.508-1jpp.el5s2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-Stacks",
+				"fullproductname": {
+					"text": "postgresql-jdbc-0:8.2.508-1jpp.el5s2 as a component of Red Hat Application Stack v2 for Enterprise Linux (v.5)",
+					"productid": "5Server-Stacks:postgresql-jdbc-0:8.2.508-1jpp.el5s2",
+					"cpe": "cpe:/a:redhat:rhel_application_stack:2"
+				}
+			},
+			{
+				"productreference": "postgresql-odbc-0:08.02.0500-1.el5s2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-Stacks",
+				"fullproductname": {
+					"text": "postgresql-odbc-0:08.02.0500-1.el5s2 as a component of Red Hat Application Stack v2 for Enterprise Linux (v.5)",
+					"productid": "5Server-Stacks:postgresql-odbc-0:08.02.0500-1.el5s2",
+					"cpe": "cpe:/a:redhat:rhel_application_stack:2"
+				}
+			},
+			{
+				"productreference": "postgresqlclient81-0:8.1.11-1.el5s2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-Stacks",
+				"fullproductname": {
+					"text": "postgresqlclient81-0:8.1.11-1.el5s2 as a component of Red Hat Application Stack v2 for Enterprise Linux (v.5)",
+					"productid": "5Server-Stacks:postgresqlclient81-0:8.1.11-1.el5s2",
+					"cpe": "cpe:/a:redhat:rhel_application_stack:2"
+				}
+			},
+			{
+				"productreference": "unixODBC-0:2.2.12-8.el5s2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-Stacks",
+				"fullproductname": {
+					"text": "unixODBC-0:2.2.12-8.el5s2 as a component of Red Hat Application Stack v2 for Enterprise Linux (v.5)",
+					"productid": "5Server-Stacks:unixODBC-0:2.2.12-8.el5s2",
+					"cpe": "cpe:/a:redhat:rhel_application_stack:2"
+				}
+			}
+		]
+	}
+}

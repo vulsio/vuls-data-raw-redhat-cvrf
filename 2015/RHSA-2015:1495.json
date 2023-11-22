@@ -1,0 +1,1402 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: Red Hat Gluster Storage 3.1 update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2015:1495"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2015-07-29T04:26:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2015-07-29T04:26:00Z",
+		"CurrentReleaseDate": "2015-07-29T04:26:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:38:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nRed Hat Gluster Storage 3.1, which fixes multiple security issues, several bugs, and adds various enhancements, is now available.\n\nRed Hat Product Security has rated this update as having Important security\nimpact. Common Vulnerability Scoring System (CVSS) base scores, which give\ndetailed severity ratings, are available for each vulnerability from the\nCVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nRed Hat Gluster Storage is a software only scale-out storage solution that\nprovides flexible and affordable unstructured data storage. It unifies data storage and infrastructure, increases performance, and improves availability and manageability to meet enterprise-level storage challenges.\n\nRed Hat Gluster Storage's Unified File and Object Storage is built on\nOpenStack's Object Storage (swift).\n\nA flaw was found in the metadata constraints in OpenStack Object Storage\n(swift). By adding metadata in several separate calls, a malicious user\ncould bypass the max_meta_count constraint, and store more metadata than\nallowed by the configuration. (CVE-2014-7960)\n\nMultiple flaws were found in check-mk, a plug-in for the Nagios monitoring\nsystem, which is used to provide monitoring and alerts for the Red Hat\nGluster Storage network and infrastructure: a reflected cross-site\nscripting flaw due improper output encoding, a flaw that could allow\nattackers to write .mk files in arbitrary file system locations, and a flaw\nthat could possibly allow remote attackers to execute code in the wato (web\nbased admin) module due to the unsafe use of the pickle() function.\n(CVE-2014-5338, CVE-2014-5339, CVE-2014-5340)\n\nThis update also fixes numerous bugs and adds various enhancements. Space\nprecludes documenting all of these changes in this advisory. Users are\ndirected to the Red Hat Gluster Storage 3.1 Technical Notes, linked to in\nthe References section, for information on the most significant of these\nchanges.\n\nThis advisory introduces the following new features:\n\n* NFS-Ganesha is now supported in highly available active-active\nenvironment. In a highly available active-active environment, if a\nNFS-Ganesha server that is connected to a NFS client running a particular\napplication crashes, the application/NFS client is seamlessly connected to\nanother NFS-Ganesha server without any administrative intervention.\n\n* Snapshot scheduler creates snapshots automatically based on the\nconfigured scheduled interval of time. The snapshots can be created every\nhour, a particular day of the month, particular month, or a particular day\nof the week.\n\n* You can now create a clone of a snapshot. This is a writable clone and\nbehaves like a regular volume. A new volume can be created from a\nparticular snapshot clone. Snapshot Clone is a technology preview feature.\n\n* Red Hat Gluster Storage supports network encryption using TLS/SSL.\nRed Hat Gluster Storage uses TLS/SSL for authentication and authorization,\nin place of the home grown authentication framework used for normal connections.\n\n* BitRot detection is a technique used in Red Hat Gluster Storage to\nidentify the silent corruption of data with no indication from the disk to\nthe storage software layer when the error has occurred. BitRot also helps\nin catching backend tinkering of bricks, where the data is directly\nmanipulated on the bricks without going through FUSE, NFS or any other\naccess protocols.\n\n* Glusterfind is a utility that provides the list of files that are\nmodified between the previous backup session and the current period.\nThis list of files can then be used by any industry standard backup\napplication for backup.\n\n* The Parallel Network File System (pNFS) is part of the NFS v4.1 protocol\nthat allows compute clients to access storage devices directly and in\nparallel. pNFS is a technology preview feature.\n\n* Tiering improves the performance, and the compliance aspects in a Red Hat\nGluster Storage environment. It serves as an enabling technology for other\nenhancements by combining cost-effective or archivally oriented storage for\nthe majority of user data with high-performance storage to absorb the\nmajority of I/O workload. Tiering is a technology preview feature.\n\nAll users of Red Hat Gluster Storage are advised to apply this update.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2015:1495",
+				"Description": "https://access.redhat.com/errata/RHSA-2015:1495"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/documentation/en-US/Red_Hat_Storage/3.1/html/Technical_Notes/index.html",
+				"Description": "https://access.redhat.com/documentation/en-US/Red_Hat_Storage/3.1/html/Technical_Notes/index.html"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "check-mk: multiple flaws fixed in versions 1.2.4p4 and 1.2.5i4",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-05-05T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-5338",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1495"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-5338",
+						"Description": "CVE-2014-5338"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1132337",
+						"Description": "bz#1132337: CVE-2014-5338 CVE-2014-5339 CVE-2014-5340 check-mk: multiple flaws fixed in versions 1.2.4p4 and 1.2.5i4"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2014-08-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Server-RHSClient:glusterfs-0:3.7.1-11.el5",
+						"6Server-RH-Gluster-3-NFS:nfs-ganesha-0:2.2.0-5.el6rhs",
+						"6Server-RH-Gluster-3-Nagios-Server:check-mk-0:1.2.6p1-3.el6rhs",
+						"6Server-RH-Gluster-3-Nagios-Server:gluster-nagios-common-0:0.2.0-1.el6rhs",
+						"6Server-RH-Gluster-3-Nagios-Server:nagios-plugins-0:1.4.16-12.el6rhs",
+						"6Server-RH-Gluster-3-Nagios-Server:nagios-server-addons-0:0.2.1-4.el6rhs",
+						"6Server-RH-Gluster-3-Nagios-Server:nrpe-0:2.15-4.1.el6rhs",
+						"6Server-RH-Gluster-3-Nagios-Server:pnp4nagios-0:0.6.22-2.1.el6rhs",
+						"6Server-RH-Gluster-3-Nagios-Server:pynag-0:0.9.1-1.el6rhs",
+						"6Server-RH-Gluster-3-Nagios-Server:python-cpopen-0:1.3-4.el6_5",
+						"6Server-RH-Gluster-3-Samba-:libtalloc-0:2.1.1-4.el6rhs",
+						"6Server-RH-Gluster-3-Server:augeas-0:1.0.0-10.el6",
+						"6Server-RH-Gluster-3-Server:clufter-0:0.11.2-1.el6",
+						"6Server-RH-Gluster-3-Server:cluster-0:3.0.12.1-73.el6",
+						"6Server-RH-Gluster-3-Server:clustermon-0:0.16.2-31.el6",
+						"6Server-RH-Gluster-3-Server:corosync-0:1.4.7-2.el6",
+						"6Server-RH-Gluster-3-Server:ctdb2.5-0:2.5.5-7.el6rhs",
+						"6Server-RH-Gluster-3-Server:fence-virt-0:0.2.3-19.el6",
+						"6Server-RH-Gluster-3-Server:gluster-nagios-addons-0:0.2.4-4.el6rhs",
+						"6Server-RH-Gluster-3-Server:gluster-nagios-common-0:0.2.0-1.el6rhs",
+						"6Server-RH-Gluster-3-Server:glusterfs-0:3.7.1-11.el6rhs",
+						"6Server-RH-Gluster-3-Server:gstatus-0:0.64-3.1.el6rhs",
+						"6Server-RH-Gluster-3-Server:libqb-0:0.17.1-1.el6",
+						"6Server-RH-Gluster-3-Server:libvirt-0:0.10.2-54.el6",
+						"6Server-RH-Gluster-3-Server:nagios-plugins-0:1.4.16-12.el6rhs",
+						"6Server-RH-Gluster-3-Server:nrpe-0:2.15-4.1.el6rhs",
+						"6Server-RH-Gluster-3-Server:openais-0:1.1.1-7.el6",
+						"6Server-RH-Gluster-3-Server:openstack-swift-0:1.13.1-4.el6ost",
+						"6Server-RH-Gluster-3-Server:pacemaker-0:1.1.12-8.el6",
+						"6Server-RH-Gluster-3-Server:pcs-0:0.9.139-9.el6",
+						"6Server-RH-Gluster-3-Server:python-blivet-1:1.0.0.2-1.el6rhs",
+						"6Server-RH-Gluster-3-Server:python-cpopen-0:1.3-4.el6_5",
+						"6Server-RH-Gluster-3-Server:python-eventlet-0:0.14.0-1.el6",
+						"6Server-RH-Gluster-3-Server:python-greenlet-0:0.4.2-1.el6",
+						"6Server-RH-Gluster-3-Server:python-keystoneclient-1:0.9.0-5.el6ost",
+						"6Server-RH-Gluster-3-Server:python-prettytable-0:0.7.2-1.el6",
+						"6Server-RH-Gluster-3-Server:python-pyudev-0:0.15-2.el6rhs",
+						"6Server-RH-Gluster-3-Server:redhat-storage-logos-0:60.0.20-1.el6rhs",
+						"6Server-RH-Gluster-3-Server:redhat-storage-server-0:3.1.0.3-1.el6rhs",
+						"6Server-RH-Gluster-3-Server:resource-agents-0:3.9.5-24.el6",
+						"6Server-RH-Gluster-3-Server:ricci-0:0.16.2-81.el6",
+						"6Server-RH-Gluster-3-Server:userspace-rcu-0:0.7.9-2.el6rhs",
+						"6Server-RH-Gluster-3-Server:vdsm-0:4.16.20-1.2.el6rhs",
+						"6Server-RHSClient:glusterfs-0:3.7.1-11.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "7.5",
+					"Vector": "AV:N/AC:L/Au:N/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "check-mk: multiple flaws fixed in versions 1.2.4p4 and 1.2.5i4",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-05-05T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-5339",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1495"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-5339",
+						"Description": "CVE-2014-5339"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1132337",
+						"Description": "bz#1132337: CVE-2014-5338 CVE-2014-5339 CVE-2014-5340 check-mk: multiple flaws fixed in versions 1.2.4p4 and 1.2.5i4"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2014-08-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Server-RHSClient:glusterfs-0:3.7.1-11.el5",
+						"6Server-RH-Gluster-3-NFS:nfs-ganesha-0:2.2.0-5.el6rhs",
+						"6Server-RH-Gluster-3-Nagios-Server:check-mk-0:1.2.6p1-3.el6rhs",
+						"6Server-RH-Gluster-3-Nagios-Server:gluster-nagios-common-0:0.2.0-1.el6rhs",
+						"6Server-RH-Gluster-3-Nagios-Server:nagios-plugins-0:1.4.16-12.el6rhs",
+						"6Server-RH-Gluster-3-Nagios-Server:nagios-server-addons-0:0.2.1-4.el6rhs",
+						"6Server-RH-Gluster-3-Nagios-Server:nrpe-0:2.15-4.1.el6rhs",
+						"6Server-RH-Gluster-3-Nagios-Server:pnp4nagios-0:0.6.22-2.1.el6rhs",
+						"6Server-RH-Gluster-3-Nagios-Server:pynag-0:0.9.1-1.el6rhs",
+						"6Server-RH-Gluster-3-Nagios-Server:python-cpopen-0:1.3-4.el6_5",
+						"6Server-RH-Gluster-3-Samba-:libtalloc-0:2.1.1-4.el6rhs",
+						"6Server-RH-Gluster-3-Server:augeas-0:1.0.0-10.el6",
+						"6Server-RH-Gluster-3-Server:clufter-0:0.11.2-1.el6",
+						"6Server-RH-Gluster-3-Server:cluster-0:3.0.12.1-73.el6",
+						"6Server-RH-Gluster-3-Server:clustermon-0:0.16.2-31.el6",
+						"6Server-RH-Gluster-3-Server:corosync-0:1.4.7-2.el6",
+						"6Server-RH-Gluster-3-Server:ctdb2.5-0:2.5.5-7.el6rhs",
+						"6Server-RH-Gluster-3-Server:fence-virt-0:0.2.3-19.el6",
+						"6Server-RH-Gluster-3-Server:gluster-nagios-addons-0:0.2.4-4.el6rhs",
+						"6Server-RH-Gluster-3-Server:gluster-nagios-common-0:0.2.0-1.el6rhs",
+						"6Server-RH-Gluster-3-Server:glusterfs-0:3.7.1-11.el6rhs",
+						"6Server-RH-Gluster-3-Server:gstatus-0:0.64-3.1.el6rhs",
+						"6Server-RH-Gluster-3-Server:libqb-0:0.17.1-1.el6",
+						"6Server-RH-Gluster-3-Server:libvirt-0:0.10.2-54.el6",
+						"6Server-RH-Gluster-3-Server:nagios-plugins-0:1.4.16-12.el6rhs",
+						"6Server-RH-Gluster-3-Server:nrpe-0:2.15-4.1.el6rhs",
+						"6Server-RH-Gluster-3-Server:openais-0:1.1.1-7.el6",
+						"6Server-RH-Gluster-3-Server:openstack-swift-0:1.13.1-4.el6ost",
+						"6Server-RH-Gluster-3-Server:pacemaker-0:1.1.12-8.el6",
+						"6Server-RH-Gluster-3-Server:pcs-0:0.9.139-9.el6",
+						"6Server-RH-Gluster-3-Server:python-blivet-1:1.0.0.2-1.el6rhs",
+						"6Server-RH-Gluster-3-Server:python-cpopen-0:1.3-4.el6_5",
+						"6Server-RH-Gluster-3-Server:python-eventlet-0:0.14.0-1.el6",
+						"6Server-RH-Gluster-3-Server:python-greenlet-0:0.4.2-1.el6",
+						"6Server-RH-Gluster-3-Server:python-keystoneclient-1:0.9.0-5.el6ost",
+						"6Server-RH-Gluster-3-Server:python-prettytable-0:0.7.2-1.el6",
+						"6Server-RH-Gluster-3-Server:python-pyudev-0:0.15-2.el6rhs",
+						"6Server-RH-Gluster-3-Server:redhat-storage-logos-0:60.0.20-1.el6rhs",
+						"6Server-RH-Gluster-3-Server:redhat-storage-server-0:3.1.0.3-1.el6rhs",
+						"6Server-RH-Gluster-3-Server:resource-agents-0:3.9.5-24.el6",
+						"6Server-RH-Gluster-3-Server:ricci-0:0.16.2-81.el6",
+						"6Server-RH-Gluster-3-Server:userspace-rcu-0:0.7.9-2.el6rhs",
+						"6Server-RH-Gluster-3-Server:vdsm-0:4.16.20-1.2.el6rhs",
+						"6Server-RHSClient:glusterfs-0:3.7.1-11.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "7.5",
+					"Vector": "AV:N/AC:L/Au:N/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "check-mk: multiple flaws fixed in versions 1.2.4p4 and 1.2.5i4",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-05-05T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-5340",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1495"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-5340",
+						"Description": "CVE-2014-5340"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1132337",
+						"Description": "bz#1132337: CVE-2014-5338 CVE-2014-5339 CVE-2014-5340 check-mk: multiple flaws fixed in versions 1.2.4p4 and 1.2.5i4"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2014-08-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Server-RHSClient:glusterfs-0:3.7.1-11.el5",
+						"6Server-RH-Gluster-3-NFS:nfs-ganesha-0:2.2.0-5.el6rhs",
+						"6Server-RH-Gluster-3-Nagios-Server:check-mk-0:1.2.6p1-3.el6rhs",
+						"6Server-RH-Gluster-3-Nagios-Server:gluster-nagios-common-0:0.2.0-1.el6rhs",
+						"6Server-RH-Gluster-3-Nagios-Server:nagios-plugins-0:1.4.16-12.el6rhs",
+						"6Server-RH-Gluster-3-Nagios-Server:nagios-server-addons-0:0.2.1-4.el6rhs",
+						"6Server-RH-Gluster-3-Nagios-Server:nrpe-0:2.15-4.1.el6rhs",
+						"6Server-RH-Gluster-3-Nagios-Server:pnp4nagios-0:0.6.22-2.1.el6rhs",
+						"6Server-RH-Gluster-3-Nagios-Server:pynag-0:0.9.1-1.el6rhs",
+						"6Server-RH-Gluster-3-Nagios-Server:python-cpopen-0:1.3-4.el6_5",
+						"6Server-RH-Gluster-3-Samba-:libtalloc-0:2.1.1-4.el6rhs",
+						"6Server-RH-Gluster-3-Server:augeas-0:1.0.0-10.el6",
+						"6Server-RH-Gluster-3-Server:clufter-0:0.11.2-1.el6",
+						"6Server-RH-Gluster-3-Server:cluster-0:3.0.12.1-73.el6",
+						"6Server-RH-Gluster-3-Server:clustermon-0:0.16.2-31.el6",
+						"6Server-RH-Gluster-3-Server:corosync-0:1.4.7-2.el6",
+						"6Server-RH-Gluster-3-Server:ctdb2.5-0:2.5.5-7.el6rhs",
+						"6Server-RH-Gluster-3-Server:fence-virt-0:0.2.3-19.el6",
+						"6Server-RH-Gluster-3-Server:gluster-nagios-addons-0:0.2.4-4.el6rhs",
+						"6Server-RH-Gluster-3-Server:gluster-nagios-common-0:0.2.0-1.el6rhs",
+						"6Server-RH-Gluster-3-Server:glusterfs-0:3.7.1-11.el6rhs",
+						"6Server-RH-Gluster-3-Server:gstatus-0:0.64-3.1.el6rhs",
+						"6Server-RH-Gluster-3-Server:libqb-0:0.17.1-1.el6",
+						"6Server-RH-Gluster-3-Server:libvirt-0:0.10.2-54.el6",
+						"6Server-RH-Gluster-3-Server:nagios-plugins-0:1.4.16-12.el6rhs",
+						"6Server-RH-Gluster-3-Server:nrpe-0:2.15-4.1.el6rhs",
+						"6Server-RH-Gluster-3-Server:openais-0:1.1.1-7.el6",
+						"6Server-RH-Gluster-3-Server:openstack-swift-0:1.13.1-4.el6ost",
+						"6Server-RH-Gluster-3-Server:pacemaker-0:1.1.12-8.el6",
+						"6Server-RH-Gluster-3-Server:pcs-0:0.9.139-9.el6",
+						"6Server-RH-Gluster-3-Server:python-blivet-1:1.0.0.2-1.el6rhs",
+						"6Server-RH-Gluster-3-Server:python-cpopen-0:1.3-4.el6_5",
+						"6Server-RH-Gluster-3-Server:python-eventlet-0:0.14.0-1.el6",
+						"6Server-RH-Gluster-3-Server:python-greenlet-0:0.4.2-1.el6",
+						"6Server-RH-Gluster-3-Server:python-keystoneclient-1:0.9.0-5.el6ost",
+						"6Server-RH-Gluster-3-Server:python-prettytable-0:0.7.2-1.el6",
+						"6Server-RH-Gluster-3-Server:python-pyudev-0:0.15-2.el6rhs",
+						"6Server-RH-Gluster-3-Server:redhat-storage-logos-0:60.0.20-1.el6rhs",
+						"6Server-RH-Gluster-3-Server:redhat-storage-server-0:3.1.0.3-1.el6rhs",
+						"6Server-RH-Gluster-3-Server:resource-agents-0:3.9.5-24.el6",
+						"6Server-RH-Gluster-3-Server:ricci-0:0.16.2-81.el6",
+						"6Server-RH-Gluster-3-Server:userspace-rcu-0:0.7.9-2.el6rhs",
+						"6Server-RH-Gluster-3-Server:vdsm-0:4.16.20-1.2.el6rhs",
+						"6Server-RHSClient:glusterfs-0:3.7.1-11.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "7.5",
+					"Vector": "AV:N/AC:L/Au:N/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "openstack-swift: Swift metadata constraints are not correctly enforced",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-09-04T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-7960",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1495"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-7960",
+						"Description": "CVE-2014-7960"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1150461",
+						"Description": "bz#1150461: CVE-2014-7960 openstack-swift: Swift metadata constraints are not correctly enforced"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-10-08T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Server-RHSClient:glusterfs-0:3.7.1-11.el5",
+						"6Server-RH-Gluster-3-NFS:nfs-ganesha-0:2.2.0-5.el6rhs",
+						"6Server-RH-Gluster-3-Nagios-Server:check-mk-0:1.2.6p1-3.el6rhs",
+						"6Server-RH-Gluster-3-Nagios-Server:gluster-nagios-common-0:0.2.0-1.el6rhs",
+						"6Server-RH-Gluster-3-Nagios-Server:nagios-plugins-0:1.4.16-12.el6rhs",
+						"6Server-RH-Gluster-3-Nagios-Server:nagios-server-addons-0:0.2.1-4.el6rhs",
+						"6Server-RH-Gluster-3-Nagios-Server:nrpe-0:2.15-4.1.el6rhs",
+						"6Server-RH-Gluster-3-Nagios-Server:pnp4nagios-0:0.6.22-2.1.el6rhs",
+						"6Server-RH-Gluster-3-Nagios-Server:pynag-0:0.9.1-1.el6rhs",
+						"6Server-RH-Gluster-3-Nagios-Server:python-cpopen-0:1.3-4.el6_5",
+						"6Server-RH-Gluster-3-Samba-:libtalloc-0:2.1.1-4.el6rhs",
+						"6Server-RH-Gluster-3-Server:augeas-0:1.0.0-10.el6",
+						"6Server-RH-Gluster-3-Server:clufter-0:0.11.2-1.el6",
+						"6Server-RH-Gluster-3-Server:cluster-0:3.0.12.1-73.el6",
+						"6Server-RH-Gluster-3-Server:clustermon-0:0.16.2-31.el6",
+						"6Server-RH-Gluster-3-Server:corosync-0:1.4.7-2.el6",
+						"6Server-RH-Gluster-3-Server:ctdb2.5-0:2.5.5-7.el6rhs",
+						"6Server-RH-Gluster-3-Server:fence-virt-0:0.2.3-19.el6",
+						"6Server-RH-Gluster-3-Server:gluster-nagios-addons-0:0.2.4-4.el6rhs",
+						"6Server-RH-Gluster-3-Server:gluster-nagios-common-0:0.2.0-1.el6rhs",
+						"6Server-RH-Gluster-3-Server:glusterfs-0:3.7.1-11.el6rhs",
+						"6Server-RH-Gluster-3-Server:gstatus-0:0.64-3.1.el6rhs",
+						"6Server-RH-Gluster-3-Server:libqb-0:0.17.1-1.el6",
+						"6Server-RH-Gluster-3-Server:libvirt-0:0.10.2-54.el6",
+						"6Server-RH-Gluster-3-Server:nagios-plugins-0:1.4.16-12.el6rhs",
+						"6Server-RH-Gluster-3-Server:nrpe-0:2.15-4.1.el6rhs",
+						"6Server-RH-Gluster-3-Server:openais-0:1.1.1-7.el6",
+						"6Server-RH-Gluster-3-Server:openstack-swift-0:1.13.1-4.el6ost",
+						"6Server-RH-Gluster-3-Server:pacemaker-0:1.1.12-8.el6",
+						"6Server-RH-Gluster-3-Server:pcs-0:0.9.139-9.el6",
+						"6Server-RH-Gluster-3-Server:python-blivet-1:1.0.0.2-1.el6rhs",
+						"6Server-RH-Gluster-3-Server:python-cpopen-0:1.3-4.el6_5",
+						"6Server-RH-Gluster-3-Server:python-eventlet-0:0.14.0-1.el6",
+						"6Server-RH-Gluster-3-Server:python-greenlet-0:0.4.2-1.el6",
+						"6Server-RH-Gluster-3-Server:python-keystoneclient-1:0.9.0-5.el6ost",
+						"6Server-RH-Gluster-3-Server:python-prettytable-0:0.7.2-1.el6",
+						"6Server-RH-Gluster-3-Server:python-pyudev-0:0.15-2.el6rhs",
+						"6Server-RH-Gluster-3-Server:redhat-storage-logos-0:60.0.20-1.el6rhs",
+						"6Server-RH-Gluster-3-Server:redhat-storage-server-0:3.1.0.3-1.el6rhs",
+						"6Server-RH-Gluster-3-Server:resource-agents-0:3.9.5-24.el6",
+						"6Server-RH-Gluster-3-Server:ricci-0:0.16.2-81.el6",
+						"6Server-RH-Gluster-3-Server:userspace-rcu-0:0.7.9-2.el6rhs",
+						"6Server-RH-Gluster-3-Server:vdsm-0:4.16.20-1.2.el6rhs",
+						"6Server-RHSClient:glusterfs-0:3.7.1-11.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.0",
+					"Vector": "AV:N/AC:L/Au:S/C:N/I:N/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Gluster Storage",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Storage Native Client for Red Hat Enterprise Linux 5",
+						"fullproductname": {
+							"text": "Red Hat Storage Native Client for Red Hat Enterprise Linux 5",
+							"productid": "5Server-RHSClient",
+							"cpe": "cpe:/a:redhat:storage:2:client:el5"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Gluster Storage Nagios 3.1 on RHEL-6",
+						"fullproductname": {
+							"text": "Red Hat Gluster Storage Nagios 3.1 on RHEL-6",
+							"productid": "6Server-RH-Gluster-3-Nagios-Server",
+							"cpe": "cpe:/a:redhat:storage:3.1:nagios:el6"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Gluster Storage NFS 3.1 on RHEL-6",
+						"fullproductname": {
+							"text": "Red Hat Gluster Storage NFS 3.1 on RHEL-6",
+							"productid": "6Server-RH-Gluster-3-NFS",
+							"cpe": "cpe:/a:redhat:storage:3.1:nfs:el6"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Gluster 3 Samba on RHEL-6",
+						"fullproductname": {
+							"text": "Red Hat Gluster 3 Samba on RHEL-6",
+							"productid": "6Server-RH-Gluster-3-Samba-",
+							"cpe": "cpe:/a:redhat:storage:3.1:samba:el6"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Gluster Storage Server 3.1 on RHEL-6",
+						"fullproductname": {
+							"text": "Red Hat Gluster Storage Server 3.1 on RHEL-6",
+							"productid": "6Server-RH-Gluster-3-Server",
+							"cpe": "cpe:/a:redhat:storage:3.1:server:el6"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Storage Native Client for Red Hat Enterprise Linux 6",
+						"fullproductname": {
+							"text": "Red Hat Storage Native Client for Red Hat Enterprise Linux 6",
+							"productid": "6Server-RHSClient",
+							"cpe": "cpe:/a:redhat:storage:3:client:el6"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "augeas-0:1.0.0-10.el6",
+				"fullproductname": {
+					"text": "augeas-1.0.0-10.el6.src.rpm",
+					"productid": "augeas-0:1.0.0-10.el6",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "check-mk-0:1.2.6p1-3.el6rhs",
+				"fullproductname": {
+					"text": "check-mk-1.2.6p1-3.el6rhs.src.rpm",
+					"productid": "check-mk-0:1.2.6p1-3.el6rhs",
+					"cpe": "cpe:/a:redhat:storage:3.1:nagios:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "clufter-0:0.11.2-1.el6",
+				"fullproductname": {
+					"text": "clufter-0.11.2-1.el6.src.rpm",
+					"productid": "clufter-0:0.11.2-1.el6",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "cluster-0:3.0.12.1-73.el6",
+				"fullproductname": {
+					"text": "cluster-3.0.12.1-73.el6.src.rpm",
+					"productid": "cluster-0:3.0.12.1-73.el6",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "clustermon-0:0.16.2-31.el6",
+				"fullproductname": {
+					"text": "clustermon-0.16.2-31.el6.src.rpm",
+					"productid": "clustermon-0:0.16.2-31.el6",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "corosync-0:1.4.7-2.el6",
+				"fullproductname": {
+					"text": "corosync-1.4.7-2.el6.src.rpm",
+					"productid": "corosync-0:1.4.7-2.el6",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ctdb2.5-0:2.5.5-7.el6rhs",
+				"fullproductname": {
+					"text": "ctdb2.5-2.5.5-7.el6rhs.src.rpm",
+					"productid": "ctdb2.5-0:2.5.5-7.el6rhs",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "fence-virt-0:0.2.3-19.el6",
+				"fullproductname": {
+					"text": "fence-virt-0.2.3-19.el6.src.rpm",
+					"productid": "fence-virt-0:0.2.3-19.el6",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "gluster-nagios-addons-0:0.2.4-4.el6rhs",
+				"fullproductname": {
+					"text": "gluster-nagios-addons-0.2.4-4.el6rhs.src.rpm",
+					"productid": "gluster-nagios-addons-0:0.2.4-4.el6rhs",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "gluster-nagios-common-0:0.2.0-1.el6rhs",
+				"fullproductname": {
+					"text": "gluster-nagios-common-0.2.0-1.el6rhs.src.rpm",
+					"productid": "gluster-nagios-common-0:0.2.0-1.el6rhs",
+					"cpe": "cpe:/a:redhat:storage:3.1:nagios:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "glusterfs-0:3.7.1-11.el5",
+				"fullproductname": {
+					"text": "glusterfs-3.7.1-11.el5.src.rpm",
+					"productid": "glusterfs-0:3.7.1-11.el5",
+					"cpe": "cpe:/a:redhat:storage:2:client:el5"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "glusterfs-0:3.7.1-11.el6",
+				"fullproductname": {
+					"text": "glusterfs-3.7.1-11.el6.src.rpm",
+					"productid": "glusterfs-0:3.7.1-11.el6",
+					"cpe": "cpe:/a:redhat:storage:3:client:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "glusterfs-0:3.7.1-11.el6rhs",
+				"fullproductname": {
+					"text": "glusterfs-3.7.1-11.el6rhs.src.rpm",
+					"productid": "glusterfs-0:3.7.1-11.el6rhs",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "gstatus-0:0.64-3.1.el6rhs",
+				"fullproductname": {
+					"text": "gstatus-0.64-3.1.el6rhs.src.rpm",
+					"productid": "gstatus-0:0.64-3.1.el6rhs",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libqb-0:0.17.1-1.el6",
+				"fullproductname": {
+					"text": "libqb-0.17.1-1.el6.src.rpm",
+					"productid": "libqb-0:0.17.1-1.el6",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libtalloc-0:2.1.1-4.el6rhs",
+				"fullproductname": {
+					"text": "libtalloc-2.1.1-4.el6rhs.src.rpm",
+					"productid": "libtalloc-0:2.1.1-4.el6rhs",
+					"cpe": "cpe:/a:redhat:storage:3.1:samba:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libvirt-0:0.10.2-54.el6",
+				"fullproductname": {
+					"text": "libvirt-0.10.2-54.el6.src.rpm",
+					"productid": "libvirt-0:0.10.2-54.el6",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "nagios-plugins-0:1.4.16-12.el6rhs",
+				"fullproductname": {
+					"text": "nagios-plugins-1.4.16-12.el6rhs.src.rpm",
+					"productid": "nagios-plugins-0:1.4.16-12.el6rhs",
+					"cpe": "cpe:/a:redhat:storage:3.1:nagios:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "nagios-server-addons-0:0.2.1-4.el6rhs",
+				"fullproductname": {
+					"text": "nagios-server-addons-0.2.1-4.el6rhs.src.rpm",
+					"productid": "nagios-server-addons-0:0.2.1-4.el6rhs",
+					"cpe": "cpe:/a:redhat:storage:3.1:nagios:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "nfs-ganesha-0:2.2.0-5.el6rhs",
+				"fullproductname": {
+					"text": "nfs-ganesha-2.2.0-5.el6rhs.src.rpm",
+					"productid": "nfs-ganesha-0:2.2.0-5.el6rhs",
+					"cpe": "cpe:/a:redhat:storage:3.1:nfs:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "nrpe-0:2.15-4.1.el6rhs",
+				"fullproductname": {
+					"text": "nrpe-2.15-4.1.el6rhs.src.rpm",
+					"productid": "nrpe-0:2.15-4.1.el6rhs",
+					"cpe": "cpe:/a:redhat:storage:3.1:nagios:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openais-0:1.1.1-7.el6",
+				"fullproductname": {
+					"text": "openais-1.1.1-7.el6.src.rpm",
+					"productid": "openais-0:1.1.1-7.el6",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openstack-swift-0:1.13.1-4.el6ost",
+				"fullproductname": {
+					"text": "openstack-swift-1.13.1-4.el6ost.src.rpm",
+					"productid": "openstack-swift-0:1.13.1-4.el6ost",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pacemaker-0:1.1.12-8.el6",
+				"fullproductname": {
+					"text": "pacemaker-1.1.12-8.el6.src.rpm",
+					"productid": "pacemaker-0:1.1.12-8.el6",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pcs-0:0.9.139-9.el6",
+				"fullproductname": {
+					"text": "pcs-0.9.139-9.el6.src.rpm",
+					"productid": "pcs-0:0.9.139-9.el6",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pnp4nagios-0:0.6.22-2.1.el6rhs",
+				"fullproductname": {
+					"text": "pnp4nagios-0.6.22-2.1.el6rhs.src.rpm",
+					"productid": "pnp4nagios-0:0.6.22-2.1.el6rhs",
+					"cpe": "cpe:/a:redhat:storage:3.1:nagios:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pynag-0:0.9.1-1.el6rhs",
+				"fullproductname": {
+					"text": "pynag-0.9.1-1.el6rhs.src.rpm",
+					"productid": "pynag-0:0.9.1-1.el6rhs",
+					"cpe": "cpe:/a:redhat:storage:3.1:nagios:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-blivet-1:1.0.0.2-1.el6rhs",
+				"fullproductname": {
+					"text": "python-blivet-1.0.0.2-1.el6rhs.src.rpm",
+					"productid": "python-blivet-1:1.0.0.2-1.el6rhs",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-cpopen-0:1.3-4.el6_5",
+				"fullproductname": {
+					"text": "python-cpopen-1.3-4.el6_5.src.rpm",
+					"productid": "python-cpopen-0:1.3-4.el6_5",
+					"cpe": "cpe:/a:redhat:storage:3.1:nagios:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-eventlet-0:0.14.0-1.el6",
+				"fullproductname": {
+					"text": "python-eventlet-0.14.0-1.el6.src.rpm",
+					"productid": "python-eventlet-0:0.14.0-1.el6",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-greenlet-0:0.4.2-1.el6",
+				"fullproductname": {
+					"text": "python-greenlet-0.4.2-1.el6.src.rpm",
+					"productid": "python-greenlet-0:0.4.2-1.el6",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-keystoneclient-1:0.9.0-5.el6ost",
+				"fullproductname": {
+					"text": "python-keystoneclient-0.9.0-5.el6ost.src.rpm",
+					"productid": "python-keystoneclient-1:0.9.0-5.el6ost",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-prettytable-0:0.7.2-1.el6",
+				"fullproductname": {
+					"text": "python-prettytable-0.7.2-1.el6.src.rpm",
+					"productid": "python-prettytable-0:0.7.2-1.el6",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-pyudev-0:0.15-2.el6rhs",
+				"fullproductname": {
+					"text": "python-pyudev-0.15-2.el6rhs.src.rpm",
+					"productid": "python-pyudev-0:0.15-2.el6rhs",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "redhat-storage-logos-0:60.0.20-1.el6rhs",
+				"fullproductname": {
+					"text": "redhat-storage-logos-60.0.20-1.el6rhs.src.rpm",
+					"productid": "redhat-storage-logos-0:60.0.20-1.el6rhs",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "redhat-storage-server-0:3.1.0.3-1.el6rhs",
+				"fullproductname": {
+					"text": "redhat-storage-server-3.1.0.3-1.el6rhs.src.rpm",
+					"productid": "redhat-storage-server-0:3.1.0.3-1.el6rhs",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "resource-agents-0:3.9.5-24.el6",
+				"fullproductname": {
+					"text": "resource-agents-3.9.5-24.el6.src.rpm",
+					"productid": "resource-agents-0:3.9.5-24.el6",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ricci-0:0.16.2-81.el6",
+				"fullproductname": {
+					"text": "ricci-0.16.2-81.el6.src.rpm",
+					"productid": "ricci-0:0.16.2-81.el6",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "userspace-rcu-0:0.7.9-2.el6rhs",
+				"fullproductname": {
+					"text": "userspace-rcu-0.7.9-2.el6rhs.src.rpm",
+					"productid": "userspace-rcu-0:0.7.9-2.el6rhs",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "vdsm-0:4.16.20-1.2.el6rhs",
+				"fullproductname": {
+					"text": "vdsm-4.16.20-1.2.el6rhs.src.rpm",
+					"productid": "vdsm-0:4.16.20-1.2.el6rhs",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el6"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "glusterfs-0:3.7.1-11.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-RHSClient",
+				"fullproductname": {
+					"text": "glusterfs-0:3.7.1-11.el5 as a component of Red Hat Storage Native Client for Red Hat Enterprise Linux 5",
+					"productid": "5Server-RHSClient:glusterfs-0:3.7.1-11.el5",
+					"cpe": "cpe:/a:redhat:storage:2:client:el5"
+				}
+			},
+			{
+				"productreference": "nfs-ganesha-0:2.2.0-5.el6rhs",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RH-Gluster-3-NFS",
+				"fullproductname": {
+					"text": "nfs-ganesha-0:2.2.0-5.el6rhs as a component of Red Hat Gluster Storage NFS 3.1 on RHEL-6",
+					"productid": "6Server-RH-Gluster-3-NFS:nfs-ganesha-0:2.2.0-5.el6rhs",
+					"cpe": "cpe:/a:redhat:storage:3.1:nfs:el6"
+				}
+			},
+			{
+				"productreference": "check-mk-0:1.2.6p1-3.el6rhs",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RH-Gluster-3-Nagios-Server",
+				"fullproductname": {
+					"text": "check-mk-0:1.2.6p1-3.el6rhs as a component of Red Hat Gluster Storage Nagios 3.1 on RHEL-6",
+					"productid": "6Server-RH-Gluster-3-Nagios-Server:check-mk-0:1.2.6p1-3.el6rhs",
+					"cpe": "cpe:/a:redhat:storage:3.1:nagios:el6"
+				}
+			},
+			{
+				"productreference": "gluster-nagios-common-0:0.2.0-1.el6rhs",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RH-Gluster-3-Nagios-Server",
+				"fullproductname": {
+					"text": "gluster-nagios-common-0:0.2.0-1.el6rhs as a component of Red Hat Gluster Storage Nagios 3.1 on RHEL-6",
+					"productid": "6Server-RH-Gluster-3-Nagios-Server:gluster-nagios-common-0:0.2.0-1.el6rhs",
+					"cpe": "cpe:/a:redhat:storage:3.1:nagios:el6"
+				}
+			},
+			{
+				"productreference": "nagios-plugins-0:1.4.16-12.el6rhs",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RH-Gluster-3-Nagios-Server",
+				"fullproductname": {
+					"text": "nagios-plugins-0:1.4.16-12.el6rhs as a component of Red Hat Gluster Storage Nagios 3.1 on RHEL-6",
+					"productid": "6Server-RH-Gluster-3-Nagios-Server:nagios-plugins-0:1.4.16-12.el6rhs",
+					"cpe": "cpe:/a:redhat:storage:3.1:nagios:el6"
+				}
+			},
+			{
+				"productreference": "nagios-server-addons-0:0.2.1-4.el6rhs",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RH-Gluster-3-Nagios-Server",
+				"fullproductname": {
+					"text": "nagios-server-addons-0:0.2.1-4.el6rhs as a component of Red Hat Gluster Storage Nagios 3.1 on RHEL-6",
+					"productid": "6Server-RH-Gluster-3-Nagios-Server:nagios-server-addons-0:0.2.1-4.el6rhs",
+					"cpe": "cpe:/a:redhat:storage:3.1:nagios:el6"
+				}
+			},
+			{
+				"productreference": "nrpe-0:2.15-4.1.el6rhs",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RH-Gluster-3-Nagios-Server",
+				"fullproductname": {
+					"text": "nrpe-0:2.15-4.1.el6rhs as a component of Red Hat Gluster Storage Nagios 3.1 on RHEL-6",
+					"productid": "6Server-RH-Gluster-3-Nagios-Server:nrpe-0:2.15-4.1.el6rhs",
+					"cpe": "cpe:/a:redhat:storage:3.1:nagios:el6"
+				}
+			},
+			{
+				"productreference": "pnp4nagios-0:0.6.22-2.1.el6rhs",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RH-Gluster-3-Nagios-Server",
+				"fullproductname": {
+					"text": "pnp4nagios-0:0.6.22-2.1.el6rhs as a component of Red Hat Gluster Storage Nagios 3.1 on RHEL-6",
+					"productid": "6Server-RH-Gluster-3-Nagios-Server:pnp4nagios-0:0.6.22-2.1.el6rhs",
+					"cpe": "cpe:/a:redhat:storage:3.1:nagios:el6"
+				}
+			},
+			{
+				"productreference": "pynag-0:0.9.1-1.el6rhs",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RH-Gluster-3-Nagios-Server",
+				"fullproductname": {
+					"text": "pynag-0:0.9.1-1.el6rhs as a component of Red Hat Gluster Storage Nagios 3.1 on RHEL-6",
+					"productid": "6Server-RH-Gluster-3-Nagios-Server:pynag-0:0.9.1-1.el6rhs",
+					"cpe": "cpe:/a:redhat:storage:3.1:nagios:el6"
+				}
+			},
+			{
+				"productreference": "python-cpopen-0:1.3-4.el6_5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RH-Gluster-3-Nagios-Server",
+				"fullproductname": {
+					"text": "python-cpopen-0:1.3-4.el6_5 as a component of Red Hat Gluster Storage Nagios 3.1 on RHEL-6",
+					"productid": "6Server-RH-Gluster-3-Nagios-Server:python-cpopen-0:1.3-4.el6_5",
+					"cpe": "cpe:/a:redhat:storage:3.1:nagios:el6"
+				}
+			},
+			{
+				"productreference": "libtalloc-0:2.1.1-4.el6rhs",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RH-Gluster-3-Samba-",
+				"fullproductname": {
+					"text": "libtalloc-0:2.1.1-4.el6rhs as a component of Red Hat Gluster 3 Samba on RHEL-6",
+					"productid": "6Server-RH-Gluster-3-Samba-:libtalloc-0:2.1.1-4.el6rhs",
+					"cpe": "cpe:/a:redhat:storage:3.1:samba:el6"
+				}
+			},
+			{
+				"productreference": "augeas-0:1.0.0-10.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RH-Gluster-3-Server",
+				"fullproductname": {
+					"text": "augeas-0:1.0.0-10.el6 as a component of Red Hat Gluster Storage Server 3.1 on RHEL-6",
+					"productid": "6Server-RH-Gluster-3-Server:augeas-0:1.0.0-10.el6",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el6"
+				}
+			},
+			{
+				"productreference": "clufter-0:0.11.2-1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RH-Gluster-3-Server",
+				"fullproductname": {
+					"text": "clufter-0:0.11.2-1.el6 as a component of Red Hat Gluster Storage Server 3.1 on RHEL-6",
+					"productid": "6Server-RH-Gluster-3-Server:clufter-0:0.11.2-1.el6",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el6"
+				}
+			},
+			{
+				"productreference": "cluster-0:3.0.12.1-73.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RH-Gluster-3-Server",
+				"fullproductname": {
+					"text": "cluster-0:3.0.12.1-73.el6 as a component of Red Hat Gluster Storage Server 3.1 on RHEL-6",
+					"productid": "6Server-RH-Gluster-3-Server:cluster-0:3.0.12.1-73.el6",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el6"
+				}
+			},
+			{
+				"productreference": "clustermon-0:0.16.2-31.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RH-Gluster-3-Server",
+				"fullproductname": {
+					"text": "clustermon-0:0.16.2-31.el6 as a component of Red Hat Gluster Storage Server 3.1 on RHEL-6",
+					"productid": "6Server-RH-Gluster-3-Server:clustermon-0:0.16.2-31.el6",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el6"
+				}
+			},
+			{
+				"productreference": "corosync-0:1.4.7-2.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RH-Gluster-3-Server",
+				"fullproductname": {
+					"text": "corosync-0:1.4.7-2.el6 as a component of Red Hat Gluster Storage Server 3.1 on RHEL-6",
+					"productid": "6Server-RH-Gluster-3-Server:corosync-0:1.4.7-2.el6",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el6"
+				}
+			},
+			{
+				"productreference": "ctdb2.5-0:2.5.5-7.el6rhs",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RH-Gluster-3-Server",
+				"fullproductname": {
+					"text": "ctdb2.5-0:2.5.5-7.el6rhs as a component of Red Hat Gluster Storage Server 3.1 on RHEL-6",
+					"productid": "6Server-RH-Gluster-3-Server:ctdb2.5-0:2.5.5-7.el6rhs",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el6"
+				}
+			},
+			{
+				"productreference": "fence-virt-0:0.2.3-19.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RH-Gluster-3-Server",
+				"fullproductname": {
+					"text": "fence-virt-0:0.2.3-19.el6 as a component of Red Hat Gluster Storage Server 3.1 on RHEL-6",
+					"productid": "6Server-RH-Gluster-3-Server:fence-virt-0:0.2.3-19.el6",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el6"
+				}
+			},
+			{
+				"productreference": "gluster-nagios-addons-0:0.2.4-4.el6rhs",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RH-Gluster-3-Server",
+				"fullproductname": {
+					"text": "gluster-nagios-addons-0:0.2.4-4.el6rhs as a component of Red Hat Gluster Storage Server 3.1 on RHEL-6",
+					"productid": "6Server-RH-Gluster-3-Server:gluster-nagios-addons-0:0.2.4-4.el6rhs",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el6"
+				}
+			},
+			{
+				"productreference": "gluster-nagios-common-0:0.2.0-1.el6rhs",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RH-Gluster-3-Server",
+				"fullproductname": {
+					"text": "gluster-nagios-common-0:0.2.0-1.el6rhs as a component of Red Hat Gluster Storage Server 3.1 on RHEL-6",
+					"productid": "6Server-RH-Gluster-3-Server:gluster-nagios-common-0:0.2.0-1.el6rhs",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el6"
+				}
+			},
+			{
+				"productreference": "glusterfs-0:3.7.1-11.el6rhs",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RH-Gluster-3-Server",
+				"fullproductname": {
+					"text": "glusterfs-0:3.7.1-11.el6rhs as a component of Red Hat Gluster Storage Server 3.1 on RHEL-6",
+					"productid": "6Server-RH-Gluster-3-Server:glusterfs-0:3.7.1-11.el6rhs",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el6"
+				}
+			},
+			{
+				"productreference": "gstatus-0:0.64-3.1.el6rhs",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RH-Gluster-3-Server",
+				"fullproductname": {
+					"text": "gstatus-0:0.64-3.1.el6rhs as a component of Red Hat Gluster Storage Server 3.1 on RHEL-6",
+					"productid": "6Server-RH-Gluster-3-Server:gstatus-0:0.64-3.1.el6rhs",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el6"
+				}
+			},
+			{
+				"productreference": "libqb-0:0.17.1-1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RH-Gluster-3-Server",
+				"fullproductname": {
+					"text": "libqb-0:0.17.1-1.el6 as a component of Red Hat Gluster Storage Server 3.1 on RHEL-6",
+					"productid": "6Server-RH-Gluster-3-Server:libqb-0:0.17.1-1.el6",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el6"
+				}
+			},
+			{
+				"productreference": "libvirt-0:0.10.2-54.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RH-Gluster-3-Server",
+				"fullproductname": {
+					"text": "libvirt-0:0.10.2-54.el6 as a component of Red Hat Gluster Storage Server 3.1 on RHEL-6",
+					"productid": "6Server-RH-Gluster-3-Server:libvirt-0:0.10.2-54.el6",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el6"
+				}
+			},
+			{
+				"productreference": "nagios-plugins-0:1.4.16-12.el6rhs",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RH-Gluster-3-Server",
+				"fullproductname": {
+					"text": "nagios-plugins-0:1.4.16-12.el6rhs as a component of Red Hat Gluster Storage Server 3.1 on RHEL-6",
+					"productid": "6Server-RH-Gluster-3-Server:nagios-plugins-0:1.4.16-12.el6rhs",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el6"
+				}
+			},
+			{
+				"productreference": "nrpe-0:2.15-4.1.el6rhs",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RH-Gluster-3-Server",
+				"fullproductname": {
+					"text": "nrpe-0:2.15-4.1.el6rhs as a component of Red Hat Gluster Storage Server 3.1 on RHEL-6",
+					"productid": "6Server-RH-Gluster-3-Server:nrpe-0:2.15-4.1.el6rhs",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el6"
+				}
+			},
+			{
+				"productreference": "openais-0:1.1.1-7.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RH-Gluster-3-Server",
+				"fullproductname": {
+					"text": "openais-0:1.1.1-7.el6 as a component of Red Hat Gluster Storage Server 3.1 on RHEL-6",
+					"productid": "6Server-RH-Gluster-3-Server:openais-0:1.1.1-7.el6",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el6"
+				}
+			},
+			{
+				"productreference": "openstack-swift-0:1.13.1-4.el6ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RH-Gluster-3-Server",
+				"fullproductname": {
+					"text": "openstack-swift-0:1.13.1-4.el6ost as a component of Red Hat Gluster Storage Server 3.1 on RHEL-6",
+					"productid": "6Server-RH-Gluster-3-Server:openstack-swift-0:1.13.1-4.el6ost",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el6"
+				}
+			},
+			{
+				"productreference": "pacemaker-0:1.1.12-8.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RH-Gluster-3-Server",
+				"fullproductname": {
+					"text": "pacemaker-0:1.1.12-8.el6 as a component of Red Hat Gluster Storage Server 3.1 on RHEL-6",
+					"productid": "6Server-RH-Gluster-3-Server:pacemaker-0:1.1.12-8.el6",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el6"
+				}
+			},
+			{
+				"productreference": "pcs-0:0.9.139-9.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RH-Gluster-3-Server",
+				"fullproductname": {
+					"text": "pcs-0:0.9.139-9.el6 as a component of Red Hat Gluster Storage Server 3.1 on RHEL-6",
+					"productid": "6Server-RH-Gluster-3-Server:pcs-0:0.9.139-9.el6",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el6"
+				}
+			},
+			{
+				"productreference": "python-blivet-1:1.0.0.2-1.el6rhs",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RH-Gluster-3-Server",
+				"fullproductname": {
+					"text": "python-blivet-1:1.0.0.2-1.el6rhs as a component of Red Hat Gluster Storage Server 3.1 on RHEL-6",
+					"productid": "6Server-RH-Gluster-3-Server:python-blivet-1:1.0.0.2-1.el6rhs",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el6"
+				}
+			},
+			{
+				"productreference": "python-cpopen-0:1.3-4.el6_5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RH-Gluster-3-Server",
+				"fullproductname": {
+					"text": "python-cpopen-0:1.3-4.el6_5 as a component of Red Hat Gluster Storage Server 3.1 on RHEL-6",
+					"productid": "6Server-RH-Gluster-3-Server:python-cpopen-0:1.3-4.el6_5",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el6"
+				}
+			},
+			{
+				"productreference": "python-eventlet-0:0.14.0-1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RH-Gluster-3-Server",
+				"fullproductname": {
+					"text": "python-eventlet-0:0.14.0-1.el6 as a component of Red Hat Gluster Storage Server 3.1 on RHEL-6",
+					"productid": "6Server-RH-Gluster-3-Server:python-eventlet-0:0.14.0-1.el6",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el6"
+				}
+			},
+			{
+				"productreference": "python-greenlet-0:0.4.2-1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RH-Gluster-3-Server",
+				"fullproductname": {
+					"text": "python-greenlet-0:0.4.2-1.el6 as a component of Red Hat Gluster Storage Server 3.1 on RHEL-6",
+					"productid": "6Server-RH-Gluster-3-Server:python-greenlet-0:0.4.2-1.el6",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el6"
+				}
+			},
+			{
+				"productreference": "python-keystoneclient-1:0.9.0-5.el6ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RH-Gluster-3-Server",
+				"fullproductname": {
+					"text": "python-keystoneclient-1:0.9.0-5.el6ost as a component of Red Hat Gluster Storage Server 3.1 on RHEL-6",
+					"productid": "6Server-RH-Gluster-3-Server:python-keystoneclient-1:0.9.0-5.el6ost",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el6"
+				}
+			},
+			{
+				"productreference": "python-prettytable-0:0.7.2-1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RH-Gluster-3-Server",
+				"fullproductname": {
+					"text": "python-prettytable-0:0.7.2-1.el6 as a component of Red Hat Gluster Storage Server 3.1 on RHEL-6",
+					"productid": "6Server-RH-Gluster-3-Server:python-prettytable-0:0.7.2-1.el6",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el6"
+				}
+			},
+			{
+				"productreference": "python-pyudev-0:0.15-2.el6rhs",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RH-Gluster-3-Server",
+				"fullproductname": {
+					"text": "python-pyudev-0:0.15-2.el6rhs as a component of Red Hat Gluster Storage Server 3.1 on RHEL-6",
+					"productid": "6Server-RH-Gluster-3-Server:python-pyudev-0:0.15-2.el6rhs",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el6"
+				}
+			},
+			{
+				"productreference": "redhat-storage-logos-0:60.0.20-1.el6rhs",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RH-Gluster-3-Server",
+				"fullproductname": {
+					"text": "redhat-storage-logos-0:60.0.20-1.el6rhs as a component of Red Hat Gluster Storage Server 3.1 on RHEL-6",
+					"productid": "6Server-RH-Gluster-3-Server:redhat-storage-logos-0:60.0.20-1.el6rhs",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el6"
+				}
+			},
+			{
+				"productreference": "redhat-storage-server-0:3.1.0.3-1.el6rhs",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RH-Gluster-3-Server",
+				"fullproductname": {
+					"text": "redhat-storage-server-0:3.1.0.3-1.el6rhs as a component of Red Hat Gluster Storage Server 3.1 on RHEL-6",
+					"productid": "6Server-RH-Gluster-3-Server:redhat-storage-server-0:3.1.0.3-1.el6rhs",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el6"
+				}
+			},
+			{
+				"productreference": "resource-agents-0:3.9.5-24.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RH-Gluster-3-Server",
+				"fullproductname": {
+					"text": "resource-agents-0:3.9.5-24.el6 as a component of Red Hat Gluster Storage Server 3.1 on RHEL-6",
+					"productid": "6Server-RH-Gluster-3-Server:resource-agents-0:3.9.5-24.el6",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el6"
+				}
+			},
+			{
+				"productreference": "ricci-0:0.16.2-81.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RH-Gluster-3-Server",
+				"fullproductname": {
+					"text": "ricci-0:0.16.2-81.el6 as a component of Red Hat Gluster Storage Server 3.1 on RHEL-6",
+					"productid": "6Server-RH-Gluster-3-Server:ricci-0:0.16.2-81.el6",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el6"
+				}
+			},
+			{
+				"productreference": "userspace-rcu-0:0.7.9-2.el6rhs",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RH-Gluster-3-Server",
+				"fullproductname": {
+					"text": "userspace-rcu-0:0.7.9-2.el6rhs as a component of Red Hat Gluster Storage Server 3.1 on RHEL-6",
+					"productid": "6Server-RH-Gluster-3-Server:userspace-rcu-0:0.7.9-2.el6rhs",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el6"
+				}
+			},
+			{
+				"productreference": "vdsm-0:4.16.20-1.2.el6rhs",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RH-Gluster-3-Server",
+				"fullproductname": {
+					"text": "vdsm-0:4.16.20-1.2.el6rhs as a component of Red Hat Gluster Storage Server 3.1 on RHEL-6",
+					"productid": "6Server-RH-Gluster-3-Server:vdsm-0:4.16.20-1.2.el6rhs",
+					"cpe": "cpe:/a:redhat:storage:3.1:server:el6"
+				}
+			},
+			{
+				"productreference": "glusterfs-0:3.7.1-11.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RHSClient",
+				"fullproductname": {
+					"text": "glusterfs-0:3.7.1-11.el6 as a component of Red Hat Storage Native Client for Red Hat Enterprise Linux 6",
+					"productid": "6Server-RHSClient:glusterfs-0:3.7.1-11.el6",
+					"cpe": "cpe:/a:redhat:storage:3:client:el6"
+				}
+			}
+		]
+	}
+}

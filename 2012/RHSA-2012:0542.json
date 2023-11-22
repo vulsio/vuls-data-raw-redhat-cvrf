@@ -1,0 +1,584 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: httpd security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2012:0542"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2012-05-07T18:22:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2012-05-07T18:13:00Z",
+		"CurrentReleaseDate": "2012-05-07T18:22:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:34:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated httpd packages that fix multiple security issues and one bug are\nnow available for JBoss Enterprise Web Server 1.0.2 for Red Hat Enterprise\nLinux 5 and 6.\n\nThe Red Hat Security Response Team has rated this update as having moderate\nsecurity impact. Common Vulnerability Scoring System (CVSS) base scores,\nwhich give detailed severity ratings, are available for each vulnerability\nfrom the CVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe Apache HTTP Server (\"httpd\") is the namesake project of The Apache\nSoftware Foundation.\n\nIt was discovered that the Apache HTTP Server did not properly validate the\nrequest URI for proxied requests. In certain configurations, if a reverse\nproxy used the ProxyPassMatch directive, or if it used the RewriteRule\ndirective with the proxy flag, a remote attacker could make the proxy\nconnect to an arbitrary server, possibly disclosing sensitive information\nfrom internal web servers not directly accessible to the attacker.\n(CVE-2011-3368)\n\nIt was discovered that mod_proxy_ajp incorrectly returned an \"Internal\nServer Error\" response when processing certain malformed HTTP requests,\nwhich caused the back-end server to be marked as failed in configurations\nwhere mod_proxy was used in load balancer mode. A remote attacker could\ncause mod_proxy to not send requests to back-end AJP (Apache JServ\nProtocol) servers for the retry timeout period or until all back-end\nservers were marked as failed. (CVE-2011-3348)\n\nThe httpd server included the full HTTP header line in the default error\npage generated when receiving an excessively long or malformed header.\nMalicious JavaScript running in the server's domain context could use this\nflaw to gain access to httpOnly cookies. (CVE-2012-0053)\n\nAn integer overflow flaw, leading to a heap-based buffer overflow, was\nfound in the way httpd performed substitutions in regular expressions. An\nattacker able to set certain httpd settings, such as a user permitted to\noverride the httpd configuration for a specific directory using a\n\".htaccess\" file, could use this flaw to crash the httpd child process or,\npossibly, execute arbitrary code with the privileges of the \"apache\" user.\n(CVE-2011-3607)\n\nA NULL pointer dereference flaw was found in the httpd mod_log_config\nmodule. In configurations where cookie logging is enabled, a remote\nattacker could use this flaw to crash the httpd child process via an HTTP\nrequest with a malformed Cookie header. (CVE-2012-0021)\n\nA flaw was found in the way httpd handled child process status information.\nA malicious program running with httpd child process privileges (such as a\nPHP or CGI script) could use this flaw to cause the parent httpd process to\ncrash during httpd service shutdown. (CVE-2012-0031)\n\nRed Hat would like to thank Context Information Security for reporting the\nCVE-2011-3368 issue.\n\nThis update also fixes the following bug:\n\n* The fix for CVE-2011-3192 provided by the RHSA-2011:1329 update\nintroduced a regression in the way httpd handled certain Range HTTP header\nvalues. This update corrects this regression. (BZ#749071)\n\nAll users of JBoss Enterprise Web Server 1.0.2 should upgrade to these\nupdated packages, which contain backported patches to correct these issues.\nAfter installing the updated packages, users must restart the httpd\nservice for the update to take effect.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2012:0542",
+				"Description": "https://access.redhat.com/errata/RHSA-2012:0542"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			},
+			{
+				"type": "External",
+				"URL": "https://rhn.redhat.com/errata/RHSA-2011-1329.html",
+				"Description": "https://rhn.redhat.com/errata/RHSA-2011-1329.html"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "httpd: mod_proxy_ajp remote temporary DoS",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2011-09-14T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2011-3348",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:0542"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "http://httpd.apache.org/security/vulnerabilities_22.html#2.2.21",
+						"Description": "http://httpd.apache.org/security/vulnerabilities_22.html#2.2.21"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2011-3348",
+						"Description": "CVE-2011-3348"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=736690",
+						"Description": "bz#736690: CVE-2011-3348 httpd: mod_proxy_ajp remote temporary DoS"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2011-09-08T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Server-JBEWS-5.0.0:httpd-0:2.2.17-15.4.ep5.el5",
+						"6Server-JBEWS-1:httpd-0:2.2.17-15.4.ep5.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.0",
+					"Vector": "AV:N/AC:L/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "httpd: reverse web proxy vulnerability",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2011-10-05T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2011-3368",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:0542"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "http://www.contextis.com/research/blog/reverseproxybypass/",
+						"Description": "http://www.contextis.com/research/blog/reverseproxybypass/"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2011-3368",
+						"Description": "CVE-2011-3368"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=740045",
+						"Description": "bz#740045: CVE-2011-3368 httpd: reverse web proxy vulnerability"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2011-09-16T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Server-JBEWS-5.0.0:httpd-0:2.2.17-15.4.ep5.el5",
+						"6Server-JBEWS-1:httpd-0:2.2.17-15.4.ep5.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.6",
+					"Vector": "AV:N/AC:H/Au:N/C:N/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "httpd: ap_pregsub Integer overflow to buffer overflow",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2011-11-02T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2011-3607",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:0542"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2011-3607",
+						"Description": "CVE-2011-3607"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=769844",
+						"Description": "bz#769844: CVE-2011-3607 httpd: ap_pregsub Integer overflow to buffer overflow"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2011-11-02T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Server-JBEWS-5.0.0:httpd-0:2.2.17-15.4.ep5.el5",
+						"6Server-JBEWS-1:httpd-0:2.2.17-15.4.ep5.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.4",
+					"Vector": "AV:L/AC:M/Au:N/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "httpd: NULL pointer dereference crash in mod_log_config",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2011-11-28T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-0021",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:0542"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-0021",
+						"Description": "CVE-2012-0021"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=785065",
+						"Description": "bz#785065: CVE-2012-0021 httpd: NULL pointer dereference crash in mod_log_config"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2012-01-26T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Server-JBEWS-5.0.0:httpd-0:2.2.17-15.4.ep5.el5",
+						"6Server-JBEWS-1:httpd-0:2.2.17-15.4.ep5.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "httpd: possible crash on shutdown due to flaw in scoreboard handling",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-01-11T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-0031",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:0542"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-0031",
+						"Description": "CVE-2012-0031"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=773744",
+						"Description": "bz#773744: CVE-2012-0031 httpd: possible crash on shutdown due to flaw in scoreboard handling"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2012-01-12T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Server-JBEWS-5.0.0:httpd-0:2.2.17-15.4.ep5.el5",
+						"6Server-JBEWS-1:httpd-0:2.2.17-15.4.ep5.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.6",
+					"Vector": "AV:N/AC:H/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "6",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "httpd: cookie exposure due to error responses",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-01-23T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-0053",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:0542"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-0053",
+						"Description": "CVE-2012-0053"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=785069",
+						"Description": "bz#785069: CVE-2012-0053 httpd: cookie exposure due to error responses"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2012-01-26T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Server-JBEWS-5.0.0:httpd-0:2.2.17-15.4.ep5.el5",
+						"6Server-JBEWS-1:httpd-0:2.2.17-15.4.ep5.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:N/A:N"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat JBoss Web Server",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat JBoss Enterprise Web Server 1 for RHEL 5 Server",
+						"fullproductname": {
+							"text": "Red Hat JBoss Enterprise Web Server 1 for RHEL 5 Server",
+							"productid": "5Server-JBEWS-5.0.0",
+							"cpe": "cpe:/a:redhat:jboss_enterprise_web_server:1::el5"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat JBoss Enterprise Web Server 1 for RHEL 6 Server",
+						"fullproductname": {
+							"text": "Red Hat JBoss Enterprise Web Server 1 for RHEL 6 Server",
+							"productid": "6Server-JBEWS-1",
+							"cpe": "cpe:/a:redhat:jboss_enterprise_web_server:1::el6"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "httpd-0:2.2.17-15.4.ep5.el5",
+				"fullproductname": {
+					"text": "httpd-2.2.17-15.4.ep5.el5.src.rpm",
+					"productid": "httpd-0:2.2.17-15.4.ep5.el5",
+					"cpe": "cpe:/a:redhat:jboss_enterprise_web_server:1::el5"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "httpd-0:2.2.17-15.4.ep5.el6",
+				"fullproductname": {
+					"text": "httpd-2.2.17-15.4.ep5.el6.src.rpm",
+					"productid": "httpd-0:2.2.17-15.4.ep5.el6",
+					"cpe": "cpe:/a:redhat:jboss_enterprise_web_server:1::el6"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "httpd-0:2.2.17-15.4.ep5.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-JBEWS-5.0.0",
+				"fullproductname": {
+					"text": "httpd-0:2.2.17-15.4.ep5.el5 as a component of Red Hat JBoss Enterprise Web Server 1 for RHEL 5 Server",
+					"productid": "5Server-JBEWS-5.0.0:httpd-0:2.2.17-15.4.ep5.el5",
+					"cpe": "cpe:/a:redhat:jboss_enterprise_web_server:1::el5"
+				}
+			},
+			{
+				"productreference": "httpd-0:2.2.17-15.4.ep5.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-JBEWS-1",
+				"fullproductname": {
+					"text": "httpd-0:2.2.17-15.4.ep5.el6 as a component of Red Hat JBoss Enterprise Web Server 1 for RHEL 6 Server",
+					"productid": "6Server-JBEWS-1:httpd-0:2.2.17-15.4.ep5.el6",
+					"cpe": "cpe:/a:redhat:jboss_enterprise_web_server:1::el6"
+				}
+			}
+		]
+	}
+}

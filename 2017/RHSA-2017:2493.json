@@ -1,0 +1,548 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: Red Hat JBoss Web Server 2 security update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2017:2493"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2017-08-21T15:33:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2017-08-21T15:33:00Z",
+		"CurrentReleaseDate": "2017-08-21T15:33:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:41:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nAn update is now available for Red Hat JBoss Enterprise Web Server 2.1.2 for Red Hat Enterprise Linux 6 and Red Hat JBoss Enterprise Web Server 2.1.2 for Red Hat Enterprise Linux 7.\n\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nOpenSSL is a toolkit that implements the Secure Sockets Layer (SSL) and Transport Layer Security (TLS) protocols, as well as a full-strength general-purpose cryptography library.\n\nApache Tomcat is a servlet container for the Java Servlet and JavaServer Pages (JSP) technologies.\n\nThis release provides an update to OpenSSL and Tomcat 6/7 for Red Hat JBoss Web Server 2.1.2. The updates are documented in the Release Notes document linked to in the References.\n\nUsers of Red Hat JBoss Web Server 2.1.2 should upgrade to these updated packages, which resolve several security issues.\n\nSecurity Fix(es):\n\n* A memory leak flaw was found in the way OpenSSL handled TLS status request extension data during session renegotiation. A remote attacker could cause a TLS server using OpenSSL to consume an excessive amount of memory and, possibly, exit unexpectedly after exhausting all available memory, if it enabled OCSP stapling support. (CVE-2016-6304)\n\n* A vulnerability was discovered in tomcat's handling of pipelined requests when \"Sendfile\" was used. If sendfile processing completed quickly, it was possible for the Processor to be added to the processor cache twice. This could lead to invalid responses or information disclosure. (CVE-2017-5647)\n\n* A vulnerability was discovered in the error page mechanism in Tomcat's DefaultServlet implementation. A crafted HTTP request could cause undesired side effects, possibly including the removal or replacement of the custom error page. (CVE-2017-5664)\n\n* A denial of service flaw was found in the way the TLS/SSL protocol defined processing of ALERT packets during a connection handshake. A remote attacker could use this flaw to make a TLS/SSL server consume an excessive amount of CPU and fail to accept connections from other clients. (CVE-2016-8610)\n\nRed Hat would like to thank the OpenSSL project for reporting CVE-2016-6304 and Shi Lei (Gear Team of Qihoo 360 Inc.) for reporting CVE-2016-8610. Upstream acknowledges Shi Lei (Gear Team of Qihoo 360 Inc.) as the original reporter of CVE-2016-6304.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2017:2493",
+				"Description": "https://access.redhat.com/errata/RHSA-2017:2493"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/articles/3155411",
+				"Description": "https://access.redhat.com/articles/3155411"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "openssl: OCSP Status Request extension unbounded memory growth",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-09-22T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2016-6304",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying the update, back up your existing Red Hat JBoss Web Server installation (including all applications and configuration files).\n\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nFor the update to take effect, all services linked to the OpenSSL library must be restarted, or the system rebooted. After installing the updated packages, the httpd daemon will be restarted automatically.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2017:2493"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.openssl.org/news/secadv/20160922.txt",
+						"Description": "https://www.openssl.org/news/secadv/20160922.txt"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2016-6304",
+						"Description": "CVE-2016-6304"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1377600",
+						"Description": "bz#1377600: CVE-2016-6304 openssl: OCSP Status Request extension unbounded memory growth"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2016-09-19T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-JBEWS-2:jbcs-httpd24-openssl-1:1.0.2h-13.jbcs.el6",
+						"6Server-JBEWS-2:tomcat6-0:6.0.41-17_patch_04.ep6.el6",
+						"6Server-JBEWS-2:tomcat7-0:7.0.54-25_patch_05.ep6.el6",
+						"7Server-JBEWS-2:jbcs-httpd24-openssl-1:1.0.2h-13.jbcs.el7",
+						"7Server-JBEWS-2:tomcat6-0:6.0.41-17_patch_04.ep6.el7",
+						"7Server-JBEWS-2:tomcat7-0:7.0.54-25_patch_05.ep6.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank the OpenSSL project for reporting this issue. Upstream acknowledges Shi Lei (Gear Team of Qihoo 360 Inc.) as the original reporter."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.0",
+					"Vector": "AV:N/AC:L/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "SSL/TLS: Malformed plain-text ALERT packets could cause remote DoS",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-10-24T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2016-8610",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying the update, back up your existing Red Hat JBoss Web Server installation (including all applications and configuration files).\n\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nFor the update to take effect, all services linked to the OpenSSL library must be restarted, or the system rebooted. After installing the updated packages, the httpd daemon will be restarted automatically.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2017:2493"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "http://security.360.cn/cve/CVE-2016-8610",
+						"Description": "http://security.360.cn/cve/CVE-2016-8610"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2016-8610",
+						"Description": "CVE-2016-8610"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1384743",
+						"Description": "bz#1384743: CVE-2016-8610 SSL/TLS: Malformed plain-text ALERT packets could cause remote DoS"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2016-10-14T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-JBEWS-2:jbcs-httpd24-openssl-1:1.0.2h-13.jbcs.el6",
+						"6Server-JBEWS-2:tomcat6-0:6.0.41-17_patch_04.ep6.el6",
+						"6Server-JBEWS-2:tomcat7-0:7.0.54-25_patch_05.ep6.el6",
+						"7Server-JBEWS-2:jbcs-httpd24-openssl-1:1.0.2h-13.jbcs.el7",
+						"7Server-JBEWS-2:tomcat6-0:6.0.41-17_patch_04.ep6.el7",
+						"7Server-JBEWS-2:tomcat7-0:7.0.54-25_patch_05.ep6.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank Shi Lei (Gear Team of Qihoo 360 Inc.) for reporting this issue."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "tomcat: Incorrect handling of pipelined requests when send file was used",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2017-04-10T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2017-5647",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying the update, back up your existing Red Hat JBoss Web Server installation (including all applications and configuration files).\n\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nFor the update to take effect, all services linked to the OpenSSL library must be restarted, or the system rebooted. After installing the updated packages, the httpd daemon will be restarted automatically.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2017:2493"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2017-5647",
+						"Description": "CVE-2017-5647"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1441205",
+						"Description": "bz#1441205: CVE-2017-5647 tomcat: Incorrect handling of pipelined requests when send file was used"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2017-04-10T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-JBEWS-2:jbcs-httpd24-openssl-1:1.0.2h-13.jbcs.el6",
+						"6Server-JBEWS-2:tomcat6-0:6.0.41-17_patch_04.ep6.el6",
+						"6Server-JBEWS-2:tomcat7-0:7.0.54-25_patch_05.ep6.el6",
+						"7Server-JBEWS-2:jbcs-httpd24-openssl-1:1.0.2h-13.jbcs.el7",
+						"7Server-JBEWS-2:tomcat6-0:6.0.41-17_patch_04.ep6.el7",
+						"7Server-JBEWS-2:tomcat7-0:7.0.54-25_patch_05.ep6.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "tomcat: Security constrained bypass in error page mechanism",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2017-06-06T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2017-5664",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying the update, back up your existing Red Hat JBoss Web Server installation (including all applications and configuration files).\n\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nFor the update to take effect, all services linked to the OpenSSL library must be restarted, or the system rebooted. After installing the updated packages, the httpd daemon will be restarted automatically.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2017:2493"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://tomcat.apache.org/security-7.html#Fixed_in_Apache_Tomcat_7.0.78",
+						"Description": "https://tomcat.apache.org/security-7.html#Fixed_in_Apache_Tomcat_7.0.78"
+					},
+					{
+						"URL": "https://tomcat.apache.org/security-8.html#Fixed_in_Apache_Tomcat_8.0.44",
+						"Description": "https://tomcat.apache.org/security-8.html#Fixed_in_Apache_Tomcat_8.0.44"
+					},
+					{
+						"URL": "https://tomcat.apache.org/security-8.html#Fixed_in_Apache_Tomcat_8.5.15",
+						"Description": "https://tomcat.apache.org/security-8.html#Fixed_in_Apache_Tomcat_8.5.15"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2017-5664",
+						"Description": "CVE-2017-5664"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1459158",
+						"Description": "bz#1459158: CVE-2017-5664 tomcat: Security constrained bypass in error page mechanism"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2017-06-06T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-JBEWS-2:jbcs-httpd24-openssl-1:1.0.2h-13.jbcs.el6",
+						"6Server-JBEWS-2:tomcat6-0:6.0.41-17_patch_04.ep6.el6",
+						"6Server-JBEWS-2:tomcat7-0:7.0.54-25_patch_05.ep6.el6",
+						"7Server-JBEWS-2:jbcs-httpd24-openssl-1:1.0.2h-13.jbcs.el7",
+						"7Server-JBEWS-2:tomcat6-0:6.0.41-17_patch_04.ep6.el7",
+						"7Server-JBEWS-2:tomcat7-0:7.0.54-25_patch_05.ep6.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat JBoss Web Server",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat JBoss Enterprise Web Server 2 for RHEL 6 Server",
+						"fullproductname": {
+							"text": "Red Hat JBoss Enterprise Web Server 2 for RHEL 6 Server",
+							"productid": "6Server-JBEWS-2",
+							"cpe": "cpe:/a:redhat:jboss_enterprise_web_server:2::el6"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat JBoss Enterprise Web Server 2 for RHEL 7 Server",
+						"fullproductname": {
+							"text": "Red Hat JBoss Enterprise Web Server 2 for RHEL 7 Server",
+							"productid": "7Server-JBEWS-2",
+							"cpe": "cpe:/a:redhat:jboss_enterprise_web_server:2::el7"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "jbcs-httpd24-openssl-1:1.0.2h-13.jbcs.el6",
+				"fullproductname": {
+					"text": "jbcs-httpd24-openssl-1.0.2h-13.jbcs.el6.src.rpm",
+					"productid": "jbcs-httpd24-openssl-1:1.0.2h-13.jbcs.el6",
+					"cpe": "cpe:/a:redhat:jboss_enterprise_web_server:2::el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "jbcs-httpd24-openssl-1:1.0.2h-13.jbcs.el7",
+				"fullproductname": {
+					"text": "jbcs-httpd24-openssl-1.0.2h-13.jbcs.el7.src.rpm",
+					"productid": "jbcs-httpd24-openssl-1:1.0.2h-13.jbcs.el7",
+					"cpe": "cpe:/a:redhat:jboss_enterprise_web_server:2::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "tomcat6-0:6.0.41-17_patch_04.ep6.el6",
+				"fullproductname": {
+					"text": "tomcat6-6.0.41-17_patch_04.ep6.el6.src.rpm",
+					"productid": "tomcat6-0:6.0.41-17_patch_04.ep6.el6",
+					"cpe": "cpe:/a:redhat:jboss_enterprise_web_server:2::el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "tomcat6-0:6.0.41-17_patch_04.ep6.el7",
+				"fullproductname": {
+					"text": "tomcat6-6.0.41-17_patch_04.ep6.el7.src.rpm",
+					"productid": "tomcat6-0:6.0.41-17_patch_04.ep6.el7",
+					"cpe": "cpe:/a:redhat:jboss_enterprise_web_server:2::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "tomcat7-0:7.0.54-25_patch_05.ep6.el6",
+				"fullproductname": {
+					"text": "tomcat7-7.0.54-25_patch_05.ep6.el6.src.rpm",
+					"productid": "tomcat7-0:7.0.54-25_patch_05.ep6.el6",
+					"cpe": "cpe:/a:redhat:jboss_enterprise_web_server:2::el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "tomcat7-0:7.0.54-25_patch_05.ep6.el7",
+				"fullproductname": {
+					"text": "tomcat7-7.0.54-25_patch_05.ep6.el7.src.rpm",
+					"productid": "tomcat7-0:7.0.54-25_patch_05.ep6.el7",
+					"cpe": "cpe:/a:redhat:jboss_enterprise_web_server:2::el7"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "jbcs-httpd24-openssl-1:1.0.2h-13.jbcs.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-JBEWS-2",
+				"fullproductname": {
+					"text": "jbcs-httpd24-openssl-1:1.0.2h-13.jbcs.el6 as a component of Red Hat JBoss Enterprise Web Server 2 for RHEL 6 Server",
+					"productid": "6Server-JBEWS-2:jbcs-httpd24-openssl-1:1.0.2h-13.jbcs.el6",
+					"cpe": "cpe:/a:redhat:jboss_enterprise_web_server:2::el6"
+				}
+			},
+			{
+				"productreference": "tomcat6-0:6.0.41-17_patch_04.ep6.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-JBEWS-2",
+				"fullproductname": {
+					"text": "tomcat6-0:6.0.41-17_patch_04.ep6.el6 as a component of Red Hat JBoss Enterprise Web Server 2 for RHEL 6 Server",
+					"productid": "6Server-JBEWS-2:tomcat6-0:6.0.41-17_patch_04.ep6.el6",
+					"cpe": "cpe:/a:redhat:jboss_enterprise_web_server:2::el6"
+				}
+			},
+			{
+				"productreference": "tomcat7-0:7.0.54-25_patch_05.ep6.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-JBEWS-2",
+				"fullproductname": {
+					"text": "tomcat7-0:7.0.54-25_patch_05.ep6.el6 as a component of Red Hat JBoss Enterprise Web Server 2 for RHEL 6 Server",
+					"productid": "6Server-JBEWS-2:tomcat7-0:7.0.54-25_patch_05.ep6.el6",
+					"cpe": "cpe:/a:redhat:jboss_enterprise_web_server:2::el6"
+				}
+			},
+			{
+				"productreference": "jbcs-httpd24-openssl-1:1.0.2h-13.jbcs.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-JBEWS-2",
+				"fullproductname": {
+					"text": "jbcs-httpd24-openssl-1:1.0.2h-13.jbcs.el7 as a component of Red Hat JBoss Enterprise Web Server 2 for RHEL 7 Server",
+					"productid": "7Server-JBEWS-2:jbcs-httpd24-openssl-1:1.0.2h-13.jbcs.el7",
+					"cpe": "cpe:/a:redhat:jboss_enterprise_web_server:2::el7"
+				}
+			},
+			{
+				"productreference": "tomcat6-0:6.0.41-17_patch_04.ep6.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-JBEWS-2",
+				"fullproductname": {
+					"text": "tomcat6-0:6.0.41-17_patch_04.ep6.el7 as a component of Red Hat JBoss Enterprise Web Server 2 for RHEL 7 Server",
+					"productid": "7Server-JBEWS-2:tomcat6-0:6.0.41-17_patch_04.ep6.el7",
+					"cpe": "cpe:/a:redhat:jboss_enterprise_web_server:2::el7"
+				}
+			},
+			{
+				"productreference": "tomcat7-0:7.0.54-25_patch_05.ep6.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-JBEWS-2",
+				"fullproductname": {
+					"text": "tomcat7-0:7.0.54-25_patch_05.ep6.el7 as a component of Red Hat JBoss Enterprise Web Server 2 for RHEL 7 Server",
+					"productid": "7Server-JBEWS-2:tomcat7-0:7.0.54-25_patch_05.ep6.el7",
+					"cpe": "cpe:/a:redhat:jboss_enterprise_web_server:2::el7"
+				}
+			}
+		]
+	}
+}

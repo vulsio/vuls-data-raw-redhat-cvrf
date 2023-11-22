@@ -1,0 +1,3468 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: X.org X11 libraries security, bug fix and enhancement update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2017:1865"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2017-08-01T13:50:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2017-08-01T13:50:00Z",
+		"CurrentReleaseDate": "2017-08-01T13:50:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:43:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nAn update is now available for Red Hat Enterprise Linux 7.\n\nRed Hat Product Security has rated this update as having a security impact of Moderate. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe X11 (Xorg) libraries provide library routines that are used within all X Window applications.\n\nThe following packages have been upgraded to a later upstream version: libX11 (1.6.5), libXaw (1.0.13), libXdmcp (1.1.2), libXfixes (5.0.3), libXfont (1.5.2), libXi (1.7.9), libXpm (3.5.12), libXrandr (1.5.1), libXrender (0.9.10), libXt (1.1.5), libXtst (1.2.3), libXv (1.0.11), libXvMC (1.0.10), libXxf86vm (1.1.4), libdrm (2.4.74), libepoxy (1.3.1), libevdev (1.5.6), libfontenc (1.1.3), libvdpau (1.1.1), libwacom (0.24), libxcb (1.12), libxkbfile (1.0.9), mesa (17.0.1), mesa-private-llvm (3.9.1), xcb-proto (1.12), xkeyboard-config (2.20), xorg-x11-proto-devel (7.7). (BZ#1401667, BZ#1401668, BZ#1401669, BZ#1401670, BZ#1401671, BZ#1401672, BZ#1401673, BZ#1401675, BZ#1401676, BZ#1401677, BZ#1401678, BZ#1401679, BZ#1401680, BZ#1401681, BZ#1401682, BZ#1401683, BZ#1401685, BZ#1401690, BZ#1401752, BZ#1401753, BZ#1401754, BZ#1402560, BZ#1410477, BZ#1411390, BZ#1411392, BZ#1411393, BZ#1411452, BZ#1420224)\n\nSecurity Fix(es):\n\n* An integer overflow flaw leading to a heap-based buffer overflow was found in libXpm. An attacker could use this flaw to crash an application using libXpm via a specially crafted XPM file. (CVE-2016-10164)\n\n* It was discovered that libXdmcp used weak entropy to generate session keys. On a multi-user system using xdmcp, a local attacker could potentially use information available from the process list to brute force the key, allowing them to hijack other users' sessions. (CVE-2017-2625)\n\n* It was discovered that libICE used a weak entropy to generate keys. A local attacker could potentially use this flaw for session hijacking using the information available from the process list. (CVE-2017-2626)\n\nRed Hat would like to thank Eric Sesterhenn (X41 D-Sec GmbH) for reporting CVE-2017-2625 and CVE-2017-2626.\n\nAdditional Changes:\n\nFor detailed information on changes in this release, see the Red Hat Enterprise Linux 7.4 Release Notes linked from the References section.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2017:1865",
+				"Description": "https://access.redhat.com/errata/RHSA-2017:1865"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/7.4_Release_Notes/index.html",
+				"Description": "https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/7.4_Release_Notes/index.html"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "libXpm: Out-of-bounds write in XPM extension parsing",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-12-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2016-10164",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2017:1865"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2016-10164",
+						"Description": "CVE-2016-10164"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1416410",
+						"Description": "bz#1416410: CVE-2016-10164 libXpm: Out-of-bounds write in XPM extension parsing"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2017-01-22T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-optional:libICE-0:1.0.9-9.el7",
+						"7Client-optional:libX11-0:1.6.5-1.el7",
+						"7Client-optional:libXaw-0:1.0.13-4.el7",
+						"7Client-optional:libXcursor-0:1.1.14-8.el7",
+						"7Client-optional:libXdmcp-0:1.1.2-6.el7",
+						"7Client-optional:libXfixes-0:5.0.3-1.el7",
+						"7Client-optional:libXfont-0:1.5.2-1.el7",
+						"7Client-optional:libXfont2-0:2.0.1-2.el7",
+						"7Client-optional:libXi-0:1.7.9-1.el7",
+						"7Client-optional:libXpm-0:3.5.12-1.el7",
+						"7Client-optional:libXrandr-0:1.5.1-2.el7",
+						"7Client-optional:libXrender-0:0.9.10-1.el7",
+						"7Client-optional:libXt-0:1.1.5-3.el7",
+						"7Client-optional:libXtst-0:1.2.3-1.el7",
+						"7Client-optional:libXv-0:1.0.11-1.el7",
+						"7Client-optional:libXvMC-0:1.0.10-1.el7",
+						"7Client-optional:libXxf86vm-0:1.1.4-1.el7",
+						"7Client-optional:libdrm-0:2.4.74-1.el7",
+						"7Client-optional:libepoxy-0:1.3.1-1.el7",
+						"7Client-optional:libevdev-0:1.5.6-1.el7",
+						"7Client-optional:libfontenc-0:1.1.3-3.el7",
+						"7Client-optional:libinput-0:1.6.3-2.el7",
+						"7Client-optional:libvdpau-0:1.1.1-3.el7",
+						"7Client-optional:libwacom-0:0.24-1.el7",
+						"7Client-optional:libxcb-0:1.12-1.el7",
+						"7Client-optional:libxkbcommon-0:0.7.1-1.el7",
+						"7Client-optional:libxkbfile-0:1.0.9-3.el7",
+						"7Client-optional:mesa-0:17.0.1-6.20170307.el7",
+						"7Client-optional:mesa-private-llvm-0:3.9.1-3.el7",
+						"7Client-optional:vulkan-0:1.0.39.1-2.el7",
+						"7Client-optional:xcb-proto-0:1.12-2.el7",
+						"7Client-optional:xkeyboard-config-0:2.20-1.el7",
+						"7Client-optional:xorg-x11-proto-devel-0:7.7-20.el7",
+						"7Client:libICE-0:1.0.9-9.el7",
+						"7Client:libX11-0:1.6.5-1.el7",
+						"7Client:libXaw-0:1.0.13-4.el7",
+						"7Client:libXcursor-0:1.1.14-8.el7",
+						"7Client:libXdmcp-0:1.1.2-6.el7",
+						"7Client:libXfixes-0:5.0.3-1.el7",
+						"7Client:libXfont-0:1.5.2-1.el7",
+						"7Client:libXfont2-0:2.0.1-2.el7",
+						"7Client:libXi-0:1.7.9-1.el7",
+						"7Client:libXpm-0:3.5.12-1.el7",
+						"7Client:libXrandr-0:1.5.1-2.el7",
+						"7Client:libXrender-0:0.9.10-1.el7",
+						"7Client:libXt-0:1.1.5-3.el7",
+						"7Client:libXtst-0:1.2.3-1.el7",
+						"7Client:libXv-0:1.0.11-1.el7",
+						"7Client:libXvMC-0:1.0.10-1.el7",
+						"7Client:libXxf86vm-0:1.1.4-1.el7",
+						"7Client:libdrm-0:2.4.74-1.el7",
+						"7Client:libepoxy-0:1.3.1-1.el7",
+						"7Client:libevdev-0:1.5.6-1.el7",
+						"7Client:libfontenc-0:1.1.3-3.el7",
+						"7Client:libinput-0:1.6.3-2.el7",
+						"7Client:libvdpau-0:1.1.1-3.el7",
+						"7Client:libwacom-0:0.24-1.el7",
+						"7Client:libxcb-0:1.12-1.el7",
+						"7Client:libxkbcommon-0:0.7.1-1.el7",
+						"7Client:libxkbfile-0:1.0.9-3.el7",
+						"7Client:mesa-0:17.0.1-6.20170307.el7",
+						"7Client:mesa-private-llvm-0:3.9.1-3.el7",
+						"7Client:xkeyboard-config-0:2.20-1.el7",
+						"7ComputeNode-optional:libICE-0:1.0.9-9.el7",
+						"7ComputeNode-optional:libX11-0:1.6.5-1.el7",
+						"7ComputeNode-optional:libXaw-0:1.0.13-4.el7",
+						"7ComputeNode-optional:libXcursor-0:1.1.14-8.el7",
+						"7ComputeNode-optional:libXdmcp-0:1.1.2-6.el7",
+						"7ComputeNode-optional:libXfixes-0:5.0.3-1.el7",
+						"7ComputeNode-optional:libXfont-0:1.5.2-1.el7",
+						"7ComputeNode-optional:libXfont2-0:2.0.1-2.el7",
+						"7ComputeNode-optional:libXi-0:1.7.9-1.el7",
+						"7ComputeNode-optional:libXpm-0:3.5.12-1.el7",
+						"7ComputeNode-optional:libXrandr-0:1.5.1-2.el7",
+						"7ComputeNode-optional:libXrender-0:0.9.10-1.el7",
+						"7ComputeNode-optional:libXt-0:1.1.5-3.el7",
+						"7ComputeNode-optional:libXtst-0:1.2.3-1.el7",
+						"7ComputeNode-optional:libXv-0:1.0.11-1.el7",
+						"7ComputeNode-optional:libXxf86vm-0:1.1.4-1.el7",
+						"7ComputeNode-optional:libdrm-0:2.4.74-1.el7",
+						"7ComputeNode-optional:libepoxy-0:1.3.1-1.el7",
+						"7ComputeNode-optional:libfontenc-0:1.1.3-3.el7",
+						"7ComputeNode-optional:libvdpau-0:1.1.1-3.el7",
+						"7ComputeNode-optional:libwacom-0:0.24-1.el7",
+						"7ComputeNode-optional:libxcb-0:1.12-1.el7",
+						"7ComputeNode-optional:libxkbcommon-0:0.7.1-1.el7",
+						"7ComputeNode-optional:libxkbfile-0:1.0.9-3.el7",
+						"7ComputeNode-optional:mesa-0:17.0.1-6.20170307.el7",
+						"7ComputeNode-optional:mesa-private-llvm-0:3.9.1-3.el7",
+						"7ComputeNode-optional:vulkan-0:1.0.39.1-2.el7",
+						"7ComputeNode-optional:xcb-proto-0:1.12-2.el7",
+						"7ComputeNode-optional:xkeyboard-config-0:2.20-1.el7",
+						"7ComputeNode-optional:xorg-x11-proto-devel-0:7.7-20.el7",
+						"7ComputeNode:libICE-0:1.0.9-9.el7",
+						"7ComputeNode:libX11-0:1.6.5-1.el7",
+						"7ComputeNode:libXaw-0:1.0.13-4.el7",
+						"7ComputeNode:libXcursor-0:1.1.14-8.el7",
+						"7ComputeNode:libXdmcp-0:1.1.2-6.el7",
+						"7ComputeNode:libXfixes-0:5.0.3-1.el7",
+						"7ComputeNode:libXfont-0:1.5.2-1.el7",
+						"7ComputeNode:libXfont2-0:2.0.1-2.el7",
+						"7ComputeNode:libXi-0:1.7.9-1.el7",
+						"7ComputeNode:libXpm-0:3.5.12-1.el7",
+						"7ComputeNode:libXrandr-0:1.5.1-2.el7",
+						"7ComputeNode:libXrender-0:0.9.10-1.el7",
+						"7ComputeNode:libXt-0:1.1.5-3.el7",
+						"7ComputeNode:libXtst-0:1.2.3-1.el7",
+						"7ComputeNode:libXv-0:1.0.11-1.el7",
+						"7ComputeNode:libXxf86vm-0:1.1.4-1.el7",
+						"7ComputeNode:libdrm-0:2.4.74-1.el7",
+						"7ComputeNode:libepoxy-0:1.3.1-1.el7",
+						"7ComputeNode:libfontenc-0:1.1.3-3.el7",
+						"7ComputeNode:libvdpau-0:1.1.1-3.el7",
+						"7ComputeNode:libxcb-0:1.12-1.el7",
+						"7ComputeNode:libxkbfile-0:1.0.9-3.el7",
+						"7ComputeNode:mesa-0:17.0.1-6.20170307.el7",
+						"7ComputeNode:mesa-private-llvm-0:3.9.1-3.el7",
+						"7ComputeNode:xkeyboard-config-0:2.20-1.el7",
+						"7Server-optional:libXdmcp-0:1.1.2-6.el7",
+						"7Server-optional:libXfont-0:1.5.2-1.el7",
+						"7Server-optional:libXfont2-0:2.0.1-2.el7",
+						"7Server-optional:libXvMC-0:1.0.10-1.el7",
+						"7Server-optional:libdrm-0:2.4.74-1.el7",
+						"7Server-optional:libevdev-0:1.5.6-1.el7",
+						"7Server-optional:libfontenc-0:1.1.3-3.el7",
+						"7Server-optional:libinput-0:1.6.3-2.el7",
+						"7Server-optional:libvdpau-0:1.1.1-3.el7",
+						"7Server-optional:libwacom-0:0.24-1.el7",
+						"7Server-optional:libxcb-0:1.12-1.el7",
+						"7Server-optional:libxkbcommon-0:0.7.1-1.el7",
+						"7Server-optional:libxkbfile-0:1.0.9-3.el7",
+						"7Server-optional:mesa-0:17.0.1-6.20170307.el7",
+						"7Server-optional:mesa-private-llvm-0:3.9.1-3.el7",
+						"7Server-optional:vulkan-0:1.0.39.1-2.el7",
+						"7Server-optional:xcb-proto-0:1.12-2.el7",
+						"7Server-optional:xkeyboard-config-0:2.20-1.el7",
+						"7Server:libICE-0:1.0.9-9.el7",
+						"7Server:libX11-0:1.6.5-1.el7",
+						"7Server:libXaw-0:1.0.13-4.el7",
+						"7Server:libXcursor-0:1.1.14-8.el7",
+						"7Server:libXdmcp-0:1.1.2-6.el7",
+						"7Server:libXfixes-0:5.0.3-1.el7",
+						"7Server:libXfont-0:1.5.2-1.el7",
+						"7Server:libXfont2-0:2.0.1-2.el7",
+						"7Server:libXi-0:1.7.9-1.el7",
+						"7Server:libXpm-0:3.5.12-1.el7",
+						"7Server:libXrandr-0:1.5.1-2.el7",
+						"7Server:libXrender-0:0.9.10-1.el7",
+						"7Server:libXt-0:1.1.5-3.el7",
+						"7Server:libXtst-0:1.2.3-1.el7",
+						"7Server:libXv-0:1.0.11-1.el7",
+						"7Server:libXvMC-0:1.0.10-1.el7",
+						"7Server:libXxf86vm-0:1.1.4-1.el7",
+						"7Server:libdrm-0:2.4.74-1.el7",
+						"7Server:libepoxy-0:1.3.1-1.el7",
+						"7Server:libevdev-0:1.5.6-1.el7",
+						"7Server:libfontenc-0:1.1.3-3.el7",
+						"7Server:libinput-0:1.6.3-2.el7",
+						"7Server:libvdpau-0:1.1.1-3.el7",
+						"7Server:libwacom-0:0.24-1.el7",
+						"7Server:libxcb-0:1.12-1.el7",
+						"7Server:libxkbcommon-0:0.7.1-1.el7",
+						"7Server:libxkbfile-0:1.0.9-3.el7",
+						"7Server:mesa-0:17.0.1-6.20170307.el7",
+						"7Server:mesa-private-llvm-0:3.9.1-3.el7",
+						"7Server:xkeyboard-config-0:2.20-1.el7",
+						"7Server:xorg-x11-proto-devel-0:7.7-20.el7",
+						"7Workstation-optional:libXdmcp-0:1.1.2-6.el7",
+						"7Workstation-optional:libXfont-0:1.5.2-1.el7",
+						"7Workstation-optional:libXfont2-0:2.0.1-2.el7",
+						"7Workstation-optional:libXvMC-0:1.0.10-1.el7",
+						"7Workstation-optional:libdrm-0:2.4.74-1.el7",
+						"7Workstation-optional:libevdev-0:1.5.6-1.el7",
+						"7Workstation-optional:libfontenc-0:1.1.3-3.el7",
+						"7Workstation-optional:libinput-0:1.6.3-2.el7",
+						"7Workstation-optional:libvdpau-0:1.1.1-3.el7",
+						"7Workstation-optional:libwacom-0:0.24-1.el7",
+						"7Workstation-optional:libxcb-0:1.12-1.el7",
+						"7Workstation-optional:libxkbcommon-0:0.7.1-1.el7",
+						"7Workstation-optional:mesa-0:17.0.1-6.20170307.el7",
+						"7Workstation-optional:mesa-private-llvm-0:3.9.1-3.el7",
+						"7Workstation-optional:vulkan-0:1.0.39.1-2.el7",
+						"7Workstation-optional:xcb-proto-0:1.12-2.el7",
+						"7Workstation-optional:xkeyboard-config-0:2.20-1.el7",
+						"7Workstation:libICE-0:1.0.9-9.el7",
+						"7Workstation:libX11-0:1.6.5-1.el7",
+						"7Workstation:libXaw-0:1.0.13-4.el7",
+						"7Workstation:libXcursor-0:1.1.14-8.el7",
+						"7Workstation:libXdmcp-0:1.1.2-6.el7",
+						"7Workstation:libXfixes-0:5.0.3-1.el7",
+						"7Workstation:libXfont-0:1.5.2-1.el7",
+						"7Workstation:libXfont2-0:2.0.1-2.el7",
+						"7Workstation:libXi-0:1.7.9-1.el7",
+						"7Workstation:libXpm-0:3.5.12-1.el7",
+						"7Workstation:libXrandr-0:1.5.1-2.el7",
+						"7Workstation:libXrender-0:0.9.10-1.el7",
+						"7Workstation:libXt-0:1.1.5-3.el7",
+						"7Workstation:libXtst-0:1.2.3-1.el7",
+						"7Workstation:libXv-0:1.0.11-1.el7",
+						"7Workstation:libXvMC-0:1.0.10-1.el7",
+						"7Workstation:libXxf86vm-0:1.1.4-1.el7",
+						"7Workstation:libdrm-0:2.4.74-1.el7",
+						"7Workstation:libepoxy-0:1.3.1-1.el7",
+						"7Workstation:libevdev-0:1.5.6-1.el7",
+						"7Workstation:libfontenc-0:1.1.3-3.el7",
+						"7Workstation:libinput-0:1.6.3-2.el7",
+						"7Workstation:libvdpau-0:1.1.1-3.el7",
+						"7Workstation:libwacom-0:0.24-1.el7",
+						"7Workstation:libxcb-0:1.12-1.el7",
+						"7Workstation:libxkbcommon-0:0.7.1-1.el7",
+						"7Workstation:libxkbfile-0:1.0.9-3.el7",
+						"7Workstation:mesa-0:17.0.1-6.20170307.el7",
+						"7Workstation:mesa-private-llvm-0:3.9.1-3.el7",
+						"7Workstation:xkeyboard-config-0:2.20-1.el7",
+						"7Workstation:xorg-x11-proto-devel-0:7.7-20.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "libXdmcp: weak entropy usage for session keys",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2017-02-28T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2017-2625",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2017:1865"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2017-2625",
+						"Description": "CVE-2017-2625"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1424987",
+						"Description": "bz#1424987: CVE-2017-2625 libXdmcp: weak entropy usage for session keys"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2017-02-09T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-optional:libICE-0:1.0.9-9.el7",
+						"7Client-optional:libX11-0:1.6.5-1.el7",
+						"7Client-optional:libXaw-0:1.0.13-4.el7",
+						"7Client-optional:libXcursor-0:1.1.14-8.el7",
+						"7Client-optional:libXdmcp-0:1.1.2-6.el7",
+						"7Client-optional:libXfixes-0:5.0.3-1.el7",
+						"7Client-optional:libXfont-0:1.5.2-1.el7",
+						"7Client-optional:libXfont2-0:2.0.1-2.el7",
+						"7Client-optional:libXi-0:1.7.9-1.el7",
+						"7Client-optional:libXpm-0:3.5.12-1.el7",
+						"7Client-optional:libXrandr-0:1.5.1-2.el7",
+						"7Client-optional:libXrender-0:0.9.10-1.el7",
+						"7Client-optional:libXt-0:1.1.5-3.el7",
+						"7Client-optional:libXtst-0:1.2.3-1.el7",
+						"7Client-optional:libXv-0:1.0.11-1.el7",
+						"7Client-optional:libXvMC-0:1.0.10-1.el7",
+						"7Client-optional:libXxf86vm-0:1.1.4-1.el7",
+						"7Client-optional:libdrm-0:2.4.74-1.el7",
+						"7Client-optional:libepoxy-0:1.3.1-1.el7",
+						"7Client-optional:libevdev-0:1.5.6-1.el7",
+						"7Client-optional:libfontenc-0:1.1.3-3.el7",
+						"7Client-optional:libinput-0:1.6.3-2.el7",
+						"7Client-optional:libvdpau-0:1.1.1-3.el7",
+						"7Client-optional:libwacom-0:0.24-1.el7",
+						"7Client-optional:libxcb-0:1.12-1.el7",
+						"7Client-optional:libxkbcommon-0:0.7.1-1.el7",
+						"7Client-optional:libxkbfile-0:1.0.9-3.el7",
+						"7Client-optional:mesa-0:17.0.1-6.20170307.el7",
+						"7Client-optional:mesa-private-llvm-0:3.9.1-3.el7",
+						"7Client-optional:vulkan-0:1.0.39.1-2.el7",
+						"7Client-optional:xcb-proto-0:1.12-2.el7",
+						"7Client-optional:xkeyboard-config-0:2.20-1.el7",
+						"7Client-optional:xorg-x11-proto-devel-0:7.7-20.el7",
+						"7Client:libICE-0:1.0.9-9.el7",
+						"7Client:libX11-0:1.6.5-1.el7",
+						"7Client:libXaw-0:1.0.13-4.el7",
+						"7Client:libXcursor-0:1.1.14-8.el7",
+						"7Client:libXdmcp-0:1.1.2-6.el7",
+						"7Client:libXfixes-0:5.0.3-1.el7",
+						"7Client:libXfont-0:1.5.2-1.el7",
+						"7Client:libXfont2-0:2.0.1-2.el7",
+						"7Client:libXi-0:1.7.9-1.el7",
+						"7Client:libXpm-0:3.5.12-1.el7",
+						"7Client:libXrandr-0:1.5.1-2.el7",
+						"7Client:libXrender-0:0.9.10-1.el7",
+						"7Client:libXt-0:1.1.5-3.el7",
+						"7Client:libXtst-0:1.2.3-1.el7",
+						"7Client:libXv-0:1.0.11-1.el7",
+						"7Client:libXvMC-0:1.0.10-1.el7",
+						"7Client:libXxf86vm-0:1.1.4-1.el7",
+						"7Client:libdrm-0:2.4.74-1.el7",
+						"7Client:libepoxy-0:1.3.1-1.el7",
+						"7Client:libevdev-0:1.5.6-1.el7",
+						"7Client:libfontenc-0:1.1.3-3.el7",
+						"7Client:libinput-0:1.6.3-2.el7",
+						"7Client:libvdpau-0:1.1.1-3.el7",
+						"7Client:libwacom-0:0.24-1.el7",
+						"7Client:libxcb-0:1.12-1.el7",
+						"7Client:libxkbcommon-0:0.7.1-1.el7",
+						"7Client:libxkbfile-0:1.0.9-3.el7",
+						"7Client:mesa-0:17.0.1-6.20170307.el7",
+						"7Client:mesa-private-llvm-0:3.9.1-3.el7",
+						"7Client:xkeyboard-config-0:2.20-1.el7",
+						"7ComputeNode-optional:libICE-0:1.0.9-9.el7",
+						"7ComputeNode-optional:libX11-0:1.6.5-1.el7",
+						"7ComputeNode-optional:libXaw-0:1.0.13-4.el7",
+						"7ComputeNode-optional:libXcursor-0:1.1.14-8.el7",
+						"7ComputeNode-optional:libXdmcp-0:1.1.2-6.el7",
+						"7ComputeNode-optional:libXfixes-0:5.0.3-1.el7",
+						"7ComputeNode-optional:libXfont-0:1.5.2-1.el7",
+						"7ComputeNode-optional:libXfont2-0:2.0.1-2.el7",
+						"7ComputeNode-optional:libXi-0:1.7.9-1.el7",
+						"7ComputeNode-optional:libXpm-0:3.5.12-1.el7",
+						"7ComputeNode-optional:libXrandr-0:1.5.1-2.el7",
+						"7ComputeNode-optional:libXrender-0:0.9.10-1.el7",
+						"7ComputeNode-optional:libXt-0:1.1.5-3.el7",
+						"7ComputeNode-optional:libXtst-0:1.2.3-1.el7",
+						"7ComputeNode-optional:libXv-0:1.0.11-1.el7",
+						"7ComputeNode-optional:libXxf86vm-0:1.1.4-1.el7",
+						"7ComputeNode-optional:libdrm-0:2.4.74-1.el7",
+						"7ComputeNode-optional:libepoxy-0:1.3.1-1.el7",
+						"7ComputeNode-optional:libfontenc-0:1.1.3-3.el7",
+						"7ComputeNode-optional:libvdpau-0:1.1.1-3.el7",
+						"7ComputeNode-optional:libwacom-0:0.24-1.el7",
+						"7ComputeNode-optional:libxcb-0:1.12-1.el7",
+						"7ComputeNode-optional:libxkbcommon-0:0.7.1-1.el7",
+						"7ComputeNode-optional:libxkbfile-0:1.0.9-3.el7",
+						"7ComputeNode-optional:mesa-0:17.0.1-6.20170307.el7",
+						"7ComputeNode-optional:mesa-private-llvm-0:3.9.1-3.el7",
+						"7ComputeNode-optional:vulkan-0:1.0.39.1-2.el7",
+						"7ComputeNode-optional:xcb-proto-0:1.12-2.el7",
+						"7ComputeNode-optional:xkeyboard-config-0:2.20-1.el7",
+						"7ComputeNode-optional:xorg-x11-proto-devel-0:7.7-20.el7",
+						"7ComputeNode:libICE-0:1.0.9-9.el7",
+						"7ComputeNode:libX11-0:1.6.5-1.el7",
+						"7ComputeNode:libXaw-0:1.0.13-4.el7",
+						"7ComputeNode:libXcursor-0:1.1.14-8.el7",
+						"7ComputeNode:libXdmcp-0:1.1.2-6.el7",
+						"7ComputeNode:libXfixes-0:5.0.3-1.el7",
+						"7ComputeNode:libXfont-0:1.5.2-1.el7",
+						"7ComputeNode:libXfont2-0:2.0.1-2.el7",
+						"7ComputeNode:libXi-0:1.7.9-1.el7",
+						"7ComputeNode:libXpm-0:3.5.12-1.el7",
+						"7ComputeNode:libXrandr-0:1.5.1-2.el7",
+						"7ComputeNode:libXrender-0:0.9.10-1.el7",
+						"7ComputeNode:libXt-0:1.1.5-3.el7",
+						"7ComputeNode:libXtst-0:1.2.3-1.el7",
+						"7ComputeNode:libXv-0:1.0.11-1.el7",
+						"7ComputeNode:libXxf86vm-0:1.1.4-1.el7",
+						"7ComputeNode:libdrm-0:2.4.74-1.el7",
+						"7ComputeNode:libepoxy-0:1.3.1-1.el7",
+						"7ComputeNode:libfontenc-0:1.1.3-3.el7",
+						"7ComputeNode:libvdpau-0:1.1.1-3.el7",
+						"7ComputeNode:libxcb-0:1.12-1.el7",
+						"7ComputeNode:libxkbfile-0:1.0.9-3.el7",
+						"7ComputeNode:mesa-0:17.0.1-6.20170307.el7",
+						"7ComputeNode:mesa-private-llvm-0:3.9.1-3.el7",
+						"7ComputeNode:xkeyboard-config-0:2.20-1.el7",
+						"7Server-optional:libXdmcp-0:1.1.2-6.el7",
+						"7Server-optional:libXfont-0:1.5.2-1.el7",
+						"7Server-optional:libXfont2-0:2.0.1-2.el7",
+						"7Server-optional:libXvMC-0:1.0.10-1.el7",
+						"7Server-optional:libdrm-0:2.4.74-1.el7",
+						"7Server-optional:libevdev-0:1.5.6-1.el7",
+						"7Server-optional:libfontenc-0:1.1.3-3.el7",
+						"7Server-optional:libinput-0:1.6.3-2.el7",
+						"7Server-optional:libvdpau-0:1.1.1-3.el7",
+						"7Server-optional:libwacom-0:0.24-1.el7",
+						"7Server-optional:libxcb-0:1.12-1.el7",
+						"7Server-optional:libxkbcommon-0:0.7.1-1.el7",
+						"7Server-optional:libxkbfile-0:1.0.9-3.el7",
+						"7Server-optional:mesa-0:17.0.1-6.20170307.el7",
+						"7Server-optional:mesa-private-llvm-0:3.9.1-3.el7",
+						"7Server-optional:vulkan-0:1.0.39.1-2.el7",
+						"7Server-optional:xcb-proto-0:1.12-2.el7",
+						"7Server-optional:xkeyboard-config-0:2.20-1.el7",
+						"7Server:libICE-0:1.0.9-9.el7",
+						"7Server:libX11-0:1.6.5-1.el7",
+						"7Server:libXaw-0:1.0.13-4.el7",
+						"7Server:libXcursor-0:1.1.14-8.el7",
+						"7Server:libXdmcp-0:1.1.2-6.el7",
+						"7Server:libXfixes-0:5.0.3-1.el7",
+						"7Server:libXfont-0:1.5.2-1.el7",
+						"7Server:libXfont2-0:2.0.1-2.el7",
+						"7Server:libXi-0:1.7.9-1.el7",
+						"7Server:libXpm-0:3.5.12-1.el7",
+						"7Server:libXrandr-0:1.5.1-2.el7",
+						"7Server:libXrender-0:0.9.10-1.el7",
+						"7Server:libXt-0:1.1.5-3.el7",
+						"7Server:libXtst-0:1.2.3-1.el7",
+						"7Server:libXv-0:1.0.11-1.el7",
+						"7Server:libXvMC-0:1.0.10-1.el7",
+						"7Server:libXxf86vm-0:1.1.4-1.el7",
+						"7Server:libdrm-0:2.4.74-1.el7",
+						"7Server:libepoxy-0:1.3.1-1.el7",
+						"7Server:libevdev-0:1.5.6-1.el7",
+						"7Server:libfontenc-0:1.1.3-3.el7",
+						"7Server:libinput-0:1.6.3-2.el7",
+						"7Server:libvdpau-0:1.1.1-3.el7",
+						"7Server:libwacom-0:0.24-1.el7",
+						"7Server:libxcb-0:1.12-1.el7",
+						"7Server:libxkbcommon-0:0.7.1-1.el7",
+						"7Server:libxkbfile-0:1.0.9-3.el7",
+						"7Server:mesa-0:17.0.1-6.20170307.el7",
+						"7Server:mesa-private-llvm-0:3.9.1-3.el7",
+						"7Server:xkeyboard-config-0:2.20-1.el7",
+						"7Server:xorg-x11-proto-devel-0:7.7-20.el7",
+						"7Workstation-optional:libXdmcp-0:1.1.2-6.el7",
+						"7Workstation-optional:libXfont-0:1.5.2-1.el7",
+						"7Workstation-optional:libXfont2-0:2.0.1-2.el7",
+						"7Workstation-optional:libXvMC-0:1.0.10-1.el7",
+						"7Workstation-optional:libdrm-0:2.4.74-1.el7",
+						"7Workstation-optional:libevdev-0:1.5.6-1.el7",
+						"7Workstation-optional:libfontenc-0:1.1.3-3.el7",
+						"7Workstation-optional:libinput-0:1.6.3-2.el7",
+						"7Workstation-optional:libvdpau-0:1.1.1-3.el7",
+						"7Workstation-optional:libwacom-0:0.24-1.el7",
+						"7Workstation-optional:libxcb-0:1.12-1.el7",
+						"7Workstation-optional:libxkbcommon-0:0.7.1-1.el7",
+						"7Workstation-optional:mesa-0:17.0.1-6.20170307.el7",
+						"7Workstation-optional:mesa-private-llvm-0:3.9.1-3.el7",
+						"7Workstation-optional:vulkan-0:1.0.39.1-2.el7",
+						"7Workstation-optional:xcb-proto-0:1.12-2.el7",
+						"7Workstation-optional:xkeyboard-config-0:2.20-1.el7",
+						"7Workstation:libICE-0:1.0.9-9.el7",
+						"7Workstation:libX11-0:1.6.5-1.el7",
+						"7Workstation:libXaw-0:1.0.13-4.el7",
+						"7Workstation:libXcursor-0:1.1.14-8.el7",
+						"7Workstation:libXdmcp-0:1.1.2-6.el7",
+						"7Workstation:libXfixes-0:5.0.3-1.el7",
+						"7Workstation:libXfont-0:1.5.2-1.el7",
+						"7Workstation:libXfont2-0:2.0.1-2.el7",
+						"7Workstation:libXi-0:1.7.9-1.el7",
+						"7Workstation:libXpm-0:3.5.12-1.el7",
+						"7Workstation:libXrandr-0:1.5.1-2.el7",
+						"7Workstation:libXrender-0:0.9.10-1.el7",
+						"7Workstation:libXt-0:1.1.5-3.el7",
+						"7Workstation:libXtst-0:1.2.3-1.el7",
+						"7Workstation:libXv-0:1.0.11-1.el7",
+						"7Workstation:libXvMC-0:1.0.10-1.el7",
+						"7Workstation:libXxf86vm-0:1.1.4-1.el7",
+						"7Workstation:libdrm-0:2.4.74-1.el7",
+						"7Workstation:libepoxy-0:1.3.1-1.el7",
+						"7Workstation:libevdev-0:1.5.6-1.el7",
+						"7Workstation:libfontenc-0:1.1.3-3.el7",
+						"7Workstation:libinput-0:1.6.3-2.el7",
+						"7Workstation:libvdpau-0:1.1.1-3.el7",
+						"7Workstation:libwacom-0:0.24-1.el7",
+						"7Workstation:libxcb-0:1.12-1.el7",
+						"7Workstation:libxkbcommon-0:0.7.1-1.el7",
+						"7Workstation:libxkbfile-0:1.0.9-3.el7",
+						"7Workstation:mesa-0:17.0.1-6.20170307.el7",
+						"7Workstation:mesa-private-llvm-0:3.9.1-3.el7",
+						"7Workstation:xkeyboard-config-0:2.20-1.el7",
+						"7Workstation:xorg-x11-proto-devel-0:7.7-20.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank Eric Sesterhenn (X41 D-Sec GmbH) for reporting this issue."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "libICE: weak entropy usage in session keys",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2017-02-28T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2017-2626",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2017:1865"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2017-2626",
+						"Description": "CVE-2017-2626"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1424992",
+						"Description": "bz#1424992: CVE-2017-2626 libICE: weak entropy usage in session keys"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2017-02-09T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-optional:libICE-0:1.0.9-9.el7",
+						"7Client-optional:libX11-0:1.6.5-1.el7",
+						"7Client-optional:libXaw-0:1.0.13-4.el7",
+						"7Client-optional:libXcursor-0:1.1.14-8.el7",
+						"7Client-optional:libXdmcp-0:1.1.2-6.el7",
+						"7Client-optional:libXfixes-0:5.0.3-1.el7",
+						"7Client-optional:libXfont-0:1.5.2-1.el7",
+						"7Client-optional:libXfont2-0:2.0.1-2.el7",
+						"7Client-optional:libXi-0:1.7.9-1.el7",
+						"7Client-optional:libXpm-0:3.5.12-1.el7",
+						"7Client-optional:libXrandr-0:1.5.1-2.el7",
+						"7Client-optional:libXrender-0:0.9.10-1.el7",
+						"7Client-optional:libXt-0:1.1.5-3.el7",
+						"7Client-optional:libXtst-0:1.2.3-1.el7",
+						"7Client-optional:libXv-0:1.0.11-1.el7",
+						"7Client-optional:libXvMC-0:1.0.10-1.el7",
+						"7Client-optional:libXxf86vm-0:1.1.4-1.el7",
+						"7Client-optional:libdrm-0:2.4.74-1.el7",
+						"7Client-optional:libepoxy-0:1.3.1-1.el7",
+						"7Client-optional:libevdev-0:1.5.6-1.el7",
+						"7Client-optional:libfontenc-0:1.1.3-3.el7",
+						"7Client-optional:libinput-0:1.6.3-2.el7",
+						"7Client-optional:libvdpau-0:1.1.1-3.el7",
+						"7Client-optional:libwacom-0:0.24-1.el7",
+						"7Client-optional:libxcb-0:1.12-1.el7",
+						"7Client-optional:libxkbcommon-0:0.7.1-1.el7",
+						"7Client-optional:libxkbfile-0:1.0.9-3.el7",
+						"7Client-optional:mesa-0:17.0.1-6.20170307.el7",
+						"7Client-optional:mesa-private-llvm-0:3.9.1-3.el7",
+						"7Client-optional:vulkan-0:1.0.39.1-2.el7",
+						"7Client-optional:xcb-proto-0:1.12-2.el7",
+						"7Client-optional:xkeyboard-config-0:2.20-1.el7",
+						"7Client-optional:xorg-x11-proto-devel-0:7.7-20.el7",
+						"7Client:libICE-0:1.0.9-9.el7",
+						"7Client:libX11-0:1.6.5-1.el7",
+						"7Client:libXaw-0:1.0.13-4.el7",
+						"7Client:libXcursor-0:1.1.14-8.el7",
+						"7Client:libXdmcp-0:1.1.2-6.el7",
+						"7Client:libXfixes-0:5.0.3-1.el7",
+						"7Client:libXfont-0:1.5.2-1.el7",
+						"7Client:libXfont2-0:2.0.1-2.el7",
+						"7Client:libXi-0:1.7.9-1.el7",
+						"7Client:libXpm-0:3.5.12-1.el7",
+						"7Client:libXrandr-0:1.5.1-2.el7",
+						"7Client:libXrender-0:0.9.10-1.el7",
+						"7Client:libXt-0:1.1.5-3.el7",
+						"7Client:libXtst-0:1.2.3-1.el7",
+						"7Client:libXv-0:1.0.11-1.el7",
+						"7Client:libXvMC-0:1.0.10-1.el7",
+						"7Client:libXxf86vm-0:1.1.4-1.el7",
+						"7Client:libdrm-0:2.4.74-1.el7",
+						"7Client:libepoxy-0:1.3.1-1.el7",
+						"7Client:libevdev-0:1.5.6-1.el7",
+						"7Client:libfontenc-0:1.1.3-3.el7",
+						"7Client:libinput-0:1.6.3-2.el7",
+						"7Client:libvdpau-0:1.1.1-3.el7",
+						"7Client:libwacom-0:0.24-1.el7",
+						"7Client:libxcb-0:1.12-1.el7",
+						"7Client:libxkbcommon-0:0.7.1-1.el7",
+						"7Client:libxkbfile-0:1.0.9-3.el7",
+						"7Client:mesa-0:17.0.1-6.20170307.el7",
+						"7Client:mesa-private-llvm-0:3.9.1-3.el7",
+						"7Client:xkeyboard-config-0:2.20-1.el7",
+						"7ComputeNode-optional:libICE-0:1.0.9-9.el7",
+						"7ComputeNode-optional:libX11-0:1.6.5-1.el7",
+						"7ComputeNode-optional:libXaw-0:1.0.13-4.el7",
+						"7ComputeNode-optional:libXcursor-0:1.1.14-8.el7",
+						"7ComputeNode-optional:libXdmcp-0:1.1.2-6.el7",
+						"7ComputeNode-optional:libXfixes-0:5.0.3-1.el7",
+						"7ComputeNode-optional:libXfont-0:1.5.2-1.el7",
+						"7ComputeNode-optional:libXfont2-0:2.0.1-2.el7",
+						"7ComputeNode-optional:libXi-0:1.7.9-1.el7",
+						"7ComputeNode-optional:libXpm-0:3.5.12-1.el7",
+						"7ComputeNode-optional:libXrandr-0:1.5.1-2.el7",
+						"7ComputeNode-optional:libXrender-0:0.9.10-1.el7",
+						"7ComputeNode-optional:libXt-0:1.1.5-3.el7",
+						"7ComputeNode-optional:libXtst-0:1.2.3-1.el7",
+						"7ComputeNode-optional:libXv-0:1.0.11-1.el7",
+						"7ComputeNode-optional:libXxf86vm-0:1.1.4-1.el7",
+						"7ComputeNode-optional:libdrm-0:2.4.74-1.el7",
+						"7ComputeNode-optional:libepoxy-0:1.3.1-1.el7",
+						"7ComputeNode-optional:libfontenc-0:1.1.3-3.el7",
+						"7ComputeNode-optional:libvdpau-0:1.1.1-3.el7",
+						"7ComputeNode-optional:libwacom-0:0.24-1.el7",
+						"7ComputeNode-optional:libxcb-0:1.12-1.el7",
+						"7ComputeNode-optional:libxkbcommon-0:0.7.1-1.el7",
+						"7ComputeNode-optional:libxkbfile-0:1.0.9-3.el7",
+						"7ComputeNode-optional:mesa-0:17.0.1-6.20170307.el7",
+						"7ComputeNode-optional:mesa-private-llvm-0:3.9.1-3.el7",
+						"7ComputeNode-optional:vulkan-0:1.0.39.1-2.el7",
+						"7ComputeNode-optional:xcb-proto-0:1.12-2.el7",
+						"7ComputeNode-optional:xkeyboard-config-0:2.20-1.el7",
+						"7ComputeNode-optional:xorg-x11-proto-devel-0:7.7-20.el7",
+						"7ComputeNode:libICE-0:1.0.9-9.el7",
+						"7ComputeNode:libX11-0:1.6.5-1.el7",
+						"7ComputeNode:libXaw-0:1.0.13-4.el7",
+						"7ComputeNode:libXcursor-0:1.1.14-8.el7",
+						"7ComputeNode:libXdmcp-0:1.1.2-6.el7",
+						"7ComputeNode:libXfixes-0:5.0.3-1.el7",
+						"7ComputeNode:libXfont-0:1.5.2-1.el7",
+						"7ComputeNode:libXfont2-0:2.0.1-2.el7",
+						"7ComputeNode:libXi-0:1.7.9-1.el7",
+						"7ComputeNode:libXpm-0:3.5.12-1.el7",
+						"7ComputeNode:libXrandr-0:1.5.1-2.el7",
+						"7ComputeNode:libXrender-0:0.9.10-1.el7",
+						"7ComputeNode:libXt-0:1.1.5-3.el7",
+						"7ComputeNode:libXtst-0:1.2.3-1.el7",
+						"7ComputeNode:libXv-0:1.0.11-1.el7",
+						"7ComputeNode:libXxf86vm-0:1.1.4-1.el7",
+						"7ComputeNode:libdrm-0:2.4.74-1.el7",
+						"7ComputeNode:libepoxy-0:1.3.1-1.el7",
+						"7ComputeNode:libfontenc-0:1.1.3-3.el7",
+						"7ComputeNode:libvdpau-0:1.1.1-3.el7",
+						"7ComputeNode:libxcb-0:1.12-1.el7",
+						"7ComputeNode:libxkbfile-0:1.0.9-3.el7",
+						"7ComputeNode:mesa-0:17.0.1-6.20170307.el7",
+						"7ComputeNode:mesa-private-llvm-0:3.9.1-3.el7",
+						"7ComputeNode:xkeyboard-config-0:2.20-1.el7",
+						"7Server-optional:libXdmcp-0:1.1.2-6.el7",
+						"7Server-optional:libXfont-0:1.5.2-1.el7",
+						"7Server-optional:libXfont2-0:2.0.1-2.el7",
+						"7Server-optional:libXvMC-0:1.0.10-1.el7",
+						"7Server-optional:libdrm-0:2.4.74-1.el7",
+						"7Server-optional:libevdev-0:1.5.6-1.el7",
+						"7Server-optional:libfontenc-0:1.1.3-3.el7",
+						"7Server-optional:libinput-0:1.6.3-2.el7",
+						"7Server-optional:libvdpau-0:1.1.1-3.el7",
+						"7Server-optional:libwacom-0:0.24-1.el7",
+						"7Server-optional:libxcb-0:1.12-1.el7",
+						"7Server-optional:libxkbcommon-0:0.7.1-1.el7",
+						"7Server-optional:libxkbfile-0:1.0.9-3.el7",
+						"7Server-optional:mesa-0:17.0.1-6.20170307.el7",
+						"7Server-optional:mesa-private-llvm-0:3.9.1-3.el7",
+						"7Server-optional:vulkan-0:1.0.39.1-2.el7",
+						"7Server-optional:xcb-proto-0:1.12-2.el7",
+						"7Server-optional:xkeyboard-config-0:2.20-1.el7",
+						"7Server:libICE-0:1.0.9-9.el7",
+						"7Server:libX11-0:1.6.5-1.el7",
+						"7Server:libXaw-0:1.0.13-4.el7",
+						"7Server:libXcursor-0:1.1.14-8.el7",
+						"7Server:libXdmcp-0:1.1.2-6.el7",
+						"7Server:libXfixes-0:5.0.3-1.el7",
+						"7Server:libXfont-0:1.5.2-1.el7",
+						"7Server:libXfont2-0:2.0.1-2.el7",
+						"7Server:libXi-0:1.7.9-1.el7",
+						"7Server:libXpm-0:3.5.12-1.el7",
+						"7Server:libXrandr-0:1.5.1-2.el7",
+						"7Server:libXrender-0:0.9.10-1.el7",
+						"7Server:libXt-0:1.1.5-3.el7",
+						"7Server:libXtst-0:1.2.3-1.el7",
+						"7Server:libXv-0:1.0.11-1.el7",
+						"7Server:libXvMC-0:1.0.10-1.el7",
+						"7Server:libXxf86vm-0:1.1.4-1.el7",
+						"7Server:libdrm-0:2.4.74-1.el7",
+						"7Server:libepoxy-0:1.3.1-1.el7",
+						"7Server:libevdev-0:1.5.6-1.el7",
+						"7Server:libfontenc-0:1.1.3-3.el7",
+						"7Server:libinput-0:1.6.3-2.el7",
+						"7Server:libvdpau-0:1.1.1-3.el7",
+						"7Server:libwacom-0:0.24-1.el7",
+						"7Server:libxcb-0:1.12-1.el7",
+						"7Server:libxkbcommon-0:0.7.1-1.el7",
+						"7Server:libxkbfile-0:1.0.9-3.el7",
+						"7Server:mesa-0:17.0.1-6.20170307.el7",
+						"7Server:mesa-private-llvm-0:3.9.1-3.el7",
+						"7Server:xkeyboard-config-0:2.20-1.el7",
+						"7Server:xorg-x11-proto-devel-0:7.7-20.el7",
+						"7Workstation-optional:libXdmcp-0:1.1.2-6.el7",
+						"7Workstation-optional:libXfont-0:1.5.2-1.el7",
+						"7Workstation-optional:libXfont2-0:2.0.1-2.el7",
+						"7Workstation-optional:libXvMC-0:1.0.10-1.el7",
+						"7Workstation-optional:libdrm-0:2.4.74-1.el7",
+						"7Workstation-optional:libevdev-0:1.5.6-1.el7",
+						"7Workstation-optional:libfontenc-0:1.1.3-3.el7",
+						"7Workstation-optional:libinput-0:1.6.3-2.el7",
+						"7Workstation-optional:libvdpau-0:1.1.1-3.el7",
+						"7Workstation-optional:libwacom-0:0.24-1.el7",
+						"7Workstation-optional:libxcb-0:1.12-1.el7",
+						"7Workstation-optional:libxkbcommon-0:0.7.1-1.el7",
+						"7Workstation-optional:mesa-0:17.0.1-6.20170307.el7",
+						"7Workstation-optional:mesa-private-llvm-0:3.9.1-3.el7",
+						"7Workstation-optional:vulkan-0:1.0.39.1-2.el7",
+						"7Workstation-optional:xcb-proto-0:1.12-2.el7",
+						"7Workstation-optional:xkeyboard-config-0:2.20-1.el7",
+						"7Workstation:libICE-0:1.0.9-9.el7",
+						"7Workstation:libX11-0:1.6.5-1.el7",
+						"7Workstation:libXaw-0:1.0.13-4.el7",
+						"7Workstation:libXcursor-0:1.1.14-8.el7",
+						"7Workstation:libXdmcp-0:1.1.2-6.el7",
+						"7Workstation:libXfixes-0:5.0.3-1.el7",
+						"7Workstation:libXfont-0:1.5.2-1.el7",
+						"7Workstation:libXfont2-0:2.0.1-2.el7",
+						"7Workstation:libXi-0:1.7.9-1.el7",
+						"7Workstation:libXpm-0:3.5.12-1.el7",
+						"7Workstation:libXrandr-0:1.5.1-2.el7",
+						"7Workstation:libXrender-0:0.9.10-1.el7",
+						"7Workstation:libXt-0:1.1.5-3.el7",
+						"7Workstation:libXtst-0:1.2.3-1.el7",
+						"7Workstation:libXv-0:1.0.11-1.el7",
+						"7Workstation:libXvMC-0:1.0.10-1.el7",
+						"7Workstation:libXxf86vm-0:1.1.4-1.el7",
+						"7Workstation:libdrm-0:2.4.74-1.el7",
+						"7Workstation:libepoxy-0:1.3.1-1.el7",
+						"7Workstation:libevdev-0:1.5.6-1.el7",
+						"7Workstation:libfontenc-0:1.1.3-3.el7",
+						"7Workstation:libinput-0:1.6.3-2.el7",
+						"7Workstation:libvdpau-0:1.1.1-3.el7",
+						"7Workstation:libwacom-0:0.24-1.el7",
+						"7Workstation:libxcb-0:1.12-1.el7",
+						"7Workstation:libxkbcommon-0:0.7.1-1.el7",
+						"7Workstation:libxkbfile-0:1.0.9-3.el7",
+						"7Workstation:mesa-0:17.0.1-6.20170307.el7",
+						"7Workstation:mesa-private-llvm-0:3.9.1-3.el7",
+						"7Workstation:xkeyboard-config-0:2.20-1.el7",
+						"7Workstation:xorg-x11-proto-devel-0:7.7-20.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank Eric Sesterhenn (X41 D-Sec GmbH) for reporting this issue."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Client (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Client (v. 7)",
+							"productid": "7Client",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Client Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Client Optional (v. 7)",
+							"productid": "7Client-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ComputeNode (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ComputeNode (v. 7)",
+							"productid": "7ComputeNode",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+							"productid": "7ComputeNode-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 7)",
+							"productid": "7Server",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional (v. 7)",
+							"productid": "7Server-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 7)",
+							"productid": "7Workstation",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation Optional (v. 7)",
+							"productid": "7Workstation-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "libICE-0:1.0.9-9.el7",
+				"fullproductname": {
+					"text": "libICE-1.0.9-9.el7.src.rpm",
+					"productid": "libICE-0:1.0.9-9.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libX11-0:1.6.5-1.el7",
+				"fullproductname": {
+					"text": "libX11-1.6.5-1.el7.src.rpm",
+					"productid": "libX11-0:1.6.5-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libXaw-0:1.0.13-4.el7",
+				"fullproductname": {
+					"text": "libXaw-1.0.13-4.el7.src.rpm",
+					"productid": "libXaw-0:1.0.13-4.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libXcursor-0:1.1.14-8.el7",
+				"fullproductname": {
+					"text": "libXcursor-1.1.14-8.el7.src.rpm",
+					"productid": "libXcursor-0:1.1.14-8.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libXdmcp-0:1.1.2-6.el7",
+				"fullproductname": {
+					"text": "libXdmcp-1.1.2-6.el7.src.rpm",
+					"productid": "libXdmcp-0:1.1.2-6.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libXfixes-0:5.0.3-1.el7",
+				"fullproductname": {
+					"text": "libXfixes-5.0.3-1.el7.src.rpm",
+					"productid": "libXfixes-0:5.0.3-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libXfont-0:1.5.2-1.el7",
+				"fullproductname": {
+					"text": "libXfont-1.5.2-1.el7.src.rpm",
+					"productid": "libXfont-0:1.5.2-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libXfont2-0:2.0.1-2.el7",
+				"fullproductname": {
+					"text": "libXfont2-2.0.1-2.el7.src.rpm",
+					"productid": "libXfont2-0:2.0.1-2.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libXi-0:1.7.9-1.el7",
+				"fullproductname": {
+					"text": "libXi-1.7.9-1.el7.src.rpm",
+					"productid": "libXi-0:1.7.9-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libXpm-0:3.5.12-1.el7",
+				"fullproductname": {
+					"text": "libXpm-3.5.12-1.el7.src.rpm",
+					"productid": "libXpm-0:3.5.12-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libXrandr-0:1.5.1-2.el7",
+				"fullproductname": {
+					"text": "libXrandr-1.5.1-2.el7.src.rpm",
+					"productid": "libXrandr-0:1.5.1-2.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libXrender-0:0.9.10-1.el7",
+				"fullproductname": {
+					"text": "libXrender-0.9.10-1.el7.src.rpm",
+					"productid": "libXrender-0:0.9.10-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libXt-0:1.1.5-3.el7",
+				"fullproductname": {
+					"text": "libXt-1.1.5-3.el7.src.rpm",
+					"productid": "libXt-0:1.1.5-3.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libXtst-0:1.2.3-1.el7",
+				"fullproductname": {
+					"text": "libXtst-1.2.3-1.el7.src.rpm",
+					"productid": "libXtst-0:1.2.3-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libXv-0:1.0.11-1.el7",
+				"fullproductname": {
+					"text": "libXv-1.0.11-1.el7.src.rpm",
+					"productid": "libXv-0:1.0.11-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libXvMC-0:1.0.10-1.el7",
+				"fullproductname": {
+					"text": "libXvMC-1.0.10-1.el7.src.rpm",
+					"productid": "libXvMC-0:1.0.10-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libXxf86vm-0:1.1.4-1.el7",
+				"fullproductname": {
+					"text": "libXxf86vm-1.1.4-1.el7.src.rpm",
+					"productid": "libXxf86vm-0:1.1.4-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libdrm-0:2.4.74-1.el7",
+				"fullproductname": {
+					"text": "libdrm-2.4.74-1.el7.src.rpm",
+					"productid": "libdrm-0:2.4.74-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libepoxy-0:1.3.1-1.el7",
+				"fullproductname": {
+					"text": "libepoxy-1.3.1-1.el7.src.rpm",
+					"productid": "libepoxy-0:1.3.1-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libevdev-0:1.5.6-1.el7",
+				"fullproductname": {
+					"text": "libevdev-1.5.6-1.el7.src.rpm",
+					"productid": "libevdev-0:1.5.6-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libfontenc-0:1.1.3-3.el7",
+				"fullproductname": {
+					"text": "libfontenc-1.1.3-3.el7.src.rpm",
+					"productid": "libfontenc-0:1.1.3-3.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libinput-0:1.6.3-2.el7",
+				"fullproductname": {
+					"text": "libinput-1.6.3-2.el7.src.rpm",
+					"productid": "libinput-0:1.6.3-2.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libvdpau-0:1.1.1-3.el7",
+				"fullproductname": {
+					"text": "libvdpau-1.1.1-3.el7.src.rpm",
+					"productid": "libvdpau-0:1.1.1-3.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libwacom-0:0.24-1.el7",
+				"fullproductname": {
+					"text": "libwacom-0.24-1.el7.src.rpm",
+					"productid": "libwacom-0:0.24-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libxcb-0:1.12-1.el7",
+				"fullproductname": {
+					"text": "libxcb-1.12-1.el7.src.rpm",
+					"productid": "libxcb-0:1.12-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libxkbcommon-0:0.7.1-1.el7",
+				"fullproductname": {
+					"text": "libxkbcommon-0.7.1-1.el7.src.rpm",
+					"productid": "libxkbcommon-0:0.7.1-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libxkbfile-0:1.0.9-3.el7",
+				"fullproductname": {
+					"text": "libxkbfile-1.0.9-3.el7.src.rpm",
+					"productid": "libxkbfile-0:1.0.9-3.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "mesa-0:17.0.1-6.20170307.el7",
+				"fullproductname": {
+					"text": "mesa-17.0.1-6.20170307.el7.src.rpm",
+					"productid": "mesa-0:17.0.1-6.20170307.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "mesa-private-llvm-0:3.9.1-3.el7",
+				"fullproductname": {
+					"text": "mesa-private-llvm-3.9.1-3.el7.src.rpm",
+					"productid": "mesa-private-llvm-0:3.9.1-3.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "vulkan-0:1.0.39.1-2.el7",
+				"fullproductname": {
+					"text": "vulkan-1.0.39.1-2.el7.src.rpm",
+					"productid": "vulkan-0:1.0.39.1-2.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "xcb-proto-0:1.12-2.el7",
+				"fullproductname": {
+					"text": "xcb-proto-1.12-2.el7.src.rpm",
+					"productid": "xcb-proto-0:1.12-2.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "xkeyboard-config-0:2.20-1.el7",
+				"fullproductname": {
+					"text": "xkeyboard-config-2.20-1.el7.src.rpm",
+					"productid": "xkeyboard-config-0:2.20-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "xorg-x11-proto-devel-0:7.7-20.el7",
+				"fullproductname": {
+					"text": "xorg-x11-proto-devel-7.7-20.el7.src.rpm",
+					"productid": "xorg-x11-proto-devel-0:7.7-20.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "libICE-0:1.0.9-9.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client",
+				"fullproductname": {
+					"text": "libICE-0:1.0.9-9.el7 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"productid": "7Client:libICE-0:1.0.9-9.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "libX11-0:1.6.5-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client",
+				"fullproductname": {
+					"text": "libX11-0:1.6.5-1.el7 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"productid": "7Client:libX11-0:1.6.5-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "libXaw-0:1.0.13-4.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client",
+				"fullproductname": {
+					"text": "libXaw-0:1.0.13-4.el7 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"productid": "7Client:libXaw-0:1.0.13-4.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "libXcursor-0:1.1.14-8.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client",
+				"fullproductname": {
+					"text": "libXcursor-0:1.1.14-8.el7 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"productid": "7Client:libXcursor-0:1.1.14-8.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "libXdmcp-0:1.1.2-6.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client",
+				"fullproductname": {
+					"text": "libXdmcp-0:1.1.2-6.el7 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"productid": "7Client:libXdmcp-0:1.1.2-6.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "libXfixes-0:5.0.3-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client",
+				"fullproductname": {
+					"text": "libXfixes-0:5.0.3-1.el7 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"productid": "7Client:libXfixes-0:5.0.3-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "libXfont-0:1.5.2-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client",
+				"fullproductname": {
+					"text": "libXfont-0:1.5.2-1.el7 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"productid": "7Client:libXfont-0:1.5.2-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "libXfont2-0:2.0.1-2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client",
+				"fullproductname": {
+					"text": "libXfont2-0:2.0.1-2.el7 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"productid": "7Client:libXfont2-0:2.0.1-2.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "libXi-0:1.7.9-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client",
+				"fullproductname": {
+					"text": "libXi-0:1.7.9-1.el7 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"productid": "7Client:libXi-0:1.7.9-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "libXpm-0:3.5.12-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client",
+				"fullproductname": {
+					"text": "libXpm-0:3.5.12-1.el7 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"productid": "7Client:libXpm-0:3.5.12-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "libXrandr-0:1.5.1-2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client",
+				"fullproductname": {
+					"text": "libXrandr-0:1.5.1-2.el7 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"productid": "7Client:libXrandr-0:1.5.1-2.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "libXrender-0:0.9.10-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client",
+				"fullproductname": {
+					"text": "libXrender-0:0.9.10-1.el7 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"productid": "7Client:libXrender-0:0.9.10-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "libXt-0:1.1.5-3.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client",
+				"fullproductname": {
+					"text": "libXt-0:1.1.5-3.el7 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"productid": "7Client:libXt-0:1.1.5-3.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "libXtst-0:1.2.3-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client",
+				"fullproductname": {
+					"text": "libXtst-0:1.2.3-1.el7 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"productid": "7Client:libXtst-0:1.2.3-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "libXv-0:1.0.11-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client",
+				"fullproductname": {
+					"text": "libXv-0:1.0.11-1.el7 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"productid": "7Client:libXv-0:1.0.11-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "libXvMC-0:1.0.10-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client",
+				"fullproductname": {
+					"text": "libXvMC-0:1.0.10-1.el7 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"productid": "7Client:libXvMC-0:1.0.10-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "libXxf86vm-0:1.1.4-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client",
+				"fullproductname": {
+					"text": "libXxf86vm-0:1.1.4-1.el7 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"productid": "7Client:libXxf86vm-0:1.1.4-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "libdrm-0:2.4.74-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client",
+				"fullproductname": {
+					"text": "libdrm-0:2.4.74-1.el7 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"productid": "7Client:libdrm-0:2.4.74-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "libepoxy-0:1.3.1-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client",
+				"fullproductname": {
+					"text": "libepoxy-0:1.3.1-1.el7 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"productid": "7Client:libepoxy-0:1.3.1-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "libevdev-0:1.5.6-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client",
+				"fullproductname": {
+					"text": "libevdev-0:1.5.6-1.el7 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"productid": "7Client:libevdev-0:1.5.6-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "libfontenc-0:1.1.3-3.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client",
+				"fullproductname": {
+					"text": "libfontenc-0:1.1.3-3.el7 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"productid": "7Client:libfontenc-0:1.1.3-3.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "libinput-0:1.6.3-2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client",
+				"fullproductname": {
+					"text": "libinput-0:1.6.3-2.el7 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"productid": "7Client:libinput-0:1.6.3-2.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "libvdpau-0:1.1.1-3.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client",
+				"fullproductname": {
+					"text": "libvdpau-0:1.1.1-3.el7 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"productid": "7Client:libvdpau-0:1.1.1-3.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "libwacom-0:0.24-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client",
+				"fullproductname": {
+					"text": "libwacom-0:0.24-1.el7 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"productid": "7Client:libwacom-0:0.24-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "libxcb-0:1.12-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client",
+				"fullproductname": {
+					"text": "libxcb-0:1.12-1.el7 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"productid": "7Client:libxcb-0:1.12-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "libxkbcommon-0:0.7.1-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client",
+				"fullproductname": {
+					"text": "libxkbcommon-0:0.7.1-1.el7 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"productid": "7Client:libxkbcommon-0:0.7.1-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "libxkbfile-0:1.0.9-3.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client",
+				"fullproductname": {
+					"text": "libxkbfile-0:1.0.9-3.el7 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"productid": "7Client:libxkbfile-0:1.0.9-3.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "mesa-0:17.0.1-6.20170307.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client",
+				"fullproductname": {
+					"text": "mesa-0:17.0.1-6.20170307.el7 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"productid": "7Client:mesa-0:17.0.1-6.20170307.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "mesa-private-llvm-0:3.9.1-3.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client",
+				"fullproductname": {
+					"text": "mesa-private-llvm-0:3.9.1-3.el7 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"productid": "7Client:mesa-private-llvm-0:3.9.1-3.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "xkeyboard-config-0:2.20-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client",
+				"fullproductname": {
+					"text": "xkeyboard-config-0:2.20-1.el7 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"productid": "7Client:xkeyboard-config-0:2.20-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "libICE-0:1.0.9-9.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-optional",
+				"fullproductname": {
+					"text": "libICE-0:1.0.9-9.el7 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"productid": "7Client-optional:libICE-0:1.0.9-9.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "libX11-0:1.6.5-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-optional",
+				"fullproductname": {
+					"text": "libX11-0:1.6.5-1.el7 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"productid": "7Client-optional:libX11-0:1.6.5-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "libXaw-0:1.0.13-4.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-optional",
+				"fullproductname": {
+					"text": "libXaw-0:1.0.13-4.el7 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"productid": "7Client-optional:libXaw-0:1.0.13-4.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "libXcursor-0:1.1.14-8.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-optional",
+				"fullproductname": {
+					"text": "libXcursor-0:1.1.14-8.el7 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"productid": "7Client-optional:libXcursor-0:1.1.14-8.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "libXdmcp-0:1.1.2-6.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-optional",
+				"fullproductname": {
+					"text": "libXdmcp-0:1.1.2-6.el7 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"productid": "7Client-optional:libXdmcp-0:1.1.2-6.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "libXfixes-0:5.0.3-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-optional",
+				"fullproductname": {
+					"text": "libXfixes-0:5.0.3-1.el7 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"productid": "7Client-optional:libXfixes-0:5.0.3-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "libXfont-0:1.5.2-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-optional",
+				"fullproductname": {
+					"text": "libXfont-0:1.5.2-1.el7 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"productid": "7Client-optional:libXfont-0:1.5.2-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "libXfont2-0:2.0.1-2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-optional",
+				"fullproductname": {
+					"text": "libXfont2-0:2.0.1-2.el7 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"productid": "7Client-optional:libXfont2-0:2.0.1-2.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "libXi-0:1.7.9-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-optional",
+				"fullproductname": {
+					"text": "libXi-0:1.7.9-1.el7 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"productid": "7Client-optional:libXi-0:1.7.9-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "libXpm-0:3.5.12-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-optional",
+				"fullproductname": {
+					"text": "libXpm-0:3.5.12-1.el7 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"productid": "7Client-optional:libXpm-0:3.5.12-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "libXrandr-0:1.5.1-2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-optional",
+				"fullproductname": {
+					"text": "libXrandr-0:1.5.1-2.el7 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"productid": "7Client-optional:libXrandr-0:1.5.1-2.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "libXrender-0:0.9.10-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-optional",
+				"fullproductname": {
+					"text": "libXrender-0:0.9.10-1.el7 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"productid": "7Client-optional:libXrender-0:0.9.10-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "libXt-0:1.1.5-3.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-optional",
+				"fullproductname": {
+					"text": "libXt-0:1.1.5-3.el7 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"productid": "7Client-optional:libXt-0:1.1.5-3.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "libXtst-0:1.2.3-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-optional",
+				"fullproductname": {
+					"text": "libXtst-0:1.2.3-1.el7 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"productid": "7Client-optional:libXtst-0:1.2.3-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "libXv-0:1.0.11-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-optional",
+				"fullproductname": {
+					"text": "libXv-0:1.0.11-1.el7 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"productid": "7Client-optional:libXv-0:1.0.11-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "libXvMC-0:1.0.10-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-optional",
+				"fullproductname": {
+					"text": "libXvMC-0:1.0.10-1.el7 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"productid": "7Client-optional:libXvMC-0:1.0.10-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "libXxf86vm-0:1.1.4-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-optional",
+				"fullproductname": {
+					"text": "libXxf86vm-0:1.1.4-1.el7 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"productid": "7Client-optional:libXxf86vm-0:1.1.4-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "libdrm-0:2.4.74-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-optional",
+				"fullproductname": {
+					"text": "libdrm-0:2.4.74-1.el7 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"productid": "7Client-optional:libdrm-0:2.4.74-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "libepoxy-0:1.3.1-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-optional",
+				"fullproductname": {
+					"text": "libepoxy-0:1.3.1-1.el7 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"productid": "7Client-optional:libepoxy-0:1.3.1-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "libevdev-0:1.5.6-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-optional",
+				"fullproductname": {
+					"text": "libevdev-0:1.5.6-1.el7 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"productid": "7Client-optional:libevdev-0:1.5.6-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "libfontenc-0:1.1.3-3.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-optional",
+				"fullproductname": {
+					"text": "libfontenc-0:1.1.3-3.el7 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"productid": "7Client-optional:libfontenc-0:1.1.3-3.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "libinput-0:1.6.3-2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-optional",
+				"fullproductname": {
+					"text": "libinput-0:1.6.3-2.el7 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"productid": "7Client-optional:libinput-0:1.6.3-2.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "libvdpau-0:1.1.1-3.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-optional",
+				"fullproductname": {
+					"text": "libvdpau-0:1.1.1-3.el7 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"productid": "7Client-optional:libvdpau-0:1.1.1-3.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "libwacom-0:0.24-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-optional",
+				"fullproductname": {
+					"text": "libwacom-0:0.24-1.el7 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"productid": "7Client-optional:libwacom-0:0.24-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "libxcb-0:1.12-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-optional",
+				"fullproductname": {
+					"text": "libxcb-0:1.12-1.el7 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"productid": "7Client-optional:libxcb-0:1.12-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "libxkbcommon-0:0.7.1-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-optional",
+				"fullproductname": {
+					"text": "libxkbcommon-0:0.7.1-1.el7 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"productid": "7Client-optional:libxkbcommon-0:0.7.1-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "libxkbfile-0:1.0.9-3.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-optional",
+				"fullproductname": {
+					"text": "libxkbfile-0:1.0.9-3.el7 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"productid": "7Client-optional:libxkbfile-0:1.0.9-3.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "mesa-0:17.0.1-6.20170307.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-optional",
+				"fullproductname": {
+					"text": "mesa-0:17.0.1-6.20170307.el7 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"productid": "7Client-optional:mesa-0:17.0.1-6.20170307.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "mesa-private-llvm-0:3.9.1-3.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-optional",
+				"fullproductname": {
+					"text": "mesa-private-llvm-0:3.9.1-3.el7 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"productid": "7Client-optional:mesa-private-llvm-0:3.9.1-3.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "vulkan-0:1.0.39.1-2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-optional",
+				"fullproductname": {
+					"text": "vulkan-0:1.0.39.1-2.el7 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"productid": "7Client-optional:vulkan-0:1.0.39.1-2.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "xcb-proto-0:1.12-2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-optional",
+				"fullproductname": {
+					"text": "xcb-proto-0:1.12-2.el7 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"productid": "7Client-optional:xcb-proto-0:1.12-2.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "xkeyboard-config-0:2.20-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-optional",
+				"fullproductname": {
+					"text": "xkeyboard-config-0:2.20-1.el7 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"productid": "7Client-optional:xkeyboard-config-0:2.20-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "xorg-x11-proto-devel-0:7.7-20.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-optional",
+				"fullproductname": {
+					"text": "xorg-x11-proto-devel-0:7.7-20.el7 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"productid": "7Client-optional:xorg-x11-proto-devel-0:7.7-20.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "libICE-0:1.0.9-9.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode",
+				"fullproductname": {
+					"text": "libICE-0:1.0.9-9.el7 as a component of Red Hat Enterprise Linux ComputeNode (v. 7)",
+					"productid": "7ComputeNode:libICE-0:1.0.9-9.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "libX11-0:1.6.5-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode",
+				"fullproductname": {
+					"text": "libX11-0:1.6.5-1.el7 as a component of Red Hat Enterprise Linux ComputeNode (v. 7)",
+					"productid": "7ComputeNode:libX11-0:1.6.5-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "libXaw-0:1.0.13-4.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode",
+				"fullproductname": {
+					"text": "libXaw-0:1.0.13-4.el7 as a component of Red Hat Enterprise Linux ComputeNode (v. 7)",
+					"productid": "7ComputeNode:libXaw-0:1.0.13-4.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "libXcursor-0:1.1.14-8.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode",
+				"fullproductname": {
+					"text": "libXcursor-0:1.1.14-8.el7 as a component of Red Hat Enterprise Linux ComputeNode (v. 7)",
+					"productid": "7ComputeNode:libXcursor-0:1.1.14-8.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "libXdmcp-0:1.1.2-6.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode",
+				"fullproductname": {
+					"text": "libXdmcp-0:1.1.2-6.el7 as a component of Red Hat Enterprise Linux ComputeNode (v. 7)",
+					"productid": "7ComputeNode:libXdmcp-0:1.1.2-6.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "libXfixes-0:5.0.3-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode",
+				"fullproductname": {
+					"text": "libXfixes-0:5.0.3-1.el7 as a component of Red Hat Enterprise Linux ComputeNode (v. 7)",
+					"productid": "7ComputeNode:libXfixes-0:5.0.3-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "libXfont-0:1.5.2-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode",
+				"fullproductname": {
+					"text": "libXfont-0:1.5.2-1.el7 as a component of Red Hat Enterprise Linux ComputeNode (v. 7)",
+					"productid": "7ComputeNode:libXfont-0:1.5.2-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "libXfont2-0:2.0.1-2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode",
+				"fullproductname": {
+					"text": "libXfont2-0:2.0.1-2.el7 as a component of Red Hat Enterprise Linux ComputeNode (v. 7)",
+					"productid": "7ComputeNode:libXfont2-0:2.0.1-2.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "libXi-0:1.7.9-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode",
+				"fullproductname": {
+					"text": "libXi-0:1.7.9-1.el7 as a component of Red Hat Enterprise Linux ComputeNode (v. 7)",
+					"productid": "7ComputeNode:libXi-0:1.7.9-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "libXpm-0:3.5.12-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode",
+				"fullproductname": {
+					"text": "libXpm-0:3.5.12-1.el7 as a component of Red Hat Enterprise Linux ComputeNode (v. 7)",
+					"productid": "7ComputeNode:libXpm-0:3.5.12-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "libXrandr-0:1.5.1-2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode",
+				"fullproductname": {
+					"text": "libXrandr-0:1.5.1-2.el7 as a component of Red Hat Enterprise Linux ComputeNode (v. 7)",
+					"productid": "7ComputeNode:libXrandr-0:1.5.1-2.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "libXrender-0:0.9.10-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode",
+				"fullproductname": {
+					"text": "libXrender-0:0.9.10-1.el7 as a component of Red Hat Enterprise Linux ComputeNode (v. 7)",
+					"productid": "7ComputeNode:libXrender-0:0.9.10-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "libXt-0:1.1.5-3.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode",
+				"fullproductname": {
+					"text": "libXt-0:1.1.5-3.el7 as a component of Red Hat Enterprise Linux ComputeNode (v. 7)",
+					"productid": "7ComputeNode:libXt-0:1.1.5-3.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "libXtst-0:1.2.3-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode",
+				"fullproductname": {
+					"text": "libXtst-0:1.2.3-1.el7 as a component of Red Hat Enterprise Linux ComputeNode (v. 7)",
+					"productid": "7ComputeNode:libXtst-0:1.2.3-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "libXv-0:1.0.11-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode",
+				"fullproductname": {
+					"text": "libXv-0:1.0.11-1.el7 as a component of Red Hat Enterprise Linux ComputeNode (v. 7)",
+					"productid": "7ComputeNode:libXv-0:1.0.11-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "libXxf86vm-0:1.1.4-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode",
+				"fullproductname": {
+					"text": "libXxf86vm-0:1.1.4-1.el7 as a component of Red Hat Enterprise Linux ComputeNode (v. 7)",
+					"productid": "7ComputeNode:libXxf86vm-0:1.1.4-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "libdrm-0:2.4.74-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode",
+				"fullproductname": {
+					"text": "libdrm-0:2.4.74-1.el7 as a component of Red Hat Enterprise Linux ComputeNode (v. 7)",
+					"productid": "7ComputeNode:libdrm-0:2.4.74-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "libepoxy-0:1.3.1-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode",
+				"fullproductname": {
+					"text": "libepoxy-0:1.3.1-1.el7 as a component of Red Hat Enterprise Linux ComputeNode (v. 7)",
+					"productid": "7ComputeNode:libepoxy-0:1.3.1-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "libfontenc-0:1.1.3-3.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode",
+				"fullproductname": {
+					"text": "libfontenc-0:1.1.3-3.el7 as a component of Red Hat Enterprise Linux ComputeNode (v. 7)",
+					"productid": "7ComputeNode:libfontenc-0:1.1.3-3.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "libvdpau-0:1.1.1-3.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode",
+				"fullproductname": {
+					"text": "libvdpau-0:1.1.1-3.el7 as a component of Red Hat Enterprise Linux ComputeNode (v. 7)",
+					"productid": "7ComputeNode:libvdpau-0:1.1.1-3.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "libxcb-0:1.12-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode",
+				"fullproductname": {
+					"text": "libxcb-0:1.12-1.el7 as a component of Red Hat Enterprise Linux ComputeNode (v. 7)",
+					"productid": "7ComputeNode:libxcb-0:1.12-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "libxkbfile-0:1.0.9-3.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode",
+				"fullproductname": {
+					"text": "libxkbfile-0:1.0.9-3.el7 as a component of Red Hat Enterprise Linux ComputeNode (v. 7)",
+					"productid": "7ComputeNode:libxkbfile-0:1.0.9-3.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "mesa-0:17.0.1-6.20170307.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode",
+				"fullproductname": {
+					"text": "mesa-0:17.0.1-6.20170307.el7 as a component of Red Hat Enterprise Linux ComputeNode (v. 7)",
+					"productid": "7ComputeNode:mesa-0:17.0.1-6.20170307.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "mesa-private-llvm-0:3.9.1-3.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode",
+				"fullproductname": {
+					"text": "mesa-private-llvm-0:3.9.1-3.el7 as a component of Red Hat Enterprise Linux ComputeNode (v. 7)",
+					"productid": "7ComputeNode:mesa-private-llvm-0:3.9.1-3.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "xkeyboard-config-0:2.20-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode",
+				"fullproductname": {
+					"text": "xkeyboard-config-0:2.20-1.el7 as a component of Red Hat Enterprise Linux ComputeNode (v. 7)",
+					"productid": "7ComputeNode:xkeyboard-config-0:2.20-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "libICE-0:1.0.9-9.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-optional",
+				"fullproductname": {
+					"text": "libICE-0:1.0.9-9.el7 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"productid": "7ComputeNode-optional:libICE-0:1.0.9-9.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "libX11-0:1.6.5-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-optional",
+				"fullproductname": {
+					"text": "libX11-0:1.6.5-1.el7 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"productid": "7ComputeNode-optional:libX11-0:1.6.5-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "libXaw-0:1.0.13-4.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-optional",
+				"fullproductname": {
+					"text": "libXaw-0:1.0.13-4.el7 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"productid": "7ComputeNode-optional:libXaw-0:1.0.13-4.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "libXcursor-0:1.1.14-8.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-optional",
+				"fullproductname": {
+					"text": "libXcursor-0:1.1.14-8.el7 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"productid": "7ComputeNode-optional:libXcursor-0:1.1.14-8.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "libXdmcp-0:1.1.2-6.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-optional",
+				"fullproductname": {
+					"text": "libXdmcp-0:1.1.2-6.el7 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"productid": "7ComputeNode-optional:libXdmcp-0:1.1.2-6.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "libXfixes-0:5.0.3-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-optional",
+				"fullproductname": {
+					"text": "libXfixes-0:5.0.3-1.el7 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"productid": "7ComputeNode-optional:libXfixes-0:5.0.3-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "libXfont-0:1.5.2-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-optional",
+				"fullproductname": {
+					"text": "libXfont-0:1.5.2-1.el7 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"productid": "7ComputeNode-optional:libXfont-0:1.5.2-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "libXfont2-0:2.0.1-2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-optional",
+				"fullproductname": {
+					"text": "libXfont2-0:2.0.1-2.el7 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"productid": "7ComputeNode-optional:libXfont2-0:2.0.1-2.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "libXi-0:1.7.9-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-optional",
+				"fullproductname": {
+					"text": "libXi-0:1.7.9-1.el7 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"productid": "7ComputeNode-optional:libXi-0:1.7.9-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "libXpm-0:3.5.12-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-optional",
+				"fullproductname": {
+					"text": "libXpm-0:3.5.12-1.el7 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"productid": "7ComputeNode-optional:libXpm-0:3.5.12-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "libXrandr-0:1.5.1-2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-optional",
+				"fullproductname": {
+					"text": "libXrandr-0:1.5.1-2.el7 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"productid": "7ComputeNode-optional:libXrandr-0:1.5.1-2.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "libXrender-0:0.9.10-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-optional",
+				"fullproductname": {
+					"text": "libXrender-0:0.9.10-1.el7 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"productid": "7ComputeNode-optional:libXrender-0:0.9.10-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "libXt-0:1.1.5-3.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-optional",
+				"fullproductname": {
+					"text": "libXt-0:1.1.5-3.el7 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"productid": "7ComputeNode-optional:libXt-0:1.1.5-3.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "libXtst-0:1.2.3-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-optional",
+				"fullproductname": {
+					"text": "libXtst-0:1.2.3-1.el7 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"productid": "7ComputeNode-optional:libXtst-0:1.2.3-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "libXv-0:1.0.11-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-optional",
+				"fullproductname": {
+					"text": "libXv-0:1.0.11-1.el7 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"productid": "7ComputeNode-optional:libXv-0:1.0.11-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "libXxf86vm-0:1.1.4-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-optional",
+				"fullproductname": {
+					"text": "libXxf86vm-0:1.1.4-1.el7 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"productid": "7ComputeNode-optional:libXxf86vm-0:1.1.4-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "libdrm-0:2.4.74-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-optional",
+				"fullproductname": {
+					"text": "libdrm-0:2.4.74-1.el7 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"productid": "7ComputeNode-optional:libdrm-0:2.4.74-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "libepoxy-0:1.3.1-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-optional",
+				"fullproductname": {
+					"text": "libepoxy-0:1.3.1-1.el7 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"productid": "7ComputeNode-optional:libepoxy-0:1.3.1-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "libfontenc-0:1.1.3-3.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-optional",
+				"fullproductname": {
+					"text": "libfontenc-0:1.1.3-3.el7 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"productid": "7ComputeNode-optional:libfontenc-0:1.1.3-3.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "libvdpau-0:1.1.1-3.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-optional",
+				"fullproductname": {
+					"text": "libvdpau-0:1.1.1-3.el7 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"productid": "7ComputeNode-optional:libvdpau-0:1.1.1-3.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "libwacom-0:0.24-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-optional",
+				"fullproductname": {
+					"text": "libwacom-0:0.24-1.el7 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"productid": "7ComputeNode-optional:libwacom-0:0.24-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "libxcb-0:1.12-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-optional",
+				"fullproductname": {
+					"text": "libxcb-0:1.12-1.el7 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"productid": "7ComputeNode-optional:libxcb-0:1.12-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "libxkbcommon-0:0.7.1-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-optional",
+				"fullproductname": {
+					"text": "libxkbcommon-0:0.7.1-1.el7 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"productid": "7ComputeNode-optional:libxkbcommon-0:0.7.1-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "libxkbfile-0:1.0.9-3.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-optional",
+				"fullproductname": {
+					"text": "libxkbfile-0:1.0.9-3.el7 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"productid": "7ComputeNode-optional:libxkbfile-0:1.0.9-3.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "mesa-0:17.0.1-6.20170307.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-optional",
+				"fullproductname": {
+					"text": "mesa-0:17.0.1-6.20170307.el7 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"productid": "7ComputeNode-optional:mesa-0:17.0.1-6.20170307.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "mesa-private-llvm-0:3.9.1-3.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-optional",
+				"fullproductname": {
+					"text": "mesa-private-llvm-0:3.9.1-3.el7 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"productid": "7ComputeNode-optional:mesa-private-llvm-0:3.9.1-3.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "vulkan-0:1.0.39.1-2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-optional",
+				"fullproductname": {
+					"text": "vulkan-0:1.0.39.1-2.el7 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"productid": "7ComputeNode-optional:vulkan-0:1.0.39.1-2.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "xcb-proto-0:1.12-2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-optional",
+				"fullproductname": {
+					"text": "xcb-proto-0:1.12-2.el7 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"productid": "7ComputeNode-optional:xcb-proto-0:1.12-2.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "xkeyboard-config-0:2.20-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-optional",
+				"fullproductname": {
+					"text": "xkeyboard-config-0:2.20-1.el7 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"productid": "7ComputeNode-optional:xkeyboard-config-0:2.20-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "xorg-x11-proto-devel-0:7.7-20.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-optional",
+				"fullproductname": {
+					"text": "xorg-x11-proto-devel-0:7.7-20.el7 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"productid": "7ComputeNode-optional:xorg-x11-proto-devel-0:7.7-20.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "libICE-0:1.0.9-9.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server",
+				"fullproductname": {
+					"text": "libICE-0:1.0.9-9.el7 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server:libICE-0:1.0.9-9.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "libX11-0:1.6.5-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server",
+				"fullproductname": {
+					"text": "libX11-0:1.6.5-1.el7 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server:libX11-0:1.6.5-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "libXaw-0:1.0.13-4.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server",
+				"fullproductname": {
+					"text": "libXaw-0:1.0.13-4.el7 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server:libXaw-0:1.0.13-4.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "libXcursor-0:1.1.14-8.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server",
+				"fullproductname": {
+					"text": "libXcursor-0:1.1.14-8.el7 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server:libXcursor-0:1.1.14-8.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "libXdmcp-0:1.1.2-6.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server",
+				"fullproductname": {
+					"text": "libXdmcp-0:1.1.2-6.el7 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server:libXdmcp-0:1.1.2-6.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "libXfixes-0:5.0.3-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server",
+				"fullproductname": {
+					"text": "libXfixes-0:5.0.3-1.el7 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server:libXfixes-0:5.0.3-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "libXfont-0:1.5.2-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server",
+				"fullproductname": {
+					"text": "libXfont-0:1.5.2-1.el7 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server:libXfont-0:1.5.2-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "libXfont2-0:2.0.1-2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server",
+				"fullproductname": {
+					"text": "libXfont2-0:2.0.1-2.el7 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server:libXfont2-0:2.0.1-2.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "libXi-0:1.7.9-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server",
+				"fullproductname": {
+					"text": "libXi-0:1.7.9-1.el7 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server:libXi-0:1.7.9-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "libXpm-0:3.5.12-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server",
+				"fullproductname": {
+					"text": "libXpm-0:3.5.12-1.el7 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server:libXpm-0:3.5.12-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "libXrandr-0:1.5.1-2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server",
+				"fullproductname": {
+					"text": "libXrandr-0:1.5.1-2.el7 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server:libXrandr-0:1.5.1-2.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "libXrender-0:0.9.10-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server",
+				"fullproductname": {
+					"text": "libXrender-0:0.9.10-1.el7 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server:libXrender-0:0.9.10-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "libXt-0:1.1.5-3.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server",
+				"fullproductname": {
+					"text": "libXt-0:1.1.5-3.el7 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server:libXt-0:1.1.5-3.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "libXtst-0:1.2.3-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server",
+				"fullproductname": {
+					"text": "libXtst-0:1.2.3-1.el7 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server:libXtst-0:1.2.3-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "libXv-0:1.0.11-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server",
+				"fullproductname": {
+					"text": "libXv-0:1.0.11-1.el7 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server:libXv-0:1.0.11-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "libXvMC-0:1.0.10-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server",
+				"fullproductname": {
+					"text": "libXvMC-0:1.0.10-1.el7 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server:libXvMC-0:1.0.10-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "libXxf86vm-0:1.1.4-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server",
+				"fullproductname": {
+					"text": "libXxf86vm-0:1.1.4-1.el7 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server:libXxf86vm-0:1.1.4-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "libdrm-0:2.4.74-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server",
+				"fullproductname": {
+					"text": "libdrm-0:2.4.74-1.el7 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server:libdrm-0:2.4.74-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "libepoxy-0:1.3.1-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server",
+				"fullproductname": {
+					"text": "libepoxy-0:1.3.1-1.el7 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server:libepoxy-0:1.3.1-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "libevdev-0:1.5.6-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server",
+				"fullproductname": {
+					"text": "libevdev-0:1.5.6-1.el7 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server:libevdev-0:1.5.6-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "libfontenc-0:1.1.3-3.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server",
+				"fullproductname": {
+					"text": "libfontenc-0:1.1.3-3.el7 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server:libfontenc-0:1.1.3-3.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "libinput-0:1.6.3-2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server",
+				"fullproductname": {
+					"text": "libinput-0:1.6.3-2.el7 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server:libinput-0:1.6.3-2.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "libvdpau-0:1.1.1-3.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server",
+				"fullproductname": {
+					"text": "libvdpau-0:1.1.1-3.el7 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server:libvdpau-0:1.1.1-3.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "libwacom-0:0.24-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server",
+				"fullproductname": {
+					"text": "libwacom-0:0.24-1.el7 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server:libwacom-0:0.24-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "libxcb-0:1.12-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server",
+				"fullproductname": {
+					"text": "libxcb-0:1.12-1.el7 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server:libxcb-0:1.12-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "libxkbcommon-0:0.7.1-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server",
+				"fullproductname": {
+					"text": "libxkbcommon-0:0.7.1-1.el7 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server:libxkbcommon-0:0.7.1-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "libxkbfile-0:1.0.9-3.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server",
+				"fullproductname": {
+					"text": "libxkbfile-0:1.0.9-3.el7 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server:libxkbfile-0:1.0.9-3.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "mesa-0:17.0.1-6.20170307.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server",
+				"fullproductname": {
+					"text": "mesa-0:17.0.1-6.20170307.el7 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server:mesa-0:17.0.1-6.20170307.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "mesa-private-llvm-0:3.9.1-3.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server",
+				"fullproductname": {
+					"text": "mesa-private-llvm-0:3.9.1-3.el7 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server:mesa-private-llvm-0:3.9.1-3.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "xkeyboard-config-0:2.20-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server",
+				"fullproductname": {
+					"text": "xkeyboard-config-0:2.20-1.el7 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server:xkeyboard-config-0:2.20-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "xorg-x11-proto-devel-0:7.7-20.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server",
+				"fullproductname": {
+					"text": "xorg-x11-proto-devel-0:7.7-20.el7 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server:xorg-x11-proto-devel-0:7.7-20.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "libXdmcp-0:1.1.2-6.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-optional",
+				"fullproductname": {
+					"text": "libXdmcp-0:1.1.2-6.el7 as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"productid": "7Server-optional:libXdmcp-0:1.1.2-6.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "libXfont-0:1.5.2-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-optional",
+				"fullproductname": {
+					"text": "libXfont-0:1.5.2-1.el7 as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"productid": "7Server-optional:libXfont-0:1.5.2-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "libXfont2-0:2.0.1-2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-optional",
+				"fullproductname": {
+					"text": "libXfont2-0:2.0.1-2.el7 as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"productid": "7Server-optional:libXfont2-0:2.0.1-2.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "libXvMC-0:1.0.10-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-optional",
+				"fullproductname": {
+					"text": "libXvMC-0:1.0.10-1.el7 as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"productid": "7Server-optional:libXvMC-0:1.0.10-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "libdrm-0:2.4.74-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-optional",
+				"fullproductname": {
+					"text": "libdrm-0:2.4.74-1.el7 as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"productid": "7Server-optional:libdrm-0:2.4.74-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "libevdev-0:1.5.6-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-optional",
+				"fullproductname": {
+					"text": "libevdev-0:1.5.6-1.el7 as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"productid": "7Server-optional:libevdev-0:1.5.6-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "libfontenc-0:1.1.3-3.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-optional",
+				"fullproductname": {
+					"text": "libfontenc-0:1.1.3-3.el7 as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"productid": "7Server-optional:libfontenc-0:1.1.3-3.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "libinput-0:1.6.3-2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-optional",
+				"fullproductname": {
+					"text": "libinput-0:1.6.3-2.el7 as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"productid": "7Server-optional:libinput-0:1.6.3-2.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "libvdpau-0:1.1.1-3.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-optional",
+				"fullproductname": {
+					"text": "libvdpau-0:1.1.1-3.el7 as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"productid": "7Server-optional:libvdpau-0:1.1.1-3.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "libwacom-0:0.24-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-optional",
+				"fullproductname": {
+					"text": "libwacom-0:0.24-1.el7 as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"productid": "7Server-optional:libwacom-0:0.24-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "libxcb-0:1.12-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-optional",
+				"fullproductname": {
+					"text": "libxcb-0:1.12-1.el7 as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"productid": "7Server-optional:libxcb-0:1.12-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "libxkbcommon-0:0.7.1-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-optional",
+				"fullproductname": {
+					"text": "libxkbcommon-0:0.7.1-1.el7 as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"productid": "7Server-optional:libxkbcommon-0:0.7.1-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "libxkbfile-0:1.0.9-3.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-optional",
+				"fullproductname": {
+					"text": "libxkbfile-0:1.0.9-3.el7 as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"productid": "7Server-optional:libxkbfile-0:1.0.9-3.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "mesa-0:17.0.1-6.20170307.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-optional",
+				"fullproductname": {
+					"text": "mesa-0:17.0.1-6.20170307.el7 as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"productid": "7Server-optional:mesa-0:17.0.1-6.20170307.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "mesa-private-llvm-0:3.9.1-3.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-optional",
+				"fullproductname": {
+					"text": "mesa-private-llvm-0:3.9.1-3.el7 as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"productid": "7Server-optional:mesa-private-llvm-0:3.9.1-3.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "vulkan-0:1.0.39.1-2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-optional",
+				"fullproductname": {
+					"text": "vulkan-0:1.0.39.1-2.el7 as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"productid": "7Server-optional:vulkan-0:1.0.39.1-2.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "xcb-proto-0:1.12-2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-optional",
+				"fullproductname": {
+					"text": "xcb-proto-0:1.12-2.el7 as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"productid": "7Server-optional:xcb-proto-0:1.12-2.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "xkeyboard-config-0:2.20-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-optional",
+				"fullproductname": {
+					"text": "xkeyboard-config-0:2.20-1.el7 as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"productid": "7Server-optional:xkeyboard-config-0:2.20-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "libICE-0:1.0.9-9.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation",
+				"fullproductname": {
+					"text": "libICE-0:1.0.9-9.el7 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"productid": "7Workstation:libICE-0:1.0.9-9.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "libX11-0:1.6.5-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation",
+				"fullproductname": {
+					"text": "libX11-0:1.6.5-1.el7 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"productid": "7Workstation:libX11-0:1.6.5-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "libXaw-0:1.0.13-4.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation",
+				"fullproductname": {
+					"text": "libXaw-0:1.0.13-4.el7 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"productid": "7Workstation:libXaw-0:1.0.13-4.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "libXcursor-0:1.1.14-8.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation",
+				"fullproductname": {
+					"text": "libXcursor-0:1.1.14-8.el7 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"productid": "7Workstation:libXcursor-0:1.1.14-8.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "libXdmcp-0:1.1.2-6.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation",
+				"fullproductname": {
+					"text": "libXdmcp-0:1.1.2-6.el7 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"productid": "7Workstation:libXdmcp-0:1.1.2-6.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "libXfixes-0:5.0.3-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation",
+				"fullproductname": {
+					"text": "libXfixes-0:5.0.3-1.el7 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"productid": "7Workstation:libXfixes-0:5.0.3-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "libXfont-0:1.5.2-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation",
+				"fullproductname": {
+					"text": "libXfont-0:1.5.2-1.el7 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"productid": "7Workstation:libXfont-0:1.5.2-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "libXfont2-0:2.0.1-2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation",
+				"fullproductname": {
+					"text": "libXfont2-0:2.0.1-2.el7 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"productid": "7Workstation:libXfont2-0:2.0.1-2.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "libXi-0:1.7.9-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation",
+				"fullproductname": {
+					"text": "libXi-0:1.7.9-1.el7 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"productid": "7Workstation:libXi-0:1.7.9-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "libXpm-0:3.5.12-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation",
+				"fullproductname": {
+					"text": "libXpm-0:3.5.12-1.el7 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"productid": "7Workstation:libXpm-0:3.5.12-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "libXrandr-0:1.5.1-2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation",
+				"fullproductname": {
+					"text": "libXrandr-0:1.5.1-2.el7 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"productid": "7Workstation:libXrandr-0:1.5.1-2.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "libXrender-0:0.9.10-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation",
+				"fullproductname": {
+					"text": "libXrender-0:0.9.10-1.el7 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"productid": "7Workstation:libXrender-0:0.9.10-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "libXt-0:1.1.5-3.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation",
+				"fullproductname": {
+					"text": "libXt-0:1.1.5-3.el7 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"productid": "7Workstation:libXt-0:1.1.5-3.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "libXtst-0:1.2.3-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation",
+				"fullproductname": {
+					"text": "libXtst-0:1.2.3-1.el7 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"productid": "7Workstation:libXtst-0:1.2.3-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "libXv-0:1.0.11-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation",
+				"fullproductname": {
+					"text": "libXv-0:1.0.11-1.el7 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"productid": "7Workstation:libXv-0:1.0.11-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "libXvMC-0:1.0.10-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation",
+				"fullproductname": {
+					"text": "libXvMC-0:1.0.10-1.el7 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"productid": "7Workstation:libXvMC-0:1.0.10-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "libXxf86vm-0:1.1.4-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation",
+				"fullproductname": {
+					"text": "libXxf86vm-0:1.1.4-1.el7 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"productid": "7Workstation:libXxf86vm-0:1.1.4-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "libdrm-0:2.4.74-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation",
+				"fullproductname": {
+					"text": "libdrm-0:2.4.74-1.el7 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"productid": "7Workstation:libdrm-0:2.4.74-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "libepoxy-0:1.3.1-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation",
+				"fullproductname": {
+					"text": "libepoxy-0:1.3.1-1.el7 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"productid": "7Workstation:libepoxy-0:1.3.1-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "libevdev-0:1.5.6-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation",
+				"fullproductname": {
+					"text": "libevdev-0:1.5.6-1.el7 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"productid": "7Workstation:libevdev-0:1.5.6-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "libfontenc-0:1.1.3-3.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation",
+				"fullproductname": {
+					"text": "libfontenc-0:1.1.3-3.el7 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"productid": "7Workstation:libfontenc-0:1.1.3-3.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "libinput-0:1.6.3-2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation",
+				"fullproductname": {
+					"text": "libinput-0:1.6.3-2.el7 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"productid": "7Workstation:libinput-0:1.6.3-2.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "libvdpau-0:1.1.1-3.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation",
+				"fullproductname": {
+					"text": "libvdpau-0:1.1.1-3.el7 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"productid": "7Workstation:libvdpau-0:1.1.1-3.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "libwacom-0:0.24-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation",
+				"fullproductname": {
+					"text": "libwacom-0:0.24-1.el7 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"productid": "7Workstation:libwacom-0:0.24-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "libxcb-0:1.12-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation",
+				"fullproductname": {
+					"text": "libxcb-0:1.12-1.el7 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"productid": "7Workstation:libxcb-0:1.12-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "libxkbcommon-0:0.7.1-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation",
+				"fullproductname": {
+					"text": "libxkbcommon-0:0.7.1-1.el7 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"productid": "7Workstation:libxkbcommon-0:0.7.1-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "libxkbfile-0:1.0.9-3.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation",
+				"fullproductname": {
+					"text": "libxkbfile-0:1.0.9-3.el7 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"productid": "7Workstation:libxkbfile-0:1.0.9-3.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "mesa-0:17.0.1-6.20170307.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation",
+				"fullproductname": {
+					"text": "mesa-0:17.0.1-6.20170307.el7 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"productid": "7Workstation:mesa-0:17.0.1-6.20170307.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "mesa-private-llvm-0:3.9.1-3.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation",
+				"fullproductname": {
+					"text": "mesa-private-llvm-0:3.9.1-3.el7 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"productid": "7Workstation:mesa-private-llvm-0:3.9.1-3.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "xkeyboard-config-0:2.20-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation",
+				"fullproductname": {
+					"text": "xkeyboard-config-0:2.20-1.el7 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"productid": "7Workstation:xkeyboard-config-0:2.20-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "xorg-x11-proto-devel-0:7.7-20.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation",
+				"fullproductname": {
+					"text": "xorg-x11-proto-devel-0:7.7-20.el7 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"productid": "7Workstation:xorg-x11-proto-devel-0:7.7-20.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "libXdmcp-0:1.1.2-6.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-optional",
+				"fullproductname": {
+					"text": "libXdmcp-0:1.1.2-6.el7 as a component of Red Hat Enterprise Linux Workstation Optional (v. 7)",
+					"productid": "7Workstation-optional:libXdmcp-0:1.1.2-6.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "libXfont-0:1.5.2-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-optional",
+				"fullproductname": {
+					"text": "libXfont-0:1.5.2-1.el7 as a component of Red Hat Enterprise Linux Workstation Optional (v. 7)",
+					"productid": "7Workstation-optional:libXfont-0:1.5.2-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "libXfont2-0:2.0.1-2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-optional",
+				"fullproductname": {
+					"text": "libXfont2-0:2.0.1-2.el7 as a component of Red Hat Enterprise Linux Workstation Optional (v. 7)",
+					"productid": "7Workstation-optional:libXfont2-0:2.0.1-2.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "libXvMC-0:1.0.10-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-optional",
+				"fullproductname": {
+					"text": "libXvMC-0:1.0.10-1.el7 as a component of Red Hat Enterprise Linux Workstation Optional (v. 7)",
+					"productid": "7Workstation-optional:libXvMC-0:1.0.10-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "libdrm-0:2.4.74-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-optional",
+				"fullproductname": {
+					"text": "libdrm-0:2.4.74-1.el7 as a component of Red Hat Enterprise Linux Workstation Optional (v. 7)",
+					"productid": "7Workstation-optional:libdrm-0:2.4.74-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "libevdev-0:1.5.6-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-optional",
+				"fullproductname": {
+					"text": "libevdev-0:1.5.6-1.el7 as a component of Red Hat Enterprise Linux Workstation Optional (v. 7)",
+					"productid": "7Workstation-optional:libevdev-0:1.5.6-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "libfontenc-0:1.1.3-3.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-optional",
+				"fullproductname": {
+					"text": "libfontenc-0:1.1.3-3.el7 as a component of Red Hat Enterprise Linux Workstation Optional (v. 7)",
+					"productid": "7Workstation-optional:libfontenc-0:1.1.3-3.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "libinput-0:1.6.3-2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-optional",
+				"fullproductname": {
+					"text": "libinput-0:1.6.3-2.el7 as a component of Red Hat Enterprise Linux Workstation Optional (v. 7)",
+					"productid": "7Workstation-optional:libinput-0:1.6.3-2.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "libvdpau-0:1.1.1-3.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-optional",
+				"fullproductname": {
+					"text": "libvdpau-0:1.1.1-3.el7 as a component of Red Hat Enterprise Linux Workstation Optional (v. 7)",
+					"productid": "7Workstation-optional:libvdpau-0:1.1.1-3.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "libwacom-0:0.24-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-optional",
+				"fullproductname": {
+					"text": "libwacom-0:0.24-1.el7 as a component of Red Hat Enterprise Linux Workstation Optional (v. 7)",
+					"productid": "7Workstation-optional:libwacom-0:0.24-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "libxcb-0:1.12-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-optional",
+				"fullproductname": {
+					"text": "libxcb-0:1.12-1.el7 as a component of Red Hat Enterprise Linux Workstation Optional (v. 7)",
+					"productid": "7Workstation-optional:libxcb-0:1.12-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "libxkbcommon-0:0.7.1-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-optional",
+				"fullproductname": {
+					"text": "libxkbcommon-0:0.7.1-1.el7 as a component of Red Hat Enterprise Linux Workstation Optional (v. 7)",
+					"productid": "7Workstation-optional:libxkbcommon-0:0.7.1-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "mesa-0:17.0.1-6.20170307.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-optional",
+				"fullproductname": {
+					"text": "mesa-0:17.0.1-6.20170307.el7 as a component of Red Hat Enterprise Linux Workstation Optional (v. 7)",
+					"productid": "7Workstation-optional:mesa-0:17.0.1-6.20170307.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "mesa-private-llvm-0:3.9.1-3.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-optional",
+				"fullproductname": {
+					"text": "mesa-private-llvm-0:3.9.1-3.el7 as a component of Red Hat Enterprise Linux Workstation Optional (v. 7)",
+					"productid": "7Workstation-optional:mesa-private-llvm-0:3.9.1-3.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "vulkan-0:1.0.39.1-2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-optional",
+				"fullproductname": {
+					"text": "vulkan-0:1.0.39.1-2.el7 as a component of Red Hat Enterprise Linux Workstation Optional (v. 7)",
+					"productid": "7Workstation-optional:vulkan-0:1.0.39.1-2.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "xcb-proto-0:1.12-2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-optional",
+				"fullproductname": {
+					"text": "xcb-proto-0:1.12-2.el7 as a component of Red Hat Enterprise Linux Workstation Optional (v. 7)",
+					"productid": "7Workstation-optional:xcb-proto-0:1.12-2.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "xkeyboard-config-0:2.20-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-optional",
+				"fullproductname": {
+					"text": "xkeyboard-config-0:2.20-1.el7 as a component of Red Hat Enterprise Linux Workstation Optional (v. 7)",
+					"productid": "7Workstation-optional:xkeyboard-config-0:2.20-1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			}
+		]
+	}
+}

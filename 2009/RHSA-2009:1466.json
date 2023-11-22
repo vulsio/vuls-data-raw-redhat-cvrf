@@ -1,0 +1,261 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: kernel security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2009:1466"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2009-09-29T12:10:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2009-09-29T15:31:00Z",
+		"CurrentReleaseDate": "2009-09-29T12:10:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:29:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated kernel packages that fix two security issues and several bugs are\nnow available for Red Hat Enterprise Linux 5.3 Extended Update Support.\n\nThis update has been rated as having important security impact by the Red\nHat Security Response Team.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe kernel packages contain the Linux kernel, the core of any Linux\noperating system.\n\nThis update includes backported fixes for two security issues. These issues\nonly affected users of Red Hat Enterprise Linux 5.3 Extended Update Support\nas they have already been addressed for users of Red Hat Enterprise Linux 5\nin the 5.4 update, RHSA-2009:1243.\n\nIn accordance with the support policy, future security updates to Red Hat\nEnterprise Linux 5.3 Extended Update Support will only include issues of\ncritical security impact.\n\nThis update fixes the following security issues:\n\n* it was discovered that, when executing a new process, the clear_child_tid\npointer in the Linux kernel is not cleared. If this pointer points to a\nwritable portion of the memory of the new program, the kernel could corrupt\nfour bytes of memory, possibly leading to a local denial of service or\nprivilege escalation. (CVE-2009-2848, Important)\n\n* a flaw was found in the way the do_sigaltstack() function in the Linux\nkernel copies the stack_t structure to user-space. On 64-bit machines, this\nflaw could lead to a four-byte information leak. (CVE-2009-2847, Moderate)\n\nThis update also fixes the following bugs:\n\n* a regression was found in the SCSI retry logic: SCSI mode select was not\nretried when retryable errors were encountered. In Device-Mapper Multipath\nenvironments, this could cause paths to fail, or possibly prevent\nsuccessful failover. (BZ#506905)\n\n* the gcc flag \"-fno-delete-null-pointer-checks\" was added to the kernel\nbuild options. This prevents gcc from optimizing out NULL pointer checks\nafter the first use of a pointer. NULL pointer bugs are often exploited by\nattackers, and keeping these checks is considered a safety measure.\n(BZ#515468)\n\n* due to incorrect APIC timer calibration, a system hang could have\noccurred while booting certain systems. This incorrect timer calibration\ncould have also caused the system time to become faster or slower. With\nthis update, it is still possible for APIC timer calibration issues to\noccur; however, a clear warning is now provided if they do. (BZ#521237)\n\n* gettimeofday() experienced poor performance (which caused performance\nproblems for applications using gettimeofday()) when running on hypervisors\nthat use hardware assisted virtualization. With this update, MFENCE/LFENCE\nis used instead of CPUID for gettimeofday() serialization, which resolves\nthis issue. (BZ#523280)\n\nUsers should upgrade to these updated packages, which contain backported\npatches to correct these issues. The system must be rebooted for this\nupdate to take effect.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2009:1466",
+				"Description": "https://access.redhat.com/errata/RHSA-2009:1466"
+			},
+			{
+				"type": "External",
+				"URL": "http://www.redhat.com/security/updates/classification/#important",
+				"Description": "http://www.redhat.com/security/updates/classification/#important"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: information leak in sigaltstack",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2009-07-31T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2009-2847",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2009:1466"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2009-2847",
+						"Description": "CVE-2009-2847"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=515392",
+						"Description": "bz#515392: CVE-2009-2847 kernel: information leak in sigaltstack"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2009-08-04T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Server-5.3.Z:kernel-0:2.6.18-128.8.1.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.1",
+					"Vector": "AV:L/AC:L/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: execve: must clear current->clear_child_tid",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2009-07-31T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2009-2848",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2009:1466"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2009-2848",
+						"Description": "CVE-2009-2848"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=515423",
+						"Description": "bz#515423: CVE-2009-2848 kernel: execve: must clear current->clear_child_tid"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2009-08-04T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Server-5.3.Z:kernel-0:2.6.18-128.8.1.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "7.2",
+					"Vector": "AV:L/AC:L/Au:N/C:C/I:C/A:C"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux EUS (v. 5.3 server)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux EUS (v. 5.3 server)",
+							"productid": "5Server-5.3.Z",
+							"cpe": "cpe:/o:redhat:rhel_eus:5.3"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-0:2.6.18-128.8.1.el5",
+				"fullproductname": {
+					"text": "kernel-2.6.18-128.8.1.el5.src.rpm",
+					"productid": "kernel-0:2.6.18-128.8.1.el5",
+					"cpe": "cpe:/o:redhat:rhel_eus:5.3"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "kernel-0:2.6.18-128.8.1.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-5.3.Z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.18-128.8.1.el5 as a component of Red Hat Enterprise Linux EUS (v. 5.3 server)",
+					"productid": "5Server-5.3.Z:kernel-0:2.6.18-128.8.1.el5",
+					"cpe": "cpe:/o:redhat:rhel_eus:5.3"
+				}
+			}
+		]
+	}
+}

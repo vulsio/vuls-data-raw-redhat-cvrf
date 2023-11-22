@@ -1,0 +1,617 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: Red Hat Storage 2.0 security, bug fix, and enhancement update #4",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2013:0691"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2013-03-28T22:21:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2013-03-28T22:14:00Z",
+		"CurrentReleaseDate": "2013-03-28T22:21:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:39:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated Red Hat Storage 2.0 packages that fix multiple security issues,\nseveral bugs, and add enhancements are now available.\n\nThe Red Hat Security Response Team has rated this update as having\nimportant security impact. Common Vulnerability Scoring System (CVSS) base\nscores, which give detailed severity ratings, are available for each\nvulnerability from the CVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nRed Hat Storage is a software only, scale-out storage solution that\nprovides flexible and agile unstructured data storage for the enterprise.\n\nA flaw was found in the way the Swift component used Python pickle. This\ncould lead to arbitrary code execution. With this update, the JSON\n(JavaScript Object Notation) format is used. (CVE-2012-4406)\n\nMultiple insecure temporary file creation flaws were found in Red Hat\nStorage. A local user on the Red Hat Storage server could use these flaws\nto cause arbitrary files to be overwritten as the root user via a symbolic\nlink attack. (CVE-2012-5635)\n\nIt was found that sanlock created \"/var/run/sanlock/sanlock.pid\" with\nworld-writable permissions. A local user could use this flaw to make the\nsanlock init script kill an arbitrary process when the sanlock daemon is\nstopped or restarted. Additionally, \"/var/log/sanlock.log\" was also\nworld-writable, allowing local users to modify the contents of the log\nfile, or store data within it (bypassing any quotas applied to their\naccount). (CVE-2012-5638)\n\nRed Hat would like to thank Sebastian Krahmer of the SUSE Security Team for\nreporting CVE-2012-4406. The CVE-2012-5635 issues were discovered by Kurt\nSeifried of the Red Hat Security Response Team and Michael Scherer of the\nRed Hat Regional IT team, and CVE-2012-5638 was discovered by David\nTeigland of Red Hat.\n\nBug fixes and enhancements:\n\n* Options to provide POSIX behavior when the O_DIRECT flag is used with\nthe open() system call across many translators. (BZ#856156)\n\n* A mount time option provided to make the FUSE module's request queue\nlength configurable. (BZ#856206)\n\n* Various fixes in the FUSE module to ensure the 'read-only' (-o ro) mount\noption works. (BZ#858499)\n\n* Various fixes in GlusterFS's rebalance code to handle failures while\nreplica pairs are getting connected and disconnected in quick succession.\n(BZ#859387)\n\n* NFS code fixed to ensure proper inode transformation logic when the\n'enable-ino32' option is set. (BZ#864222)\n\n* Fixed the behavior of the posix-locks module per POSIX locking\nsemantics. As a result, smb-torture's ping-pong tests now run smoothly on\ntop of GlusterFS mounts. (BZ#869724)\n\n* FUSE module enhanced with the enable-ino32 mount option, required by any\n32-bit applications running on top of a GlusterFS mount. (BZ#876679)\n\n* Corrections were made to fd table behavior when both NFS and\ngeo-replication are in progress. (BZ#880193)\n\n* With this update, disconnections are now handled better in the\ngeo-replication 'gsyncd' process. (BZ#880308)\n\n* With this update, the 'gluster volume geo-replication config checkpoint'\ncommand returns the output value properly. (BZ#881736)\n\n* With this enhancement, it is possible to set the 'root-squash' volume\noption with Gluster CLI. Red Hat Storage volumes now support NFS's\nroot-squashing behavior. (BZ#883590)\n\n* NFS POSIX lock issue fixed when 'root-squash' option is enabled on the\nvolume. (BZ#906884)\n\n* Fixed an issue in tracking the changes of Geo-replication when an\nunprivileged user accesses the file system. (BZ#883827)\n\n* Fixed NFS locking manager (NLM) code to handle IP failover successfully.\n(BZ#888286)\n\n* Fixed issue in rebalance code to handle proper pointer dereference.\n(BZ#894237)\n\n* POSIX module made more robust to handle backend brick failures better.\n(BZ#895841)\n\n* Fixed the 'gluster volume geo-replication' command to provide a\nmeaningful message when a wrong hostname is entered. (BZ#902213)\n\n* Fixed Console Configuration Script where it added invalid 'security'\nconfiguration for ENGINEDataSource in JBoss. (BZ#922572)\n\n* Fixed rhsc-setup failure where it does not check for SELinux before\nrunning setsebool. (BZ#923674)\n\n* Provided an update to the rhn-client-tools package to ensure setup\ndefaults to the correct base Red Hat Enterprise Linux (6.2 Extended Update\nSupport). (BZ#911777)\n\nRefer to the Release Notes, available shortly from the link in the\nReferences section, for further information.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2013:0691",
+				"Description": "https://access.redhat.com/errata/RHSA-2013:0691"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/knowledge/docs/Red_Hat_Storage/",
+				"Description": "https://access.redhat.com/knowledge/docs/Red_Hat_Storage/"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Openstack-Swift: insecure use of python pickle()",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-05-30T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-4406",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll users of Red Hat Storage are advised to upgrade to these updated\npackages.\n\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:0691"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-4406",
+						"Description": "CVE-2012-4406"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=854757",
+						"Description": "bz#854757: CVE-2012-4406 Openstack-Swift: insecure use of python pickle()"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2012-09-05T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Server-RHSClient:glusterfs-0:3.3.0.7rhs-1.el5",
+						"6Server-RHS-6.2.z:appliance-0:1.7.1-1.el6rhs",
+						"6Server-RHS-6.2.z:augeas-0:0.9.0-1.el6",
+						"6Server-RHS-6.2.z:gluster-swift-0:1.4.8-5.el6rhs",
+						"6Server-RHS-6.2.z:glusterfs-0:3.3.0.7rhs-1.el6rhs",
+						"6Server-RHS-6.2.z:libvirt-0:0.9.10-21.el6_3.8",
+						"6Server-RHS-6.2.z:rhn-client-tools-0:1.0.0-73.el6rhs",
+						"6Server-RHS-6.2.z:sanlock-0:2.3-4.el6_3",
+						"6Server-RHS-6.2.z:sos-0:2.2-17.2.el6rhs",
+						"6Server-RHS-6.2.z:vdsm-0:4.9.6-20.el6rhs",
+						"6Server-RHSC:org.ovirt.engine-root-0:2.0.techpreview1-4",
+						"6Server-RHSC:vdsm-0:4.9.6-20.el6rhs",
+						"6Server-RHSClient:glusterfs-0:3.3.0.7rhs-1.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "7.5",
+					"Vector": "AV:N/AC:L/Au:N/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "GlusterFS: insecure temporary file creation",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-03-28T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-5635",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll users of Red Hat Storage are advised to upgrade to these updated\npackages.\n\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:0691"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-5635",
+						"Description": "CVE-2012-5635"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=886364",
+						"Description": "bz#886364: CVE-2012-5635 GlusterFS: insecure temporary file creation"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2012-12-11T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Server-RHSClient:glusterfs-0:3.3.0.7rhs-1.el5",
+						"6Server-RHS-6.2.z:appliance-0:1.7.1-1.el6rhs",
+						"6Server-RHS-6.2.z:augeas-0:0.9.0-1.el6",
+						"6Server-RHS-6.2.z:gluster-swift-0:1.4.8-5.el6rhs",
+						"6Server-RHS-6.2.z:glusterfs-0:3.3.0.7rhs-1.el6rhs",
+						"6Server-RHS-6.2.z:libvirt-0:0.9.10-21.el6_3.8",
+						"6Server-RHS-6.2.z:rhn-client-tools-0:1.0.0-73.el6rhs",
+						"6Server-RHS-6.2.z:sanlock-0:2.3-4.el6_3",
+						"6Server-RHS-6.2.z:sos-0:2.2-17.2.el6rhs",
+						"6Server-RHS-6.2.z:vdsm-0:4.9.6-20.el6rhs",
+						"6Server-RHSC:org.ovirt.engine-root-0:2.0.techpreview1-4",
+						"6Server-RHSC:vdsm-0:4.9.6-20.el6rhs",
+						"6Server-RHSClient:glusterfs-0:3.3.0.7rhs-1.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.1",
+					"Vector": "AV:L/AC:L/Au:N/C:N/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "sanlock world writable /var/log/sanlock.log",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-08-22T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-5638",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll users of Red Hat Storage are advised to upgrade to these updated\npackages.\n\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:0691"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-5638",
+						"Description": "CVE-2012-5638"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=887010",
+						"Description": "bz#887010: CVE-2012-5638 sanlock world writable /var/log/sanlock.log"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2012-12-13T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Server-RHSClient:glusterfs-0:3.3.0.7rhs-1.el5",
+						"6Server-RHS-6.2.z:appliance-0:1.7.1-1.el6rhs",
+						"6Server-RHS-6.2.z:augeas-0:0.9.0-1.el6",
+						"6Server-RHS-6.2.z:gluster-swift-0:1.4.8-5.el6rhs",
+						"6Server-RHS-6.2.z:glusterfs-0:3.3.0.7rhs-1.el6rhs",
+						"6Server-RHS-6.2.z:libvirt-0:0.9.10-21.el6_3.8",
+						"6Server-RHS-6.2.z:rhn-client-tools-0:1.0.0-73.el6rhs",
+						"6Server-RHS-6.2.z:sanlock-0:2.3-4.el6_3",
+						"6Server-RHS-6.2.z:sos-0:2.2-17.2.el6rhs",
+						"6Server-RHS-6.2.z:vdsm-0:4.9.6-20.el6rhs",
+						"6Server-RHSC:org.ovirt.engine-root-0:2.0.techpreview1-4",
+						"6Server-RHSC:vdsm-0:4.9.6-20.el6rhs",
+						"6Server-RHSClient:glusterfs-0:3.3.0.7rhs-1.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.1",
+					"Vector": "AV:L/AC:L/Au:N/C:N/I:N/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Gluster Storage",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Storage Native Client for Red Hat Enterprise Linux 5",
+						"fullproductname": {
+							"text": "Red Hat Storage Native Client for Red Hat Enterprise Linux 5",
+							"productid": "5Server-RHSClient",
+							"cpe": "cpe:/a:redhat:storage:2:client:el5"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Storage Server 2.0",
+						"fullproductname": {
+							"text": "Red Hat Storage Server 2.0",
+							"productid": "6Server-RHS-6.2.z",
+							"cpe": "cpe:/a:redhat:storage:2.0:server:el6"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Storage 2.0 Console",
+						"fullproductname": {
+							"text": "Red Hat Storage 2.0 Console",
+							"productid": "6Server-RHSC",
+							"cpe": "cpe:/a:redhat:storage:2.0:console:el6"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Storage Native Client for Red Hat Enterprise Linux 6",
+						"fullproductname": {
+							"text": "Red Hat Storage Native Client for Red Hat Enterprise Linux 6",
+							"productid": "6Server-RHSClient",
+							"cpe": "cpe:/a:redhat:storage:3:client:el6"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "appliance-0:1.7.1-1.el6rhs",
+				"fullproductname": {
+					"text": "appliance-1.7.1-1.el6rhs.src.rpm",
+					"productid": "appliance-0:1.7.1-1.el6rhs",
+					"cpe": "cpe:/a:redhat:storage:2.0:server:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "augeas-0:0.9.0-1.el6",
+				"fullproductname": {
+					"text": "augeas-0.9.0-1.el6.src.rpm",
+					"productid": "augeas-0:0.9.0-1.el6",
+					"cpe": "cpe:/a:redhat:storage:2.0:server:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "gluster-swift-0:1.4.8-5.el6rhs",
+				"fullproductname": {
+					"text": "gluster-swift-1.4.8-5.el6rhs.src.rpm",
+					"productid": "gluster-swift-0:1.4.8-5.el6rhs",
+					"cpe": "cpe:/a:redhat:storage:2.0:server:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "glusterfs-0:3.3.0.7rhs-1.el5",
+				"fullproductname": {
+					"text": "glusterfs-3.3.0.7rhs-1.el5.src.rpm",
+					"productid": "glusterfs-0:3.3.0.7rhs-1.el5",
+					"cpe": "cpe:/a:redhat:storage:2:client:el5"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "glusterfs-0:3.3.0.7rhs-1.el6",
+				"fullproductname": {
+					"text": "glusterfs-3.3.0.7rhs-1.el6.src.rpm",
+					"productid": "glusterfs-0:3.3.0.7rhs-1.el6",
+					"cpe": "cpe:/a:redhat:storage:3:client:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "glusterfs-0:3.3.0.7rhs-1.el6rhs",
+				"fullproductname": {
+					"text": "glusterfs-3.3.0.7rhs-1.el6rhs.src.rpm",
+					"productid": "glusterfs-0:3.3.0.7rhs-1.el6rhs",
+					"cpe": "cpe:/a:redhat:storage:2.0:server:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libvirt-0:0.9.10-21.el6_3.8",
+				"fullproductname": {
+					"text": "libvirt-0.9.10-21.el6_3.8.src.rpm",
+					"productid": "libvirt-0:0.9.10-21.el6_3.8",
+					"cpe": "cpe:/a:redhat:storage:2.0:server:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "org.ovirt.engine-root-0:2.0.techpreview1-4",
+				"fullproductname": {
+					"text": "org.ovirt.engine-root-2.0.techpreview1-4.src.rpm",
+					"productid": "org.ovirt.engine-root-0:2.0.techpreview1-4",
+					"cpe": "cpe:/a:redhat:storage:2.0:console:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhn-client-tools-0:1.0.0-73.el6rhs",
+				"fullproductname": {
+					"text": "rhn-client-tools-1.0.0-73.el6rhs.src.rpm",
+					"productid": "rhn-client-tools-0:1.0.0-73.el6rhs",
+					"cpe": "cpe:/a:redhat:storage:2.0:server:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "sanlock-0:2.3-4.el6_3",
+				"fullproductname": {
+					"text": "sanlock-2.3-4.el6_3.src.rpm",
+					"productid": "sanlock-0:2.3-4.el6_3",
+					"cpe": "cpe:/a:redhat:storage:2.0:server:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "sos-0:2.2-17.2.el6rhs",
+				"fullproductname": {
+					"text": "sos-2.2-17.2.el6rhs.src.rpm",
+					"productid": "sos-0:2.2-17.2.el6rhs",
+					"cpe": "cpe:/a:redhat:storage:2.0:server:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "vdsm-0:4.9.6-20.el6rhs",
+				"fullproductname": {
+					"text": "vdsm-4.9.6-20.el6rhs.src.rpm",
+					"productid": "vdsm-0:4.9.6-20.el6rhs",
+					"cpe": "cpe:/a:redhat:storage:2.0:console:el6"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "glusterfs-0:3.3.0.7rhs-1.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-RHSClient",
+				"fullproductname": {
+					"text": "glusterfs-0:3.3.0.7rhs-1.el5 as a component of Red Hat Storage Native Client for Red Hat Enterprise Linux 5",
+					"productid": "5Server-RHSClient:glusterfs-0:3.3.0.7rhs-1.el5",
+					"cpe": "cpe:/a:redhat:storage:2:client:el5"
+				}
+			},
+			{
+				"productreference": "appliance-0:1.7.1-1.el6rhs",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RHS-6.2.z",
+				"fullproductname": {
+					"text": "appliance-0:1.7.1-1.el6rhs as a component of Red Hat Storage Server 2.0",
+					"productid": "6Server-RHS-6.2.z:appliance-0:1.7.1-1.el6rhs",
+					"cpe": "cpe:/a:redhat:storage:2.0:server:el6"
+				}
+			},
+			{
+				"productreference": "augeas-0:0.9.0-1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RHS-6.2.z",
+				"fullproductname": {
+					"text": "augeas-0:0.9.0-1.el6 as a component of Red Hat Storage Server 2.0",
+					"productid": "6Server-RHS-6.2.z:augeas-0:0.9.0-1.el6",
+					"cpe": "cpe:/a:redhat:storage:2.0:server:el6"
+				}
+			},
+			{
+				"productreference": "gluster-swift-0:1.4.8-5.el6rhs",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RHS-6.2.z",
+				"fullproductname": {
+					"text": "gluster-swift-0:1.4.8-5.el6rhs as a component of Red Hat Storage Server 2.0",
+					"productid": "6Server-RHS-6.2.z:gluster-swift-0:1.4.8-5.el6rhs",
+					"cpe": "cpe:/a:redhat:storage:2.0:server:el6"
+				}
+			},
+			{
+				"productreference": "glusterfs-0:3.3.0.7rhs-1.el6rhs",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RHS-6.2.z",
+				"fullproductname": {
+					"text": "glusterfs-0:3.3.0.7rhs-1.el6rhs as a component of Red Hat Storage Server 2.0",
+					"productid": "6Server-RHS-6.2.z:glusterfs-0:3.3.0.7rhs-1.el6rhs",
+					"cpe": "cpe:/a:redhat:storage:2.0:server:el6"
+				}
+			},
+			{
+				"productreference": "libvirt-0:0.9.10-21.el6_3.8",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RHS-6.2.z",
+				"fullproductname": {
+					"text": "libvirt-0:0.9.10-21.el6_3.8 as a component of Red Hat Storage Server 2.0",
+					"productid": "6Server-RHS-6.2.z:libvirt-0:0.9.10-21.el6_3.8",
+					"cpe": "cpe:/a:redhat:storage:2.0:server:el6"
+				}
+			},
+			{
+				"productreference": "rhn-client-tools-0:1.0.0-73.el6rhs",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RHS-6.2.z",
+				"fullproductname": {
+					"text": "rhn-client-tools-0:1.0.0-73.el6rhs as a component of Red Hat Storage Server 2.0",
+					"productid": "6Server-RHS-6.2.z:rhn-client-tools-0:1.0.0-73.el6rhs",
+					"cpe": "cpe:/a:redhat:storage:2.0:server:el6"
+				}
+			},
+			{
+				"productreference": "sanlock-0:2.3-4.el6_3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RHS-6.2.z",
+				"fullproductname": {
+					"text": "sanlock-0:2.3-4.el6_3 as a component of Red Hat Storage Server 2.0",
+					"productid": "6Server-RHS-6.2.z:sanlock-0:2.3-4.el6_3",
+					"cpe": "cpe:/a:redhat:storage:2.0:server:el6"
+				}
+			},
+			{
+				"productreference": "sos-0:2.2-17.2.el6rhs",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RHS-6.2.z",
+				"fullproductname": {
+					"text": "sos-0:2.2-17.2.el6rhs as a component of Red Hat Storage Server 2.0",
+					"productid": "6Server-RHS-6.2.z:sos-0:2.2-17.2.el6rhs",
+					"cpe": "cpe:/a:redhat:storage:2.0:server:el6"
+				}
+			},
+			{
+				"productreference": "vdsm-0:4.9.6-20.el6rhs",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RHS-6.2.z",
+				"fullproductname": {
+					"text": "vdsm-0:4.9.6-20.el6rhs as a component of Red Hat Storage Server 2.0",
+					"productid": "6Server-RHS-6.2.z:vdsm-0:4.9.6-20.el6rhs",
+					"cpe": "cpe:/a:redhat:storage:2.0:server:el6"
+				}
+			},
+			{
+				"productreference": "org.ovirt.engine-root-0:2.0.techpreview1-4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RHSC",
+				"fullproductname": {
+					"text": "org.ovirt.engine-root-0:2.0.techpreview1-4 as a component of Red Hat Storage 2.0 Console",
+					"productid": "6Server-RHSC:org.ovirt.engine-root-0:2.0.techpreview1-4",
+					"cpe": "cpe:/a:redhat:storage:2.0:console:el6"
+				}
+			},
+			{
+				"productreference": "vdsm-0:4.9.6-20.el6rhs",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RHSC",
+				"fullproductname": {
+					"text": "vdsm-0:4.9.6-20.el6rhs as a component of Red Hat Storage 2.0 Console",
+					"productid": "6Server-RHSC:vdsm-0:4.9.6-20.el6rhs",
+					"cpe": "cpe:/a:redhat:storage:2.0:console:el6"
+				}
+			},
+			{
+				"productreference": "glusterfs-0:3.3.0.7rhs-1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-RHSClient",
+				"fullproductname": {
+					"text": "glusterfs-0:3.3.0.7rhs-1.el6 as a component of Red Hat Storage Native Client for Red Hat Enterprise Linux 6",
+					"productid": "6Server-RHSClient:glusterfs-0:3.3.0.7rhs-1.el6",
+					"cpe": "cpe:/a:redhat:storage:3:client:el6"
+				}
+			}
+		]
+	}
+}

@@ -1,0 +1,508 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: subversion security update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2011:0862"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2011-06-08T11:47:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2011-06-08T15:41:00Z",
+		"CurrentReleaseDate": "2011-06-08T11:47:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:30:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated subversion packages that fix three security issues are now\navailable for Red Hat Enterprise Linux 5 and 6.\n\nThe Red Hat Security Response Team has rated this update as having moderate\nsecurity impact. Common Vulnerability Scoring System (CVSS) base scores,\nwhich give detailed severity ratings, are available for each vulnerability\nfrom the CVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nSubversion (SVN) is a concurrent version control system which enables one\nor more users to collaborate in developing and maintaining a hierarchy of\nfiles and directories while keeping a history of all changes. The\nmod_dav_svn module is used with the Apache HTTP Server to allow access to\nSubversion repositories via HTTP.\n\nAn infinite loop flaw was found in the way the mod_dav_svn module processed\ncertain data sets. If the SVNPathAuthz directive was set to\n\"short_circuit\", and path-based access control for files and directories\nwas enabled, a malicious, remote user could use this flaw to cause the\nhttpd process serving the request to consume an excessive amount of system\nmemory. (CVE-2011-1783)\n\nA NULL pointer dereference flaw was found in the way the mod_dav_svn module\nprocessed requests submitted against the URL of a baselined resource. A\nmalicious, remote user could use this flaw to cause the httpd process\nserving the request to crash. (CVE-2011-1752)\n\nAn information disclosure flaw was found in the way the mod_dav_svn\nmodule processed certain URLs when path-based access control for files and\ndirectories was enabled. A malicious, remote user could possibly use this\nflaw to access certain files in a repository that would otherwise not be\naccessible to them. Note: This vulnerability cannot be triggered if the\nSVNPathAuthz directive is set to \"short_circuit\". (CVE-2011-1921)\n\nRed Hat would like to thank the Apache Subversion project for reporting\nthese issues. Upstream acknowledges Joe Schaefer of the Apache Software\nFoundation as the original reporter of CVE-2011-1752; Ivan Zhakov of\nVisualSVN as the original reporter of CVE-2011-1783; and Kamesh\nJayachandran of CollabNet, Inc. as the original reporter of CVE-2011-1921.\n\nAll Subversion users should upgrade to these updated packages, which\ncontain backported patches to correct these issues. After installing the\nupdated packages, you must restart the httpd daemon, if you are using\nmod_dav_svn, for the update to take effect.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2011:0862",
+				"Description": "https://access.redhat.com/errata/RHSA-2011:0862"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			},
+			{
+				"type": "External",
+				"URL": "http://subversion.apache.org/security/CVE-2011-1783-advisory.txt",
+				"Description": "http://subversion.apache.org/security/CVE-2011-1783-advisory.txt"
+			},
+			{
+				"type": "External",
+				"URL": "http://subversion.apache.org/security/CVE-2011-1752-advisory.txt",
+				"Description": "http://subversion.apache.org/security/CVE-2011-1752-advisory.txt"
+			},
+			{
+				"type": "External",
+				"URL": "http://subversion.apache.org/security/CVE-2011-1921-advisory.txt",
+				"Description": "http://subversion.apache.org/security/CVE-2011-1921-advisory.txt"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "subversion (mod_dav_svn): DoS (crash) via request to deliver baselined WebDAV resources",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2011-06-01T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2011-1752",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/kb/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2011:0862"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2011-1752",
+						"Description": "CVE-2011-1752"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=709111",
+						"Description": "bz#709111: CVE-2011-1752 subversion (mod_dav_svn): DoS (crash) via request to deliver baselined WebDAV resources"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2011-05-27T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-Workstation-5.6.Z:subversion-0:1.6.11-7.el5_6.4",
+						"5Server-5.6.Z:subversion-0:1.6.11-7.el5_6.4",
+						"6Client-optional-6.1.z:subversion-0:1.6.11-2.el6_1.4",
+						"6ComputeNode-optional-6.1.z:subversion-0:1.6.11-2.el6_1.4",
+						"6Server-6.1.z:subversion-0:1.6.11-2.el6_1.4",
+						"6Server-optional-6.1.z:subversion-0:1.6.11-2.el6_1.4",
+						"6Workstation-6.1.z:subversion-0:1.6.11-2.el6_1.4",
+						"6Workstation-optional-6.1.z:subversion-0:1.6.11-2.el6_1.4"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.0",
+					"Vector": "AV:N/AC:L/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "subversion (mod_dav_svn): DoS (excessive memory use) when configured to provide path-based access control",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2011-06-01T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2011-1783",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/kb/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2011:0862"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2011-1783",
+						"Description": "CVE-2011-1783"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=709112",
+						"Description": "bz#709112: CVE-2011-1783 subversion (mod_dav_svn): DoS (excessive memory use) when configured to provide path-based access control"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2011-05-27T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-Workstation-5.6.Z:subversion-0:1.6.11-7.el5_6.4",
+						"5Server-5.6.Z:subversion-0:1.6.11-7.el5_6.4",
+						"6Client-optional-6.1.z:subversion-0:1.6.11-2.el6_1.4",
+						"6ComputeNode-optional-6.1.z:subversion-0:1.6.11-2.el6_1.4",
+						"6Server-6.1.z:subversion-0:1.6.11-2.el6_1.4",
+						"6Server-optional-6.1.z:subversion-0:1.6.11-2.el6_1.4",
+						"6Workstation-6.1.z:subversion-0:1.6.11-2.el6_1.4",
+						"6Workstation-optional-6.1.z:subversion-0:1.6.11-2.el6_1.4"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "subversion (mod_dav_svn): File contents disclosure of files configured to be unreadable by those users",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2011-06-01T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2011-1921",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/kb/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2011:0862"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2011-1921",
+						"Description": "CVE-2011-1921"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=709114",
+						"Description": "bz#709114: CVE-2011-1921 subversion (mod_dav_svn): File contents disclosure of files configured to be unreadable by those users"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2011-05-27T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-Workstation-5.6.Z:subversion-0:1.6.11-7.el5_6.4",
+						"5Server-5.6.Z:subversion-0:1.6.11-7.el5_6.4",
+						"6Client-optional-6.1.z:subversion-0:1.6.11-2.el6_1.4",
+						"6ComputeNode-optional-6.1.z:subversion-0:1.6.11-2.el6_1.4",
+						"6Server-6.1.z:subversion-0:1.6.11-2.el6_1.4",
+						"6Server-optional-6.1.z:subversion-0:1.6.11-2.el6_1.4",
+						"6Workstation-6.1.z:subversion-0:1.6.11-2.el6_1.4",
+						"6Workstation-optional-6.1.z:subversion-0:1.6.11-2.el6_1.4"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:N/A:N"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "RHEL Desktop Workstation (v. 5 client)",
+						"fullproductname": {
+							"text": "RHEL Desktop Workstation (v. 5 client)",
+							"productid": "5Client-Workstation-5.6.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::client_workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux (v. 5.6.z server)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux (v. 5.6.z server)",
+							"productid": "5Server-5.6.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+							"productid": "6Client-optional-6.1.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+							"productid": "6ComputeNode-optional-6.1.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 6)",
+							"productid": "6Server-6.1.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional (v. 6)",
+							"productid": "6Server-optional-6.1.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 6)",
+							"productid": "6Workstation-6.1.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+							"productid": "6Workstation-optional-6.1.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "subversion-0:1.6.11-2.el6_1.4",
+				"fullproductname": {
+					"text": "subversion-1.6.11-2.el6_1.4.src.rpm",
+					"productid": "subversion-0:1.6.11-2.el6_1.4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "subversion-0:1.6.11-7.el5_6.4",
+				"fullproductname": {
+					"text": "subversion-1.6.11-7.el5_6.4.src.rpm",
+					"productid": "subversion-0:1.6.11-7.el5_6.4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client_workstation"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "subversion-0:1.6.11-7.el5_6.4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Client-Workstation-5.6.Z",
+				"fullproductname": {
+					"text": "subversion-0:1.6.11-7.el5_6.4 as a component of RHEL Desktop Workstation (v. 5 client)",
+					"productid": "5Client-Workstation-5.6.Z:subversion-0:1.6.11-7.el5_6.4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client_workstation"
+				}
+			},
+			{
+				"productreference": "subversion-0:1.6.11-7.el5_6.4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-5.6.Z",
+				"fullproductname": {
+					"text": "subversion-0:1.6.11-7.el5_6.4 as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"productid": "5Server-5.6.Z:subversion-0:1.6.11-7.el5_6.4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+				}
+			},
+			{
+				"productreference": "subversion-0:1.6.11-2.el6_1.4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-optional-6.1.z",
+				"fullproductname": {
+					"text": "subversion-0:1.6.11-2.el6_1.4 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"productid": "6Client-optional-6.1.z:subversion-0:1.6.11-2.el6_1.4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "subversion-0:1.6.11-2.el6_1.4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-optional-6.1.z",
+				"fullproductname": {
+					"text": "subversion-0:1.6.11-2.el6_1.4 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"productid": "6ComputeNode-optional-6.1.z:subversion-0:1.6.11-2.el6_1.4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "subversion-0:1.6.11-2.el6_1.4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-6.1.z",
+				"fullproductname": {
+					"text": "subversion-0:1.6.11-2.el6_1.4 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"productid": "6Server-6.1.z:subversion-0:1.6.11-2.el6_1.4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "subversion-0:1.6.11-2.el6_1.4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-optional-6.1.z",
+				"fullproductname": {
+					"text": "subversion-0:1.6.11-2.el6_1.4 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"productid": "6Server-optional-6.1.z:subversion-0:1.6.11-2.el6_1.4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "subversion-0:1.6.11-2.el6_1.4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-6.1.z",
+				"fullproductname": {
+					"text": "subversion-0:1.6.11-2.el6_1.4 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"productid": "6Workstation-6.1.z:subversion-0:1.6.11-2.el6_1.4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			},
+			{
+				"productreference": "subversion-0:1.6.11-2.el6_1.4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-optional-6.1.z",
+				"fullproductname": {
+					"text": "subversion-0:1.6.11-2.el6_1.4 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"productid": "6Workstation-optional-6.1.z:subversion-0:1.6.11-2.el6_1.4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			}
+		]
+	}
+}

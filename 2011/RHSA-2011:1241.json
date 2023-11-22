@@ -1,0 +1,801 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: ecryptfs-utils security update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2011:1241"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2011-08-31T15:40:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2011-08-31T19:34:00Z",
+		"CurrentReleaseDate": "2011-08-31T15:40:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:32:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated ecryptfs-utils packages that fix several security issues are now\navailable for Red Hat Enterprise Linux 5 and 6.\n\nThe Red Hat Security Response Team has rated this update as having moderate\nsecurity impact. Common Vulnerability Scoring System (CVSS) base scores,\nwhich give detailed severity ratings, are available for each vulnerability\nfrom the CVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\neCryptfs is a stacked, cryptographic file system. It is transparent to the\nunderlying file system and provides per-file granularity. eCryptfs is\nreleased as a Technology Preview for Red Hat Enterprise Linux 5 and 6.\n\nThe setuid mount.ecryptfs_private utility allows users to mount an eCryptfs\nfile system. This utility can only be run by users in the \"ecryptfs\" group.\n\nA race condition flaw was found in the way mount.ecryptfs_private checked\nthe permissions of a requested mount point when mounting an encrypted file\nsystem. A local attacker could possibly use this flaw to escalate their\nprivileges by mounting over an arbitrary directory. (CVE-2011-1831)\n\nA race condition flaw in umount.ecryptfs_private could allow a local\nattacker to unmount an arbitrary file system. (CVE-2011-1832)\n\nIt was found that mount.ecryptfs_private did not handle certain errors\ncorrectly when updating the mtab (mounted file systems table) file,\nallowing a local attacker to corrupt the mtab file and possibly unmount an\narbitrary file system. (CVE-2011-1834)\n\nAn insecure temporary file use flaw was found in the ecryptfs-setup-private\nscript. A local attacker could use this script to insert their own key that\nwill subsequently be used by a new user, possibly giving the attacker\naccess to the user's encrypted data if existing file permissions allow\naccess. (CVE-2011-1835)\n\nA race condition flaw in mount.ecryptfs_private could allow a local\nattacker to overwrite arbitrary files. (CVE-2011-1837)\n\nA race condition flaw in the way temporary files were accessed in\nmount.ecryptfs_private could allow a malicious, local user to make\narbitrary modifications to the mtab file. (CVE-2011-3145)\n\nA race condition flaw was found in the way mount.ecryptfs_private checked\nthe permissions of the directory to mount. A local attacker could use this\nflaw to mount (and then access) a directory they would otherwise not have\naccess to. Note: The fix for this issue is incomplete until a kernel-space\nchange is made. Future Red Hat Enterprise Linux 5 and 6 kernel updates\nwill correct this issue. (CVE-2011-1833)\n\nRed Hat would like to thank the Ubuntu Security Team for reporting these\nissues. The Ubuntu Security Team acknowledges Vasiliy Kulikov of Openwall\nand Dan Rosenberg as the original reporters of CVE-2011-1831,\nCVE-2011-1832, and CVE-2011-1833; Dan Rosenberg and Marc Deslauriers as the\noriginal reporters of CVE-2011-1834; Marc Deslauriers as the original\nreporter of CVE-2011-1835; and Vasiliy Kulikov of Openwall as the original\nreporter of CVE-2011-1837.\n\nUsers of ecryptfs-utils are advised to upgrade to these updated packages,\nwhich contain backported patches to correct these issues.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2011:1241",
+				"Description": "https://access.redhat.com/errata/RHSA-2011:1241"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/support/offerings/techpreview/",
+				"Description": "https://access.redhat.com/support/offerings/techpreview/"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "ecryptfs: multiple flaws to mount/umount arbitrary locations and possibly disclose confidential information",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2011-08-09T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2011-1831",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/kb/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2011:1241"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2011-1831",
+						"Description": "CVE-2011-1831"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=729465",
+						"Description": "bz#729465: CVE-2011-1831 CVE-2011-1832 CVE-2011-1834 CVE-2011-1835 CVE-2011-1837 ecryptfs: multiple flaws to mount/umount arbitrary locations and possibly disclose confidential information"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2011-08-01T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-5.7.Z:ecryptfs-utils-0:75-5.el5_7.2",
+						"5Client-Workstation-5.7.Z:ecryptfs-utils-0:75-5.el5_7.2",
+						"5Server-5.7.Z:ecryptfs-utils-0:75-5.el5_7.2",
+						"6Client-6.1.z:ecryptfs-utils-0:82-6.el6_1.3",
+						"6Client-optional-6.1.z:ecryptfs-utils-0:82-6.el6_1.3",
+						"6ComputeNode-6.1.z:ecryptfs-utils-0:82-6.el6_1.3",
+						"6ComputeNode-optional-6.1.z:ecryptfs-utils-0:82-6.el6_1.3",
+						"6Server-6.1.z:ecryptfs-utils-0:82-6.el6_1.3",
+						"6Server-optional-6.1.z:ecryptfs-utils-0:82-6.el6_1.3",
+						"6Workstation-6.1.z:ecryptfs-utils-0:82-6.el6_1.3",
+						"6Workstation-optional-6.1.z:ecryptfs-utils-0:82-6.el6_1.3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank the Ubuntu Security Team for reporting these issues. The Ubuntu Security Team acknowledges Vasiliy Kulikov of Openwall and Dan Rosenberg as the original reporters."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.6",
+					"Vector": "AV:L/AC:L/Au:N/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "ecryptfs: multiple flaws to mount/umount arbitrary locations and possibly disclose confidential information",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2011-08-09T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2011-1832",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/kb/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2011:1241"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2011-1832",
+						"Description": "CVE-2011-1832"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=729465",
+						"Description": "bz#729465: CVE-2011-1831 CVE-2011-1832 CVE-2011-1834 CVE-2011-1835 CVE-2011-1837 ecryptfs: multiple flaws to mount/umount arbitrary locations and possibly disclose confidential information"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2011-08-01T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-5.7.Z:ecryptfs-utils-0:75-5.el5_7.2",
+						"5Client-Workstation-5.7.Z:ecryptfs-utils-0:75-5.el5_7.2",
+						"5Server-5.7.Z:ecryptfs-utils-0:75-5.el5_7.2",
+						"6Client-6.1.z:ecryptfs-utils-0:82-6.el6_1.3",
+						"6Client-optional-6.1.z:ecryptfs-utils-0:82-6.el6_1.3",
+						"6ComputeNode-6.1.z:ecryptfs-utils-0:82-6.el6_1.3",
+						"6ComputeNode-optional-6.1.z:ecryptfs-utils-0:82-6.el6_1.3",
+						"6Server-6.1.z:ecryptfs-utils-0:82-6.el6_1.3",
+						"6Server-optional-6.1.z:ecryptfs-utils-0:82-6.el6_1.3",
+						"6Workstation-6.1.z:ecryptfs-utils-0:82-6.el6_1.3",
+						"6Workstation-optional-6.1.z:ecryptfs-utils-0:82-6.el6_1.3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank the Ubuntu Security Team for reporting these issues. The Ubuntu Security Team acknowledges Vasiliy Kulikov of Openwall and Dan Rosenberg as the original reporters."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.6",
+					"Vector": "AV:L/AC:L/Au:N/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "ecryptfs: multiple flaws to mount/umount arbitrary locations and possibly disclose confidential information",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2011-08-09T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2011-1834",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/kb/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2011:1241"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2011-1834",
+						"Description": "CVE-2011-1834"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=729465",
+						"Description": "bz#729465: CVE-2011-1831 CVE-2011-1832 CVE-2011-1834 CVE-2011-1835 CVE-2011-1837 ecryptfs: multiple flaws to mount/umount arbitrary locations and possibly disclose confidential information"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2011-08-01T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-5.7.Z:ecryptfs-utils-0:75-5.el5_7.2",
+						"5Client-Workstation-5.7.Z:ecryptfs-utils-0:75-5.el5_7.2",
+						"5Server-5.7.Z:ecryptfs-utils-0:75-5.el5_7.2",
+						"6Client-6.1.z:ecryptfs-utils-0:82-6.el6_1.3",
+						"6Client-optional-6.1.z:ecryptfs-utils-0:82-6.el6_1.3",
+						"6ComputeNode-6.1.z:ecryptfs-utils-0:82-6.el6_1.3",
+						"6ComputeNode-optional-6.1.z:ecryptfs-utils-0:82-6.el6_1.3",
+						"6Server-6.1.z:ecryptfs-utils-0:82-6.el6_1.3",
+						"6Server-optional-6.1.z:ecryptfs-utils-0:82-6.el6_1.3",
+						"6Workstation-6.1.z:ecryptfs-utils-0:82-6.el6_1.3",
+						"6Workstation-optional-6.1.z:ecryptfs-utils-0:82-6.el6_1.3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank the Ubuntu Security Team for reporting this issue. The Ubuntu Security Team acknowledges Dan Rosenberg and Marc Deslauriers as the original reporters."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.6",
+					"Vector": "AV:L/AC:L/Au:N/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "ecryptfs: multiple flaws to mount/umount arbitrary locations and possibly disclose confidential information",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2011-08-09T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2011-1835",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/kb/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2011:1241"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2011-1835",
+						"Description": "CVE-2011-1835"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=729465",
+						"Description": "bz#729465: CVE-2011-1831 CVE-2011-1832 CVE-2011-1834 CVE-2011-1835 CVE-2011-1837 ecryptfs: multiple flaws to mount/umount arbitrary locations and possibly disclose confidential information"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2011-08-01T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-5.7.Z:ecryptfs-utils-0:75-5.el5_7.2",
+						"5Client-Workstation-5.7.Z:ecryptfs-utils-0:75-5.el5_7.2",
+						"5Server-5.7.Z:ecryptfs-utils-0:75-5.el5_7.2",
+						"6Client-6.1.z:ecryptfs-utils-0:82-6.el6_1.3",
+						"6Client-optional-6.1.z:ecryptfs-utils-0:82-6.el6_1.3",
+						"6ComputeNode-6.1.z:ecryptfs-utils-0:82-6.el6_1.3",
+						"6ComputeNode-optional-6.1.z:ecryptfs-utils-0:82-6.el6_1.3",
+						"6Server-6.1.z:ecryptfs-utils-0:82-6.el6_1.3",
+						"6Server-optional-6.1.z:ecryptfs-utils-0:82-6.el6_1.3",
+						"6Workstation-6.1.z:ecryptfs-utils-0:82-6.el6_1.3",
+						"6Workstation-optional-6.1.z:ecryptfs-utils-0:82-6.el6_1.3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank the Ubuntu Security Team for reporting this issue. The Ubuntu Security Team acknowledges Marc Deslauriers as the original reporter."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.6",
+					"Vector": "AV:L/AC:L/Au:N/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "ecryptfs: multiple flaws to mount/umount arbitrary locations and possibly disclose confidential information",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2011-08-09T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2011-1837",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/kb/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2011:1241"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2011-1837",
+						"Description": "CVE-2011-1837"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=729465",
+						"Description": "bz#729465: CVE-2011-1831 CVE-2011-1832 CVE-2011-1834 CVE-2011-1835 CVE-2011-1837 ecryptfs: multiple flaws to mount/umount arbitrary locations and possibly disclose confidential information"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2011-08-01T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-5.7.Z:ecryptfs-utils-0:75-5.el5_7.2",
+						"5Client-Workstation-5.7.Z:ecryptfs-utils-0:75-5.el5_7.2",
+						"5Server-5.7.Z:ecryptfs-utils-0:75-5.el5_7.2",
+						"6Client-6.1.z:ecryptfs-utils-0:82-6.el6_1.3",
+						"6Client-optional-6.1.z:ecryptfs-utils-0:82-6.el6_1.3",
+						"6ComputeNode-6.1.z:ecryptfs-utils-0:82-6.el6_1.3",
+						"6ComputeNode-optional-6.1.z:ecryptfs-utils-0:82-6.el6_1.3",
+						"6Server-6.1.z:ecryptfs-utils-0:82-6.el6_1.3",
+						"6Server-optional-6.1.z:ecryptfs-utils-0:82-6.el6_1.3",
+						"6Workstation-6.1.z:ecryptfs-utils-0:82-6.el6_1.3",
+						"6Workstation-optional-6.1.z:ecryptfs-utils-0:82-6.el6_1.3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank Ubuntu Security Team for reporting this issue. Upstream acknowledges Dan Rosenberg, Marc Deslauriers, and Vasiliy Kulikov (Openwall) as the original reporters."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.6",
+					"Vector": "AV:L/AC:L/Au:N/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "6",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "ecryptfs-utils: incorrect mtab group ownership",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2011-08-23T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2011-3145",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/kb/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2011:1241"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2011-3145",
+						"Description": "CVE-2011-3145"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=732607",
+						"Description": "bz#732607: CVE-2011-3145 ecryptfs-utils: incorrect mtab group ownership"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2011-08-22T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-5.7.Z:ecryptfs-utils-0:75-5.el5_7.2",
+						"5Client-Workstation-5.7.Z:ecryptfs-utils-0:75-5.el5_7.2",
+						"5Server-5.7.Z:ecryptfs-utils-0:75-5.el5_7.2",
+						"6Client-6.1.z:ecryptfs-utils-0:82-6.el6_1.3",
+						"6Client-optional-6.1.z:ecryptfs-utils-0:82-6.el6_1.3",
+						"6ComputeNode-6.1.z:ecryptfs-utils-0:82-6.el6_1.3",
+						"6ComputeNode-optional-6.1.z:ecryptfs-utils-0:82-6.el6_1.3",
+						"6Server-6.1.z:ecryptfs-utils-0:82-6.el6_1.3",
+						"6Server-optional-6.1.z:ecryptfs-utils-0:82-6.el6_1.3",
+						"6Workstation-6.1.z:ecryptfs-utils-0:82-6.el6_1.3",
+						"6Workstation-optional-6.1.z:ecryptfs-utils-0:82-6.el6_1.3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.6",
+					"Vector": "AV:L/AC:L/Au:N/C:P/I:P/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+							"productid": "5Client-5.7.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "RHEL Desktop Workstation (v. 5 client)",
+						"fullproductname": {
+							"text": "RHEL Desktop Workstation (v. 5 client)",
+							"productid": "5Client-Workstation-5.7.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::client_workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux (v. 5 server)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux (v. 5 server)",
+							"productid": "5Server-5.7.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 6)",
+							"productid": "6Client-6.1.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+							"productid": "6Client-optional-6.1.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node (v. 6)",
+							"productid": "6ComputeNode-6.1.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+							"productid": "6ComputeNode-optional-6.1.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 6)",
+							"productid": "6Server-6.1.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional (v. 6)",
+							"productid": "6Server-optional-6.1.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 6)",
+							"productid": "6Workstation-6.1.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+							"productid": "6Workstation-optional-6.1.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "ecryptfs-utils-0:75-5.el5_7.2",
+				"fullproductname": {
+					"text": "ecryptfs-utils-75-5.el5_7.2.src.rpm",
+					"productid": "ecryptfs-utils-0:75-5.el5_7.2",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ecryptfs-utils-0:82-6.el6_1.3",
+				"fullproductname": {
+					"text": "ecryptfs-utils-82-6.el6_1.3.src.rpm",
+					"productid": "ecryptfs-utils-0:82-6.el6_1.3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "ecryptfs-utils-0:75-5.el5_7.2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Client-5.7.Z",
+				"fullproductname": {
+					"text": "ecryptfs-utils-0:75-5.el5_7.2 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"productid": "5Client-5.7.Z:ecryptfs-utils-0:75-5.el5_7.2",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+				}
+			},
+			{
+				"productreference": "ecryptfs-utils-0:75-5.el5_7.2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Client-Workstation-5.7.Z",
+				"fullproductname": {
+					"text": "ecryptfs-utils-0:75-5.el5_7.2 as a component of RHEL Desktop Workstation (v. 5 client)",
+					"productid": "5Client-Workstation-5.7.Z:ecryptfs-utils-0:75-5.el5_7.2",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client_workstation"
+				}
+			},
+			{
+				"productreference": "ecryptfs-utils-0:75-5.el5_7.2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-5.7.Z",
+				"fullproductname": {
+					"text": "ecryptfs-utils-0:75-5.el5_7.2 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"productid": "5Server-5.7.Z:ecryptfs-utils-0:75-5.el5_7.2",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+				}
+			},
+			{
+				"productreference": "ecryptfs-utils-0:82-6.el6_1.3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-6.1.z",
+				"fullproductname": {
+					"text": "ecryptfs-utils-0:82-6.el6_1.3 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"productid": "6Client-6.1.z:ecryptfs-utils-0:82-6.el6_1.3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "ecryptfs-utils-0:82-6.el6_1.3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-optional-6.1.z",
+				"fullproductname": {
+					"text": "ecryptfs-utils-0:82-6.el6_1.3 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"productid": "6Client-optional-6.1.z:ecryptfs-utils-0:82-6.el6_1.3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "ecryptfs-utils-0:82-6.el6_1.3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-6.1.z",
+				"fullproductname": {
+					"text": "ecryptfs-utils-0:82-6.el6_1.3 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"productid": "6ComputeNode-6.1.z:ecryptfs-utils-0:82-6.el6_1.3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "ecryptfs-utils-0:82-6.el6_1.3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-optional-6.1.z",
+				"fullproductname": {
+					"text": "ecryptfs-utils-0:82-6.el6_1.3 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"productid": "6ComputeNode-optional-6.1.z:ecryptfs-utils-0:82-6.el6_1.3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "ecryptfs-utils-0:82-6.el6_1.3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-6.1.z",
+				"fullproductname": {
+					"text": "ecryptfs-utils-0:82-6.el6_1.3 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"productid": "6Server-6.1.z:ecryptfs-utils-0:82-6.el6_1.3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "ecryptfs-utils-0:82-6.el6_1.3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-optional-6.1.z",
+				"fullproductname": {
+					"text": "ecryptfs-utils-0:82-6.el6_1.3 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"productid": "6Server-optional-6.1.z:ecryptfs-utils-0:82-6.el6_1.3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "ecryptfs-utils-0:82-6.el6_1.3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-6.1.z",
+				"fullproductname": {
+					"text": "ecryptfs-utils-0:82-6.el6_1.3 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"productid": "6Workstation-6.1.z:ecryptfs-utils-0:82-6.el6_1.3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			},
+			{
+				"productreference": "ecryptfs-utils-0:82-6.el6_1.3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-optional-6.1.z",
+				"fullproductname": {
+					"text": "ecryptfs-utils-0:82-6.el6_1.3 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"productid": "6Workstation-optional-6.1.z:ecryptfs-utils-0:82-6.el6_1.3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			}
+		]
+	}
+}

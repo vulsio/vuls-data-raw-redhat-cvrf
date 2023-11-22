@@ -1,0 +1,332 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: rsyslog security, bug fix, and enhancement update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2012:0796"
+		},
+		"Status": "Final",
+		"Version": "4",
+		"revisionhistory": {
+			"revision": {
+				"Number": "4",
+				"Date": "2012-06-19T15:29:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2012-06-19T15:22:00Z",
+		"CurrentReleaseDate": "2012-06-19T15:29:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:32:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated rsyslog packages that fix one security issue, multiple bugs, and\nadd two enhancements are now available for Red Hat Enterprise Linux 6.\n\nThe Red Hat Security Response Team has rated this update as having moderate\nsecurity impact. A Common Vulnerability Scoring System (CVSS) base score,\nwhich gives a detailed severity rating, is available from the CVE link in\nthe References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe rsyslog packages provide an enhanced, multi-threaded syslog daemon.\n\nA numeric truncation error, leading to a heap-based buffer overflow, was\nfound in the way the rsyslog imfile module processed text files containing\nlong lines. An attacker could use this flaw to crash the rsyslogd daemon\nor, possibly, execute arbitrary code with the privileges of rsyslogd, if\nthey are able to cause a long line to be written to a log file that\nrsyslogd monitors with imfile. The imfile module is not enabled by default.\n(CVE-2011-4623)\n\nBug fixes:\n\n* Several variables were incorrectly deinitialized with Transport Layer\nSecurity (TLS) transport and keys in PKCS#8 format. The rsyslogd daemon\naborted with a segmentation fault when keys in this format were provided.\nNow, the variables are correctly deinitialized. (BZ#727380)\n\n* Previously, the imgssapi plug-in initialization was incomplete. As a\nresult, the rsyslogd daemon aborted when configured to provide a GSSAPI\nlistener. Now, the plug-in is correctly initialized. (BZ#756664)\n\n* The fully qualified domain name (FQDN) for the localhost used in messages\nwas the first alias found. This did not always produce the expected result\non multihomed hosts. With this update, the algorithm uses the alias that\ncorresponds to the hostname. (BZ#767527)\n\n* The gtls module leaked a file descriptor every time it was loaded due to\nan error in the GnuTLS library. No new files or network connections could\nbe opened when the limit for the file descriptor count was reached. This\nupdate modifies the gtls module so that it is not unloaded during the\nprocess lifetime. (BZ#803550)\n\n* rsyslog could not override the hostname to set an alternative hostname\nfor locally generated messages. Now, the local hostname can be overridden.\n(BZ#805424)\n\n* The rsyslogd init script did not pass the lock file path to the 'status'\naction. As a result, the lock file was ignored and a wrong exit code was\nreturned. This update modifies the init script to pass the lock file to\nthe 'status' action. Now, the correct exit code is returned. (BZ#807608)\n\n* Data could be incorrectly deinitialized when rsyslogd was supplied with\nmalformed spool files. The rsyslogd daemon could be aborted with a\nsegmentation fault. This update modifies the underlying code to correctly\ndeinitialize the data. (BZ#813079)\n\n* Previously, deinitialization of non-existent data could, in certain error\ncases, occur. As a result, rsyslogd could abort with a segmentation fault\nwhen rsyslog was configured to use a disk assisted queue without specifying\na spool file. With this update, the error cases are handled gracefully.\n(BZ#813084)\n\n* The manual page wrongly stated that the '-d' option to turn on debugging\ncaused the daemon to run in the foreground, which was misleading as the\ncurrent behavior is to run in the background. Now, the manual page reflects\nthe correct behavior. (BZ#820311)\n\n* rsyslog attempted to write debugging messages to standard output even\nwhen run in the background. This resulted in the debugging information\nbeing written to some other output. This was corrected and the debug\nmessages are no longer written to standard output when run in the\nbackground. (BZ#820996)\n\n* The string buffer to hold the distinguished name (DN) of a certificate\nwas too small. DNs with more than 128 characters were not displayed. This\nupdate enlarges the buffer to process longer DNs. (BZ#822118)\n\nEnhancements:\n\n* Support for rate limiting and multi-line message capability. Now,\nrsyslogd can limit the number of messages it accepts through a UNIX socket.\n(BZ#672182)\n\n* The addition of the \"/etc/rsyslog.d/\" configuration directory to supply\nsyslog configuration files. (BZ#740420)\n\nAll users of rsyslog are advised to upgrade to these updated packages,\nwhich upgrade rsyslog to version 5.8.10 and correct these issues and add\nthese enhancements. After installing this update, the rsyslog daemon will\nbe restarted automatically.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2012:0796",
+				"Description": "https://access.redhat.com/errata/RHSA-2012:0796"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "rsyslog: DoS due integer signedness error while extending rsyslog counted string buffer",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2011-02-09T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2011-4623",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:0796"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2011-4623",
+						"Description": "CVE-2011-4623"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=769822",
+						"Description": "bz#769822: CVE-2011-4623 rsyslog: DoS due integer signedness error while extending rsyslog counted string buffer"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2011-12-22T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional:rsyslog-0:5.8.10-2.el6",
+						"6Client:rsyslog-0:5.8.10-2.el6",
+						"6ComputeNode-optional:rsyslog-0:5.8.10-2.el6",
+						"6ComputeNode:rsyslog-0:5.8.10-2.el6",
+						"6Server-optional:rsyslog-0:5.8.10-2.el6",
+						"6Server:rsyslog-0:5.8.10-2.el6",
+						"6Workstation-optional:rsyslog-0:5.8.10-2.el6",
+						"6Workstation:rsyslog-0:5.8.10-2.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.4",
+					"Vector": "AV:A/AC:M/Au:N/C:P/I:P/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 6)",
+							"productid": "6Client",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+							"productid": "6Client-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node (v. 6)",
+							"productid": "6ComputeNode",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+							"productid": "6ComputeNode-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 6)",
+							"productid": "6Server",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional (v. 6)",
+							"productid": "6Server-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 6)",
+							"productid": "6Workstation",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+							"productid": "6Workstation-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "rsyslog-0:5.8.10-2.el6",
+				"fullproductname": {
+					"text": "rsyslog-5.8.10-2.el6.src.rpm",
+					"productid": "rsyslog-0:5.8.10-2.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "rsyslog-0:5.8.10-2.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client",
+				"fullproductname": {
+					"text": "rsyslog-0:5.8.10-2.el6 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"productid": "6Client:rsyslog-0:5.8.10-2.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "rsyslog-0:5.8.10-2.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-optional",
+				"fullproductname": {
+					"text": "rsyslog-0:5.8.10-2.el6 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"productid": "6Client-optional:rsyslog-0:5.8.10-2.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "rsyslog-0:5.8.10-2.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode",
+				"fullproductname": {
+					"text": "rsyslog-0:5.8.10-2.el6 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"productid": "6ComputeNode:rsyslog-0:5.8.10-2.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "rsyslog-0:5.8.10-2.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-optional",
+				"fullproductname": {
+					"text": "rsyslog-0:5.8.10-2.el6 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"productid": "6ComputeNode-optional:rsyslog-0:5.8.10-2.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "rsyslog-0:5.8.10-2.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server",
+				"fullproductname": {
+					"text": "rsyslog-0:5.8.10-2.el6 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"productid": "6Server:rsyslog-0:5.8.10-2.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "rsyslog-0:5.8.10-2.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-optional",
+				"fullproductname": {
+					"text": "rsyslog-0:5.8.10-2.el6 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"productid": "6Server-optional:rsyslog-0:5.8.10-2.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "rsyslog-0:5.8.10-2.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation",
+				"fullproductname": {
+					"text": "rsyslog-0:5.8.10-2.el6 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"productid": "6Workstation:rsyslog-0:5.8.10-2.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			},
+			{
+				"productreference": "rsyslog-0:5.8.10-2.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-optional",
+				"fullproductname": {
+					"text": "rsyslog-0:5.8.10-2.el6 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"productid": "6Workstation-optional:rsyslog-0:5.8.10-2.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			}
+		]
+	}
+}

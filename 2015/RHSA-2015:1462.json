@@ -1,0 +1,366 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: ipa security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2015:1462"
+		},
+		"Status": "Final",
+		"Version": "3",
+		"revisionhistory": {
+			"revision": {
+				"Number": "3",
+				"Date": "2015-07-21T10:14:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2015-07-21T10:14:00Z",
+		"CurrentReleaseDate": "2015-07-21T10:14:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:38:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated ipa packages that fix two security issues and several bugs are now\navailable for Red Hat Enterprise Linux 6.\n\nRed Hat Product Security has rated this update as having Moderate security\nimpact. Common Vulnerability Scoring System (CVSS) base scores, which give\ndetailed severity ratings, are available for each vulnerability from the\nCVE links in the References section.\n\nRed Hat Identity Management (IdM) is a centralized authentication, identity\nmanagement, and authorization solution for both traditional and cloud-based\nenterprise environments.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nTwo cross-site scripting (XSS) flaws were found in jQuery, which impacted\nthe Identity Management web administrative interface, and could allow an\nauthenticated user to inject arbitrary HTML or web script into the\ninterface. (CVE-2010-5312, CVE-2012-6662)\n\nNote: The IdM version provided by this update no longer uses jQuery.\n\nBug fixes:\n\n* The ipa-server-install, ipa-replica-install, and ipa-client-install\nutilities are not supported on machines running in FIPS-140 mode.\nPreviously, IdM did not warn users about this. Now, IdM does not allow\nrunning the utilities in FIPS-140 mode, and displays an explanatory\nmessage. (BZ#1131571)\n\n* If an Active Directory (AD) server was specified or discovered\nautomatically when running the ipa-client-install utility, the utility\nproduced a traceback instead of informing the user that an IdM server is\nexpected in this situation. Now, ipa-client-install detects the AD server\nand fails with an explanatory message. (BZ#1132261)\n\n* When IdM servers were configured to require the TLS protocol version 1.1\n(TLSv1.1) or later in the httpd server, the ipa utility failed. With this\nupdate, running ipa works as expected with TLSv1.1 or later. (BZ#1154687)\n\n* In certain high-load environments, the Kerberos authentication step of\nthe IdM client installer can fail. Previously, the entire client\ninstallation failed in this situation. This update modifies\nipa-client-install to prefer the TCP protocol over the UDP protocol and to\nretry the authentication attempt in case of failure. (BZ#1161722)\n\n* If ipa-client-install updated or created the /etc/nsswitch.conf file, the\nsudo utility could terminate unexpectedly with a segmentation fault. Now,\nipa-client-install puts a new line character at the end of nsswitch.conf if\nit modifies the last line of the file, fixing this bug. (BZ#1185207)\n\n* The ipa-client-automount utility failed with the \"UNWILLING_TO_PERFORM\"\nLDAP error when the nsslapd-minssf Red Hat Directory Server configuration\nparameter was set to \"1\". This update modifies ipa-client-automount to use\nencrypted connection for LDAP searches by default, and the utility now\nfinishes successfully even with nsslapd-minssf specified. (BZ#1191040)\n\n* If installing an IdM server failed after the Certificate Authority (CA)\ninstallation, the \"ipa-server-install --uninstall\" command did not perform\na proper cleanup. After the user issued \"ipa-server-install --uninstall\"\nand then attempted to install the server again, the installation failed.\nNow, \"ipa-server-install --uninstall\" removes the CA-related files in the\ndescribed situation, and ipa-server-install no longer fails with the\nmentioned error message. (BZ#1198160)\n\n* Running ipa-client-install added the \"sss\" entry to the sudoers line in\nnsswitch.conf even if \"sss\" was already configured and the entry was\npresent in the file. Duplicate \"sss\" then caused sudo to become\nunresponsive. Now, ipa-client-install no longer adds \"sss\" if it is already\npresent in nsswitch.conf. (BZ#1198339)\n\n* After running ipa-client-install, it was not possible to log in using SSH\nunder certain circumstances. Now, ipa-client-install no longer corrupts the\nsshd_config file, and the sshd service can start as expected, and logging\nin using SSH works in the described situation. (BZ#1201454)\n\n* An incorrect definition of the dc attribute in the\n/usr/share/ipa/05rfc2247.ldif file caused bogus error messages to be\nreturned during migration. The attribute has been fixed, but the bug\npersists if the copy-schema-to-ca.py script was run on Red Hat Enterprise\nLinux 6.6 prior to running it on Red Hat Enterprise Linux 6.7. To work\naround this problem, manually copy /usr/share/ipa/schema/05rfc2247.ldif to\n/etc/dirsrv/slapd-PKI-IPA/schema/ and restart IdM. (BZ#1220788)\n\nAll ipa users are advised to upgrade to these updated packages, which\ncontain backported patches to correct these issues.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2015:1462",
+				"Description": "https://access.redhat.com/errata/RHSA-2015:1462"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "jquery-ui: XSS vulnerability in jQuery.ui.dialog title option",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2010-09-03T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2010-5312",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1462"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2010-5312",
+						"Description": "CVE-2010-5312"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1166041",
+						"Description": "bz#1166041: CVE-2010-5312 jquery-ui: XSS vulnerability in jQuery.ui.dialog title option"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-11-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional:ipa-0:3.0.0-47.el6",
+						"6Client:ipa-0:3.0.0-47.el6",
+						"6ComputeNode-optional:ipa-0:3.0.0-47.el6",
+						"6ComputeNode:ipa-0:3.0.0-47.el6",
+						"6Server:ipa-0:3.0.0-47.el6",
+						"6Workstation:ipa-0:3.0.0-47.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "jquery-ui: XSS vulnerability in default content in Tooltip widget",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-11-27T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-6662",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1462"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-6662",
+						"Description": "CVE-2012-6662"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1166064",
+						"Description": "bz#1166064: CVE-2012-6662 jquery-ui: XSS vulnerability in default content in Tooltip widget"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-11-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional:ipa-0:3.0.0-47.el6",
+						"6Client:ipa-0:3.0.0-47.el6",
+						"6ComputeNode-optional:ipa-0:3.0.0-47.el6",
+						"6ComputeNode:ipa-0:3.0.0-47.el6",
+						"6Server:ipa-0:3.0.0-47.el6",
+						"6Workstation:ipa-0:3.0.0-47.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:P/A:N"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 6)",
+							"productid": "6Client",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+							"productid": "6Client-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node (v. 6)",
+							"productid": "6ComputeNode",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+							"productid": "6ComputeNode-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 6)",
+							"productid": "6Server",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 6)",
+							"productid": "6Workstation",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "ipa-0:3.0.0-47.el6",
+				"fullproductname": {
+					"text": "ipa-3.0.0-47.el6.src.rpm",
+					"productid": "ipa-0:3.0.0-47.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "ipa-0:3.0.0-47.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client",
+				"fullproductname": {
+					"text": "ipa-0:3.0.0-47.el6 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"productid": "6Client:ipa-0:3.0.0-47.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "ipa-0:3.0.0-47.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-optional",
+				"fullproductname": {
+					"text": "ipa-0:3.0.0-47.el6 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"productid": "6Client-optional:ipa-0:3.0.0-47.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "ipa-0:3.0.0-47.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode",
+				"fullproductname": {
+					"text": "ipa-0:3.0.0-47.el6 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"productid": "6ComputeNode:ipa-0:3.0.0-47.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "ipa-0:3.0.0-47.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-optional",
+				"fullproductname": {
+					"text": "ipa-0:3.0.0-47.el6 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"productid": "6ComputeNode-optional:ipa-0:3.0.0-47.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "ipa-0:3.0.0-47.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server",
+				"fullproductname": {
+					"text": "ipa-0:3.0.0-47.el6 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"productid": "6Server:ipa-0:3.0.0-47.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "ipa-0:3.0.0-47.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation",
+				"fullproductname": {
+					"text": "ipa-0:3.0.0-47.el6 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"productid": "6Workstation:ipa-0:3.0.0-47.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			}
+		]
+	}
+}

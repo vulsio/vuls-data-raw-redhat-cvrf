@@ -1,0 +1,217 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: kvm security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2011:0028"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2011-01-13T06:03:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2011-01-13T10:59:00Z",
+		"CurrentReleaseDate": "2011-01-13T06:03:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:37:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated kvm packages that fix one security issue and several bugs are now\navailable for Red Hat Enterprise Linux 5.\n\nThe Red Hat Security Response Team has rated this update as having low\nsecurity impact. A Common Vulnerability Scoring System (CVSS) base score,\nwhich gives a detailed severity rating, is available from the CVE link in\nthe References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nKVM (Kernel-based Virtual Machine) is a full virtualization solution for\nLinux on AMD64 and Intel 64 systems. KVM is a Linux kernel module built for\nthe standard Red Hat Enterprise Linux kernel.\n\nA data structure field in kvm_vcpu_ioctl_x86_get_vcpu_events() in QEMU-KVM\nwas not initialized properly before being copied to user-space. A\nprivileged host user with access to \"/dev/kvm\" could use this flaw to leak\nkernel stack memory to user-space. (CVE-2010-4525)\n\nRed Hat would like to thank Stephan Mueller of atsec information security\nfor reporting this issue.\n\nThese updated packages also fix several bugs. Documentation for these bug\nfixes will be available shortly in the \"kvm\" section of the Red Hat\nEnterprise Linux 5.6 Technical Notes, linked to in the References.\n\nAll KVM users should upgrade to these updated packages, which resolve this\nissue as well as fixing the bugs noted in the Technical Notes. Note: The\nprocedure in the Solution section must be performed before this update will\ntake effect.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Low",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2011:0028",
+				"Description": "https://access.redhat.com/errata/RHSA-2011:0028"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#low",
+				"Description": "https://access.redhat.com/security/updates/classification/#low"
+			},
+			{
+				"type": "External",
+				"URL": "http://docs.redhat.com/docs/en-US/Red_Hat_Enterprise_Linux/5/html/5.6_Technical_Notes/index.html",
+				"Description": "http://docs.redhat.com/docs/en-US/Red_Hat_Enterprise_Linux/5/html/5.6_Technical_Notes/index.html"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kvm: x86: zero kvm_vcpu_events->interrupt.pad infoleak",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2011-01-05T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2010-4525",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n\nThe following procedure must be performed before this update will take\neffect:\n\n1) Stop all KVM guest virtual machines.\n\n2) Either reboot the hypervisor machine or, as the root user, remove (using\n\"modprobe -r [module]\") and reload (using \"modprobe [module]\") all of the\nfollowing modules which are currently running (determined using \"lsmod\"):\nkvm, ksm, kvm-intel or kvm-amd.\n\n3) Restart the KVM guest virtual machines.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2011:0028"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2010-4525",
+						"Description": "CVE-2010-4525"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=665470",
+						"Description": "bz#665470: CVE-2010-4525 kvm: x86: zero kvm_vcpu_events->interrupt.pad infoleak"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2010-12-24T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-VT:kvm-0:83-224.el5",
+						"5Server-VT:kvm-0:83-224.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "1.9",
+					"Vector": "AV:L/AC:M/Au:N/C:P/I:N/A:N"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop Multi OS (v. 5 client)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop Multi OS (v. 5 client)",
+							"productid": "5Client-VT",
+							"cpe": "cpe:/a:redhat:rhel_virtualization:5::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Virtualization (v. 5 server)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Virtualization (v. 5 server)",
+							"productid": "5Server-VT",
+							"cpe": "cpe:/a:redhat:rhel_virtualization:5::server"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kvm-0:83-224.el5",
+				"fullproductname": {
+					"text": "kvm-83-224.el5.src.rpm",
+					"productid": "kvm-0:83-224.el5",
+					"cpe": "cpe:/a:redhat:rhel_virtualization:5::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "kvm-0:83-224.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Client-VT",
+				"fullproductname": {
+					"text": "kvm-0:83-224.el5 as a component of Red Hat Enterprise Linux Desktop Multi OS (v. 5 client)",
+					"productid": "5Client-VT:kvm-0:83-224.el5",
+					"cpe": "cpe:/a:redhat:rhel_virtualization:5::client"
+				}
+			},
+			{
+				"productreference": "kvm-0:83-224.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-VT",
+				"fullproductname": {
+					"text": "kvm-0:83-224.el5 as a component of Red Hat Enterprise Linux Virtualization (v. 5 server)",
+					"productid": "5Server-VT:kvm-0:83-224.el5",
+					"cpe": "cpe:/a:redhat:rhel_virtualization:5::server"
+				}
+			}
+		]
+	}
+}

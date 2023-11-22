@@ -1,0 +1,392 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: nss, nss-util, and nspr security, bug fix, and enhancement update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2012:0973"
+		},
+		"Status": "Final",
+		"Version": "4",
+		"revisionhistory": {
+			"revision": {
+				"Number": "4",
+				"Date": "2012-06-19T15:28:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2012-06-19T15:23:00Z",
+		"CurrentReleaseDate": "2012-06-19T15:28:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:32:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated nss, nss-util, and nspr packages that fix one security issue,\nseveral bugs, and add various enhancements are now available for Red Hat\nEnterprise Linux 6.\n\nThe Red Hat Security Response Team has rated this update as having moderate\nsecurity impact.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nNetwork Security Services (NSS) is a set of libraries designed to support\nthe cross-platform development of security-enabled client and server\napplications. Netscape Portable Runtime (NSPR) provides platform\nindependence for non-GUI operating system facilities.\n\nIt was found that a Certificate Authority (CA) issued a subordinate CA\ncertificate to its customer, that could be used to issue certificates for\nany name. This update renders the subordinate CA certificate as untrusted.\n(BZ#798533)\n\nNote: This fix only applies to applications using the NSS Builtin Object\nToken. It does not render the certificates untrusted for applications that\nuse the NSS library, but do not use the NSS Builtin Object Token.\n\nThe nspr package has been upgraded to upstream version 4.9, which provides\na number of bug fixes and enhancements over the previous version.\n(BZ#799193)\n\nThe nss-util package has been upgraded to upstream version 3.13.3, which\nprovides a number of bug fixes and enhancements over the previous version.\n(BZ#799192)\n\nThe nss package has been upgraded to upstream version 3.13.3, which\nprovides numerous bug fixes and enhancements over the previous version. In\nparticular, SSL 2.0 is now disabled by default, support for SHA-224 has\nbeen added, PORT_ErrorToString and PORT_ErrorToName now return the error\nmessage and symbolic name of an NSS error code, and NSS_GetVersion now\nreturns the NSS version string. (BZ#744070)\n\nThese updated nss, nss-util, and nspr packages also provide fixes for the\nfollowing bugs:\n\n* A PEM module internal function did not clean up memory when detecting a\nnon-existent file name. Consequently, memory leaks in client code occurred.\nThe code has been improved to deallocate such temporary objects and as a\nresult the reported memory leakage is gone. (BZ#746632)\n\n* Recent changes to NSS re-introduced a problem where applications could\nnot use multiple SSL client certificates in the same process. Therefore,\nany attempt to run commands that worked with multiple SSL client\ncertificates, such as the \"yum repolist\" command, resulted in a\nre-negotiation handshake failure. With this update, a revised patch\ncorrecting this problem has been applied to NSS, and using multiple SSL\nclient certificates in the same process is now possible again. (BZ#761086)\n\n* The PEM module did not fully initialize newly constructed objects with\nfunction pointers set to NULL. Consequently, a segmentation violation in\nlibcurl was sometimes experienced while accessing a package repository.\nWith this update, the code has been changed to fully initialize newly\nallocated objects. As a result, updates can now be installed without\nproblems. (BZ#768669)\n\n* A lack-of-robustness flaw caused the administration server for Red Hat\nDirectory Server to terminate unexpectedly because the mod_nss module made\nnss calls before initializing nss as per the documented API. With this\nupdate, nss protects itself against being called before it has been\nproperly initialized by the caller. (BZ#784674)\n\n* Compilation errors occurred with some compilers when compiling code\nagainst NSS 3.13.1. The following error message was displayed:\n\npkcs11n.h:365:26: warning: \"__GNUC_MINOR\" is not defined\n\nAn upstream patch has been applied to improve the code and the problem no\nlonger occurs. (BZ#795693)\n\n* Unexpected terminations were reported in the messaging daemon (qpidd)\nincluded in Red Hat Enterprise MRG after a recent update to nss. This\noccurred because qpidd made nss calls before initializing nss. These\nupdated packages prevent qpidd and other affected processes that call nss\nwithout initializing as mandated by the API from crashing. (BZ#797426)\n\nUsers of NSS, NSPR, and nss-util are advised to upgrade to these updated\npackages, which fix these issues and add these enhancements. After\ninstalling this update, applications using NSS, NSPR, or nss-util must be\nrestarted for this update to take effect.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2012:0973",
+				"Description": "https://access.redhat.com/errata/RHSA-2012:0973"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 6)",
+							"productid": "6Client",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+							"productid": "6Client-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node (v. 6)",
+							"productid": "6ComputeNode",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+							"productid": "6ComputeNode-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 6)",
+							"productid": "6Server",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional (v. 6)",
+							"productid": "6Server-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 6)",
+							"productid": "6Workstation",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+							"productid": "6Workstation-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "nspr-0:4.9-1.el6",
+				"fullproductname": {
+					"text": "nspr-4.9-1.el6.src.rpm",
+					"productid": "nspr-0:4.9-1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "nss-0:3.13.3-6.el6",
+				"fullproductname": {
+					"text": "nss-3.13.3-6.el6.src.rpm",
+					"productid": "nss-0:3.13.3-6.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "nss-util-0:3.13.3-2.el6",
+				"fullproductname": {
+					"text": "nss-util-3.13.3-2.el6.src.rpm",
+					"productid": "nss-util-0:3.13.3-2.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "nspr-0:4.9-1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client",
+				"fullproductname": {
+					"text": "nspr-0:4.9-1.el6 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"productid": "6Client:nspr-0:4.9-1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "nss-0:3.13.3-6.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client",
+				"fullproductname": {
+					"text": "nss-0:3.13.3-6.el6 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"productid": "6Client:nss-0:3.13.3-6.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "nss-util-0:3.13.3-2.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client",
+				"fullproductname": {
+					"text": "nss-util-0:3.13.3-2.el6 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"productid": "6Client:nss-util-0:3.13.3-2.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "nspr-0:4.9-1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-optional",
+				"fullproductname": {
+					"text": "nspr-0:4.9-1.el6 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"productid": "6Client-optional:nspr-0:4.9-1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "nss-0:3.13.3-6.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-optional",
+				"fullproductname": {
+					"text": "nss-0:3.13.3-6.el6 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"productid": "6Client-optional:nss-0:3.13.3-6.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "nss-util-0:3.13.3-2.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-optional",
+				"fullproductname": {
+					"text": "nss-util-0:3.13.3-2.el6 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"productid": "6Client-optional:nss-util-0:3.13.3-2.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "nspr-0:4.9-1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode",
+				"fullproductname": {
+					"text": "nspr-0:4.9-1.el6 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"productid": "6ComputeNode:nspr-0:4.9-1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "nss-0:3.13.3-6.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode",
+				"fullproductname": {
+					"text": "nss-0:3.13.3-6.el6 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"productid": "6ComputeNode:nss-0:3.13.3-6.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "nss-util-0:3.13.3-2.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode",
+				"fullproductname": {
+					"text": "nss-util-0:3.13.3-2.el6 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"productid": "6ComputeNode:nss-util-0:3.13.3-2.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "nspr-0:4.9-1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-optional",
+				"fullproductname": {
+					"text": "nspr-0:4.9-1.el6 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"productid": "6ComputeNode-optional:nspr-0:4.9-1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "nss-0:3.13.3-6.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-optional",
+				"fullproductname": {
+					"text": "nss-0:3.13.3-6.el6 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"productid": "6ComputeNode-optional:nss-0:3.13.3-6.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "nss-util-0:3.13.3-2.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-optional",
+				"fullproductname": {
+					"text": "nss-util-0:3.13.3-2.el6 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"productid": "6ComputeNode-optional:nss-util-0:3.13.3-2.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "nspr-0:4.9-1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server",
+				"fullproductname": {
+					"text": "nspr-0:4.9-1.el6 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"productid": "6Server:nspr-0:4.9-1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "nss-0:3.13.3-6.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server",
+				"fullproductname": {
+					"text": "nss-0:3.13.3-6.el6 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"productid": "6Server:nss-0:3.13.3-6.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "nss-util-0:3.13.3-2.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server",
+				"fullproductname": {
+					"text": "nss-util-0:3.13.3-2.el6 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"productid": "6Server:nss-util-0:3.13.3-2.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "nss-0:3.13.3-6.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-optional",
+				"fullproductname": {
+					"text": "nss-0:3.13.3-6.el6 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"productid": "6Server-optional:nss-0:3.13.3-6.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "nspr-0:4.9-1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation",
+				"fullproductname": {
+					"text": "nspr-0:4.9-1.el6 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"productid": "6Workstation:nspr-0:4.9-1.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			},
+			{
+				"productreference": "nss-0:3.13.3-6.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation",
+				"fullproductname": {
+					"text": "nss-0:3.13.3-6.el6 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"productid": "6Workstation:nss-0:3.13.3-6.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			},
+			{
+				"productreference": "nss-util-0:3.13.3-2.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation",
+				"fullproductname": {
+					"text": "nss-util-0:3.13.3-2.el6 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"productid": "6Workstation:nss-util-0:3.13.3-2.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			},
+			{
+				"productreference": "nss-0:3.13.3-6.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-optional",
+				"fullproductname": {
+					"text": "nss-0:3.13.3-6.el6 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"productid": "6Workstation-optional:nss-0:3.13.3-6.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			}
+		]
+	}
+}

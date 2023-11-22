@@ -1,0 +1,731 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: Satellite 6.1.7 security, bug and enhancement fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2016:0174"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2016-02-15T15:50:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2016-02-15T15:50:00Z",
+		"CurrentReleaseDate": "2016-02-15T15:50:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:42:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated Satellite 6.1 packages that fix one security issue, add one\nenhancement, and fix several bugs are available for Satellite 6.1.7.\n\nRed Hat Product Security has rated this update as having Moderate\nSecurity impact. Common Vulnerability Scoring System (CVSS) base \nscores, which give detailed severity ratings, are available for each \nvulnerability from the CVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nRed Hat Satellite is a system management solution that allows\norganizations to configure and maintain their systems without the\nnecessity to provide public Internet access to their servers or \nother client systems. It performs provisioning and configuration \nmanagement of predefined standard operating environments.\n\nA stored cross-site scripting (XSS) flaw was found in the smart \nclass parameters/variables field. By sending a specially crafted \nrequest to Satellite, a remote, authenticated attacker could embed \nHTML content into the stored data, allowing them to inject malicious \ncontent into the web page that is used to view that data. \n(CVE-2015-7518)\n\nThis update also fixes the following bugs:\n\n* New subscription rules for developer subscriptions caused manifest \nimports into Satellite to fail. The subscription engine has been \nupdated to handle these new subscription rules correctly. \n(BZ#1301812)\n\n* A heavy load on content synchronization caused tasks to appear as \nif they had not stopped. The content engine has been updated to \nhandle these messages with varying amounts of load. (BZ#1300811)\n\n* Deleted directories in the /var/lib/pulp/ directory caused errors \nrelated to \"missing symlinks\" during content synchronization. The \ncode has been updated to notice deleted directories, and recreate \nthem as necessary. (BZ#1288855, BZ#1276911)\n\n* The networking API returned a JSON output which did not contain \nthe identifier of the interface. This data is critical for \nscripting, and has been added to the API response. (BZ#1282539)\n\n* When provisioning against Red Hat Enterprise Virtualization \n(RHEV), the operating system information was not passed, causing \nprovisioning to fail. The interface to RHEV has been updated to \nresolve this bug. (BZ#1279631)\n\n* Incremental updates initiated from the command line were failing \nwith an \"ID not found\" error. The command line interface has been \npatched to provide the correct ID, thus fixing this bug. \n(BZ#1259057)\n\n* Satellite used a large number of inodes when publishing a content. \nThe internal file handling has been improved to reduce the number of \nsymlinks and inodes required. (BZ#1244130)\n\n* Provisioning on VMWare with multiple NICs was not handling labels \ncorrectly. The interface to VMWare has been improved to handle this \nsituation correctly. (BZ#1197156)\n\n* Previously, failed synchronization tasks on a Capsule which were \nnot reported correctly, and appeared as successful in the web UI. \nThe error handing logic has been improved to display the true state \nof the task. (BZ#1215838)\n\n* Satellite synchronized duplicate packages with the same epoch, \nname, version, release, and architecture (ENVRA), but which were \nsigned by different checksums. This caused issues for clients \nattempting to install from the repository. The code was updated to \nrespect the primary metadata, and only download a single package. \n(BZ#1132659)\n\nUsers of Red Hat Satellite are advised to upgrade to these updated \npackages, which contain backported patches to correct these issues \nand add this enhancement.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2016:0174",
+				"Description": "https://access.redhat.com/errata/RHSA-2016:0174"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "foreman: Stored XSS vulnerability in smart class parameters/variables",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-11-26T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-7518",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released\nerrata relevant to your system have been applied.\n\nTo update this system to include these fixes, ensure your system has \naccess to the latest Red Hat packages.  For instructions on how to \napply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThen re-run the installer to complete the upgrade:\n\n# katello-installer --upgrade\n\nor\n\n# capsule-installer --upgrade\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2016:0174"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-7518",
+						"Description": "CVE-2015-7518"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1285728",
+						"Description": "bz#1285728: CVE-2015-7518 foreman: Stored XSS vulnerability in smart class parameters/variables"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-11-26T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-Capsule61:foreman-0:1.7.2.53-1.el6_6sat",
+						"6Server-Capsule61:katello-installer-base-0:2.3.25-1.el6",
+						"6Server-Capsule61:pulp-0:2.6.0.20-1.el6",
+						"6Server-Capsule61:pulp-puppet-0:2.6.0.20-1.el6",
+						"6Server-Capsule61:pulp-rpm-0:2.6.0.20-1.el6",
+						"6Server-Capsule61:python-kombu-1:3.0.24-11.pulp.el6",
+						"6Server-Satellite61:candlepin-0:0.9.49.11-1.el6",
+						"6Server-Satellite61:foreman-0:1.7.2.53-1.el6_6sat",
+						"6Server-Satellite61:katello-installer-base-0:2.3.25-1.el6",
+						"6Server-Satellite61:pulp-0:2.6.0.20-1.el6",
+						"6Server-Satellite61:pulp-puppet-0:2.6.0.20-1.el6",
+						"6Server-Satellite61:pulp-rpm-0:2.6.0.20-1.el6",
+						"6Server-Satellite61:python-kombu-1:3.0.24-11.pulp.el6",
+						"6Server-Satellite61:ruby193-rubygem-fog-0:1.24.1-1.el6_6sat",
+						"6Server-Satellite61:ruby193-rubygem-katello-0:2.2.0.83-1.el6_6sat",
+						"6Server-Satellite61:rubygem-hammer_cli_katello-0:0.0.7.21-1.el6",
+						"7Server-Capsule61:foreman-0:1.7.2.53-1.el7sat",
+						"7Server-Capsule61:katello-installer-base-0:2.3.25-1.el7sat",
+						"7Server-Capsule61:pulp-0:2.6.0.20-1.el7sat",
+						"7Server-Capsule61:pulp-puppet-0:2.6.0.20-1.el7sat",
+						"7Server-Capsule61:pulp-rpm-0:2.6.0.20-1.el7sat",
+						"7Server-Capsule61:python-kombu-1:3.0.24-11.pulp.el7sat",
+						"7Server-Satellite61:candlepin-0:0.9.49.11-1.el7",
+						"7Server-Satellite61:foreman-0:1.7.2.53-1.el7sat",
+						"7Server-Satellite61:katello-installer-base-0:2.3.25-1.el7sat",
+						"7Server-Satellite61:pulp-0:2.6.0.20-1.el7sat",
+						"7Server-Satellite61:pulp-puppet-0:2.6.0.20-1.el7sat",
+						"7Server-Satellite61:pulp-rpm-0:2.6.0.20-1.el7sat",
+						"7Server-Satellite61:python-kombu-1:3.0.24-11.pulp.el7sat",
+						"7Server-Satellite61:ruby193-rubygem-fog-0:1.24.1-1.el7sat",
+						"7Server-Satellite61:ruby193-rubygem-katello-0:2.2.0.83-1.el7sat",
+						"7Server-Satellite61:rubygem-hammer_cli_katello-0:0.0.7.21-1.el7sat"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "3.5",
+					"Vector": "AV:N/AC:M/Au:S/C:N/I:P/A:N"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Satellite 6",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Satellite Capsule 6.1",
+						"fullproductname": {
+							"text": "Red Hat Satellite Capsule 6.1",
+							"productid": "6Server-Capsule61",
+							"cpe": "cpe:/a:redhat:satellite_capsule:6.1::el6"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Satellite 6.1",
+						"fullproductname": {
+							"text": "Red Hat Satellite 6.1",
+							"productid": "6Server-Satellite61",
+							"cpe": "cpe:/a:redhat:satellite:6.1::el6"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Satellite Capsule 6.1",
+						"fullproductname": {
+							"text": "Red Hat Satellite Capsule 6.1",
+							"productid": "7Server-Capsule61",
+							"cpe": "cpe:/a:redhat:satellite_capsule:6.1::el7"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Satellite 6.1",
+						"fullproductname": {
+							"text": "Red Hat Satellite 6.1",
+							"productid": "7Server-Satellite61",
+							"cpe": "cpe:/a:redhat:satellite:6.1::el7"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "candlepin-0:0.9.49.11-1.el6",
+				"fullproductname": {
+					"text": "candlepin-0.9.49.11-1.el6.src.rpm",
+					"productid": "candlepin-0:0.9.49.11-1.el6",
+					"cpe": "cpe:/a:redhat:satellite:6.1::el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "candlepin-0:0.9.49.11-1.el7",
+				"fullproductname": {
+					"text": "candlepin-0.9.49.11-1.el7.src.rpm",
+					"productid": "candlepin-0:0.9.49.11-1.el7",
+					"cpe": "cpe:/a:redhat:satellite:6.1::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "foreman-0:1.7.2.53-1.el6_6sat",
+				"fullproductname": {
+					"text": "foreman-1.7.2.53-1.el6_6sat.src.rpm",
+					"productid": "foreman-0:1.7.2.53-1.el6_6sat",
+					"cpe": "cpe:/a:redhat:satellite:6.1::el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "foreman-0:1.7.2.53-1.el7sat",
+				"fullproductname": {
+					"text": "foreman-1.7.2.53-1.el7sat.src.rpm",
+					"productid": "foreman-0:1.7.2.53-1.el7sat",
+					"cpe": "cpe:/a:redhat:satellite:6.1::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "katello-installer-base-0:2.3.25-1.el6",
+				"fullproductname": {
+					"text": "katello-installer-base-2.3.25-1.el6.src.rpm",
+					"productid": "katello-installer-base-0:2.3.25-1.el6",
+					"cpe": "cpe:/a:redhat:satellite:6.1::el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "katello-installer-base-0:2.3.25-1.el7sat",
+				"fullproductname": {
+					"text": "katello-installer-base-2.3.25-1.el7sat.src.rpm",
+					"productid": "katello-installer-base-0:2.3.25-1.el7sat",
+					"cpe": "cpe:/a:redhat:satellite:6.1::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pulp-0:2.6.0.20-1.el6",
+				"fullproductname": {
+					"text": "pulp-2.6.0.20-1.el6.src.rpm",
+					"productid": "pulp-0:2.6.0.20-1.el6",
+					"cpe": "cpe:/a:redhat:satellite:6.1::el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pulp-0:2.6.0.20-1.el7sat",
+				"fullproductname": {
+					"text": "pulp-2.6.0.20-1.el7sat.src.rpm",
+					"productid": "pulp-0:2.6.0.20-1.el7sat",
+					"cpe": "cpe:/a:redhat:satellite:6.1::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pulp-puppet-0:2.6.0.20-1.el6",
+				"fullproductname": {
+					"text": "pulp-puppet-2.6.0.20-1.el6.src.rpm",
+					"productid": "pulp-puppet-0:2.6.0.20-1.el6",
+					"cpe": "cpe:/a:redhat:satellite:6.1::el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pulp-puppet-0:2.6.0.20-1.el7sat",
+				"fullproductname": {
+					"text": "pulp-puppet-2.6.0.20-1.el7sat.src.rpm",
+					"productid": "pulp-puppet-0:2.6.0.20-1.el7sat",
+					"cpe": "cpe:/a:redhat:satellite:6.1::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pulp-rpm-0:2.6.0.20-1.el6",
+				"fullproductname": {
+					"text": "pulp-rpm-2.6.0.20-1.el6.src.rpm",
+					"productid": "pulp-rpm-0:2.6.0.20-1.el6",
+					"cpe": "cpe:/a:redhat:satellite:6.1::el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pulp-rpm-0:2.6.0.20-1.el7sat",
+				"fullproductname": {
+					"text": "pulp-rpm-2.6.0.20-1.el7sat.src.rpm",
+					"productid": "pulp-rpm-0:2.6.0.20-1.el7sat",
+					"cpe": "cpe:/a:redhat:satellite:6.1::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-kombu-1:3.0.24-11.pulp.el6",
+				"fullproductname": {
+					"text": "python-kombu-3.0.24-11.pulp.el6.src.rpm",
+					"productid": "python-kombu-1:3.0.24-11.pulp.el6",
+					"cpe": "cpe:/a:redhat:satellite:6.1::el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-kombu-1:3.0.24-11.pulp.el7sat",
+				"fullproductname": {
+					"text": "python-kombu-3.0.24-11.pulp.el7sat.src.rpm",
+					"productid": "python-kombu-1:3.0.24-11.pulp.el7sat",
+					"cpe": "cpe:/a:redhat:satellite:6.1::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ruby193-rubygem-fog-0:1.24.1-1.el6_6sat",
+				"fullproductname": {
+					"text": "ruby193-rubygem-fog-1.24.1-1.el6_6sat.src.rpm",
+					"productid": "ruby193-rubygem-fog-0:1.24.1-1.el6_6sat",
+					"cpe": "cpe:/a:redhat:satellite:6.1::el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ruby193-rubygem-fog-0:1.24.1-1.el7sat",
+				"fullproductname": {
+					"text": "ruby193-rubygem-fog-1.24.1-1.el7sat.src.rpm",
+					"productid": "ruby193-rubygem-fog-0:1.24.1-1.el7sat",
+					"cpe": "cpe:/a:redhat:satellite:6.1::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ruby193-rubygem-katello-0:2.2.0.83-1.el6_6sat",
+				"fullproductname": {
+					"text": "ruby193-rubygem-katello-2.2.0.83-1.el6_6sat.src.rpm",
+					"productid": "ruby193-rubygem-katello-0:2.2.0.83-1.el6_6sat",
+					"cpe": "cpe:/a:redhat:satellite:6.1::el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ruby193-rubygem-katello-0:2.2.0.83-1.el7sat",
+				"fullproductname": {
+					"text": "ruby193-rubygem-katello-2.2.0.83-1.el7sat.src.rpm",
+					"productid": "ruby193-rubygem-katello-0:2.2.0.83-1.el7sat",
+					"cpe": "cpe:/a:redhat:satellite:6.1::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-hammer_cli_katello-0:0.0.7.21-1.el6",
+				"fullproductname": {
+					"text": "rubygem-hammer_cli_katello-0.0.7.21-1.el6.src.rpm",
+					"productid": "rubygem-hammer_cli_katello-0:0.0.7.21-1.el6",
+					"cpe": "cpe:/a:redhat:satellite:6.1::el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-hammer_cli_katello-0:0.0.7.21-1.el7sat",
+				"fullproductname": {
+					"text": "rubygem-hammer_cli_katello-0.0.7.21-1.el7sat.src.rpm",
+					"productid": "rubygem-hammer_cli_katello-0:0.0.7.21-1.el7sat",
+					"cpe": "cpe:/a:redhat:satellite:6.1::el7"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "foreman-0:1.7.2.53-1.el6_6sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-Capsule61",
+				"fullproductname": {
+					"text": "foreman-0:1.7.2.53-1.el6_6sat as a component of Red Hat Satellite Capsule 6.1",
+					"productid": "6Server-Capsule61:foreman-0:1.7.2.53-1.el6_6sat",
+					"cpe": "cpe:/a:redhat:satellite_capsule:6.1::el6"
+				}
+			},
+			{
+				"productreference": "katello-installer-base-0:2.3.25-1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-Capsule61",
+				"fullproductname": {
+					"text": "katello-installer-base-0:2.3.25-1.el6 as a component of Red Hat Satellite Capsule 6.1",
+					"productid": "6Server-Capsule61:katello-installer-base-0:2.3.25-1.el6",
+					"cpe": "cpe:/a:redhat:satellite_capsule:6.1::el6"
+				}
+			},
+			{
+				"productreference": "pulp-0:2.6.0.20-1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-Capsule61",
+				"fullproductname": {
+					"text": "pulp-0:2.6.0.20-1.el6 as a component of Red Hat Satellite Capsule 6.1",
+					"productid": "6Server-Capsule61:pulp-0:2.6.0.20-1.el6",
+					"cpe": "cpe:/a:redhat:satellite_capsule:6.1::el6"
+				}
+			},
+			{
+				"productreference": "pulp-puppet-0:2.6.0.20-1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-Capsule61",
+				"fullproductname": {
+					"text": "pulp-puppet-0:2.6.0.20-1.el6 as a component of Red Hat Satellite Capsule 6.1",
+					"productid": "6Server-Capsule61:pulp-puppet-0:2.6.0.20-1.el6",
+					"cpe": "cpe:/a:redhat:satellite_capsule:6.1::el6"
+				}
+			},
+			{
+				"productreference": "pulp-rpm-0:2.6.0.20-1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-Capsule61",
+				"fullproductname": {
+					"text": "pulp-rpm-0:2.6.0.20-1.el6 as a component of Red Hat Satellite Capsule 6.1",
+					"productid": "6Server-Capsule61:pulp-rpm-0:2.6.0.20-1.el6",
+					"cpe": "cpe:/a:redhat:satellite_capsule:6.1::el6"
+				}
+			},
+			{
+				"productreference": "python-kombu-1:3.0.24-11.pulp.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-Capsule61",
+				"fullproductname": {
+					"text": "python-kombu-1:3.0.24-11.pulp.el6 as a component of Red Hat Satellite Capsule 6.1",
+					"productid": "6Server-Capsule61:python-kombu-1:3.0.24-11.pulp.el6",
+					"cpe": "cpe:/a:redhat:satellite_capsule:6.1::el6"
+				}
+			},
+			{
+				"productreference": "candlepin-0:0.9.49.11-1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-Satellite61",
+				"fullproductname": {
+					"text": "candlepin-0:0.9.49.11-1.el6 as a component of Red Hat Satellite 6.1",
+					"productid": "6Server-Satellite61:candlepin-0:0.9.49.11-1.el6",
+					"cpe": "cpe:/a:redhat:satellite:6.1::el6"
+				}
+			},
+			{
+				"productreference": "foreman-0:1.7.2.53-1.el6_6sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-Satellite61",
+				"fullproductname": {
+					"text": "foreman-0:1.7.2.53-1.el6_6sat as a component of Red Hat Satellite 6.1",
+					"productid": "6Server-Satellite61:foreman-0:1.7.2.53-1.el6_6sat",
+					"cpe": "cpe:/a:redhat:satellite:6.1::el6"
+				}
+			},
+			{
+				"productreference": "katello-installer-base-0:2.3.25-1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-Satellite61",
+				"fullproductname": {
+					"text": "katello-installer-base-0:2.3.25-1.el6 as a component of Red Hat Satellite 6.1",
+					"productid": "6Server-Satellite61:katello-installer-base-0:2.3.25-1.el6",
+					"cpe": "cpe:/a:redhat:satellite:6.1::el6"
+				}
+			},
+			{
+				"productreference": "pulp-0:2.6.0.20-1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-Satellite61",
+				"fullproductname": {
+					"text": "pulp-0:2.6.0.20-1.el6 as a component of Red Hat Satellite 6.1",
+					"productid": "6Server-Satellite61:pulp-0:2.6.0.20-1.el6",
+					"cpe": "cpe:/a:redhat:satellite:6.1::el6"
+				}
+			},
+			{
+				"productreference": "pulp-puppet-0:2.6.0.20-1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-Satellite61",
+				"fullproductname": {
+					"text": "pulp-puppet-0:2.6.0.20-1.el6 as a component of Red Hat Satellite 6.1",
+					"productid": "6Server-Satellite61:pulp-puppet-0:2.6.0.20-1.el6",
+					"cpe": "cpe:/a:redhat:satellite:6.1::el6"
+				}
+			},
+			{
+				"productreference": "pulp-rpm-0:2.6.0.20-1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-Satellite61",
+				"fullproductname": {
+					"text": "pulp-rpm-0:2.6.0.20-1.el6 as a component of Red Hat Satellite 6.1",
+					"productid": "6Server-Satellite61:pulp-rpm-0:2.6.0.20-1.el6",
+					"cpe": "cpe:/a:redhat:satellite:6.1::el6"
+				}
+			},
+			{
+				"productreference": "python-kombu-1:3.0.24-11.pulp.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-Satellite61",
+				"fullproductname": {
+					"text": "python-kombu-1:3.0.24-11.pulp.el6 as a component of Red Hat Satellite 6.1",
+					"productid": "6Server-Satellite61:python-kombu-1:3.0.24-11.pulp.el6",
+					"cpe": "cpe:/a:redhat:satellite:6.1::el6"
+				}
+			},
+			{
+				"productreference": "ruby193-rubygem-fog-0:1.24.1-1.el6_6sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-Satellite61",
+				"fullproductname": {
+					"text": "ruby193-rubygem-fog-0:1.24.1-1.el6_6sat as a component of Red Hat Satellite 6.1",
+					"productid": "6Server-Satellite61:ruby193-rubygem-fog-0:1.24.1-1.el6_6sat",
+					"cpe": "cpe:/a:redhat:satellite:6.1::el6"
+				}
+			},
+			{
+				"productreference": "ruby193-rubygem-katello-0:2.2.0.83-1.el6_6sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-Satellite61",
+				"fullproductname": {
+					"text": "ruby193-rubygem-katello-0:2.2.0.83-1.el6_6sat as a component of Red Hat Satellite 6.1",
+					"productid": "6Server-Satellite61:ruby193-rubygem-katello-0:2.2.0.83-1.el6_6sat",
+					"cpe": "cpe:/a:redhat:satellite:6.1::el6"
+				}
+			},
+			{
+				"productreference": "rubygem-hammer_cli_katello-0:0.0.7.21-1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-Satellite61",
+				"fullproductname": {
+					"text": "rubygem-hammer_cli_katello-0:0.0.7.21-1.el6 as a component of Red Hat Satellite 6.1",
+					"productid": "6Server-Satellite61:rubygem-hammer_cli_katello-0:0.0.7.21-1.el6",
+					"cpe": "cpe:/a:redhat:satellite:6.1::el6"
+				}
+			},
+			{
+				"productreference": "foreman-0:1.7.2.53-1.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-Capsule61",
+				"fullproductname": {
+					"text": "foreman-0:1.7.2.53-1.el7sat as a component of Red Hat Satellite Capsule 6.1",
+					"productid": "7Server-Capsule61:foreman-0:1.7.2.53-1.el7sat",
+					"cpe": "cpe:/a:redhat:satellite_capsule:6.1::el7"
+				}
+			},
+			{
+				"productreference": "katello-installer-base-0:2.3.25-1.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-Capsule61",
+				"fullproductname": {
+					"text": "katello-installer-base-0:2.3.25-1.el7sat as a component of Red Hat Satellite Capsule 6.1",
+					"productid": "7Server-Capsule61:katello-installer-base-0:2.3.25-1.el7sat",
+					"cpe": "cpe:/a:redhat:satellite_capsule:6.1::el7"
+				}
+			},
+			{
+				"productreference": "pulp-0:2.6.0.20-1.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-Capsule61",
+				"fullproductname": {
+					"text": "pulp-0:2.6.0.20-1.el7sat as a component of Red Hat Satellite Capsule 6.1",
+					"productid": "7Server-Capsule61:pulp-0:2.6.0.20-1.el7sat",
+					"cpe": "cpe:/a:redhat:satellite_capsule:6.1::el7"
+				}
+			},
+			{
+				"productreference": "pulp-puppet-0:2.6.0.20-1.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-Capsule61",
+				"fullproductname": {
+					"text": "pulp-puppet-0:2.6.0.20-1.el7sat as a component of Red Hat Satellite Capsule 6.1",
+					"productid": "7Server-Capsule61:pulp-puppet-0:2.6.0.20-1.el7sat",
+					"cpe": "cpe:/a:redhat:satellite_capsule:6.1::el7"
+				}
+			},
+			{
+				"productreference": "pulp-rpm-0:2.6.0.20-1.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-Capsule61",
+				"fullproductname": {
+					"text": "pulp-rpm-0:2.6.0.20-1.el7sat as a component of Red Hat Satellite Capsule 6.1",
+					"productid": "7Server-Capsule61:pulp-rpm-0:2.6.0.20-1.el7sat",
+					"cpe": "cpe:/a:redhat:satellite_capsule:6.1::el7"
+				}
+			},
+			{
+				"productreference": "python-kombu-1:3.0.24-11.pulp.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-Capsule61",
+				"fullproductname": {
+					"text": "python-kombu-1:3.0.24-11.pulp.el7sat as a component of Red Hat Satellite Capsule 6.1",
+					"productid": "7Server-Capsule61:python-kombu-1:3.0.24-11.pulp.el7sat",
+					"cpe": "cpe:/a:redhat:satellite_capsule:6.1::el7"
+				}
+			},
+			{
+				"productreference": "candlepin-0:0.9.49.11-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-Satellite61",
+				"fullproductname": {
+					"text": "candlepin-0:0.9.49.11-1.el7 as a component of Red Hat Satellite 6.1",
+					"productid": "7Server-Satellite61:candlepin-0:0.9.49.11-1.el7",
+					"cpe": "cpe:/a:redhat:satellite:6.1::el7"
+				}
+			},
+			{
+				"productreference": "foreman-0:1.7.2.53-1.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-Satellite61",
+				"fullproductname": {
+					"text": "foreman-0:1.7.2.53-1.el7sat as a component of Red Hat Satellite 6.1",
+					"productid": "7Server-Satellite61:foreman-0:1.7.2.53-1.el7sat",
+					"cpe": "cpe:/a:redhat:satellite:6.1::el7"
+				}
+			},
+			{
+				"productreference": "katello-installer-base-0:2.3.25-1.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-Satellite61",
+				"fullproductname": {
+					"text": "katello-installer-base-0:2.3.25-1.el7sat as a component of Red Hat Satellite 6.1",
+					"productid": "7Server-Satellite61:katello-installer-base-0:2.3.25-1.el7sat",
+					"cpe": "cpe:/a:redhat:satellite:6.1::el7"
+				}
+			},
+			{
+				"productreference": "pulp-0:2.6.0.20-1.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-Satellite61",
+				"fullproductname": {
+					"text": "pulp-0:2.6.0.20-1.el7sat as a component of Red Hat Satellite 6.1",
+					"productid": "7Server-Satellite61:pulp-0:2.6.0.20-1.el7sat",
+					"cpe": "cpe:/a:redhat:satellite:6.1::el7"
+				}
+			},
+			{
+				"productreference": "pulp-puppet-0:2.6.0.20-1.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-Satellite61",
+				"fullproductname": {
+					"text": "pulp-puppet-0:2.6.0.20-1.el7sat as a component of Red Hat Satellite 6.1",
+					"productid": "7Server-Satellite61:pulp-puppet-0:2.6.0.20-1.el7sat",
+					"cpe": "cpe:/a:redhat:satellite:6.1::el7"
+				}
+			},
+			{
+				"productreference": "pulp-rpm-0:2.6.0.20-1.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-Satellite61",
+				"fullproductname": {
+					"text": "pulp-rpm-0:2.6.0.20-1.el7sat as a component of Red Hat Satellite 6.1",
+					"productid": "7Server-Satellite61:pulp-rpm-0:2.6.0.20-1.el7sat",
+					"cpe": "cpe:/a:redhat:satellite:6.1::el7"
+				}
+			},
+			{
+				"productreference": "python-kombu-1:3.0.24-11.pulp.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-Satellite61",
+				"fullproductname": {
+					"text": "python-kombu-1:3.0.24-11.pulp.el7sat as a component of Red Hat Satellite 6.1",
+					"productid": "7Server-Satellite61:python-kombu-1:3.0.24-11.pulp.el7sat",
+					"cpe": "cpe:/a:redhat:satellite:6.1::el7"
+				}
+			},
+			{
+				"productreference": "ruby193-rubygem-fog-0:1.24.1-1.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-Satellite61",
+				"fullproductname": {
+					"text": "ruby193-rubygem-fog-0:1.24.1-1.el7sat as a component of Red Hat Satellite 6.1",
+					"productid": "7Server-Satellite61:ruby193-rubygem-fog-0:1.24.1-1.el7sat",
+					"cpe": "cpe:/a:redhat:satellite:6.1::el7"
+				}
+			},
+			{
+				"productreference": "ruby193-rubygem-katello-0:2.2.0.83-1.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-Satellite61",
+				"fullproductname": {
+					"text": "ruby193-rubygem-katello-0:2.2.0.83-1.el7sat as a component of Red Hat Satellite 6.1",
+					"productid": "7Server-Satellite61:ruby193-rubygem-katello-0:2.2.0.83-1.el7sat",
+					"cpe": "cpe:/a:redhat:satellite:6.1::el7"
+				}
+			},
+			{
+				"productreference": "rubygem-hammer_cli_katello-0:0.0.7.21-1.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-Satellite61",
+				"fullproductname": {
+					"text": "rubygem-hammer_cli_katello-0:0.0.7.21-1.el7sat as a component of Red Hat Satellite 6.1",
+					"productid": "7Server-Satellite61:rubygem-hammer_cli_katello-0:0.0.7.21-1.el7sat",
+					"cpe": "cpe:/a:redhat:satellite:6.1::el7"
+				}
+			}
+		]
+	}
+}

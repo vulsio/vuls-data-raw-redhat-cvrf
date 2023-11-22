@@ -1,0 +1,2147 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: Red Hat Enterprise MRG Grid 2.2 security update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2012:1281"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2012-09-19T17:51:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2012-09-19T17:41:00Z",
+		"CurrentReleaseDate": "2012-09-19T17:51:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:33:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated Grid component packages that fix several security issues, add\nvarious enhancements and fix multiple bugs are now available for Red Hat\nEnterprise MRG 2 for Red Hat Enterprise Linux 6.\n\nThe Red Hat Security Response Team has rated this update as having moderate\nsecurity impact. Common Vulnerability Scoring System (CVSS) base scores,\nwhich give detailed severity ratings, are available for each vulnerability\nfrom the CVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nRed Hat Enterprise MRG (Messaging, Realtime, and Grid) is a next-generation\nIT infrastructure for enterprise computing. MRG offers increased\nperformance, reliability, interoperability, and faster computing for\nenterprise customers.\n\nA number of unprotected resources (web pages, export functionality, image\nviewing) were found in Cumin. An unauthenticated user could bypass intended\naccess restrictions, resulting in information disclosure. (CVE-2012-2680)\n\nCumin could generate weak session keys, potentially allowing remote\nattackers to predict session keys and obtain unauthorized access to Cumin.\n(CVE-2012-2681)\n\nMultiple cross-site scripting flaws in Cumin could allow remote attackers\nto inject arbitrary web script on a web page displayed by Cumin.\n(CVE-2012-2683)\n\nAn SQL injection flaw in Cumin could allow remote attackers to manipulate\nthe contents of the back-end database via a specially-crafted URL.\n(CVE-2012-2684)\n\nWhen Cumin handled image requests, clients could request images of\narbitrary sizes. This could result in large memory allocations on the Cumin\nserver, leading to an out-of-memory condition. (CVE-2012-2685)\n\nCumin did not protect against Cross-Site Request Forgery attacks. If an\nattacker could trick a user, who was logged into the Cumin web interface,\ninto visiting a specially-crafted web page, it could lead to unauthorized\ncommand execution in the Cumin web interface with the privileges of the\nlogged-in user. (CVE-2012-2734)\n\nA session fixation flaw was found in Cumin. An authenticated user able to\npre-set the Cumin session cookie in a victim's browser could possibly use\nthis flaw to steal the victim's session after they log into Cumin.\n(CVE-2012-2735)\n\nIt was found that authenticated users could send a specially-crafted HTTP\nPOST request to Cumin that would cause it to submit a job attribute change\nto Condor. This could be used to change internal Condor attributes,\nincluding the Owner attribute, which could allow Cumin users to elevate\ntheir privileges. (CVE-2012-3459)\n\nIt was discovered that Condor's file system authentication challenge\naccepted directories with weak permissions (for example, world readable,\nwritable and executable permissions). If a user created a directory with\nsuch permissions, a local attacker could rename it, allowing them to\nexecute jobs with the privileges of the victim user. (CVE-2012-3492)\n\nIt was discovered that Condor exposed private information in the data in\nthe ClassAds format served by condor_startd. An unauthenticated user able\nto connect to condor_startd's port could request a ClassAd for a running\njob, provided they could guess or brute-force the PID of the job. This\ncould expose the ClaimId which, if obtained, could be used to control the\njob as well as start new jobs on the system. (CVE-2012-3493)\n\nIt was discovered that the ability to abort a job in Condor only required\nWRITE authorization, instead of a combination of WRITE authorization and\njob ownership. This could allow an authenticated attacker to bypass\nintended restrictions and abort any idle job on the system. (CVE-2012-3491)\n\nThe above issues were discovered by Florian Weimer of the Red Hat Product\nSecurity Team.\n\nThis update also provides defense in depth patches for Condor. (BZ#848212,\nBZ#835592, BZ#841173, BZ#843476)\n\nThese updated packages for Red Hat Enterprise Linux 6 provide numerous\nenhancements and bug fixes for the Grid component of MRG. Some highlights\ninclude:\n\n* Integration with Red Hat Enterprise Virtualization Manager via Deltacloud\n* Role enforcement in Cumin\n* Cumin authentication integration with LDAP\n* Enhanced Red Hat HA integration managing multiple-schedulers nodes\n* Generic local resource limits for partitionable slots\n* Concurrency limit groups\n\nSpace precludes documenting all of these changes in this advisory. Refer to\nthe Red Hat Enterprise MRG 2 Technical Notes document, linked to in the\nReferences section, for information on these changes.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2012:1281",
+				"Description": "https://access.redhat.com/errata/RHSA-2012:1281"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/knowledge/docs/en-US/Red_Hat_Enterprise_MRG/2/html/Technical_Notes/sec-Red_Hat_Enterprise_Linux_6.html#RHSA-2012-1281",
+				"Description": "https://access.redhat.com/knowledge/docs/en-US/Red_Hat_Enterprise_MRG/2/html/Technical_Notes/sec-Red_Hat_Enterprise_Linux_6.html#RHSA-2012-1281"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "cumin: authentication bypass flaws",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-09-19T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-2680",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll users of the Grid capabilities of Red Hat Enterprise MRG 2 are advised\nto upgrade to these updated packages, which resolve the issues and add the\nenhancements noted in the Red Hat Enterprise MRG 2 Technical Notes. Condor\nand Cumin must be restarted for this update to take effect.\n\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:1281"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-2680",
+						"Description": "CVE-2012-2680"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=829421",
+						"Description": "bz#829421: CVE-2012-2680 cumin: authentication bypass flaws"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2012-05-15T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6ComputeNode-MRG-Grid-Execute-Node-2:condor-0:7.6.5-0.22.el6",
+						"6ComputeNode-MRG-Grid-Execute-Node-2:condor-wallaby-0:4.1.3-1.el6",
+						"6ComputeNode-MRG-Grid-Execute-Node-2:condor-wallaby-base-db-0:1.23-1.el6",
+						"6ComputeNode-MRG-Grid-Execute-Node-2:rubygem-rake-0:0.8.7-2.1.el6",
+						"6ComputeNode-MRG-Grid-Execute-Node-2:rubygems-0:1.8.16-1.el6",
+						"6ComputeNode-MRG-Grid-Execute-Node-2:wallaby-0:0.12.5-10.el6",
+						"6ComputeNode-MRG-Management-2:sesame-0:1.0-6.el6",
+						"6Server-MRG-Grid-2:condor-0:7.6.5-0.22.el6",
+						"6Server-MRG-Grid-2:condor-wallaby-0:4.1.3-1.el6",
+						"6Server-MRG-Grid-2:condor-wallaby-base-db-0:1.23-1.el6",
+						"6Server-MRG-Grid-2:cumin-0:0.1.5444-3.el6",
+						"6Server-MRG-Grid-2:deltacloud-core-0:0.5.0-10.el6_2",
+						"6Server-MRG-Grid-2:libdeltacloud-0:0.9-1.el6",
+						"6Server-MRG-Grid-2:rubygem-daemons-0:1.1.4-2.el6",
+						"6Server-MRG-Grid-2:rubygem-eventmachine-0:0.12.10-7.el6",
+						"6Server-MRG-Grid-2:rubygem-fssm-0:0.2.7-1.el6",
+						"6Server-MRG-Grid-2:rubygem-haml-0:3.1.2-2.el6",
+						"6Server-MRG-Grid-2:rubygem-hpricot-0:0.8.4-2.el6",
+						"6Server-MRG-Grid-2:rubygem-json-0:1.4.6-10.el6",
+						"6Server-MRG-Grid-2:rubygem-maruku-0:0.6.0-4.el6",
+						"6Server-MRG-Grid-2:rubygem-mime-types-0:1.16-4.el6_0",
+						"6Server-MRG-Grid-2:rubygem-mocha-0:0.9.7-4.el6",
+						"6Server-MRG-Grid-2:rubygem-net-ssh-0:2.0.23-6.el6_0",
+						"6Server-MRG-Grid-2:rubygem-nokogiri-0:1.5.0-0.8.beta4.el6",
+						"6Server-MRG-Grid-2:rubygem-rack-1:1.3.0-2.el6",
+						"6Server-MRG-Grid-2:rubygem-rack-accept-0:0.4.3-6.el6_0",
+						"6Server-MRG-Grid-2:rubygem-rack-test-0:0.6.1-1.el6",
+						"6Server-MRG-Grid-2:rubygem-rake-0:0.8.7-2.1.el6",
+						"6Server-MRG-Grid-2:rubygem-rest-client-0:1.6.1-2.el6_0",
+						"6Server-MRG-Grid-2:rubygem-sass-0:3.1.4-4.el6",
+						"6Server-MRG-Grid-2:rubygem-sinatra-1:1.2.6-2.el6",
+						"6Server-MRG-Grid-2:rubygem-syntax-0:1.0.0-4.el6",
+						"6Server-MRG-Grid-2:rubygem-thin-0:1.2.11-3.el6",
+						"6Server-MRG-Grid-2:rubygem-tilt-0:1.3.2-3.el6",
+						"6Server-MRG-Grid-2:rubygem-yard-0:0.7.2-1.el6",
+						"6Server-MRG-Grid-2:rubygems-0:1.8.16-1.el6",
+						"6Server-MRG-Grid-2:sesame-0:1.0-6.el6",
+						"6Server-MRG-Grid-2:wallaby-0:0.12.5-10.el6",
+						"6Server-MRG-Grid-Execute-Node-2:condor-0:7.6.5-0.22.el6",
+						"6Server-MRG-Grid-Execute-Node-2:condor-wallaby-0:4.1.3-1.el6",
+						"6Server-MRG-Grid-Execute-Node-2:condor-wallaby-base-db-0:1.23-1.el6",
+						"6Server-MRG-Grid-Execute-Node-2:wallaby-0:0.12.5-10.el6",
+						"6Server-MRG-Management-2:cumin-0:0.1.5444-3.el6",
+						"6Server-MRG-Management-2:sesame-0:1.0-6.el6",
+						"6Server-MRG-Management-2:wallaby-0:0.12.5-10.el6",
+						"6Server-MRG-Messaging-2:sesame-0:1.0-6.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.0",
+					"Vector": "AV:N/AC:L/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "cumin: weak session keys",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-09-19T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-2681",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll users of the Grid capabilities of Red Hat Enterprise MRG 2 are advised\nto upgrade to these updated packages, which resolve the issues and add the\nenhancements noted in the Red Hat Enterprise MRG 2 Technical Notes. Condor\nand Cumin must be restarted for this update to take effect.\n\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:1281"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-2681",
+						"Description": "CVE-2012-2681"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=827558",
+						"Description": "bz#827558: CVE-2012-2681 cumin: weak session keys"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2012-05-15T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6ComputeNode-MRG-Grid-Execute-Node-2:condor-0:7.6.5-0.22.el6",
+						"6ComputeNode-MRG-Grid-Execute-Node-2:condor-wallaby-0:4.1.3-1.el6",
+						"6ComputeNode-MRG-Grid-Execute-Node-2:condor-wallaby-base-db-0:1.23-1.el6",
+						"6ComputeNode-MRG-Grid-Execute-Node-2:rubygem-rake-0:0.8.7-2.1.el6",
+						"6ComputeNode-MRG-Grid-Execute-Node-2:rubygems-0:1.8.16-1.el6",
+						"6ComputeNode-MRG-Grid-Execute-Node-2:wallaby-0:0.12.5-10.el6",
+						"6ComputeNode-MRG-Management-2:sesame-0:1.0-6.el6",
+						"6Server-MRG-Grid-2:condor-0:7.6.5-0.22.el6",
+						"6Server-MRG-Grid-2:condor-wallaby-0:4.1.3-1.el6",
+						"6Server-MRG-Grid-2:condor-wallaby-base-db-0:1.23-1.el6",
+						"6Server-MRG-Grid-2:cumin-0:0.1.5444-3.el6",
+						"6Server-MRG-Grid-2:deltacloud-core-0:0.5.0-10.el6_2",
+						"6Server-MRG-Grid-2:libdeltacloud-0:0.9-1.el6",
+						"6Server-MRG-Grid-2:rubygem-daemons-0:1.1.4-2.el6",
+						"6Server-MRG-Grid-2:rubygem-eventmachine-0:0.12.10-7.el6",
+						"6Server-MRG-Grid-2:rubygem-fssm-0:0.2.7-1.el6",
+						"6Server-MRG-Grid-2:rubygem-haml-0:3.1.2-2.el6",
+						"6Server-MRG-Grid-2:rubygem-hpricot-0:0.8.4-2.el6",
+						"6Server-MRG-Grid-2:rubygem-json-0:1.4.6-10.el6",
+						"6Server-MRG-Grid-2:rubygem-maruku-0:0.6.0-4.el6",
+						"6Server-MRG-Grid-2:rubygem-mime-types-0:1.16-4.el6_0",
+						"6Server-MRG-Grid-2:rubygem-mocha-0:0.9.7-4.el6",
+						"6Server-MRG-Grid-2:rubygem-net-ssh-0:2.0.23-6.el6_0",
+						"6Server-MRG-Grid-2:rubygem-nokogiri-0:1.5.0-0.8.beta4.el6",
+						"6Server-MRG-Grid-2:rubygem-rack-1:1.3.0-2.el6",
+						"6Server-MRG-Grid-2:rubygem-rack-accept-0:0.4.3-6.el6_0",
+						"6Server-MRG-Grid-2:rubygem-rack-test-0:0.6.1-1.el6",
+						"6Server-MRG-Grid-2:rubygem-rake-0:0.8.7-2.1.el6",
+						"6Server-MRG-Grid-2:rubygem-rest-client-0:1.6.1-2.el6_0",
+						"6Server-MRG-Grid-2:rubygem-sass-0:3.1.4-4.el6",
+						"6Server-MRG-Grid-2:rubygem-sinatra-1:1.2.6-2.el6",
+						"6Server-MRG-Grid-2:rubygem-syntax-0:1.0.0-4.el6",
+						"6Server-MRG-Grid-2:rubygem-thin-0:1.2.11-3.el6",
+						"6Server-MRG-Grid-2:rubygem-tilt-0:1.3.2-3.el6",
+						"6Server-MRG-Grid-2:rubygem-yard-0:0.7.2-1.el6",
+						"6Server-MRG-Grid-2:rubygems-0:1.8.16-1.el6",
+						"6Server-MRG-Grid-2:sesame-0:1.0-6.el6",
+						"6Server-MRG-Grid-2:wallaby-0:0.12.5-10.el6",
+						"6Server-MRG-Grid-Execute-Node-2:condor-0:7.6.5-0.22.el6",
+						"6Server-MRG-Grid-Execute-Node-2:condor-wallaby-0:4.1.3-1.el6",
+						"6Server-MRG-Grid-Execute-Node-2:condor-wallaby-base-db-0:1.23-1.el6",
+						"6Server-MRG-Grid-Execute-Node-2:wallaby-0:0.12.5-10.el6",
+						"6Server-MRG-Management-2:cumin-0:0.1.5444-3.el6",
+						"6Server-MRG-Management-2:sesame-0:1.0-6.el6",
+						"6Server-MRG-Management-2:wallaby-0:0.12.5-10.el6",
+						"6Server-MRG-Messaging-2:sesame-0:1.0-6.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.8",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "cumin: multiple XSS flaws",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-09-19T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-2683",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll users of the Grid capabilities of Red Hat Enterprise MRG 2 are advised\nto upgrade to these updated packages, which resolve the issues and add the\nenhancements noted in the Red Hat Enterprise MRG 2 Technical Notes. Condor\nand Cumin must be restarted for this update to take effect.\n\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:1281"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-2683",
+						"Description": "CVE-2012-2683"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=830243",
+						"Description": "bz#830243: CVE-2012-2683 cumin: multiple XSS flaws"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2012-05-15T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6ComputeNode-MRG-Grid-Execute-Node-2:condor-0:7.6.5-0.22.el6",
+						"6ComputeNode-MRG-Grid-Execute-Node-2:condor-wallaby-0:4.1.3-1.el6",
+						"6ComputeNode-MRG-Grid-Execute-Node-2:condor-wallaby-base-db-0:1.23-1.el6",
+						"6ComputeNode-MRG-Grid-Execute-Node-2:rubygem-rake-0:0.8.7-2.1.el6",
+						"6ComputeNode-MRG-Grid-Execute-Node-2:rubygems-0:1.8.16-1.el6",
+						"6ComputeNode-MRG-Grid-Execute-Node-2:wallaby-0:0.12.5-10.el6",
+						"6ComputeNode-MRG-Management-2:sesame-0:1.0-6.el6",
+						"6Server-MRG-Grid-2:condor-0:7.6.5-0.22.el6",
+						"6Server-MRG-Grid-2:condor-wallaby-0:4.1.3-1.el6",
+						"6Server-MRG-Grid-2:condor-wallaby-base-db-0:1.23-1.el6",
+						"6Server-MRG-Grid-2:cumin-0:0.1.5444-3.el6",
+						"6Server-MRG-Grid-2:deltacloud-core-0:0.5.0-10.el6_2",
+						"6Server-MRG-Grid-2:libdeltacloud-0:0.9-1.el6",
+						"6Server-MRG-Grid-2:rubygem-daemons-0:1.1.4-2.el6",
+						"6Server-MRG-Grid-2:rubygem-eventmachine-0:0.12.10-7.el6",
+						"6Server-MRG-Grid-2:rubygem-fssm-0:0.2.7-1.el6",
+						"6Server-MRG-Grid-2:rubygem-haml-0:3.1.2-2.el6",
+						"6Server-MRG-Grid-2:rubygem-hpricot-0:0.8.4-2.el6",
+						"6Server-MRG-Grid-2:rubygem-json-0:1.4.6-10.el6",
+						"6Server-MRG-Grid-2:rubygem-maruku-0:0.6.0-4.el6",
+						"6Server-MRG-Grid-2:rubygem-mime-types-0:1.16-4.el6_0",
+						"6Server-MRG-Grid-2:rubygem-mocha-0:0.9.7-4.el6",
+						"6Server-MRG-Grid-2:rubygem-net-ssh-0:2.0.23-6.el6_0",
+						"6Server-MRG-Grid-2:rubygem-nokogiri-0:1.5.0-0.8.beta4.el6",
+						"6Server-MRG-Grid-2:rubygem-rack-1:1.3.0-2.el6",
+						"6Server-MRG-Grid-2:rubygem-rack-accept-0:0.4.3-6.el6_0",
+						"6Server-MRG-Grid-2:rubygem-rack-test-0:0.6.1-1.el6",
+						"6Server-MRG-Grid-2:rubygem-rake-0:0.8.7-2.1.el6",
+						"6Server-MRG-Grid-2:rubygem-rest-client-0:1.6.1-2.el6_0",
+						"6Server-MRG-Grid-2:rubygem-sass-0:3.1.4-4.el6",
+						"6Server-MRG-Grid-2:rubygem-sinatra-1:1.2.6-2.el6",
+						"6Server-MRG-Grid-2:rubygem-syntax-0:1.0.0-4.el6",
+						"6Server-MRG-Grid-2:rubygem-thin-0:1.2.11-3.el6",
+						"6Server-MRG-Grid-2:rubygem-tilt-0:1.3.2-3.el6",
+						"6Server-MRG-Grid-2:rubygem-yard-0:0.7.2-1.el6",
+						"6Server-MRG-Grid-2:rubygems-0:1.8.16-1.el6",
+						"6Server-MRG-Grid-2:sesame-0:1.0-6.el6",
+						"6Server-MRG-Grid-2:wallaby-0:0.12.5-10.el6",
+						"6Server-MRG-Grid-Execute-Node-2:condor-0:7.6.5-0.22.el6",
+						"6Server-MRG-Grid-Execute-Node-2:condor-wallaby-0:4.1.3-1.el6",
+						"6Server-MRG-Grid-Execute-Node-2:condor-wallaby-base-db-0:1.23-1.el6",
+						"6Server-MRG-Grid-Execute-Node-2:wallaby-0:0.12.5-10.el6",
+						"6Server-MRG-Management-2:cumin-0:0.1.5444-3.el6",
+						"6Server-MRG-Management-2:sesame-0:1.0-6.el6",
+						"6Server-MRG-Management-2:wallaby-0:0.12.5-10.el6",
+						"6Server-MRG-Messaging-2:sesame-0:1.0-6.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "cumin: SQL injection flaw",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-09-19T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-2684",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll users of the Grid capabilities of Red Hat Enterprise MRG 2 are advised\nto upgrade to these updated packages, which resolve the issues and add the\nenhancements noted in the Red Hat Enterprise MRG 2 Technical Notes. Condor\nand Cumin must be restarted for this update to take effect.\n\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:1281"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-2684",
+						"Description": "CVE-2012-2684"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=830245",
+						"Description": "bz#830245: CVE-2012-2684 cumin: SQL injection flaw"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2012-05-15T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6ComputeNode-MRG-Grid-Execute-Node-2:condor-0:7.6.5-0.22.el6",
+						"6ComputeNode-MRG-Grid-Execute-Node-2:condor-wallaby-0:4.1.3-1.el6",
+						"6ComputeNode-MRG-Grid-Execute-Node-2:condor-wallaby-base-db-0:1.23-1.el6",
+						"6ComputeNode-MRG-Grid-Execute-Node-2:rubygem-rake-0:0.8.7-2.1.el6",
+						"6ComputeNode-MRG-Grid-Execute-Node-2:rubygems-0:1.8.16-1.el6",
+						"6ComputeNode-MRG-Grid-Execute-Node-2:wallaby-0:0.12.5-10.el6",
+						"6ComputeNode-MRG-Management-2:sesame-0:1.0-6.el6",
+						"6Server-MRG-Grid-2:condor-0:7.6.5-0.22.el6",
+						"6Server-MRG-Grid-2:condor-wallaby-0:4.1.3-1.el6",
+						"6Server-MRG-Grid-2:condor-wallaby-base-db-0:1.23-1.el6",
+						"6Server-MRG-Grid-2:cumin-0:0.1.5444-3.el6",
+						"6Server-MRG-Grid-2:deltacloud-core-0:0.5.0-10.el6_2",
+						"6Server-MRG-Grid-2:libdeltacloud-0:0.9-1.el6",
+						"6Server-MRG-Grid-2:rubygem-daemons-0:1.1.4-2.el6",
+						"6Server-MRG-Grid-2:rubygem-eventmachine-0:0.12.10-7.el6",
+						"6Server-MRG-Grid-2:rubygem-fssm-0:0.2.7-1.el6",
+						"6Server-MRG-Grid-2:rubygem-haml-0:3.1.2-2.el6",
+						"6Server-MRG-Grid-2:rubygem-hpricot-0:0.8.4-2.el6",
+						"6Server-MRG-Grid-2:rubygem-json-0:1.4.6-10.el6",
+						"6Server-MRG-Grid-2:rubygem-maruku-0:0.6.0-4.el6",
+						"6Server-MRG-Grid-2:rubygem-mime-types-0:1.16-4.el6_0",
+						"6Server-MRG-Grid-2:rubygem-mocha-0:0.9.7-4.el6",
+						"6Server-MRG-Grid-2:rubygem-net-ssh-0:2.0.23-6.el6_0",
+						"6Server-MRG-Grid-2:rubygem-nokogiri-0:1.5.0-0.8.beta4.el6",
+						"6Server-MRG-Grid-2:rubygem-rack-1:1.3.0-2.el6",
+						"6Server-MRG-Grid-2:rubygem-rack-accept-0:0.4.3-6.el6_0",
+						"6Server-MRG-Grid-2:rubygem-rack-test-0:0.6.1-1.el6",
+						"6Server-MRG-Grid-2:rubygem-rake-0:0.8.7-2.1.el6",
+						"6Server-MRG-Grid-2:rubygem-rest-client-0:1.6.1-2.el6_0",
+						"6Server-MRG-Grid-2:rubygem-sass-0:3.1.4-4.el6",
+						"6Server-MRG-Grid-2:rubygem-sinatra-1:1.2.6-2.el6",
+						"6Server-MRG-Grid-2:rubygem-syntax-0:1.0.0-4.el6",
+						"6Server-MRG-Grid-2:rubygem-thin-0:1.2.11-3.el6",
+						"6Server-MRG-Grid-2:rubygem-tilt-0:1.3.2-3.el6",
+						"6Server-MRG-Grid-2:rubygem-yard-0:0.7.2-1.el6",
+						"6Server-MRG-Grid-2:rubygems-0:1.8.16-1.el6",
+						"6Server-MRG-Grid-2:sesame-0:1.0-6.el6",
+						"6Server-MRG-Grid-2:wallaby-0:0.12.5-10.el6",
+						"6Server-MRG-Grid-Execute-Node-2:condor-0:7.6.5-0.22.el6",
+						"6Server-MRG-Grid-Execute-Node-2:condor-wallaby-0:4.1.3-1.el6",
+						"6Server-MRG-Grid-Execute-Node-2:condor-wallaby-base-db-0:1.23-1.el6",
+						"6Server-MRG-Grid-Execute-Node-2:wallaby-0:0.12.5-10.el6",
+						"6Server-MRG-Management-2:cumin-0:0.1.5444-3.el6",
+						"6Server-MRG-Management-2:sesame-0:1.0-6.el6",
+						"6Server-MRG-Management-2:wallaby-0:0.12.5-10.el6",
+						"6Server-MRG-Messaging-2:sesame-0:1.0-6.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "cumin: DoS via large image requests",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-09-19T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-2685",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll users of the Grid capabilities of Red Hat Enterprise MRG 2 are advised\nto upgrade to these updated packages, which resolve the issues and add the\nenhancements noted in the Red Hat Enterprise MRG 2 Technical Notes. Condor\nand Cumin must be restarted for this update to take effect.\n\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:1281"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-2685",
+						"Description": "CVE-2012-2685"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=830248",
+						"Description": "bz#830248: CVE-2012-2685 cumin: DoS via large image requests"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2012-05-15T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6ComputeNode-MRG-Grid-Execute-Node-2:condor-0:7.6.5-0.22.el6",
+						"6ComputeNode-MRG-Grid-Execute-Node-2:condor-wallaby-0:4.1.3-1.el6",
+						"6ComputeNode-MRG-Grid-Execute-Node-2:condor-wallaby-base-db-0:1.23-1.el6",
+						"6ComputeNode-MRG-Grid-Execute-Node-2:rubygem-rake-0:0.8.7-2.1.el6",
+						"6ComputeNode-MRG-Grid-Execute-Node-2:rubygems-0:1.8.16-1.el6",
+						"6ComputeNode-MRG-Grid-Execute-Node-2:wallaby-0:0.12.5-10.el6",
+						"6ComputeNode-MRG-Management-2:sesame-0:1.0-6.el6",
+						"6Server-MRG-Grid-2:condor-0:7.6.5-0.22.el6",
+						"6Server-MRG-Grid-2:condor-wallaby-0:4.1.3-1.el6",
+						"6Server-MRG-Grid-2:condor-wallaby-base-db-0:1.23-1.el6",
+						"6Server-MRG-Grid-2:cumin-0:0.1.5444-3.el6",
+						"6Server-MRG-Grid-2:deltacloud-core-0:0.5.0-10.el6_2",
+						"6Server-MRG-Grid-2:libdeltacloud-0:0.9-1.el6",
+						"6Server-MRG-Grid-2:rubygem-daemons-0:1.1.4-2.el6",
+						"6Server-MRG-Grid-2:rubygem-eventmachine-0:0.12.10-7.el6",
+						"6Server-MRG-Grid-2:rubygem-fssm-0:0.2.7-1.el6",
+						"6Server-MRG-Grid-2:rubygem-haml-0:3.1.2-2.el6",
+						"6Server-MRG-Grid-2:rubygem-hpricot-0:0.8.4-2.el6",
+						"6Server-MRG-Grid-2:rubygem-json-0:1.4.6-10.el6",
+						"6Server-MRG-Grid-2:rubygem-maruku-0:0.6.0-4.el6",
+						"6Server-MRG-Grid-2:rubygem-mime-types-0:1.16-4.el6_0",
+						"6Server-MRG-Grid-2:rubygem-mocha-0:0.9.7-4.el6",
+						"6Server-MRG-Grid-2:rubygem-net-ssh-0:2.0.23-6.el6_0",
+						"6Server-MRG-Grid-2:rubygem-nokogiri-0:1.5.0-0.8.beta4.el6",
+						"6Server-MRG-Grid-2:rubygem-rack-1:1.3.0-2.el6",
+						"6Server-MRG-Grid-2:rubygem-rack-accept-0:0.4.3-6.el6_0",
+						"6Server-MRG-Grid-2:rubygem-rack-test-0:0.6.1-1.el6",
+						"6Server-MRG-Grid-2:rubygem-rake-0:0.8.7-2.1.el6",
+						"6Server-MRG-Grid-2:rubygem-rest-client-0:1.6.1-2.el6_0",
+						"6Server-MRG-Grid-2:rubygem-sass-0:3.1.4-4.el6",
+						"6Server-MRG-Grid-2:rubygem-sinatra-1:1.2.6-2.el6",
+						"6Server-MRG-Grid-2:rubygem-syntax-0:1.0.0-4.el6",
+						"6Server-MRG-Grid-2:rubygem-thin-0:1.2.11-3.el6",
+						"6Server-MRG-Grid-2:rubygem-tilt-0:1.3.2-3.el6",
+						"6Server-MRG-Grid-2:rubygem-yard-0:0.7.2-1.el6",
+						"6Server-MRG-Grid-2:rubygems-0:1.8.16-1.el6",
+						"6Server-MRG-Grid-2:sesame-0:1.0-6.el6",
+						"6Server-MRG-Grid-2:wallaby-0:0.12.5-10.el6",
+						"6Server-MRG-Grid-Execute-Node-2:condor-0:7.6.5-0.22.el6",
+						"6Server-MRG-Grid-Execute-Node-2:condor-wallaby-0:4.1.3-1.el6",
+						"6Server-MRG-Grid-Execute-Node-2:condor-wallaby-base-db-0:1.23-1.el6",
+						"6Server-MRG-Grid-Execute-Node-2:wallaby-0:0.12.5-10.el6",
+						"6Server-MRG-Management-2:cumin-0:0.1.5444-3.el6",
+						"6Server-MRG-Management-2:sesame-0:1.0-6.el6",
+						"6Server-MRG-Management-2:wallaby-0:0.12.5-10.el6",
+						"6Server-MRG-Messaging-2:sesame-0:1.0-6.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.0",
+					"Vector": "AV:N/AC:L/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "6",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "cumin: CSRF flaw",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-09-19T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-2734",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll users of the Grid capabilities of Red Hat Enterprise MRG 2 are advised\nto upgrade to these updated packages, which resolve the issues and add the\nenhancements noted in the Red Hat Enterprise MRG 2 Technical Notes. Condor\nand Cumin must be restarted for this update to take effect.\n\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:1281"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-2734",
+						"Description": "CVE-2012-2734"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=832124",
+						"Description": "bz#832124: CVE-2012-2734 cumin: CSRF flaw"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2012-06-11T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6ComputeNode-MRG-Grid-Execute-Node-2:condor-0:7.6.5-0.22.el6",
+						"6ComputeNode-MRG-Grid-Execute-Node-2:condor-wallaby-0:4.1.3-1.el6",
+						"6ComputeNode-MRG-Grid-Execute-Node-2:condor-wallaby-base-db-0:1.23-1.el6",
+						"6ComputeNode-MRG-Grid-Execute-Node-2:rubygem-rake-0:0.8.7-2.1.el6",
+						"6ComputeNode-MRG-Grid-Execute-Node-2:rubygems-0:1.8.16-1.el6",
+						"6ComputeNode-MRG-Grid-Execute-Node-2:wallaby-0:0.12.5-10.el6",
+						"6ComputeNode-MRG-Management-2:sesame-0:1.0-6.el6",
+						"6Server-MRG-Grid-2:condor-0:7.6.5-0.22.el6",
+						"6Server-MRG-Grid-2:condor-wallaby-0:4.1.3-1.el6",
+						"6Server-MRG-Grid-2:condor-wallaby-base-db-0:1.23-1.el6",
+						"6Server-MRG-Grid-2:cumin-0:0.1.5444-3.el6",
+						"6Server-MRG-Grid-2:deltacloud-core-0:0.5.0-10.el6_2",
+						"6Server-MRG-Grid-2:libdeltacloud-0:0.9-1.el6",
+						"6Server-MRG-Grid-2:rubygem-daemons-0:1.1.4-2.el6",
+						"6Server-MRG-Grid-2:rubygem-eventmachine-0:0.12.10-7.el6",
+						"6Server-MRG-Grid-2:rubygem-fssm-0:0.2.7-1.el6",
+						"6Server-MRG-Grid-2:rubygem-haml-0:3.1.2-2.el6",
+						"6Server-MRG-Grid-2:rubygem-hpricot-0:0.8.4-2.el6",
+						"6Server-MRG-Grid-2:rubygem-json-0:1.4.6-10.el6",
+						"6Server-MRG-Grid-2:rubygem-maruku-0:0.6.0-4.el6",
+						"6Server-MRG-Grid-2:rubygem-mime-types-0:1.16-4.el6_0",
+						"6Server-MRG-Grid-2:rubygem-mocha-0:0.9.7-4.el6",
+						"6Server-MRG-Grid-2:rubygem-net-ssh-0:2.0.23-6.el6_0",
+						"6Server-MRG-Grid-2:rubygem-nokogiri-0:1.5.0-0.8.beta4.el6",
+						"6Server-MRG-Grid-2:rubygem-rack-1:1.3.0-2.el6",
+						"6Server-MRG-Grid-2:rubygem-rack-accept-0:0.4.3-6.el6_0",
+						"6Server-MRG-Grid-2:rubygem-rack-test-0:0.6.1-1.el6",
+						"6Server-MRG-Grid-2:rubygem-rake-0:0.8.7-2.1.el6",
+						"6Server-MRG-Grid-2:rubygem-rest-client-0:1.6.1-2.el6_0",
+						"6Server-MRG-Grid-2:rubygem-sass-0:3.1.4-4.el6",
+						"6Server-MRG-Grid-2:rubygem-sinatra-1:1.2.6-2.el6",
+						"6Server-MRG-Grid-2:rubygem-syntax-0:1.0.0-4.el6",
+						"6Server-MRG-Grid-2:rubygem-thin-0:1.2.11-3.el6",
+						"6Server-MRG-Grid-2:rubygem-tilt-0:1.3.2-3.el6",
+						"6Server-MRG-Grid-2:rubygem-yard-0:0.7.2-1.el6",
+						"6Server-MRG-Grid-2:rubygems-0:1.8.16-1.el6",
+						"6Server-MRG-Grid-2:sesame-0:1.0-6.el6",
+						"6Server-MRG-Grid-2:wallaby-0:0.12.5-10.el6",
+						"6Server-MRG-Grid-Execute-Node-2:condor-0:7.6.5-0.22.el6",
+						"6Server-MRG-Grid-Execute-Node-2:condor-wallaby-0:4.1.3-1.el6",
+						"6Server-MRG-Grid-Execute-Node-2:condor-wallaby-base-db-0:1.23-1.el6",
+						"6Server-MRG-Grid-Execute-Node-2:wallaby-0:0.12.5-10.el6",
+						"6Server-MRG-Management-2:cumin-0:0.1.5444-3.el6",
+						"6Server-MRG-Management-2:sesame-0:1.0-6.el6",
+						"6Server-MRG-Management-2:wallaby-0:0.12.5-10.el6",
+						"6Server-MRG-Messaging-2:sesame-0:1.0-6.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "7",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "cumin: session fixation flaw",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-09-19T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-2735",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll users of the Grid capabilities of Red Hat Enterprise MRG 2 are advised\nto upgrade to these updated packages, which resolve the issues and add the\nenhancements noted in the Red Hat Enterprise MRG 2 Technical Notes. Condor\nand Cumin must be restarted for this update to take effect.\n\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:1281"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-2735",
+						"Description": "CVE-2012-2735"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=832151",
+						"Description": "bz#832151: CVE-2012-2735 cumin: session fixation flaw"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2012-06-11T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6ComputeNode-MRG-Grid-Execute-Node-2:condor-0:7.6.5-0.22.el6",
+						"6ComputeNode-MRG-Grid-Execute-Node-2:condor-wallaby-0:4.1.3-1.el6",
+						"6ComputeNode-MRG-Grid-Execute-Node-2:condor-wallaby-base-db-0:1.23-1.el6",
+						"6ComputeNode-MRG-Grid-Execute-Node-2:rubygem-rake-0:0.8.7-2.1.el6",
+						"6ComputeNode-MRG-Grid-Execute-Node-2:rubygems-0:1.8.16-1.el6",
+						"6ComputeNode-MRG-Grid-Execute-Node-2:wallaby-0:0.12.5-10.el6",
+						"6ComputeNode-MRG-Management-2:sesame-0:1.0-6.el6",
+						"6Server-MRG-Grid-2:condor-0:7.6.5-0.22.el6",
+						"6Server-MRG-Grid-2:condor-wallaby-0:4.1.3-1.el6",
+						"6Server-MRG-Grid-2:condor-wallaby-base-db-0:1.23-1.el6",
+						"6Server-MRG-Grid-2:cumin-0:0.1.5444-3.el6",
+						"6Server-MRG-Grid-2:deltacloud-core-0:0.5.0-10.el6_2",
+						"6Server-MRG-Grid-2:libdeltacloud-0:0.9-1.el6",
+						"6Server-MRG-Grid-2:rubygem-daemons-0:1.1.4-2.el6",
+						"6Server-MRG-Grid-2:rubygem-eventmachine-0:0.12.10-7.el6",
+						"6Server-MRG-Grid-2:rubygem-fssm-0:0.2.7-1.el6",
+						"6Server-MRG-Grid-2:rubygem-haml-0:3.1.2-2.el6",
+						"6Server-MRG-Grid-2:rubygem-hpricot-0:0.8.4-2.el6",
+						"6Server-MRG-Grid-2:rubygem-json-0:1.4.6-10.el6",
+						"6Server-MRG-Grid-2:rubygem-maruku-0:0.6.0-4.el6",
+						"6Server-MRG-Grid-2:rubygem-mime-types-0:1.16-4.el6_0",
+						"6Server-MRG-Grid-2:rubygem-mocha-0:0.9.7-4.el6",
+						"6Server-MRG-Grid-2:rubygem-net-ssh-0:2.0.23-6.el6_0",
+						"6Server-MRG-Grid-2:rubygem-nokogiri-0:1.5.0-0.8.beta4.el6",
+						"6Server-MRG-Grid-2:rubygem-rack-1:1.3.0-2.el6",
+						"6Server-MRG-Grid-2:rubygem-rack-accept-0:0.4.3-6.el6_0",
+						"6Server-MRG-Grid-2:rubygem-rack-test-0:0.6.1-1.el6",
+						"6Server-MRG-Grid-2:rubygem-rake-0:0.8.7-2.1.el6",
+						"6Server-MRG-Grid-2:rubygem-rest-client-0:1.6.1-2.el6_0",
+						"6Server-MRG-Grid-2:rubygem-sass-0:3.1.4-4.el6",
+						"6Server-MRG-Grid-2:rubygem-sinatra-1:1.2.6-2.el6",
+						"6Server-MRG-Grid-2:rubygem-syntax-0:1.0.0-4.el6",
+						"6Server-MRG-Grid-2:rubygem-thin-0:1.2.11-3.el6",
+						"6Server-MRG-Grid-2:rubygem-tilt-0:1.3.2-3.el6",
+						"6Server-MRG-Grid-2:rubygem-yard-0:0.7.2-1.el6",
+						"6Server-MRG-Grid-2:rubygems-0:1.8.16-1.el6",
+						"6Server-MRG-Grid-2:sesame-0:1.0-6.el6",
+						"6Server-MRG-Grid-2:wallaby-0:0.12.5-10.el6",
+						"6Server-MRG-Grid-Execute-Node-2:condor-0:7.6.5-0.22.el6",
+						"6Server-MRG-Grid-Execute-Node-2:condor-wallaby-0:4.1.3-1.el6",
+						"6Server-MRG-Grid-Execute-Node-2:condor-wallaby-base-db-0:1.23-1.el6",
+						"6Server-MRG-Grid-Execute-Node-2:wallaby-0:0.12.5-10.el6",
+						"6Server-MRG-Management-2:cumin-0:0.1.5444-3.el6",
+						"6Server-MRG-Management-2:sesame-0:1.0-6.el6",
+						"6Server-MRG-Management-2:wallaby-0:0.12.5-10.el6",
+						"6Server-MRG-Messaging-2:sesame-0:1.0-6.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "8",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "cumin: allows for editing internal Condor job attributes",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-09-19T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-3459",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll users of the Grid capabilities of Red Hat Enterprise MRG 2 are advised\nto upgrade to these updated packages, which resolve the issues and add the\nenhancements noted in the Red Hat Enterprise MRG 2 Technical Notes. Condor\nand Cumin must be restarted for this update to take effect.\n\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:1281"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-3459",
+						"Description": "CVE-2012-3459"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=846501",
+						"Description": "bz#846501: CVE-2012-3459 cumin: allows for editing internal Condor job attributes"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2012-07-02T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6ComputeNode-MRG-Grid-Execute-Node-2:condor-0:7.6.5-0.22.el6",
+						"6ComputeNode-MRG-Grid-Execute-Node-2:condor-wallaby-0:4.1.3-1.el6",
+						"6ComputeNode-MRG-Grid-Execute-Node-2:condor-wallaby-base-db-0:1.23-1.el6",
+						"6ComputeNode-MRG-Grid-Execute-Node-2:rubygem-rake-0:0.8.7-2.1.el6",
+						"6ComputeNode-MRG-Grid-Execute-Node-2:rubygems-0:1.8.16-1.el6",
+						"6ComputeNode-MRG-Grid-Execute-Node-2:wallaby-0:0.12.5-10.el6",
+						"6ComputeNode-MRG-Management-2:sesame-0:1.0-6.el6",
+						"6Server-MRG-Grid-2:condor-0:7.6.5-0.22.el6",
+						"6Server-MRG-Grid-2:condor-wallaby-0:4.1.3-1.el6",
+						"6Server-MRG-Grid-2:condor-wallaby-base-db-0:1.23-1.el6",
+						"6Server-MRG-Grid-2:cumin-0:0.1.5444-3.el6",
+						"6Server-MRG-Grid-2:deltacloud-core-0:0.5.0-10.el6_2",
+						"6Server-MRG-Grid-2:libdeltacloud-0:0.9-1.el6",
+						"6Server-MRG-Grid-2:rubygem-daemons-0:1.1.4-2.el6",
+						"6Server-MRG-Grid-2:rubygem-eventmachine-0:0.12.10-7.el6",
+						"6Server-MRG-Grid-2:rubygem-fssm-0:0.2.7-1.el6",
+						"6Server-MRG-Grid-2:rubygem-haml-0:3.1.2-2.el6",
+						"6Server-MRG-Grid-2:rubygem-hpricot-0:0.8.4-2.el6",
+						"6Server-MRG-Grid-2:rubygem-json-0:1.4.6-10.el6",
+						"6Server-MRG-Grid-2:rubygem-maruku-0:0.6.0-4.el6",
+						"6Server-MRG-Grid-2:rubygem-mime-types-0:1.16-4.el6_0",
+						"6Server-MRG-Grid-2:rubygem-mocha-0:0.9.7-4.el6",
+						"6Server-MRG-Grid-2:rubygem-net-ssh-0:2.0.23-6.el6_0",
+						"6Server-MRG-Grid-2:rubygem-nokogiri-0:1.5.0-0.8.beta4.el6",
+						"6Server-MRG-Grid-2:rubygem-rack-1:1.3.0-2.el6",
+						"6Server-MRG-Grid-2:rubygem-rack-accept-0:0.4.3-6.el6_0",
+						"6Server-MRG-Grid-2:rubygem-rack-test-0:0.6.1-1.el6",
+						"6Server-MRG-Grid-2:rubygem-rake-0:0.8.7-2.1.el6",
+						"6Server-MRG-Grid-2:rubygem-rest-client-0:1.6.1-2.el6_0",
+						"6Server-MRG-Grid-2:rubygem-sass-0:3.1.4-4.el6",
+						"6Server-MRG-Grid-2:rubygem-sinatra-1:1.2.6-2.el6",
+						"6Server-MRG-Grid-2:rubygem-syntax-0:1.0.0-4.el6",
+						"6Server-MRG-Grid-2:rubygem-thin-0:1.2.11-3.el6",
+						"6Server-MRG-Grid-2:rubygem-tilt-0:1.3.2-3.el6",
+						"6Server-MRG-Grid-2:rubygem-yard-0:0.7.2-1.el6",
+						"6Server-MRG-Grid-2:rubygems-0:1.8.16-1.el6",
+						"6Server-MRG-Grid-2:sesame-0:1.0-6.el6",
+						"6Server-MRG-Grid-2:wallaby-0:0.12.5-10.el6",
+						"6Server-MRG-Grid-Execute-Node-2:condor-0:7.6.5-0.22.el6",
+						"6Server-MRG-Grid-Execute-Node-2:condor-wallaby-0:4.1.3-1.el6",
+						"6Server-MRG-Grid-Execute-Node-2:condor-wallaby-base-db-0:1.23-1.el6",
+						"6Server-MRG-Grid-Execute-Node-2:wallaby-0:0.12.5-10.el6",
+						"6Server-MRG-Management-2:cumin-0:0.1.5444-3.el6",
+						"6Server-MRG-Management-2:sesame-0:1.0-6.el6",
+						"6Server-MRG-Management-2:wallaby-0:0.12.5-10.el6",
+						"6Server-MRG-Messaging-2:sesame-0:1.0-6.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.9",
+					"Vector": "AV:N/AC:M/Au:S/C:P/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "9",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "condor: local users can abort any idle jobs",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-09-19T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-3491",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll users of the Grid capabilities of Red Hat Enterprise MRG 2 are advised\nto upgrade to these updated packages, which resolve the issues and add the\nenhancements noted in the Red Hat Enterprise MRG 2 Technical Notes. Condor\nand Cumin must be restarted for this update to take effect.\n\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:1281"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-3491",
+						"Description": "CVE-2012-3491"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=848214",
+						"Description": "bz#848214: CVE-2012-3491 condor: local users can abort any idle jobs"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2012-06-28T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6ComputeNode-MRG-Grid-Execute-Node-2:condor-0:7.6.5-0.22.el6",
+						"6ComputeNode-MRG-Grid-Execute-Node-2:condor-wallaby-0:4.1.3-1.el6",
+						"6ComputeNode-MRG-Grid-Execute-Node-2:condor-wallaby-base-db-0:1.23-1.el6",
+						"6ComputeNode-MRG-Grid-Execute-Node-2:rubygem-rake-0:0.8.7-2.1.el6",
+						"6ComputeNode-MRG-Grid-Execute-Node-2:rubygems-0:1.8.16-1.el6",
+						"6ComputeNode-MRG-Grid-Execute-Node-2:wallaby-0:0.12.5-10.el6",
+						"6ComputeNode-MRG-Management-2:sesame-0:1.0-6.el6",
+						"6Server-MRG-Grid-2:condor-0:7.6.5-0.22.el6",
+						"6Server-MRG-Grid-2:condor-wallaby-0:4.1.3-1.el6",
+						"6Server-MRG-Grid-2:condor-wallaby-base-db-0:1.23-1.el6",
+						"6Server-MRG-Grid-2:cumin-0:0.1.5444-3.el6",
+						"6Server-MRG-Grid-2:deltacloud-core-0:0.5.0-10.el6_2",
+						"6Server-MRG-Grid-2:libdeltacloud-0:0.9-1.el6",
+						"6Server-MRG-Grid-2:rubygem-daemons-0:1.1.4-2.el6",
+						"6Server-MRG-Grid-2:rubygem-eventmachine-0:0.12.10-7.el6",
+						"6Server-MRG-Grid-2:rubygem-fssm-0:0.2.7-1.el6",
+						"6Server-MRG-Grid-2:rubygem-haml-0:3.1.2-2.el6",
+						"6Server-MRG-Grid-2:rubygem-hpricot-0:0.8.4-2.el6",
+						"6Server-MRG-Grid-2:rubygem-json-0:1.4.6-10.el6",
+						"6Server-MRG-Grid-2:rubygem-maruku-0:0.6.0-4.el6",
+						"6Server-MRG-Grid-2:rubygem-mime-types-0:1.16-4.el6_0",
+						"6Server-MRG-Grid-2:rubygem-mocha-0:0.9.7-4.el6",
+						"6Server-MRG-Grid-2:rubygem-net-ssh-0:2.0.23-6.el6_0",
+						"6Server-MRG-Grid-2:rubygem-nokogiri-0:1.5.0-0.8.beta4.el6",
+						"6Server-MRG-Grid-2:rubygem-rack-1:1.3.0-2.el6",
+						"6Server-MRG-Grid-2:rubygem-rack-accept-0:0.4.3-6.el6_0",
+						"6Server-MRG-Grid-2:rubygem-rack-test-0:0.6.1-1.el6",
+						"6Server-MRG-Grid-2:rubygem-rake-0:0.8.7-2.1.el6",
+						"6Server-MRG-Grid-2:rubygem-rest-client-0:1.6.1-2.el6_0",
+						"6Server-MRG-Grid-2:rubygem-sass-0:3.1.4-4.el6",
+						"6Server-MRG-Grid-2:rubygem-sinatra-1:1.2.6-2.el6",
+						"6Server-MRG-Grid-2:rubygem-syntax-0:1.0.0-4.el6",
+						"6Server-MRG-Grid-2:rubygem-thin-0:1.2.11-3.el6",
+						"6Server-MRG-Grid-2:rubygem-tilt-0:1.3.2-3.el6",
+						"6Server-MRG-Grid-2:rubygem-yard-0:0.7.2-1.el6",
+						"6Server-MRG-Grid-2:rubygems-0:1.8.16-1.el6",
+						"6Server-MRG-Grid-2:sesame-0:1.0-6.el6",
+						"6Server-MRG-Grid-2:wallaby-0:0.12.5-10.el6",
+						"6Server-MRG-Grid-Execute-Node-2:condor-0:7.6.5-0.22.el6",
+						"6Server-MRG-Grid-Execute-Node-2:condor-wallaby-0:4.1.3-1.el6",
+						"6Server-MRG-Grid-Execute-Node-2:condor-wallaby-base-db-0:1.23-1.el6",
+						"6Server-MRG-Grid-Execute-Node-2:wallaby-0:0.12.5-10.el6",
+						"6Server-MRG-Management-2:cumin-0:0.1.5444-3.el6",
+						"6Server-MRG-Management-2:sesame-0:1.0-6.el6",
+						"6Server-MRG-Management-2:wallaby-0:0.12.5-10.el6",
+						"6Server-MRG-Messaging-2:sesame-0:1.0-6.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "1.7",
+					"Vector": "AV:L/AC:L/Au:S/C:N/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "10",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "condor: lock directories created mode 0777 allow for FS-based authentication challenge bypass",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-09-19T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-3492",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll users of the Grid capabilities of Red Hat Enterprise MRG 2 are advised\nto upgrade to these updated packages, which resolve the issues and add the\nenhancements noted in the Red Hat Enterprise MRG 2 Technical Notes. Condor\nand Cumin must be restarted for this update to take effect.\n\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:1281"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-3492",
+						"Description": "CVE-2012-3492"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=848218",
+						"Description": "bz#848218: CVE-2012-3492 condor: lock directories created mode 0777 allow for FS-based authentication challenge bypass"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2012-06-28T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6ComputeNode-MRG-Grid-Execute-Node-2:condor-0:7.6.5-0.22.el6",
+						"6ComputeNode-MRG-Grid-Execute-Node-2:condor-wallaby-0:4.1.3-1.el6",
+						"6ComputeNode-MRG-Grid-Execute-Node-2:condor-wallaby-base-db-0:1.23-1.el6",
+						"6ComputeNode-MRG-Grid-Execute-Node-2:rubygem-rake-0:0.8.7-2.1.el6",
+						"6ComputeNode-MRG-Grid-Execute-Node-2:rubygems-0:1.8.16-1.el6",
+						"6ComputeNode-MRG-Grid-Execute-Node-2:wallaby-0:0.12.5-10.el6",
+						"6ComputeNode-MRG-Management-2:sesame-0:1.0-6.el6",
+						"6Server-MRG-Grid-2:condor-0:7.6.5-0.22.el6",
+						"6Server-MRG-Grid-2:condor-wallaby-0:4.1.3-1.el6",
+						"6Server-MRG-Grid-2:condor-wallaby-base-db-0:1.23-1.el6",
+						"6Server-MRG-Grid-2:cumin-0:0.1.5444-3.el6",
+						"6Server-MRG-Grid-2:deltacloud-core-0:0.5.0-10.el6_2",
+						"6Server-MRG-Grid-2:libdeltacloud-0:0.9-1.el6",
+						"6Server-MRG-Grid-2:rubygem-daemons-0:1.1.4-2.el6",
+						"6Server-MRG-Grid-2:rubygem-eventmachine-0:0.12.10-7.el6",
+						"6Server-MRG-Grid-2:rubygem-fssm-0:0.2.7-1.el6",
+						"6Server-MRG-Grid-2:rubygem-haml-0:3.1.2-2.el6",
+						"6Server-MRG-Grid-2:rubygem-hpricot-0:0.8.4-2.el6",
+						"6Server-MRG-Grid-2:rubygem-json-0:1.4.6-10.el6",
+						"6Server-MRG-Grid-2:rubygem-maruku-0:0.6.0-4.el6",
+						"6Server-MRG-Grid-2:rubygem-mime-types-0:1.16-4.el6_0",
+						"6Server-MRG-Grid-2:rubygem-mocha-0:0.9.7-4.el6",
+						"6Server-MRG-Grid-2:rubygem-net-ssh-0:2.0.23-6.el6_0",
+						"6Server-MRG-Grid-2:rubygem-nokogiri-0:1.5.0-0.8.beta4.el6",
+						"6Server-MRG-Grid-2:rubygem-rack-1:1.3.0-2.el6",
+						"6Server-MRG-Grid-2:rubygem-rack-accept-0:0.4.3-6.el6_0",
+						"6Server-MRG-Grid-2:rubygem-rack-test-0:0.6.1-1.el6",
+						"6Server-MRG-Grid-2:rubygem-rake-0:0.8.7-2.1.el6",
+						"6Server-MRG-Grid-2:rubygem-rest-client-0:1.6.1-2.el6_0",
+						"6Server-MRG-Grid-2:rubygem-sass-0:3.1.4-4.el6",
+						"6Server-MRG-Grid-2:rubygem-sinatra-1:1.2.6-2.el6",
+						"6Server-MRG-Grid-2:rubygem-syntax-0:1.0.0-4.el6",
+						"6Server-MRG-Grid-2:rubygem-thin-0:1.2.11-3.el6",
+						"6Server-MRG-Grid-2:rubygem-tilt-0:1.3.2-3.el6",
+						"6Server-MRG-Grid-2:rubygem-yard-0:0.7.2-1.el6",
+						"6Server-MRG-Grid-2:rubygems-0:1.8.16-1.el6",
+						"6Server-MRG-Grid-2:sesame-0:1.0-6.el6",
+						"6Server-MRG-Grid-2:wallaby-0:0.12.5-10.el6",
+						"6Server-MRG-Grid-Execute-Node-2:condor-0:7.6.5-0.22.el6",
+						"6Server-MRG-Grid-Execute-Node-2:condor-wallaby-0:4.1.3-1.el6",
+						"6Server-MRG-Grid-Execute-Node-2:condor-wallaby-base-db-0:1.23-1.el6",
+						"6Server-MRG-Grid-Execute-Node-2:wallaby-0:0.12.5-10.el6",
+						"6Server-MRG-Management-2:cumin-0:0.1.5444-3.el6",
+						"6Server-MRG-Management-2:sesame-0:1.0-6.el6",
+						"6Server-MRG-Management-2:wallaby-0:0.12.5-10.el6",
+						"6Server-MRG-Messaging-2:sesame-0:1.0-6.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "3.6",
+					"Vector": "AV:L/AC:L/Au:N/C:P/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "11",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "condor: GIVE_REQUEST_AD leaks privileged ClaimId information",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-09-19T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-3493",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll users of the Grid capabilities of Red Hat Enterprise MRG 2 are advised\nto upgrade to these updated packages, which resolve the issues and add the\nenhancements noted in the Red Hat Enterprise MRG 2 Technical Notes. Condor\nand Cumin must be restarted for this update to take effect.\n\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:1281"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-3493",
+						"Description": "CVE-2012-3493"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=848222",
+						"Description": "bz#848222: CVE-2012-3493 condor: GIVE_REQUEST_AD leaks privileged ClaimId information"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2012-07-04T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6ComputeNode-MRG-Grid-Execute-Node-2:condor-0:7.6.5-0.22.el6",
+						"6ComputeNode-MRG-Grid-Execute-Node-2:condor-wallaby-0:4.1.3-1.el6",
+						"6ComputeNode-MRG-Grid-Execute-Node-2:condor-wallaby-base-db-0:1.23-1.el6",
+						"6ComputeNode-MRG-Grid-Execute-Node-2:rubygem-rake-0:0.8.7-2.1.el6",
+						"6ComputeNode-MRG-Grid-Execute-Node-2:rubygems-0:1.8.16-1.el6",
+						"6ComputeNode-MRG-Grid-Execute-Node-2:wallaby-0:0.12.5-10.el6",
+						"6ComputeNode-MRG-Management-2:sesame-0:1.0-6.el6",
+						"6Server-MRG-Grid-2:condor-0:7.6.5-0.22.el6",
+						"6Server-MRG-Grid-2:condor-wallaby-0:4.1.3-1.el6",
+						"6Server-MRG-Grid-2:condor-wallaby-base-db-0:1.23-1.el6",
+						"6Server-MRG-Grid-2:cumin-0:0.1.5444-3.el6",
+						"6Server-MRG-Grid-2:deltacloud-core-0:0.5.0-10.el6_2",
+						"6Server-MRG-Grid-2:libdeltacloud-0:0.9-1.el6",
+						"6Server-MRG-Grid-2:rubygem-daemons-0:1.1.4-2.el6",
+						"6Server-MRG-Grid-2:rubygem-eventmachine-0:0.12.10-7.el6",
+						"6Server-MRG-Grid-2:rubygem-fssm-0:0.2.7-1.el6",
+						"6Server-MRG-Grid-2:rubygem-haml-0:3.1.2-2.el6",
+						"6Server-MRG-Grid-2:rubygem-hpricot-0:0.8.4-2.el6",
+						"6Server-MRG-Grid-2:rubygem-json-0:1.4.6-10.el6",
+						"6Server-MRG-Grid-2:rubygem-maruku-0:0.6.0-4.el6",
+						"6Server-MRG-Grid-2:rubygem-mime-types-0:1.16-4.el6_0",
+						"6Server-MRG-Grid-2:rubygem-mocha-0:0.9.7-4.el6",
+						"6Server-MRG-Grid-2:rubygem-net-ssh-0:2.0.23-6.el6_0",
+						"6Server-MRG-Grid-2:rubygem-nokogiri-0:1.5.0-0.8.beta4.el6",
+						"6Server-MRG-Grid-2:rubygem-rack-1:1.3.0-2.el6",
+						"6Server-MRG-Grid-2:rubygem-rack-accept-0:0.4.3-6.el6_0",
+						"6Server-MRG-Grid-2:rubygem-rack-test-0:0.6.1-1.el6",
+						"6Server-MRG-Grid-2:rubygem-rake-0:0.8.7-2.1.el6",
+						"6Server-MRG-Grid-2:rubygem-rest-client-0:1.6.1-2.el6_0",
+						"6Server-MRG-Grid-2:rubygem-sass-0:3.1.4-4.el6",
+						"6Server-MRG-Grid-2:rubygem-sinatra-1:1.2.6-2.el6",
+						"6Server-MRG-Grid-2:rubygem-syntax-0:1.0.0-4.el6",
+						"6Server-MRG-Grid-2:rubygem-thin-0:1.2.11-3.el6",
+						"6Server-MRG-Grid-2:rubygem-tilt-0:1.3.2-3.el6",
+						"6Server-MRG-Grid-2:rubygem-yard-0:0.7.2-1.el6",
+						"6Server-MRG-Grid-2:rubygems-0:1.8.16-1.el6",
+						"6Server-MRG-Grid-2:sesame-0:1.0-6.el6",
+						"6Server-MRG-Grid-2:wallaby-0:0.12.5-10.el6",
+						"6Server-MRG-Grid-Execute-Node-2:condor-0:7.6.5-0.22.el6",
+						"6Server-MRG-Grid-Execute-Node-2:condor-wallaby-0:4.1.3-1.el6",
+						"6Server-MRG-Grid-Execute-Node-2:condor-wallaby-base-db-0:1.23-1.el6",
+						"6Server-MRG-Grid-Execute-Node-2:wallaby-0:0.12.5-10.el6",
+						"6Server-MRG-Management-2:cumin-0:0.1.5444-3.el6",
+						"6Server-MRG-Management-2:sesame-0:1.0-6.el6",
+						"6Server-MRG-Management-2:wallaby-0:0.12.5-10.el6",
+						"6Server-MRG-Messaging-2:sesame-0:1.0-6.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.8",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:P/A:N"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise MRG for RHEL-6",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat MRG Grid Execute Node for RHEL 6 ComputeNode v.2",
+						"fullproductname": {
+							"text": "Red Hat MRG Grid Execute Node for RHEL 6 ComputeNode v.2",
+							"productid": "6ComputeNode-MRG-Grid-Execute-Node-2",
+							"cpe": "cpe:/a:redhat:enterprise_mrg:2:computenode:el6"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat MRG Management for RHEL 6 ComputeNode v.2",
+						"fullproductname": {
+							"text": "Red Hat MRG Management for RHEL 6 ComputeNode v.2",
+							"productid": "6ComputeNode-MRG-Management-2",
+							"cpe": "cpe:/a:redhat:enterprise_mrg:2:computenode:el6"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat MRG Grid for RHEL 6 Server v.2",
+						"fullproductname": {
+							"text": "Red Hat MRG Grid for RHEL 6 Server v.2",
+							"productid": "6Server-MRG-Grid-2",
+							"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat MRG Grid Execute Node for RHEL 6 Server v.2",
+						"fullproductname": {
+							"text": "Red Hat MRG Grid Execute Node for RHEL 6 Server v.2",
+							"productid": "6Server-MRG-Grid-Execute-Node-2",
+							"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat MRG Management for RHEL 6 Server v.2",
+						"fullproductname": {
+							"text": "Red Hat MRG Management for RHEL 6 Server v.2",
+							"productid": "6Server-MRG-Management-2",
+							"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat MRG Messaging for RHEL 6 Server v.2",
+						"fullproductname": {
+							"text": "Red Hat MRG Messaging for RHEL 6 Server v.2",
+							"productid": "6Server-MRG-Messaging-2",
+							"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "condor-0:7.6.5-0.22.el6",
+				"fullproductname": {
+					"text": "condor-7.6.5-0.22.el6.src.rpm",
+					"productid": "condor-0:7.6.5-0.22.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:computenode:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "condor-wallaby-0:4.1.3-1.el6",
+				"fullproductname": {
+					"text": "condor-wallaby-4.1.3-1.el6.src.rpm",
+					"productid": "condor-wallaby-0:4.1.3-1.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:computenode:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "condor-wallaby-base-db-0:1.23-1.el6",
+				"fullproductname": {
+					"text": "condor-wallaby-base-db-1.23-1.el6.src.rpm",
+					"productid": "condor-wallaby-base-db-0:1.23-1.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:computenode:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "cumin-0:0.1.5444-3.el6",
+				"fullproductname": {
+					"text": "cumin-0.1.5444-3.el6.src.rpm",
+					"productid": "cumin-0:0.1.5444-3.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "deltacloud-core-0:0.5.0-10.el6_2",
+				"fullproductname": {
+					"text": "deltacloud-core-0.5.0-10.el6_2.src.rpm",
+					"productid": "deltacloud-core-0:0.5.0-10.el6_2",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libdeltacloud-0:0.9-1.el6",
+				"fullproductname": {
+					"text": "libdeltacloud-0.9-1.el6.src.rpm",
+					"productid": "libdeltacloud-0:0.9-1.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-daemons-0:1.1.4-2.el6",
+				"fullproductname": {
+					"text": "rubygem-daemons-1.1.4-2.el6.src.rpm",
+					"productid": "rubygem-daemons-0:1.1.4-2.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-eventmachine-0:0.12.10-7.el6",
+				"fullproductname": {
+					"text": "rubygem-eventmachine-0.12.10-7.el6.src.rpm",
+					"productid": "rubygem-eventmachine-0:0.12.10-7.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-fssm-0:0.2.7-1.el6",
+				"fullproductname": {
+					"text": "rubygem-fssm-0.2.7-1.el6.src.rpm",
+					"productid": "rubygem-fssm-0:0.2.7-1.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-haml-0:3.1.2-2.el6",
+				"fullproductname": {
+					"text": "rubygem-haml-3.1.2-2.el6.src.rpm",
+					"productid": "rubygem-haml-0:3.1.2-2.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-hpricot-0:0.8.4-2.el6",
+				"fullproductname": {
+					"text": "rubygem-hpricot-0.8.4-2.el6.src.rpm",
+					"productid": "rubygem-hpricot-0:0.8.4-2.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-json-0:1.4.6-10.el6",
+				"fullproductname": {
+					"text": "rubygem-json-1.4.6-10.el6.src.rpm",
+					"productid": "rubygem-json-0:1.4.6-10.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-maruku-0:0.6.0-4.el6",
+				"fullproductname": {
+					"text": "rubygem-maruku-0.6.0-4.el6.src.rpm",
+					"productid": "rubygem-maruku-0:0.6.0-4.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-mime-types-0:1.16-4.el6_0",
+				"fullproductname": {
+					"text": "rubygem-mime-types-1.16-4.el6_0.src.rpm",
+					"productid": "rubygem-mime-types-0:1.16-4.el6_0",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-mocha-0:0.9.7-4.el6",
+				"fullproductname": {
+					"text": "rubygem-mocha-0.9.7-4.el6.src.rpm",
+					"productid": "rubygem-mocha-0:0.9.7-4.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-net-ssh-0:2.0.23-6.el6_0",
+				"fullproductname": {
+					"text": "rubygem-net-ssh-2.0.23-6.el6_0.src.rpm",
+					"productid": "rubygem-net-ssh-0:2.0.23-6.el6_0",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-nokogiri-0:1.5.0-0.8.beta4.el6",
+				"fullproductname": {
+					"text": "rubygem-nokogiri-1.5.0-0.8.beta4.el6.src.rpm",
+					"productid": "rubygem-nokogiri-0:1.5.0-0.8.beta4.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-rack-1:1.3.0-2.el6",
+				"fullproductname": {
+					"text": "rubygem-rack-1.3.0-2.el6.src.rpm",
+					"productid": "rubygem-rack-1:1.3.0-2.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-rack-accept-0:0.4.3-6.el6_0",
+				"fullproductname": {
+					"text": "rubygem-rack-accept-0.4.3-6.el6_0.src.rpm",
+					"productid": "rubygem-rack-accept-0:0.4.3-6.el6_0",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-rack-test-0:0.6.1-1.el6",
+				"fullproductname": {
+					"text": "rubygem-rack-test-0.6.1-1.el6.src.rpm",
+					"productid": "rubygem-rack-test-0:0.6.1-1.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-rake-0:0.8.7-2.1.el6",
+				"fullproductname": {
+					"text": "rubygem-rake-0.8.7-2.1.el6.src.rpm",
+					"productid": "rubygem-rake-0:0.8.7-2.1.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:computenode:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-rest-client-0:1.6.1-2.el6_0",
+				"fullproductname": {
+					"text": "rubygem-rest-client-1.6.1-2.el6_0.src.rpm",
+					"productid": "rubygem-rest-client-0:1.6.1-2.el6_0",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-sass-0:3.1.4-4.el6",
+				"fullproductname": {
+					"text": "rubygem-sass-3.1.4-4.el6.src.rpm",
+					"productid": "rubygem-sass-0:3.1.4-4.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-sinatra-1:1.2.6-2.el6",
+				"fullproductname": {
+					"text": "rubygem-sinatra-1.2.6-2.el6.src.rpm",
+					"productid": "rubygem-sinatra-1:1.2.6-2.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-syntax-0:1.0.0-4.el6",
+				"fullproductname": {
+					"text": "rubygem-syntax-1.0.0-4.el6.src.rpm",
+					"productid": "rubygem-syntax-0:1.0.0-4.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-thin-0:1.2.11-3.el6",
+				"fullproductname": {
+					"text": "rubygem-thin-1.2.11-3.el6.src.rpm",
+					"productid": "rubygem-thin-0:1.2.11-3.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-tilt-0:1.3.2-3.el6",
+				"fullproductname": {
+					"text": "rubygem-tilt-1.3.2-3.el6.src.rpm",
+					"productid": "rubygem-tilt-0:1.3.2-3.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-yard-0:0.7.2-1.el6",
+				"fullproductname": {
+					"text": "rubygem-yard-0.7.2-1.el6.src.rpm",
+					"productid": "rubygem-yard-0:0.7.2-1.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygems-0:1.8.16-1.el6",
+				"fullproductname": {
+					"text": "rubygems-1.8.16-1.el6.src.rpm",
+					"productid": "rubygems-0:1.8.16-1.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:computenode:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "sesame-0:1.0-6.el6",
+				"fullproductname": {
+					"text": "sesame-1.0-6.el6.src.rpm",
+					"productid": "sesame-0:1.0-6.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:computenode:el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "wallaby-0:0.12.5-10.el6",
+				"fullproductname": {
+					"text": "wallaby-0.12.5-10.el6.src.rpm",
+					"productid": "wallaby-0:0.12.5-10.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:computenode:el6"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "condor-0:7.6.5-0.22.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-MRG-Grid-Execute-Node-2",
+				"fullproductname": {
+					"text": "condor-0:7.6.5-0.22.el6 as a component of Red Hat MRG Grid Execute Node for RHEL 6 ComputeNode v.2",
+					"productid": "6ComputeNode-MRG-Grid-Execute-Node-2:condor-0:7.6.5-0.22.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:computenode:el6"
+				}
+			},
+			{
+				"productreference": "condor-wallaby-0:4.1.3-1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-MRG-Grid-Execute-Node-2",
+				"fullproductname": {
+					"text": "condor-wallaby-0:4.1.3-1.el6 as a component of Red Hat MRG Grid Execute Node for RHEL 6 ComputeNode v.2",
+					"productid": "6ComputeNode-MRG-Grid-Execute-Node-2:condor-wallaby-0:4.1.3-1.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:computenode:el6"
+				}
+			},
+			{
+				"productreference": "condor-wallaby-base-db-0:1.23-1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-MRG-Grid-Execute-Node-2",
+				"fullproductname": {
+					"text": "condor-wallaby-base-db-0:1.23-1.el6 as a component of Red Hat MRG Grid Execute Node for RHEL 6 ComputeNode v.2",
+					"productid": "6ComputeNode-MRG-Grid-Execute-Node-2:condor-wallaby-base-db-0:1.23-1.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:computenode:el6"
+				}
+			},
+			{
+				"productreference": "rubygem-rake-0:0.8.7-2.1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-MRG-Grid-Execute-Node-2",
+				"fullproductname": {
+					"text": "rubygem-rake-0:0.8.7-2.1.el6 as a component of Red Hat MRG Grid Execute Node for RHEL 6 ComputeNode v.2",
+					"productid": "6ComputeNode-MRG-Grid-Execute-Node-2:rubygem-rake-0:0.8.7-2.1.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:computenode:el6"
+				}
+			},
+			{
+				"productreference": "rubygems-0:1.8.16-1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-MRG-Grid-Execute-Node-2",
+				"fullproductname": {
+					"text": "rubygems-0:1.8.16-1.el6 as a component of Red Hat MRG Grid Execute Node for RHEL 6 ComputeNode v.2",
+					"productid": "6ComputeNode-MRG-Grid-Execute-Node-2:rubygems-0:1.8.16-1.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:computenode:el6"
+				}
+			},
+			{
+				"productreference": "wallaby-0:0.12.5-10.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-MRG-Grid-Execute-Node-2",
+				"fullproductname": {
+					"text": "wallaby-0:0.12.5-10.el6 as a component of Red Hat MRG Grid Execute Node for RHEL 6 ComputeNode v.2",
+					"productid": "6ComputeNode-MRG-Grid-Execute-Node-2:wallaby-0:0.12.5-10.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:computenode:el6"
+				}
+			},
+			{
+				"productreference": "sesame-0:1.0-6.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-MRG-Management-2",
+				"fullproductname": {
+					"text": "sesame-0:1.0-6.el6 as a component of Red Hat MRG Management for RHEL 6 ComputeNode v.2",
+					"productid": "6ComputeNode-MRG-Management-2:sesame-0:1.0-6.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:computenode:el6"
+				}
+			},
+			{
+				"productreference": "condor-0:7.6.5-0.22.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-MRG-Grid-2",
+				"fullproductname": {
+					"text": "condor-0:7.6.5-0.22.el6 as a component of Red Hat MRG Grid for RHEL 6 Server v.2",
+					"productid": "6Server-MRG-Grid-2:condor-0:7.6.5-0.22.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			},
+			{
+				"productreference": "condor-wallaby-0:4.1.3-1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-MRG-Grid-2",
+				"fullproductname": {
+					"text": "condor-wallaby-0:4.1.3-1.el6 as a component of Red Hat MRG Grid for RHEL 6 Server v.2",
+					"productid": "6Server-MRG-Grid-2:condor-wallaby-0:4.1.3-1.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			},
+			{
+				"productreference": "condor-wallaby-base-db-0:1.23-1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-MRG-Grid-2",
+				"fullproductname": {
+					"text": "condor-wallaby-base-db-0:1.23-1.el6 as a component of Red Hat MRG Grid for RHEL 6 Server v.2",
+					"productid": "6Server-MRG-Grid-2:condor-wallaby-base-db-0:1.23-1.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			},
+			{
+				"productreference": "cumin-0:0.1.5444-3.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-MRG-Grid-2",
+				"fullproductname": {
+					"text": "cumin-0:0.1.5444-3.el6 as a component of Red Hat MRG Grid for RHEL 6 Server v.2",
+					"productid": "6Server-MRG-Grid-2:cumin-0:0.1.5444-3.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			},
+			{
+				"productreference": "deltacloud-core-0:0.5.0-10.el6_2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-MRG-Grid-2",
+				"fullproductname": {
+					"text": "deltacloud-core-0:0.5.0-10.el6_2 as a component of Red Hat MRG Grid for RHEL 6 Server v.2",
+					"productid": "6Server-MRG-Grid-2:deltacloud-core-0:0.5.0-10.el6_2",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			},
+			{
+				"productreference": "libdeltacloud-0:0.9-1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-MRG-Grid-2",
+				"fullproductname": {
+					"text": "libdeltacloud-0:0.9-1.el6 as a component of Red Hat MRG Grid for RHEL 6 Server v.2",
+					"productid": "6Server-MRG-Grid-2:libdeltacloud-0:0.9-1.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			},
+			{
+				"productreference": "rubygem-daemons-0:1.1.4-2.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-MRG-Grid-2",
+				"fullproductname": {
+					"text": "rubygem-daemons-0:1.1.4-2.el6 as a component of Red Hat MRG Grid for RHEL 6 Server v.2",
+					"productid": "6Server-MRG-Grid-2:rubygem-daemons-0:1.1.4-2.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			},
+			{
+				"productreference": "rubygem-eventmachine-0:0.12.10-7.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-MRG-Grid-2",
+				"fullproductname": {
+					"text": "rubygem-eventmachine-0:0.12.10-7.el6 as a component of Red Hat MRG Grid for RHEL 6 Server v.2",
+					"productid": "6Server-MRG-Grid-2:rubygem-eventmachine-0:0.12.10-7.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			},
+			{
+				"productreference": "rubygem-fssm-0:0.2.7-1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-MRG-Grid-2",
+				"fullproductname": {
+					"text": "rubygem-fssm-0:0.2.7-1.el6 as a component of Red Hat MRG Grid for RHEL 6 Server v.2",
+					"productid": "6Server-MRG-Grid-2:rubygem-fssm-0:0.2.7-1.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			},
+			{
+				"productreference": "rubygem-haml-0:3.1.2-2.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-MRG-Grid-2",
+				"fullproductname": {
+					"text": "rubygem-haml-0:3.1.2-2.el6 as a component of Red Hat MRG Grid for RHEL 6 Server v.2",
+					"productid": "6Server-MRG-Grid-2:rubygem-haml-0:3.1.2-2.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			},
+			{
+				"productreference": "rubygem-hpricot-0:0.8.4-2.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-MRG-Grid-2",
+				"fullproductname": {
+					"text": "rubygem-hpricot-0:0.8.4-2.el6 as a component of Red Hat MRG Grid for RHEL 6 Server v.2",
+					"productid": "6Server-MRG-Grid-2:rubygem-hpricot-0:0.8.4-2.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			},
+			{
+				"productreference": "rubygem-json-0:1.4.6-10.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-MRG-Grid-2",
+				"fullproductname": {
+					"text": "rubygem-json-0:1.4.6-10.el6 as a component of Red Hat MRG Grid for RHEL 6 Server v.2",
+					"productid": "6Server-MRG-Grid-2:rubygem-json-0:1.4.6-10.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			},
+			{
+				"productreference": "rubygem-maruku-0:0.6.0-4.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-MRG-Grid-2",
+				"fullproductname": {
+					"text": "rubygem-maruku-0:0.6.0-4.el6 as a component of Red Hat MRG Grid for RHEL 6 Server v.2",
+					"productid": "6Server-MRG-Grid-2:rubygem-maruku-0:0.6.0-4.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			},
+			{
+				"productreference": "rubygem-mime-types-0:1.16-4.el6_0",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-MRG-Grid-2",
+				"fullproductname": {
+					"text": "rubygem-mime-types-0:1.16-4.el6_0 as a component of Red Hat MRG Grid for RHEL 6 Server v.2",
+					"productid": "6Server-MRG-Grid-2:rubygem-mime-types-0:1.16-4.el6_0",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			},
+			{
+				"productreference": "rubygem-mocha-0:0.9.7-4.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-MRG-Grid-2",
+				"fullproductname": {
+					"text": "rubygem-mocha-0:0.9.7-4.el6 as a component of Red Hat MRG Grid for RHEL 6 Server v.2",
+					"productid": "6Server-MRG-Grid-2:rubygem-mocha-0:0.9.7-4.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			},
+			{
+				"productreference": "rubygem-net-ssh-0:2.0.23-6.el6_0",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-MRG-Grid-2",
+				"fullproductname": {
+					"text": "rubygem-net-ssh-0:2.0.23-6.el6_0 as a component of Red Hat MRG Grid for RHEL 6 Server v.2",
+					"productid": "6Server-MRG-Grid-2:rubygem-net-ssh-0:2.0.23-6.el6_0",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			},
+			{
+				"productreference": "rubygem-nokogiri-0:1.5.0-0.8.beta4.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-MRG-Grid-2",
+				"fullproductname": {
+					"text": "rubygem-nokogiri-0:1.5.0-0.8.beta4.el6 as a component of Red Hat MRG Grid for RHEL 6 Server v.2",
+					"productid": "6Server-MRG-Grid-2:rubygem-nokogiri-0:1.5.0-0.8.beta4.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			},
+			{
+				"productreference": "rubygem-rack-1:1.3.0-2.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-MRG-Grid-2",
+				"fullproductname": {
+					"text": "rubygem-rack-1:1.3.0-2.el6 as a component of Red Hat MRG Grid for RHEL 6 Server v.2",
+					"productid": "6Server-MRG-Grid-2:rubygem-rack-1:1.3.0-2.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			},
+			{
+				"productreference": "rubygem-rack-accept-0:0.4.3-6.el6_0",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-MRG-Grid-2",
+				"fullproductname": {
+					"text": "rubygem-rack-accept-0:0.4.3-6.el6_0 as a component of Red Hat MRG Grid for RHEL 6 Server v.2",
+					"productid": "6Server-MRG-Grid-2:rubygem-rack-accept-0:0.4.3-6.el6_0",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			},
+			{
+				"productreference": "rubygem-rack-test-0:0.6.1-1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-MRG-Grid-2",
+				"fullproductname": {
+					"text": "rubygem-rack-test-0:0.6.1-1.el6 as a component of Red Hat MRG Grid for RHEL 6 Server v.2",
+					"productid": "6Server-MRG-Grid-2:rubygem-rack-test-0:0.6.1-1.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			},
+			{
+				"productreference": "rubygem-rake-0:0.8.7-2.1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-MRG-Grid-2",
+				"fullproductname": {
+					"text": "rubygem-rake-0:0.8.7-2.1.el6 as a component of Red Hat MRG Grid for RHEL 6 Server v.2",
+					"productid": "6Server-MRG-Grid-2:rubygem-rake-0:0.8.7-2.1.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			},
+			{
+				"productreference": "rubygem-rest-client-0:1.6.1-2.el6_0",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-MRG-Grid-2",
+				"fullproductname": {
+					"text": "rubygem-rest-client-0:1.6.1-2.el6_0 as a component of Red Hat MRG Grid for RHEL 6 Server v.2",
+					"productid": "6Server-MRG-Grid-2:rubygem-rest-client-0:1.6.1-2.el6_0",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			},
+			{
+				"productreference": "rubygem-sass-0:3.1.4-4.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-MRG-Grid-2",
+				"fullproductname": {
+					"text": "rubygem-sass-0:3.1.4-4.el6 as a component of Red Hat MRG Grid for RHEL 6 Server v.2",
+					"productid": "6Server-MRG-Grid-2:rubygem-sass-0:3.1.4-4.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			},
+			{
+				"productreference": "rubygem-sinatra-1:1.2.6-2.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-MRG-Grid-2",
+				"fullproductname": {
+					"text": "rubygem-sinatra-1:1.2.6-2.el6 as a component of Red Hat MRG Grid for RHEL 6 Server v.2",
+					"productid": "6Server-MRG-Grid-2:rubygem-sinatra-1:1.2.6-2.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			},
+			{
+				"productreference": "rubygem-syntax-0:1.0.0-4.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-MRG-Grid-2",
+				"fullproductname": {
+					"text": "rubygem-syntax-0:1.0.0-4.el6 as a component of Red Hat MRG Grid for RHEL 6 Server v.2",
+					"productid": "6Server-MRG-Grid-2:rubygem-syntax-0:1.0.0-4.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			},
+			{
+				"productreference": "rubygem-thin-0:1.2.11-3.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-MRG-Grid-2",
+				"fullproductname": {
+					"text": "rubygem-thin-0:1.2.11-3.el6 as a component of Red Hat MRG Grid for RHEL 6 Server v.2",
+					"productid": "6Server-MRG-Grid-2:rubygem-thin-0:1.2.11-3.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			},
+			{
+				"productreference": "rubygem-tilt-0:1.3.2-3.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-MRG-Grid-2",
+				"fullproductname": {
+					"text": "rubygem-tilt-0:1.3.2-3.el6 as a component of Red Hat MRG Grid for RHEL 6 Server v.2",
+					"productid": "6Server-MRG-Grid-2:rubygem-tilt-0:1.3.2-3.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			},
+			{
+				"productreference": "rubygem-yard-0:0.7.2-1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-MRG-Grid-2",
+				"fullproductname": {
+					"text": "rubygem-yard-0:0.7.2-1.el6 as a component of Red Hat MRG Grid for RHEL 6 Server v.2",
+					"productid": "6Server-MRG-Grid-2:rubygem-yard-0:0.7.2-1.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			},
+			{
+				"productreference": "rubygems-0:1.8.16-1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-MRG-Grid-2",
+				"fullproductname": {
+					"text": "rubygems-0:1.8.16-1.el6 as a component of Red Hat MRG Grid for RHEL 6 Server v.2",
+					"productid": "6Server-MRG-Grid-2:rubygems-0:1.8.16-1.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			},
+			{
+				"productreference": "sesame-0:1.0-6.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-MRG-Grid-2",
+				"fullproductname": {
+					"text": "sesame-0:1.0-6.el6 as a component of Red Hat MRG Grid for RHEL 6 Server v.2",
+					"productid": "6Server-MRG-Grid-2:sesame-0:1.0-6.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			},
+			{
+				"productreference": "wallaby-0:0.12.5-10.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-MRG-Grid-2",
+				"fullproductname": {
+					"text": "wallaby-0:0.12.5-10.el6 as a component of Red Hat MRG Grid for RHEL 6 Server v.2",
+					"productid": "6Server-MRG-Grid-2:wallaby-0:0.12.5-10.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			},
+			{
+				"productreference": "condor-0:7.6.5-0.22.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-MRG-Grid-Execute-Node-2",
+				"fullproductname": {
+					"text": "condor-0:7.6.5-0.22.el6 as a component of Red Hat MRG Grid Execute Node for RHEL 6 Server v.2",
+					"productid": "6Server-MRG-Grid-Execute-Node-2:condor-0:7.6.5-0.22.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			},
+			{
+				"productreference": "condor-wallaby-0:4.1.3-1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-MRG-Grid-Execute-Node-2",
+				"fullproductname": {
+					"text": "condor-wallaby-0:4.1.3-1.el6 as a component of Red Hat MRG Grid Execute Node for RHEL 6 Server v.2",
+					"productid": "6Server-MRG-Grid-Execute-Node-2:condor-wallaby-0:4.1.3-1.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			},
+			{
+				"productreference": "condor-wallaby-base-db-0:1.23-1.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-MRG-Grid-Execute-Node-2",
+				"fullproductname": {
+					"text": "condor-wallaby-base-db-0:1.23-1.el6 as a component of Red Hat MRG Grid Execute Node for RHEL 6 Server v.2",
+					"productid": "6Server-MRG-Grid-Execute-Node-2:condor-wallaby-base-db-0:1.23-1.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			},
+			{
+				"productreference": "wallaby-0:0.12.5-10.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-MRG-Grid-Execute-Node-2",
+				"fullproductname": {
+					"text": "wallaby-0:0.12.5-10.el6 as a component of Red Hat MRG Grid Execute Node for RHEL 6 Server v.2",
+					"productid": "6Server-MRG-Grid-Execute-Node-2:wallaby-0:0.12.5-10.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			},
+			{
+				"productreference": "cumin-0:0.1.5444-3.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-MRG-Management-2",
+				"fullproductname": {
+					"text": "cumin-0:0.1.5444-3.el6 as a component of Red Hat MRG Management for RHEL 6 Server v.2",
+					"productid": "6Server-MRG-Management-2:cumin-0:0.1.5444-3.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			},
+			{
+				"productreference": "sesame-0:1.0-6.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-MRG-Management-2",
+				"fullproductname": {
+					"text": "sesame-0:1.0-6.el6 as a component of Red Hat MRG Management for RHEL 6 Server v.2",
+					"productid": "6Server-MRG-Management-2:sesame-0:1.0-6.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			},
+			{
+				"productreference": "wallaby-0:0.12.5-10.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-MRG-Management-2",
+				"fullproductname": {
+					"text": "wallaby-0:0.12.5-10.el6 as a component of Red Hat MRG Management for RHEL 6 Server v.2",
+					"productid": "6Server-MRG-Management-2:wallaby-0:0.12.5-10.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			},
+			{
+				"productreference": "sesame-0:1.0-6.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-MRG-Messaging-2",
+				"fullproductname": {
+					"text": "sesame-0:1.0-6.el6 as a component of Red Hat MRG Messaging for RHEL 6 Server v.2",
+					"productid": "6Server-MRG-Messaging-2:sesame-0:1.0-6.el6",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			}
+		]
+	}
+}

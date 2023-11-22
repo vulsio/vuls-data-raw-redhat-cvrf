@@ -1,0 +1,2386 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: Red Hat Ceph Storage 1.3.1 security, bug fix, and enhancement update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2015:2066"
+		},
+		"Status": "Final",
+		"Version": "2",
+		"revisionhistory": {
+			"revision": {
+				"Number": "2",
+				"Date": "2015-11-23T21:34:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2015-11-23T21:34:00Z",
+		"CurrentReleaseDate": "2015-11-23T21:34:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:35:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nRed Hat Ceph Storage 1.3.1 that fixes one security issue, multiple bugs,\nand adds various enhancements is now available for Red Hat Enterprise Linux 7.\n\nRed Hat Product Security has rated this update as having Moderate security\nimpact. A Common Vulnerability Scoring System (CVSS) base score, which\ngives a detailed severity rating, is available from the CVE link in the\nReferences section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nRed Hat Ceph Storage is a massively scalable, open, software-defined\nstorage platform that combines the most stable version of the Ceph storage\nsystem with a Ceph management platform, deployment tools, and\nsupport services.\n\nA feature in Ceph Object Gateway (RGW) allows to return a specific HTTP\nheader that contains the name of a bucket that was accessed. It was found\nthat the returned HTTP headers were not sanitized. An unauthenticated\nattacker could use this flaw to craft HTTP headers in responses that would\nconfuse the load balancer residing in front of RGW, potentially resulting\nin a denial of service. (CVE-2015-5245)\n\nThe ceph packages have been upgraded to upstream version 0.94.3 and the\nradosgw-agent packages have been upgraded to upstream version 1.2.3.\nThe new versions provide a number of bug fixes and enhancements over the\nprevious versions. (BZ#1238415)\n\nThis update also fixes the following bugs:\n\n* This update fixes various bugs in the Ceph monitor nodes and the Ceph\nObject Storage Device (OSD) Daemons. (BZ#1219040, BZ#1223941, BZ#1265973)\n\n* With this update, when using the Civetweb server, the Ceph Object Gateway\nno longer reports the full object size downloaded even though the download\nwas aborted in the middle. (BZ#1235845)\n\n* The Civetweb server now correctly displays the HTTP return code in the\nlog files. (BZ#1245663)\n\n* The Ceph Object Gateway now correctly assigns Access Control Lists (ACL)\nto new objects created during the copy operation. (BZ#1253766)\n\n* Under certain circumstances, copying an object onto itself (for example,\nto change its metadata) produced a truncated object. The truncated object\nhad correct metadata, including the original size, but the underlying RADOS\nobject was smaller. Consequently, when a client attempted to fetch the\nobject, it received less data than indicated by the Content-Length header,\nblocked for more, and eventually timed out. This bug has been fixed, and\nthe object can now be read successfully in the aforementioned scenario.\n(BZ#1258618)\n\n* The Ceph Object Gateway no longer requires the \"requiretty\" setting to be\ndisabled in the sudoers configuration for the root user. (BZ#1238521)\n\n* In certain scenarios, when all acting set Ceph Object Storage Device\n(OSD) Daemons for a placement group (PG) were restarted during the backfill\nprocess, the OSDs failed to peer the PG. Now, the OSDs peer the PGs as\nexpected. (BZ#1223532)\n\nIn addition, this update adds the following enhancements:\n\n* Administrators of the Ceph Object Gateway can now configure the maximum\nnumber of buckets for users by using the new \"rgw_user_max_buckets\" option\nin the Ceph configuration file. (BZ#1254343)\n\n* The suicide timeout option is now configurable. The option ensures that\npoorly behaving OSDs self-terminate instead of running in degraded states\nand slowing traffic. (BZ#1210825)\n\n* The rhcs-installer package provides a new Foreman-based installer.\nThis update adds the new rhcs-installer package to Red Hat Ceph Storage as\na Technology Preview. (BZ#1213026, BZ#1213086, BZ#1220961)\n\nMore information about Red Hat Technology Previews is available here:\nhttps://access.redhat.com/support/offerings/techpreview/\n\nAll Red Hat Ceph Storage users are advised to upgrade to this new version,\nwhich corrects these issues and adds these enhancements.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2015:2066",
+				"Description": "https://access.redhat.com/errata/RHSA-2015:2066"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/support/offerings/techpreview/",
+				"Description": "https://access.redhat.com/support/offerings/techpreview/"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Ceph: RGW returns requested bucket name raw in Bucket response header",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-08-18T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-5245",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:2066"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-5245",
+						"Description": "CVE-2015-5245"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1261606",
+						"Description": "bz#1261606: CVE-2015-5245 Ceph: RGW returns requested bucket name raw in Bucket response header"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-08-31T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-RH7-CEPH-TOOLS-1.3:babeltrace-0:1.2.4-3.el7cp",
+						"7Client-RH7-CEPH-TOOLS-1.3:ceph-1:0.94.3-3.el7cp",
+						"7Client-RH7-CEPH-TOOLS-1.3:lttng-tools-0:2.4.1-1.el7cp",
+						"7Client-RH7-CEPH-TOOLS-1.3:lttng-ust-0:2.4.1-1.el7cp",
+						"7Client-RH7-CEPH-TOOLS-1.3:radosgw-agent-0:1.2.3-1.el7cp",
+						"7Client-RH7-CEPH-TOOLS-1.3:userspace-rcu-0:0.7.9-2.el7rhgs",
+						"7ComputeNode-RH7-CEPH-TOOLS-1.3:babeltrace-0:1.2.4-3.el7cp",
+						"7ComputeNode-RH7-CEPH-TOOLS-1.3:ceph-1:0.94.3-3.el7cp",
+						"7ComputeNode-RH7-CEPH-TOOLS-1.3:lttng-tools-0:2.4.1-1.el7cp",
+						"7ComputeNode-RH7-CEPH-TOOLS-1.3:lttng-ust-0:2.4.1-1.el7cp",
+						"7ComputeNode-RH7-CEPH-TOOLS-1.3:radosgw-agent-0:1.2.3-1.el7cp",
+						"7ComputeNode-RH7-CEPH-TOOLS-1.3:userspace-rcu-0:0.7.9-2.el7rhgs",
+						"7Server-RH7-CEPH-CALAMARI-1.3:calamari-server-0:1.3-11.el7cp",
+						"7Server-RH7-CEPH-INSTALLER-1.3:ceph-deploy-0:1.5.27.3-1.el7cp",
+						"7Server-RH7-CEPH-INSTALLER-1.3:ceph-puppet-modules-0:0.1.1-1.el7cp",
+						"7Server-RH7-CEPH-INSTALLER-1.3:facter-1:1.7.6-2.1.el7sat",
+						"7Server-RH7-CEPH-INSTALLER-1.3:foreman-0:1.7.2.33-1.el7sat",
+						"7Server-RH7-CEPH-INSTALLER-1.3:foreman-installer-1:1.7.5-2.el7cp",
+						"7Server-RH7-CEPH-INSTALLER-1.3:foreman-proxy-0:1.7.2.5-1.el7sat",
+						"7Server-RH7-CEPH-INSTALLER-1.3:foreman-selinux-0:1.7.2.13-1.el7sat",
+						"7Server-RH7-CEPH-INSTALLER-1.3:hiera-0:1.3.1-2.el7",
+						"7Server-RH7-CEPH-INSTALLER-1.3:ipxe-0:20130517-7.1fm.gitc4bce43.el7sat",
+						"7Server-RH7-CEPH-INSTALLER-1.3:puppet-0:3.6.2-4.el7sat",
+						"7Server-RH7-CEPH-INSTALLER-1.3:rhcs-installer-0:0.1.0-1.el7cp",
+						"7Server-RH7-CEPH-INSTALLER-1.3:ruby-augeas-0:0.5.0-1.el7",
+						"7Server-RH7-CEPH-INSTALLER-1.3:ruby-rgen-0:0.6.5-2.el7sat",
+						"7Server-RH7-CEPH-INSTALLER-1.3:ruby-shadow-0:1.4.1-21.el7",
+						"7Server-RH7-CEPH-INSTALLER-1.3:ruby193-facter-0:1.6.18-5.el7sat",
+						"7Server-RH7-CEPH-INSTALLER-1.3:ruby193-ruby-wrapper-0:0.0.2-6.el7sat",
+						"7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-ancestry-0:2.0.0-1.el7sat",
+						"7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-apipie-rails-0:0.2.5-1.el7sat",
+						"7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-audited-0:3.0.0-5.el7sat",
+						"7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-audited-activerecord-0:3.0.0-8.el7sat",
+						"7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-bundler_ext-0:0.3.0-6.el7sat",
+						"7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-deep_cloneable-0:2.0.0-4.el7",
+						"7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-fast_gettext-0:0.8.0-13.el7sat",
+						"7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-foreigner-0:1.4.2-1.el7sat",
+						"7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-foreman_bootdisk-0:4.0.2.13-1.el7sat",
+						"7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-friendly_id-0:4.0.10.1-1.el7",
+						"7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-gettext_i18n_rails-0:0.10.0-3.el7sat",
+						"7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-gettext_i18n_rails_js-0:0.0.8-3.el7sat",
+						"7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-i18n_data-0:0.2.7-5.el7sat",
+						"7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-ldap_fluff-0:0.3.2-1.el7",
+						"7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-multi_json-0:1.8.2-4.el7sat",
+						"7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-net-ldap-0:0.3.1-3.el7sat",
+						"7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-oauth-0:0.4.7-8.el7sat",
+						"7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-passenger-0:4.0.18-19.el7sat",
+						"7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-pg-0:0.12.2-10.el7sat",
+						"7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-po_to_json-0:0.0.7-3.el7sat",
+						"7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-rabl-0:0.9.0-1.el7sat",
+						"7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-rest-client-0:1.6.7-1.el7sat",
+						"7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-ruby2ruby-0:2.0.1-9.el7sat",
+						"7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-ruby_parser-0:3.1.1-15.el7sat",
+						"7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-safemode-0:1.2.1-1.el7sat",
+						"7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-scoped_search-0:2.7.1-2.el7sat",
+						"7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-secure_headers-0:1.3.3-1.el7",
+						"7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-sexp_processor-0:4.1.3-7.el7sat",
+						"7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-sprockets-0:2.10.1-3.el7sat",
+						"7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-uuidtools-0:2.1.3-6.el7sat",
+						"7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-validates_lengths_from_database-0:0.2.0-1.3.el7sat",
+						"7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-will_paginate-0:3.0.2-10.el7sat",
+						"7Server-RH7-CEPH-INSTALLER-1.3:rubygem-ansi-0:1.4.3-3.el7sat",
+						"7Server-RH7-CEPH-INSTALLER-1.3:rubygem-apipie-bindings-0:0.0.11-1.el7",
+						"7Server-RH7-CEPH-INSTALLER-1.3:rubygem-awesome_print-0:1.0.2-12.el7sat",
+						"7Server-RH7-CEPH-INSTALLER-1.3:rubygem-bundler_ext-0:0.3.0-7.el7sat",
+						"7Server-RH7-CEPH-INSTALLER-1.3:rubygem-clamp-0:0.6.2-2.el7sat",
+						"7Server-RH7-CEPH-INSTALLER-1.3:rubygem-ffi-0:1.4.0-3.el7sat",
+						"7Server-RH7-CEPH-INSTALLER-1.3:rubygem-gssapi-0:1.1.2-4.el7sat",
+						"7Server-RH7-CEPH-INSTALLER-1.3:rubygem-hashie-0:2.0.5-2.el7sat",
+						"7Server-RH7-CEPH-INSTALLER-1.3:rubygem-highline-0:1.6.21-1.el7sat",
+						"7Server-RH7-CEPH-INSTALLER-1.3:rubygem-kafo-0:0.6.5.9-1.el7sat",
+						"7Server-RH7-CEPH-INSTALLER-1.3:rubygem-kafo_parsers-0:0.0.4.4-1.el7sat",
+						"7Server-RH7-CEPH-INSTALLER-1.3:rubygem-little-plugger-0:1.1.3-17.el7sat",
+						"7Server-RH7-CEPH-INSTALLER-1.3:rubygem-logging-0:1.8.1-26.el7sat",
+						"7Server-RH7-CEPH-INSTALLER-1.3:rubygem-mime-types-0:1.19-7.el7sat",
+						"7Server-RH7-CEPH-INSTALLER-1.3:rubygem-multi_json-0:1.8.2-4.el7sat",
+						"7Server-RH7-CEPH-INSTALLER-1.3:rubygem-oauth-0:0.4.7-8.el7sat",
+						"7Server-RH7-CEPH-INSTALLER-1.3:rubygem-passenger-0:4.0.18-19.el7sat",
+						"7Server-RH7-CEPH-INSTALLER-1.3:rubygem-powerbar-0:1.0.11-8.el7sat",
+						"7Server-RH7-CEPH-INSTALLER-1.3:rubygem-rack-1:1.4.1-13.el7sat",
+						"7Server-RH7-CEPH-INSTALLER-1.3:rubygem-rack-protection-0:1.5.0-7.el7sat",
+						"7Server-RH7-CEPH-INSTALLER-1.3:rubygem-rake-0:0.9.2.2-41.el7sat",
+						"7Server-RH7-CEPH-INSTALLER-1.3:rubygem-rest-client-0:1.6.7-1.el7sat",
+						"7Server-RH7-CEPH-INSTALLER-1.3:rubygem-rkerberos-0:0.1.2-3.el7sat",
+						"7Server-RH7-CEPH-INSTALLER-1.3:rubygem-rubyipmi-0:0.10.0-1.el7sat",
+						"7Server-RH7-CEPH-INSTALLER-1.3:rubygem-sinatra-1:1.3.6-27.el7sat",
+						"7Server-RH7-CEPH-INSTALLER-1.3:rubygem-smart_proxy_discovery-0:1.0.2.1-1.el7sat",
+						"7Server-RH7-CEPH-INSTALLER-1.3:rubygem-tilt-0:1.3.3-18.el7sat",
+						"7Server-RH7-CEPH-MON-1.3:babeltrace-0:1.2.4-3.el7cp",
+						"7Server-RH7-CEPH-MON-1.3:ceph-1:0.94.3-3.el7cp",
+						"7Server-RH7-CEPH-MON-1.3:facter-1:1.7.6-2.1.el7sat",
+						"7Server-RH7-CEPH-MON-1.3:hiera-0:1.3.1-2.el7",
+						"7Server-RH7-CEPH-MON-1.3:lttng-tools-0:2.4.1-1.el7cp",
+						"7Server-RH7-CEPH-MON-1.3:lttng-ust-0:2.4.1-1.el7cp",
+						"7Server-RH7-CEPH-MON-1.3:puppet-0:3.6.2-4.el7sat",
+						"7Server-RH7-CEPH-MON-1.3:ruby-augeas-0:0.5.0-1.el7",
+						"7Server-RH7-CEPH-MON-1.3:ruby-rgen-0:0.6.5-2.el7sat",
+						"7Server-RH7-CEPH-MON-1.3:ruby-shadow-0:1.4.1-21.el7",
+						"7Server-RH7-CEPH-MON-1.3:userspace-rcu-0:0.7.9-2.el7rhgs",
+						"7Server-RH7-CEPH-OSD-1.3:babeltrace-0:1.2.4-3.el7cp",
+						"7Server-RH7-CEPH-OSD-1.3:ceph-1:0.94.3-3.el7cp",
+						"7Server-RH7-CEPH-OSD-1.3:facter-1:1.7.6-2.1.el7sat",
+						"7Server-RH7-CEPH-OSD-1.3:hiera-0:1.3.1-2.el7",
+						"7Server-RH7-CEPH-OSD-1.3:lttng-tools-0:2.4.1-1.el7cp",
+						"7Server-RH7-CEPH-OSD-1.3:lttng-ust-0:2.4.1-1.el7cp",
+						"7Server-RH7-CEPH-OSD-1.3:puppet-0:3.6.2-4.el7sat",
+						"7Server-RH7-CEPH-OSD-1.3:ruby-augeas-0:0.5.0-1.el7",
+						"7Server-RH7-CEPH-OSD-1.3:ruby-rgen-0:0.6.5-2.el7sat",
+						"7Server-RH7-CEPH-OSD-1.3:ruby-shadow-0:1.4.1-21.el7",
+						"7Server-RH7-CEPH-OSD-1.3:userspace-rcu-0:0.7.9-2.el7rhgs",
+						"7Server-RH7-CEPH-TOOLS-1.3:babeltrace-0:1.2.4-3.el7cp",
+						"7Server-RH7-CEPH-TOOLS-1.3:ceph-1:0.94.3-3.el7cp",
+						"7Server-RH7-CEPH-TOOLS-1.3:facter-1:1.7.6-2.1.el7sat",
+						"7Server-RH7-CEPH-TOOLS-1.3:hiera-0:1.3.1-2.el7",
+						"7Server-RH7-CEPH-TOOLS-1.3:lttng-tools-0:2.4.1-1.el7cp",
+						"7Server-RH7-CEPH-TOOLS-1.3:lttng-ust-0:2.4.1-1.el7cp",
+						"7Server-RH7-CEPH-TOOLS-1.3:puppet-0:3.6.2-4.el7sat",
+						"7Server-RH7-CEPH-TOOLS-1.3:radosgw-agent-0:1.2.3-1.el7cp",
+						"7Server-RH7-CEPH-TOOLS-1.3:ruby-augeas-0:0.5.0-1.el7",
+						"7Server-RH7-CEPH-TOOLS-1.3:ruby-rgen-0:0.6.5-2.el7sat",
+						"7Server-RH7-CEPH-TOOLS-1.3:ruby-shadow-0:1.4.1-21.el7",
+						"7Server-RH7-CEPH-TOOLS-1.3:userspace-rcu-0:0.7.9-2.el7rhgs",
+						"7Workstation-RH7-CEPH-TOOLS-1.3:babeltrace-0:1.2.4-3.el7cp",
+						"7Workstation-RH7-CEPH-TOOLS-1.3:ceph-1:0.94.3-3.el7cp",
+						"7Workstation-RH7-CEPH-TOOLS-1.3:lttng-tools-0:2.4.1-1.el7cp",
+						"7Workstation-RH7-CEPH-TOOLS-1.3:lttng-ust-0:2.4.1-1.el7cp",
+						"7Workstation-RH7-CEPH-TOOLS-1.3:radosgw-agent-0:1.2.3-1.el7cp",
+						"7Workstation-RH7-CEPH-TOOLS-1.3:userspace-rcu-0:0.7.9-2.el7rhgs"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.5",
+					"Vector": "AV:N/AC:L/Au:S/C:N/I:P/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Ceph Storage",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Ceph Storage Tools 1.3",
+						"fullproductname": {
+							"text": "Red Hat Ceph Storage Tools 1.3",
+							"productid": "7Client-RH7-CEPH-TOOLS-1.3",
+							"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Ceph Storage Tools 1.3",
+						"fullproductname": {
+							"text": "Red Hat Ceph Storage Tools 1.3",
+							"productid": "7ComputeNode-RH7-CEPH-TOOLS-1.3",
+							"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Ceph Storage Calamari 1.3",
+						"fullproductname": {
+							"text": "Red Hat Ceph Storage Calamari 1.3",
+							"productid": "7Server-RH7-CEPH-CALAMARI-1.3",
+							"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Ceph Storage Installer 1.3",
+						"fullproductname": {
+							"text": "Red Hat Ceph Storage Installer 1.3",
+							"productid": "7Server-RH7-CEPH-INSTALLER-1.3",
+							"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Ceph Storage MON 1.3",
+						"fullproductname": {
+							"text": "Red Hat Ceph Storage MON 1.3",
+							"productid": "7Server-RH7-CEPH-MON-1.3",
+							"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Ceph Storage OSD 1.3",
+						"fullproductname": {
+							"text": "Red Hat Ceph Storage OSD 1.3",
+							"productid": "7Server-RH7-CEPH-OSD-1.3",
+							"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Ceph Storage Tools 1.3",
+						"fullproductname": {
+							"text": "Red Hat Ceph Storage Tools 1.3",
+							"productid": "7Server-RH7-CEPH-TOOLS-1.3",
+							"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Ceph Storage Tools 1.3",
+						"fullproductname": {
+							"text": "Red Hat Ceph Storage Tools 1.3",
+							"productid": "7Workstation-RH7-CEPH-TOOLS-1.3",
+							"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "babeltrace-0:1.2.4-3.el7cp",
+				"fullproductname": {
+					"text": "babeltrace-1.2.4-3.el7cp.src.rpm",
+					"productid": "babeltrace-0:1.2.4-3.el7cp",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "calamari-server-0:1.3-11.el7cp",
+				"fullproductname": {
+					"text": "calamari-server-1.3-11.el7cp.src.rpm",
+					"productid": "calamari-server-0:1.3-11.el7cp",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ceph-1:0.94.3-3.el7cp",
+				"fullproductname": {
+					"text": "ceph-0.94.3-3.el7cp.src.rpm",
+					"productid": "ceph-1:0.94.3-3.el7cp",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ceph-deploy-0:1.5.27.3-1.el7cp",
+				"fullproductname": {
+					"text": "ceph-deploy-1.5.27.3-1.el7cp.src.rpm",
+					"productid": "ceph-deploy-0:1.5.27.3-1.el7cp",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ceph-puppet-modules-0:0.1.1-1.el7cp",
+				"fullproductname": {
+					"text": "ceph-puppet-modules-0.1.1-1.el7cp.src.rpm",
+					"productid": "ceph-puppet-modules-0:0.1.1-1.el7cp",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "facter-1:1.7.6-2.1.el7sat",
+				"fullproductname": {
+					"text": "facter-1.7.6-2.1.el7sat.src.rpm",
+					"productid": "facter-1:1.7.6-2.1.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "foreman-0:1.7.2.33-1.el7sat",
+				"fullproductname": {
+					"text": "foreman-1.7.2.33-1.el7sat.src.rpm",
+					"productid": "foreman-0:1.7.2.33-1.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "foreman-installer-1:1.7.5-2.el7cp",
+				"fullproductname": {
+					"text": "foreman-installer-1.7.5-2.el7cp.src.rpm",
+					"productid": "foreman-installer-1:1.7.5-2.el7cp",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "foreman-proxy-0:1.7.2.5-1.el7sat",
+				"fullproductname": {
+					"text": "foreman-proxy-1.7.2.5-1.el7sat.src.rpm",
+					"productid": "foreman-proxy-0:1.7.2.5-1.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "foreman-selinux-0:1.7.2.13-1.el7sat",
+				"fullproductname": {
+					"text": "foreman-selinux-1.7.2.13-1.el7sat.src.rpm",
+					"productid": "foreman-selinux-0:1.7.2.13-1.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "hiera-0:1.3.1-2.el7",
+				"fullproductname": {
+					"text": "hiera-1.3.1-2.el7.src.rpm",
+					"productid": "hiera-0:1.3.1-2.el7",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ipxe-0:20130517-7.1fm.gitc4bce43.el7sat",
+				"fullproductname": {
+					"text": "ipxe-20130517-7.1fm.gitc4bce43.el7sat.src.rpm",
+					"productid": "ipxe-0:20130517-7.1fm.gitc4bce43.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "lttng-tools-0:2.4.1-1.el7cp",
+				"fullproductname": {
+					"text": "lttng-tools-2.4.1-1.el7cp.src.rpm",
+					"productid": "lttng-tools-0:2.4.1-1.el7cp",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "lttng-ust-0:2.4.1-1.el7cp",
+				"fullproductname": {
+					"text": "lttng-ust-2.4.1-1.el7cp.src.rpm",
+					"productid": "lttng-ust-0:2.4.1-1.el7cp",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "puppet-0:3.6.2-4.el7sat",
+				"fullproductname": {
+					"text": "puppet-3.6.2-4.el7sat.src.rpm",
+					"productid": "puppet-0:3.6.2-4.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "radosgw-agent-0:1.2.3-1.el7cp",
+				"fullproductname": {
+					"text": "radosgw-agent-1.2.3-1.el7cp.src.rpm",
+					"productid": "radosgw-agent-0:1.2.3-1.el7cp",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhcs-installer-0:0.1.0-1.el7cp",
+				"fullproductname": {
+					"text": "rhcs-installer-0.1.0-1.el7cp.src.rpm",
+					"productid": "rhcs-installer-0:0.1.0-1.el7cp",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ruby-augeas-0:0.5.0-1.el7",
+				"fullproductname": {
+					"text": "ruby-augeas-0.5.0-1.el7.src.rpm",
+					"productid": "ruby-augeas-0:0.5.0-1.el7",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ruby-rgen-0:0.6.5-2.el7sat",
+				"fullproductname": {
+					"text": "ruby-rgen-0.6.5-2.el7sat.src.rpm",
+					"productid": "ruby-rgen-0:0.6.5-2.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ruby-shadow-0:1.4.1-21.el7",
+				"fullproductname": {
+					"text": "ruby-shadow-1.4.1-21.el7.src.rpm",
+					"productid": "ruby-shadow-0:1.4.1-21.el7",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ruby193-facter-0:1.6.18-5.el7sat",
+				"fullproductname": {
+					"text": "ruby193-facter-1.6.18-5.el7sat.src.rpm",
+					"productid": "ruby193-facter-0:1.6.18-5.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ruby193-ruby-wrapper-0:0.0.2-6.el7sat",
+				"fullproductname": {
+					"text": "ruby193-ruby-wrapper-0.0.2-6.el7sat.src.rpm",
+					"productid": "ruby193-ruby-wrapper-0:0.0.2-6.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ruby193-rubygem-ancestry-0:2.0.0-1.el7sat",
+				"fullproductname": {
+					"text": "ruby193-rubygem-ancestry-2.0.0-1.el7sat.src.rpm",
+					"productid": "ruby193-rubygem-ancestry-0:2.0.0-1.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ruby193-rubygem-apipie-rails-0:0.2.5-1.el7sat",
+				"fullproductname": {
+					"text": "ruby193-rubygem-apipie-rails-0.2.5-1.el7sat.src.rpm",
+					"productid": "ruby193-rubygem-apipie-rails-0:0.2.5-1.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ruby193-rubygem-audited-0:3.0.0-5.el7sat",
+				"fullproductname": {
+					"text": "ruby193-rubygem-audited-3.0.0-5.el7sat.src.rpm",
+					"productid": "ruby193-rubygem-audited-0:3.0.0-5.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ruby193-rubygem-audited-activerecord-0:3.0.0-8.el7sat",
+				"fullproductname": {
+					"text": "ruby193-rubygem-audited-activerecord-3.0.0-8.el7sat.src.rpm",
+					"productid": "ruby193-rubygem-audited-activerecord-0:3.0.0-8.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ruby193-rubygem-bundler_ext-0:0.3.0-6.el7sat",
+				"fullproductname": {
+					"text": "ruby193-rubygem-bundler_ext-0.3.0-6.el7sat.src.rpm",
+					"productid": "ruby193-rubygem-bundler_ext-0:0.3.0-6.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ruby193-rubygem-deep_cloneable-0:2.0.0-4.el7",
+				"fullproductname": {
+					"text": "ruby193-rubygem-deep_cloneable-2.0.0-4.el7.src.rpm",
+					"productid": "ruby193-rubygem-deep_cloneable-0:2.0.0-4.el7",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ruby193-rubygem-fast_gettext-0:0.8.0-13.el7sat",
+				"fullproductname": {
+					"text": "ruby193-rubygem-fast_gettext-0.8.0-13.el7sat.src.rpm",
+					"productid": "ruby193-rubygem-fast_gettext-0:0.8.0-13.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ruby193-rubygem-foreigner-0:1.4.2-1.el7sat",
+				"fullproductname": {
+					"text": "ruby193-rubygem-foreigner-1.4.2-1.el7sat.src.rpm",
+					"productid": "ruby193-rubygem-foreigner-0:1.4.2-1.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ruby193-rubygem-foreman_bootdisk-0:4.0.2.13-1.el7sat",
+				"fullproductname": {
+					"text": "ruby193-rubygem-foreman_bootdisk-4.0.2.13-1.el7sat.src.rpm",
+					"productid": "ruby193-rubygem-foreman_bootdisk-0:4.0.2.13-1.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ruby193-rubygem-friendly_id-0:4.0.10.1-1.el7",
+				"fullproductname": {
+					"text": "ruby193-rubygem-friendly_id-4.0.10.1-1.el7.src.rpm",
+					"productid": "ruby193-rubygem-friendly_id-0:4.0.10.1-1.el7",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ruby193-rubygem-gettext_i18n_rails-0:0.10.0-3.el7sat",
+				"fullproductname": {
+					"text": "ruby193-rubygem-gettext_i18n_rails-0.10.0-3.el7sat.src.rpm",
+					"productid": "ruby193-rubygem-gettext_i18n_rails-0:0.10.0-3.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ruby193-rubygem-gettext_i18n_rails_js-0:0.0.8-3.el7sat",
+				"fullproductname": {
+					"text": "ruby193-rubygem-gettext_i18n_rails_js-0.0.8-3.el7sat.src.rpm",
+					"productid": "ruby193-rubygem-gettext_i18n_rails_js-0:0.0.8-3.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ruby193-rubygem-i18n_data-0:0.2.7-5.el7sat",
+				"fullproductname": {
+					"text": "ruby193-rubygem-i18n_data-0.2.7-5.el7sat.src.rpm",
+					"productid": "ruby193-rubygem-i18n_data-0:0.2.7-5.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ruby193-rubygem-ldap_fluff-0:0.3.2-1.el7",
+				"fullproductname": {
+					"text": "ruby193-rubygem-ldap_fluff-0.3.2-1.el7.src.rpm",
+					"productid": "ruby193-rubygem-ldap_fluff-0:0.3.2-1.el7",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ruby193-rubygem-multi_json-0:1.8.2-4.el7sat",
+				"fullproductname": {
+					"text": "ruby193-rubygem-multi_json-1.8.2-4.el7sat.src.rpm",
+					"productid": "ruby193-rubygem-multi_json-0:1.8.2-4.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ruby193-rubygem-net-ldap-0:0.3.1-3.el7sat",
+				"fullproductname": {
+					"text": "ruby193-rubygem-net-ldap-0.3.1-3.el7sat.src.rpm",
+					"productid": "ruby193-rubygem-net-ldap-0:0.3.1-3.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ruby193-rubygem-oauth-0:0.4.7-8.el7sat",
+				"fullproductname": {
+					"text": "ruby193-rubygem-oauth-0.4.7-8.el7sat.src.rpm",
+					"productid": "ruby193-rubygem-oauth-0:0.4.7-8.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ruby193-rubygem-passenger-0:4.0.18-19.el7sat",
+				"fullproductname": {
+					"text": "ruby193-rubygem-passenger-4.0.18-19.el7sat.src.rpm",
+					"productid": "ruby193-rubygem-passenger-0:4.0.18-19.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ruby193-rubygem-pg-0:0.12.2-10.el7sat",
+				"fullproductname": {
+					"text": "ruby193-rubygem-pg-0.12.2-10.el7sat.src.rpm",
+					"productid": "ruby193-rubygem-pg-0:0.12.2-10.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ruby193-rubygem-po_to_json-0:0.0.7-3.el7sat",
+				"fullproductname": {
+					"text": "ruby193-rubygem-po_to_json-0.0.7-3.el7sat.src.rpm",
+					"productid": "ruby193-rubygem-po_to_json-0:0.0.7-3.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ruby193-rubygem-rabl-0:0.9.0-1.el7sat",
+				"fullproductname": {
+					"text": "ruby193-rubygem-rabl-0.9.0-1.el7sat.src.rpm",
+					"productid": "ruby193-rubygem-rabl-0:0.9.0-1.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ruby193-rubygem-rest-client-0:1.6.7-1.el7sat",
+				"fullproductname": {
+					"text": "ruby193-rubygem-rest-client-1.6.7-1.el7sat.src.rpm",
+					"productid": "ruby193-rubygem-rest-client-0:1.6.7-1.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ruby193-rubygem-ruby2ruby-0:2.0.1-9.el7sat",
+				"fullproductname": {
+					"text": "ruby193-rubygem-ruby2ruby-2.0.1-9.el7sat.src.rpm",
+					"productid": "ruby193-rubygem-ruby2ruby-0:2.0.1-9.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ruby193-rubygem-ruby_parser-0:3.1.1-15.el7sat",
+				"fullproductname": {
+					"text": "ruby193-rubygem-ruby_parser-3.1.1-15.el7sat.src.rpm",
+					"productid": "ruby193-rubygem-ruby_parser-0:3.1.1-15.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ruby193-rubygem-safemode-0:1.2.1-1.el7sat",
+				"fullproductname": {
+					"text": "ruby193-rubygem-safemode-1.2.1-1.el7sat.src.rpm",
+					"productid": "ruby193-rubygem-safemode-0:1.2.1-1.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ruby193-rubygem-scoped_search-0:2.7.1-2.el7sat",
+				"fullproductname": {
+					"text": "ruby193-rubygem-scoped_search-2.7.1-2.el7sat.src.rpm",
+					"productid": "ruby193-rubygem-scoped_search-0:2.7.1-2.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ruby193-rubygem-secure_headers-0:1.3.3-1.el7",
+				"fullproductname": {
+					"text": "ruby193-rubygem-secure_headers-1.3.3-1.el7.src.rpm",
+					"productid": "ruby193-rubygem-secure_headers-0:1.3.3-1.el7",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ruby193-rubygem-sexp_processor-0:4.1.3-7.el7sat",
+				"fullproductname": {
+					"text": "ruby193-rubygem-sexp_processor-4.1.3-7.el7sat.src.rpm",
+					"productid": "ruby193-rubygem-sexp_processor-0:4.1.3-7.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ruby193-rubygem-sprockets-0:2.10.1-3.el7sat",
+				"fullproductname": {
+					"text": "ruby193-rubygem-sprockets-2.10.1-3.el7sat.src.rpm",
+					"productid": "ruby193-rubygem-sprockets-0:2.10.1-3.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ruby193-rubygem-uuidtools-0:2.1.3-6.el7sat",
+				"fullproductname": {
+					"text": "ruby193-rubygem-uuidtools-2.1.3-6.el7sat.src.rpm",
+					"productid": "ruby193-rubygem-uuidtools-0:2.1.3-6.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ruby193-rubygem-validates_lengths_from_database-0:0.2.0-1.3.el7sat",
+				"fullproductname": {
+					"text": "ruby193-rubygem-validates_lengths_from_database-0.2.0-1.3.el7sat.src.rpm",
+					"productid": "ruby193-rubygem-validates_lengths_from_database-0:0.2.0-1.3.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ruby193-rubygem-will_paginate-0:3.0.2-10.el7sat",
+				"fullproductname": {
+					"text": "ruby193-rubygem-will_paginate-3.0.2-10.el7sat.src.rpm",
+					"productid": "ruby193-rubygem-will_paginate-0:3.0.2-10.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-ansi-0:1.4.3-3.el7sat",
+				"fullproductname": {
+					"text": "rubygem-ansi-1.4.3-3.el7sat.src.rpm",
+					"productid": "rubygem-ansi-0:1.4.3-3.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-apipie-bindings-0:0.0.11-1.el7",
+				"fullproductname": {
+					"text": "rubygem-apipie-bindings-0.0.11-1.el7.src.rpm",
+					"productid": "rubygem-apipie-bindings-0:0.0.11-1.el7",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-awesome_print-0:1.0.2-12.el7sat",
+				"fullproductname": {
+					"text": "rubygem-awesome_print-1.0.2-12.el7sat.src.rpm",
+					"productid": "rubygem-awesome_print-0:1.0.2-12.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-bundler_ext-0:0.3.0-7.el7sat",
+				"fullproductname": {
+					"text": "rubygem-bundler_ext-0.3.0-7.el7sat.src.rpm",
+					"productid": "rubygem-bundler_ext-0:0.3.0-7.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-clamp-0:0.6.2-2.el7sat",
+				"fullproductname": {
+					"text": "rubygem-clamp-0.6.2-2.el7sat.src.rpm",
+					"productid": "rubygem-clamp-0:0.6.2-2.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-ffi-0:1.4.0-3.el7sat",
+				"fullproductname": {
+					"text": "rubygem-ffi-1.4.0-3.el7sat.src.rpm",
+					"productid": "rubygem-ffi-0:1.4.0-3.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-gssapi-0:1.1.2-4.el7sat",
+				"fullproductname": {
+					"text": "rubygem-gssapi-1.1.2-4.el7sat.src.rpm",
+					"productid": "rubygem-gssapi-0:1.1.2-4.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-hashie-0:2.0.5-2.el7sat",
+				"fullproductname": {
+					"text": "rubygem-hashie-2.0.5-2.el7sat.src.rpm",
+					"productid": "rubygem-hashie-0:2.0.5-2.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-highline-0:1.6.21-1.el7sat",
+				"fullproductname": {
+					"text": "rubygem-highline-1.6.21-1.el7sat.src.rpm",
+					"productid": "rubygem-highline-0:1.6.21-1.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-kafo-0:0.6.5.9-1.el7sat",
+				"fullproductname": {
+					"text": "rubygem-kafo-0.6.5.9-1.el7sat.src.rpm",
+					"productid": "rubygem-kafo-0:0.6.5.9-1.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-kafo_parsers-0:0.0.4.4-1.el7sat",
+				"fullproductname": {
+					"text": "rubygem-kafo_parsers-0.0.4.4-1.el7sat.src.rpm",
+					"productid": "rubygem-kafo_parsers-0:0.0.4.4-1.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-little-plugger-0:1.1.3-17.el7sat",
+				"fullproductname": {
+					"text": "rubygem-little-plugger-1.1.3-17.el7sat.src.rpm",
+					"productid": "rubygem-little-plugger-0:1.1.3-17.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-logging-0:1.8.1-26.el7sat",
+				"fullproductname": {
+					"text": "rubygem-logging-1.8.1-26.el7sat.src.rpm",
+					"productid": "rubygem-logging-0:1.8.1-26.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-mime-types-0:1.19-7.el7sat",
+				"fullproductname": {
+					"text": "rubygem-mime-types-1.19-7.el7sat.src.rpm",
+					"productid": "rubygem-mime-types-0:1.19-7.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-multi_json-0:1.8.2-4.el7sat",
+				"fullproductname": {
+					"text": "rubygem-multi_json-1.8.2-4.el7sat.src.rpm",
+					"productid": "rubygem-multi_json-0:1.8.2-4.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-oauth-0:0.4.7-8.el7sat",
+				"fullproductname": {
+					"text": "rubygem-oauth-0.4.7-8.el7sat.src.rpm",
+					"productid": "rubygem-oauth-0:0.4.7-8.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-passenger-0:4.0.18-19.el7sat",
+				"fullproductname": {
+					"text": "rubygem-passenger-4.0.18-19.el7sat.src.rpm",
+					"productid": "rubygem-passenger-0:4.0.18-19.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-powerbar-0:1.0.11-8.el7sat",
+				"fullproductname": {
+					"text": "rubygem-powerbar-1.0.11-8.el7sat.src.rpm",
+					"productid": "rubygem-powerbar-0:1.0.11-8.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-rack-1:1.4.1-13.el7sat",
+				"fullproductname": {
+					"text": "rubygem-rack-1.4.1-13.el7sat.src.rpm",
+					"productid": "rubygem-rack-1:1.4.1-13.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-rack-protection-0:1.5.0-7.el7sat",
+				"fullproductname": {
+					"text": "rubygem-rack-protection-1.5.0-7.el7sat.src.rpm",
+					"productid": "rubygem-rack-protection-0:1.5.0-7.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-rake-0:0.9.2.2-41.el7sat",
+				"fullproductname": {
+					"text": "rubygem-rake-0.9.2.2-41.el7sat.src.rpm",
+					"productid": "rubygem-rake-0:0.9.2.2-41.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-rest-client-0:1.6.7-1.el7sat",
+				"fullproductname": {
+					"text": "rubygem-rest-client-1.6.7-1.el7sat.src.rpm",
+					"productid": "rubygem-rest-client-0:1.6.7-1.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-rkerberos-0:0.1.2-3.el7sat",
+				"fullproductname": {
+					"text": "rubygem-rkerberos-0.1.2-3.el7sat.src.rpm",
+					"productid": "rubygem-rkerberos-0:0.1.2-3.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-rubyipmi-0:0.10.0-1.el7sat",
+				"fullproductname": {
+					"text": "rubygem-rubyipmi-0.10.0-1.el7sat.src.rpm",
+					"productid": "rubygem-rubyipmi-0:0.10.0-1.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-sinatra-1:1.3.6-27.el7sat",
+				"fullproductname": {
+					"text": "rubygem-sinatra-1.3.6-27.el7sat.src.rpm",
+					"productid": "rubygem-sinatra-1:1.3.6-27.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-smart_proxy_discovery-0:1.0.2.1-1.el7sat",
+				"fullproductname": {
+					"text": "rubygem-smart_proxy_discovery-1.0.2.1-1.el7sat.src.rpm",
+					"productid": "rubygem-smart_proxy_discovery-0:1.0.2.1-1.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-tilt-0:1.3.3-18.el7sat",
+				"fullproductname": {
+					"text": "rubygem-tilt-1.3.3-18.el7sat.src.rpm",
+					"productid": "rubygem-tilt-0:1.3.3-18.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "userspace-rcu-0:0.7.9-2.el7rhgs",
+				"fullproductname": {
+					"text": "userspace-rcu-0.7.9-2.el7rhgs.src.rpm",
+					"productid": "userspace-rcu-0:0.7.9-2.el7rhgs",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "babeltrace-0:1.2.4-3.el7cp",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-RH7-CEPH-TOOLS-1.3",
+				"fullproductname": {
+					"text": "babeltrace-0:1.2.4-3.el7cp as a component of Red Hat Ceph Storage Tools 1.3",
+					"productid": "7Client-RH7-CEPH-TOOLS-1.3:babeltrace-0:1.2.4-3.el7cp",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "ceph-1:0.94.3-3.el7cp",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-RH7-CEPH-TOOLS-1.3",
+				"fullproductname": {
+					"text": "ceph-1:0.94.3-3.el7cp as a component of Red Hat Ceph Storage Tools 1.3",
+					"productid": "7Client-RH7-CEPH-TOOLS-1.3:ceph-1:0.94.3-3.el7cp",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "lttng-tools-0:2.4.1-1.el7cp",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-RH7-CEPH-TOOLS-1.3",
+				"fullproductname": {
+					"text": "lttng-tools-0:2.4.1-1.el7cp as a component of Red Hat Ceph Storage Tools 1.3",
+					"productid": "7Client-RH7-CEPH-TOOLS-1.3:lttng-tools-0:2.4.1-1.el7cp",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "lttng-ust-0:2.4.1-1.el7cp",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-RH7-CEPH-TOOLS-1.3",
+				"fullproductname": {
+					"text": "lttng-ust-0:2.4.1-1.el7cp as a component of Red Hat Ceph Storage Tools 1.3",
+					"productid": "7Client-RH7-CEPH-TOOLS-1.3:lttng-ust-0:2.4.1-1.el7cp",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "radosgw-agent-0:1.2.3-1.el7cp",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-RH7-CEPH-TOOLS-1.3",
+				"fullproductname": {
+					"text": "radosgw-agent-0:1.2.3-1.el7cp as a component of Red Hat Ceph Storage Tools 1.3",
+					"productid": "7Client-RH7-CEPH-TOOLS-1.3:radosgw-agent-0:1.2.3-1.el7cp",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "userspace-rcu-0:0.7.9-2.el7rhgs",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-RH7-CEPH-TOOLS-1.3",
+				"fullproductname": {
+					"text": "userspace-rcu-0:0.7.9-2.el7rhgs as a component of Red Hat Ceph Storage Tools 1.3",
+					"productid": "7Client-RH7-CEPH-TOOLS-1.3:userspace-rcu-0:0.7.9-2.el7rhgs",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "babeltrace-0:1.2.4-3.el7cp",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-RH7-CEPH-TOOLS-1.3",
+				"fullproductname": {
+					"text": "babeltrace-0:1.2.4-3.el7cp as a component of Red Hat Ceph Storage Tools 1.3",
+					"productid": "7ComputeNode-RH7-CEPH-TOOLS-1.3:babeltrace-0:1.2.4-3.el7cp",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "ceph-1:0.94.3-3.el7cp",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-RH7-CEPH-TOOLS-1.3",
+				"fullproductname": {
+					"text": "ceph-1:0.94.3-3.el7cp as a component of Red Hat Ceph Storage Tools 1.3",
+					"productid": "7ComputeNode-RH7-CEPH-TOOLS-1.3:ceph-1:0.94.3-3.el7cp",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "lttng-tools-0:2.4.1-1.el7cp",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-RH7-CEPH-TOOLS-1.3",
+				"fullproductname": {
+					"text": "lttng-tools-0:2.4.1-1.el7cp as a component of Red Hat Ceph Storage Tools 1.3",
+					"productid": "7ComputeNode-RH7-CEPH-TOOLS-1.3:lttng-tools-0:2.4.1-1.el7cp",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "lttng-ust-0:2.4.1-1.el7cp",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-RH7-CEPH-TOOLS-1.3",
+				"fullproductname": {
+					"text": "lttng-ust-0:2.4.1-1.el7cp as a component of Red Hat Ceph Storage Tools 1.3",
+					"productid": "7ComputeNode-RH7-CEPH-TOOLS-1.3:lttng-ust-0:2.4.1-1.el7cp",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "radosgw-agent-0:1.2.3-1.el7cp",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-RH7-CEPH-TOOLS-1.3",
+				"fullproductname": {
+					"text": "radosgw-agent-0:1.2.3-1.el7cp as a component of Red Hat Ceph Storage Tools 1.3",
+					"productid": "7ComputeNode-RH7-CEPH-TOOLS-1.3:radosgw-agent-0:1.2.3-1.el7cp",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "userspace-rcu-0:0.7.9-2.el7rhgs",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-RH7-CEPH-TOOLS-1.3",
+				"fullproductname": {
+					"text": "userspace-rcu-0:0.7.9-2.el7rhgs as a component of Red Hat Ceph Storage Tools 1.3",
+					"productid": "7ComputeNode-RH7-CEPH-TOOLS-1.3:userspace-rcu-0:0.7.9-2.el7rhgs",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "calamari-server-0:1.3-11.el7cp",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-CALAMARI-1.3",
+				"fullproductname": {
+					"text": "calamari-server-0:1.3-11.el7cp as a component of Red Hat Ceph Storage Calamari 1.3",
+					"productid": "7Server-RH7-CEPH-CALAMARI-1.3:calamari-server-0:1.3-11.el7cp",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "ceph-deploy-0:1.5.27.3-1.el7cp",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "ceph-deploy-0:1.5.27.3-1.el7cp as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:ceph-deploy-0:1.5.27.3-1.el7cp",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "ceph-puppet-modules-0:0.1.1-1.el7cp",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "ceph-puppet-modules-0:0.1.1-1.el7cp as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:ceph-puppet-modules-0:0.1.1-1.el7cp",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "facter-1:1.7.6-2.1.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "facter-1:1.7.6-2.1.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:facter-1:1.7.6-2.1.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "foreman-0:1.7.2.33-1.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "foreman-0:1.7.2.33-1.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:foreman-0:1.7.2.33-1.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "foreman-installer-1:1.7.5-2.el7cp",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "foreman-installer-1:1.7.5-2.el7cp as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:foreman-installer-1:1.7.5-2.el7cp",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "foreman-proxy-0:1.7.2.5-1.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "foreman-proxy-0:1.7.2.5-1.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:foreman-proxy-0:1.7.2.5-1.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "foreman-selinux-0:1.7.2.13-1.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "foreman-selinux-0:1.7.2.13-1.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:foreman-selinux-0:1.7.2.13-1.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "hiera-0:1.3.1-2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "hiera-0:1.3.1-2.el7 as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:hiera-0:1.3.1-2.el7",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "ipxe-0:20130517-7.1fm.gitc4bce43.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "ipxe-0:20130517-7.1fm.gitc4bce43.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:ipxe-0:20130517-7.1fm.gitc4bce43.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "puppet-0:3.6.2-4.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "puppet-0:3.6.2-4.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:puppet-0:3.6.2-4.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "rhcs-installer-0:0.1.0-1.el7cp",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "rhcs-installer-0:0.1.0-1.el7cp as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:rhcs-installer-0:0.1.0-1.el7cp",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "ruby-augeas-0:0.5.0-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "ruby-augeas-0:0.5.0-1.el7 as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:ruby-augeas-0:0.5.0-1.el7",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "ruby-rgen-0:0.6.5-2.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "ruby-rgen-0:0.6.5-2.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:ruby-rgen-0:0.6.5-2.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "ruby-shadow-0:1.4.1-21.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "ruby-shadow-0:1.4.1-21.el7 as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:ruby-shadow-0:1.4.1-21.el7",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "ruby193-facter-0:1.6.18-5.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "ruby193-facter-0:1.6.18-5.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:ruby193-facter-0:1.6.18-5.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "ruby193-ruby-wrapper-0:0.0.2-6.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "ruby193-ruby-wrapper-0:0.0.2-6.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:ruby193-ruby-wrapper-0:0.0.2-6.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "ruby193-rubygem-ancestry-0:2.0.0-1.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "ruby193-rubygem-ancestry-0:2.0.0-1.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-ancestry-0:2.0.0-1.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "ruby193-rubygem-apipie-rails-0:0.2.5-1.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "ruby193-rubygem-apipie-rails-0:0.2.5-1.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-apipie-rails-0:0.2.5-1.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "ruby193-rubygem-audited-0:3.0.0-5.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "ruby193-rubygem-audited-0:3.0.0-5.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-audited-0:3.0.0-5.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "ruby193-rubygem-audited-activerecord-0:3.0.0-8.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "ruby193-rubygem-audited-activerecord-0:3.0.0-8.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-audited-activerecord-0:3.0.0-8.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "ruby193-rubygem-bundler_ext-0:0.3.0-6.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "ruby193-rubygem-bundler_ext-0:0.3.0-6.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-bundler_ext-0:0.3.0-6.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "ruby193-rubygem-deep_cloneable-0:2.0.0-4.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "ruby193-rubygem-deep_cloneable-0:2.0.0-4.el7 as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-deep_cloneable-0:2.0.0-4.el7",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "ruby193-rubygem-fast_gettext-0:0.8.0-13.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "ruby193-rubygem-fast_gettext-0:0.8.0-13.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-fast_gettext-0:0.8.0-13.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "ruby193-rubygem-foreigner-0:1.4.2-1.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "ruby193-rubygem-foreigner-0:1.4.2-1.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-foreigner-0:1.4.2-1.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "ruby193-rubygem-foreman_bootdisk-0:4.0.2.13-1.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "ruby193-rubygem-foreman_bootdisk-0:4.0.2.13-1.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-foreman_bootdisk-0:4.0.2.13-1.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "ruby193-rubygem-friendly_id-0:4.0.10.1-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "ruby193-rubygem-friendly_id-0:4.0.10.1-1.el7 as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-friendly_id-0:4.0.10.1-1.el7",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "ruby193-rubygem-gettext_i18n_rails-0:0.10.0-3.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "ruby193-rubygem-gettext_i18n_rails-0:0.10.0-3.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-gettext_i18n_rails-0:0.10.0-3.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "ruby193-rubygem-gettext_i18n_rails_js-0:0.0.8-3.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "ruby193-rubygem-gettext_i18n_rails_js-0:0.0.8-3.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-gettext_i18n_rails_js-0:0.0.8-3.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "ruby193-rubygem-i18n_data-0:0.2.7-5.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "ruby193-rubygem-i18n_data-0:0.2.7-5.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-i18n_data-0:0.2.7-5.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "ruby193-rubygem-ldap_fluff-0:0.3.2-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "ruby193-rubygem-ldap_fluff-0:0.3.2-1.el7 as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-ldap_fluff-0:0.3.2-1.el7",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "ruby193-rubygem-multi_json-0:1.8.2-4.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "ruby193-rubygem-multi_json-0:1.8.2-4.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-multi_json-0:1.8.2-4.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "ruby193-rubygem-net-ldap-0:0.3.1-3.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "ruby193-rubygem-net-ldap-0:0.3.1-3.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-net-ldap-0:0.3.1-3.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "ruby193-rubygem-oauth-0:0.4.7-8.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "ruby193-rubygem-oauth-0:0.4.7-8.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-oauth-0:0.4.7-8.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "ruby193-rubygem-passenger-0:4.0.18-19.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "ruby193-rubygem-passenger-0:4.0.18-19.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-passenger-0:4.0.18-19.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "ruby193-rubygem-pg-0:0.12.2-10.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "ruby193-rubygem-pg-0:0.12.2-10.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-pg-0:0.12.2-10.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "ruby193-rubygem-po_to_json-0:0.0.7-3.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "ruby193-rubygem-po_to_json-0:0.0.7-3.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-po_to_json-0:0.0.7-3.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "ruby193-rubygem-rabl-0:0.9.0-1.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "ruby193-rubygem-rabl-0:0.9.0-1.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-rabl-0:0.9.0-1.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "ruby193-rubygem-rest-client-0:1.6.7-1.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "ruby193-rubygem-rest-client-0:1.6.7-1.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-rest-client-0:1.6.7-1.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "ruby193-rubygem-ruby2ruby-0:2.0.1-9.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "ruby193-rubygem-ruby2ruby-0:2.0.1-9.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-ruby2ruby-0:2.0.1-9.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "ruby193-rubygem-ruby_parser-0:3.1.1-15.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "ruby193-rubygem-ruby_parser-0:3.1.1-15.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-ruby_parser-0:3.1.1-15.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "ruby193-rubygem-safemode-0:1.2.1-1.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "ruby193-rubygem-safemode-0:1.2.1-1.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-safemode-0:1.2.1-1.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "ruby193-rubygem-scoped_search-0:2.7.1-2.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "ruby193-rubygem-scoped_search-0:2.7.1-2.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-scoped_search-0:2.7.1-2.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "ruby193-rubygem-secure_headers-0:1.3.3-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "ruby193-rubygem-secure_headers-0:1.3.3-1.el7 as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-secure_headers-0:1.3.3-1.el7",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "ruby193-rubygem-sexp_processor-0:4.1.3-7.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "ruby193-rubygem-sexp_processor-0:4.1.3-7.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-sexp_processor-0:4.1.3-7.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "ruby193-rubygem-sprockets-0:2.10.1-3.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "ruby193-rubygem-sprockets-0:2.10.1-3.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-sprockets-0:2.10.1-3.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "ruby193-rubygem-uuidtools-0:2.1.3-6.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "ruby193-rubygem-uuidtools-0:2.1.3-6.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-uuidtools-0:2.1.3-6.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "ruby193-rubygem-validates_lengths_from_database-0:0.2.0-1.3.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "ruby193-rubygem-validates_lengths_from_database-0:0.2.0-1.3.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-validates_lengths_from_database-0:0.2.0-1.3.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "ruby193-rubygem-will_paginate-0:3.0.2-10.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "ruby193-rubygem-will_paginate-0:3.0.2-10.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:ruby193-rubygem-will_paginate-0:3.0.2-10.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "rubygem-ansi-0:1.4.3-3.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "rubygem-ansi-0:1.4.3-3.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:rubygem-ansi-0:1.4.3-3.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "rubygem-apipie-bindings-0:0.0.11-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "rubygem-apipie-bindings-0:0.0.11-1.el7 as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:rubygem-apipie-bindings-0:0.0.11-1.el7",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "rubygem-awesome_print-0:1.0.2-12.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "rubygem-awesome_print-0:1.0.2-12.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:rubygem-awesome_print-0:1.0.2-12.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "rubygem-bundler_ext-0:0.3.0-7.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "rubygem-bundler_ext-0:0.3.0-7.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:rubygem-bundler_ext-0:0.3.0-7.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "rubygem-clamp-0:0.6.2-2.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "rubygem-clamp-0:0.6.2-2.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:rubygem-clamp-0:0.6.2-2.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "rubygem-ffi-0:1.4.0-3.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "rubygem-ffi-0:1.4.0-3.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:rubygem-ffi-0:1.4.0-3.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "rubygem-gssapi-0:1.1.2-4.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "rubygem-gssapi-0:1.1.2-4.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:rubygem-gssapi-0:1.1.2-4.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "rubygem-hashie-0:2.0.5-2.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "rubygem-hashie-0:2.0.5-2.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:rubygem-hashie-0:2.0.5-2.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "rubygem-highline-0:1.6.21-1.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "rubygem-highline-0:1.6.21-1.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:rubygem-highline-0:1.6.21-1.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "rubygem-kafo-0:0.6.5.9-1.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "rubygem-kafo-0:0.6.5.9-1.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:rubygem-kafo-0:0.6.5.9-1.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "rubygem-kafo_parsers-0:0.0.4.4-1.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "rubygem-kafo_parsers-0:0.0.4.4-1.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:rubygem-kafo_parsers-0:0.0.4.4-1.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "rubygem-little-plugger-0:1.1.3-17.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "rubygem-little-plugger-0:1.1.3-17.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:rubygem-little-plugger-0:1.1.3-17.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "rubygem-logging-0:1.8.1-26.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "rubygem-logging-0:1.8.1-26.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:rubygem-logging-0:1.8.1-26.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "rubygem-mime-types-0:1.19-7.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "rubygem-mime-types-0:1.19-7.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:rubygem-mime-types-0:1.19-7.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "rubygem-multi_json-0:1.8.2-4.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "rubygem-multi_json-0:1.8.2-4.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:rubygem-multi_json-0:1.8.2-4.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "rubygem-oauth-0:0.4.7-8.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "rubygem-oauth-0:0.4.7-8.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:rubygem-oauth-0:0.4.7-8.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "rubygem-passenger-0:4.0.18-19.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "rubygem-passenger-0:4.0.18-19.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:rubygem-passenger-0:4.0.18-19.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "rubygem-powerbar-0:1.0.11-8.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "rubygem-powerbar-0:1.0.11-8.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:rubygem-powerbar-0:1.0.11-8.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "rubygem-rack-1:1.4.1-13.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "rubygem-rack-1:1.4.1-13.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:rubygem-rack-1:1.4.1-13.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "rubygem-rack-protection-0:1.5.0-7.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "rubygem-rack-protection-0:1.5.0-7.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:rubygem-rack-protection-0:1.5.0-7.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "rubygem-rake-0:0.9.2.2-41.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "rubygem-rake-0:0.9.2.2-41.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:rubygem-rake-0:0.9.2.2-41.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "rubygem-rest-client-0:1.6.7-1.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "rubygem-rest-client-0:1.6.7-1.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:rubygem-rest-client-0:1.6.7-1.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "rubygem-rkerberos-0:0.1.2-3.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "rubygem-rkerberos-0:0.1.2-3.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:rubygem-rkerberos-0:0.1.2-3.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "rubygem-rubyipmi-0:0.10.0-1.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "rubygem-rubyipmi-0:0.10.0-1.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:rubygem-rubyipmi-0:0.10.0-1.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "rubygem-sinatra-1:1.3.6-27.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "rubygem-sinatra-1:1.3.6-27.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:rubygem-sinatra-1:1.3.6-27.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "rubygem-smart_proxy_discovery-0:1.0.2.1-1.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "rubygem-smart_proxy_discovery-0:1.0.2.1-1.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:rubygem-smart_proxy_discovery-0:1.0.2.1-1.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "rubygem-tilt-0:1.3.3-18.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-INSTALLER-1.3",
+				"fullproductname": {
+					"text": "rubygem-tilt-0:1.3.3-18.el7sat as a component of Red Hat Ceph Storage Installer 1.3",
+					"productid": "7Server-RH7-CEPH-INSTALLER-1.3:rubygem-tilt-0:1.3.3-18.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "babeltrace-0:1.2.4-3.el7cp",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-MON-1.3",
+				"fullproductname": {
+					"text": "babeltrace-0:1.2.4-3.el7cp as a component of Red Hat Ceph Storage MON 1.3",
+					"productid": "7Server-RH7-CEPH-MON-1.3:babeltrace-0:1.2.4-3.el7cp",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "ceph-1:0.94.3-3.el7cp",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-MON-1.3",
+				"fullproductname": {
+					"text": "ceph-1:0.94.3-3.el7cp as a component of Red Hat Ceph Storage MON 1.3",
+					"productid": "7Server-RH7-CEPH-MON-1.3:ceph-1:0.94.3-3.el7cp",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "facter-1:1.7.6-2.1.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-MON-1.3",
+				"fullproductname": {
+					"text": "facter-1:1.7.6-2.1.el7sat as a component of Red Hat Ceph Storage MON 1.3",
+					"productid": "7Server-RH7-CEPH-MON-1.3:facter-1:1.7.6-2.1.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "hiera-0:1.3.1-2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-MON-1.3",
+				"fullproductname": {
+					"text": "hiera-0:1.3.1-2.el7 as a component of Red Hat Ceph Storage MON 1.3",
+					"productid": "7Server-RH7-CEPH-MON-1.3:hiera-0:1.3.1-2.el7",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "lttng-tools-0:2.4.1-1.el7cp",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-MON-1.3",
+				"fullproductname": {
+					"text": "lttng-tools-0:2.4.1-1.el7cp as a component of Red Hat Ceph Storage MON 1.3",
+					"productid": "7Server-RH7-CEPH-MON-1.3:lttng-tools-0:2.4.1-1.el7cp",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "lttng-ust-0:2.4.1-1.el7cp",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-MON-1.3",
+				"fullproductname": {
+					"text": "lttng-ust-0:2.4.1-1.el7cp as a component of Red Hat Ceph Storage MON 1.3",
+					"productid": "7Server-RH7-CEPH-MON-1.3:lttng-ust-0:2.4.1-1.el7cp",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "puppet-0:3.6.2-4.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-MON-1.3",
+				"fullproductname": {
+					"text": "puppet-0:3.6.2-4.el7sat as a component of Red Hat Ceph Storage MON 1.3",
+					"productid": "7Server-RH7-CEPH-MON-1.3:puppet-0:3.6.2-4.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "ruby-augeas-0:0.5.0-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-MON-1.3",
+				"fullproductname": {
+					"text": "ruby-augeas-0:0.5.0-1.el7 as a component of Red Hat Ceph Storage MON 1.3",
+					"productid": "7Server-RH7-CEPH-MON-1.3:ruby-augeas-0:0.5.0-1.el7",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "ruby-rgen-0:0.6.5-2.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-MON-1.3",
+				"fullproductname": {
+					"text": "ruby-rgen-0:0.6.5-2.el7sat as a component of Red Hat Ceph Storage MON 1.3",
+					"productid": "7Server-RH7-CEPH-MON-1.3:ruby-rgen-0:0.6.5-2.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "ruby-shadow-0:1.4.1-21.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-MON-1.3",
+				"fullproductname": {
+					"text": "ruby-shadow-0:1.4.1-21.el7 as a component of Red Hat Ceph Storage MON 1.3",
+					"productid": "7Server-RH7-CEPH-MON-1.3:ruby-shadow-0:1.4.1-21.el7",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "userspace-rcu-0:0.7.9-2.el7rhgs",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-MON-1.3",
+				"fullproductname": {
+					"text": "userspace-rcu-0:0.7.9-2.el7rhgs as a component of Red Hat Ceph Storage MON 1.3",
+					"productid": "7Server-RH7-CEPH-MON-1.3:userspace-rcu-0:0.7.9-2.el7rhgs",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "babeltrace-0:1.2.4-3.el7cp",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-OSD-1.3",
+				"fullproductname": {
+					"text": "babeltrace-0:1.2.4-3.el7cp as a component of Red Hat Ceph Storage OSD 1.3",
+					"productid": "7Server-RH7-CEPH-OSD-1.3:babeltrace-0:1.2.4-3.el7cp",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "ceph-1:0.94.3-3.el7cp",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-OSD-1.3",
+				"fullproductname": {
+					"text": "ceph-1:0.94.3-3.el7cp as a component of Red Hat Ceph Storage OSD 1.3",
+					"productid": "7Server-RH7-CEPH-OSD-1.3:ceph-1:0.94.3-3.el7cp",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "facter-1:1.7.6-2.1.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-OSD-1.3",
+				"fullproductname": {
+					"text": "facter-1:1.7.6-2.1.el7sat as a component of Red Hat Ceph Storage OSD 1.3",
+					"productid": "7Server-RH7-CEPH-OSD-1.3:facter-1:1.7.6-2.1.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "hiera-0:1.3.1-2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-OSD-1.3",
+				"fullproductname": {
+					"text": "hiera-0:1.3.1-2.el7 as a component of Red Hat Ceph Storage OSD 1.3",
+					"productid": "7Server-RH7-CEPH-OSD-1.3:hiera-0:1.3.1-2.el7",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "lttng-tools-0:2.4.1-1.el7cp",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-OSD-1.3",
+				"fullproductname": {
+					"text": "lttng-tools-0:2.4.1-1.el7cp as a component of Red Hat Ceph Storage OSD 1.3",
+					"productid": "7Server-RH7-CEPH-OSD-1.3:lttng-tools-0:2.4.1-1.el7cp",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "lttng-ust-0:2.4.1-1.el7cp",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-OSD-1.3",
+				"fullproductname": {
+					"text": "lttng-ust-0:2.4.1-1.el7cp as a component of Red Hat Ceph Storage OSD 1.3",
+					"productid": "7Server-RH7-CEPH-OSD-1.3:lttng-ust-0:2.4.1-1.el7cp",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "puppet-0:3.6.2-4.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-OSD-1.3",
+				"fullproductname": {
+					"text": "puppet-0:3.6.2-4.el7sat as a component of Red Hat Ceph Storage OSD 1.3",
+					"productid": "7Server-RH7-CEPH-OSD-1.3:puppet-0:3.6.2-4.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "ruby-augeas-0:0.5.0-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-OSD-1.3",
+				"fullproductname": {
+					"text": "ruby-augeas-0:0.5.0-1.el7 as a component of Red Hat Ceph Storage OSD 1.3",
+					"productid": "7Server-RH7-CEPH-OSD-1.3:ruby-augeas-0:0.5.0-1.el7",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "ruby-rgen-0:0.6.5-2.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-OSD-1.3",
+				"fullproductname": {
+					"text": "ruby-rgen-0:0.6.5-2.el7sat as a component of Red Hat Ceph Storage OSD 1.3",
+					"productid": "7Server-RH7-CEPH-OSD-1.3:ruby-rgen-0:0.6.5-2.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "ruby-shadow-0:1.4.1-21.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-OSD-1.3",
+				"fullproductname": {
+					"text": "ruby-shadow-0:1.4.1-21.el7 as a component of Red Hat Ceph Storage OSD 1.3",
+					"productid": "7Server-RH7-CEPH-OSD-1.3:ruby-shadow-0:1.4.1-21.el7",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "userspace-rcu-0:0.7.9-2.el7rhgs",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-OSD-1.3",
+				"fullproductname": {
+					"text": "userspace-rcu-0:0.7.9-2.el7rhgs as a component of Red Hat Ceph Storage OSD 1.3",
+					"productid": "7Server-RH7-CEPH-OSD-1.3:userspace-rcu-0:0.7.9-2.el7rhgs",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "babeltrace-0:1.2.4-3.el7cp",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-TOOLS-1.3",
+				"fullproductname": {
+					"text": "babeltrace-0:1.2.4-3.el7cp as a component of Red Hat Ceph Storage Tools 1.3",
+					"productid": "7Server-RH7-CEPH-TOOLS-1.3:babeltrace-0:1.2.4-3.el7cp",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "ceph-1:0.94.3-3.el7cp",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-TOOLS-1.3",
+				"fullproductname": {
+					"text": "ceph-1:0.94.3-3.el7cp as a component of Red Hat Ceph Storage Tools 1.3",
+					"productid": "7Server-RH7-CEPH-TOOLS-1.3:ceph-1:0.94.3-3.el7cp",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "facter-1:1.7.6-2.1.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-TOOLS-1.3",
+				"fullproductname": {
+					"text": "facter-1:1.7.6-2.1.el7sat as a component of Red Hat Ceph Storage Tools 1.3",
+					"productid": "7Server-RH7-CEPH-TOOLS-1.3:facter-1:1.7.6-2.1.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "hiera-0:1.3.1-2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-TOOLS-1.3",
+				"fullproductname": {
+					"text": "hiera-0:1.3.1-2.el7 as a component of Red Hat Ceph Storage Tools 1.3",
+					"productid": "7Server-RH7-CEPH-TOOLS-1.3:hiera-0:1.3.1-2.el7",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "lttng-tools-0:2.4.1-1.el7cp",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-TOOLS-1.3",
+				"fullproductname": {
+					"text": "lttng-tools-0:2.4.1-1.el7cp as a component of Red Hat Ceph Storage Tools 1.3",
+					"productid": "7Server-RH7-CEPH-TOOLS-1.3:lttng-tools-0:2.4.1-1.el7cp",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "lttng-ust-0:2.4.1-1.el7cp",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-TOOLS-1.3",
+				"fullproductname": {
+					"text": "lttng-ust-0:2.4.1-1.el7cp as a component of Red Hat Ceph Storage Tools 1.3",
+					"productid": "7Server-RH7-CEPH-TOOLS-1.3:lttng-ust-0:2.4.1-1.el7cp",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "puppet-0:3.6.2-4.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-TOOLS-1.3",
+				"fullproductname": {
+					"text": "puppet-0:3.6.2-4.el7sat as a component of Red Hat Ceph Storage Tools 1.3",
+					"productid": "7Server-RH7-CEPH-TOOLS-1.3:puppet-0:3.6.2-4.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "radosgw-agent-0:1.2.3-1.el7cp",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-TOOLS-1.3",
+				"fullproductname": {
+					"text": "radosgw-agent-0:1.2.3-1.el7cp as a component of Red Hat Ceph Storage Tools 1.3",
+					"productid": "7Server-RH7-CEPH-TOOLS-1.3:radosgw-agent-0:1.2.3-1.el7cp",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "ruby-augeas-0:0.5.0-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-TOOLS-1.3",
+				"fullproductname": {
+					"text": "ruby-augeas-0:0.5.0-1.el7 as a component of Red Hat Ceph Storage Tools 1.3",
+					"productid": "7Server-RH7-CEPH-TOOLS-1.3:ruby-augeas-0:0.5.0-1.el7",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "ruby-rgen-0:0.6.5-2.el7sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-TOOLS-1.3",
+				"fullproductname": {
+					"text": "ruby-rgen-0:0.6.5-2.el7sat as a component of Red Hat Ceph Storage Tools 1.3",
+					"productid": "7Server-RH7-CEPH-TOOLS-1.3:ruby-rgen-0:0.6.5-2.el7sat",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "ruby-shadow-0:1.4.1-21.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-TOOLS-1.3",
+				"fullproductname": {
+					"text": "ruby-shadow-0:1.4.1-21.el7 as a component of Red Hat Ceph Storage Tools 1.3",
+					"productid": "7Server-RH7-CEPH-TOOLS-1.3:ruby-shadow-0:1.4.1-21.el7",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "userspace-rcu-0:0.7.9-2.el7rhgs",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-CEPH-TOOLS-1.3",
+				"fullproductname": {
+					"text": "userspace-rcu-0:0.7.9-2.el7rhgs as a component of Red Hat Ceph Storage Tools 1.3",
+					"productid": "7Server-RH7-CEPH-TOOLS-1.3:userspace-rcu-0:0.7.9-2.el7rhgs",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "babeltrace-0:1.2.4-3.el7cp",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-RH7-CEPH-TOOLS-1.3",
+				"fullproductname": {
+					"text": "babeltrace-0:1.2.4-3.el7cp as a component of Red Hat Ceph Storage Tools 1.3",
+					"productid": "7Workstation-RH7-CEPH-TOOLS-1.3:babeltrace-0:1.2.4-3.el7cp",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "ceph-1:0.94.3-3.el7cp",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-RH7-CEPH-TOOLS-1.3",
+				"fullproductname": {
+					"text": "ceph-1:0.94.3-3.el7cp as a component of Red Hat Ceph Storage Tools 1.3",
+					"productid": "7Workstation-RH7-CEPH-TOOLS-1.3:ceph-1:0.94.3-3.el7cp",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "lttng-tools-0:2.4.1-1.el7cp",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-RH7-CEPH-TOOLS-1.3",
+				"fullproductname": {
+					"text": "lttng-tools-0:2.4.1-1.el7cp as a component of Red Hat Ceph Storage Tools 1.3",
+					"productid": "7Workstation-RH7-CEPH-TOOLS-1.3:lttng-tools-0:2.4.1-1.el7cp",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "lttng-ust-0:2.4.1-1.el7cp",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-RH7-CEPH-TOOLS-1.3",
+				"fullproductname": {
+					"text": "lttng-ust-0:2.4.1-1.el7cp as a component of Red Hat Ceph Storage Tools 1.3",
+					"productid": "7Workstation-RH7-CEPH-TOOLS-1.3:lttng-ust-0:2.4.1-1.el7cp",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "radosgw-agent-0:1.2.3-1.el7cp",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-RH7-CEPH-TOOLS-1.3",
+				"fullproductname": {
+					"text": "radosgw-agent-0:1.2.3-1.el7cp as a component of Red Hat Ceph Storage Tools 1.3",
+					"productid": "7Workstation-RH7-CEPH-TOOLS-1.3:radosgw-agent-0:1.2.3-1.el7cp",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			},
+			{
+				"productreference": "userspace-rcu-0:0.7.9-2.el7rhgs",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-RH7-CEPH-TOOLS-1.3",
+				"fullproductname": {
+					"text": "userspace-rcu-0:0.7.9-2.el7rhgs as a component of Red Hat Ceph Storage Tools 1.3",
+					"productid": "7Workstation-RH7-CEPH-TOOLS-1.3:userspace-rcu-0:0.7.9-2.el7rhgs",
+					"cpe": "cpe:/a:redhat:ceph_storage:1.3::el7"
+				}
+			}
+		]
+	}
+}

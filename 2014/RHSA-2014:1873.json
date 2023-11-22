@@ -1,0 +1,484 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: libvirt security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2014:1873"
+		},
+		"Status": "Final",
+		"Version": "2",
+		"revisionhistory": {
+			"revision": {
+				"Number": "2",
+				"Date": "2014-11-18T18:08:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2014-11-18T18:08:00Z",
+		"CurrentReleaseDate": "2014-11-18T18:08:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:34:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated libvirt packages that fix three security issues and one bug are now\navailable for Red Hat Enterprise Linux 6.\n\nRed Hat Product Security has rated this update as having Moderate security\nimpact. Common Vulnerability Scoring System (CVSS) base scores, which give\ndetailed severity ratings, are available for each vulnerability from the\nCVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe libvirt library is a C API for managing and interacting with the\nvirtualization capabilities of Linux and other operating systems.\nIn addition, libvirt provides tools for remote management of\nvirtualized systems.\n\nAn out-of-bounds read flaw was found in the way libvirt's\nqemuDomainGetBlockIoTune() function looked up the disk index in a\nnon-persistent (live) disk configuration while a persistent disk\nconfiguration was being indexed. A remote attacker able to establish a\nread-only connection to libvirtd could use this flaw to crash libvirtd or,\npotentially, leak memory from the libvirtd process. (CVE-2014-3633)\n\nA denial of service flaw was found in the way libvirt's\nvirConnectListAllDomains() function computed the number of used domains.\nA remote attacker able to establish a read-only connection to libvirtd\ncould use this flaw to make any domain operations within libvirt\nunresponsive. (CVE-2014-3657)\n\nIt was found that when the VIR_DOMAIN_XML_MIGRATABLE flag was used, the\nQEMU driver implementation of the virDomainGetXMLDesc() function could\nbypass the restrictions of the VIR_DOMAIN_XML_SECURE flag. A remote\nattacker able to establish a read-only connection to libvirtd could use\nthis flaw to leak certain limited information from the domain XML data.\n(CVE-2014-7823)\n\nThe CVE-2014-3633 issue was discovered by Luyao Huang of Red Hat.\n\nThis update also fixes the following bug:\n\nWhen dumping migratable XML configuration of a domain, libvirt removes some\nautomatically added devices for compatibility with older libvirt releases.\nIf such XML is passed to libvirt as a domain XML that should be used during\nmigration, libvirt checks this XML for compatibility with the internally\nstored configuration of the domain. However, prior to this update, these\nchecks failed because of devices that were missing (the same devices\nlibvirt removed). As a consequence, migration with user-supplied migratable\nXML failed. Since this feature is used by OpenStack, migrating QEMU/KVM\ndomains with OpenStack always failed. With this update, before checking\ndomain configurations for compatibility, libvirt transforms both\nuser-supplied and internal configuration into a migratable form\n(automatically added devices are removed) and checks those instead. Thus,\nno matter whether the user-supplied configuration was generated as\nmigratable or not, libvirt does not err about missing devices, and\nmigration succeeds as expected. (BZ#1155564)\n\nAll libvirt users are advised to upgrade to these updated packages, which\ncontain backported patches to correct these issues. After installing the\nupdated packages, libvirtd will be restarted automatically.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2014:1873",
+				"Description": "https://access.redhat.com/errata/RHSA-2014:1873"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "libvirt: qemu: out-of-bounds read access in qemuDomainGetBlockIoTune() due to invalid index",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-09-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-3633",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to use the\nRed Hat Network to apply this update are available at\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2014:1873"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-3633",
+						"Description": "CVE-2014-3633"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1141131",
+						"Description": "bz#1141131: CVE-2014-3633 libvirt: qemu: out-of-bounds read access in qemuDomainGetBlockIoTune() due to invalid index"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-09-12T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.6.z:libvirt-0:0.10.2-46.el6_6.2",
+						"6Client-optional-6.6.z:libvirt-0:0.10.2-46.el6_6.2",
+						"6ComputeNode-6.6.z:libvirt-0:0.10.2-46.el6_6.2",
+						"6ComputeNode-optional-6.6.z:libvirt-0:0.10.2-46.el6_6.2",
+						"6Server-6.6.z:libvirt-0:0.10.2-46.el6_6.2",
+						"6Server-optional-6.6.z:libvirt-0:0.10.2-46.el6_6.2",
+						"6Workstation-6.6.z:libvirt-0:0.10.2-46.el6_6.2",
+						"6Workstation-optional-6.6.z:libvirt-0:0.10.2-46.el6_6.2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "3.2",
+					"Vector": "AV:A/AC:H/Au:N/C:P/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "libvirt: domain_conf: domain deadlock DoS",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-10-01T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-3657",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to use the\nRed Hat Network to apply this update are available at\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2014:1873"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-3657",
+						"Description": "CVE-2014-3657"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1145667",
+						"Description": "bz#1145667: CVE-2014-3657 libvirt: domain_conf: domain deadlock DoS"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-09-22T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.6.z:libvirt-0:0.10.2-46.el6_6.2",
+						"6Client-optional-6.6.z:libvirt-0:0.10.2-46.el6_6.2",
+						"6ComputeNode-6.6.z:libvirt-0:0.10.2-46.el6_6.2",
+						"6ComputeNode-optional-6.6.z:libvirt-0:0.10.2-46.el6_6.2",
+						"6Server-6.6.z:libvirt-0:0.10.2-46.el6_6.2",
+						"6Server-optional-6.6.z:libvirt-0:0.10.2-46.el6_6.2",
+						"6Workstation-6.6.z:libvirt-0:0.10.2-46.el6_6.2",
+						"6Workstation-optional-6.6.z:libvirt-0:0.10.2-46.el6_6.2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "3.3",
+					"Vector": "AV:A/AC:L/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "libvirt: dumpxml: information leak with migratable flag",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-11-05T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-7823",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to use the\nRed Hat Network to apply this update are available at\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2014:1873"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-7823",
+						"Description": "CVE-2014-7823"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1160817",
+						"Description": "bz#1160817: CVE-2014-7823 libvirt: dumpxml: information leak with migratable flag"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2014-10-30T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.6.z:libvirt-0:0.10.2-46.el6_6.2",
+						"6Client-optional-6.6.z:libvirt-0:0.10.2-46.el6_6.2",
+						"6ComputeNode-6.6.z:libvirt-0:0.10.2-46.el6_6.2",
+						"6ComputeNode-optional-6.6.z:libvirt-0:0.10.2-46.el6_6.2",
+						"6Server-6.6.z:libvirt-0:0.10.2-46.el6_6.2",
+						"6Server-optional-6.6.z:libvirt-0:0.10.2-46.el6_6.2",
+						"6Workstation-6.6.z:libvirt-0:0.10.2-46.el6_6.2",
+						"6Workstation-optional-6.6.z:libvirt-0:0.10.2-46.el6_6.2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "3.3",
+					"Vector": "AV:A/AC:L/Au:N/C:P/I:N/A:N"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 6)",
+							"productid": "6Client-6.6.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+							"productid": "6Client-optional-6.6.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node (v. 6)",
+							"productid": "6ComputeNode-6.6.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+							"productid": "6ComputeNode-optional-6.6.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 6)",
+							"productid": "6Server-6.6.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional (v. 6)",
+							"productid": "6Server-optional-6.6.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 6)",
+							"productid": "6Workstation-6.6.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+							"productid": "6Workstation-optional-6.6.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "libvirt-0:0.10.2-46.el6_6.2",
+				"fullproductname": {
+					"text": "libvirt-0.10.2-46.el6_6.2.src.rpm",
+					"productid": "libvirt-0:0.10.2-46.el6_6.2",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "libvirt-0:0.10.2-46.el6_6.2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-6.6.z",
+				"fullproductname": {
+					"text": "libvirt-0:0.10.2-46.el6_6.2 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"productid": "6Client-6.6.z:libvirt-0:0.10.2-46.el6_6.2",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "libvirt-0:0.10.2-46.el6_6.2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-optional-6.6.z",
+				"fullproductname": {
+					"text": "libvirt-0:0.10.2-46.el6_6.2 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"productid": "6Client-optional-6.6.z:libvirt-0:0.10.2-46.el6_6.2",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "libvirt-0:0.10.2-46.el6_6.2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-6.6.z",
+				"fullproductname": {
+					"text": "libvirt-0:0.10.2-46.el6_6.2 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"productid": "6ComputeNode-6.6.z:libvirt-0:0.10.2-46.el6_6.2",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "libvirt-0:0.10.2-46.el6_6.2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-optional-6.6.z",
+				"fullproductname": {
+					"text": "libvirt-0:0.10.2-46.el6_6.2 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"productid": "6ComputeNode-optional-6.6.z:libvirt-0:0.10.2-46.el6_6.2",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "libvirt-0:0.10.2-46.el6_6.2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-6.6.z",
+				"fullproductname": {
+					"text": "libvirt-0:0.10.2-46.el6_6.2 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"productid": "6Server-6.6.z:libvirt-0:0.10.2-46.el6_6.2",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "libvirt-0:0.10.2-46.el6_6.2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-optional-6.6.z",
+				"fullproductname": {
+					"text": "libvirt-0:0.10.2-46.el6_6.2 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"productid": "6Server-optional-6.6.z:libvirt-0:0.10.2-46.el6_6.2",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "libvirt-0:0.10.2-46.el6_6.2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-6.6.z",
+				"fullproductname": {
+					"text": "libvirt-0:0.10.2-46.el6_6.2 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"productid": "6Workstation-6.6.z:libvirt-0:0.10.2-46.el6_6.2",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			},
+			{
+				"productreference": "libvirt-0:0.10.2-46.el6_6.2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-optional-6.6.z",
+				"fullproductname": {
+					"text": "libvirt-0:0.10.2-46.el6_6.2 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"productid": "6Workstation-optional-6.6.z:libvirt-0:0.10.2-46.el6_6.2",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			}
+		]
+	}
+}

@@ -1,0 +1,1042 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: openssl security update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2015:0066"
+		},
+		"Status": "Final",
+		"Version": "2",
+		"revisionhistory": {
+			"revision": {
+				"Number": "2",
+				"Date": "2015-01-21T21:28:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2015-01-21T21:28:00Z",
+		"CurrentReleaseDate": "2015-01-21T21:28:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:34:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated openssl packages that fix multiple security issues are now\navailable for Red Hat Enterprise Linux 6 and 7.\n\nRed Hat Product Security has rated this update as having Moderate security\nimpact. Common Vulnerability Scoring System (CVSS) base scores, which give\ndetailed severity ratings, are available for each vulnerability from the\nCVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nOpenSSL is a toolkit that implements the Secure Sockets Layer (SSL),\nTransport Layer Security (TLS), and Datagram Transport Layer Security\n(DTLS) protocols, as well as a full-strength, general purpose cryptography\nlibrary.\n\nA NULL pointer dereference flaw was found in the DTLS implementation of\nOpenSSL. A remote attacker could send a specially crafted DTLS message,\nwhich would cause an OpenSSL server to crash. (CVE-2014-3571)\n\nA memory leak flaw was found in the way the dtls1_buffer_record() function\nof OpenSSL parsed certain DTLS messages. A remote attacker could send\nmultiple specially crafted DTLS messages to exhaust all available memory of\na DTLS server. (CVE-2015-0206)\n\nIt was found that OpenSSL's BigNumber Squaring implementation could produce\nincorrect results under certain special conditions. This flaw could\npossibly affect certain OpenSSL library functionality, such as RSA\nblinding. Note that this issue occurred rarely and with a low probability,\nand there is currently no known way of exploiting it. (CVE-2014-3570)\n\nIt was discovered that OpenSSL would perform an ECDH key exchange with a\nnon-ephemeral key even when the ephemeral ECDH cipher suite was selected.\nA malicious server could make a TLS/SSL client using OpenSSL use a weaker\nkey exchange method than the one requested by the user. (CVE-2014-3572)\n\nIt was discovered that OpenSSL would accept ephemeral RSA keys when using\nnon-export RSA cipher suites. A malicious server could make a TLS/SSL\nclient using OpenSSL use a weaker key exchange method. (CVE-2015-0204)\n\nMultiple flaws were found in the way OpenSSL parsed X.509 certificates.\nAn attacker could use these flaws to modify an X.509 certificate to produce\na certificate with a different fingerprint without invalidating its\nsignature, and possibly bypass fingerprint-based blacklisting in\napplications. (CVE-2014-8275)\n\nIt was found that an OpenSSL server would, under certain conditions, accept\nDiffie-Hellman client certificates without the use of a private key.\nAn attacker could use a user's client certificate to authenticate as that\nuser, without needing the private key. (CVE-2015-0205)\n\nAll OpenSSL users are advised to upgrade to these updated packages, which\ncontain a backported patch to mitigate the above issues. For the update to\ntake effect, all services linked to the OpenSSL library (such as httpd and\nother SSL-enabled services) must be restarted or the system rebooted.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2015:0066",
+				"Description": "https://access.redhat.com/errata/RHSA-2015:0066"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			},
+			{
+				"type": "External",
+				"URL": "https://www.openssl.org/news/secadv_20150108.txt",
+				"Description": "https://www.openssl.org/news/secadv_20150108.txt"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "openssl: Bignum squaring may produce incorrect results",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-01-08T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-3570",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata \nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to use the \nRed Hat Network to apply this update are available at \nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:0066"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.openssl.org/news/secadv_20150108.txt",
+						"Description": "https://www.openssl.org/news/secadv_20150108.txt"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-3570",
+						"Description": "CVE-2014-3570"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1180240",
+						"Description": "bz#1180240: CVE-2014-3570 openssl: Bignum squaring may produce incorrect results"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2015-01-08T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+						"6Client-optional-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+						"6ComputeNode-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+						"6ComputeNode-optional-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+						"6Server-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+						"6Server-optional-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+						"6Workstation-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+						"6Workstation-optional-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+						"7Client-7.0.Z:openssl-1:1.0.1e-34.el7_0.7",
+						"7Client-optional-7.0.Z:openssl-1:1.0.1e-34.el7_0.7",
+						"7ComputeNode-7.0.Z:openssl-1:1.0.1e-34.el7_0.7",
+						"7ComputeNode-optional-7.0.Z:openssl-1:1.0.1e-34.el7_0.7",
+						"7Server-7.0.Z:openssl-1:1.0.1e-34.el7_0.7",
+						"7Server-optional-7.0.Z:openssl-1:1.0.1e-34.el7_0.7",
+						"7Workstation-7.0.Z:openssl-1:1.0.1e-34.el7_0.7",
+						"7Workstation-optional-7.0.Z:openssl-1:1.0.1e-34.el7_0.7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.6",
+					"Vector": "AV:N/AC:H/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "openssl: DTLS segmentation fault in dtls1_get_record",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-01-08T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-3571",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata \nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to use the \nRed Hat Network to apply this update are available at \nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:0066"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.openssl.org/news/secadv_20150108.txt",
+						"Description": "https://www.openssl.org/news/secadv_20150108.txt"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-3571",
+						"Description": "CVE-2014-3571"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1180234",
+						"Description": "bz#1180234: CVE-2014-3571 openssl: DTLS segmentation fault in dtls1_get_record"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-01-08T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+						"6Client-optional-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+						"6ComputeNode-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+						"6ComputeNode-optional-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+						"6Server-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+						"6Server-optional-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+						"6Workstation-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+						"6Workstation-optional-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+						"7Client-7.0.Z:openssl-1:1.0.1e-34.el7_0.7",
+						"7Client-optional-7.0.Z:openssl-1:1.0.1e-34.el7_0.7",
+						"7ComputeNode-7.0.Z:openssl-1:1.0.1e-34.el7_0.7",
+						"7ComputeNode-optional-7.0.Z:openssl-1:1.0.1e-34.el7_0.7",
+						"7Server-7.0.Z:openssl-1:1.0.1e-34.el7_0.7",
+						"7Server-optional-7.0.Z:openssl-1:1.0.1e-34.el7_0.7",
+						"7Workstation-7.0.Z:openssl-1:1.0.1e-34.el7_0.7",
+						"7Workstation-optional-7.0.Z:openssl-1:1.0.1e-34.el7_0.7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.0",
+					"Vector": "AV:N/AC:L/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "openssl: ECDH downgrade bug fix",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-01-05T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-3572",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata \nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to use the \nRed Hat Network to apply this update are available at \nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:0066"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.openssl.org/news/secadv_20150108.txt",
+						"Description": "https://www.openssl.org/news/secadv_20150108.txt"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-3572",
+						"Description": "CVE-2014-3572"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1180185",
+						"Description": "bz#1180185: CVE-2014-3572 openssl: ECDH downgrade bug fix"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2015-01-08T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+						"6Client-optional-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+						"6ComputeNode-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+						"6ComputeNode-optional-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+						"6Server-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+						"6Server-optional-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+						"6Workstation-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+						"6Workstation-optional-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+						"7Client-7.0.Z:openssl-1:1.0.1e-34.el7_0.7",
+						"7Client-optional-7.0.Z:openssl-1:1.0.1e-34.el7_0.7",
+						"7ComputeNode-7.0.Z:openssl-1:1.0.1e-34.el7_0.7",
+						"7ComputeNode-optional-7.0.Z:openssl-1:1.0.1e-34.el7_0.7",
+						"7Server-7.0.Z:openssl-1:1.0.1e-34.el7_0.7",
+						"7Server-optional-7.0.Z:openssl-1:1.0.1e-34.el7_0.7",
+						"7Workstation-7.0.Z:openssl-1:1.0.1e-34.el7_0.7",
+						"7Workstation-optional-7.0.Z:openssl-1:1.0.1e-34.el7_0.7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "openssl: Fix various certificate fingerprint issues",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-01-05T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-8275",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata \nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to use the \nRed Hat Network to apply this update are available at \nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:0066"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.openssl.org/news/secadv_20150108.txt",
+						"Description": "https://www.openssl.org/news/secadv_20150108.txt"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-8275",
+						"Description": "CVE-2014-8275"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1180187",
+						"Description": "bz#1180187: CVE-2014-8275 openssl: Fix various certificate fingerprint issues"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2015-01-08T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+						"6Client-optional-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+						"6ComputeNode-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+						"6ComputeNode-optional-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+						"6Server-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+						"6Server-optional-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+						"6Workstation-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+						"6Workstation-optional-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+						"7Client-7.0.Z:openssl-1:1.0.1e-34.el7_0.7",
+						"7Client-optional-7.0.Z:openssl-1:1.0.1e-34.el7_0.7",
+						"7ComputeNode-7.0.Z:openssl-1:1.0.1e-34.el7_0.7",
+						"7ComputeNode-optional-7.0.Z:openssl-1:1.0.1e-34.el7_0.7",
+						"7Server-7.0.Z:openssl-1:1.0.1e-34.el7_0.7",
+						"7Server-optional-7.0.Z:openssl-1:1.0.1e-34.el7_0.7",
+						"7Workstation-7.0.Z:openssl-1:1.0.1e-34.el7_0.7",
+						"7Workstation-optional-7.0.Z:openssl-1:1.0.1e-34.el7_0.7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "openssl: only allow ephemeral RSA keys in export ciphersuites (FREAK)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-01-06T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-0204",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata \nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to use the \nRed Hat Network to apply this update are available at \nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:0066"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://securityblog.redhat.com/2015/03/04/factoring-rsa-export-keys-freak-cve-2015-0204/",
+						"Description": "https://securityblog.redhat.com/2015/03/04/factoring-rsa-export-keys-freak-cve-2015-0204/"
+					},
+					{
+						"URL": "https://www.openssl.org/news/secadv_20150108.txt",
+						"Description": "https://www.openssl.org/news/secadv_20150108.txt"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-0204",
+						"Description": "CVE-2015-0204"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1180184",
+						"Description": "bz#1180184: CVE-2015-0204 openssl: only allow ephemeral RSA keys in export ciphersuites (FREAK)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-01-08T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+						"6Client-optional-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+						"6ComputeNode-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+						"6ComputeNode-optional-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+						"6Server-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+						"6Server-optional-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+						"6Workstation-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+						"6Workstation-optional-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+						"7Client-7.0.Z:openssl-1:1.0.1e-34.el7_0.7",
+						"7Client-optional-7.0.Z:openssl-1:1.0.1e-34.el7_0.7",
+						"7ComputeNode-7.0.Z:openssl-1:1.0.1e-34.el7_0.7",
+						"7ComputeNode-optional-7.0.Z:openssl-1:1.0.1e-34.el7_0.7",
+						"7Server-7.0.Z:openssl-1:1.0.1e-34.el7_0.7",
+						"7Server-optional-7.0.Z:openssl-1:1.0.1e-34.el7_0.7",
+						"7Workstation-7.0.Z:openssl-1:1.0.1e-34.el7_0.7",
+						"7Workstation-optional-7.0.Z:openssl-1:1.0.1e-34.el7_0.7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "6",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "openssl: DH client certificates accepted without verification",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-01-08T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-0205",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata \nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to use the \nRed Hat Network to apply this update are available at \nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:0066"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.openssl.org/news/secadv_20150108.txt",
+						"Description": "https://www.openssl.org/news/secadv_20150108.txt"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-0205",
+						"Description": "CVE-2015-0205"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1180239",
+						"Description": "bz#1180239: CVE-2015-0205 openssl: DH client certificates accepted without verification"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2015-01-08T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+						"6Client-optional-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+						"6ComputeNode-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+						"6ComputeNode-optional-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+						"6Server-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+						"6Server-optional-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+						"6Workstation-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+						"6Workstation-optional-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+						"7Client-7.0.Z:openssl-1:1.0.1e-34.el7_0.7",
+						"7Client-optional-7.0.Z:openssl-1:1.0.1e-34.el7_0.7",
+						"7ComputeNode-7.0.Z:openssl-1:1.0.1e-34.el7_0.7",
+						"7ComputeNode-optional-7.0.Z:openssl-1:1.0.1e-34.el7_0.7",
+						"7Server-7.0.Z:openssl-1:1.0.1e-34.el7_0.7",
+						"7Server-optional-7.0.Z:openssl-1:1.0.1e-34.el7_0.7",
+						"7Workstation-7.0.Z:openssl-1:1.0.1e-34.el7_0.7",
+						"7Workstation-optional-7.0.Z:openssl-1:1.0.1e-34.el7_0.7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.6",
+					"Vector": "AV:N/AC:H/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "7",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "openssl: DTLS memory leak in dtls1_buffer_record",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-01-08T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-0206",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata \nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to use the \nRed Hat Network to apply this update are available at \nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:0066"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.openssl.org/news/secadv_20150108.txt",
+						"Description": "https://www.openssl.org/news/secadv_20150108.txt"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-0206",
+						"Description": "CVE-2015-0206"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1180235",
+						"Description": "bz#1180235: CVE-2015-0206 openssl: DTLS memory leak in dtls1_buffer_record"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-01-08T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+						"6Client-optional-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+						"6ComputeNode-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+						"6ComputeNode-optional-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+						"6Server-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+						"6Server-optional-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+						"6Workstation-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+						"6Workstation-optional-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+						"7Client-7.0.Z:openssl-1:1.0.1e-34.el7_0.7",
+						"7Client-optional-7.0.Z:openssl-1:1.0.1e-34.el7_0.7",
+						"7ComputeNode-7.0.Z:openssl-1:1.0.1e-34.el7_0.7",
+						"7ComputeNode-optional-7.0.Z:openssl-1:1.0.1e-34.el7_0.7",
+						"7Server-7.0.Z:openssl-1:1.0.1e-34.el7_0.7",
+						"7Server-optional-7.0.Z:openssl-1:1.0.1e-34.el7_0.7",
+						"7Workstation-7.0.Z:openssl-1:1.0.1e-34.el7_0.7",
+						"7Workstation-optional-7.0.Z:openssl-1:1.0.1e-34.el7_0.7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.0",
+					"Vector": "AV:N/AC:L/Au:N/C:N/I:N/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 6)",
+							"productid": "6Client-6.6.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+							"productid": "6Client-optional-6.6.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node (v. 6)",
+							"productid": "6ComputeNode-6.6.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+							"productid": "6ComputeNode-optional-6.6.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 6)",
+							"productid": "6Server-6.6.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional (v. 6)",
+							"productid": "6Server-optional-6.6.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 6)",
+							"productid": "6Workstation-6.6.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+							"productid": "6Workstation-optional-6.6.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Client (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Client (v. 7)",
+							"productid": "7Client-7.0.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Client Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Client Optional (v. 7)",
+							"productid": "7Client-optional-7.0.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ComputeNode (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ComputeNode (v. 7)",
+							"productid": "7ComputeNode-7.0.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+							"productid": "7ComputeNode-optional-7.0.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 7)",
+							"productid": "7Server-7.0.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional (v. 7)",
+							"productid": "7Server-optional-7.0.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 7)",
+							"productid": "7Workstation-7.0.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation Optional (v. 7)",
+							"productid": "7Workstation-optional-7.0.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "openssl-0:1.0.1e-30.el6_6.5",
+				"fullproductname": {
+					"text": "openssl-1.0.1e-30.el6_6.5.src.rpm",
+					"productid": "openssl-0:1.0.1e-30.el6_6.5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "openssl-1:1.0.1e-34.el7_0.7",
+				"fullproductname": {
+					"text": "openssl-1.0.1e-34.el7_0.7.src.rpm",
+					"productid": "openssl-1:1.0.1e-34.el7_0.7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "openssl-0:1.0.1e-30.el6_6.5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-6.6.z",
+				"fullproductname": {
+					"text": "openssl-0:1.0.1e-30.el6_6.5 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"productid": "6Client-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "openssl-0:1.0.1e-30.el6_6.5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-optional-6.6.z",
+				"fullproductname": {
+					"text": "openssl-0:1.0.1e-30.el6_6.5 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"productid": "6Client-optional-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "openssl-0:1.0.1e-30.el6_6.5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-6.6.z",
+				"fullproductname": {
+					"text": "openssl-0:1.0.1e-30.el6_6.5 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"productid": "6ComputeNode-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "openssl-0:1.0.1e-30.el6_6.5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-optional-6.6.z",
+				"fullproductname": {
+					"text": "openssl-0:1.0.1e-30.el6_6.5 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"productid": "6ComputeNode-optional-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "openssl-0:1.0.1e-30.el6_6.5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-6.6.z",
+				"fullproductname": {
+					"text": "openssl-0:1.0.1e-30.el6_6.5 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"productid": "6Server-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "openssl-0:1.0.1e-30.el6_6.5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-optional-6.6.z",
+				"fullproductname": {
+					"text": "openssl-0:1.0.1e-30.el6_6.5 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"productid": "6Server-optional-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "openssl-0:1.0.1e-30.el6_6.5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-6.6.z",
+				"fullproductname": {
+					"text": "openssl-0:1.0.1e-30.el6_6.5 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"productid": "6Workstation-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			},
+			{
+				"productreference": "openssl-0:1.0.1e-30.el6_6.5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-optional-6.6.z",
+				"fullproductname": {
+					"text": "openssl-0:1.0.1e-30.el6_6.5 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"productid": "6Workstation-optional-6.6.z:openssl-0:1.0.1e-30.el6_6.5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			},
+			{
+				"productreference": "openssl-1:1.0.1e-34.el7_0.7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-7.0.Z",
+				"fullproductname": {
+					"text": "openssl-1:1.0.1e-34.el7_0.7 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"productid": "7Client-7.0.Z:openssl-1:1.0.1e-34.el7_0.7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "openssl-1:1.0.1e-34.el7_0.7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-optional-7.0.Z",
+				"fullproductname": {
+					"text": "openssl-1:1.0.1e-34.el7_0.7 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"productid": "7Client-optional-7.0.Z:openssl-1:1.0.1e-34.el7_0.7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "openssl-1:1.0.1e-34.el7_0.7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-7.0.Z",
+				"fullproductname": {
+					"text": "openssl-1:1.0.1e-34.el7_0.7 as a component of Red Hat Enterprise Linux ComputeNode (v. 7)",
+					"productid": "7ComputeNode-7.0.Z:openssl-1:1.0.1e-34.el7_0.7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "openssl-1:1.0.1e-34.el7_0.7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-optional-7.0.Z",
+				"fullproductname": {
+					"text": "openssl-1:1.0.1e-34.el7_0.7 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"productid": "7ComputeNode-optional-7.0.Z:openssl-1:1.0.1e-34.el7_0.7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "openssl-1:1.0.1e-34.el7_0.7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-7.0.Z",
+				"fullproductname": {
+					"text": "openssl-1:1.0.1e-34.el7_0.7 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server-7.0.Z:openssl-1:1.0.1e-34.el7_0.7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "openssl-1:1.0.1e-34.el7_0.7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-optional-7.0.Z",
+				"fullproductname": {
+					"text": "openssl-1:1.0.1e-34.el7_0.7 as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"productid": "7Server-optional-7.0.Z:openssl-1:1.0.1e-34.el7_0.7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "openssl-1:1.0.1e-34.el7_0.7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-7.0.Z",
+				"fullproductname": {
+					"text": "openssl-1:1.0.1e-34.el7_0.7 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"productid": "7Workstation-7.0.Z:openssl-1:1.0.1e-34.el7_0.7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "openssl-1:1.0.1e-34.el7_0.7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-optional-7.0.Z",
+				"fullproductname": {
+					"text": "openssl-1:1.0.1e-34.el7_0.7 as a component of Red Hat Enterprise Linux Workstation Optional (v. 7)",
+					"productid": "7Workstation-optional-7.0.Z:openssl-1:1.0.1e-34.el7_0.7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			}
+		]
+	}
+}

@@ -1,0 +1,640 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Bug Fix Advisory: OpenShift Container Platform 3.6.1 bug fix and enhancement update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHBA-2017:2642"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2019-05-01T05:21:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2017-09-08T03:14:00Z",
+		"CurrentReleaseDate": "2019-05-01T05:21:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.12.2",
+			"Date": "2023-03-24T15:54:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nRed Hat OpenShift Container Platform releases 3.6.1 are now available with updates to packages and images that fix several bugs and add various enhancements.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nRed Hat OpenShift Container Platform is the company's cloud computing Platform-as-a-Service (PaaS) solution designed for on-premise or private cloud deployments.\n\nThis advisory contains the RPM packages for Red Hat OpenShift Container Platform 3.6.1. See the following advisory for the container images for this release:\n\nhttps://access.redhat.com/errata/RHEA-2017:2644\n\nThis update fixes the following bugs:\n\n* When the atomic-openshift-node service got restarted, all processes in its control group are terminated, including the glusterfs-mounted points. Each glusterfs volume in OpenShift corresponds to one mounted point. If all mounting points are lost, so are all of the volumes. Set the control group mode to terminate only the main process and leave the remaining glusterfs mounting points untouched. When the atomic-openshift-node service is restarted, no glusterfs mounting point is terminated.\n(BZ#1423640)\n\n* A route can front up to four services that handle the requests. The load balancing strategy governs which endpoint gets each request. When round-robin is chosen, the portion of the requests that each\nservice handles is governed by the weight assigned to the service. Each endpoint in the service gets a fraction of the service's requests. (BZ#1473736)\n\n* When fluentd was reading from the journald and the output buffer queue wass full, the fluentd log was filled up with KubeClient messages. This is a bug in the fluentd filter_kubernetes_metadata plug-in. Ignore fluentd log messages from Kubeclient::Common::WatchNotice. (BZ#1476731)\n\n* Previously, the Copy Service Labels link in the Create Route form did not correctly copy the labels from the service to the new route. It has been fixed to copy the selected service's labels.\n(BZ#1477933)\n\n* Permissions on directories injected as a build input via the image source input mechanism have user-only access permissions. Therefore, the resulting application image cannot access the content when run as a random user ID. With this bug fix, the directories will be injected with group permissions, which will allow the user access to the container. (BZ#1479130)\n\n* Kibana nodejs runtime was not the same as the version distributed by Elastic. With this bug fix, the versioning is updated. (BZ#1479928)\n\n* Previously, the ScaleIO volume plug-in was missing in OpenShift Container Platform. With this bug fix, it is now fully enabled. (BZ#1482273)\n\n* Namespaces that use reserved names and were not created by infrastructure components should be blocked, as they will cause the upgrade to fail. (BZ#1484958)\n\nThis update includes the following enhancement:\n\n* There is now the ability to set reference policy with `oc import-image`. Set reference policy using the `--reference-policy` flag when invoking `oc import-image`. When importing all tags (using the `--all` flag), all tags will get passed to reference policy, including overwriting the already present one. (BZ#1420976)\n\nAll OpenShift Container Platform 3.6 users are advised to upgrade to these updated packages and images.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2023 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHBA-2017:2642",
+				"Description": "https://access.redhat.com/errata/RHBA-2017:2642"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Subversion Plugin improperly checked permissions, requiring just Item/Build instead of Item/Configure when used. This allows a user to specify an attacker-controlled Subversion server which can then be used to collect credentials used by the Subversion plugin.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2017-07-10T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2017-1000085",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata relevant to your system have been applied.\n\nFor OpenShift Container Platform 3.5, see the following documentation, which will be updated shortly for release 3.5.5.31, for important instructions on how to upgrade your cluster and fully apply this asynchronous errata update:\n\nhttps://docs.openshift.com/container-platform/3.5/release_notes/ocp_3_5_release_notes.html\n\nFor OpenShift Container Platform 3.4, see the following documentation, which will be updated shortly for release 3.4.1.44, for important instructions on how to upgrade your cluster and fully apply this asynchronous errata update:\n\nhttps://docs.openshift.com/container-platform/3.4/release_notes/ocp_3_4_release_notes.html\n\nThis update is available via the Red Hat Network. Details on how to use the Red Hat Network to apply this update are available at https://access.redhat.com/articles/11258.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHBA-2017:2642"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://jenkins.io/security/advisory/2017-07-10/",
+						"Description": "https://jenkins.io/security/advisory/2017-07-10/"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2017-1000085",
+						"Description": "CVE-2017-1000085"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1471046",
+						"Description": "bz#1471046: CVE-2017-1000085 jenkins-plugin-subversion: CSRF vulnerability and insufficient permission checks allow capturing credentials (SECURITY-303)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2017-07-07T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-RH7-RHOSE-3.6:atomic-openshift-0:3.6.173.0.21-1.git.0.f95b0e7.el7",
+						"7Server-RH7-RHOSE-3.6:fluentd-0:0.12.39-2.el7",
+						"7Server-RH7-RHOSE-3.6:jenkins-2-plugins-0:3.7.1502412812-1.el7",
+						"7Server-RH7-RHOSE-3.6:kibana-0:4.6.4-3.el7",
+						"7Server-RH7-RHOSE-3.6:rubygem-cool.io-0:1.5.1-1.el7",
+						"7Server-RH7-RHOSE-3.6:rubygem-excon-0:0.58.0-1.el7",
+						"7Server-RH7-RHOSE-3.6:rubygem-faraday-0:0.13.0-1.el7",
+						"7Server-RH7-RHOSE-3.6:rubygem-fluent-plugin-kubernetes_metadata_filter-0:0.29.0-1.el7",
+						"7Server-RH7-RHOSE-3.6:rubygem-fluent-plugin-viaq_data_model-0:0.0.5-1.el7",
+						"7Server-RH7-RHOSE-3.6:rubygem-i18n-0:0.8.6-1.el7",
+						"7Server-RH7-RHOSE-3.6:rubygem-systemd-journal-0:1.3.0-1.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank the Jenkins project for reporting this issue. Upstream acknowledges Jesse Glick (CloudBees) as the original reporter."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "The jenkins-plugin-pipeline-build-step fails to check permissions correctly allowing attackers with access to it to specify the triggering of any other project in Jenkins. This potentially gives an attacker access to projects they should not have access to.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2017-07-10T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2017-1000089",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata relevant to your system have been applied.\n\nFor OpenShift Container Platform 3.5, see the following documentation, which will be updated shortly for release 3.5.5.31, for important instructions on how to upgrade your cluster and fully apply this asynchronous errata update:\n\nhttps://docs.openshift.com/container-platform/3.5/release_notes/ocp_3_5_release_notes.html\n\nFor OpenShift Container Platform 3.4, see the following documentation, which will be updated shortly for release 3.4.1.44, for important instructions on how to upgrade your cluster and fully apply this asynchronous errata update:\n\nhttps://docs.openshift.com/container-platform/3.4/release_notes/ocp_3_4_release_notes.html\n\nThis update is available via the Red Hat Network. Details on how to use the Red Hat Network to apply this update are available at https://access.redhat.com/articles/11258.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHBA-2017:2642"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://jenkins.io/security/advisory/2017-07-10/",
+						"Description": "https://jenkins.io/security/advisory/2017-07-10/"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2017-1000089",
+						"Description": "CVE-2017-1000089"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1471050",
+						"Description": "bz#1471050: CVE-2017-1000089 jenkins-plugin-pipeline-build-step: Missing check of Item/Build permission (SECURITY-433)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2017-07-07T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-RH7-RHOSE-3.6:atomic-openshift-0:3.6.173.0.21-1.git.0.f95b0e7.el7",
+						"7Server-RH7-RHOSE-3.6:fluentd-0:0.12.39-2.el7",
+						"7Server-RH7-RHOSE-3.6:jenkins-2-plugins-0:3.7.1502412812-1.el7",
+						"7Server-RH7-RHOSE-3.6:kibana-0:4.6.4-3.el7",
+						"7Server-RH7-RHOSE-3.6:rubygem-cool.io-0:1.5.1-1.el7",
+						"7Server-RH7-RHOSE-3.6:rubygem-excon-0:0.58.0-1.el7",
+						"7Server-RH7-RHOSE-3.6:rubygem-faraday-0:0.13.0-1.el7",
+						"7Server-RH7-RHOSE-3.6:rubygem-fluent-plugin-kubernetes_metadata_filter-0:0.29.0-1.el7",
+						"7Server-RH7-RHOSE-3.6:rubygem-fluent-plugin-viaq_data_model-0:0.0.5-1.el7",
+						"7Server-RH7-RHOSE-3.6:rubygem-i18n-0:0.8.6-1.el7",
+						"7Server-RH7-RHOSE-3.6:rubygem-systemd-journal-0:1.3.0-1.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank the Jenkins project for reporting this issue."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "The Git Plugin can leak credentials (username and password) used to access a git repo if an attacker-supplied URL is provided to the plugin. To supply the URL to the plugin, the attacker would need to guess a username/password ID and then trick a developer into following a specific URL.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2017-07-10T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2017-1000092",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata relevant to your system have been applied.\n\nFor OpenShift Container Platform 3.5, see the following documentation, which will be updated shortly for release 3.5.5.31, for important instructions on how to upgrade your cluster and fully apply this asynchronous errata update:\n\nhttps://docs.openshift.com/container-platform/3.5/release_notes/ocp_3_5_release_notes.html\n\nFor OpenShift Container Platform 3.4, see the following documentation, which will be updated shortly for release 3.4.1.44, for important instructions on how to upgrade your cluster and fully apply this asynchronous errata update:\n\nhttps://docs.openshift.com/container-platform/3.4/release_notes/ocp_3_4_release_notes.html\n\nThis update is available via the Red Hat Network. Details on how to use the Red Hat Network to apply this update are available at https://access.redhat.com/articles/11258.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHBA-2017:2642"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://jenkins.io/security/advisory/2017-07-10/",
+						"Description": "https://jenkins.io/security/advisory/2017-07-10/"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2017-1000092",
+						"Description": "CVE-2017-1000092"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1471053",
+						"Description": "bz#1471053: CVE-2017-1000092 jenkins-plugin-git: CSRF vulnerability allows capturing credentials (SECURITY-528)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2017-07-07T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-RH7-RHOSE-3.6:atomic-openshift-0:3.6.173.0.21-1.git.0.f95b0e7.el7",
+						"7Server-RH7-RHOSE-3.6:fluentd-0:0.12.39-2.el7",
+						"7Server-RH7-RHOSE-3.6:jenkins-2-plugins-0:3.7.1502412812-1.el7",
+						"7Server-RH7-RHOSE-3.6:kibana-0:4.6.4-3.el7",
+						"7Server-RH7-RHOSE-3.6:rubygem-cool.io-0:1.5.1-1.el7",
+						"7Server-RH7-RHOSE-3.6:rubygem-excon-0:0.58.0-1.el7",
+						"7Server-RH7-RHOSE-3.6:rubygem-faraday-0:0.13.0-1.el7",
+						"7Server-RH7-RHOSE-3.6:rubygem-fluent-plugin-kubernetes_metadata_filter-0:0.29.0-1.el7",
+						"7Server-RH7-RHOSE-3.6:rubygem-fluent-plugin-viaq_data_model-0:0.0.5-1.el7",
+						"7Server-RH7-RHOSE-3.6:rubygem-i18n-0:0.8.6-1.el7",
+						"7Server-RH7-RHOSE-3.6:rubygem-systemd-journal-0:1.3.0-1.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank the Jenkins project for reporting this issue. Upstream acknowledges Jesse Glick (CloudBees) as the original reporter."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "The jenkins-plugin-script-security has incomplete sandbox protection which allows attackers to execute arbitrary code via constructors, instance variable initializers, and instance initializers in Pipeline scripts. Exploitation of this requires the attacker to have permission to configure Pipelines in Jenkins or be a trusted committers to repositories containing Jenkinsfiles and for that Jenkins instance to be hosting other projects as well that the attacker should not have access to.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2017-07-10T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2017-1000096",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata relevant to your system have been applied.\n\nFor OpenShift Container Platform 3.5, see the following documentation, which will be updated shortly for release 3.5.5.31, for important instructions on how to upgrade your cluster and fully apply this asynchronous errata update:\n\nhttps://docs.openshift.com/container-platform/3.5/release_notes/ocp_3_5_release_notes.html\n\nFor OpenShift Container Platform 3.4, see the following documentation, which will be updated shortly for release 3.4.1.44, for important instructions on how to upgrade your cluster and fully apply this asynchronous errata update:\n\nhttps://docs.openshift.com/container-platform/3.4/release_notes/ocp_3_4_release_notes.html\n\nThis update is available via the Red Hat Network. Details on how to use the Red Hat Network to apply this update are available at https://access.redhat.com/articles/11258.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHBA-2017:2642"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://jenkins.io/security/advisory/2017-07-10/",
+						"Description": "https://jenkins.io/security/advisory/2017-07-10/"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2017-1000096",
+						"Description": "CVE-2017-1000096"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1471064",
+						"Description": "bz#1471064: CVE-2017-1000096 jenkins-plugin-workflow-cps: Arbitrary code execution due to incomplete sandbox protection (SECURITY-551)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2017-07-07T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-RH7-RHOSE-3.6:atomic-openshift-0:3.6.173.0.21-1.git.0.f95b0e7.el7",
+						"7Server-RH7-RHOSE-3.6:fluentd-0:0.12.39-2.el7",
+						"7Server-RH7-RHOSE-3.6:jenkins-2-plugins-0:3.7.1502412812-1.el7",
+						"7Server-RH7-RHOSE-3.6:kibana-0:4.6.4-3.el7",
+						"7Server-RH7-RHOSE-3.6:rubygem-cool.io-0:1.5.1-1.el7",
+						"7Server-RH7-RHOSE-3.6:rubygem-excon-0:0.58.0-1.el7",
+						"7Server-RH7-RHOSE-3.6:rubygem-faraday-0:0.13.0-1.el7",
+						"7Server-RH7-RHOSE-3.6:rubygem-fluent-plugin-kubernetes_metadata_filter-0:0.29.0-1.el7",
+						"7Server-RH7-RHOSE-3.6:rubygem-fluent-plugin-viaq_data_model-0:0.0.5-1.el7",
+						"7Server-RH7-RHOSE-3.6:rubygem-i18n-0:0.8.6-1.el7",
+						"7Server-RH7-RHOSE-3.6:rubygem-systemd-journal-0:1.3.0-1.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank the Jenkins project for reporting this issue. Upstream acknowledges Green and Simon St John as the original reporters."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat OpenShift Enterprise",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat OpenShift Container Platform 3.6",
+						"fullproductname": {
+							"text": "Red Hat OpenShift Container Platform 3.6",
+							"productid": "7Server-RH7-RHOSE-3.6",
+							"cpe": "cpe:/a:redhat:openshift:3.6::el7"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "atomic-openshift-0:3.6.173.0.21-1.git.0.f95b0e7.el7",
+				"fullproductname": {
+					"text": "atomic-openshift-3.6.173.0.21-1.git.0.f95b0e7.el7.src.rpm",
+					"productid": "atomic-openshift-0:3.6.173.0.21-1.git.0.f95b0e7.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.6::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "fluentd-0:0.12.39-2.el7",
+				"fullproductname": {
+					"text": "fluentd-0.12.39-2.el7.src.rpm",
+					"productid": "fluentd-0:0.12.39-2.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.6::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "jenkins-2-plugins-0:3.7.1502412812-1.el7",
+				"fullproductname": {
+					"text": "jenkins-2-plugins-3.7.1502412812-1.el7.src.rpm",
+					"productid": "jenkins-2-plugins-0:3.7.1502412812-1.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.6::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kibana-0:4.6.4-3.el7",
+				"fullproductname": {
+					"text": "kibana-4.6.4-3.el7.src.rpm",
+					"productid": "kibana-0:4.6.4-3.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.6::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-cool.io-0:1.5.1-1.el7",
+				"fullproductname": {
+					"text": "rubygem-cool.io-1.5.1-1.el7.src.rpm",
+					"productid": "rubygem-cool.io-0:1.5.1-1.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.6::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-excon-0:0.58.0-1.el7",
+				"fullproductname": {
+					"text": "rubygem-excon-0.58.0-1.el7.src.rpm",
+					"productid": "rubygem-excon-0:0.58.0-1.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.6::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-faraday-0:0.13.0-1.el7",
+				"fullproductname": {
+					"text": "rubygem-faraday-0.13.0-1.el7.src.rpm",
+					"productid": "rubygem-faraday-0:0.13.0-1.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.6::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-fluent-plugin-kubernetes_metadata_filter-0:0.29.0-1.el7",
+				"fullproductname": {
+					"text": "rubygem-fluent-plugin-kubernetes_metadata_filter-0.29.0-1.el7.src.rpm",
+					"productid": "rubygem-fluent-plugin-kubernetes_metadata_filter-0:0.29.0-1.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.6::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-fluent-plugin-viaq_data_model-0:0.0.5-1.el7",
+				"fullproductname": {
+					"text": "rubygem-fluent-plugin-viaq_data_model-0.0.5-1.el7.src.rpm",
+					"productid": "rubygem-fluent-plugin-viaq_data_model-0:0.0.5-1.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.6::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-i18n-0:0.8.6-1.el7",
+				"fullproductname": {
+					"text": "rubygem-i18n-0.8.6-1.el7.src.rpm",
+					"productid": "rubygem-i18n-0:0.8.6-1.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.6::el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rubygem-systemd-journal-0:1.3.0-1.el7",
+				"fullproductname": {
+					"text": "rubygem-systemd-journal-1.3.0-1.el7.src.rpm",
+					"productid": "rubygem-systemd-journal-0:1.3.0-1.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.6::el7"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "atomic-openshift-0:3.6.173.0.21-1.git.0.f95b0e7.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOSE-3.6",
+				"fullproductname": {
+					"text": "atomic-openshift-0:3.6.173.0.21-1.git.0.f95b0e7.el7 as a component of Red Hat OpenShift Container Platform 3.6",
+					"productid": "7Server-RH7-RHOSE-3.6:atomic-openshift-0:3.6.173.0.21-1.git.0.f95b0e7.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.6::el7"
+				}
+			},
+			{
+				"productreference": "fluentd-0:0.12.39-2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOSE-3.6",
+				"fullproductname": {
+					"text": "fluentd-0:0.12.39-2.el7 as a component of Red Hat OpenShift Container Platform 3.6",
+					"productid": "7Server-RH7-RHOSE-3.6:fluentd-0:0.12.39-2.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.6::el7"
+				}
+			},
+			{
+				"productreference": "jenkins-2-plugins-0:3.7.1502412812-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOSE-3.6",
+				"fullproductname": {
+					"text": "jenkins-2-plugins-0:3.7.1502412812-1.el7 as a component of Red Hat OpenShift Container Platform 3.6",
+					"productid": "7Server-RH7-RHOSE-3.6:jenkins-2-plugins-0:3.7.1502412812-1.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.6::el7"
+				}
+			},
+			{
+				"productreference": "kibana-0:4.6.4-3.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOSE-3.6",
+				"fullproductname": {
+					"text": "kibana-0:4.6.4-3.el7 as a component of Red Hat OpenShift Container Platform 3.6",
+					"productid": "7Server-RH7-RHOSE-3.6:kibana-0:4.6.4-3.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.6::el7"
+				}
+			},
+			{
+				"productreference": "rubygem-cool.io-0:1.5.1-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOSE-3.6",
+				"fullproductname": {
+					"text": "rubygem-cool.io-0:1.5.1-1.el7 as a component of Red Hat OpenShift Container Platform 3.6",
+					"productid": "7Server-RH7-RHOSE-3.6:rubygem-cool.io-0:1.5.1-1.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.6::el7"
+				}
+			},
+			{
+				"productreference": "rubygem-excon-0:0.58.0-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOSE-3.6",
+				"fullproductname": {
+					"text": "rubygem-excon-0:0.58.0-1.el7 as a component of Red Hat OpenShift Container Platform 3.6",
+					"productid": "7Server-RH7-RHOSE-3.6:rubygem-excon-0:0.58.0-1.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.6::el7"
+				}
+			},
+			{
+				"productreference": "rubygem-faraday-0:0.13.0-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOSE-3.6",
+				"fullproductname": {
+					"text": "rubygem-faraday-0:0.13.0-1.el7 as a component of Red Hat OpenShift Container Platform 3.6",
+					"productid": "7Server-RH7-RHOSE-3.6:rubygem-faraday-0:0.13.0-1.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.6::el7"
+				}
+			},
+			{
+				"productreference": "rubygem-fluent-plugin-kubernetes_metadata_filter-0:0.29.0-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOSE-3.6",
+				"fullproductname": {
+					"text": "rubygem-fluent-plugin-kubernetes_metadata_filter-0:0.29.0-1.el7 as a component of Red Hat OpenShift Container Platform 3.6",
+					"productid": "7Server-RH7-RHOSE-3.6:rubygem-fluent-plugin-kubernetes_metadata_filter-0:0.29.0-1.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.6::el7"
+				}
+			},
+			{
+				"productreference": "rubygem-fluent-plugin-viaq_data_model-0:0.0.5-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOSE-3.6",
+				"fullproductname": {
+					"text": "rubygem-fluent-plugin-viaq_data_model-0:0.0.5-1.el7 as a component of Red Hat OpenShift Container Platform 3.6",
+					"productid": "7Server-RH7-RHOSE-3.6:rubygem-fluent-plugin-viaq_data_model-0:0.0.5-1.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.6::el7"
+				}
+			},
+			{
+				"productreference": "rubygem-i18n-0:0.8.6-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOSE-3.6",
+				"fullproductname": {
+					"text": "rubygem-i18n-0:0.8.6-1.el7 as a component of Red Hat OpenShift Container Platform 3.6",
+					"productid": "7Server-RH7-RHOSE-3.6:rubygem-i18n-0:0.8.6-1.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.6::el7"
+				}
+			},
+			{
+				"productreference": "rubygem-systemd-journal-0:1.3.0-1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOSE-3.6",
+				"fullproductname": {
+					"text": "rubygem-systemd-journal-0:1.3.0-1.el7 as a component of Red Hat OpenShift Container Platform 3.6",
+					"productid": "7Server-RH7-RHOSE-3.6:rubygem-systemd-journal-0:1.3.0-1.el7",
+					"cpe": "cpe:/a:redhat:openshift:3.6::el7"
+				}
+			}
+		]
+	}
+}

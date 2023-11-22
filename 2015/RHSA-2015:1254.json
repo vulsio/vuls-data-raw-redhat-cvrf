@@ -1,0 +1,608 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: curl security, bug fix, and enhancement update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2015:1254"
+		},
+		"Status": "Final",
+		"Version": "3",
+		"revisionhistory": {
+			"revision": {
+				"Number": "3",
+				"Date": "2015-07-20T13:50:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2015-07-20T13:50:00Z",
+		"CurrentReleaseDate": "2015-07-20T13:50:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:40:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated curl packages that fix multiple security issues, several bugs, and\nadd two enhancements are now available for Red Hat Enterprise Linux 6.\n\nRed Hat Product Security has rated this update as having Moderate security\nimpact. Common Vulnerability Scoring System (CVSS) base scores, which give\ndetailed severity ratings, are available for each vulnerability from the\nCVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe curl packages provide the libcurl library and the curl utility for\ndownloading files from servers using various protocols, including HTTP,\nFTP, and LDAP.\n\nIt was found that the libcurl library did not correctly handle partial\nliteral IP addresses when parsing received HTTP cookies. An attacker able\nto trick a user into connecting to a malicious server could use this flaw\nto set the user's cookie to a crafted domain, making other cookie-related\nissues easier to exploit. (CVE-2014-3613)\n\nA flaw was found in the way the libcurl library performed the duplication\nof connection handles. If an application set the CURLOPT_COPYPOSTFIELDS\noption for a handle, using the handle's duplicate could cause the\napplication to crash or disclose a portion of its memory. (CVE-2014-3707)\n\nIt was discovered that the libcurl library failed to properly handle URLs\nwith embedded end-of-line characters. An attacker able to make an\napplication using libcurl to access a specially crafted URL via an HTTP\nproxy could use this flaw to inject additional headers to the request or\nconstruct additional requests. (CVE-2014-8150)\n\nIt was discovered that libcurl implemented aspects of the NTLM and\nNegotatiate authentication incorrectly. If an application uses libcurl\nand the affected mechanisms in a specifc way, certain requests to a\npreviously NTLM-authenticated server could appears as sent by the wrong\nauthenticated user. Additionally, the initial set of credentials for HTTP\nNegotiate-authenticated requests could be reused in subsequent requests,\nalthough a different set of credentials was specified. (CVE-2015-3143,\nCVE-2015-3148)\n\nRed Hat would like to thank the cURL project for reporting these issues.\n\nBug fixes:\n\n* An out-of-protocol fallback to SSL version 3.0 (SSLv3.0) was available\nwith libcurl. Attackers could abuse the fallback to force downgrade of the\nSSL version. The fallback has been removed from libcurl. Users requiring\nthis functionality can explicitly enable SSLv3.0 through the libcurl API.\n(BZ#1154059)\n\n* A single upload transfer through the FILE protocol opened the destination\nfile twice. If the inotify kernel subsystem monitored the file, two events\nwere produced unnecessarily. The file is now opened only once per upload.\n(BZ#883002)\n\n* Utilities using libcurl for SCP/SFTP transfers could terminate\nunexpectedly when the system was running in FIPS mode. (BZ#1008178)\n\n* Using the \"--retry\" option with the curl utility could cause curl to\nterminate unexpectedly with a segmentation fault. Now, adding \"--retry\" no\nlonger causes curl to crash. (BZ#1009455)\n\n* The \"curl --trace-time\" command did not use the correct local time when\nprinting timestamps. Now, \"curl --trace-time\" works as expected.\n(BZ#1120196)\n\n* The valgrind utility could report dynamically allocated memory leaks on\ncurl exit. Now, curl performs a global shutdown of the NetScape Portable\nRuntime (NSPR) library on exit, and valgrind no longer reports the memory\nleaks. (BZ#1146528)\n\n* Previously, libcurl returned an incorrect value of the\nCURLINFO_HEADER_SIZE field when a proxy server appended its own headers to\nthe HTTP response. Now, the returned value is valid. (BZ#1161163)\n\nEnhancements:\n\n* The \"--tlsv1.0\", \"--tlsv1.1\", and \"--tlsv1.2\" options are available for\nspecifying the minor version of the TLS protocol to be negotiated by NSS.\nThe \"--tlsv1\" option now negotiates the highest version of the TLS protocol\nsupported by both the client and the server. (BZ#1012136)\n\n* It is now possible to explicitly enable or disable the ECC and the new\nAES cipher suites to be used for TLS. (BZ#1058767, BZ#1156422)\n\nAll curl users are advised to upgrade to these updated packages, which\ncontain backported patches to correct these issues and add these\nenhancements.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2015:1254",
+				"Description": "https://access.redhat.com/errata/RHSA-2015:1254"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "curl: incorrect handling of IP addresses in cookie domain",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-09-10T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-3613",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1254"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "http://curl.haxx.se/docs/adv_20140910A.html",
+						"Description": "http://curl.haxx.se/docs/adv_20140910A.html"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-3613",
+						"Description": "CVE-2014-3613"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1136154",
+						"Description": "bz#1136154: CVE-2014-3613 curl: incorrect handling of IP addresses in cookie domain"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-09-02T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional:curl-0:7.19.7-46.el6",
+						"6Client:curl-0:7.19.7-46.el6",
+						"6ComputeNode-optional:curl-0:7.19.7-46.el6",
+						"6ComputeNode:curl-0:7.19.7-46.el6",
+						"6Server:curl-0:7.19.7-46.el6",
+						"6Workstation:curl-0:7.19.7-46.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "curl: incorrect handle duplication after COPYPOSTFIELDS",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-11-05T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-3707",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1254"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "http://curl.haxx.se/docs/adv_20141105.html",
+						"Description": "http://curl.haxx.se/docs/adv_20141105.html"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-3707",
+						"Description": "CVE-2014-3707"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1154941",
+						"Description": "bz#1154941: CVE-2014-3707 curl: incorrect handle duplication after COPYPOSTFIELDS"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-10-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional:curl-0:7.19.7-46.el6",
+						"6Client:curl-0:7.19.7-46.el6",
+						"6ComputeNode-optional:curl-0:7.19.7-46.el6",
+						"6ComputeNode:curl-0:7.19.7-46.el6",
+						"6Server:curl-0:7.19.7-46.el6",
+						"6Workstation:curl-0:7.19.7-46.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.0",
+					"Vector": "AV:N/AC:H/Au:N/C:P/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "curl: URL request injection vulnerability in parseurlandfillconn()",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-01-08T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-8150",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1254"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "http://curl.haxx.se/docs/adv_20150108B.html",
+						"Description": "http://curl.haxx.se/docs/adv_20150108B.html"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-8150",
+						"Description": "CVE-2014-8150"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1178692",
+						"Description": "bz#1178692: CVE-2014-8150 curl: URL request injection vulnerability in parseurlandfillconn()"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-01-05T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional:curl-0:7.19.7-46.el6",
+						"6Client:curl-0:7.19.7-46.el6",
+						"6ComputeNode-optional:curl-0:7.19.7-46.el6",
+						"6ComputeNode:curl-0:7.19.7-46.el6",
+						"6Server:curl-0:7.19.7-46.el6",
+						"6Workstation:curl-0:7.19.7-46.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "curl: re-using authenticated connection when unauthenticated",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-04-22T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-3143",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1254"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "http://curl.haxx.se/docs/adv_20150422A.html",
+						"Description": "http://curl.haxx.se/docs/adv_20150422A.html"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-3143",
+						"Description": "CVE-2015-3143"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1213306",
+						"Description": "bz#1213306: CVE-2015-3143 curl: re-using authenticated connection when unauthenticated"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-04-16T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional:curl-0:7.19.7-46.el6",
+						"6Client:curl-0:7.19.7-46.el6",
+						"6ComputeNode-optional:curl-0:7.19.7-46.el6",
+						"6ComputeNode:curl-0:7.19.7-46.el6",
+						"6Server:curl-0:7.19.7-46.el6",
+						"6Workstation:curl-0:7.19.7-46.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.0",
+					"Vector": "AV:N/AC:H/Au:N/C:P/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "curl: Negotiate not treated as connection-oriented",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-04-22T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-3148",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1254"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "http://curl.haxx.se/docs/adv_20150422B.html",
+						"Description": "http://curl.haxx.se/docs/adv_20150422B.html"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-3148",
+						"Description": "CVE-2015-3148"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1213351",
+						"Description": "bz#1213351: CVE-2015-3148 curl: Negotiate not treated as connection-oriented"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-04-16T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional:curl-0:7.19.7-46.el6",
+						"6Client:curl-0:7.19.7-46.el6",
+						"6ComputeNode-optional:curl-0:7.19.7-46.el6",
+						"6ComputeNode:curl-0:7.19.7-46.el6",
+						"6Server:curl-0:7.19.7-46.el6",
+						"6Workstation:curl-0:7.19.7-46.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.0",
+					"Vector": "AV:N/AC:H/Au:N/C:P/I:P/A:N"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 6)",
+							"productid": "6Client",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+							"productid": "6Client-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node (v. 6)",
+							"productid": "6ComputeNode",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+							"productid": "6ComputeNode-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 6)",
+							"productid": "6Server",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 6)",
+							"productid": "6Workstation",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "curl-0:7.19.7-46.el6",
+				"fullproductname": {
+					"text": "curl-7.19.7-46.el6.src.rpm",
+					"productid": "curl-0:7.19.7-46.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "curl-0:7.19.7-46.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client",
+				"fullproductname": {
+					"text": "curl-0:7.19.7-46.el6 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"productid": "6Client:curl-0:7.19.7-46.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "curl-0:7.19.7-46.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-optional",
+				"fullproductname": {
+					"text": "curl-0:7.19.7-46.el6 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"productid": "6Client-optional:curl-0:7.19.7-46.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "curl-0:7.19.7-46.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode",
+				"fullproductname": {
+					"text": "curl-0:7.19.7-46.el6 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"productid": "6ComputeNode:curl-0:7.19.7-46.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "curl-0:7.19.7-46.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-optional",
+				"fullproductname": {
+					"text": "curl-0:7.19.7-46.el6 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"productid": "6ComputeNode-optional:curl-0:7.19.7-46.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "curl-0:7.19.7-46.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server",
+				"fullproductname": {
+					"text": "curl-0:7.19.7-46.el6 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"productid": "6Server:curl-0:7.19.7-46.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "curl-0:7.19.7-46.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation",
+				"fullproductname": {
+					"text": "curl-0:7.19.7-46.el6 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"productid": "6Workstation:curl-0:7.19.7-46.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			}
+		]
+	}
+}

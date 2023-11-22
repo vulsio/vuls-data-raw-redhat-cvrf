@@ -1,0 +1,552 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: openssl security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2023:3722"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2023-06-21T14:51:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2023-06-21T14:51:00Z",
+		"CurrentReleaseDate": "2023-06-21T14:51:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.18.0",
+			"Date": "2023-06-21T23:09:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nAn update for openssl is now available for Red Hat Enterprise Linux 9.\n\nRed Hat Product Security has rated this update as having a security impact of Moderate. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nOpenSSL is a toolkit that implements the Secure Sockets Layer (SSL) and Transport Layer Security (TLS) protocols, as well as a full-strength general-purpose cryptography library.\n\nSecurity Fix(es):\n\n* openssl: Possible DoS translating ASN.1 object identifiers (CVE-2023-2650)\n\n* openssl: Denial of service by excessive resource usage in verifying X509 policy constraints (CVE-2023-0464)\n\n* openssl: Invalid certificate policies in leaf certificates are silently ignored (CVE-2023-0465)\n\n* openssl: Certificate policy check not enabled (CVE-2023-0466)\n\n* openssl: Input buffer over-read in AES-XTS implementation on 64 bit ARM (CVE-2023-1255)\n\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\n\nBug Fix(es):\n\n* In FIPS mode, openssl KDFs should only allow selected hash algorithms (BZ#2175860)\n\n* In FIPS mode, openssl should reject short KDF input or output keys or provide an indicator (BZ#2175864)\n\n* In FIPS mode, openssl should provide an indicator for AES-GCM to query whether the IV was generated internally or provided externally (BZ#2175868)\n\n* openssl FIPS mode self-test should zeroize `out` in `verify_integrity` in providers/fips/self_test.c (BZ#2175873)\n\n* In FIPS mode, openssl should not support RSA encryption or decryption without padding (outside of RSASVE) or provide an indicator (BZ#2178029)\n\n* In FIPS mode, openssl should reject EVP_PKEY_fromdata() for short DHX keys, or provide an indicator (BZ#2178030)\n\n* In FIPS mode, openssl should not use the legacy ECDSA_do_sign(), RSA_public_encrypt(), RSA_private_decrypt() functions for pairwise consistency tests (BZ#2178034)\n\n* In FIPS mode, openssl should enter error state when DH PCT fails (BZ#2178039)\n\n* In FIPS mode, openssl should always run the PBKDF2 lower bounds checks or provide an indicator when the pkcs5 parameter is set to 1 (BZ#2178137)\n\n* Support requiring EMS in TLS 1.2, default to it when in FIPS mode (BZ#2188046)\n\n* OpenSSL rsa_verify_recover doesn't use the same key checks as rsa_verify in FIPS mode (BZ#2188052)\n\n* RHEL9.0 - sshd dumps core when ibmca engine is configured with default_algorithms = CIPHERS or ALL (openssl) (BZ#2211396)\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2023 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2023:3722",
+				"Description": "https://access.redhat.com/errata/RHSA-2023:3722"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A security vulnerability has been identified in all supported OpenSSL versions related to verifying X.509 certificate chains that include policy constraints. This flaw allows attackers to exploit this vulnerability by creating a malicious certificate chain that triggers exponential use of computational resources, leading to a denial of service (DoS) attack on affected systems. Policy processing is disabled by default but can be enabled by passing the -policy' argument to the command line utilities or calling the X509_VERIFY_PARAM_set1_policies()' function.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2023-03-22T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2023-0464",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nFor the update to take effect, all services linked to the OpenSSL library must be restarted, or the system rebooted.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:3722"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2023-0464",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2023-0464"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2023-0464",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2023-0464"
+					},
+					{
+						"URL": "https://www.openssl.org/news/secadv/20230322.txt",
+						"Description": "https://www.openssl.org/news/secadv/20230322.txt"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2023-0464",
+						"Description": "CVE-2023-0464"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2181082",
+						"Description": "bz#2181082: Denial of service by excessive resource usage in verifying X509 policy constraints"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2023-03-23T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"AppStream-9.2.0.Z.MAIN.EUS:openssl-1:3.0.7-16.el9_2",
+						"BaseOS-9.2.0.Z.MAIN.EUS:openssl-1:3.0.7-16.el9_2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in OpenSSL. Applications that use a non-default option when verifying certificates may be vulnerable to an attack from a malicious CA to circumvent certain checks. OpenSSL and other certificate policy checks silently ignore invalid certificate policies in leaf certificates that are skipped for that certificate. A malicious CA could use this to deliberately assert invalid certificate policies to circumvent policy checking on the certificate altogether. Policy processing is disabled by default but can be enabled by passing the `-policy' argument to the command line utilities or by calling the `X509_VERIFY_PARAM_set1_policies()' function.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2023-03-28T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2023-0465",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nFor the update to take effect, all services linked to the OpenSSL library must be restarted, or the system rebooted.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:3722"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2023-0465",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2023-0465"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2023-0465",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2023-0465"
+					},
+					{
+						"URL": "https://www.openssl.org/news/secadv/20230328.txt",
+						"Description": "https://www.openssl.org/news/secadv/20230328.txt"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2023-0465",
+						"Description": "CVE-2023-0465"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2182561",
+						"Description": "bz#2182561: Invalid certificate policies in leaf certificates are silently ignored"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2023-03-29T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"AppStream-9.2.0.Z.MAIN.EUS:openssl-1:3.0.7-16.el9_2",
+						"BaseOS-9.2.0.Z.MAIN.EUS:openssl-1:3.0.7-16.el9_2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in OpenSSL. The X509_VERIFY_PARAM_add0_policy() function is documented to enable the certificate policy check when doing certificate verification implicitly. However, implementing the function does not enable the check, allowing certificates with invalid or incorrect policies to pass the certificate verification. Suddenly enabling the policy check could break existing deployments, so it was decided to keep the existing behavior of the X509_VERIFY_PARAM_add0_policy() function. The applications that require OpenSSL to perform certificate policy check need to use X509_VERIFY_PARAM_set1_policies() or explicitly enable the policy check by calling X509_VERIFY_PARAM_set_flags() with the X509_V_FLAG_POLICY_CHECK flag argument. Certificate policy checks are disabled by default in OpenSSL and are not commonly used by applications.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2023-03-28T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2023-0466",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nFor the update to take effect, all services linked to the OpenSSL library must be restarted, or the system rebooted.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:3722"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2023-0466",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2023-0466"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2023-0466",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2023-0466"
+					},
+					{
+						"URL": "https://www.openssl.org/news/secadv/20230328.txt",
+						"Description": "https://www.openssl.org/news/secadv/20230328.txt"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2023-0466",
+						"Description": "CVE-2023-0466"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2182565",
+						"Description": "bz#2182565: Certificate policy check not enabled"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2023-03-29T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"AppStream-9.2.0.Z.MAIN.EUS:openssl-1:3.0.7-16.el9_2",
+						"BaseOS-9.2.0.Z.MAIN.EUS:openssl-1:3.0.7-16.el9_2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A vulnerability was found in OpenSSL. This security flaw occurs because the AES-XTS cipher decryption implementation for the 64-bit ARM platform contains an issue that could cause it to read past the input buffer, leading to a crash.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2023-04-20T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2023-1255",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nFor the update to take effect, all services linked to the OpenSSL library must be restarted, or the system rebooted.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:3722"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2023-1255",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2023-1255"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2023-1255",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2023-1255"
+					},
+					{
+						"URL": "https://www.openssl.org/news/secadv/20230420.txt",
+						"Description": "https://www.openssl.org/news/secadv/20230420.txt"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2023-1255",
+						"Description": "CVE-2023-1255"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2188461",
+						"Description": "bz#2188461: Input buffer over-read in AES-XTS implementation on 64 bit ARM"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2023-04-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"AppStream-9.2.0.Z.MAIN.EUS:openssl-1:3.0.7-16.el9_2",
+						"BaseOS-9.2.0.Z.MAIN.EUS:openssl-1:3.0.7-16.el9_2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in OpenSSL resulting in a possible denial of service while translating ASN.1 object identifiers. Applications that use OBJ_obj2txt() directly, or use any of the OpenSSL subsystems OCSP, PKCS7/SMIME, CMS, CMP/CRMF or TS with no message size limit may experience long delays when processing messages, which may lead to a denial of service.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2023-05-30T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2023-2650",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nFor the update to take effect, all services linked to the OpenSSL library must be restarted, or the system rebooted.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:3722"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2023-2650",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2023-2650"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2023-2650",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2023-2650"
+					},
+					{
+						"URL": "https://www.openssl.org/news/secadv/20230530.txt",
+						"Description": "https://www.openssl.org/news/secadv/20230530.txt"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2023-2650",
+						"Description": "CVE-2023-2650"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2207947",
+						"Description": "bz#2207947: Possible DoS translating ASN.1 object identifiers"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2023-05-17T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"AppStream-9.2.0.Z.MAIN.EUS:openssl-1:3.0.7-16.el9_2",
+						"BaseOS-9.2.0.Z.MAIN.EUS:openssl-1:3.0.7-16.el9_2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux AppStream (v. 9)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux AppStream (v. 9)",
+							"productid": "AppStream-9.2.0.Z.MAIN.EUS",
+							"cpe": "cpe:/a:redhat:enterprise_linux:9::appstream"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux BaseOS (v. 9)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux BaseOS (v. 9)",
+							"productid": "BaseOS-9.2.0.Z.MAIN.EUS",
+							"cpe": "cpe:/o:redhat:enterprise_linux:9::baseos"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "openssl-1:3.0.7-16.el9_2",
+				"fullproductname": {
+					"text": "openssl-3.0.7-16.el9_2.src.rpm",
+					"productid": "openssl-1:3.0.7-16.el9_2",
+					"cpe": "cpe:/a:redhat:enterprise_linux:9::appstream"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "openssl-1:3.0.7-16.el9_2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "AppStream-9.2.0.Z.MAIN.EUS",
+				"fullproductname": {
+					"text": "openssl-1:3.0.7-16.el9_2 as a component of Red Hat Enterprise Linux AppStream (v. 9)",
+					"productid": "AppStream-9.2.0.Z.MAIN.EUS:openssl-1:3.0.7-16.el9_2",
+					"cpe": "cpe:/a:redhat:enterprise_linux:9::appstream"
+				}
+			},
+			{
+				"productreference": "openssl-1:3.0.7-16.el9_2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "BaseOS-9.2.0.Z.MAIN.EUS",
+				"fullproductname": {
+					"text": "openssl-1:3.0.7-16.el9_2 as a component of Red Hat Enterprise Linux BaseOS (v. 9)",
+					"productid": "BaseOS-9.2.0.Z.MAIN.EUS:openssl-1:3.0.7-16.el9_2",
+					"cpe": "cpe:/o:redhat:enterprise_linux:9::baseos"
+				}
+			}
+		]
+	}
+}

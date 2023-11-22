@@ -1,0 +1,158 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: Red Hat Ceph Storage 1.3.1 security, bug fix, and enhancement update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2015:2512"
+		},
+		"Status": "Final",
+		"Version": "3",
+		"revisionhistory": {
+			"revision": {
+				"Number": "3",
+				"Date": "2016-02-02T22:15:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2015-11-23T20:20:00Z",
+		"CurrentReleaseDate": "2016-02-02T22:15:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:40:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nRed Hat Ceph Storage 1.3.1 that fixes one security issue, multiple bugs,\nand adds various enhancements is now available for Ubuntu 14.04.\n\nRed Hat Product Security has rated this update as having Moderate security\nimpact. A Common Vulnerability Scoring System (CVSS) base score, which\ngives a detailed severity rating, is available from the CVE link in the\nReferences section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nRed Hat Ceph Storage is a massively scalable, open, software-defined\nstorage platform that combines the most stable version of the Ceph storage\nsystem with a Ceph management platform, deployment tools, and\nsupport services.\n\nA feature in Ceph Object Gateway (RGW) allows to return a specific HTTP\nheader that contains the name of a bucket that was accessed. It was found\nthat the returned HTTP headers were not sanitized. An unauthenticated\nattacker could use this flaw to craft HTTP headers in responses that would\nconfuse the load balancer residing in front of RGW, potentially resulting\nin a denial of service. (CVE-2015-5245)\n\nThe ceph packages have been upgraded to upstream version 0.94.3 and the\nradosgw-agent packages have been upgraded to upstream version 1.2.3.\nThe new versions provide a number of bug fixes and enhancements over the\nprevious versions. (BZ#1238415)\n\nThis update also fixes the following bugs:\n\n* This update fixes various bugs in the Ceph monitor nodes and the Ceph\nObject Storage Device (OSD) Daemons. (BZ#1219040, BZ#1223941, BZ#1265973)\n\n* With this update, when using the Civetweb server, the Ceph Object Gateway\nno longer reports the full object size downloaded even though the download\nwas aborted in the middle. (BZ#1235845)\n\n* The Civetweb server now correctly displays the HTTP return code in the\nlog files. (BZ#1245663)\n\n* The Ceph Object Gateway now correctly assigns Access Control Lists (ACL)\nto new objects created during the copy operation. (BZ#1253766)\n\n* Under certain circumstances, copying an object onto itself (for example,\nto change its metadata) produced a truncated object. The truncated object\nhad correct metadata, including the original size, but the underlying RADOS\nobject was smaller. Consequently, when a client attempted to fetch the\nobject, it received less data than indicated by the Content-Length header,\nblocked for more, and eventually timed out. This bug has been fixed, and\nthe object can now be read successfully in the aforementioned scenario.\n(BZ#1258618)\n\n* The Ceph Object Gateway no longer requires the \"requiretty\" setting to be\ndisabled in the sudoers configuration for the root user. (BZ#1238521)\n\n* In certain scenarios, when all acting set Ceph Object Storage Device\n(OSD) Daemons for a placement group (PG) were restarted during the backfill\nprocess, the OSDs failed to peer the PG. Now, the OSDs peer the PGs as\nexpected. (BZ#1223532)\n\nIn addition, this update adds the following enhancements:\n\n* Administrators of the Ceph Object Gateway can now configure the maximum\nnumber of buckets for users by using the new \"rgw_user_max_buckets\" option\nin the Ceph configuration file. (BZ#1254343)\n\n* The suicide timeout option is now configurable. The option ensures that\npoorly behaving OSDs self-terminate instead of running in degraded states\nand slowing traffic. (BZ#1210825)\n\n* The rhcs-installer package provides a new Foreman-based installer.\nThis update adds the new rhcs-installer package to Red Hat Ceph Storage as\na Technology Preview. (BZ#1213026, BZ#1213086, BZ#1220961)\n\nMore information about Red Hat Technology Previews is available here:\nhttps://access.redhat.com/support/offerings/techpreview/\n\nAll Red Hat Ceph Storage users are advised to upgrade to this new version,\nwhich corrects these issues and adds these enhancements.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2015:2512",
+				"Description": "https://access.redhat.com/errata/RHSA-2015:2512"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/support/offerings/techpreview/",
+				"Description": "https://access.redhat.com/support/offerings/techpreview/"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/articles/1554343",
+				"Description": "https://access.redhat.com/articles/1554343"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Ceph: RGW returns requested bucket name raw in Bucket response header",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-08-18T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-5245",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nTo obtain this new version of Red Hat Ceph Storage for Ubuntu, download a\nnew ISO image, ceph-1.3-ubuntu-x86_64-dvd.iso, from the Customer Portal.\nFor more information on the installation and updating process, see the\nInstallation Guide for Ubuntu.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:2512"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-5245",
+						"Description": "CVE-2015-5245"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1261606",
+						"Description": "bz#1261606: CVE-2015-5245 Ceph: RGW returns requested bucket name raw in Bucket response header"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-08-31T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.5",
+					"Vector": "AV:N/AC:L/Au:S/C:N/I:P/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {}
+}

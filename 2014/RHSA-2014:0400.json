@@ -1,0 +1,990 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: Red Hat JBoss Fuse 6.1.0 update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2014:0400"
+		},
+		"Status": "Final",
+		"Version": "3",
+		"revisionhistory": {
+			"revision": {
+				"Number": "3",
+				"Date": "2014-04-14T14:27:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2014-04-14T13:46:00Z",
+		"CurrentReleaseDate": "2014-04-14T14:27:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:37:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nRed Hat JBoss Fuse 6.1.0, which fixes multiple security issues, several\nbugs, and adds various enhancements, is now available from the Red Hat\nCustomer Portal.\n\nThe Red Hat Security Response Team has rated this update as having\nModerate security impact. Common Vulnerability Scoring System (CVSS) base\nscores, which give detailed severity ratings, are available for each\nvulnerability from the CVE links in the References section.\n\nRed Hat JBoss Fuse 6.1.0 is a minor product release that updates Red Hat\nJBoss Fuse 6.0.0, and includes several bug fixes and enhancements. Refer to\nthe Release Notes document, available from the link in the References\nsection, for a list of changes.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nRed Hat JBoss Fuse, based on Apache ServiceMix, provides a small-footprint,\nflexible, open source enterprise service bus and integration platform.\n\nSecurity fixes:\n\nA flaw was found in the way Apache Santuario XML Security for Java\nvalidated XML signatures. Santuario allowed a signature to specify an\narbitrary canonicalization algorithm, which would be applied to the\nSignedInfo XML fragment. A remote attacker could exploit this to spoof an\nXML signature via a specially crafted XML signature block. (CVE-2013-2172)\n\nA flaw was found in the Apache Hadoop RPC protocol. A man-in-the-middle\nattacker could possibly use this flaw to unilaterally disable bidirectional\nauthentication between a client and a server, forcing a downgrade to simple\n(unidirectional) authentication. This flaw only affected users who have\nenabled Hadoop's Kerberos security features. (CVE-2013-2192)\n\nIt was discovered that the Spring OXM wrapper did not expose any property\nfor disabling entity resolution when using the JAXB unmarshaller. A remote\nattacker could use this flaw to conduct XML External Entity (XXE) attacks\non web sites, and read files in the context of the user running the\napplication server. (CVE-2013-4152)\n\nIt was discovered that the Apache Santuario XML Security for Java project\nallowed Document Type Definitions (DTDs) to be processed when applying\nTransforms even when secure validation was enabled. A remote attacker could\nuse this flaw to exhaust all available memory on the system, causing a\ndenial of service. (CVE-2013-4517)\n\nIt was found that the Spring MVC SourceHttpMessageConverter enabled entity\nresolution by default. A remote attacker could use this flaw to conduct XXE\nattacks on web sites, and read files in the context of the user running the\napplication server. (CVE-2013-6429)\n\nThe Spring JavaScript escape method insufficiently escaped some characters.\nApplications using this method to escape user-supplied content, which would\nbe rendered in HTML5 documents, could be exposed to cross-site scripting\n(XSS) flaws. (CVE-2013-6430)\n\nA denial of service flaw was found in the way Apache Commons FileUpload\nhandled small-sized buffers used by MultipartStream. A remote attacker\ncould use this flaw to create a malformed Content-Type header for a\nmultipart request, causing Apache Commons FileUpload to enter an infinite\nloop when processing such an incoming request. (CVE-2014-0050)\n\nIt was found that fixes for the CVE-2013-4152 and CVE-2013-6429 XXE issues\nin Spring were incomplete. Spring MVC processed user-provided XML and\nneither disabled XML external entities nor provided an option to disable\nthem, possibly allowing a remote attacker to conduct XXE attacks.\n(CVE-2014-0054)\n\nA cross-site scripting (XSS) flaw was found in the Spring Framework when\nusing Spring MVC. When the action was not specified in a Spring form, the\naction field would be populated with the requested URI, allowing an\nattacker to inject malicious content into the form. (CVE-2014-1904)\n\nThe HawtJNI Library class wrote native libraries to a predictable file name\nin /tmp when the native libraries were bundled in a JAR file, and no custom\nlibrary path was specified. A local attacker could overwrite these native\nlibraries with malicious versions during the window between when HawtJNI\nwrites them and when they are executed. (CVE-2013-2035)\n\nAn information disclosure flaw was found in the way Apache Zookeeper stored\nthe password of an administrative user in the log files. A local user with\naccess to these log files could use the exposed sensitive information to\ngain administrative access to an application using Apache Zookeeper.\n(CVE-2014-0085)\n\nThe CVE-2013-6430 issue was discovered by Jon Passki of Coverity SRL and\nArun Neelicattu of the Red Hat Security Response Team, the CVE-2013-2035\nissue was discovered by Florian Weimer of the Red Hat Product Security\nTeam, and the CVE-2014-0085 issue was discovered by Graeme Colman of\nRed Hat.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2014:0400",
+				"Description": "https://access.redhat.com/errata/RHSA-2014:0400"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/jbossnetwork/restricted/listSoftware.html?product=jboss.fuse&downloadType=distributions&version=6.1.0",
+				"Description": "https://access.redhat.com/jbossnetwork/restricted/listSoftware.html?product=jboss.fuse&downloadType=distributions&version=6.1.0"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/site/documentation/en-US/Red_Hat_JBoss_Fuse/",
+				"Description": "https://access.redhat.com/site/documentation/en-US/Red_Hat_JBoss_Fuse/"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "bouncycastle: TLS CBC padding timing attack",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-02-04T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-1624",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll users of Red Hat JBoss Fuse 6.0.0 as provided from the Red Hat Customer\nPortal are advised to apply this update.\n\nThe References section of this erratum contains a download link (you must\nlog in to download the update).\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2014:0400"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "http://www.isg.rhul.ac.uk/tls/",
+						"Description": "http://www.isg.rhul.ac.uk/tls/"
+					},
+					{
+						"URL": "http://www.isg.rhul.ac.uk/tls/TLStiming.pdf",
+						"Description": "http://www.isg.rhul.ac.uk/tls/TLStiming.pdf"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-1624",
+						"Description": "CVE-2013-1624"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=908428",
+						"Description": "bz#908428: CVE-2013-1624 bouncycastle: TLS CBC padding timing attack"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2013-02-04T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.1",
+					"Vector": "AV:N/AC:H/Au:N/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "HawtJNI: predictable temporary file name leading to local arbitrary code execution",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-05-13T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-2035",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll users of Red Hat JBoss Fuse 6.0.0 as provided from the Red Hat Customer\nPortal are advised to apply this update.\n\nThe References section of this erratum contains a download link (you must\nlog in to download the update).\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2014:0400"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-2035",
+						"Description": "CVE-2013-2035"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=958618",
+						"Description": "bz#958618: CVE-2013-2035 HawtJNI: predictable temporary file name leading to local arbitrary code execution"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2013-04-26T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "3.3",
+					"Vector": "AV:L/AC:M/Au:N/C:P/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Apache Santuario XML Security for Java: XML signature spoofing",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-06-25T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-2172",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll users of Red Hat JBoss Fuse 6.0.0 as provided from the Red Hat Customer\nPortal are advised to apply this update.\n\nThe References section of this erratum contains a download link (you must\nlog in to download the update).\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2014:0400"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "http://santuario.apache.org/secadv.data/CVE-2013-2172.txt.asc",
+						"Description": "http://santuario.apache.org/secadv.data/CVE-2013-2172.txt.asc"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-2172",
+						"Description": "CVE-2013-2172"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=999263",
+						"Description": "bz#999263: CVE-2013-2172 Apache Santuario XML Security for Java: XML signature spoofing"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2013-08-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.8",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "hadoop: man-in-the-middle vulnerability",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-08-23T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-2192",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll users of Red Hat JBoss Fuse 6.0.0 as provided from the Red Hat Customer\nPortal are advised to apply this update.\n\nThe References section of this erratum contains a download link (you must\nlog in to download the update).\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2014:0400"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-2192",
+						"Description": "CVE-2013-2192"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1001326",
+						"Description": "bz#1001326: CVE-2013-2192 hadoop: man-in-the-middle vulnerability"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2013-08-26T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "3.2",
+					"Vector": "AV:A/AC:H/Au:N/C:P/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Spring Framework: XML External Entity (XXE) injection flaw",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-08-22T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-4152",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll users of Red Hat JBoss Fuse 6.0.0 as provided from the Red Hat Customer\nPortal are advised to apply this update.\n\nThe References section of this erratum contains a download link (you must\nlog in to download the update).\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2014:0400"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "http://www.gopivotal.com/security/cve-2013-4152",
+						"Description": "http://www.gopivotal.com/security/cve-2013-4152"
+					},
+					{
+						"URL": "https://github.com/SpringSource/spring-framework/pull/317",
+						"Description": "https://github.com/SpringSource/spring-framework/pull/317"
+					},
+					{
+						"URL": "https://jira.springsource.org/browse/SPR-10806",
+						"Description": "https://jira.springsource.org/browse/SPR-10806"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-4152",
+						"Description": "CVE-2013-4152"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1000186",
+						"Description": "bz#1000186: CVE-2013-4152 Spring Framework: XML External Entity (XXE) injection flaw"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2013-08-22T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.0",
+					"Vector": "AV:N/AC:L/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "6",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Apache Santuario XML Security for Java: Java XML Signature DoS Attack",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-11-01T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-4517",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll users of Red Hat JBoss Fuse 6.0.0 as provided from the Red Hat Customer\nPortal are advised to apply this update.\n\nThe References section of this erratum contains a download link (you must\nlog in to download the update).\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2014:0400"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-4517",
+						"Description": "CVE-2013-4517"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1045257",
+						"Description": "bz#1045257: CVE-2013-4517 Apache Santuario XML Security for Java: Java XML Signature DoS Attack"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2013-12-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.0",
+					"Vector": "AV:N/AC:L/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "7",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Spring Framework: XML External Entity (XXE) injection flaw",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-01-14T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-6429",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll users of Red Hat JBoss Fuse 6.0.0 as provided from the Red Hat Customer\nPortal are advised to apply this update.\n\nThe References section of this erratum contains a download link (you must\nlog in to download the update).\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2014:0400"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "http://www.gopivotal.com/security/cve-2013-6429",
+						"Description": "http://www.gopivotal.com/security/cve-2013-6429"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-6429",
+						"Description": "CVE-2013-6429"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1053290",
+						"Description": "bz#1053290: CVE-2013-6429 Spring Framework: XML External Entity (XXE) injection flaw"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-01-14T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.0",
+					"Vector": "AV:N/AC:L/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "8",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Spring Framework: org.spring.web.util.JavaScriptUtils.javaScriptEscape insufficient escaping of characters",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-01-14T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-6430",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll users of Red Hat JBoss Fuse 6.0.0 as provided from the Red Hat Customer\nPortal are advised to apply this update.\n\nThe References section of this erratum contains a download link (you must\nlog in to download the update).\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2014:0400"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "http://www.gopivotal.com/security/cve-2013-6430",
+						"Description": "http://www.gopivotal.com/security/cve-2013-6430"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-6430",
+						"Description": "CVE-2013-6430"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1039783",
+						"Description": "bz#1039783: CVE-2013-6430 Spring Framework: org.spring.web.util.JavaScriptUtils.javaScriptEscape insufficient escaping of characters"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2013-12-06T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "9",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "apache-commons-fileupload: denial of service due to too-small buffer size used by MultipartStream",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-02-06T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-0050",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll users of Red Hat JBoss Fuse 6.0.0 as provided from the Red Hat Customer\nPortal are advised to apply this update.\n\nThe References section of this erratum contains a download link (you must\nlog in to download the update).\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2014:0400"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-0050",
+						"Description": "CVE-2014-0050"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1062337",
+						"Description": "bz#1062337: CVE-2014-0050 apache-commons-fileupload: denial of service due to too-small buffer size used by MultipartStream"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-02-06T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.0",
+					"Vector": "AV:N/AC:L/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "10",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Spring Framework: incomplete fix for CVE-2013-7315/CVE-2013-6429",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-01-31T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-0054",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll users of Red Hat JBoss Fuse 6.0.0 as provided from the Red Hat Customer\nPortal are advised to apply this update.\n\nThe References section of this erratum contains a download link (you must\nlog in to download the update).\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2014:0400"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "http://www.gopivotal.com/security/cve-2014-0054",
+						"Description": "http://www.gopivotal.com/security/cve-2014-0054"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-0054",
+						"Description": "CVE-2014-0054"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1075328",
+						"Description": "bz#1075328: CVE-2014-0054 Spring Framework: incomplete fix for CVE-2013-7315/CVE-2013-6429"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-03-11T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.0",
+					"Vector": "AV:N/AC:L/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "11",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Fuse: admin user cleartext password appears in logging",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-04-14T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-0085",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll users of Red Hat JBoss Fuse 6.0.0 as provided from the Red Hat Customer\nPortal are advised to apply this update.\n\nThe References section of this erratum contains a download link (you must\nlog in to download the update).\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2014:0400"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-0085",
+						"Description": "CVE-2014-0085"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1067265",
+						"Description": "bz#1067265: CVE-2014-0085 Fuse: admin user cleartext password appears in logging"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2014-02-13T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.1",
+					"Vector": "AV:L/AC:L/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "12",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Spring Framework: cross-site scripting flaw when using Spring MVC",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-02-13T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-1904",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll users of Red Hat JBoss Fuse 6.0.0 as provided from the Red Hat Customer\nPortal are advised to apply this update.\n\nThe References section of this erratum contains a download link (you must\nlog in to download the update).\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2014:0400"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "http://www.gopivotal.com/security/cve-2014-1904",
+						"Description": "http://www.gopivotal.com/security/cve-2014-1904"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-1904",
+						"Description": "CVE-2014-1904"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1075296",
+						"Description": "bz#1075296: CVE-2014-1904 Spring Framework: cross-site scripting flaw when using Spring MVC"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-03-11T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "13",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Apache CXF: Denial of Service (DoS) via invalid JAX-RS SAML tokens",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-10-25T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-3584",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll users of Red Hat JBoss Fuse 6.0.0 as provided from the Red Hat Customer\nPortal are advised to apply this update.\n\nThe References section of this erratum contains a download link (you must\nlog in to download the update).\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2014:0400"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-3584",
+						"Description": "CVE-2014-3584"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1157330",
+						"Description": "bz#1157330: CVE-2014-3584 Apache CXF: Denial of Service (DoS) via invalid JAX-RS SAML tokens"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-10-27T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {}
+}

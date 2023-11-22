@@ -1,0 +1,997 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: java-1.7.0-openjdk security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2012:1009"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2012-06-20T11:39:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2012-06-20T11:38:00Z",
+		"CurrentReleaseDate": "2012-06-20T11:39:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:33:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated java-1.7.0-openjdk packages that fix several security issues and\none bug are now available for Red Hat Enterprise Linux 6.\n\nThe Red Hat Security Response Team has rated this update as having\nimportant security impact. Common Vulnerability Scoring System (CVSS) base\nscores, which give detailed severity ratings, are available for each\nvulnerability from the CVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThese packages provide the OpenJDK 7 Java Runtime Environment and the\nOpenJDK 7 Software Development Kit.\n\nMultiple flaws were discovered in the CORBA (Common Object Request Broker\nArchitecture) implementation in Java. A malicious Java application or\napplet could use these flaws to bypass Java sandbox restrictions or modify\nimmutable object data. (CVE-2012-1711, CVE-2012-1719)\n\nIt was discovered that the SynthLookAndFeel class from Swing did not\nproperly prevent access to certain UI elements from outside the current\napplication context. A malicious Java application or applet could use this\nflaw to crash the Java Virtual Machine, or bypass Java sandbox\nrestrictions. (CVE-2012-1716)\n\nMultiple flaws were discovered in the font manager's layout lookup\nimplementation. A specially-crafted font file could cause the Java Virtual\nMachine to crash or, possibly, execute arbitrary code with the privileges\nof the user running the virtual machine. (CVE-2012-1713)\n\nMultiple flaws were found in the way the Java HotSpot Virtual Machine\nverified the bytecode of the class file to be executed. A specially-crafted\nJava application or applet could use these flaws to crash the Java Virtual\nMachine, or bypass Java sandbox restrictions. (CVE-2012-1723,\nCVE-2012-1725)\n\nIt was discovered that java.lang.invoke.MethodHandles.Lookup did not\nproperly honor access modes. An untrusted Java application or applet could\nuse this flaw to bypass Java sandbox restrictions. (CVE-2012-1726)\n\nIt was discovered that the Java XML parser did not properly handle certain\nXML documents. An attacker able to make a Java application parse a\nspecially-crafted XML file could use this flaw to make the XML parser enter\nan infinite loop. (CVE-2012-1724)\n\nIt was discovered that the Java security classes did not properly handle\nCertificate Revocation Lists (CRL). CRL containing entries with duplicate\ncertificate serial numbers could have been ignored. (CVE-2012-1718)\n\nIt was discovered that various classes of the Java Runtime library could\ncreate temporary files with insecure permissions. A local attacker could\nuse this flaw to gain access to the content of such temporary files.\n(CVE-2012-1717)\n\nThis update also fixes the following bug:\n\n* Attempting to compile a SystemTap script using the jstack tapset could\nhave failed with an error similar to the following:\n\nerror: the frame size of 272 bytes is larger than 256 bytes\n\nThis update corrects the jstack tapset and resolves this issue. (BZ#833035)\n\nThis erratum also upgrades the OpenJDK package to IcedTea7 2.2.1. Refer to\nthe NEWS file, linked to in the References, for further information.\n\nAll users of java-1.7.0-openjdk are advised to upgrade to these updated\npackages, which resolve these issues. All running instances of OpenJDK Java\nmust be restarted for the update to take effect.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2012:1009",
+				"Description": "https://access.redhat.com/errata/RHSA-2012:1009"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			},
+			{
+				"type": "External",
+				"URL": "http://icedtea.classpath.org/hg/release/icedtea7-2.2/file/icedtea-2.2.1/NEWS",
+				"Description": "http://icedtea.classpath.org/hg/release/icedtea7-2.2/file/icedtea-2.2.1/NEWS"
+			},
+			{
+				"type": "External",
+				"URL": "http://www.oracle.com/technetwork/topics/security/javacpujun2012-1515912.html",
+				"Description": "http://www.oracle.com/technetwork/topics/security/javacpujun2012-1515912.html"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "OpenJDK: improper protection of CORBA data models (CORBA, 7079902)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-06-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-1711",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:1009"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-1711",
+						"Description": "CVE-2012-1711"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=829354",
+						"Description": "bz#829354: CVE-2012-1711 OpenJDK: improper protection of CORBA data models (CORBA, 7079902)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Critical"
+				}
+			},
+			"DiscoveryDate": "2012-06-06T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+						"6Client-optional-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+						"6ComputeNode-optional-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+						"6Server-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+						"6Server-optional-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+						"6Workstation-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+						"6Workstation-optional-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.8",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "OpenJDK: fontmanager layout lookup code memory corruption (2D, 7143617)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-06-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-1713",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:1009"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-1713",
+						"Description": "CVE-2012-1713"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=829361",
+						"Description": "bz#829361: CVE-2012-1713 OpenJDK: fontmanager layout lookup code memory corruption (2D, 7143617)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Critical"
+				}
+			},
+			"DiscoveryDate": "2012-06-06T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+						"6Client-optional-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+						"6ComputeNode-optional-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+						"6Server-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+						"6Server-optional-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+						"6Workstation-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+						"6Workstation-optional-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.8",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "OpenJDK: SynthLookAndFeel application context bypass (Swing, 7143614)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-06-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-1716",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:1009"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-1716",
+						"Description": "CVE-2012-1716"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=829360",
+						"Description": "bz#829360: CVE-2012-1716 OpenJDK: SynthLookAndFeel application context bypass (Swing, 7143614)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Critical"
+				}
+			},
+			"DiscoveryDate": "2012-06-06T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+						"6Client-optional-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+						"6ComputeNode-optional-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+						"6Server-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+						"6Server-optional-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+						"6Workstation-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+						"6Workstation-optional-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.8",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "OpenJDK: insecure temporary file permissions (JRE, 7143606)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-06-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-1717",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:1009"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-1717",
+						"Description": "CVE-2012-1717"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=829358",
+						"Description": "bz#829358: CVE-2012-1717 OpenJDK: insecure temporary file permissions (JRE, 7143606)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2012-06-06T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+						"6Client-optional-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+						"6ComputeNode-optional-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+						"6Server-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+						"6Server-optional-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+						"6Workstation-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+						"6Workstation-optional-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "1.9",
+					"Vector": "AV:L/AC:M/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "OpenJDK: CRL and certificate extensions handling improvements (Security, 7143872)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-06-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-1718",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:1009"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-1718",
+						"Description": "CVE-2012-1718"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=829372",
+						"Description": "bz#829372: CVE-2012-1718 OpenJDK: CRL and certificate extensions handling improvements (Security, 7143872)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2012-06-06T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+						"6Client-optional-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+						"6ComputeNode-optional-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+						"6Server-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+						"6Server-optional-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+						"6Workstation-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+						"6Workstation-optional-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.0",
+					"Vector": "AV:N/AC:L/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "6",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "OpenJDK: mutable repository identifiers in generated stub code (CORBA, 7143851)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-06-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-1719",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:1009"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-1719",
+						"Description": "CVE-2012-1719"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=829371",
+						"Description": "bz#829371: CVE-2012-1719 OpenJDK: mutable repository identifiers in generated stub code (CORBA, 7143851)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2012-06-06T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+						"6Client-optional-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+						"6ComputeNode-optional-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+						"6Server-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+						"6Server-optional-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+						"6Workstation-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+						"6Workstation-optional-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "7",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "OpenJDK: insufficient field accessibility checks (HotSpot, 7152811)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-06-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-1723",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:1009"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-1723",
+						"Description": "CVE-2012-1723"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=829373",
+						"Description": "bz#829373: CVE-2012-1723 OpenJDK: insufficient field accessibility checks (HotSpot, 7152811)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Critical"
+				}
+			},
+			"DiscoveryDate": "2012-06-06T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+						"6Client-optional-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+						"6ComputeNode-optional-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+						"6Server-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+						"6Server-optional-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+						"6Workstation-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+						"6Workstation-optional-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.8",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "8",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "OpenJDK: XML parsing infinite loop (JAXP, 7157609)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-06-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-1724",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:1009"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-1724",
+						"Description": "CVE-2012-1724"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=829374",
+						"Description": "bz#829374: CVE-2012-1724 OpenJDK: XML parsing infinite loop (JAXP, 7157609)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2012-06-06T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+						"6Client-optional-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+						"6ComputeNode-optional-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+						"6Server-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+						"6Server-optional-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+						"6Workstation-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+						"6Workstation-optional-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.0",
+					"Vector": "AV:N/AC:L/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "9",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "OpenJDK: insufficient invokespecial <init> verification (HotSpot, 7160757)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-06-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-1725",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:1009"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-1725",
+						"Description": "CVE-2012-1725"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=829376",
+						"Description": "bz#829376: CVE-2012-1725 OpenJDK: insufficient invokespecial <init> verification (HotSpot, 7160757)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Critical"
+				}
+			},
+			"DiscoveryDate": "2012-06-06T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+						"6Client-optional-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+						"6ComputeNode-optional-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+						"6Server-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+						"6Server-optional-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+						"6Workstation-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+						"6Workstation-optional-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.8",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "10",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "OpenJDK: java.lang.invoke.MethodHandles.Lookup does not honor access modes (Libraries, 7165628)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-06-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-1726",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:1009"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-1726",
+						"Description": "CVE-2012-1726"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=829377",
+						"Description": "bz#829377: CVE-2012-1726 OpenJDK: java.lang.invoke.MethodHandles.Lookup does not honor access modes (Libraries, 7165628)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2012-06-06T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+						"6Client-optional-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+						"6ComputeNode-optional-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+						"6Server-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+						"6Server-optional-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+						"6Workstation-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+						"6Workstation-optional-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.8",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:P/A:N"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 6)",
+							"productid": "6Client-6.3.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+							"productid": "6Client-optional-6.3.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+							"productid": "6ComputeNode-optional-6.3.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 6)",
+							"productid": "6Server-6.3.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional (v. 6)",
+							"productid": "6Server-optional-6.3.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 6)",
+							"productid": "6Workstation-6.3.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+							"productid": "6Workstation-optional-6.3.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+				"fullproductname": {
+					"text": "java-1.7.0-openjdk-1.7.0.5-2.2.1.el6_3.src.rpm",
+					"productid": "java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-6.3.z",
+				"fullproductname": {
+					"text": "java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"productid": "6Client-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-optional-6.3.z",
+				"fullproductname": {
+					"text": "java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"productid": "6Client-optional-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-optional-6.3.z",
+				"fullproductname": {
+					"text": "java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"productid": "6ComputeNode-optional-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-6.3.z",
+				"fullproductname": {
+					"text": "java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"productid": "6Server-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-optional-6.3.z",
+				"fullproductname": {
+					"text": "java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"productid": "6Server-optional-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-6.3.z",
+				"fullproductname": {
+					"text": "java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"productid": "6Workstation-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			},
+			{
+				"productreference": "java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-optional-6.3.z",
+				"fullproductname": {
+					"text": "java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"productid": "6Workstation-optional-6.3.z:java-1.7.0-openjdk-1:1.7.0.5-2.2.1.el6_3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			}
+		]
+	}
+}

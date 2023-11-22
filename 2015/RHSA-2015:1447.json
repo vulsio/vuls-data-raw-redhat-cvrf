@@ -1,0 +1,324 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: grep security, bug fix, and enhancement update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2015:1447"
+		},
+		"Status": "Final",
+		"Version": "3",
+		"revisionhistory": {
+			"revision": {
+				"Number": "3",
+				"Date": "2015-07-20T14:43:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2015-07-20T14:43:00Z",
+		"CurrentReleaseDate": "2015-07-20T14:43:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:37:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated grep packages that fix two security issues, several bugs, and add\nvarious enhancements are now available for Red Hat Enterprise Linux 6.\n\nRed Hat Product Security has rated this update as having Low security\nimpact. Common Vulnerability Scoring System (CVSS) base scores, which give\ndetailed severity ratings, are available for each vulnerability from the\nCVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe grep utility searches through textual input for lines that contain a\nmatch to a specified pattern and then prints the matching lines. The GNU\ngrep utilities include grep, egrep, and fgrep.\n\nAn integer overflow flaw, leading to a heap-based buffer overflow, was\nfound in the way grep parsed large lines of data. An attacker able to trick\na user into running grep on a specially crafted data file could use this\nflaw to crash grep or, potentially, execute arbitrary code with the\nprivileges of the user running grep. (CVE-2012-5667)\n\nA heap-based buffer overflow flaw was found in the way grep processed\ncertain pattern and text combinations. An attacker able to trick a user\ninto running grep on specially crafted input could use this flaw to crash\ngrep or, potentially, read from uninitialized memory. (CVE-2015-1345)\n\nThe grep packages have been upgraded to upstream version 2.20, which\nprovides a number of bug fixes and enhancements over the previous version.\nNotably, the speed of various operations has been improved significantly.\nNow, the recursive grep utility uses the fts function of the gnulib library\nfor directory traversal, so that it can handle much larger directories\nwithout reporting the \"File name too long\" error message, and it can\noperate faster when dealing with large directory hierarchies. (BZ#982215,\nBZ#1064668, BZ#1126757, BZ#1167766, BZ#1171806)\n\nThis update also fixes the following bugs:\n\n* Prior to this update, the \\w and \\W symbols were inconsistently matched\nto the [:alnum:] character class. Consequently, regular expressions that used \\w and \\W in some cases had incorrect results. An upstream patch which fixes the matching problem has been applied, and \\w is now matched to the [_[:alnum:]] character and \\W to the [^_[:alnum:]] character consistently. (BZ#799863)\n\n* Previously, the \"--fixed-regexp\" command-line option was not included in\nthe grep(1) manual page. Consequently, the manual page was inconsistent\nwith the built-in help of the grep utility. To fix this bug, grep(1) has\nbeen updated to include a note informing the user that \"--fixed-regexp\" is\nan obsolete option. Now, the built-in help and manual page are consistent\nregarding the \"--fixed-regexp\" option. (BZ#1103270)\n\n* Previously, the Perl Compatible Regular Expression (PCRE) library did not\nwork correctly when matching non-UTF-8 text in UTF-8 mode. Consequently, an\nerror message about invalid UTF-8 byte sequence characters was returned.\nTo fix this bug, patches from upstream have been applied to the PCRE\nlibrary and the grep utility. As a result, PCRE now skips non-UTF-8\ncharacters as non-matching text without returning any error message.\n(BZ#1193030)\n\nAll grep users are advised to upgrade to these updated packages, which\ncorrect these issues and add these enhancements.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Low",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2015:1447",
+				"Description": "https://access.redhat.com/errata/RHSA-2015:1447"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#low",
+				"Description": "https://access.redhat.com/security/updates/classification/#low"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "grep: Integer overflow leading to heap-based buffer-overflow when reading large lines",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-12-22T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-5667",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1447"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-5667",
+						"Description": "CVE-2012-5667"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=889935",
+						"Description": "bz#889935: CVE-2012-5667 grep: Integer overflow leading to heap-based buffer-overflow when reading large lines"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2012-12-24T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client:grep-0:2.20-3.el6",
+						"6ComputeNode:grep-0:2.20-3.el6",
+						"6Server:grep-0:2.20-3.el6",
+						"6Workstation:grep-0:2.20-3.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.4",
+					"Vector": "AV:L/AC:M/Au:N/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "grep: heap buffer overrun",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-01-18T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-1345",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1447"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-1345",
+						"Description": "CVE-2015-1345"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1183651",
+						"Description": "bz#1183651: CVE-2015-1345 grep: heap buffer overrun"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2015-01-19T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client:grep-0:2.20-3.el6",
+						"6ComputeNode:grep-0:2.20-3.el6",
+						"6Server:grep-0:2.20-3.el6",
+						"6Workstation:grep-0:2.20-3.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "1.2",
+					"Vector": "AV:L/AC:H/Au:N/C:N/I:N/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 6)",
+							"productid": "6Client",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node (v. 6)",
+							"productid": "6ComputeNode",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 6)",
+							"productid": "6Server",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 6)",
+							"productid": "6Workstation",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "grep-0:2.20-3.el6",
+				"fullproductname": {
+					"text": "grep-2.20-3.el6.src.rpm",
+					"productid": "grep-0:2.20-3.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "grep-0:2.20-3.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client",
+				"fullproductname": {
+					"text": "grep-0:2.20-3.el6 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"productid": "6Client:grep-0:2.20-3.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "grep-0:2.20-3.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode",
+				"fullproductname": {
+					"text": "grep-0:2.20-3.el6 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"productid": "6ComputeNode:grep-0:2.20-3.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "grep-0:2.20-3.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server",
+				"fullproductname": {
+					"text": "grep-0:2.20-3.el6 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"productid": "6Server:grep-0:2.20-3.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "grep-0:2.20-3.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation",
+				"fullproductname": {
+					"text": "grep-0:2.20-3.el6 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"productid": "6Workstation:grep-0:2.20-3.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			}
+		]
+	}
+}

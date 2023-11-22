@@ -1,0 +1,2112 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: php security update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2015:1218"
+		},
+		"Status": "Final",
+		"Version": "2",
+		"revisionhistory": {
+			"revision": {
+				"Number": "2",
+				"Date": "2015-07-10T16:29:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2015-07-09T17:01:00Z",
+		"CurrentReleaseDate": "2015-07-10T16:29:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:38:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated php packages that fix multiple security issues are now available\nfor Red Hat Enterprise Linux 6.\n\nRed Hat Product Security has rated this update as having Moderate security\nimpact. Common Vulnerability Scoring System (CVSS) base scores, which give\ndetailed severity ratings, are available for each vulnerability from the\nCVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nPHP is an HTML-embedded scripting language commonly used with the Apache\nHTTP Server.\n\nA flaw was found in the way PHP parsed multipart HTTP POST requests. A\nspecially crafted request could cause PHP to use an excessive amount of CPU\ntime. (CVE-2015-4024)\n\nAn uninitialized pointer use flaw was found in PHP's Exif extension. A\nspecially crafted JPEG or TIFF file could cause a PHP application using the\nexif_read_data() function to crash or, possibly, execute arbitrary code\nwith the privileges of the user running that PHP application.\n(CVE-2015-0232)\n\nAn integer overflow flaw leading to a heap-based buffer overflow was found\nin the way PHP's FTP extension parsed file listing FTP server responses. A\nmalicious FTP server could use this flaw to cause a PHP application to\ncrash or, possibly, execute arbitrary code. (CVE-2015-4022)\n\nMultiple flaws were discovered in the way PHP performed object\nunserialization. Specially crafted input processed by the unserialize()\nfunction could cause a PHP application to crash or, possibly, execute\narbitrary code. (CVE-2015-0273, CVE-2015-2787, CVE-2015-4147,\nCVE-2015-4148, CVE-2015-4599, CVE-2015-4600, CVE-2015-4601, CVE-2015-4602,\nCVE-2015-4603)\n\nIt was found that certain PHP functions did not properly handle file names\ncontaining a NULL character. A remote attacker could possibly use this flaw\nto make a PHP script access unexpected files and bypass intended file\nsystem access restrictions. (CVE-2015-4026, CVE-2015-3411, CVE-2015-3412,\nCVE-2015-4598)\n\nMultiple flaws were found in the way the way PHP's Phar extension parsed\nPhar archives. A specially crafted archive could cause PHP to crash or,\npossibly, execute arbitrary code when opened. (CVE-2015-2301,\nCVE-2015-2783, CVE-2015-3307, CVE-2015-3329, CVE-2015-4021)\n\nA heap buffer overflow flaw was found in the enchant_broker_request_dict()\nfunction of PHP's enchant extension. An attacker able to make a PHP\napplication enchant dictionaries could possibly cause it to crash.\n(CVE-2014-9705)\n\nA buffer over-read flaw was found in the GD library used by the PHP gd\nextension. A specially crafted GIF file could cause a PHP application using\nthe imagecreatefromgif() function to crash. (CVE-2014-9709)\n\nA double free flaw was found in zend_ts_hash_graceful_destroy() function in\nthe PHP ZTS module. This flaw could possibly cause a PHP application to\ncrash. (CVE-2014-9425)\n\nAll php users are advised to upgrade to these updated packages, which\ncontain backported patches to correct these issues. After installing the\nupdated packages, the httpd daemon must be restarted for the update to\ntake effect.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2015:1218",
+				"Description": "https://access.redhat.com/errata/RHSA-2015:1218"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "php: Double-free in zend_ts_hash_graceful_destroy()",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-12-30T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-9425",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1218"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-9425",
+						"Description": "CVE-2014-9425"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1177734",
+						"Description": "bz#1177734: CVE-2014-9425 php: Double-free in zend_ts_hash_graceful_destroy()"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2014-12-30T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6ComputeNode-6.6.z:php-0:5.3.3-46.el6_6",
+						"6ComputeNode-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Server-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Server-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Workstation-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Workstation-optional-6.6.z:php-0:5.3.3-46.el6_6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "php: heap buffer overflow in enchant_broker_request_dict()",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-12-05T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-9705",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1218"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-9705",
+						"Description": "CVE-2014-9705"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1194737",
+						"Description": "bz#1194737: CVE-2014-9705 php: heap buffer overflow in enchant_broker_request_dict()"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-02-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6ComputeNode-6.6.z:php-0:5.3.3-46.el6_6",
+						"6ComputeNode-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Server-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Server-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Workstation-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Workstation-optional-6.6.z:php-0:5.3.3-46.el6_6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "gd: buffer read overflow in gd_gif_in.c",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-12-13T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-9709",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1218"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-9709",
+						"Description": "CVE-2014-9709"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1188639",
+						"Description": "bz#1188639: CVE-2014-9709 gd: buffer read overflow in gd_gif_in.c"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2015-02-03T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6ComputeNode-6.6.z:php-0:5.3.3-46.el6_6",
+						"6ComputeNode-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Server-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Server-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Workstation-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Workstation-optional-6.6.z:php-0:5.3.3-46.el6_6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.0",
+					"Vector": "AV:N/AC:H/Au:N/C:P/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "php: Free called on unitialized pointer in exif.c",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-01-01T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-0232",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1218"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-0232",
+						"Description": "CVE-2015-0232"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1185472",
+						"Description": "bz#1185472: CVE-2015-0232 php: Free called on unitialized pointer in exif.c"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-01-23T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6ComputeNode-6.6.z:php-0:5.3.3-46.el6_6",
+						"6ComputeNode-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Server-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Server-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Workstation-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Workstation-optional-6.6.z:php-0:5.3.3-46.el6_6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.1",
+					"Vector": "AV:N/AC:H/Au:N/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "php: use after free vulnerability in unserialize() with DateTimeZone",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-02-19T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-0273",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1218"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-0273",
+						"Description": "CVE-2015-0273"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1194730",
+						"Description": "bz#1194730: CVE-2015-0273 php: use after free vulnerability in unserialize() with DateTimeZone"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-02-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6ComputeNode-6.6.z:php-0:5.3.3-46.el6_6",
+						"6ComputeNode-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Server-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Server-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Workstation-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Workstation-optional-6.6.z:php-0:5.3.3-46.el6_6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.1",
+					"Vector": "AV:N/AC:H/Au:N/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "6",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "php: use after free in phar_object.c",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-01-24T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-2301",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1218"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-2301",
+						"Description": "CVE-2015-2301"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1194747",
+						"Description": "bz#1194747: CVE-2015-2301 php: use after free in phar_object.c"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2015-02-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6ComputeNode-6.6.z:php-0:5.3.3-46.el6_6",
+						"6ComputeNode-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Server-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Server-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Workstation-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Workstation-optional-6.6.z:php-0:5.3.3-46.el6_6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.6",
+					"Vector": "AV:N/AC:H/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "7",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "php: buffer over-read in Phar metadata parsing",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-04-16T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-2783",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1218"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-2783",
+						"Description": "CVE-2015-2783"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1213446",
+						"Description": "bz#1213446: CVE-2015-2783 php: buffer over-read in Phar metadata parsing"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2015-04-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6ComputeNode-6.6.z:php-0:5.3.3-46.el6_6",
+						"6ComputeNode-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Server-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Server-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Workstation-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Workstation-optional-6.6.z:php-0:5.3.3-46.el6_6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "8",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "php: use-after-free vulnerability in the process_nested_data function in ext/standard/var_unserializer.re",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-03-02T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-2787",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1218"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-2787",
+						"Description": "CVE-2015-2787"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1207676",
+						"Description": "bz#1207676: CVE-2015-2787 php: use-after-free vulnerability in the process_nested_data function in ext/standard/var_unserializer.re"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-03-31T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6ComputeNode-6.6.z:php-0:5.3.3-46.el6_6",
+						"6ComputeNode-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Server-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Server-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Workstation-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Workstation-optional-6.6.z:php-0:5.3.3-46.el6_6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.0",
+					"Vector": "AV:N/AC:H/Au:N/C:P/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "9",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "php: invalid pointer free() in phar_tar_process_metadata()",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-05-18T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-3307",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1218"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-3307",
+						"Description": "CVE-2015-3307"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1223441",
+						"Description": "bz#1223441: CVE-2015-3307 php: invalid pointer free() in phar_tar_process_metadata()"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-05-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6ComputeNode-6.6.z:php-0:5.3.3-46.el6_6",
+						"6ComputeNode-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Server-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Server-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Workstation-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Workstation-optional-6.6.z:php-0:5.3.3-46.el6_6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.1",
+					"Vector": "AV:N/AC:H/Au:N/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "10",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "php: buffer overflow in phar_set_inode()",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-04-16T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-3329",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1218"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-3329",
+						"Description": "CVE-2015-3329"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1213449",
+						"Description": "bz#1213449: CVE-2015-3329 php: buffer overflow in phar_set_inode()"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-04-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6ComputeNode-6.6.z:php-0:5.3.3-46.el6_6",
+						"6ComputeNode-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Server-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Server-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Workstation-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Workstation-optional-6.6.z:php-0:5.3.3-46.el6_6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.1",
+					"Vector": "AV:N/AC:H/Au:N/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "11",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "php: missing null byte checks for paths in various PHP extensions",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-04-16T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-3411",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1218"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-3411",
+						"Description": "CVE-2015-3411"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1213407",
+						"Description": "bz#1213407: CVE-2015-3411 php: missing null byte checks for paths in various PHP extensions"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-04-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6ComputeNode-6.6.z:php-0:5.3.3-46.el6_6",
+						"6ComputeNode-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Server-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Server-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Workstation-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Workstation-optional-6.6.z:php-0:5.3.3-46.el6_6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.0",
+					"Vector": "AV:N/AC:H/Au:N/C:P/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "12",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "php: missing null byte checks for paths in various PHP extensions",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-04-16T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-3412",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1218"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-3412",
+						"Description": "CVE-2015-3412"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1232823",
+						"Description": "bz#1232823: CVE-2015-3412 php: missing null byte checks for paths in various PHP extensions"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-04-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6ComputeNode-6.6.z:php-0:5.3.3-46.el6_6",
+						"6ComputeNode-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Server-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Server-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Workstation-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Workstation-optional-6.6.z:php-0:5.3.3-46.el6_6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.0",
+					"Vector": "AV:N/AC:H/Au:N/C:P/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "13",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "php: memory corruption in phar_parse_tarfile caused by empty entry file name",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-05-14T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-4021",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1218"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-4021",
+						"Description": "CVE-2015-4021"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1223425",
+						"Description": "bz#1223425: CVE-2015-4021 php: memory corruption in phar_parse_tarfile caused by empty entry file name"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-05-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6ComputeNode-6.6.z:php-0:5.3.3-46.el6_6",
+						"6ComputeNode-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Server-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Server-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Workstation-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Workstation-optional-6.6.z:php-0:5.3.3-46.el6_6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.1",
+					"Vector": "AV:N/AC:H/Au:N/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "14",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "php: integer overflow leading to heap overflow when reading FTP file listing",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-05-14T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-4022",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1218"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-4022",
+						"Description": "CVE-2015-4022"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1223412",
+						"Description": "bz#1223412: CVE-2015-4022 php: integer overflow leading to heap overflow when reading FTP file listing"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-05-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6ComputeNode-6.6.z:php-0:5.3.3-46.el6_6",
+						"6ComputeNode-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Server-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Server-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Workstation-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Workstation-optional-6.6.z:php-0:5.3.3-46.el6_6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.1",
+					"Vector": "AV:N/AC:H/Au:N/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "15",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "php: multipart/form-data request parsing CPU usage DoS",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-05-14T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-4024",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1218"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-4024",
+						"Description": "CVE-2015-4024"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1222485",
+						"Description": "bz#1222485: CVE-2015-4024 php: multipart/form-data request parsing CPU usage DoS"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-05-18T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6ComputeNode-6.6.z:php-0:5.3.3-46.el6_6",
+						"6ComputeNode-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Server-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Server-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Workstation-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Workstation-optional-6.6.z:php-0:5.3.3-46.el6_6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.0",
+					"Vector": "AV:N/AC:L/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "16",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "php: pcntl_exec() accepts paths with NUL character",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-05-14T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-4026",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1218"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-4026",
+						"Description": "CVE-2015-4026"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1223422",
+						"Description": "bz#1223422: CVE-2015-4026 php: pcntl_exec() accepts paths with NUL character"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2015-05-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6ComputeNode-6.6.z:php-0:5.3.3-46.el6_6",
+						"6ComputeNode-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Server-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Server-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Workstation-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Workstation-optional-6.6.z:php-0:5.3.3-46.el6_6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.0",
+					"Vector": "AV:N/AC:H/Au:N/C:P/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "17",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "php: SoapClient's __call() type confusion through unserialize()",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-03-03T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-4147",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1218"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-4147",
+						"Description": "CVE-2015-4147"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1204868",
+						"Description": "bz#1204868: CVE-2015-4147 php: SoapClient's __call() type confusion through unserialize()"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-03-23T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6ComputeNode-6.6.z:php-0:5.3.3-46.el6_6",
+						"6ComputeNode-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Server-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Server-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Workstation-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Workstation-optional-6.6.z:php-0:5.3.3-46.el6_6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.8",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "18",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "php: SoapClient's do_soap_call() type confusion after unserialize()",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-03-03T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-4148",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1218"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-4148",
+						"Description": "CVE-2015-4148"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1226916",
+						"Description": "bz#1226916: CVE-2015-4148 php: SoapClient's do_soap_call() type confusion after unserialize()"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2015-03-23T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6ComputeNode-6.6.z:php-0:5.3.3-46.el6_6",
+						"6ComputeNode-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Server-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Server-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Workstation-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Workstation-optional-6.6.z:php-0:5.3.3-46.el6_6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "19",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "php: missing null byte checks for paths in DOM and GD extensions",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-05-28T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-4598",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1218"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-4598",
+						"Description": "CVE-2015-4598"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1232897",
+						"Description": "bz#1232897: CVE-2015-4598 php: missing null byte checks for paths in DOM and GD extensions"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-05-21T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6ComputeNode-6.6.z:php-0:5.3.3-46.el6_6",
+						"6ComputeNode-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Server-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Server-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Workstation-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Workstation-optional-6.6.z:php-0:5.3.3-46.el6_6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.0",
+					"Vector": "AV:N/AC:H/Au:N/C:P/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "20",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "php: type confusion issue in unserialize() with various SOAP methods",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-04-16T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-4599",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1218"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-4599",
+						"Description": "CVE-2015-4599"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1222538",
+						"Description": "bz#1222538: CVE-2015-4599 CVE-2015-4600 CVE-2015-4601 php: type confusion issue in unserialize() with various SOAP methods"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-05-18T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6ComputeNode-6.6.z:php-0:5.3.3-46.el6_6",
+						"6ComputeNode-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Server-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Server-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Workstation-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Workstation-optional-6.6.z:php-0:5.3.3-46.el6_6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "21",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "php: type confusion issue in unserialize() with various SOAP methods",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-04-16T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-4600",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1218"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-4600",
+						"Description": "CVE-2015-4600"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1222538",
+						"Description": "bz#1222538: CVE-2015-4599 CVE-2015-4600 CVE-2015-4601 php: type confusion issue in unserialize() with various SOAP methods"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-05-18T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6ComputeNode-6.6.z:php-0:5.3.3-46.el6_6",
+						"6ComputeNode-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Server-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Server-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Workstation-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Workstation-optional-6.6.z:php-0:5.3.3-46.el6_6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "22",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "php: type confusion issue in unserialize() with various SOAP methods",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-04-16T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-4601",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1218"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-4601",
+						"Description": "CVE-2015-4601"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1222538",
+						"Description": "bz#1222538: CVE-2015-4599 CVE-2015-4600 CVE-2015-4601 php: type confusion issue in unserialize() with various SOAP methods"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-05-18T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6ComputeNode-6.6.z:php-0:5.3.3-46.el6_6",
+						"6ComputeNode-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Server-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Server-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Workstation-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Workstation-optional-6.6.z:php-0:5.3.3-46.el6_6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "23",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "php: Incomplete Class unserialization type confusion",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-03-20T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-4602",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1218"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-4602",
+						"Description": "CVE-2015-4602"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1232923",
+						"Description": "bz#1232923: CVE-2015-4602 php: Incomplete Class unserialization type confusion"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-05-18T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6ComputeNode-6.6.z:php-0:5.3.3-46.el6_6",
+						"6ComputeNode-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Server-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Server-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Workstation-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Workstation-optional-6.6.z:php-0:5.3.3-46.el6_6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "24",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "php: exception::getTraceAsString type confusion issue after unserialize",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-03-03T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-4603",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1218"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-4603",
+						"Description": "CVE-2015-4603"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1232918",
+						"Description": "bz#1232918: CVE-2015-4603 php: exception::getTraceAsString type confusion issue after unserialize"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-05-18T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6ComputeNode-6.6.z:php-0:5.3.3-46.el6_6",
+						"6ComputeNode-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Server-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Server-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Workstation-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Workstation-optional-6.6.z:php-0:5.3.3-46.el6_6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "25",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "php: integer overflow in ftp_genlist() resulting in heap overflow (improved fix for CVE-2015-4022)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-06-11T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-4643",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1218"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-4643",
+						"Description": "CVE-2015-4643"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1234938",
+						"Description": "bz#1234938: CVE-2015-4643 php: integer overflow in ftp_genlist() resulting in heap overflow (improved fix for CVE-2015-4022)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-06-23T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6ComputeNode-6.6.z:php-0:5.3.3-46.el6_6",
+						"6ComputeNode-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Server-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Server-optional-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Workstation-6.6.z:php-0:5.3.3-46.el6_6",
+						"6Workstation-optional-6.6.z:php-0:5.3.3-46.el6_6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.1",
+					"Vector": "AV:N/AC:H/Au:N/C:P/I:P/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+							"productid": "6Client-optional-6.6.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node (v. 6)",
+							"productid": "6ComputeNode-6.6.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+							"productid": "6ComputeNode-optional-6.6.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 6)",
+							"productid": "6Server-6.6.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional (v. 6)",
+							"productid": "6Server-optional-6.6.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 6)",
+							"productid": "6Workstation-6.6.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+							"productid": "6Workstation-optional-6.6.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "php-0:5.3.3-46.el6_6",
+				"fullproductname": {
+					"text": "php-5.3.3-46.el6_6.src.rpm",
+					"productid": "php-0:5.3.3-46.el6_6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "php-0:5.3.3-46.el6_6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-optional-6.6.z",
+				"fullproductname": {
+					"text": "php-0:5.3.3-46.el6_6 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"productid": "6Client-optional-6.6.z:php-0:5.3.3-46.el6_6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "php-0:5.3.3-46.el6_6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-6.6.z",
+				"fullproductname": {
+					"text": "php-0:5.3.3-46.el6_6 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"productid": "6ComputeNode-6.6.z:php-0:5.3.3-46.el6_6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "php-0:5.3.3-46.el6_6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-optional-6.6.z",
+				"fullproductname": {
+					"text": "php-0:5.3.3-46.el6_6 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"productid": "6ComputeNode-optional-6.6.z:php-0:5.3.3-46.el6_6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "php-0:5.3.3-46.el6_6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-6.6.z",
+				"fullproductname": {
+					"text": "php-0:5.3.3-46.el6_6 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"productid": "6Server-6.6.z:php-0:5.3.3-46.el6_6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "php-0:5.3.3-46.el6_6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-optional-6.6.z",
+				"fullproductname": {
+					"text": "php-0:5.3.3-46.el6_6 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"productid": "6Server-optional-6.6.z:php-0:5.3.3-46.el6_6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "php-0:5.3.3-46.el6_6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-6.6.z",
+				"fullproductname": {
+					"text": "php-0:5.3.3-46.el6_6 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"productid": "6Workstation-6.6.z:php-0:5.3.3-46.el6_6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			},
+			{
+				"productreference": "php-0:5.3.3-46.el6_6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-optional-6.6.z",
+				"fullproductname": {
+					"text": "php-0:5.3.3-46.el6_6 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"productid": "6Workstation-optional-6.6.z:php-0:5.3.3-46.el6_6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			}
+		]
+	}
+}

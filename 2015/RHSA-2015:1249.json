@@ -1,0 +1,292 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: httpd security, bug fix, and enhancement update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2015:1249"
+		},
+		"Status": "Final",
+		"Version": "3",
+		"revisionhistory": {
+			"revision": {
+				"Number": "3",
+				"Date": "2015-07-20T13:50:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2015-07-20T13:50:00Z",
+		"CurrentReleaseDate": "2015-07-20T13:50:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:38:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated httpd packages that fix one security issue, several bugs, and add\none enhancement are now available for Red Hat Enterprise Linux 6.\n\nRed Hat Product Security has rated this update as having Low security\nimpact. A Common Vulnerability Scoring System (CVSS) base score, which\ngives a detailed severity rating, is available from the CVE link in the\nReferences section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe httpd packages provide the Apache HTTP Server, a powerful, efficient,\nand extensible web server.\n\nA flaw was found in the way httpd handled HTTP Trailer headers when\nprocessing requests using chunked encoding. A malicious client could use\nTrailer headers to set additional HTTP headers after header processing was\nperformed by other modules. This could, for example, lead to a bypass of\nheader restrictions defined with mod_headers. (CVE-2013-5704)\n\nThis update also fixes the following bugs:\n\n* The order of mod_proxy workers was not checked when httpd configuration\nwas reloaded. When mod_proxy workers were removed, added, or their order\nwas changed, their parameters and scores could become mixed. The order of\nmod_proxy workers has been made internally consistent during configuration\nreload. (BZ#1149906)\n\n* The local host certificate created during firstboot contained CA\nextensions, which caused the httpd service to return warning messages.\nThis has been addressed by local host certificates being generated with the\n\"-extensions v3_req\" option. (BZ#906476)\n\n* The default mod_ssl configuration no longer enables support for SSL\ncipher suites using the single DES, IDEA, or SEED encryption algorithms.\n(BZ#1086771)\n\n* The apachectl script did not take into account the HTTPD_LANG variable\nset in the /etc/sysconfig/httpd file during graceful restarts.\nConsequently, httpd did not use a changed value of HTTPD_LANG when the\ndaemon was restarted gracefully. The script has been fixed to handle the\nHTTPD_LANG variable correctly. (BZ#963146)\n\n* The mod_deflate module failed to check the original file size while\nextracting files larger than 4 GB, making it impossible to extract large\nfiles. Now, mod_deflate checks the original file size properly according to\nRFC1952, and it is able to decompress files larger than 4 GB. (BZ#1057695)\n\n* The httpd service did not check configuration before restart. When a\nconfiguration contained an error, an attempt to restart httpd gracefully\nfailed. Now, httpd checks configuration before restart and if the\nconfiguration is in an inconsistent state, an error message is printed,\nhttpd is not stopped and a restart is not performed. (BZ#1146194)\n\n* The SSL_CLIENT_VERIFY environment variable was incorrectly handled when\nthe \"SSLVerifyClient optional_no_ca\" and \"SSLSessionCache\" options were\nused. When an SSL session was resumed, the SSL_CLIENT_VERIFY value was set\nto \"SUCCESS\" instead of the previously set \"GENEROUS\". SSL_CLIENT_VERIFY is\nnow correctly set to GENEROUS in this scenario. (BZ#1149703)\n\n* The ab utility did not correctly handle situations when an SSL connection\nwas closed after some data had already been read. As a consequence, ab did\nnot work correctly with SSL servers and printed \"SSL read failed\" error\nmessages. With this update, ab works as expected with HTTPS servers.\n(BZ#1045477)\n\n* When a client presented a revoked certificate, log entries were created\nonly at the debug level. The log level of messages regarding a revoked\ncertificate has been increased to INFO, and administrators are now properly\ninformed of this situation. (BZ#1161328)\n\nIn addition, this update adds the following enhancement:\n\n* A mod_proxy worker can now be set into drain mode (N) using the\nbalancer-manager web interface or using the httpd configuration file.\nA worker in drain mode accepts only existing sticky sessions destined for\nitself and ignores all other requests. The worker waits until all clients\ncurrently connected to this worker complete their work before the worker is\nstopped. As a result, drain mode enables to perform maintenance on a worker\nwithout affecting clients. (BZ#767130)\n\nUsers of httpd are advised to upgrade to these updated packages, which\ncontain backported patches to correct these issues and add this\nenhancement. After installing the updated packages, the httpd service will\nbe restarted automatically.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Low",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2015:1249",
+				"Description": "https://access.redhat.com/errata/RHSA-2015:1249"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#low",
+				"Description": "https://access.redhat.com/security/updates/classification/#low"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "httpd: bypass of mod_headers rules via chunked requests",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-10-19T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-5704",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1249"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-5704",
+						"Description": "CVE-2013-5704"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1082903",
+						"Description": "bz#1082903: CVE-2013-5704 httpd: bypass of mod_headers rules via chunked requests"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2014-03-31T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional:httpd-0:2.2.15-45.el6",
+						"6Client:httpd-0:2.2.15-45.el6",
+						"6ComputeNode-optional:httpd-0:2.2.15-45.el6",
+						"6ComputeNode:httpd-0:2.2.15-45.el6",
+						"6Server:httpd-0:2.2.15-45.el6",
+						"6Workstation:httpd-0:2.2.15-45.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:P/A:N"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 6)",
+							"productid": "6Client",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+							"productid": "6Client-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node (v. 6)",
+							"productid": "6ComputeNode",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+							"productid": "6ComputeNode-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 6)",
+							"productid": "6Server",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 6)",
+							"productid": "6Workstation",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "httpd-0:2.2.15-45.el6",
+				"fullproductname": {
+					"text": "httpd-2.2.15-45.el6.src.rpm",
+					"productid": "httpd-0:2.2.15-45.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "httpd-0:2.2.15-45.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client",
+				"fullproductname": {
+					"text": "httpd-0:2.2.15-45.el6 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"productid": "6Client:httpd-0:2.2.15-45.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "httpd-0:2.2.15-45.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-optional",
+				"fullproductname": {
+					"text": "httpd-0:2.2.15-45.el6 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"productid": "6Client-optional:httpd-0:2.2.15-45.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "httpd-0:2.2.15-45.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode",
+				"fullproductname": {
+					"text": "httpd-0:2.2.15-45.el6 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"productid": "6ComputeNode:httpd-0:2.2.15-45.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "httpd-0:2.2.15-45.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-optional",
+				"fullproductname": {
+					"text": "httpd-0:2.2.15-45.el6 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"productid": "6ComputeNode-optional:httpd-0:2.2.15-45.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "httpd-0:2.2.15-45.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server",
+				"fullproductname": {
+					"text": "httpd-0:2.2.15-45.el6 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"productid": "6Server:httpd-0:2.2.15-45.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "httpd-0:2.2.15-45.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation",
+				"fullproductname": {
+					"text": "httpd-0:2.2.15-45.el6 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"productid": "6Workstation:httpd-0:2.2.15-45.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			}
+		]
+	}
+}

@@ -1,0 +1,416 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: libvirt security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2014:0914"
+		},
+		"Status": "Final",
+		"Version": "2",
+		"revisionhistory": {
+			"revision": {
+				"Number": "2",
+				"Date": "2014-07-22T18:31:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2014-07-22T18:31:00Z",
+		"CurrentReleaseDate": "2014-07-22T18:31:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:38:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated libvirt packages that fix one security issue and three bugs are now\navailable for Red Hat Enterprise Linux 7.\n\nThe Red Hat Security Response Team has rated this update as having Moderate\nsecurity impact. A Common Vulnerability Scoring System (CVSS) base score,\nwhich gives a detailed severity rating, is available from the CVE link in\nthe References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe libvirt library is a C API for managing and interacting with the\nvirtualization capabilities of Linux and other operating systems.\nIn addition, libvirt provides tools for remote management of\nvirtualized systems.\n\nIt was found that libvirt passes the XML_PARSE_NOENT flag when parsing XML\ndocuments using the libxml2 library, in which case all XML entities in the\nparsed documents are expanded. A user able to force libvirtd to parse an\nXML document with an entity pointing to a file could use this flaw to read\nthe contents of that file; parsing an XML document with an entity pointing\nto a special file that blocks on read access could cause libvirtd to hang\nindefinitely, resulting in a denial of service on the system.\n(CVE-2014-0179)\n\nRed Hat would like to thank the upstream Libvirt project for reporting this\nissue. Upstream acknowledges Daniel P. Berrange and Richard Jones as the\noriginal reporters.\n\nThis update also fixes the following bugs:\n\n* A previous update of the libvirt package introduced an error; a\nSIG_SETMASK argument was incorrectly replaced by a SIG_BLOCK argument after\nthe poll() system call. Consequently, the SIGCHLD signal could be\npermanently blocked, which caused signal masks to not return to their\noriginal values and defunct processes to be generated. With this update,\nthe original signal masks are restored and defunct processes are no longer\ngenerated. (BZ#1112689)\n\n* An attempt to start a domain that did not exist caused network filters to\nbe locked for read-only access. As a consequence, when trying to gain\nread-write access, a deadlock occurred. This update applies a patch to fix\nthis bug and an attempt to start a non-existent domain no longer causes a\ndeadlock in the described scenario. (BZ#1112690)\n\n* Previously, the libvirtd daemon was binding only to addresses that were\nconfigured on certain network interfaces. When libvirtd started before the\nIPv4 addresses had been configured, libvirtd listened only on the IPv6\naddresses. The daemon has been modified to not require an address to be\nconfigured when binding to a wildcard address, such as \"0.0.0.0\" or \"::\".\nAs a result, libvirtd binds to both IPv4 and IPv6 addresses as expected.\n(BZ#1112692)\n\nUsers of libvirt are advised to upgrade to these updated packages, which\nfix these bugs. After installing the updated packages, libvirtd will be\nrestarted automatically.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2014:0914",
+				"Description": "https://access.redhat.com/errata/RHSA-2014:0914"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "libvirt: unsafe parsing of XML documents allows libvirt DoS and/or arbitrary file read",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-05-06T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-0179",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to use the\nRed Hat Network to apply this update are available at\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2014:0914"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "http://security.libvirt.org/2014/0003.html",
+						"Description": "http://security.libvirt.org/2014/0003.html"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-0179",
+						"Description": "CVE-2014-0179"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1088290",
+						"Description": "bz#1088290: CVE-2014-0179 CVE-2014-5177 libvirt: unsafe parsing of XML documents allows libvirt DoS and/or arbitrary file read"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-04-11T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-7.0.Z:libvirt-0:1.1.1-29.el7_0.1",
+						"7Client-optional-7.0.Z:libvirt-0:1.1.1-29.el7_0.1",
+						"7ComputeNode-7.0.Z:libvirt-0:1.1.1-29.el7_0.1",
+						"7ComputeNode-optional-7.0.Z:libvirt-0:1.1.1-29.el7_0.1",
+						"7Server-7.0.Z:libvirt-0:1.1.1-29.el7_0.1",
+						"7Server-optional-7.0.Z:libvirt-0:1.1.1-29.el7_0.1",
+						"7Workstation-7.0.Z:libvirt-0:1.1.1-29.el7_0.1",
+						"7Workstation-optional-7.0.Z:libvirt-0:1.1.1-29.el7_0.1"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "3.3",
+					"Vector": "AV:A/AC:L/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "libvirt: unsafe parsing of XML documents allows libvirt DoS and/or arbitrary file read",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-05-06T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-5177",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to use the\nRed Hat Network to apply this update are available at\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2014:0914"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "http://security.libvirt.org/2014/0003.html",
+						"Description": "http://security.libvirt.org/2014/0003.html"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-5177",
+						"Description": "CVE-2014-5177"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1088290",
+						"Description": "bz#1088290: CVE-2014-0179 CVE-2014-5177 libvirt: unsafe parsing of XML documents allows libvirt DoS and/or arbitrary file read"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-04-11T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-7.0.Z:libvirt-0:1.1.1-29.el7_0.1",
+						"7Client-optional-7.0.Z:libvirt-0:1.1.1-29.el7_0.1",
+						"7ComputeNode-7.0.Z:libvirt-0:1.1.1-29.el7_0.1",
+						"7ComputeNode-optional-7.0.Z:libvirt-0:1.1.1-29.el7_0.1",
+						"7Server-7.0.Z:libvirt-0:1.1.1-29.el7_0.1",
+						"7Server-optional-7.0.Z:libvirt-0:1.1.1-29.el7_0.1",
+						"7Workstation-7.0.Z:libvirt-0:1.1.1-29.el7_0.1",
+						"7Workstation-optional-7.0.Z:libvirt-0:1.1.1-29.el7_0.1"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "3.3",
+					"Vector": "AV:A/AC:L/Au:N/C:N/I:N/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Client (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Client (v. 7)",
+							"productid": "7Client-7.0.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Client Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Client Optional (v. 7)",
+							"productid": "7Client-optional-7.0.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ComputeNode (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ComputeNode (v. 7)",
+							"productid": "7ComputeNode-7.0.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+							"productid": "7ComputeNode-optional-7.0.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 7)",
+							"productid": "7Server-7.0.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional (v. 7)",
+							"productid": "7Server-optional-7.0.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 7)",
+							"productid": "7Workstation-7.0.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation Optional (v. 7)",
+							"productid": "7Workstation-optional-7.0.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "libvirt-0:1.1.1-29.el7_0.1",
+				"fullproductname": {
+					"text": "libvirt-1.1.1-29.el7_0.1.src.rpm",
+					"productid": "libvirt-0:1.1.1-29.el7_0.1",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "libvirt-0:1.1.1-29.el7_0.1",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-7.0.Z",
+				"fullproductname": {
+					"text": "libvirt-0:1.1.1-29.el7_0.1 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"productid": "7Client-7.0.Z:libvirt-0:1.1.1-29.el7_0.1",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "libvirt-0:1.1.1-29.el7_0.1",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-optional-7.0.Z",
+				"fullproductname": {
+					"text": "libvirt-0:1.1.1-29.el7_0.1 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"productid": "7Client-optional-7.0.Z:libvirt-0:1.1.1-29.el7_0.1",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "libvirt-0:1.1.1-29.el7_0.1",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-7.0.Z",
+				"fullproductname": {
+					"text": "libvirt-0:1.1.1-29.el7_0.1 as a component of Red Hat Enterprise Linux ComputeNode (v. 7)",
+					"productid": "7ComputeNode-7.0.Z:libvirt-0:1.1.1-29.el7_0.1",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "libvirt-0:1.1.1-29.el7_0.1",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-optional-7.0.Z",
+				"fullproductname": {
+					"text": "libvirt-0:1.1.1-29.el7_0.1 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"productid": "7ComputeNode-optional-7.0.Z:libvirt-0:1.1.1-29.el7_0.1",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "libvirt-0:1.1.1-29.el7_0.1",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-7.0.Z",
+				"fullproductname": {
+					"text": "libvirt-0:1.1.1-29.el7_0.1 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server-7.0.Z:libvirt-0:1.1.1-29.el7_0.1",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "libvirt-0:1.1.1-29.el7_0.1",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-optional-7.0.Z",
+				"fullproductname": {
+					"text": "libvirt-0:1.1.1-29.el7_0.1 as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"productid": "7Server-optional-7.0.Z:libvirt-0:1.1.1-29.el7_0.1",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "libvirt-0:1.1.1-29.el7_0.1",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-7.0.Z",
+				"fullproductname": {
+					"text": "libvirt-0:1.1.1-29.el7_0.1 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"productid": "7Workstation-7.0.Z:libvirt-0:1.1.1-29.el7_0.1",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			},
+			{
+				"productreference": "libvirt-0:1.1.1-29.el7_0.1",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-optional-7.0.Z",
+				"fullproductname": {
+					"text": "libvirt-0:1.1.1-29.el7_0.1 as a component of Red Hat Enterprise Linux Workstation Optional (v. 7)",
+					"productid": "7Workstation-optional-7.0.Z:libvirt-0:1.1.1-29.el7_0.1",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			}
+		]
+	}
+}

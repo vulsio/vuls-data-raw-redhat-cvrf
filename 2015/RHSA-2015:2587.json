@@ -1,0 +1,449 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: kernel security, bug fix, and enhancement update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2015:2587"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2015-12-09T09:44:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2015-12-09T09:44:00Z",
+		"CurrentReleaseDate": "2015-12-09T09:44:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:36:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated kernel packages that fix three security issues, several bugs, and\none enhancement are now available for Red Hat Enterprise Linux 7.1 Extended\nUpdate Support.\n\nRed Hat Product Security has rated this update as having Important security\nimpact. Common Vulnerability Scoring System (CVSS) base scores, which give\ndetailed severity ratings, are available for each vulnerability from the\nCVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe kernel packages contain the Linux kernel, the core of any Linux\noperating system.\n\n* A flaw was found in the way the Linux kernel's file system implementation\nhandled rename operations in which the source was inside and the\ndestination was outside of a bind mount. A privileged user inside a\ncontainer could use this flaw to escape the bind mount and, potentially,\nescalate their privileges on the system. (CVE-2015-2925, Important)\n\n* It was found that the x86 ISA (Instruction Set Architecture) is prone to\na denial of service attack inside a virtualized environment in the form of\nan infinite loop in the microcode due to the way (sequential) delivering of\nbenign exceptions such as #AC (alignment check exception) is handled.\nA privileged user inside a guest could use this flaw to create denial of\nservice conditions on the host kernel. (CVE-2015-5307, Important)\n\n* A race condition flaw was found in the way the Linux kernel's IPC\nsubsystem initialized certain fields in an IPC object structure that were\nlater used for permission checking before inserting the object into a\nglobally visible list. A local, unprivileged user could potentially use\nthis flaw to elevate their privileges on the system. (CVE-2015-7613,\nImportant)\n\nRed Hat would like to thank Ben Serebrin of Google Inc. for reporting the\nCVE-2015-5307 issue.\n\nThis update also fixes the following bugs and adds one enhancement:\n\n* When setting up an ESP IPsec connection, the aes_ctr algorithm did not\nwork for ESP on a Power little endian VM host. As a consequence, a kernel\nerror was previously returned and the connection failed to be established.\nA set of patches has been provided to fix this bug, and aes_ctr works for\nESP in the described situation as expected. (BZ#1247127)\n\n* The redistribute3() function distributed entries across 3 nodes. However,\nsome entries were moved an incorrect way, breaking the ordering. As a\nresult, BUG() in the dm-btree-remove.c:shift() function occurred when\nentries were removed from the btree. A patch has been provided to fix this\nbug, and redistribute3() now works as expected. (BZ#1263945)\n\n* When booting an mpt2sas adapter in a huge DDW enabled slot on Power, the\nkernel previously generated a warning followed by a call trace.\nThe provided patch set enhances the Power kernel to be able to support\nIOMMU as a fallback for the cases where the coherent mask of the device is\nnot suitable for direct DMA. As a result, neither the warning nor the call\ntrace occur in this scenario. (BZ#1267133)\n\n* If the client mounted /exports and tried to execute the \"chown -R\"\ncommand across the entire mountpoint, a warning about a circular directory\nstructure was previously returned because mount points all had the same\ninode number. A set of patches has been provided to fix this bug, and mount\npoints are now assigned with unique inode numbers as expected. (BZ#1273239)\n\n* Due to a validation error of in-kernel MMIO tracing, a VM became\npreviously unresponsive when connected to Red Hat Enterprise Virtualization\nHypervisor. The provided patch fixes this bug by dropping the check in MMIO\nhandler, and a VM continues running as expected. (BZ#1275149)\n\n* The NFS client could previously fail to send a CLOSE operation if the\nfile was opened with O_WRONLY and the server restarted after the OPEN.\nConsequently, the server appeared in a state that could block other NFS\noperations from completing. The client's state flags have been modified to\ncatch this condition and correctly CLOSE the file. (BZ#1275298)\n\n* This update sets multicast filters for multicast packets when the\ninterface is not in promiscuous mode. This change has an impact on the RAR\nusage such that SR-IOV has some RARs reserved for its own usage as well.\n(BZ#1265091)\n\nAll kernel users are advised to upgrade to these updated packages, which\ncontain backported patches to correct these issues and add this\nenhancement. The system must be rebooted for this update to take effect.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2015:2587",
+				"Description": "https://access.redhat.com/errata/RHSA-2015:2587"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Kernel: vfs: Do not allow escaping from bind mounts",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-04-03T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-2925",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:2587"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-2925",
+						"Description": "CVE-2015-2925"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1209367",
+						"Description": "bz#1209367: CVE-2015-2925 Kernel: vfs: Do not allow escaping from bind mounts"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2015-04-03T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7ComputeNode-7.1.EUS:kernel-0:3.10.0-229.24.2.el7",
+						"7ComputeNode-optional-7.1.EUS:kernel-0:3.10.0-229.24.2.el7",
+						"7Server-7.1.EUS:kernel-0:3.10.0-229.24.2.el7",
+						"7Server-LE-7.1.EUSZ:kernel-0:3.10.0-229.24.2.ael7b",
+						"7Server-optional-7.1.EUS:kernel-0:3.10.0-229.24.2.el7",
+						"7Server-optional-LE-7.1.EUSZ:kernel-0:3.10.0-229.24.2.ael7b"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.0",
+					"Vector": "AV:L/AC:H/Au:S/C:C/I:C/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "virt: guest to host DoS by triggering an infinite loop in microcode via #AC exception",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-11-10T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-5307",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:2587"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-5307",
+						"Description": "CVE-2015-5307"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1277172",
+						"Description": "bz#1277172: CVE-2015-5307 virt: guest to host DoS by triggering an infinite loop in microcode via #AC exception"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2015-10-22T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7ComputeNode-7.1.EUS:kernel-0:3.10.0-229.24.2.el7",
+						"7ComputeNode-optional-7.1.EUS:kernel-0:3.10.0-229.24.2.el7",
+						"7Server-7.1.EUS:kernel-0:3.10.0-229.24.2.el7",
+						"7Server-LE-7.1.EUSZ:kernel-0:3.10.0-229.24.2.ael7b",
+						"7Server-optional-7.1.EUS:kernel-0:3.10.0-229.24.2.el7",
+						"7Server-optional-LE-7.1.EUSZ:kernel-0:3.10.0-229.24.2.ael7b"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.2",
+					"Vector": "AV:A/AC:M/Au:S/C:N/I:N/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: Unauthorized access to IPC objects with SysV shm",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-10-01T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-7613",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:2587"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-7613",
+						"Description": "CVE-2015-7613"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1268270",
+						"Description": "bz#1268270: CVE-2015-7613 kernel: Unauthorized access to IPC objects with SysV shm"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2015-10-01T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7ComputeNode-7.1.EUS:kernel-0:3.10.0-229.24.2.el7",
+						"7ComputeNode-optional-7.1.EUS:kernel-0:3.10.0-229.24.2.el7",
+						"7Server-7.1.EUS:kernel-0:3.10.0-229.24.2.el7",
+						"7Server-LE-7.1.EUSZ:kernel-0:3.10.0-229.24.2.ael7b",
+						"7Server-optional-7.1.EUS:kernel-0:3.10.0-229.24.2.el7",
+						"7Server-optional-LE-7.1.EUSZ:kernel-0:3.10.0-229.24.2.ael7b"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.2",
+					"Vector": "AV:L/AC:H/Au:N/C:C/I:C/A:C"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ComputeNode EUS (v. 7.1)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ComputeNode EUS (v. 7.1)",
+							"productid": "7ComputeNode-7.1.EUS",
+							"cpe": "cpe:/o:redhat:rhel_eus:7.1::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ComputeNode Optional EUS (v. 7.1)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ComputeNode Optional EUS (v. 7.1)",
+							"productid": "7ComputeNode-optional-7.1.EUS",
+							"cpe": "cpe:/o:redhat:rhel_eus:7.1::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server EUS (v. 7.1)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server EUS (v. 7.1)",
+							"productid": "7Server-7.1.EUS",
+							"cpe": "cpe:/o:redhat:rhel_eus:7.1::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server EUS (v. 7.1)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server EUS (v. 7.1)",
+							"productid": "7Server-LE-7.1.EUSZ",
+							"cpe": "cpe:/o:redhat:rhel_eus:7.1::ppc64le:server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional EUS (v. 7.1)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional EUS (v. 7.1)",
+							"productid": "7Server-optional-7.1.EUS",
+							"cpe": "cpe:/o:redhat:rhel_eus:7.1::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional EUS (v. 7.1)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional EUS (v. 7.1)",
+							"productid": "7Server-optional-LE-7.1.EUSZ",
+							"cpe": "cpe:/o:redhat:rhel_eus:7.1::ppc64le:server"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-0:3.10.0-229.24.2.ael7b",
+				"fullproductname": {
+					"text": "kernel-3.10.0-229.24.2.ael7b.src.rpm",
+					"productid": "kernel-0:3.10.0-229.24.2.ael7b",
+					"cpe": "cpe:/o:redhat:rhel_eus:7.1::ppc64le:server"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-0:3.10.0-229.24.2.el7",
+				"fullproductname": {
+					"text": "kernel-3.10.0-229.24.2.el7.src.rpm",
+					"productid": "kernel-0:3.10.0-229.24.2.el7",
+					"cpe": "cpe:/o:redhat:rhel_eus:7.1::computenode"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "kernel-0:3.10.0-229.24.2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-7.1.EUS",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-229.24.2.el7 as a component of Red Hat Enterprise Linux ComputeNode EUS (v. 7.1)",
+					"productid": "7ComputeNode-7.1.EUS:kernel-0:3.10.0-229.24.2.el7",
+					"cpe": "cpe:/o:redhat:rhel_eus:7.1::computenode"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-229.24.2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-optional-7.1.EUS",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-229.24.2.el7 as a component of Red Hat Enterprise Linux ComputeNode Optional EUS (v. 7.1)",
+					"productid": "7ComputeNode-optional-7.1.EUS:kernel-0:3.10.0-229.24.2.el7",
+					"cpe": "cpe:/o:redhat:rhel_eus:7.1::computenode"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-229.24.2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-7.1.EUS",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-229.24.2.el7 as a component of Red Hat Enterprise Linux Server EUS (v. 7.1)",
+					"productid": "7Server-7.1.EUS:kernel-0:3.10.0-229.24.2.el7",
+					"cpe": "cpe:/o:redhat:rhel_eus:7.1::server"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-229.24.2.ael7b",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-LE-7.1.EUSZ",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-229.24.2.ael7b as a component of Red Hat Enterprise Linux Server EUS (v. 7.1)",
+					"productid": "7Server-LE-7.1.EUSZ:kernel-0:3.10.0-229.24.2.ael7b",
+					"cpe": "cpe:/o:redhat:rhel_eus:7.1::ppc64le:server"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-229.24.2.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-optional-7.1.EUS",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-229.24.2.el7 as a component of Red Hat Enterprise Linux Server Optional EUS (v. 7.1)",
+					"productid": "7Server-optional-7.1.EUS:kernel-0:3.10.0-229.24.2.el7",
+					"cpe": "cpe:/o:redhat:rhel_eus:7.1::server"
+				}
+			},
+			{
+				"productreference": "kernel-0:3.10.0-229.24.2.ael7b",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-optional-LE-7.1.EUSZ",
+				"fullproductname": {
+					"text": "kernel-0:3.10.0-229.24.2.ael7b as a component of Red Hat Enterprise Linux Server Optional EUS (v. 7.1)",
+					"productid": "7Server-optional-LE-7.1.EUSZ:kernel-0:3.10.0-229.24.2.ael7b",
+					"cpe": "cpe:/o:redhat:rhel_eus:7.1::ppc64le:server"
+				}
+			}
+		]
+	}
+}

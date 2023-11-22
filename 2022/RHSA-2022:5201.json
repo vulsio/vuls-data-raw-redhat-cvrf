@@ -1,0 +1,2709 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: Red Hat Advanced Cluster Management 2.4.5 security updates and bug fixes",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2022:5201"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2022-06-27T19:32:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2022-06-27T19:32:00Z",
+		"CurrentReleaseDate": "2022-06-27T19:32:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.8.1",
+			"Date": "2022-06-28T00:52:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nRed Hat Advanced Cluster Management for Kubernetes 2.4.5 General\nAvailability release images, which fix bugs and update container images.\n\nRed Hat Product Security has rated this update as having a security impact\nof Moderate. A Common Vulnerability Scoring System (CVSS) base score,\nwhich\ngives a detailed severity rating, is available for each vulnerability from\nthe CVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nRed Hat Advanced Cluster Management for Kubernetes 2.4.5 images\n\nRed Hat Advanced Cluster Management for Kubernetes provides the\ncapabilities to address common challenges that administrators and site\nreliability engineers face as they work across a range of public and\nprivate cloud environments. Clusters and applications are all visible and\nmanaged from a single console—with security policy built in.\n\nThis advisory contains the container images for Red Hat Advanced Cluster\nManagement for Kubernetes, which apply security fixes and fix several bugs. See the following\nRelease Notes documentation, which will be updated shortly for this\nrelease, for additional details about this release:\n\nhttps://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.4/html/release_notes/\n\nSecurity fixes:\n\n* golang.org/x/crypto: empty plaintext packet causes panic (CVE-2021-43565)\n\n* nconf: Prototype pollution in memory store (CVE-2022-21803)\n\n* golang: crypto/elliptic IsOnCurve returns true for invalid field elements (CVE-2022-23806)\n\n* nats-server: misusing the \"dynamically provisioned sandbox accounts\" feature authenticated user can obtain the privileges of the System account (CVE-2022-24450)\n\n* Moment.js: Path traversal in moment.locale (CVE-2022-24785)\n\n* dset: Prototype Pollution in dset (CVE-2022-25645)\n\n* golang: syscall: faccessat checks wrong group (CVE-2022-29526)\n\n* go-getter: writes SSH credentials into logfile, exposing sensitive credentials to local uses (CVE-2022-29810)\n\nBug fixes:\n\n* Trying to create a new cluster on vSphere and no feedback, stuck in \"creating\" (BZ# 1937078)\n\n* Wrong message is displayed when GRC fails to connect to an Ansible Tower (BZ# 2051752)\n\n* multicluster_operators_hub_subscription issues due to /tmp usage (BZ# 2052702)\n\n* Create Cluster, Worker Pool 2 zones do not load options that relate to the selected Region field (BZ# 2054954)\n\n* Changing the multiclusterhub name other than the default name keeps the version in the web console loading (BZ# 2059822)\n\n* search-redisgraph-0 generating massive amount of logs after 2.4.2 upgrade (BZ# 2065318)\n\n* Uninstall pod crashed when destroying Azure Gov cluster in ACM (BZ# 2073562)\n\n* Deprovisioned clusters not filtered out by discovery controller (BZ# 2075594)\n\n* When deleting a secret for a Helm application, duplicate errors show up in topology (BZ# 2075675)\n\n* Changing existing placement rules does not change YAML file Regression (BZ# 2075724)\n\n* Editing Helm Argo Applications does not Prune Old Resources (BZ# 2079906)\n\n* Failed to delete the requested resource [404] error appears after subscription is deleted and its placement rule is used in the second subscription (BZ# 2080713)\n\n* Typo in the logs when Deployable is updated in the subscription namespace (BZ# 2080960)\n\n* After Argo App Sets are created in an Upgraded Environment, the Clusters column does not indicate the clusters (BZ# 2080716)\n\n* RHACM 2.4.5 images (BZ# 2081438)\n\n* Performance issue to get secret in claim-controller (BZ# 2081908)\n\n* Failed to provision openshift 4.10 on bare metal (BZ# 2094109)\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2022 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2022:5201",
+				"Description": "https://access.redhat.com/errata/RHSA-2022:5201"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "golang.org/x/crypto: empty plaintext packet causes panic",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2021-12-02T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2021-43565",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor Red Hat Advanced Cluster Management for Kubernetes, see the following\ndocumentation, which will be updated shortly for this release, for important\ninstructions on installing this update:\n\nhttps://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.5/html-single/install/index#installing\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2022:5201"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2021-43565",
+						"Description": "CVE-2021-43565"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2030787",
+						"Description": "bz#2030787: CVE-2021-43565 golang.org/x/crypto: empty plaintext packet causes panic"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2021-12-07T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-RHACM-2.4:acm-grafana-container-v2.4.5-6",
+						"8Base-RHACM-2.4:acm-must-gather-container-v2.4.5-5",
+						"8Base-RHACM-2.4:acm-operator-bundle-container-v2.4.5-47",
+						"8Base-RHACM-2.4:application-ui-container-v2.4.5-12",
+						"8Base-RHACM-2.4:assisted-image-service-container-v2.4.5-5",
+						"8Base-RHACM-2.4:cert-policy-controller-container-v2.4.5-5",
+						"8Base-RHACM-2.4:cluster-backup-operator-container-v2.4.5-5",
+						"8Base-RHACM-2.4:cluster-curator-controller-container-v2.4.5-6",
+						"8Base-RHACM-2.4:cluster-proxy-addon-container-v2.4.5-6",
+						"8Base-RHACM-2.4:clusterclaims-controller-container-v2.4.5-7",
+						"8Base-RHACM-2.4:clusterlifecycle-state-metrics-container-v2.4.5-6",
+						"8Base-RHACM-2.4:config-policy-controller-container-v2.4.5-6",
+						"8Base-RHACM-2.4:console-api-container-v2.4.5-8",
+						"8Base-RHACM-2.4:console-container-v2.4.5-14",
+						"8Base-RHACM-2.4:discovery-operator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:endpoint-monitoring-operator-container-v2.4.5-8",
+						"8Base-RHACM-2.4:governance-policy-propagator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:governance-policy-spec-sync-container-v2.4.5-5",
+						"8Base-RHACM-2.4:governance-policy-status-sync-container-v2.4.5-5",
+						"8Base-RHACM-2.4:governance-policy-template-sync-container-v2.4.5-5",
+						"8Base-RHACM-2.4:grafana-dashboard-loader-container-v2.4.5-8",
+						"8Base-RHACM-2.4:grc-ui-api-container-v2.4.5-8",
+						"8Base-RHACM-2.4:grc-ui-container-v2.4.5-11",
+						"8Base-RHACM-2.4:iam-policy-controller-container-v2.4.5-5",
+						"8Base-RHACM-2.4:insights-client-container-v2.4.5-6",
+						"8Base-RHACM-2.4:insights-metrics-container-v2.4.5-5",
+						"8Base-RHACM-2.4:klusterlet-addon-controller-container-v2.4.5-6",
+						"8Base-RHACM-2.4:klusterlet-addon-operator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:kube-rbac-proxy-container-v2.4.5-6",
+						"8Base-RHACM-2.4:kube-state-metrics-container-v2.4.5-7",
+						"8Base-RHACM-2.4:managedcluster-import-controller-container-v2.4.5-7",
+						"8Base-RHACM-2.4:management-ingress-container-v2.4.5-5",
+						"8Base-RHACM-2.4:memcached-container-v2.4.5-3",
+						"8Base-RHACM-2.4:memcached-exporter-container-v2.4.5-5",
+						"8Base-RHACM-2.4:metrics-collector-container-v2.4.5-9",
+						"8Base-RHACM-2.4:multicloud-integrations-container-v2.4.5-7",
+						"8Base-RHACM-2.4:multicloud-manager-container-v2.4.5-6",
+						"8Base-RHACM-2.4:multicluster-observability-operator-container-v2.4.5-8",
+						"8Base-RHACM-2.4:multicluster-operators-application-container-v2.4.5-7",
+						"8Base-RHACM-2.4:multicluster-operators-channel-container-v2.4.5-7",
+						"8Base-RHACM-2.4:multicluster-operators-deployable-container-v2.4.5-6",
+						"8Base-RHACM-2.4:multicluster-operators-placementrule-container-v2.4.5-9",
+						"8Base-RHACM-2.4:multicluster-operators-subscription-operator-container-v2.4.5-10",
+						"8Base-RHACM-2.4:multicluster-operators-subscription-release-container-v2.4.5-8",
+						"8Base-RHACM-2.4:multiclusterhub-operator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:multiclusterhub-repo-container-v2.4.5-7",
+						"8Base-RHACM-2.4:node-exporter-container-v2.4.5-6",
+						"8Base-RHACM-2.4:observatorium-container-v2.4.5-7",
+						"8Base-RHACM-2.4:observatorium-operator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:openshift-hive-operator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:placement-container-v2.4.5-6",
+						"8Base-RHACM-2.4:prometheus-alertmanager-container-v2.4.5-8",
+						"8Base-RHACM-2.4:prometheus-container-v2.4.5-7",
+						"8Base-RHACM-2.4:provider-credential-controller-container-v2.4.5-6",
+						"8Base-RHACM-2.4:rbac-query-proxy-container-v2.4.5-9",
+						"8Base-RHACM-2.4:redisgraph-tls-container-v2.4.5-4",
+						"8Base-RHACM-2.4:registration-container-v2.4.5-6",
+						"8Base-RHACM-2.4:registration-operator-container-v2.4.5-5",
+						"8Base-RHACM-2.4:rhacm-agent-service-container-v2.4.5-9",
+						"8Base-RHACM-2.4:rhacm-assisted-installer-agent-container-v2.4.5-7",
+						"8Base-RHACM-2.4:rhacm-assisted-installer-container-v2.4.5-5",
+						"8Base-RHACM-2.4:rhacm-assisted-installer-reporter-container-v2.4.5-5",
+						"8Base-RHACM-2.4:search-aggregator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:search-api-container-v2.4.5-10",
+						"8Base-RHACM-2.4:search-collector-container-v2.4.5-6",
+						"8Base-RHACM-2.4:search-operator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:search-ui-container-v2.4.5-10",
+						"8Base-RHACM-2.4:submariner-addon-container-v2.4.5-5",
+						"8Base-RHACM-2.4:thanos-container-v2.4.5-7",
+						"8Base-RHACM-2.4:thanos-receive-controller-container-v2.4.5-5",
+						"8Base-RHACM-2.4:volsync-container-v2.4.5-5",
+						"8Base-RHACM-2.4:volsync-mover-rclone-container-v2.4.5-5",
+						"8Base-RHACM-2.4:volsync-mover-restic-container-v2.4.5-5",
+						"8Base-RHACM-2.4:volsync-mover-rsync-container-v2.4.5-5",
+						"8Base-RHACM-2.4:work-container-v2.4.5-6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "nconf: Prototype pollution in memory store",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-04-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-21803",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor Red Hat Advanced Cluster Management for Kubernetes, see the following\ndocumentation, which will be updated shortly for this release, for important\ninstructions on installing this update:\n\nhttps://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.5/html-single/install/index#installing\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2022:5201"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://github.com/allengayCx/nodegoat/issues/88",
+						"Description": "https://github.com/allengayCx/nodegoat/issues/88"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-21803",
+						"Description": "CVE-2022-21803"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2074689",
+						"Description": "bz#2074689: CVE-2022-21803 nconf: Prototype pollution in memory store"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2022-04-12T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-RHACM-2.4:acm-grafana-container-v2.4.5-6",
+						"8Base-RHACM-2.4:acm-must-gather-container-v2.4.5-5",
+						"8Base-RHACM-2.4:acm-operator-bundle-container-v2.4.5-47",
+						"8Base-RHACM-2.4:application-ui-container-v2.4.5-12",
+						"8Base-RHACM-2.4:assisted-image-service-container-v2.4.5-5",
+						"8Base-RHACM-2.4:cert-policy-controller-container-v2.4.5-5",
+						"8Base-RHACM-2.4:cluster-backup-operator-container-v2.4.5-5",
+						"8Base-RHACM-2.4:cluster-curator-controller-container-v2.4.5-6",
+						"8Base-RHACM-2.4:cluster-proxy-addon-container-v2.4.5-6",
+						"8Base-RHACM-2.4:clusterclaims-controller-container-v2.4.5-7",
+						"8Base-RHACM-2.4:clusterlifecycle-state-metrics-container-v2.4.5-6",
+						"8Base-RHACM-2.4:config-policy-controller-container-v2.4.5-6",
+						"8Base-RHACM-2.4:console-api-container-v2.4.5-8",
+						"8Base-RHACM-2.4:console-container-v2.4.5-14",
+						"8Base-RHACM-2.4:discovery-operator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:endpoint-monitoring-operator-container-v2.4.5-8",
+						"8Base-RHACM-2.4:governance-policy-propagator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:governance-policy-spec-sync-container-v2.4.5-5",
+						"8Base-RHACM-2.4:governance-policy-status-sync-container-v2.4.5-5",
+						"8Base-RHACM-2.4:governance-policy-template-sync-container-v2.4.5-5",
+						"8Base-RHACM-2.4:grafana-dashboard-loader-container-v2.4.5-8",
+						"8Base-RHACM-2.4:grc-ui-api-container-v2.4.5-8",
+						"8Base-RHACM-2.4:grc-ui-container-v2.4.5-11",
+						"8Base-RHACM-2.4:iam-policy-controller-container-v2.4.5-5",
+						"8Base-RHACM-2.4:insights-client-container-v2.4.5-6",
+						"8Base-RHACM-2.4:insights-metrics-container-v2.4.5-5",
+						"8Base-RHACM-2.4:klusterlet-addon-controller-container-v2.4.5-6",
+						"8Base-RHACM-2.4:klusterlet-addon-operator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:kube-rbac-proxy-container-v2.4.5-6",
+						"8Base-RHACM-2.4:kube-state-metrics-container-v2.4.5-7",
+						"8Base-RHACM-2.4:managedcluster-import-controller-container-v2.4.5-7",
+						"8Base-RHACM-2.4:management-ingress-container-v2.4.5-5",
+						"8Base-RHACM-2.4:memcached-container-v2.4.5-3",
+						"8Base-RHACM-2.4:memcached-exporter-container-v2.4.5-5",
+						"8Base-RHACM-2.4:metrics-collector-container-v2.4.5-9",
+						"8Base-RHACM-2.4:multicloud-integrations-container-v2.4.5-7",
+						"8Base-RHACM-2.4:multicloud-manager-container-v2.4.5-6",
+						"8Base-RHACM-2.4:multicluster-observability-operator-container-v2.4.5-8",
+						"8Base-RHACM-2.4:multicluster-operators-application-container-v2.4.5-7",
+						"8Base-RHACM-2.4:multicluster-operators-channel-container-v2.4.5-7",
+						"8Base-RHACM-2.4:multicluster-operators-deployable-container-v2.4.5-6",
+						"8Base-RHACM-2.4:multicluster-operators-placementrule-container-v2.4.5-9",
+						"8Base-RHACM-2.4:multicluster-operators-subscription-operator-container-v2.4.5-10",
+						"8Base-RHACM-2.4:multicluster-operators-subscription-release-container-v2.4.5-8",
+						"8Base-RHACM-2.4:multiclusterhub-operator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:multiclusterhub-repo-container-v2.4.5-7",
+						"8Base-RHACM-2.4:node-exporter-container-v2.4.5-6",
+						"8Base-RHACM-2.4:observatorium-container-v2.4.5-7",
+						"8Base-RHACM-2.4:observatorium-operator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:openshift-hive-operator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:placement-container-v2.4.5-6",
+						"8Base-RHACM-2.4:prometheus-alertmanager-container-v2.4.5-8",
+						"8Base-RHACM-2.4:prometheus-container-v2.4.5-7",
+						"8Base-RHACM-2.4:provider-credential-controller-container-v2.4.5-6",
+						"8Base-RHACM-2.4:rbac-query-proxy-container-v2.4.5-9",
+						"8Base-RHACM-2.4:redisgraph-tls-container-v2.4.5-4",
+						"8Base-RHACM-2.4:registration-container-v2.4.5-6",
+						"8Base-RHACM-2.4:registration-operator-container-v2.4.5-5",
+						"8Base-RHACM-2.4:rhacm-agent-service-container-v2.4.5-9",
+						"8Base-RHACM-2.4:rhacm-assisted-installer-agent-container-v2.4.5-7",
+						"8Base-RHACM-2.4:rhacm-assisted-installer-container-v2.4.5-5",
+						"8Base-RHACM-2.4:rhacm-assisted-installer-reporter-container-v2.4.5-5",
+						"8Base-RHACM-2.4:search-aggregator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:search-api-container-v2.4.5-10",
+						"8Base-RHACM-2.4:search-collector-container-v2.4.5-6",
+						"8Base-RHACM-2.4:search-operator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:search-ui-container-v2.4.5-10",
+						"8Base-RHACM-2.4:submariner-addon-container-v2.4.5-5",
+						"8Base-RHACM-2.4:thanos-container-v2.4.5-7",
+						"8Base-RHACM-2.4:thanos-receive-controller-container-v2.4.5-5",
+						"8Base-RHACM-2.4:volsync-container-v2.4.5-5",
+						"8Base-RHACM-2.4:volsync-mover-rclone-container-v2.4.5-5",
+						"8Base-RHACM-2.4:volsync-mover-restic-container-v2.4.5-5",
+						"8Base-RHACM-2.4:volsync-mover-rsync-container-v2.4.5-5",
+						"8Base-RHACM-2.4:work-container-v2.4.5-6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "golang: crypto/elliptic IsOnCurve returns true for invalid field elements",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-02-11T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-23806",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor Red Hat Advanced Cluster Management for Kubernetes, see the following\ndocumentation, which will be updated shortly for this release, for important\ninstructions on installing this update:\n\nhttps://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.5/html-single/install/index#installing\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2022:5201"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://github.com/golang/go/issues/50974",
+						"Description": "https://github.com/golang/go/issues/50974"
+					},
+					{
+						"URL": "https://groups.google.com/g/golang-announce/c/SUsQn0aSgPQ",
+						"Description": "https://groups.google.com/g/golang-announce/c/SUsQn0aSgPQ"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-23806",
+						"Description": "CVE-2022-23806"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2053429",
+						"Description": "bz#2053429: CVE-2022-23806 golang: crypto/elliptic IsOnCurve returns true for invalid field elements"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2022-02-11T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-RHACM-2.4:acm-grafana-container-v2.4.5-6",
+						"8Base-RHACM-2.4:acm-must-gather-container-v2.4.5-5",
+						"8Base-RHACM-2.4:acm-operator-bundle-container-v2.4.5-47",
+						"8Base-RHACM-2.4:application-ui-container-v2.4.5-12",
+						"8Base-RHACM-2.4:assisted-image-service-container-v2.4.5-5",
+						"8Base-RHACM-2.4:cert-policy-controller-container-v2.4.5-5",
+						"8Base-RHACM-2.4:cluster-backup-operator-container-v2.4.5-5",
+						"8Base-RHACM-2.4:cluster-curator-controller-container-v2.4.5-6",
+						"8Base-RHACM-2.4:cluster-proxy-addon-container-v2.4.5-6",
+						"8Base-RHACM-2.4:clusterclaims-controller-container-v2.4.5-7",
+						"8Base-RHACM-2.4:clusterlifecycle-state-metrics-container-v2.4.5-6",
+						"8Base-RHACM-2.4:config-policy-controller-container-v2.4.5-6",
+						"8Base-RHACM-2.4:console-api-container-v2.4.5-8",
+						"8Base-RHACM-2.4:console-container-v2.4.5-14",
+						"8Base-RHACM-2.4:discovery-operator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:endpoint-monitoring-operator-container-v2.4.5-8",
+						"8Base-RHACM-2.4:governance-policy-propagator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:governance-policy-spec-sync-container-v2.4.5-5",
+						"8Base-RHACM-2.4:governance-policy-status-sync-container-v2.4.5-5",
+						"8Base-RHACM-2.4:governance-policy-template-sync-container-v2.4.5-5",
+						"8Base-RHACM-2.4:grafana-dashboard-loader-container-v2.4.5-8",
+						"8Base-RHACM-2.4:grc-ui-api-container-v2.4.5-8",
+						"8Base-RHACM-2.4:grc-ui-container-v2.4.5-11",
+						"8Base-RHACM-2.4:iam-policy-controller-container-v2.4.5-5",
+						"8Base-RHACM-2.4:insights-client-container-v2.4.5-6",
+						"8Base-RHACM-2.4:insights-metrics-container-v2.4.5-5",
+						"8Base-RHACM-2.4:klusterlet-addon-controller-container-v2.4.5-6",
+						"8Base-RHACM-2.4:klusterlet-addon-operator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:kube-rbac-proxy-container-v2.4.5-6",
+						"8Base-RHACM-2.4:kube-state-metrics-container-v2.4.5-7",
+						"8Base-RHACM-2.4:managedcluster-import-controller-container-v2.4.5-7",
+						"8Base-RHACM-2.4:management-ingress-container-v2.4.5-5",
+						"8Base-RHACM-2.4:memcached-container-v2.4.5-3",
+						"8Base-RHACM-2.4:memcached-exporter-container-v2.4.5-5",
+						"8Base-RHACM-2.4:metrics-collector-container-v2.4.5-9",
+						"8Base-RHACM-2.4:multicloud-integrations-container-v2.4.5-7",
+						"8Base-RHACM-2.4:multicloud-manager-container-v2.4.5-6",
+						"8Base-RHACM-2.4:multicluster-observability-operator-container-v2.4.5-8",
+						"8Base-RHACM-2.4:multicluster-operators-application-container-v2.4.5-7",
+						"8Base-RHACM-2.4:multicluster-operators-channel-container-v2.4.5-7",
+						"8Base-RHACM-2.4:multicluster-operators-deployable-container-v2.4.5-6",
+						"8Base-RHACM-2.4:multicluster-operators-placementrule-container-v2.4.5-9",
+						"8Base-RHACM-2.4:multicluster-operators-subscription-operator-container-v2.4.5-10",
+						"8Base-RHACM-2.4:multicluster-operators-subscription-release-container-v2.4.5-8",
+						"8Base-RHACM-2.4:multiclusterhub-operator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:multiclusterhub-repo-container-v2.4.5-7",
+						"8Base-RHACM-2.4:node-exporter-container-v2.4.5-6",
+						"8Base-RHACM-2.4:observatorium-container-v2.4.5-7",
+						"8Base-RHACM-2.4:observatorium-operator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:openshift-hive-operator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:placement-container-v2.4.5-6",
+						"8Base-RHACM-2.4:prometheus-alertmanager-container-v2.4.5-8",
+						"8Base-RHACM-2.4:prometheus-container-v2.4.5-7",
+						"8Base-RHACM-2.4:provider-credential-controller-container-v2.4.5-6",
+						"8Base-RHACM-2.4:rbac-query-proxy-container-v2.4.5-9",
+						"8Base-RHACM-2.4:redisgraph-tls-container-v2.4.5-4",
+						"8Base-RHACM-2.4:registration-container-v2.4.5-6",
+						"8Base-RHACM-2.4:registration-operator-container-v2.4.5-5",
+						"8Base-RHACM-2.4:rhacm-agent-service-container-v2.4.5-9",
+						"8Base-RHACM-2.4:rhacm-assisted-installer-agent-container-v2.4.5-7",
+						"8Base-RHACM-2.4:rhacm-assisted-installer-container-v2.4.5-5",
+						"8Base-RHACM-2.4:rhacm-assisted-installer-reporter-container-v2.4.5-5",
+						"8Base-RHACM-2.4:search-aggregator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:search-api-container-v2.4.5-10",
+						"8Base-RHACM-2.4:search-collector-container-v2.4.5-6",
+						"8Base-RHACM-2.4:search-operator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:search-ui-container-v2.4.5-10",
+						"8Base-RHACM-2.4:submariner-addon-container-v2.4.5-5",
+						"8Base-RHACM-2.4:thanos-container-v2.4.5-7",
+						"8Base-RHACM-2.4:thanos-receive-controller-container-v2.4.5-5",
+						"8Base-RHACM-2.4:volsync-container-v2.4.5-5",
+						"8Base-RHACM-2.4:volsync-mover-rclone-container-v2.4.5-5",
+						"8Base-RHACM-2.4:volsync-mover-restic-container-v2.4.5-5",
+						"8Base-RHACM-2.4:volsync-mover-rsync-container-v2.4.5-5",
+						"8Base-RHACM-2.4:work-container-v2.4.5-6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "nats-server: misusing the \"dynamically provisioned sandbox accounts\" feature  authenticated user can obtain the privileges of the System account",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-02-07T12:40:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-24450",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor Red Hat Advanced Cluster Management for Kubernetes, see the following\ndocumentation, which will be updated shortly for this release, for important\ninstructions on installing this update:\n\nhttps://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.5/html-single/install/index#installing\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2022:5201"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://advisories.nats.io/CVE/CVE-2022-24450.txt",
+						"Description": "https://advisories.nats.io/CVE/CVE-2022-24450.txt"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-24450",
+						"Description": "CVE-2022-24450"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2052573",
+						"Description": "bz#2052573: CVE-2022-24450 nats-server: misusing the \"dynamically provisioned sandbox accounts\" feature  authenticated user can obtain the privileges of the System account"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2022-02-09T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-RHACM-2.4:acm-grafana-container-v2.4.5-6",
+						"8Base-RHACM-2.4:acm-must-gather-container-v2.4.5-5",
+						"8Base-RHACM-2.4:acm-operator-bundle-container-v2.4.5-47",
+						"8Base-RHACM-2.4:application-ui-container-v2.4.5-12",
+						"8Base-RHACM-2.4:assisted-image-service-container-v2.4.5-5",
+						"8Base-RHACM-2.4:cert-policy-controller-container-v2.4.5-5",
+						"8Base-RHACM-2.4:cluster-backup-operator-container-v2.4.5-5",
+						"8Base-RHACM-2.4:cluster-curator-controller-container-v2.4.5-6",
+						"8Base-RHACM-2.4:cluster-proxy-addon-container-v2.4.5-6",
+						"8Base-RHACM-2.4:clusterclaims-controller-container-v2.4.5-7",
+						"8Base-RHACM-2.4:clusterlifecycle-state-metrics-container-v2.4.5-6",
+						"8Base-RHACM-2.4:config-policy-controller-container-v2.4.5-6",
+						"8Base-RHACM-2.4:console-api-container-v2.4.5-8",
+						"8Base-RHACM-2.4:console-container-v2.4.5-14",
+						"8Base-RHACM-2.4:discovery-operator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:endpoint-monitoring-operator-container-v2.4.5-8",
+						"8Base-RHACM-2.4:governance-policy-propagator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:governance-policy-spec-sync-container-v2.4.5-5",
+						"8Base-RHACM-2.4:governance-policy-status-sync-container-v2.4.5-5",
+						"8Base-RHACM-2.4:governance-policy-template-sync-container-v2.4.5-5",
+						"8Base-RHACM-2.4:grafana-dashboard-loader-container-v2.4.5-8",
+						"8Base-RHACM-2.4:grc-ui-api-container-v2.4.5-8",
+						"8Base-RHACM-2.4:grc-ui-container-v2.4.5-11",
+						"8Base-RHACM-2.4:iam-policy-controller-container-v2.4.5-5",
+						"8Base-RHACM-2.4:insights-client-container-v2.4.5-6",
+						"8Base-RHACM-2.4:insights-metrics-container-v2.4.5-5",
+						"8Base-RHACM-2.4:klusterlet-addon-controller-container-v2.4.5-6",
+						"8Base-RHACM-2.4:klusterlet-addon-operator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:kube-rbac-proxy-container-v2.4.5-6",
+						"8Base-RHACM-2.4:kube-state-metrics-container-v2.4.5-7",
+						"8Base-RHACM-2.4:managedcluster-import-controller-container-v2.4.5-7",
+						"8Base-RHACM-2.4:management-ingress-container-v2.4.5-5",
+						"8Base-RHACM-2.4:memcached-container-v2.4.5-3",
+						"8Base-RHACM-2.4:memcached-exporter-container-v2.4.5-5",
+						"8Base-RHACM-2.4:metrics-collector-container-v2.4.5-9",
+						"8Base-RHACM-2.4:multicloud-integrations-container-v2.4.5-7",
+						"8Base-RHACM-2.4:multicloud-manager-container-v2.4.5-6",
+						"8Base-RHACM-2.4:multicluster-observability-operator-container-v2.4.5-8",
+						"8Base-RHACM-2.4:multicluster-operators-application-container-v2.4.5-7",
+						"8Base-RHACM-2.4:multicluster-operators-channel-container-v2.4.5-7",
+						"8Base-RHACM-2.4:multicluster-operators-deployable-container-v2.4.5-6",
+						"8Base-RHACM-2.4:multicluster-operators-placementrule-container-v2.4.5-9",
+						"8Base-RHACM-2.4:multicluster-operators-subscription-operator-container-v2.4.5-10",
+						"8Base-RHACM-2.4:multicluster-operators-subscription-release-container-v2.4.5-8",
+						"8Base-RHACM-2.4:multiclusterhub-operator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:multiclusterhub-repo-container-v2.4.5-7",
+						"8Base-RHACM-2.4:node-exporter-container-v2.4.5-6",
+						"8Base-RHACM-2.4:observatorium-container-v2.4.5-7",
+						"8Base-RHACM-2.4:observatorium-operator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:openshift-hive-operator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:placement-container-v2.4.5-6",
+						"8Base-RHACM-2.4:prometheus-alertmanager-container-v2.4.5-8",
+						"8Base-RHACM-2.4:prometheus-container-v2.4.5-7",
+						"8Base-RHACM-2.4:provider-credential-controller-container-v2.4.5-6",
+						"8Base-RHACM-2.4:rbac-query-proxy-container-v2.4.5-9",
+						"8Base-RHACM-2.4:redisgraph-tls-container-v2.4.5-4",
+						"8Base-RHACM-2.4:registration-container-v2.4.5-6",
+						"8Base-RHACM-2.4:registration-operator-container-v2.4.5-5",
+						"8Base-RHACM-2.4:rhacm-agent-service-container-v2.4.5-9",
+						"8Base-RHACM-2.4:rhacm-assisted-installer-agent-container-v2.4.5-7",
+						"8Base-RHACM-2.4:rhacm-assisted-installer-container-v2.4.5-5",
+						"8Base-RHACM-2.4:rhacm-assisted-installer-reporter-container-v2.4.5-5",
+						"8Base-RHACM-2.4:search-aggregator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:search-api-container-v2.4.5-10",
+						"8Base-RHACM-2.4:search-collector-container-v2.4.5-6",
+						"8Base-RHACM-2.4:search-operator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:search-ui-container-v2.4.5-10",
+						"8Base-RHACM-2.4:submariner-addon-container-v2.4.5-5",
+						"8Base-RHACM-2.4:thanos-container-v2.4.5-7",
+						"8Base-RHACM-2.4:thanos-receive-controller-container-v2.4.5-5",
+						"8Base-RHACM-2.4:volsync-container-v2.4.5-5",
+						"8Base-RHACM-2.4:volsync-mover-rclone-container-v2.4.5-5",
+						"8Base-RHACM-2.4:volsync-mover-restic-container-v2.4.5-5",
+						"8Base-RHACM-2.4:volsync-mover-rsync-container-v2.4.5-5",
+						"8Base-RHACM-2.4:work-container-v2.4.5-6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Moment.js: Path traversal  in moment.locale",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-04-04T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-24785",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor Red Hat Advanced Cluster Management for Kubernetes, see the following\ndocumentation, which will be updated shortly for this release, for important\ninstructions on installing this update:\n\nhttps://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.5/html-single/install/index#installing\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2022:5201"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://github.com/moment/moment/security/advisories/GHSA-8hfj-j24r-96c4",
+						"Description": "https://github.com/moment/moment/security/advisories/GHSA-8hfj-j24r-96c4"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-24785",
+						"Description": "CVE-2022-24785"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2072009",
+						"Description": "bz#2072009: CVE-2022-24785 Moment.js: Path traversal  in moment.locale"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2022-04-05T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-RHACM-2.4:acm-grafana-container-v2.4.5-6",
+						"8Base-RHACM-2.4:acm-must-gather-container-v2.4.5-5",
+						"8Base-RHACM-2.4:acm-operator-bundle-container-v2.4.5-47",
+						"8Base-RHACM-2.4:application-ui-container-v2.4.5-12",
+						"8Base-RHACM-2.4:assisted-image-service-container-v2.4.5-5",
+						"8Base-RHACM-2.4:cert-policy-controller-container-v2.4.5-5",
+						"8Base-RHACM-2.4:cluster-backup-operator-container-v2.4.5-5",
+						"8Base-RHACM-2.4:cluster-curator-controller-container-v2.4.5-6",
+						"8Base-RHACM-2.4:cluster-proxy-addon-container-v2.4.5-6",
+						"8Base-RHACM-2.4:clusterclaims-controller-container-v2.4.5-7",
+						"8Base-RHACM-2.4:clusterlifecycle-state-metrics-container-v2.4.5-6",
+						"8Base-RHACM-2.4:config-policy-controller-container-v2.4.5-6",
+						"8Base-RHACM-2.4:console-api-container-v2.4.5-8",
+						"8Base-RHACM-2.4:console-container-v2.4.5-14",
+						"8Base-RHACM-2.4:discovery-operator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:endpoint-monitoring-operator-container-v2.4.5-8",
+						"8Base-RHACM-2.4:governance-policy-propagator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:governance-policy-spec-sync-container-v2.4.5-5",
+						"8Base-RHACM-2.4:governance-policy-status-sync-container-v2.4.5-5",
+						"8Base-RHACM-2.4:governance-policy-template-sync-container-v2.4.5-5",
+						"8Base-RHACM-2.4:grafana-dashboard-loader-container-v2.4.5-8",
+						"8Base-RHACM-2.4:grc-ui-api-container-v2.4.5-8",
+						"8Base-RHACM-2.4:grc-ui-container-v2.4.5-11",
+						"8Base-RHACM-2.4:iam-policy-controller-container-v2.4.5-5",
+						"8Base-RHACM-2.4:insights-client-container-v2.4.5-6",
+						"8Base-RHACM-2.4:insights-metrics-container-v2.4.5-5",
+						"8Base-RHACM-2.4:klusterlet-addon-controller-container-v2.4.5-6",
+						"8Base-RHACM-2.4:klusterlet-addon-operator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:kube-rbac-proxy-container-v2.4.5-6",
+						"8Base-RHACM-2.4:kube-state-metrics-container-v2.4.5-7",
+						"8Base-RHACM-2.4:managedcluster-import-controller-container-v2.4.5-7",
+						"8Base-RHACM-2.4:management-ingress-container-v2.4.5-5",
+						"8Base-RHACM-2.4:memcached-container-v2.4.5-3",
+						"8Base-RHACM-2.4:memcached-exporter-container-v2.4.5-5",
+						"8Base-RHACM-2.4:metrics-collector-container-v2.4.5-9",
+						"8Base-RHACM-2.4:multicloud-integrations-container-v2.4.5-7",
+						"8Base-RHACM-2.4:multicloud-manager-container-v2.4.5-6",
+						"8Base-RHACM-2.4:multicluster-observability-operator-container-v2.4.5-8",
+						"8Base-RHACM-2.4:multicluster-operators-application-container-v2.4.5-7",
+						"8Base-RHACM-2.4:multicluster-operators-channel-container-v2.4.5-7",
+						"8Base-RHACM-2.4:multicluster-operators-deployable-container-v2.4.5-6",
+						"8Base-RHACM-2.4:multicluster-operators-placementrule-container-v2.4.5-9",
+						"8Base-RHACM-2.4:multicluster-operators-subscription-operator-container-v2.4.5-10",
+						"8Base-RHACM-2.4:multicluster-operators-subscription-release-container-v2.4.5-8",
+						"8Base-RHACM-2.4:multiclusterhub-operator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:multiclusterhub-repo-container-v2.4.5-7",
+						"8Base-RHACM-2.4:node-exporter-container-v2.4.5-6",
+						"8Base-RHACM-2.4:observatorium-container-v2.4.5-7",
+						"8Base-RHACM-2.4:observatorium-operator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:openshift-hive-operator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:placement-container-v2.4.5-6",
+						"8Base-RHACM-2.4:prometheus-alertmanager-container-v2.4.5-8",
+						"8Base-RHACM-2.4:prometheus-container-v2.4.5-7",
+						"8Base-RHACM-2.4:provider-credential-controller-container-v2.4.5-6",
+						"8Base-RHACM-2.4:rbac-query-proxy-container-v2.4.5-9",
+						"8Base-RHACM-2.4:redisgraph-tls-container-v2.4.5-4",
+						"8Base-RHACM-2.4:registration-container-v2.4.5-6",
+						"8Base-RHACM-2.4:registration-operator-container-v2.4.5-5",
+						"8Base-RHACM-2.4:rhacm-agent-service-container-v2.4.5-9",
+						"8Base-RHACM-2.4:rhacm-assisted-installer-agent-container-v2.4.5-7",
+						"8Base-RHACM-2.4:rhacm-assisted-installer-container-v2.4.5-5",
+						"8Base-RHACM-2.4:rhacm-assisted-installer-reporter-container-v2.4.5-5",
+						"8Base-RHACM-2.4:search-aggregator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:search-api-container-v2.4.5-10",
+						"8Base-RHACM-2.4:search-collector-container-v2.4.5-6",
+						"8Base-RHACM-2.4:search-operator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:search-ui-container-v2.4.5-10",
+						"8Base-RHACM-2.4:submariner-addon-container-v2.4.5-5",
+						"8Base-RHACM-2.4:thanos-container-v2.4.5-7",
+						"8Base-RHACM-2.4:thanos-receive-controller-container-v2.4.5-5",
+						"8Base-RHACM-2.4:volsync-container-v2.4.5-5",
+						"8Base-RHACM-2.4:volsync-mover-rclone-container-v2.4.5-5",
+						"8Base-RHACM-2.4:volsync-mover-restic-container-v2.4.5-5",
+						"8Base-RHACM-2.4:volsync-mover-rsync-container-v2.4.5-5",
+						"8Base-RHACM-2.4:work-container-v2.4.5-6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "6",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "dset: Prototype Pollution in dset",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-05-01T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-25645",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor Red Hat Advanced Cluster Management for Kubernetes, see the following\ndocumentation, which will be updated shortly for this release, for important\ninstructions on installing this update:\n\nhttps://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.5/html-single/install/index#installing\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2022:5201"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://security.snyk.io/vuln/SNYK-JAVA-ORGWEBJARSNPM-2431974",
+						"Description": "https://security.snyk.io/vuln/SNYK-JAVA-ORGWEBJARSNPM-2431974"
+					},
+					{
+						"URL": "https://security.snyk.io/vuln/SNYK-JS-DSET-2330881",
+						"Description": "https://security.snyk.io/vuln/SNYK-JS-DSET-2330881"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-25645",
+						"Description": "CVE-2022-25645"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2080847",
+						"Description": "bz#2080847: CVE-2022-25645 dset: Prototype Pollution in dset"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2022-05-02T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-RHACM-2.4:acm-grafana-container-v2.4.5-6",
+						"8Base-RHACM-2.4:acm-must-gather-container-v2.4.5-5",
+						"8Base-RHACM-2.4:acm-operator-bundle-container-v2.4.5-47",
+						"8Base-RHACM-2.4:application-ui-container-v2.4.5-12",
+						"8Base-RHACM-2.4:assisted-image-service-container-v2.4.5-5",
+						"8Base-RHACM-2.4:cert-policy-controller-container-v2.4.5-5",
+						"8Base-RHACM-2.4:cluster-backup-operator-container-v2.4.5-5",
+						"8Base-RHACM-2.4:cluster-curator-controller-container-v2.4.5-6",
+						"8Base-RHACM-2.4:cluster-proxy-addon-container-v2.4.5-6",
+						"8Base-RHACM-2.4:clusterclaims-controller-container-v2.4.5-7",
+						"8Base-RHACM-2.4:clusterlifecycle-state-metrics-container-v2.4.5-6",
+						"8Base-RHACM-2.4:config-policy-controller-container-v2.4.5-6",
+						"8Base-RHACM-2.4:console-api-container-v2.4.5-8",
+						"8Base-RHACM-2.4:console-container-v2.4.5-14",
+						"8Base-RHACM-2.4:discovery-operator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:endpoint-monitoring-operator-container-v2.4.5-8",
+						"8Base-RHACM-2.4:governance-policy-propagator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:governance-policy-spec-sync-container-v2.4.5-5",
+						"8Base-RHACM-2.4:governance-policy-status-sync-container-v2.4.5-5",
+						"8Base-RHACM-2.4:governance-policy-template-sync-container-v2.4.5-5",
+						"8Base-RHACM-2.4:grafana-dashboard-loader-container-v2.4.5-8",
+						"8Base-RHACM-2.4:grc-ui-api-container-v2.4.5-8",
+						"8Base-RHACM-2.4:grc-ui-container-v2.4.5-11",
+						"8Base-RHACM-2.4:iam-policy-controller-container-v2.4.5-5",
+						"8Base-RHACM-2.4:insights-client-container-v2.4.5-6",
+						"8Base-RHACM-2.4:insights-metrics-container-v2.4.5-5",
+						"8Base-RHACM-2.4:klusterlet-addon-controller-container-v2.4.5-6",
+						"8Base-RHACM-2.4:klusterlet-addon-operator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:kube-rbac-proxy-container-v2.4.5-6",
+						"8Base-RHACM-2.4:kube-state-metrics-container-v2.4.5-7",
+						"8Base-RHACM-2.4:managedcluster-import-controller-container-v2.4.5-7",
+						"8Base-RHACM-2.4:management-ingress-container-v2.4.5-5",
+						"8Base-RHACM-2.4:memcached-container-v2.4.5-3",
+						"8Base-RHACM-2.4:memcached-exporter-container-v2.4.5-5",
+						"8Base-RHACM-2.4:metrics-collector-container-v2.4.5-9",
+						"8Base-RHACM-2.4:multicloud-integrations-container-v2.4.5-7",
+						"8Base-RHACM-2.4:multicloud-manager-container-v2.4.5-6",
+						"8Base-RHACM-2.4:multicluster-observability-operator-container-v2.4.5-8",
+						"8Base-RHACM-2.4:multicluster-operators-application-container-v2.4.5-7",
+						"8Base-RHACM-2.4:multicluster-operators-channel-container-v2.4.5-7",
+						"8Base-RHACM-2.4:multicluster-operators-deployable-container-v2.4.5-6",
+						"8Base-RHACM-2.4:multicluster-operators-placementrule-container-v2.4.5-9",
+						"8Base-RHACM-2.4:multicluster-operators-subscription-operator-container-v2.4.5-10",
+						"8Base-RHACM-2.4:multicluster-operators-subscription-release-container-v2.4.5-8",
+						"8Base-RHACM-2.4:multiclusterhub-operator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:multiclusterhub-repo-container-v2.4.5-7",
+						"8Base-RHACM-2.4:node-exporter-container-v2.4.5-6",
+						"8Base-RHACM-2.4:observatorium-container-v2.4.5-7",
+						"8Base-RHACM-2.4:observatorium-operator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:openshift-hive-operator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:placement-container-v2.4.5-6",
+						"8Base-RHACM-2.4:prometheus-alertmanager-container-v2.4.5-8",
+						"8Base-RHACM-2.4:prometheus-container-v2.4.5-7",
+						"8Base-RHACM-2.4:provider-credential-controller-container-v2.4.5-6",
+						"8Base-RHACM-2.4:rbac-query-proxy-container-v2.4.5-9",
+						"8Base-RHACM-2.4:redisgraph-tls-container-v2.4.5-4",
+						"8Base-RHACM-2.4:registration-container-v2.4.5-6",
+						"8Base-RHACM-2.4:registration-operator-container-v2.4.5-5",
+						"8Base-RHACM-2.4:rhacm-agent-service-container-v2.4.5-9",
+						"8Base-RHACM-2.4:rhacm-assisted-installer-agent-container-v2.4.5-7",
+						"8Base-RHACM-2.4:rhacm-assisted-installer-container-v2.4.5-5",
+						"8Base-RHACM-2.4:rhacm-assisted-installer-reporter-container-v2.4.5-5",
+						"8Base-RHACM-2.4:search-aggregator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:search-api-container-v2.4.5-10",
+						"8Base-RHACM-2.4:search-collector-container-v2.4.5-6",
+						"8Base-RHACM-2.4:search-operator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:search-ui-container-v2.4.5-10",
+						"8Base-RHACM-2.4:submariner-addon-container-v2.4.5-5",
+						"8Base-RHACM-2.4:thanos-container-v2.4.5-7",
+						"8Base-RHACM-2.4:thanos-receive-controller-container-v2.4.5-5",
+						"8Base-RHACM-2.4:volsync-container-v2.4.5-5",
+						"8Base-RHACM-2.4:volsync-mover-rclone-container-v2.4.5-5",
+						"8Base-RHACM-2.4:volsync-mover-restic-container-v2.4.5-5",
+						"8Base-RHACM-2.4:volsync-mover-rsync-container-v2.4.5-5",
+						"8Base-RHACM-2.4:work-container-v2.4.5-6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "7",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "golang: syscall: faccessat checks wrong group",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-05-11T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-29526",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor Red Hat Advanced Cluster Management for Kubernetes, see the following\ndocumentation, which will be updated shortly for this release, for important\ninstructions on installing this update:\n\nhttps://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.5/html-single/install/index#installing\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2022:5201"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://groups.google.com/g/golang-announce/c/Y5qrqw_lWdU",
+						"Description": "https://groups.google.com/g/golang-announce/c/Y5qrqw_lWdU"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-29526",
+						"Description": "CVE-2022-29526"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2084085",
+						"Description": "bz#2084085: CVE-2022-29526 golang: syscall: faccessat checks wrong group"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2022-05-11T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-RHACM-2.4:acm-grafana-container-v2.4.5-6",
+						"8Base-RHACM-2.4:acm-must-gather-container-v2.4.5-5",
+						"8Base-RHACM-2.4:acm-operator-bundle-container-v2.4.5-47",
+						"8Base-RHACM-2.4:application-ui-container-v2.4.5-12",
+						"8Base-RHACM-2.4:assisted-image-service-container-v2.4.5-5",
+						"8Base-RHACM-2.4:cert-policy-controller-container-v2.4.5-5",
+						"8Base-RHACM-2.4:cluster-backup-operator-container-v2.4.5-5",
+						"8Base-RHACM-2.4:cluster-curator-controller-container-v2.4.5-6",
+						"8Base-RHACM-2.4:cluster-proxy-addon-container-v2.4.5-6",
+						"8Base-RHACM-2.4:clusterclaims-controller-container-v2.4.5-7",
+						"8Base-RHACM-2.4:clusterlifecycle-state-metrics-container-v2.4.5-6",
+						"8Base-RHACM-2.4:config-policy-controller-container-v2.4.5-6",
+						"8Base-RHACM-2.4:console-api-container-v2.4.5-8",
+						"8Base-RHACM-2.4:console-container-v2.4.5-14",
+						"8Base-RHACM-2.4:discovery-operator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:endpoint-monitoring-operator-container-v2.4.5-8",
+						"8Base-RHACM-2.4:governance-policy-propagator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:governance-policy-spec-sync-container-v2.4.5-5",
+						"8Base-RHACM-2.4:governance-policy-status-sync-container-v2.4.5-5",
+						"8Base-RHACM-2.4:governance-policy-template-sync-container-v2.4.5-5",
+						"8Base-RHACM-2.4:grafana-dashboard-loader-container-v2.4.5-8",
+						"8Base-RHACM-2.4:grc-ui-api-container-v2.4.5-8",
+						"8Base-RHACM-2.4:grc-ui-container-v2.4.5-11",
+						"8Base-RHACM-2.4:iam-policy-controller-container-v2.4.5-5",
+						"8Base-RHACM-2.4:insights-client-container-v2.4.5-6",
+						"8Base-RHACM-2.4:insights-metrics-container-v2.4.5-5",
+						"8Base-RHACM-2.4:klusterlet-addon-controller-container-v2.4.5-6",
+						"8Base-RHACM-2.4:klusterlet-addon-operator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:kube-rbac-proxy-container-v2.4.5-6",
+						"8Base-RHACM-2.4:kube-state-metrics-container-v2.4.5-7",
+						"8Base-RHACM-2.4:managedcluster-import-controller-container-v2.4.5-7",
+						"8Base-RHACM-2.4:management-ingress-container-v2.4.5-5",
+						"8Base-RHACM-2.4:memcached-container-v2.4.5-3",
+						"8Base-RHACM-2.4:memcached-exporter-container-v2.4.5-5",
+						"8Base-RHACM-2.4:metrics-collector-container-v2.4.5-9",
+						"8Base-RHACM-2.4:multicloud-integrations-container-v2.4.5-7",
+						"8Base-RHACM-2.4:multicloud-manager-container-v2.4.5-6",
+						"8Base-RHACM-2.4:multicluster-observability-operator-container-v2.4.5-8",
+						"8Base-RHACM-2.4:multicluster-operators-application-container-v2.4.5-7",
+						"8Base-RHACM-2.4:multicluster-operators-channel-container-v2.4.5-7",
+						"8Base-RHACM-2.4:multicluster-operators-deployable-container-v2.4.5-6",
+						"8Base-RHACM-2.4:multicluster-operators-placementrule-container-v2.4.5-9",
+						"8Base-RHACM-2.4:multicluster-operators-subscription-operator-container-v2.4.5-10",
+						"8Base-RHACM-2.4:multicluster-operators-subscription-release-container-v2.4.5-8",
+						"8Base-RHACM-2.4:multiclusterhub-operator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:multiclusterhub-repo-container-v2.4.5-7",
+						"8Base-RHACM-2.4:node-exporter-container-v2.4.5-6",
+						"8Base-RHACM-2.4:observatorium-container-v2.4.5-7",
+						"8Base-RHACM-2.4:observatorium-operator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:openshift-hive-operator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:placement-container-v2.4.5-6",
+						"8Base-RHACM-2.4:prometheus-alertmanager-container-v2.4.5-8",
+						"8Base-RHACM-2.4:prometheus-container-v2.4.5-7",
+						"8Base-RHACM-2.4:provider-credential-controller-container-v2.4.5-6",
+						"8Base-RHACM-2.4:rbac-query-proxy-container-v2.4.5-9",
+						"8Base-RHACM-2.4:redisgraph-tls-container-v2.4.5-4",
+						"8Base-RHACM-2.4:registration-container-v2.4.5-6",
+						"8Base-RHACM-2.4:registration-operator-container-v2.4.5-5",
+						"8Base-RHACM-2.4:rhacm-agent-service-container-v2.4.5-9",
+						"8Base-RHACM-2.4:rhacm-assisted-installer-agent-container-v2.4.5-7",
+						"8Base-RHACM-2.4:rhacm-assisted-installer-container-v2.4.5-5",
+						"8Base-RHACM-2.4:rhacm-assisted-installer-reporter-container-v2.4.5-5",
+						"8Base-RHACM-2.4:search-aggregator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:search-api-container-v2.4.5-10",
+						"8Base-RHACM-2.4:search-collector-container-v2.4.5-6",
+						"8Base-RHACM-2.4:search-operator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:search-ui-container-v2.4.5-10",
+						"8Base-RHACM-2.4:submariner-addon-container-v2.4.5-5",
+						"8Base-RHACM-2.4:thanos-container-v2.4.5-7",
+						"8Base-RHACM-2.4:thanos-receive-controller-container-v2.4.5-5",
+						"8Base-RHACM-2.4:volsync-container-v2.4.5-5",
+						"8Base-RHACM-2.4:volsync-mover-rclone-container-v2.4.5-5",
+						"8Base-RHACM-2.4:volsync-mover-restic-container-v2.4.5-5",
+						"8Base-RHACM-2.4:volsync-mover-rsync-container-v2.4.5-5",
+						"8Base-RHACM-2.4:work-container-v2.4.5-6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": " Upstream acknowledges Joël Gähwiler as the original reporter."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "8",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "go-getter: writes SSH credentials into logfile, exposing sensitive credentials to local uses",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-04-27T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-29810",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor Red Hat Advanced Cluster Management for Kubernetes, see the following\ndocumentation, which will be updated shortly for this release, for important\ninstructions on installing this update:\n\nhttps://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.5/html-single/install/index#installing\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2022:5201"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://github.com/golang/vulndb/issues/438",
+						"Description": "https://github.com/golang/vulndb/issues/438"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-29810",
+						"Description": "CVE-2022-29810"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2080279",
+						"Description": "bz#2080279: CVE-2022-29810 go-getter: writes SSH credentials into logfile, exposing sensitive credentials to local uses"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2022-04-29T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-RHACM-2.4:acm-grafana-container-v2.4.5-6",
+						"8Base-RHACM-2.4:acm-must-gather-container-v2.4.5-5",
+						"8Base-RHACM-2.4:acm-operator-bundle-container-v2.4.5-47",
+						"8Base-RHACM-2.4:application-ui-container-v2.4.5-12",
+						"8Base-RHACM-2.4:assisted-image-service-container-v2.4.5-5",
+						"8Base-RHACM-2.4:cert-policy-controller-container-v2.4.5-5",
+						"8Base-RHACM-2.4:cluster-backup-operator-container-v2.4.5-5",
+						"8Base-RHACM-2.4:cluster-curator-controller-container-v2.4.5-6",
+						"8Base-RHACM-2.4:cluster-proxy-addon-container-v2.4.5-6",
+						"8Base-RHACM-2.4:clusterclaims-controller-container-v2.4.5-7",
+						"8Base-RHACM-2.4:clusterlifecycle-state-metrics-container-v2.4.5-6",
+						"8Base-RHACM-2.4:config-policy-controller-container-v2.4.5-6",
+						"8Base-RHACM-2.4:console-api-container-v2.4.5-8",
+						"8Base-RHACM-2.4:console-container-v2.4.5-14",
+						"8Base-RHACM-2.4:discovery-operator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:endpoint-monitoring-operator-container-v2.4.5-8",
+						"8Base-RHACM-2.4:governance-policy-propagator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:governance-policy-spec-sync-container-v2.4.5-5",
+						"8Base-RHACM-2.4:governance-policy-status-sync-container-v2.4.5-5",
+						"8Base-RHACM-2.4:governance-policy-template-sync-container-v2.4.5-5",
+						"8Base-RHACM-2.4:grafana-dashboard-loader-container-v2.4.5-8",
+						"8Base-RHACM-2.4:grc-ui-api-container-v2.4.5-8",
+						"8Base-RHACM-2.4:grc-ui-container-v2.4.5-11",
+						"8Base-RHACM-2.4:iam-policy-controller-container-v2.4.5-5",
+						"8Base-RHACM-2.4:insights-client-container-v2.4.5-6",
+						"8Base-RHACM-2.4:insights-metrics-container-v2.4.5-5",
+						"8Base-RHACM-2.4:klusterlet-addon-controller-container-v2.4.5-6",
+						"8Base-RHACM-2.4:klusterlet-addon-operator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:kube-rbac-proxy-container-v2.4.5-6",
+						"8Base-RHACM-2.4:kube-state-metrics-container-v2.4.5-7",
+						"8Base-RHACM-2.4:managedcluster-import-controller-container-v2.4.5-7",
+						"8Base-RHACM-2.4:management-ingress-container-v2.4.5-5",
+						"8Base-RHACM-2.4:memcached-container-v2.4.5-3",
+						"8Base-RHACM-2.4:memcached-exporter-container-v2.4.5-5",
+						"8Base-RHACM-2.4:metrics-collector-container-v2.4.5-9",
+						"8Base-RHACM-2.4:multicloud-integrations-container-v2.4.5-7",
+						"8Base-RHACM-2.4:multicloud-manager-container-v2.4.5-6",
+						"8Base-RHACM-2.4:multicluster-observability-operator-container-v2.4.5-8",
+						"8Base-RHACM-2.4:multicluster-operators-application-container-v2.4.5-7",
+						"8Base-RHACM-2.4:multicluster-operators-channel-container-v2.4.5-7",
+						"8Base-RHACM-2.4:multicluster-operators-deployable-container-v2.4.5-6",
+						"8Base-RHACM-2.4:multicluster-operators-placementrule-container-v2.4.5-9",
+						"8Base-RHACM-2.4:multicluster-operators-subscription-operator-container-v2.4.5-10",
+						"8Base-RHACM-2.4:multicluster-operators-subscription-release-container-v2.4.5-8",
+						"8Base-RHACM-2.4:multiclusterhub-operator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:multiclusterhub-repo-container-v2.4.5-7",
+						"8Base-RHACM-2.4:node-exporter-container-v2.4.5-6",
+						"8Base-RHACM-2.4:observatorium-container-v2.4.5-7",
+						"8Base-RHACM-2.4:observatorium-operator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:openshift-hive-operator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:placement-container-v2.4.5-6",
+						"8Base-RHACM-2.4:prometheus-alertmanager-container-v2.4.5-8",
+						"8Base-RHACM-2.4:prometheus-container-v2.4.5-7",
+						"8Base-RHACM-2.4:provider-credential-controller-container-v2.4.5-6",
+						"8Base-RHACM-2.4:rbac-query-proxy-container-v2.4.5-9",
+						"8Base-RHACM-2.4:redisgraph-tls-container-v2.4.5-4",
+						"8Base-RHACM-2.4:registration-container-v2.4.5-6",
+						"8Base-RHACM-2.4:registration-operator-container-v2.4.5-5",
+						"8Base-RHACM-2.4:rhacm-agent-service-container-v2.4.5-9",
+						"8Base-RHACM-2.4:rhacm-assisted-installer-agent-container-v2.4.5-7",
+						"8Base-RHACM-2.4:rhacm-assisted-installer-container-v2.4.5-5",
+						"8Base-RHACM-2.4:rhacm-assisted-installer-reporter-container-v2.4.5-5",
+						"8Base-RHACM-2.4:search-aggregator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:search-api-container-v2.4.5-10",
+						"8Base-RHACM-2.4:search-collector-container-v2.4.5-6",
+						"8Base-RHACM-2.4:search-operator-container-v2.4.5-6",
+						"8Base-RHACM-2.4:search-ui-container-v2.4.5-10",
+						"8Base-RHACM-2.4:submariner-addon-container-v2.4.5-5",
+						"8Base-RHACM-2.4:thanos-container-v2.4.5-7",
+						"8Base-RHACM-2.4:thanos-receive-controller-container-v2.4.5-5",
+						"8Base-RHACM-2.4:volsync-container-v2.4.5-5",
+						"8Base-RHACM-2.4:volsync-mover-rclone-container-v2.4.5-5",
+						"8Base-RHACM-2.4:volsync-mover-restic-container-v2.4.5-5",
+						"8Base-RHACM-2.4:volsync-mover-rsync-container-v2.4.5-5",
+						"8Base-RHACM-2.4:work-container-v2.4.5-6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat ACM",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+						"fullproductname": {
+							"text": "Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+							"productid": "8Base-RHACM-2.4",
+							"cpe": "cpe:/a:redhat:acm:2.4::el8"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/acm-grafana-rhel8:v2.4.5-6",
+				"fullproductname": {
+					"text": "rhacm2/acm-grafana-rhel8:v2.4.5-6",
+					"productid": "rhacm2/acm-grafana-rhel8:v2.4.5-6",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/acm-must-gather-rhel8:v2.4.5-5",
+				"fullproductname": {
+					"text": "rhacm2/acm-must-gather-rhel8:v2.4.5-5",
+					"productid": "rhacm2/acm-must-gather-rhel8:v2.4.5-5",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/acm-operator-bundle:v2.4.5-47",
+				"fullproductname": {
+					"text": "rhacm2/acm-operator-bundle:v2.4.5-47",
+					"productid": "rhacm2/acm-operator-bundle:v2.4.5-47",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/agent-service-rhel8:v2.4.5-9",
+				"fullproductname": {
+					"text": "rhacm2/agent-service-rhel8:v2.4.5-9",
+					"productid": "rhacm2/agent-service-rhel8:v2.4.5-9",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/application-ui-rhel8:v2.4.5-12",
+				"fullproductname": {
+					"text": "rhacm2/application-ui-rhel8:v2.4.5-12",
+					"productid": "rhacm2/application-ui-rhel8:v2.4.5-12",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/assisted-image-service-rhel8:v2.4.5-5",
+				"fullproductname": {
+					"text": "rhacm2/assisted-image-service-rhel8:v2.4.5-5",
+					"productid": "rhacm2/assisted-image-service-rhel8:v2.4.5-5",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/assisted-installer-agent-rhel8:v2.4.5-7",
+				"fullproductname": {
+					"text": "rhacm2/assisted-installer-agent-rhel8:v2.4.5-7",
+					"productid": "rhacm2/assisted-installer-agent-rhel8:v2.4.5-7",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/assisted-installer-reporter-rhel8:v2.4.5-5",
+				"fullproductname": {
+					"text": "rhacm2/assisted-installer-reporter-rhel8:v2.4.5-5",
+					"productid": "rhacm2/assisted-installer-reporter-rhel8:v2.4.5-5",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/assisted-installer-rhel8:v2.4.5-5",
+				"fullproductname": {
+					"text": "rhacm2/assisted-installer-rhel8:v2.4.5-5",
+					"productid": "rhacm2/assisted-installer-rhel8:v2.4.5-5",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/cert-policy-controller-rhel8:v2.4.5-5",
+				"fullproductname": {
+					"text": "rhacm2/cert-policy-controller-rhel8:v2.4.5-5",
+					"productid": "rhacm2/cert-policy-controller-rhel8:v2.4.5-5",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/cluster-backup-rhel8-operator:v2.4.5-5",
+				"fullproductname": {
+					"text": "rhacm2/cluster-backup-rhel8-operator:v2.4.5-5",
+					"productid": "rhacm2/cluster-backup-rhel8-operator:v2.4.5-5",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/cluster-curator-controller-rhel8:v2.4.5-6",
+				"fullproductname": {
+					"text": "rhacm2/cluster-curator-controller-rhel8:v2.4.5-6",
+					"productid": "rhacm2/cluster-curator-controller-rhel8:v2.4.5-6",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/cluster-proxy-addon-rhel8:v2.4.5-6",
+				"fullproductname": {
+					"text": "rhacm2/cluster-proxy-addon-rhel8:v2.4.5-6",
+					"productid": "rhacm2/cluster-proxy-addon-rhel8:v2.4.5-6",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/clusterclaims-controller-rhel8:v2.4.5-7",
+				"fullproductname": {
+					"text": "rhacm2/clusterclaims-controller-rhel8:v2.4.5-7",
+					"productid": "rhacm2/clusterclaims-controller-rhel8:v2.4.5-7",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/clusterlifecycle-state-metrics-rhel8:v2.4.5-6",
+				"fullproductname": {
+					"text": "rhacm2/clusterlifecycle-state-metrics-rhel8:v2.4.5-6",
+					"productid": "rhacm2/clusterlifecycle-state-metrics-rhel8:v2.4.5-6",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/config-policy-controller-rhel8:v2.4.5-6",
+				"fullproductname": {
+					"text": "rhacm2/config-policy-controller-rhel8:v2.4.5-6",
+					"productid": "rhacm2/config-policy-controller-rhel8:v2.4.5-6",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/console-api-rhel8:v2.4.5-8",
+				"fullproductname": {
+					"text": "rhacm2/console-api-rhel8:v2.4.5-8",
+					"productid": "rhacm2/console-api-rhel8:v2.4.5-8",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/console-rhel8:v2.4.5-14",
+				"fullproductname": {
+					"text": "rhacm2/console-rhel8:v2.4.5-14",
+					"productid": "rhacm2/console-rhel8:v2.4.5-14",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/discovery-rhel8-operator:v2.4.5-6",
+				"fullproductname": {
+					"text": "rhacm2/discovery-rhel8-operator:v2.4.5-6",
+					"productid": "rhacm2/discovery-rhel8-operator:v2.4.5-6",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/endpoint-monitoring-rhel8-operator:v2.4.5-8",
+				"fullproductname": {
+					"text": "rhacm2/endpoint-monitoring-rhel8-operator:v2.4.5-8",
+					"productid": "rhacm2/endpoint-monitoring-rhel8-operator:v2.4.5-8",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/governance-policy-propagator-rhel8:v2.4.5-6",
+				"fullproductname": {
+					"text": "rhacm2/governance-policy-propagator-rhel8:v2.4.5-6",
+					"productid": "rhacm2/governance-policy-propagator-rhel8:v2.4.5-6",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/governance-policy-spec-sync-rhel8:v2.4.5-5",
+				"fullproductname": {
+					"text": "rhacm2/governance-policy-spec-sync-rhel8:v2.4.5-5",
+					"productid": "rhacm2/governance-policy-spec-sync-rhel8:v2.4.5-5",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/governance-policy-status-sync-rhel8:v2.4.5-5",
+				"fullproductname": {
+					"text": "rhacm2/governance-policy-status-sync-rhel8:v2.4.5-5",
+					"productid": "rhacm2/governance-policy-status-sync-rhel8:v2.4.5-5",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/governance-policy-template-sync-rhel8:v2.4.5-5",
+				"fullproductname": {
+					"text": "rhacm2/governance-policy-template-sync-rhel8:v2.4.5-5",
+					"productid": "rhacm2/governance-policy-template-sync-rhel8:v2.4.5-5",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/grafana-dashboard-loader-rhel8:v2.4.5-8",
+				"fullproductname": {
+					"text": "rhacm2/grafana-dashboard-loader-rhel8:v2.4.5-8",
+					"productid": "rhacm2/grafana-dashboard-loader-rhel8:v2.4.5-8",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/grc-ui-api-rhel8:v2.4.5-8",
+				"fullproductname": {
+					"text": "rhacm2/grc-ui-api-rhel8:v2.4.5-8",
+					"productid": "rhacm2/grc-ui-api-rhel8:v2.4.5-8",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/grc-ui-rhel8:v2.4.5-11",
+				"fullproductname": {
+					"text": "rhacm2/grc-ui-rhel8:v2.4.5-11",
+					"productid": "rhacm2/grc-ui-rhel8:v2.4.5-11",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/iam-policy-controller-rhel8:v2.4.5-5",
+				"fullproductname": {
+					"text": "rhacm2/iam-policy-controller-rhel8:v2.4.5-5",
+					"productid": "rhacm2/iam-policy-controller-rhel8:v2.4.5-5",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/insights-client-rhel8:v2.4.5-6",
+				"fullproductname": {
+					"text": "rhacm2/insights-client-rhel8:v2.4.5-6",
+					"productid": "rhacm2/insights-client-rhel8:v2.4.5-6",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/insights-metrics-rhel8:v2.4.5-5",
+				"fullproductname": {
+					"text": "rhacm2/insights-metrics-rhel8:v2.4.5-5",
+					"productid": "rhacm2/insights-metrics-rhel8:v2.4.5-5",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/klusterlet-addon-controller-rhel8:v2.4.5-6",
+				"fullproductname": {
+					"text": "rhacm2/klusterlet-addon-controller-rhel8:v2.4.5-6",
+					"productid": "rhacm2/klusterlet-addon-controller-rhel8:v2.4.5-6",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/klusterlet-addon-rhel8-operator:v2.4.5-6",
+				"fullproductname": {
+					"text": "rhacm2/klusterlet-addon-rhel8-operator:v2.4.5-6",
+					"productid": "rhacm2/klusterlet-addon-rhel8-operator:v2.4.5-6",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/kube-rbac-proxy-rhel8:v2.4.5-6",
+				"fullproductname": {
+					"text": "rhacm2/kube-rbac-proxy-rhel8:v2.4.5-6",
+					"productid": "rhacm2/kube-rbac-proxy-rhel8:v2.4.5-6",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/kube-state-metrics-rhel8:v2.4.5-7",
+				"fullproductname": {
+					"text": "rhacm2/kube-state-metrics-rhel8:v2.4.5-7",
+					"productid": "rhacm2/kube-state-metrics-rhel8:v2.4.5-7",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/managedcluster-import-controller-rhel8:v2.4.5-7",
+				"fullproductname": {
+					"text": "rhacm2/managedcluster-import-controller-rhel8:v2.4.5-7",
+					"productid": "rhacm2/managedcluster-import-controller-rhel8:v2.4.5-7",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/management-ingress-rhel8:v2.4.5-5",
+				"fullproductname": {
+					"text": "rhacm2/management-ingress-rhel8:v2.4.5-5",
+					"productid": "rhacm2/management-ingress-rhel8:v2.4.5-5",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/memcached-exporter-rhel8:v2.4.5-5",
+				"fullproductname": {
+					"text": "rhacm2/memcached-exporter-rhel8:v2.4.5-5",
+					"productid": "rhacm2/memcached-exporter-rhel8:v2.4.5-5",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/memcached-rhel8:v2.4.5-3",
+				"fullproductname": {
+					"text": "rhacm2/memcached-rhel8:v2.4.5-3",
+					"productid": "rhacm2/memcached-rhel8:v2.4.5-3",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/metrics-collector-rhel8:v2.4.5-9",
+				"fullproductname": {
+					"text": "rhacm2/metrics-collector-rhel8:v2.4.5-9",
+					"productid": "rhacm2/metrics-collector-rhel8:v2.4.5-9",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/multicloud-integrations-rhel8:v2.4.5-7",
+				"fullproductname": {
+					"text": "rhacm2/multicloud-integrations-rhel8:v2.4.5-7",
+					"productid": "rhacm2/multicloud-integrations-rhel8:v2.4.5-7",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/multicloud-manager-rhel8:v2.4.5-6",
+				"fullproductname": {
+					"text": "rhacm2/multicloud-manager-rhel8:v2.4.5-6",
+					"productid": "rhacm2/multicloud-manager-rhel8:v2.4.5-6",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/multicluster-observability-rhel8-operator:v2.4.5-8",
+				"fullproductname": {
+					"text": "rhacm2/multicluster-observability-rhel8-operator:v2.4.5-8",
+					"productid": "rhacm2/multicluster-observability-rhel8-operator:v2.4.5-8",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/multicluster-operators-application-rhel8:v2.4.5-7",
+				"fullproductname": {
+					"text": "rhacm2/multicluster-operators-application-rhel8:v2.4.5-7",
+					"productid": "rhacm2/multicluster-operators-application-rhel8:v2.4.5-7",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/multicluster-operators-channel-rhel8:v2.4.5-7",
+				"fullproductname": {
+					"text": "rhacm2/multicluster-operators-channel-rhel8:v2.4.5-7",
+					"productid": "rhacm2/multicluster-operators-channel-rhel8:v2.4.5-7",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/multicluster-operators-deployable-rhel8:v2.4.5-6",
+				"fullproductname": {
+					"text": "rhacm2/multicluster-operators-deployable-rhel8:v2.4.5-6",
+					"productid": "rhacm2/multicluster-operators-deployable-rhel8:v2.4.5-6",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/multicluster-operators-placementrule-rhel8:v2.4.5-9",
+				"fullproductname": {
+					"text": "rhacm2/multicluster-operators-placementrule-rhel8:v2.4.5-9",
+					"productid": "rhacm2/multicluster-operators-placementrule-rhel8:v2.4.5-9",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/multicluster-operators-subscription-release-rhel8:v2.4.5-8",
+				"fullproductname": {
+					"text": "rhacm2/multicluster-operators-subscription-release-rhel8:v2.4.5-8",
+					"productid": "rhacm2/multicluster-operators-subscription-release-rhel8:v2.4.5-8",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/multicluster-operators-subscription-rhel8:v2.4.5-10",
+				"fullproductname": {
+					"text": "rhacm2/multicluster-operators-subscription-rhel8:v2.4.5-10",
+					"productid": "rhacm2/multicluster-operators-subscription-rhel8:v2.4.5-10",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/multiclusterhub-repo-rhel8:v2.4.5-7",
+				"fullproductname": {
+					"text": "rhacm2/multiclusterhub-repo-rhel8:v2.4.5-7",
+					"productid": "rhacm2/multiclusterhub-repo-rhel8:v2.4.5-7",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/multiclusterhub-rhel8:v2.4.5-6",
+				"fullproductname": {
+					"text": "rhacm2/multiclusterhub-rhel8:v2.4.5-6",
+					"productid": "rhacm2/multiclusterhub-rhel8:v2.4.5-6",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/node-exporter-rhel8:v2.4.5-6",
+				"fullproductname": {
+					"text": "rhacm2/node-exporter-rhel8:v2.4.5-6",
+					"productid": "rhacm2/node-exporter-rhel8:v2.4.5-6",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/observatorium-rhel8-operator:v2.4.5-6",
+				"fullproductname": {
+					"text": "rhacm2/observatorium-rhel8-operator:v2.4.5-6",
+					"productid": "rhacm2/observatorium-rhel8-operator:v2.4.5-6",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/observatorium-rhel8:v2.4.5-7",
+				"fullproductname": {
+					"text": "rhacm2/observatorium-rhel8:v2.4.5-7",
+					"productid": "rhacm2/observatorium-rhel8:v2.4.5-7",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/openshift-hive-rhel8:v2.4.5-6",
+				"fullproductname": {
+					"text": "rhacm2/openshift-hive-rhel8:v2.4.5-6",
+					"productid": "rhacm2/openshift-hive-rhel8:v2.4.5-6",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/placement-rhel8:v2.4.5-6",
+				"fullproductname": {
+					"text": "rhacm2/placement-rhel8:v2.4.5-6",
+					"productid": "rhacm2/placement-rhel8:v2.4.5-6",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/prometheus-alertmanager-rhel8:v2.4.5-8",
+				"fullproductname": {
+					"text": "rhacm2/prometheus-alertmanager-rhel8:v2.4.5-8",
+					"productid": "rhacm2/prometheus-alertmanager-rhel8:v2.4.5-8",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/prometheus-rhel8:v2.4.5-7",
+				"fullproductname": {
+					"text": "rhacm2/prometheus-rhel8:v2.4.5-7",
+					"productid": "rhacm2/prometheus-rhel8:v2.4.5-7",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/provider-credential-controller-rhel8:v2.4.5-6",
+				"fullproductname": {
+					"text": "rhacm2/provider-credential-controller-rhel8:v2.4.5-6",
+					"productid": "rhacm2/provider-credential-controller-rhel8:v2.4.5-6",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/rbac-query-proxy-rhel8:v2.4.5-9",
+				"fullproductname": {
+					"text": "rhacm2/rbac-query-proxy-rhel8:v2.4.5-9",
+					"productid": "rhacm2/rbac-query-proxy-rhel8:v2.4.5-9",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/redisgraph-tls-rhel8:v2.4.5-4",
+				"fullproductname": {
+					"text": "rhacm2/redisgraph-tls-rhel8:v2.4.5-4",
+					"productid": "rhacm2/redisgraph-tls-rhel8:v2.4.5-4",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/registration-rhel8-operator:v2.4.5-5",
+				"fullproductname": {
+					"text": "rhacm2/registration-rhel8-operator:v2.4.5-5",
+					"productid": "rhacm2/registration-rhel8-operator:v2.4.5-5",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/registration-rhel8:v2.4.5-6",
+				"fullproductname": {
+					"text": "rhacm2/registration-rhel8:v2.4.5-6",
+					"productid": "rhacm2/registration-rhel8:v2.4.5-6",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/search-aggregator-rhel8:v2.4.5-6",
+				"fullproductname": {
+					"text": "rhacm2/search-aggregator-rhel8:v2.4.5-6",
+					"productid": "rhacm2/search-aggregator-rhel8:v2.4.5-6",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/search-api-rhel8:v2.4.5-10",
+				"fullproductname": {
+					"text": "rhacm2/search-api-rhel8:v2.4.5-10",
+					"productid": "rhacm2/search-api-rhel8:v2.4.5-10",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/search-collector-rhel8:v2.4.5-6",
+				"fullproductname": {
+					"text": "rhacm2/search-collector-rhel8:v2.4.5-6",
+					"productid": "rhacm2/search-collector-rhel8:v2.4.5-6",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/search-rhel8:v2.4.5-6",
+				"fullproductname": {
+					"text": "rhacm2/search-rhel8:v2.4.5-6",
+					"productid": "rhacm2/search-rhel8:v2.4.5-6",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/search-ui-rhel8:v2.4.5-10",
+				"fullproductname": {
+					"text": "rhacm2/search-ui-rhel8:v2.4.5-10",
+					"productid": "rhacm2/search-ui-rhel8:v2.4.5-10",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/submariner-addon-rhel8:v2.4.5-5",
+				"fullproductname": {
+					"text": "rhacm2/submariner-addon-rhel8:v2.4.5-5",
+					"productid": "rhacm2/submariner-addon-rhel8:v2.4.5-5",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/thanos-receive-controller-rhel8:v2.4.5-5",
+				"fullproductname": {
+					"text": "rhacm2/thanos-receive-controller-rhel8:v2.4.5-5",
+					"productid": "rhacm2/thanos-receive-controller-rhel8:v2.4.5-5",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/thanos-rhel8:v2.4.5-7",
+				"fullproductname": {
+					"text": "rhacm2/thanos-rhel8:v2.4.5-7",
+					"productid": "rhacm2/thanos-rhel8:v2.4.5-7",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/volsync-mover-rclone-rhel8:v2.4.5-5",
+				"fullproductname": {
+					"text": "rhacm2/volsync-mover-rclone-rhel8:v2.4.5-5",
+					"productid": "rhacm2/volsync-mover-rclone-rhel8:v2.4.5-5",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/volsync-mover-restic-rhel8:v2.4.5-5",
+				"fullproductname": {
+					"text": "rhacm2/volsync-mover-restic-rhel8:v2.4.5-5",
+					"productid": "rhacm2/volsync-mover-restic-rhel8:v2.4.5-5",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/volsync-mover-rsync-rhel8:v2.4.5-5",
+				"fullproductname": {
+					"text": "rhacm2/volsync-mover-rsync-rhel8:v2.4.5-5",
+					"productid": "rhacm2/volsync-mover-rsync-rhel8:v2.4.5-5",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/volsync-rhel8:v2.4.5-5",
+				"fullproductname": {
+					"text": "rhacm2/volsync-rhel8:v2.4.5-5",
+					"productid": "rhacm2/volsync-rhel8:v2.4.5-5",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhacm2/work-rhel8:v2.4.5-6",
+				"fullproductname": {
+					"text": "rhacm2/work-rhel8:v2.4.5-6",
+					"productid": "rhacm2/work-rhel8:v2.4.5-6",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "acm-grafana-container-v2.4.5-6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "acm-grafana-container-v2.4.5-6 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:acm-grafana-container-v2.4.5-6",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "acm-must-gather-container-v2.4.5-5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "acm-must-gather-container-v2.4.5-5 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:acm-must-gather-container-v2.4.5-5",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "acm-operator-bundle-container-v2.4.5-47",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "acm-operator-bundle-container-v2.4.5-47 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:acm-operator-bundle-container-v2.4.5-47",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "application-ui-container-v2.4.5-12",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "application-ui-container-v2.4.5-12 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:application-ui-container-v2.4.5-12",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "assisted-image-service-container-v2.4.5-5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "assisted-image-service-container-v2.4.5-5 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:assisted-image-service-container-v2.4.5-5",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "cert-policy-controller-container-v2.4.5-5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "cert-policy-controller-container-v2.4.5-5 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:cert-policy-controller-container-v2.4.5-5",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "cluster-backup-operator-container-v2.4.5-5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "cluster-backup-operator-container-v2.4.5-5 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:cluster-backup-operator-container-v2.4.5-5",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "cluster-curator-controller-container-v2.4.5-6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "cluster-curator-controller-container-v2.4.5-6 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:cluster-curator-controller-container-v2.4.5-6",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "cluster-proxy-addon-container-v2.4.5-6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "cluster-proxy-addon-container-v2.4.5-6 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:cluster-proxy-addon-container-v2.4.5-6",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "clusterclaims-controller-container-v2.4.5-7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "clusterclaims-controller-container-v2.4.5-7 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:clusterclaims-controller-container-v2.4.5-7",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "clusterlifecycle-state-metrics-container-v2.4.5-6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "clusterlifecycle-state-metrics-container-v2.4.5-6 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:clusterlifecycle-state-metrics-container-v2.4.5-6",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "config-policy-controller-container-v2.4.5-6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "config-policy-controller-container-v2.4.5-6 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:config-policy-controller-container-v2.4.5-6",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "console-api-container-v2.4.5-8",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "console-api-container-v2.4.5-8 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:console-api-container-v2.4.5-8",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "console-container-v2.4.5-14",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "console-container-v2.4.5-14 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:console-container-v2.4.5-14",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "discovery-operator-container-v2.4.5-6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "discovery-operator-container-v2.4.5-6 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:discovery-operator-container-v2.4.5-6",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "endpoint-monitoring-operator-container-v2.4.5-8",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "endpoint-monitoring-operator-container-v2.4.5-8 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:endpoint-monitoring-operator-container-v2.4.5-8",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "governance-policy-propagator-container-v2.4.5-6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "governance-policy-propagator-container-v2.4.5-6 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:governance-policy-propagator-container-v2.4.5-6",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "governance-policy-spec-sync-container-v2.4.5-5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "governance-policy-spec-sync-container-v2.4.5-5 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:governance-policy-spec-sync-container-v2.4.5-5",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "governance-policy-status-sync-container-v2.4.5-5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "governance-policy-status-sync-container-v2.4.5-5 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:governance-policy-status-sync-container-v2.4.5-5",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "governance-policy-template-sync-container-v2.4.5-5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "governance-policy-template-sync-container-v2.4.5-5 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:governance-policy-template-sync-container-v2.4.5-5",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "grafana-dashboard-loader-container-v2.4.5-8",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "grafana-dashboard-loader-container-v2.4.5-8 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:grafana-dashboard-loader-container-v2.4.5-8",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "grc-ui-api-container-v2.4.5-8",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "grc-ui-api-container-v2.4.5-8 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:grc-ui-api-container-v2.4.5-8",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "grc-ui-container-v2.4.5-11",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "grc-ui-container-v2.4.5-11 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:grc-ui-container-v2.4.5-11",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "iam-policy-controller-container-v2.4.5-5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "iam-policy-controller-container-v2.4.5-5 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:iam-policy-controller-container-v2.4.5-5",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "insights-client-container-v2.4.5-6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "insights-client-container-v2.4.5-6 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:insights-client-container-v2.4.5-6",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "insights-metrics-container-v2.4.5-5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "insights-metrics-container-v2.4.5-5 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:insights-metrics-container-v2.4.5-5",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "klusterlet-addon-controller-container-v2.4.5-6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "klusterlet-addon-controller-container-v2.4.5-6 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:klusterlet-addon-controller-container-v2.4.5-6",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "klusterlet-addon-operator-container-v2.4.5-6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "klusterlet-addon-operator-container-v2.4.5-6 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:klusterlet-addon-operator-container-v2.4.5-6",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "kube-rbac-proxy-container-v2.4.5-6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "kube-rbac-proxy-container-v2.4.5-6 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:kube-rbac-proxy-container-v2.4.5-6",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "kube-state-metrics-container-v2.4.5-7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "kube-state-metrics-container-v2.4.5-7 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:kube-state-metrics-container-v2.4.5-7",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "managedcluster-import-controller-container-v2.4.5-7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "managedcluster-import-controller-container-v2.4.5-7 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:managedcluster-import-controller-container-v2.4.5-7",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "management-ingress-container-v2.4.5-5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "management-ingress-container-v2.4.5-5 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:management-ingress-container-v2.4.5-5",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "memcached-container-v2.4.5-3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "memcached-container-v2.4.5-3 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:memcached-container-v2.4.5-3",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "memcached-exporter-container-v2.4.5-5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "memcached-exporter-container-v2.4.5-5 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:memcached-exporter-container-v2.4.5-5",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "metrics-collector-container-v2.4.5-9",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "metrics-collector-container-v2.4.5-9 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:metrics-collector-container-v2.4.5-9",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "multicloud-integrations-container-v2.4.5-7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "multicloud-integrations-container-v2.4.5-7 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:multicloud-integrations-container-v2.4.5-7",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "multicloud-manager-container-v2.4.5-6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "multicloud-manager-container-v2.4.5-6 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:multicloud-manager-container-v2.4.5-6",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "multicluster-observability-operator-container-v2.4.5-8",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "multicluster-observability-operator-container-v2.4.5-8 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:multicluster-observability-operator-container-v2.4.5-8",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "multicluster-operators-application-container-v2.4.5-7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "multicluster-operators-application-container-v2.4.5-7 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:multicluster-operators-application-container-v2.4.5-7",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "multicluster-operators-channel-container-v2.4.5-7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "multicluster-operators-channel-container-v2.4.5-7 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:multicluster-operators-channel-container-v2.4.5-7",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "multicluster-operators-deployable-container-v2.4.5-6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "multicluster-operators-deployable-container-v2.4.5-6 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:multicluster-operators-deployable-container-v2.4.5-6",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "multicluster-operators-placementrule-container-v2.4.5-9",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "multicluster-operators-placementrule-container-v2.4.5-9 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:multicluster-operators-placementrule-container-v2.4.5-9",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "multicluster-operators-subscription-operator-container-v2.4.5-10",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "multicluster-operators-subscription-operator-container-v2.4.5-10 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:multicluster-operators-subscription-operator-container-v2.4.5-10",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "multicluster-operators-subscription-release-container-v2.4.5-8",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "multicluster-operators-subscription-release-container-v2.4.5-8 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:multicluster-operators-subscription-release-container-v2.4.5-8",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "multiclusterhub-operator-container-v2.4.5-6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "multiclusterhub-operator-container-v2.4.5-6 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:multiclusterhub-operator-container-v2.4.5-6",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "multiclusterhub-repo-container-v2.4.5-7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "multiclusterhub-repo-container-v2.4.5-7 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:multiclusterhub-repo-container-v2.4.5-7",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "node-exporter-container-v2.4.5-6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "node-exporter-container-v2.4.5-6 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:node-exporter-container-v2.4.5-6",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "observatorium-container-v2.4.5-7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "observatorium-container-v2.4.5-7 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:observatorium-container-v2.4.5-7",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "observatorium-operator-container-v2.4.5-6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "observatorium-operator-container-v2.4.5-6 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:observatorium-operator-container-v2.4.5-6",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "openshift-hive-operator-container-v2.4.5-6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "openshift-hive-operator-container-v2.4.5-6 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:openshift-hive-operator-container-v2.4.5-6",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "placement-container-v2.4.5-6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "placement-container-v2.4.5-6 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:placement-container-v2.4.5-6",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "prometheus-alertmanager-container-v2.4.5-8",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "prometheus-alertmanager-container-v2.4.5-8 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:prometheus-alertmanager-container-v2.4.5-8",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "prometheus-container-v2.4.5-7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "prometheus-container-v2.4.5-7 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:prometheus-container-v2.4.5-7",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "provider-credential-controller-container-v2.4.5-6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "provider-credential-controller-container-v2.4.5-6 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:provider-credential-controller-container-v2.4.5-6",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "rbac-query-proxy-container-v2.4.5-9",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "rbac-query-proxy-container-v2.4.5-9 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:rbac-query-proxy-container-v2.4.5-9",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "redisgraph-tls-container-v2.4.5-4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "redisgraph-tls-container-v2.4.5-4 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:redisgraph-tls-container-v2.4.5-4",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "registration-container-v2.4.5-6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "registration-container-v2.4.5-6 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:registration-container-v2.4.5-6",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "registration-operator-container-v2.4.5-5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "registration-operator-container-v2.4.5-5 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:registration-operator-container-v2.4.5-5",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "rhacm-agent-service-container-v2.4.5-9",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "rhacm-agent-service-container-v2.4.5-9 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:rhacm-agent-service-container-v2.4.5-9",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "rhacm-assisted-installer-agent-container-v2.4.5-7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "rhacm-assisted-installer-agent-container-v2.4.5-7 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:rhacm-assisted-installer-agent-container-v2.4.5-7",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "rhacm-assisted-installer-container-v2.4.5-5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "rhacm-assisted-installer-container-v2.4.5-5 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:rhacm-assisted-installer-container-v2.4.5-5",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "rhacm-assisted-installer-reporter-container-v2.4.5-5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "rhacm-assisted-installer-reporter-container-v2.4.5-5 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:rhacm-assisted-installer-reporter-container-v2.4.5-5",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "search-aggregator-container-v2.4.5-6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "search-aggregator-container-v2.4.5-6 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:search-aggregator-container-v2.4.5-6",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "search-api-container-v2.4.5-10",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "search-api-container-v2.4.5-10 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:search-api-container-v2.4.5-10",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "search-collector-container-v2.4.5-6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "search-collector-container-v2.4.5-6 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:search-collector-container-v2.4.5-6",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "search-operator-container-v2.4.5-6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "search-operator-container-v2.4.5-6 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:search-operator-container-v2.4.5-6",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "search-ui-container-v2.4.5-10",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "search-ui-container-v2.4.5-10 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:search-ui-container-v2.4.5-10",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "submariner-addon-container-v2.4.5-5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "submariner-addon-container-v2.4.5-5 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:submariner-addon-container-v2.4.5-5",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "thanos-container-v2.4.5-7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "thanos-container-v2.4.5-7 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:thanos-container-v2.4.5-7",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "thanos-receive-controller-container-v2.4.5-5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "thanos-receive-controller-container-v2.4.5-5 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:thanos-receive-controller-container-v2.4.5-5",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "volsync-container-v2.4.5-5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "volsync-container-v2.4.5-5 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:volsync-container-v2.4.5-5",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "volsync-mover-rclone-container-v2.4.5-5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "volsync-mover-rclone-container-v2.4.5-5 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:volsync-mover-rclone-container-v2.4.5-5",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "volsync-mover-restic-container-v2.4.5-5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "volsync-mover-restic-container-v2.4.5-5 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:volsync-mover-restic-container-v2.4.5-5",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "volsync-mover-rsync-container-v2.4.5-5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "volsync-mover-rsync-container-v2.4.5-5 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:volsync-mover-rsync-container-v2.4.5-5",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			},
+			{
+				"productreference": "work-container-v2.4.5-6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHACM-2.4",
+				"fullproductname": {
+					"text": "work-container-v2.4.5-6 as a component of Red Hat Advanced Cluster Management for Kubernetes 2.4 for RHEL 8",
+					"productid": "8Base-RHACM-2.4:work-container-v2.4.5-6",
+					"cpe": "cpe:/a:redhat:acm:2.4::el8"
+				}
+			}
+		]
+	}
+}

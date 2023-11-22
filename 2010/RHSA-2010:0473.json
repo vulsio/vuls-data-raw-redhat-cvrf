@@ -1,0 +1,192 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: vdsm security, bug fix, and enhancement update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2010:0473"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2010-06-22T08:44:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2010-06-22T12:44:00Z",
+		"CurrentReleaseDate": "2010-06-22T08:44:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:31:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated vdsm packages that fix one security issue, various bugs, and add\ntwo enhancements are now available for Red Hat Enterprise Linux 5.\n\nThe Red Hat Security Response Team has rated this update as having moderate\nsecurity impact. A Common Vulnerability Scoring System (CVSS) base score,\nwhich gives a detailed severity rating, is available from the CVE link in\nthe References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe Virtual Desktop Server Manager (VDSM) is a management module that\nserves as a Red Hat Enterprise Virtualization Manager (RHEV-M) agent on Red\nHat Enterprise Virtualization Hypervisor (RHEV-H) or Red Hat Enterprise\nLinux hosts. VDSM allows RHEV-M to manage virtual machines and storage\npools, and retrieve statistics from both hosts and guests.\n\nA flaw was found in the way VDSM handled the removal of a virtual machine's\n(VM) data back end (such as an image or a volume). When removing an image\nor a volume, it was not securely deleted from its corresponding data domain\nas expected. A guest user in a new, raw VM, created in a data domain that\nhas had VMs deleted from it, could use this flaw to read limited data from\nthose deleted VMs, potentially disclosing sensitive information.\n(CVE-2010-2223)\n\nThese updated vdsm packages also fix the following bugs:\n\n* Kernel Samepage Merging (KSM) did not use all the available memory (due\nto the memory not being zero-filled) if the memory did not belong to the\nLinux guest. Thus, KSM was not effective in distributing the memory to the\nLinux guests with the result of shared memory being unavailable for Linux\nguests. With this update, KSM allows multiple Linux guests to share the\nmemory. (BZ#527405)\n\n* the vds_bootstrap script failed when the host's temporary directory was\nlocated on a different partition, with the following error:\n\n[Errno 18] Invalid cross-device link using os.rename\n\nWith this update, vds_bootstrap no longer fails. (BZ#530322)\n\n* vds_bootstrap failed to add a host to RHEV-M when the 'cpuspeed' and the\n'libvirt' services were not found. With this update, the host is added to\nRHEV-M even when the aforementioned services are not present in the system.\n(BZ#538751)\n\n* previously, vds_bootstrap attempted to parse blank lines present in\nnetwork scripts (for example, /etc/sysconfig/network-scripts/ifcfg-eth0).\nAs a consequence, if a network script contained blank lines, vds_bootstrap\nfailed and an error such as follows was written to /var/vdsm/vdsm.log (the\nerror example below is consequent to the blank line being present in\nifcfg-eth0):\n\ngetBridgeParams: failed to read params of file\n/etc/sysconfig/network-scripts/ifcfg-eth0\nError:list index out of range\n\nWith this update, vds_bootstrap filters blank lines in network\nconfiguration files, ensuring it does not fail if they are present.\n(BZ#540479)\n\n* the 'pool connect' utility did not save the master domain's information\nto the disk. If VDSM was restarted, auto-reconnect searched for a master\ndomain with the highest version. If the master domain was not available at\nthat time, an incorrect domain was chosen as the master. With this update,\nthe correct domain is chosen as the master. (BZ#543432)\n\n* when using the RHEV-M interface to manage high-availability VMs, power\ndown requests were not honored. Consequently, some high-availability\nvirtual machines automatically rebooted instead of shutting down after they\nreceived a command to shut down. High-availability VMs now correctly\nprocess requests to shut down, with the result that no VMs incorrectly\nreboot instead. (BZ#547112)\n\n* after a host installation, the 'multipathd' service would restart when\nthe host was started from a multipath device. With this update, the\n'multipathd' service no longer restarts. (BZ#547305)\n\nThese updated vdsm packages also add the following enhancements:\n\n* previously, import/export of VMs was not supported. With this update\nimport/export have been implemented. (BZ#482608)\n\n* previously, the ISO image domain could not be shared with multiple Data\nCenters. The user had to define an independent ISO domain for each Data\nCenter. With this update, the ISO image domain can be shared between\nmultiple Data Centers. (BZ#496448)\n\nAll vdsm users should upgrade to these updated packages, which resolve\nthese issues and add these enhancements.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2010:0473",
+				"Description": "https://access.redhat.com/errata/RHSA-2010:0473"
+			},
+			{
+				"type": "External",
+				"URL": "http://www.redhat.com/security/updates/classification/#moderate",
+				"Description": "http://www.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "vdsm: missing VM post-zeroing after removal",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2009-10-22T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2010-2223",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2010:0473"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2010-2223",
+						"Description": "CVE-2010-2223"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=604752",
+						"Description": "bz#604752: CVE-2010-2223 vdsm: missing VM post-zeroing after removal"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2009-09-22T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Server-RHEV-Agent:vdsm22-0:4.5-62.el5rhev"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.1",
+					"Vector": "AV:L/AC:L/Au:N/C:P/I:N/A:N"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Virtualization",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "RHEV Agents (VDSM)",
+						"fullproductname": {
+							"text": "RHEV Agents (VDSM)",
+							"productid": "5Server-RHEV-Agent",
+							"cpe": "cpe:/a:redhat:enterprise_linux:5::hypervisor"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "vdsm22-0:4.5-62.el5rhev",
+				"fullproductname": {
+					"text": "vdsm22-4.5-62.el5rhev.src.rpm",
+					"productid": "vdsm22-0:4.5-62.el5rhev",
+					"cpe": "cpe:/a:redhat:enterprise_linux:5::hypervisor"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "vdsm22-0:4.5-62.el5rhev",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-RHEV-Agent",
+				"fullproductname": {
+					"text": "vdsm22-0:4.5-62.el5rhev as a component of RHEV Agents (VDSM)",
+					"productid": "5Server-RHEV-Agent:vdsm22-0:4.5-62.el5rhev",
+					"cpe": "cpe:/a:redhat:enterprise_linux:5::hypervisor"
+				}
+			}
+		]
+	}
+}

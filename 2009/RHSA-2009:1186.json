@@ -1,0 +1,427 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: nspr and nss security, bug fix, and enhancement update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2009:1186"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2009-07-30T18:20:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2009-07-30T22:20:00Z",
+		"CurrentReleaseDate": "2009-07-30T18:20:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:30:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated nspr and nss packages that fix security issues, bugs, and add an\nenhancement are now available for Red Hat Enterprise Linux 5.\n\nThis update has been rated as having critical security impact by the Red\nHat Security Response Team.\n\nThe packages with this update are identical to the packages released by\nRHBA-2009:1161 on the 20th of July 2009. They are being reissued as a Red\nHat Security Advisory as they fixed a number of security issues that were\nmade public today. If you are installing these packages for the first time,\nthey also provide a number of bug fixes and add an enhancement, as detailed\nin RHBA-2009:1161. Since the packages are identical, there is no need to\ninstall this update if RHBA-2009:1161 has already been installed.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nNetscape Portable Runtime (NSPR) provides platform independence for non-GUI\noperating system facilities. These facilities include threads, thread\nsynchronization, normal file and network I/O, interval timing, calendar\ntime, basic memory management (malloc and free), and shared library linking.\n\nNetwork Security Services (NSS) is a set of libraries designed to support\nthe cross-platform development of security-enabled client and server\napplications. Applications built with NSS can support SSLv2, SSLv3, TLS,\nand other security standards.\n\nThese updated packages upgrade NSS from the previous version, 3.12.2, to a\nprerelease of version 3.12.4. The version of NSPR has also been upgraded\nfrom 4.7.3 to 4.7.4. \n\nMoxie Marlinspike reported a heap overflow flaw in a regular expression\nparser in the NSS library used by browsers such as Mozilla Firefox to match\ncommon names in certificates. A malicious website could present a\ncarefully-crafted certificate in such a way as to trigger the heap\noverflow, leading to a crash or, possibly, arbitrary code execution with\nthe permissions of the user running the browser. (CVE-2009-2404)\n\nNote: in order to exploit this issue without further user interaction in\nFirefox, the carefully-crafted certificate would need to be signed by a\nCertificate Authority trusted by Firefox, otherwise Firefox presents the\nvictim with a warning that the certificate is untrusted. Only if the user\nthen accepts the certificate will the overflow take place.\n\nDan Kaminsky discovered flaws in the way browsers such as Firefox handle\nNULL characters in a certificate. If an attacker is able to get a\ncarefully-crafted certificate signed by a Certificate Authority trusted by\nFirefox, the attacker could use the certificate during a man-in-the-middle\nattack and potentially confuse Firefox into accepting it by mistake.\n(CVE-2009-2408)\n\nDan Kaminsky found that browsers still accept certificates with MD2 hash\nsignatures, even though MD2 is no longer considered a cryptographically\nstrong algorithm. This could make it easier for an attacker to create a\nmalicious certificate that would be treated as trusted by a browser. NSS\nnow disables the use of MD2 and MD4 algorithms inside signatures by\ndefault. (CVE-2009-2409)\n\nAll users of nspr and nss are advised to upgrade to these updated packages,\nwhich resolve these issues and add an enhancement.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Critical",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2009:1186",
+				"Description": "https://access.redhat.com/errata/RHSA-2009:1186"
+			},
+			{
+				"type": "External",
+				"URL": "http://www.redhat.com/security/updates/classification/#critical",
+				"Description": "http://www.redhat.com/security/updates/classification/#critical"
+			},
+			{
+				"type": "External",
+				"URL": "http://rhn.redhat.com/errata/RHBA-2009-1161.html",
+				"Description": "http://rhn.redhat.com/errata/RHBA-2009-1161.html"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "nss regexp heap overflow",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2009-07-29T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2009-2404",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2009:1186"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2009-2404",
+						"Description": "CVE-2009-2404"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=512912",
+						"Description": "bz#512912: CVE-2009-2404 nss regexp heap overflow"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Critical"
+				}
+			},
+			"DiscoveryDate": "2009-07-15T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-Workstation:nspr-0:4.7.4-1.el5_3.1",
+						"5Client-Workstation:nss-0:3.12.3.99.3-1.el5_3.2",
+						"5Client:nspr-0:4.7.4-1.el5_3.1",
+						"5Client:nss-0:3.12.3.99.3-1.el5_3.2",
+						"5Server:nspr-0:4.7.4-1.el5_3.1",
+						"5Server:nss-0:3.12.3.99.3-1.el5_3.2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.8",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "firefox/nss: doesn't handle NULL in Common Name properly",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2009-07-29T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2009-2408",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2009:1186"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2009-2408",
+						"Description": "CVE-2009-2408"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=510251",
+						"Description": "bz#510251: CVE-2009-2408 firefox/nss: doesn't handle NULL in Common Name properly"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2009-02-25T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-Workstation:nspr-0:4.7.4-1.el5_3.1",
+						"5Client-Workstation:nss-0:3.12.3.99.3-1.el5_3.2",
+						"5Client:nspr-0:4.7.4-1.el5_3.1",
+						"5Client:nss-0:3.12.3.99.3-1.el5_3.2",
+						"5Server:nspr-0:4.7.4-1.el5_3.1",
+						"5Server:nss-0:3.12.3.99.3-1.el5_3.2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "deprecate MD2 in SSL cert validation (Kaminsky)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2009-07-29T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2009-2409",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2009:1186"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2009-2409",
+						"Description": "CVE-2009-2409"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=510197",
+						"Description": "bz#510197: CVE-2009-2409 deprecate MD2 in SSL cert validation (Kaminsky)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2009-02-25T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-Workstation:nspr-0:4.7.4-1.el5_3.1",
+						"5Client-Workstation:nss-0:3.12.3.99.3-1.el5_3.2",
+						"5Client:nspr-0:4.7.4-1.el5_3.1",
+						"5Client:nss-0:3.12.3.99.3-1.el5_3.2",
+						"5Server:nspr-0:4.7.4-1.el5_3.1",
+						"5Server:nss-0:3.12.3.99.3-1.el5_3.2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.6",
+					"Vector": "AV:N/AC:H/Au:N/C:N/I:P/A:N"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+							"productid": "5Client",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+							"productid": "5Client-Workstation",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::client_workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux (v. 5 server)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux (v. 5 server)",
+							"productid": "5Server",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "nspr-0:4.7.4-1.el5_3.1",
+				"fullproductname": {
+					"text": "nspr-4.7.4-1.el5_3.1.src.rpm",
+					"productid": "nspr-0:4.7.4-1.el5_3.1",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "nss-0:3.12.3.99.3-1.el5_3.2",
+				"fullproductname": {
+					"text": "nss-3.12.3.99.3-1.el5_3.2.src.rpm",
+					"productid": "nss-0:3.12.3.99.3-1.el5_3.2",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "nspr-0:4.7.4-1.el5_3.1",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Client",
+				"fullproductname": {
+					"text": "nspr-0:4.7.4-1.el5_3.1 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"productid": "5Client:nspr-0:4.7.4-1.el5_3.1",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+				}
+			},
+			{
+				"productreference": "nss-0:3.12.3.99.3-1.el5_3.2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Client",
+				"fullproductname": {
+					"text": "nss-0:3.12.3.99.3-1.el5_3.2 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"productid": "5Client:nss-0:3.12.3.99.3-1.el5_3.2",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+				}
+			},
+			{
+				"productreference": "nspr-0:4.7.4-1.el5_3.1",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Client-Workstation",
+				"fullproductname": {
+					"text": "nspr-0:4.7.4-1.el5_3.1 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"productid": "5Client-Workstation:nspr-0:4.7.4-1.el5_3.1",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client_workstation"
+				}
+			},
+			{
+				"productreference": "nss-0:3.12.3.99.3-1.el5_3.2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Client-Workstation",
+				"fullproductname": {
+					"text": "nss-0:3.12.3.99.3-1.el5_3.2 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"productid": "5Client-Workstation:nss-0:3.12.3.99.3-1.el5_3.2",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client_workstation"
+				}
+			},
+			{
+				"productreference": "nspr-0:4.7.4-1.el5_3.1",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server",
+				"fullproductname": {
+					"text": "nspr-0:4.7.4-1.el5_3.1 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"productid": "5Server:nspr-0:4.7.4-1.el5_3.1",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+				}
+			},
+			{
+				"productreference": "nss-0:3.12.3.99.3-1.el5_3.2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server",
+				"fullproductname": {
+					"text": "nss-0:3.12.3.99.3-1.el5_3.2 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"productid": "5Server:nss-0:3.12.3.99.3-1.el5_3.2",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+				}
+			}
+		]
+	}
+}

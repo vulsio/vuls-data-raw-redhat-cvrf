@@ -1,0 +1,1553 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: java-1.6.0-openjdk security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2010:0865"
+		},
+		"Status": "Final",
+		"Version": "2",
+		"revisionhistory": {
+			"revision": {
+				"Number": "2",
+				"Date": "2010-11-09T14:05:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2010-11-10T19:00:00Z",
+		"CurrentReleaseDate": "2010-11-09T14:05:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:31:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated java-1.6.0-openjdk packages that fix several security issues and\ntwo bugs are now available for Red Hat Enterprise Linux 6.\n\nThe Red Hat Security Response Team has rated this update as having\nimportant security impact. Common Vulnerability Scoring System (CVSS) base\nscores, which give detailed severity ratings, are available for each\nvulnerability from the CVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThese packages provide the OpenJDK 6 Java Runtime Environment and the\nOpenJDK 6 Software Development Kit.\n\ndefaultReadObject of the Serialization API could be tricked into setting a\nvolatile field multiple times, which could allow a remote attacker to\nexecute arbitrary code with the privileges of the user running the applet\nor application. (CVE-2010-3569)\n\nRace condition in the way objects were deserialized could allow an\nuntrusted applet or application to misuse the privileges of the user\nrunning the applet or application. (CVE-2010-3568)\n\nMiscalculation in the OpenType font rendering implementation caused\nout-of-bounds memory access, which could allow remote attackers to execute\ncode with the privileges of the user running the java process.\n(CVE-2010-3567)\n\nJPEGImageWriter.writeImage in the imageio API improperly checked certain\nimage metadata, which could allow a remote attacker to execute arbitrary\ncode in the context of the user running the applet or application.\n(CVE-2010-3565)\n\nDouble free in IndexColorModel could cause an untrusted applet or\napplication to crash or, possibly, execute arbitrary code with the\nprivileges of the user running the applet or application. (CVE-2010-3562)\n\nThe privileged accept method of the ServerSocket class in the Common Object\nRequest Broker Architecture (CORBA) implementation in OpenJDK allowed it to\nreceive connections from any host, instead of just the host of the current\nconnection. An attacker could use this flaw to bypass restrictions defined\nby network permissions. (CVE-2010-3561)\n\nFlaws in the Swing library could allow an untrusted application to modify\nthe behavior and state of certain JDK classes. (CVE-2010-3557)\n\nFlaws in the CORBA implementation could allow an attacker to execute\narbitrary code by misusing permissions granted to certain system objects.\n(CVE-2010-3554)\n\nUIDefault.ProxyLazyValue had unsafe reflection usage, allowing untrusted\ncallers to create objects via ProxyLazyValue values. (CVE-2010-3553)\n\nHttpURLConnection improperly handled the \"chunked\" transfer encoding\nmethod, which could allow remote attackers to conduct HTTP response\nsplitting attacks. (CVE-2010-3549)\n\nHttpURLConnection improperly checked whether the calling code was granted\nthe \"allowHttpTrace\" permission, allowing untrusted code to create HTTP\nTRACE requests. (CVE-2010-3574)\n\nHttpURLConnection did not validate request headers set by applets, which\ncould allow remote attackers to trigger actions otherwise restricted to\nHTTP clients. (CVE-2010-3541, CVE-2010-3573)\n\nThe Kerberos implementation improperly checked the sanity of AP-REQ\nrequests, which could cause a denial of service condition in the receiving\nJava Virtual Machine. (CVE-2010-3564)\n\nThe java-1.6.0-openjdk packages shipped with the GA release of Red Hat\nEnterprise Linux 6 mitigated a man-in-the-middle attack in the way the\nTLS/SSL protocols handle session renegotiation by disabling renegotiation.\nThis update implements the TLS Renegotiation Indication Extension as\ndefined in RFC 5746, allowing secure renegotiation between updated clients\nand servers. (CVE-2009-3555)\n\nThe NetworkInterface class improperly checked the network \"connect\"\npermissions for local network addresses, which could allow remote attackers\nto read local network addresses. (CVE-2010-3551)\n\nInformation leak flaw in the Java Naming and Directory Interface (JNDI)\ncould allow a remote attacker to access information about\notherwise-protected internal network names. (CVE-2010-3548)\n\nNote: Flaws concerning applets in this advisory (CVE-2010-3568,\nCVE-2010-3554, CVE-2009-3555, CVE-2010-3562, CVE-2010-3557, CVE-2010-3548,\nCVE-2010-3564, CVE-2010-3565, CVE-2010-3569) can only be triggered in\nOpenJDK by calling the \"appletviewer\" application.\n\nBug fixes:\n\n* One defense in depth patch. (BZ#639922)\n\n* Problems for certain SSL connections. In a reported case, this prevented\nthe JBoss JAAS modules from connecting over SSL to Microsoft Active\nDirectory servers. (BZ#642779)\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2010:0865",
+				"Description": "https://access.redhat.com/errata/RHSA-2010:0865"
+			},
+			{
+				"type": "External",
+				"URL": "http://www.redhat.com/security/updates/classification/#important",
+				"Description": "http://www.redhat.com/security/updates/classification/#important"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/kb/docs/DOC-20491",
+				"Description": "https://access.redhat.com/kb/docs/DOC-20491"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "TLS: MITM attacks via session renegotiation",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2009-11-05T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2009-3555",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll java-1.6.0-openjdk users are advised to upgrade to these updated\npackages, which resolve these issues. All running instances of OpenJDK\nJava must be restarted for the update to take effect.\n\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2010:0865"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2009-3555",
+						"Description": "CVE-2009-3555"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=533125",
+						"Description": "bz#533125: CVE-2009-3555 TLS: MITM attacks via session renegotiation"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2009-10-02T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Client:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6ComputeNode-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6ComputeNode:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Server-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Server:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Workstation-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Workstation:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "OpenJDK HttpURLConnection allows arbitrary request headers (6961084,6980004)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2010-10-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2010-3541",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll java-1.6.0-openjdk users are advised to upgrade to these updated\npackages, which resolve these issues. All running instances of OpenJDK\nJava must be restarted for the update to take effect.\n\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2010:0865"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2010-3541",
+						"Description": "CVE-2010-3541"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=642202",
+						"Description": "bz#642202: CVE-2010-3541 CVE-2010-3573 OpenJDK HttpURLConnection allows arbitrary request headers (6961084,6980004)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2010-09-30T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Client:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6ComputeNode-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6ComputeNode:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Server-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Server:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Workstation-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Workstation:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.1",
+					"Vector": "AV:N/AC:H/Au:N/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "OpenJDK DNS server IP address information leak (6957564)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2010-10-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2010-3548",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll java-1.6.0-openjdk users are advised to upgrade to these updated\npackages, which resolve these issues. All running instances of OpenJDK\nJava must be restarted for the update to take effect.\n\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2010:0865"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2010-3548",
+						"Description": "CVE-2010-3548"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=639909",
+						"Description": "bz#639909: CVE-2010-3548 OpenJDK DNS server IP address information leak (6957564)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2010-09-30T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Client:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6ComputeNode-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6ComputeNode:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Server-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Server:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Workstation-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Workstation:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.0",
+					"Vector": "AV:N/AC:L/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "OpenJDK HttpURLConnection request splitting (6952017)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2010-10-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2010-3549",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll java-1.6.0-openjdk users are advised to upgrade to these updated\npackages, which resolve these issues. All running instances of OpenJDK\nJava must be restarted for the update to take effect.\n\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2010:0865"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2010-3549",
+						"Description": "CVE-2010-3549"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=642180",
+						"Description": "bz#642180: CVE-2010-3549 OpenJDK HttpURLConnection request splitting (6952017)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2010-09-30T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Client:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6ComputeNode-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6ComputeNode:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Server-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Server:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Workstation-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Workstation:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.8",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "OpenJDK local network address disclosure (6952603)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2010-10-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2010-3551",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll java-1.6.0-openjdk users are advised to upgrade to these updated\npackages, which resolve these issues. All running instances of OpenJDK\nJava must be restarted for the update to take effect.\n\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2010:0865"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2010-3551",
+						"Description": "CVE-2010-3551"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=642187",
+						"Description": "bz#642187: CVE-2010-3551 OpenJDK local network address disclosure (6952603)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2010-09-30T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Client:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6ComputeNode-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6ComputeNode:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Server-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Server:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Workstation-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Workstation:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.0",
+					"Vector": "AV:N/AC:L/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "6",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "OpenJDK Swing unsafe reflection usage (6622002)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2010-10-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2010-3553",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll java-1.6.0-openjdk users are advised to upgrade to these updated\npackages, which resolve these issues. All running instances of OpenJDK\nJava must be restarted for the update to take effect.\n\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2010:0865"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2010-3553",
+						"Description": "CVE-2010-3553"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=642167",
+						"Description": "bz#642167: CVE-2010-3553 OpenJDK Swing unsafe reflection usage (6622002)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2010-09-30T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Client:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6ComputeNode-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6ComputeNode:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Server-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Server:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Workstation-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Workstation:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "7.5",
+					"Vector": "AV:N/AC:L/Au:N/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "7",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "OpenJDK corba reflection vulnerabilities (6891766,6925672)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2010-10-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2010-3554",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll java-1.6.0-openjdk users are advised to upgrade to these updated\npackages, which resolve these issues. All running instances of OpenJDK\nJava must be restarted for the update to take effect.\n\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2010:0865"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2010-3554",
+						"Description": "CVE-2010-3554"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=639880",
+						"Description": "bz#639880: CVE-2010-3554 CVE-2010-3561  OpenJDK corba reflection vulnerabilities (6891766,6925672)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2010-09-30T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Client:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6ComputeNode-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6ComputeNode:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Server-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Server:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Workstation-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Workstation:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "7.5",
+					"Vector": "AV:N/AC:L/Au:N/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "8",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "OpenJDK Swing mutable static (6938813)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2010-10-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2010-3557",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll java-1.6.0-openjdk users are advised to upgrade to these updated\npackages, which resolve these issues. All running instances of OpenJDK\nJava must be restarted for the update to take effect.\n\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2010:0865"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2010-3557",
+						"Description": "CVE-2010-3557"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=639904",
+						"Description": "bz#639904: CVE-2010-3557 OpenJDK Swing mutable static (6938813)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2010-09-30T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Client:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6ComputeNode-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6ComputeNode:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Server-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Server:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Workstation-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Workstation:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.8",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "9",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "OpenJDK corba reflection vulnerabilities (6891766,6925672)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2010-10-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2010-3561",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll java-1.6.0-openjdk users are advised to upgrade to these updated\npackages, which resolve these issues. All running instances of OpenJDK\nJava must be restarted for the update to take effect.\n\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2010:0865"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2010-3561",
+						"Description": "CVE-2010-3561"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=639880",
+						"Description": "bz#639880: CVE-2010-3554 CVE-2010-3561  OpenJDK corba reflection vulnerabilities (6891766,6925672)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2010-09-30T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Client:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6ComputeNode-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6ComputeNode:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Server-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Server:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Workstation-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Workstation:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "7.5",
+					"Vector": "AV:N/AC:L/Au:N/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "10",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "OpenJDK IndexColorModel double-free (6925710)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2010-10-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2010-3562",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll java-1.6.0-openjdk users are advised to upgrade to these updated\npackages, which resolve these issues. All running instances of OpenJDK\nJava must be restarted for the update to take effect.\n\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2010:0865"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2010-3562",
+						"Description": "CVE-2010-3562"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=639897",
+						"Description": "bz#639897: CVE-2010-3562 OpenJDK IndexColorModel double-free (6925710)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2010-09-30T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Client:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6ComputeNode-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6ComputeNode:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Server-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Server:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Workstation-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Workstation:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "7.5",
+					"Vector": "AV:N/AC:L/Au:N/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "11",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "OpenJDK kerberos vulnerability (6958060)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2010-10-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2010-3564",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll java-1.6.0-openjdk users are advised to upgrade to these updated\npackages, which resolve these issues. All running instances of OpenJDK\nJava must be restarted for the update to take effect.\n\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2010:0865"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2010-3564",
+						"Description": "CVE-2010-3564"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=639914",
+						"Description": "bz#639914: CVE-2010-3564 OpenJDK kerberos vulnerability (6958060)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2010-09-30T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Client:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6ComputeNode-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6ComputeNode:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Server-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Server:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Workstation-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Workstation:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.0",
+					"Vector": "AV:N/AC:L/Au:S/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "12",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "OpenJDK JPEG writeImage remote code execution (6963023)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2010-10-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2010-3565",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll java-1.6.0-openjdk users are advised to upgrade to these updated\npackages, which resolve these issues. All running instances of OpenJDK\nJava must be restarted for the update to take effect.\n\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2010:0865"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2010-3565",
+						"Description": "CVE-2010-3565"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=639920",
+						"Description": "bz#639920: CVE-2010-3565 OpenJDK JPEG writeImage remote code execution (6963023)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2010-09-30T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Client:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6ComputeNode-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6ComputeNode:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Server-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Server:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Workstation-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Workstation:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "7.5",
+					"Vector": "AV:N/AC:L/Au:N/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "13",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "OpenJDK ICU Opentype layout engine crash (6963285)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2010-10-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2010-3567",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll java-1.6.0-openjdk users are advised to upgrade to these updated\npackages, which resolve these issues. All running instances of OpenJDK\nJava must be restarted for the update to take effect.\n\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2010:0865"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2010-3567",
+						"Description": "CVE-2010-3567"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=642197",
+						"Description": "bz#642197: CVE-2010-3567 OpenJDK ICU Opentype layout engine crash (6963285)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2010-09-30T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Client:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6ComputeNode-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6ComputeNode:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Server-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Server:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Workstation-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Workstation:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "7.5",
+					"Vector": "AV:N/AC:L/Au:N/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "14",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "OpenJDK Deserialization Race condition (6559775)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2010-10-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2010-3568",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll java-1.6.0-openjdk users are advised to upgrade to these updated\npackages, which resolve these issues. All running instances of OpenJDK\nJava must be restarted for the update to take effect.\n\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2010:0865"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2010-3568",
+						"Description": "CVE-2010-3568"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=639876",
+						"Description": "bz#639876: CVE-2010-3568 OpenJDK Deserialization Race condition (6559775)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2010-09-30T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Client:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6ComputeNode-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6ComputeNode:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Server-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Server:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Workstation-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Workstation:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "7.5",
+					"Vector": "AV:N/AC:L/Au:N/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "15",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "OpenJDK Serialization inconsistencies (6966692)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2010-10-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2010-3569",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll java-1.6.0-openjdk users are advised to upgrade to these updated\npackages, which resolve these issues. All running instances of OpenJDK\nJava must be restarted for the update to take effect.\n\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2010:0865"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2010-3569",
+						"Description": "CVE-2010-3569"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=639925",
+						"Description": "bz#639925: CVE-2010-3569 OpenJDK Serialization inconsistencies (6966692)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2010-09-30T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Client:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6ComputeNode-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6ComputeNode:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Server-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Server:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Workstation-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Workstation:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "7.5",
+					"Vector": "AV:N/AC:L/Au:N/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "16",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "OpenJDK HttpURLConnection allows arbitrary request headers (6961084,6980004)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2010-10-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2010-3573",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll java-1.6.0-openjdk users are advised to upgrade to these updated\npackages, which resolve these issues. All running instances of OpenJDK\nJava must be restarted for the update to take effect.\n\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2010:0865"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2010-3573",
+						"Description": "CVE-2010-3573"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=642202",
+						"Description": "bz#642202: CVE-2010-3541 CVE-2010-3573 OpenJDK HttpURLConnection allows arbitrary request headers (6961084,6980004)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2010-09-30T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Client:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6ComputeNode-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6ComputeNode:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Server-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Server:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Workstation-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Workstation:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.1",
+					"Vector": "AV:N/AC:H/Au:N/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "17",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "OpenJDK HttpURLConnection incomplete TRACE permission check (6981426)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2010-10-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2010-3574",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll java-1.6.0-openjdk users are advised to upgrade to these updated\npackages, which resolve these issues. All running instances of OpenJDK\nJava must be restarted for the update to take effect.\n\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2010:0865"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2010-3574",
+						"Description": "CVE-2010-3574"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=642215",
+						"Description": "bz#642215: CVE-2010-3574 OpenJDK HttpURLConnection incomplete TRACE permission check (6981426)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2010-09-30T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Client:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6ComputeNode-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6ComputeNode:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Server-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Server:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Workstation-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+						"6Workstation:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.1",
+					"Vector": "AV:N/AC:H/Au:N/C:P/I:P/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 6)",
+							"productid": "6Client",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+							"productid": "6Client-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node (v. 6)",
+							"productid": "6ComputeNode",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+							"productid": "6ComputeNode-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 6)",
+							"productid": "6Server",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional (v. 6)",
+							"productid": "6Server-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 6)",
+							"productid": "6Workstation",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+							"productid": "6Workstation-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+				"fullproductname": {
+					"text": "java-1.6.0-openjdk-1.6.0.0-1.31.b17.el6_0.src.rpm",
+					"productid": "java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client",
+				"fullproductname": {
+					"text": "java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"productid": "6Client:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-optional",
+				"fullproductname": {
+					"text": "java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"productid": "6Client-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode",
+				"fullproductname": {
+					"text": "java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"productid": "6ComputeNode:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-optional",
+				"fullproductname": {
+					"text": "java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"productid": "6ComputeNode-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server",
+				"fullproductname": {
+					"text": "java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"productid": "6Server:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-optional",
+				"fullproductname": {
+					"text": "java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"productid": "6Server-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation",
+				"fullproductname": {
+					"text": "java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"productid": "6Workstation:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			},
+			{
+				"productreference": "java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-optional",
+				"fullproductname": {
+					"text": "java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"productid": "6Workstation-optional:java-1.6.0-openjdk-1:1.6.0.0-1.31.b17.el6_0",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			}
+		]
+	}
+}

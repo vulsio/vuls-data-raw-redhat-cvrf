@@ -1,0 +1,1332 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: OpenShift Virtualization 4.9.2 Images security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2022:0191"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2022-01-19T17:48:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2022-01-19T17:48:00Z",
+		"CurrentReleaseDate": "2022-01-19T17:48:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.4.1",
+			"Date": "2022-01-20T00:37:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nRed Hat OpenShift Virtualization release 4.9.2 is now available with updates to packages and images that fix several bugs and add enhancements.\n\nRed Hat Product Security has rated this update as having a security impact of Moderate. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nOpenShift Virtualization is Red Hat's virtualization solution designed for Red Hat OpenShift Container Platform.\n\nThis advisory contains the following OpenShift Virtualization 4.9.2 images:\n\nRHEL-8-CNV-4.9\n==============\nkubevirt-vmware-container-v4.9.2-1\nvirtio-win-container-v4.9.2-1\nkubemacpool-container-v4.9.2-1\novs-cni-plugin-container-v4.9.2-1\novs-cni-marker-container-v4.9.2-1\nnode-maintenance-operator-container-v4.9.2-1\ncnv-containernetworking-plugins-container-v4.9.2-1\nhostpath-provisioner-container-v4.9.2-1\nbridge-marker-container-v4.9.2-1\nkubevirt-template-validator-container-v4.9.2-1\ncluster-network-addons-operator-container-v4.9.2-1\nkubernetes-nmstate-handler-container-v4.9.2-1\nhostpath-provisioner-operator-container-v4.9.2-2\ncnv-must-gather-container-v4.9.2-2\nvirt-cdi-controller-container-v4.9.2-8\nvirt-cdi-apiserver-container-v4.9.2-8\nvirt-cdi-uploadserver-container-v4.9.2-8\nvirt-cdi-operator-container-v4.9.2-8\nvirt-cdi-uploadproxy-container-v4.9.2-8\nvirt-cdi-cloner-container-v4.9.2-8\nvirt-cdi-importer-container-v4.9.2-8\nhyperconverged-cluster-webhook-container-v4.9.2-6\nhyperconverged-cluster-operator-container-v4.9.2-6\nkubevirt-ssp-operator-container-v4.9.2-3\nkubevirt-v2v-conversion-container-v4.9.2-2\nvm-import-controller-container-v4.9.2-2\nvm-import-operator-container-v4.9.2-2\nvm-import-virtv2v-container-v4.9.2-2\nvirt-launcher-container-v4.9.2-7\nvirt-controller-container-v4.9.2-7\nvirt-api-container-v4.9.2-7\nvirt-operator-container-v4.9.2-7\nvirt-artifacts-server-container-v4.9.2-7\nlibguestfs-tools-container-v4.9.2-7\nvirt-handler-container-v4.9.2-7\nhco-bundle-registry-container-v4.9.2-27\n\nSecurity Fix(es):\n\n* golang: net/http: panic in ReadRequest and ReadResponse when reading a very large header (CVE-2021-31525)\n\n* golang: net: lookup functions may return invalid host names (CVE-2021-33195)\n\n* golang: net/http/httputil: ReverseProxy forwards connection headers if first one is empty (CVE-2021-33197)\n\n* golang: math/big.Rat: may cause a panic or an unrecoverable fatal error if passed inputs with very large exponents (CVE-2021-33198)\n\n* golang: crypto/tls: certificate of wrong type is causing TLS client to panic (CVE-2021-34558)\n\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2022 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2022:0191",
+				"Description": "https://access.redhat.com/errata/RHSA-2022:0191"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "golang: net/http: panic in ReadRequest and ReadResponse when reading a very large header",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2021-04-22T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2021-31525",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2022:0191"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://groups.google.com/g/golang-announce/c/cu9SP4eSXMc",
+						"Description": "https://groups.google.com/g/golang-announce/c/cu9SP4eSXMc"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2021-31525",
+						"Description": "CVE-2021-31525"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1958341",
+						"Description": "bz#1958341: CVE-2021-31525 golang: net/http: panic in ReadRequest and ReadResponse when reading a very large header"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2021-05-06T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-CNV-4.9:bridge-marker-container-v4.9.2-1",
+						"8Base-CNV-4.9:cluster-network-addons-operator-container-v4.9.2-1",
+						"8Base-CNV-4.9:cnv-containernetworking-plugins-container-v4.9.2-1",
+						"8Base-CNV-4.9:cnv-must-gather-container-v4.9.2-2",
+						"8Base-CNV-4.9:hco-bundle-registry-container-v4.9.2-27",
+						"8Base-CNV-4.9:hostpath-provisioner-container-v4.9.2-1",
+						"8Base-CNV-4.9:hostpath-provisioner-operator-container-v4.9.2-2",
+						"8Base-CNV-4.9:hyperconverged-cluster-operator-container-v4.9.2-6",
+						"8Base-CNV-4.9:hyperconverged-cluster-webhook-container-v4.9.2-6",
+						"8Base-CNV-4.9:kubemacpool-container-v4.9.2-1",
+						"8Base-CNV-4.9:kubernetes-nmstate-handler-container-v4.9.2-1",
+						"8Base-CNV-4.9:kubevirt-ssp-operator-container-v4.9.2-3",
+						"8Base-CNV-4.9:kubevirt-template-validator-container-v4.9.2-1",
+						"8Base-CNV-4.9:kubevirt-v2v-conversion-container-v4.9.2-2",
+						"8Base-CNV-4.9:kubevirt-vmware-container-v4.9.2-1",
+						"8Base-CNV-4.9:libguestfs-tools-container-v4.9.2-7",
+						"8Base-CNV-4.9:node-maintenance-operator-container-v4.9.2-1",
+						"8Base-CNV-4.9:ovs-cni-marker-container-v4.9.2-1",
+						"8Base-CNV-4.9:ovs-cni-plugin-container-v4.9.2-1",
+						"8Base-CNV-4.9:virt-api-container-v4.9.2-7",
+						"8Base-CNV-4.9:virt-artifacts-server-container-v4.9.2-7",
+						"8Base-CNV-4.9:virt-cdi-apiserver-container-v4.9.2-8",
+						"8Base-CNV-4.9:virt-cdi-cloner-container-v4.9.2-8",
+						"8Base-CNV-4.9:virt-cdi-controller-container-v4.9.2-8",
+						"8Base-CNV-4.9:virt-cdi-importer-container-v4.9.2-8",
+						"8Base-CNV-4.9:virt-cdi-operator-container-v4.9.2-8",
+						"8Base-CNV-4.9:virt-cdi-uploadproxy-container-v4.9.2-8",
+						"8Base-CNV-4.9:virt-cdi-uploadserver-container-v4.9.2-8",
+						"8Base-CNV-4.9:virt-controller-container-v4.9.2-7",
+						"8Base-CNV-4.9:virt-handler-container-v4.9.2-7",
+						"8Base-CNV-4.9:virt-launcher-container-v4.9.2-7",
+						"8Base-CNV-4.9:virt-operator-container-v4.9.2-7",
+						"8Base-CNV-4.9:virtio-win-container-v4.9.2-1",
+						"8Base-CNV-4.9:vm-import-controller-container-v4.9.2-2",
+						"8Base-CNV-4.9:vm-import-operator-container-v4.9.2-2",
+						"8Base-CNV-4.9:vm-import-virtv2v-container-v4.9.2-2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "golang: net: lookup functions may return invalid host names",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2021-05-18T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2021-33195",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2022:0191"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://groups.google.com/g/golang-announce/c/RgCMkAEQjSI",
+						"Description": "https://groups.google.com/g/golang-announce/c/RgCMkAEQjSI"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2021-33195",
+						"Description": "CVE-2021-33195"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1989564",
+						"Description": "bz#1989564: CVE-2021-33195 golang: net: lookup functions may return invalid host names"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2021-08-02T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-CNV-4.9:bridge-marker-container-v4.9.2-1",
+						"8Base-CNV-4.9:cluster-network-addons-operator-container-v4.9.2-1",
+						"8Base-CNV-4.9:cnv-containernetworking-plugins-container-v4.9.2-1",
+						"8Base-CNV-4.9:cnv-must-gather-container-v4.9.2-2",
+						"8Base-CNV-4.9:hco-bundle-registry-container-v4.9.2-27",
+						"8Base-CNV-4.9:hostpath-provisioner-container-v4.9.2-1",
+						"8Base-CNV-4.9:hostpath-provisioner-operator-container-v4.9.2-2",
+						"8Base-CNV-4.9:hyperconverged-cluster-operator-container-v4.9.2-6",
+						"8Base-CNV-4.9:hyperconverged-cluster-webhook-container-v4.9.2-6",
+						"8Base-CNV-4.9:kubemacpool-container-v4.9.2-1",
+						"8Base-CNV-4.9:kubernetes-nmstate-handler-container-v4.9.2-1",
+						"8Base-CNV-4.9:kubevirt-ssp-operator-container-v4.9.2-3",
+						"8Base-CNV-4.9:kubevirt-template-validator-container-v4.9.2-1",
+						"8Base-CNV-4.9:kubevirt-v2v-conversion-container-v4.9.2-2",
+						"8Base-CNV-4.9:kubevirt-vmware-container-v4.9.2-1",
+						"8Base-CNV-4.9:libguestfs-tools-container-v4.9.2-7",
+						"8Base-CNV-4.9:node-maintenance-operator-container-v4.9.2-1",
+						"8Base-CNV-4.9:ovs-cni-marker-container-v4.9.2-1",
+						"8Base-CNV-4.9:ovs-cni-plugin-container-v4.9.2-1",
+						"8Base-CNV-4.9:virt-api-container-v4.9.2-7",
+						"8Base-CNV-4.9:virt-artifacts-server-container-v4.9.2-7",
+						"8Base-CNV-4.9:virt-cdi-apiserver-container-v4.9.2-8",
+						"8Base-CNV-4.9:virt-cdi-cloner-container-v4.9.2-8",
+						"8Base-CNV-4.9:virt-cdi-controller-container-v4.9.2-8",
+						"8Base-CNV-4.9:virt-cdi-importer-container-v4.9.2-8",
+						"8Base-CNV-4.9:virt-cdi-operator-container-v4.9.2-8",
+						"8Base-CNV-4.9:virt-cdi-uploadproxy-container-v4.9.2-8",
+						"8Base-CNV-4.9:virt-cdi-uploadserver-container-v4.9.2-8",
+						"8Base-CNV-4.9:virt-controller-container-v4.9.2-7",
+						"8Base-CNV-4.9:virt-handler-container-v4.9.2-7",
+						"8Base-CNV-4.9:virt-launcher-container-v4.9.2-7",
+						"8Base-CNV-4.9:virt-operator-container-v4.9.2-7",
+						"8Base-CNV-4.9:virtio-win-container-v4.9.2-1",
+						"8Base-CNV-4.9:vm-import-controller-container-v4.9.2-2",
+						"8Base-CNV-4.9:vm-import-operator-container-v4.9.2-2",
+						"8Base-CNV-4.9:vm-import-virtv2v-container-v4.9.2-2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "golang: net/http/httputil: ReverseProxy forwards connection headers if first one is empty",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2021-05-21T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2021-33197",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2022:0191"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://groups.google.com/g/golang-announce/c/RgCMkAEQjSI",
+						"Description": "https://groups.google.com/g/golang-announce/c/RgCMkAEQjSI"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2021-33197",
+						"Description": "CVE-2021-33197"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1989570",
+						"Description": "bz#1989570: CVE-2021-33197 golang: net/http/httputil: ReverseProxy forwards connection headers if first one is empty"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2021-08-02T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-CNV-4.9:bridge-marker-container-v4.9.2-1",
+						"8Base-CNV-4.9:cluster-network-addons-operator-container-v4.9.2-1",
+						"8Base-CNV-4.9:cnv-containernetworking-plugins-container-v4.9.2-1",
+						"8Base-CNV-4.9:cnv-must-gather-container-v4.9.2-2",
+						"8Base-CNV-4.9:hco-bundle-registry-container-v4.9.2-27",
+						"8Base-CNV-4.9:hostpath-provisioner-container-v4.9.2-1",
+						"8Base-CNV-4.9:hostpath-provisioner-operator-container-v4.9.2-2",
+						"8Base-CNV-4.9:hyperconverged-cluster-operator-container-v4.9.2-6",
+						"8Base-CNV-4.9:hyperconverged-cluster-webhook-container-v4.9.2-6",
+						"8Base-CNV-4.9:kubemacpool-container-v4.9.2-1",
+						"8Base-CNV-4.9:kubernetes-nmstate-handler-container-v4.9.2-1",
+						"8Base-CNV-4.9:kubevirt-ssp-operator-container-v4.9.2-3",
+						"8Base-CNV-4.9:kubevirt-template-validator-container-v4.9.2-1",
+						"8Base-CNV-4.9:kubevirt-v2v-conversion-container-v4.9.2-2",
+						"8Base-CNV-4.9:kubevirt-vmware-container-v4.9.2-1",
+						"8Base-CNV-4.9:libguestfs-tools-container-v4.9.2-7",
+						"8Base-CNV-4.9:node-maintenance-operator-container-v4.9.2-1",
+						"8Base-CNV-4.9:ovs-cni-marker-container-v4.9.2-1",
+						"8Base-CNV-4.9:ovs-cni-plugin-container-v4.9.2-1",
+						"8Base-CNV-4.9:virt-api-container-v4.9.2-7",
+						"8Base-CNV-4.9:virt-artifacts-server-container-v4.9.2-7",
+						"8Base-CNV-4.9:virt-cdi-apiserver-container-v4.9.2-8",
+						"8Base-CNV-4.9:virt-cdi-cloner-container-v4.9.2-8",
+						"8Base-CNV-4.9:virt-cdi-controller-container-v4.9.2-8",
+						"8Base-CNV-4.9:virt-cdi-importer-container-v4.9.2-8",
+						"8Base-CNV-4.9:virt-cdi-operator-container-v4.9.2-8",
+						"8Base-CNV-4.9:virt-cdi-uploadproxy-container-v4.9.2-8",
+						"8Base-CNV-4.9:virt-cdi-uploadserver-container-v4.9.2-8",
+						"8Base-CNV-4.9:virt-controller-container-v4.9.2-7",
+						"8Base-CNV-4.9:virt-handler-container-v4.9.2-7",
+						"8Base-CNV-4.9:virt-launcher-container-v4.9.2-7",
+						"8Base-CNV-4.9:virt-operator-container-v4.9.2-7",
+						"8Base-CNV-4.9:virtio-win-container-v4.9.2-1",
+						"8Base-CNV-4.9:vm-import-controller-container-v4.9.2-2",
+						"8Base-CNV-4.9:vm-import-operator-container-v4.9.2-2",
+						"8Base-CNV-4.9:vm-import-virtv2v-container-v4.9.2-2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "golang: math/big.Rat: may cause a panic or an unrecoverable fatal error if passed inputs with very large exponents",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2021-03-10T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2021-33198",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2022:0191"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://groups.google.com/g/golang-announce/c/RgCMkAEQjSI",
+						"Description": "https://groups.google.com/g/golang-announce/c/RgCMkAEQjSI"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2021-33198",
+						"Description": "CVE-2021-33198"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1989575",
+						"Description": "bz#1989575: CVE-2021-33198 golang: math/big.Rat: may cause a panic or an unrecoverable fatal error if passed inputs with very large exponents"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2021-08-02T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-CNV-4.9:bridge-marker-container-v4.9.2-1",
+						"8Base-CNV-4.9:cluster-network-addons-operator-container-v4.9.2-1",
+						"8Base-CNV-4.9:cnv-containernetworking-plugins-container-v4.9.2-1",
+						"8Base-CNV-4.9:cnv-must-gather-container-v4.9.2-2",
+						"8Base-CNV-4.9:hco-bundle-registry-container-v4.9.2-27",
+						"8Base-CNV-4.9:hostpath-provisioner-container-v4.9.2-1",
+						"8Base-CNV-4.9:hostpath-provisioner-operator-container-v4.9.2-2",
+						"8Base-CNV-4.9:hyperconverged-cluster-operator-container-v4.9.2-6",
+						"8Base-CNV-4.9:hyperconverged-cluster-webhook-container-v4.9.2-6",
+						"8Base-CNV-4.9:kubemacpool-container-v4.9.2-1",
+						"8Base-CNV-4.9:kubernetes-nmstate-handler-container-v4.9.2-1",
+						"8Base-CNV-4.9:kubevirt-ssp-operator-container-v4.9.2-3",
+						"8Base-CNV-4.9:kubevirt-template-validator-container-v4.9.2-1",
+						"8Base-CNV-4.9:kubevirt-v2v-conversion-container-v4.9.2-2",
+						"8Base-CNV-4.9:kubevirt-vmware-container-v4.9.2-1",
+						"8Base-CNV-4.9:libguestfs-tools-container-v4.9.2-7",
+						"8Base-CNV-4.9:node-maintenance-operator-container-v4.9.2-1",
+						"8Base-CNV-4.9:ovs-cni-marker-container-v4.9.2-1",
+						"8Base-CNV-4.9:ovs-cni-plugin-container-v4.9.2-1",
+						"8Base-CNV-4.9:virt-api-container-v4.9.2-7",
+						"8Base-CNV-4.9:virt-artifacts-server-container-v4.9.2-7",
+						"8Base-CNV-4.9:virt-cdi-apiserver-container-v4.9.2-8",
+						"8Base-CNV-4.9:virt-cdi-cloner-container-v4.9.2-8",
+						"8Base-CNV-4.9:virt-cdi-controller-container-v4.9.2-8",
+						"8Base-CNV-4.9:virt-cdi-importer-container-v4.9.2-8",
+						"8Base-CNV-4.9:virt-cdi-operator-container-v4.9.2-8",
+						"8Base-CNV-4.9:virt-cdi-uploadproxy-container-v4.9.2-8",
+						"8Base-CNV-4.9:virt-cdi-uploadserver-container-v4.9.2-8",
+						"8Base-CNV-4.9:virt-controller-container-v4.9.2-7",
+						"8Base-CNV-4.9:virt-handler-container-v4.9.2-7",
+						"8Base-CNV-4.9:virt-launcher-container-v4.9.2-7",
+						"8Base-CNV-4.9:virt-operator-container-v4.9.2-7",
+						"8Base-CNV-4.9:virtio-win-container-v4.9.2-1",
+						"8Base-CNV-4.9:vm-import-controller-container-v4.9.2-2",
+						"8Base-CNV-4.9:vm-import-operator-container-v4.9.2-2",
+						"8Base-CNV-4.9:vm-import-virtv2v-container-v4.9.2-2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "golang: crypto/tls: certificate of wrong type is causing TLS client to panic",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2021-07-13T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2021-34558",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2022:0191"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://golang.org/doc/devel/release#go1.15.minor",
+						"Description": "https://golang.org/doc/devel/release#go1.15.minor"
+					},
+					{
+						"URL": "https://golang.org/doc/devel/release#go1.16.minor",
+						"Description": "https://golang.org/doc/devel/release#go1.16.minor"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2021-34558",
+						"Description": "CVE-2021-34558"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1983596",
+						"Description": "bz#1983596: CVE-2021-34558 golang: crypto/tls: certificate of wrong type is causing TLS client to panic"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2021-07-14T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-CNV-4.9:bridge-marker-container-v4.9.2-1",
+						"8Base-CNV-4.9:cluster-network-addons-operator-container-v4.9.2-1",
+						"8Base-CNV-4.9:cnv-containernetworking-plugins-container-v4.9.2-1",
+						"8Base-CNV-4.9:cnv-must-gather-container-v4.9.2-2",
+						"8Base-CNV-4.9:hco-bundle-registry-container-v4.9.2-27",
+						"8Base-CNV-4.9:hostpath-provisioner-container-v4.9.2-1",
+						"8Base-CNV-4.9:hostpath-provisioner-operator-container-v4.9.2-2",
+						"8Base-CNV-4.9:hyperconverged-cluster-operator-container-v4.9.2-6",
+						"8Base-CNV-4.9:hyperconverged-cluster-webhook-container-v4.9.2-6",
+						"8Base-CNV-4.9:kubemacpool-container-v4.9.2-1",
+						"8Base-CNV-4.9:kubernetes-nmstate-handler-container-v4.9.2-1",
+						"8Base-CNV-4.9:kubevirt-ssp-operator-container-v4.9.2-3",
+						"8Base-CNV-4.9:kubevirt-template-validator-container-v4.9.2-1",
+						"8Base-CNV-4.9:kubevirt-v2v-conversion-container-v4.9.2-2",
+						"8Base-CNV-4.9:kubevirt-vmware-container-v4.9.2-1",
+						"8Base-CNV-4.9:libguestfs-tools-container-v4.9.2-7",
+						"8Base-CNV-4.9:node-maintenance-operator-container-v4.9.2-1",
+						"8Base-CNV-4.9:ovs-cni-marker-container-v4.9.2-1",
+						"8Base-CNV-4.9:ovs-cni-plugin-container-v4.9.2-1",
+						"8Base-CNV-4.9:virt-api-container-v4.9.2-7",
+						"8Base-CNV-4.9:virt-artifacts-server-container-v4.9.2-7",
+						"8Base-CNV-4.9:virt-cdi-apiserver-container-v4.9.2-8",
+						"8Base-CNV-4.9:virt-cdi-cloner-container-v4.9.2-8",
+						"8Base-CNV-4.9:virt-cdi-controller-container-v4.9.2-8",
+						"8Base-CNV-4.9:virt-cdi-importer-container-v4.9.2-8",
+						"8Base-CNV-4.9:virt-cdi-operator-container-v4.9.2-8",
+						"8Base-CNV-4.9:virt-cdi-uploadproxy-container-v4.9.2-8",
+						"8Base-CNV-4.9:virt-cdi-uploadserver-container-v4.9.2-8",
+						"8Base-CNV-4.9:virt-controller-container-v4.9.2-7",
+						"8Base-CNV-4.9:virt-handler-container-v4.9.2-7",
+						"8Base-CNV-4.9:virt-launcher-container-v4.9.2-7",
+						"8Base-CNV-4.9:virt-operator-container-v4.9.2-7",
+						"8Base-CNV-4.9:virtio-win-container-v4.9.2-1",
+						"8Base-CNV-4.9:vm-import-controller-container-v4.9.2-2",
+						"8Base-CNV-4.9:vm-import-operator-container-v4.9.2-2",
+						"8Base-CNV-4.9:vm-import-virtv2v-container-v4.9.2-2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "cnv",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "CNV 4.9 for RHEL 8",
+						"fullproductname": {
+							"text": "CNV 4.9 for RHEL 8",
+							"productid": "8Base-CNV-4.9",
+							"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "bridge-marker-container-v4.9.2-1",
+				"fullproductname": {
+					"text": "bridge-marker-container-v4.9.2-1",
+					"productid": "bridge-marker-container-v4.9.2-1",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "cluster-network-addons-operator-container-v4.9.2-1",
+				"fullproductname": {
+					"text": "cluster-network-addons-operator-container-v4.9.2-1",
+					"productid": "cluster-network-addons-operator-container-v4.9.2-1",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "cnv-containernetworking-plugins-container-v4.9.2-1",
+				"fullproductname": {
+					"text": "cnv-containernetworking-plugins-container-v4.9.2-1",
+					"productid": "cnv-containernetworking-plugins-container-v4.9.2-1",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "cnv-must-gather-container-v4.9.2-2",
+				"fullproductname": {
+					"text": "cnv-must-gather-container-v4.9.2-2",
+					"productid": "cnv-must-gather-container-v4.9.2-2",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "hco-bundle-registry-container-v4.9.2-27",
+				"fullproductname": {
+					"text": "hco-bundle-registry-container-v4.9.2-27",
+					"productid": "hco-bundle-registry-container-v4.9.2-27",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "hostpath-provisioner-container-v4.9.2-1",
+				"fullproductname": {
+					"text": "hostpath-provisioner-container-v4.9.2-1",
+					"productid": "hostpath-provisioner-container-v4.9.2-1",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "hostpath-provisioner-operator-container-v4.9.2-2",
+				"fullproductname": {
+					"text": "hostpath-provisioner-operator-container-v4.9.2-2",
+					"productid": "hostpath-provisioner-operator-container-v4.9.2-2",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "hyperconverged-cluster-operator-container-v4.9.2-6",
+				"fullproductname": {
+					"text": "hyperconverged-cluster-operator-container-v4.9.2-6",
+					"productid": "hyperconverged-cluster-operator-container-v4.9.2-6",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "hyperconverged-cluster-webhook-container-v4.9.2-6",
+				"fullproductname": {
+					"text": "hyperconverged-cluster-webhook-container-v4.9.2-6",
+					"productid": "hyperconverged-cluster-webhook-container-v4.9.2-6",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kubemacpool-container-v4.9.2-1",
+				"fullproductname": {
+					"text": "kubemacpool-container-v4.9.2-1",
+					"productid": "kubemacpool-container-v4.9.2-1",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kubernetes-nmstate-handler-container-v4.9.2-1",
+				"fullproductname": {
+					"text": "kubernetes-nmstate-handler-container-v4.9.2-1",
+					"productid": "kubernetes-nmstate-handler-container-v4.9.2-1",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kubevirt-ssp-operator-container-v4.9.2-3",
+				"fullproductname": {
+					"text": "kubevirt-ssp-operator-container-v4.9.2-3",
+					"productid": "kubevirt-ssp-operator-container-v4.9.2-3",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kubevirt-template-validator-container-v4.9.2-1",
+				"fullproductname": {
+					"text": "kubevirt-template-validator-container-v4.9.2-1",
+					"productid": "kubevirt-template-validator-container-v4.9.2-1",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kubevirt-v2v-conversion-container-v4.9.2-2",
+				"fullproductname": {
+					"text": "kubevirt-v2v-conversion-container-v4.9.2-2",
+					"productid": "kubevirt-v2v-conversion-container-v4.9.2-2",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "kubevirt-vmware-container-v4.9.2-1",
+				"fullproductname": {
+					"text": "kubevirt-vmware-container-v4.9.2-1",
+					"productid": "kubevirt-vmware-container-v4.9.2-1",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libguestfs-tools-container-v4.9.2-7",
+				"fullproductname": {
+					"text": "libguestfs-tools-container-v4.9.2-7",
+					"productid": "libguestfs-tools-container-v4.9.2-7",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "node-maintenance-operator-container-v4.9.2-1",
+				"fullproductname": {
+					"text": "node-maintenance-operator-container-v4.9.2-1",
+					"productid": "node-maintenance-operator-container-v4.9.2-1",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ovs-cni-marker-container-v4.9.2-1",
+				"fullproductname": {
+					"text": "ovs-cni-marker-container-v4.9.2-1",
+					"productid": "ovs-cni-marker-container-v4.9.2-1",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ovs-cni-plugin-container-v4.9.2-1",
+				"fullproductname": {
+					"text": "ovs-cni-plugin-container-v4.9.2-1",
+					"productid": "ovs-cni-plugin-container-v4.9.2-1",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "virt-api-container-v4.9.2-7",
+				"fullproductname": {
+					"text": "virt-api-container-v4.9.2-7",
+					"productid": "virt-api-container-v4.9.2-7",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "virt-artifacts-server-container-v4.9.2-7",
+				"fullproductname": {
+					"text": "virt-artifacts-server-container-v4.9.2-7",
+					"productid": "virt-artifacts-server-container-v4.9.2-7",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "virt-cdi-apiserver-container-v4.9.2-8",
+				"fullproductname": {
+					"text": "virt-cdi-apiserver-container-v4.9.2-8",
+					"productid": "virt-cdi-apiserver-container-v4.9.2-8",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "virt-cdi-cloner-container-v4.9.2-8",
+				"fullproductname": {
+					"text": "virt-cdi-cloner-container-v4.9.2-8",
+					"productid": "virt-cdi-cloner-container-v4.9.2-8",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "virt-cdi-controller-container-v4.9.2-8",
+				"fullproductname": {
+					"text": "virt-cdi-controller-container-v4.9.2-8",
+					"productid": "virt-cdi-controller-container-v4.9.2-8",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "virt-cdi-importer-container-v4.9.2-8",
+				"fullproductname": {
+					"text": "virt-cdi-importer-container-v4.9.2-8",
+					"productid": "virt-cdi-importer-container-v4.9.2-8",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "virt-cdi-operator-container-v4.9.2-8",
+				"fullproductname": {
+					"text": "virt-cdi-operator-container-v4.9.2-8",
+					"productid": "virt-cdi-operator-container-v4.9.2-8",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "virt-cdi-uploadproxy-container-v4.9.2-8",
+				"fullproductname": {
+					"text": "virt-cdi-uploadproxy-container-v4.9.2-8",
+					"productid": "virt-cdi-uploadproxy-container-v4.9.2-8",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "virt-cdi-uploadserver-container-v4.9.2-8",
+				"fullproductname": {
+					"text": "virt-cdi-uploadserver-container-v4.9.2-8",
+					"productid": "virt-cdi-uploadserver-container-v4.9.2-8",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "virt-controller-container-v4.9.2-7",
+				"fullproductname": {
+					"text": "virt-controller-container-v4.9.2-7",
+					"productid": "virt-controller-container-v4.9.2-7",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "virt-handler-container-v4.9.2-7",
+				"fullproductname": {
+					"text": "virt-handler-container-v4.9.2-7",
+					"productid": "virt-handler-container-v4.9.2-7",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "virt-launcher-container-v4.9.2-7",
+				"fullproductname": {
+					"text": "virt-launcher-container-v4.9.2-7",
+					"productid": "virt-launcher-container-v4.9.2-7",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "virt-operator-container-v4.9.2-7",
+				"fullproductname": {
+					"text": "virt-operator-container-v4.9.2-7",
+					"productid": "virt-operator-container-v4.9.2-7",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "virtio-win-container-v4.9.2-1",
+				"fullproductname": {
+					"text": "virtio-win-container-v4.9.2-1",
+					"productid": "virtio-win-container-v4.9.2-1",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "vm-import-controller-container-v4.9.2-2",
+				"fullproductname": {
+					"text": "vm-import-controller-container-v4.9.2-2",
+					"productid": "vm-import-controller-container-v4.9.2-2",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "vm-import-operator-container-v4.9.2-2",
+				"fullproductname": {
+					"text": "vm-import-operator-container-v4.9.2-2",
+					"productid": "vm-import-operator-container-v4.9.2-2",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "vm-import-virtv2v-container-v4.9.2-2",
+				"fullproductname": {
+					"text": "vm-import-virtv2v-container-v4.9.2-2",
+					"productid": "vm-import-virtv2v-container-v4.9.2-2",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "bridge-marker-container-v4.9.2-1",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-CNV-4.9",
+				"fullproductname": {
+					"text": "bridge-marker-container-v4.9.2-1 as a component of CNV 4.9 for RHEL 8",
+					"productid": "8Base-CNV-4.9:bridge-marker-container-v4.9.2-1",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"productreference": "cluster-network-addons-operator-container-v4.9.2-1",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-CNV-4.9",
+				"fullproductname": {
+					"text": "cluster-network-addons-operator-container-v4.9.2-1 as a component of CNV 4.9 for RHEL 8",
+					"productid": "8Base-CNV-4.9:cluster-network-addons-operator-container-v4.9.2-1",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"productreference": "cnv-containernetworking-plugins-container-v4.9.2-1",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-CNV-4.9",
+				"fullproductname": {
+					"text": "cnv-containernetworking-plugins-container-v4.9.2-1 as a component of CNV 4.9 for RHEL 8",
+					"productid": "8Base-CNV-4.9:cnv-containernetworking-plugins-container-v4.9.2-1",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"productreference": "cnv-must-gather-container-v4.9.2-2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-CNV-4.9",
+				"fullproductname": {
+					"text": "cnv-must-gather-container-v4.9.2-2 as a component of CNV 4.9 for RHEL 8",
+					"productid": "8Base-CNV-4.9:cnv-must-gather-container-v4.9.2-2",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"productreference": "hco-bundle-registry-container-v4.9.2-27",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-CNV-4.9",
+				"fullproductname": {
+					"text": "hco-bundle-registry-container-v4.9.2-27 as a component of CNV 4.9 for RHEL 8",
+					"productid": "8Base-CNV-4.9:hco-bundle-registry-container-v4.9.2-27",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"productreference": "hostpath-provisioner-container-v4.9.2-1",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-CNV-4.9",
+				"fullproductname": {
+					"text": "hostpath-provisioner-container-v4.9.2-1 as a component of CNV 4.9 for RHEL 8",
+					"productid": "8Base-CNV-4.9:hostpath-provisioner-container-v4.9.2-1",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"productreference": "hostpath-provisioner-operator-container-v4.9.2-2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-CNV-4.9",
+				"fullproductname": {
+					"text": "hostpath-provisioner-operator-container-v4.9.2-2 as a component of CNV 4.9 for RHEL 8",
+					"productid": "8Base-CNV-4.9:hostpath-provisioner-operator-container-v4.9.2-2",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"productreference": "hyperconverged-cluster-operator-container-v4.9.2-6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-CNV-4.9",
+				"fullproductname": {
+					"text": "hyperconverged-cluster-operator-container-v4.9.2-6 as a component of CNV 4.9 for RHEL 8",
+					"productid": "8Base-CNV-4.9:hyperconverged-cluster-operator-container-v4.9.2-6",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"productreference": "hyperconverged-cluster-webhook-container-v4.9.2-6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-CNV-4.9",
+				"fullproductname": {
+					"text": "hyperconverged-cluster-webhook-container-v4.9.2-6 as a component of CNV 4.9 for RHEL 8",
+					"productid": "8Base-CNV-4.9:hyperconverged-cluster-webhook-container-v4.9.2-6",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"productreference": "kubemacpool-container-v4.9.2-1",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-CNV-4.9",
+				"fullproductname": {
+					"text": "kubemacpool-container-v4.9.2-1 as a component of CNV 4.9 for RHEL 8",
+					"productid": "8Base-CNV-4.9:kubemacpool-container-v4.9.2-1",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"productreference": "kubernetes-nmstate-handler-container-v4.9.2-1",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-CNV-4.9",
+				"fullproductname": {
+					"text": "kubernetes-nmstate-handler-container-v4.9.2-1 as a component of CNV 4.9 for RHEL 8",
+					"productid": "8Base-CNV-4.9:kubernetes-nmstate-handler-container-v4.9.2-1",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"productreference": "kubevirt-ssp-operator-container-v4.9.2-3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-CNV-4.9",
+				"fullproductname": {
+					"text": "kubevirt-ssp-operator-container-v4.9.2-3 as a component of CNV 4.9 for RHEL 8",
+					"productid": "8Base-CNV-4.9:kubevirt-ssp-operator-container-v4.9.2-3",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"productreference": "kubevirt-template-validator-container-v4.9.2-1",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-CNV-4.9",
+				"fullproductname": {
+					"text": "kubevirt-template-validator-container-v4.9.2-1 as a component of CNV 4.9 for RHEL 8",
+					"productid": "8Base-CNV-4.9:kubevirt-template-validator-container-v4.9.2-1",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"productreference": "kubevirt-v2v-conversion-container-v4.9.2-2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-CNV-4.9",
+				"fullproductname": {
+					"text": "kubevirt-v2v-conversion-container-v4.9.2-2 as a component of CNV 4.9 for RHEL 8",
+					"productid": "8Base-CNV-4.9:kubevirt-v2v-conversion-container-v4.9.2-2",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"productreference": "kubevirt-vmware-container-v4.9.2-1",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-CNV-4.9",
+				"fullproductname": {
+					"text": "kubevirt-vmware-container-v4.9.2-1 as a component of CNV 4.9 for RHEL 8",
+					"productid": "8Base-CNV-4.9:kubevirt-vmware-container-v4.9.2-1",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"productreference": "libguestfs-tools-container-v4.9.2-7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-CNV-4.9",
+				"fullproductname": {
+					"text": "libguestfs-tools-container-v4.9.2-7 as a component of CNV 4.9 for RHEL 8",
+					"productid": "8Base-CNV-4.9:libguestfs-tools-container-v4.9.2-7",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"productreference": "node-maintenance-operator-container-v4.9.2-1",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-CNV-4.9",
+				"fullproductname": {
+					"text": "node-maintenance-operator-container-v4.9.2-1 as a component of CNV 4.9 for RHEL 8",
+					"productid": "8Base-CNV-4.9:node-maintenance-operator-container-v4.9.2-1",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"productreference": "ovs-cni-marker-container-v4.9.2-1",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-CNV-4.9",
+				"fullproductname": {
+					"text": "ovs-cni-marker-container-v4.9.2-1 as a component of CNV 4.9 for RHEL 8",
+					"productid": "8Base-CNV-4.9:ovs-cni-marker-container-v4.9.2-1",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"productreference": "ovs-cni-plugin-container-v4.9.2-1",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-CNV-4.9",
+				"fullproductname": {
+					"text": "ovs-cni-plugin-container-v4.9.2-1 as a component of CNV 4.9 for RHEL 8",
+					"productid": "8Base-CNV-4.9:ovs-cni-plugin-container-v4.9.2-1",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"productreference": "virt-api-container-v4.9.2-7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-CNV-4.9",
+				"fullproductname": {
+					"text": "virt-api-container-v4.9.2-7 as a component of CNV 4.9 for RHEL 8",
+					"productid": "8Base-CNV-4.9:virt-api-container-v4.9.2-7",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"productreference": "virt-artifacts-server-container-v4.9.2-7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-CNV-4.9",
+				"fullproductname": {
+					"text": "virt-artifacts-server-container-v4.9.2-7 as a component of CNV 4.9 for RHEL 8",
+					"productid": "8Base-CNV-4.9:virt-artifacts-server-container-v4.9.2-7",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"productreference": "virt-cdi-apiserver-container-v4.9.2-8",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-CNV-4.9",
+				"fullproductname": {
+					"text": "virt-cdi-apiserver-container-v4.9.2-8 as a component of CNV 4.9 for RHEL 8",
+					"productid": "8Base-CNV-4.9:virt-cdi-apiserver-container-v4.9.2-8",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"productreference": "virt-cdi-cloner-container-v4.9.2-8",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-CNV-4.9",
+				"fullproductname": {
+					"text": "virt-cdi-cloner-container-v4.9.2-8 as a component of CNV 4.9 for RHEL 8",
+					"productid": "8Base-CNV-4.9:virt-cdi-cloner-container-v4.9.2-8",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"productreference": "virt-cdi-controller-container-v4.9.2-8",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-CNV-4.9",
+				"fullproductname": {
+					"text": "virt-cdi-controller-container-v4.9.2-8 as a component of CNV 4.9 for RHEL 8",
+					"productid": "8Base-CNV-4.9:virt-cdi-controller-container-v4.9.2-8",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"productreference": "virt-cdi-importer-container-v4.9.2-8",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-CNV-4.9",
+				"fullproductname": {
+					"text": "virt-cdi-importer-container-v4.9.2-8 as a component of CNV 4.9 for RHEL 8",
+					"productid": "8Base-CNV-4.9:virt-cdi-importer-container-v4.9.2-8",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"productreference": "virt-cdi-operator-container-v4.9.2-8",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-CNV-4.9",
+				"fullproductname": {
+					"text": "virt-cdi-operator-container-v4.9.2-8 as a component of CNV 4.9 for RHEL 8",
+					"productid": "8Base-CNV-4.9:virt-cdi-operator-container-v4.9.2-8",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"productreference": "virt-cdi-uploadproxy-container-v4.9.2-8",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-CNV-4.9",
+				"fullproductname": {
+					"text": "virt-cdi-uploadproxy-container-v4.9.2-8 as a component of CNV 4.9 for RHEL 8",
+					"productid": "8Base-CNV-4.9:virt-cdi-uploadproxy-container-v4.9.2-8",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"productreference": "virt-cdi-uploadserver-container-v4.9.2-8",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-CNV-4.9",
+				"fullproductname": {
+					"text": "virt-cdi-uploadserver-container-v4.9.2-8 as a component of CNV 4.9 for RHEL 8",
+					"productid": "8Base-CNV-4.9:virt-cdi-uploadserver-container-v4.9.2-8",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"productreference": "virt-controller-container-v4.9.2-7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-CNV-4.9",
+				"fullproductname": {
+					"text": "virt-controller-container-v4.9.2-7 as a component of CNV 4.9 for RHEL 8",
+					"productid": "8Base-CNV-4.9:virt-controller-container-v4.9.2-7",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"productreference": "virt-handler-container-v4.9.2-7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-CNV-4.9",
+				"fullproductname": {
+					"text": "virt-handler-container-v4.9.2-7 as a component of CNV 4.9 for RHEL 8",
+					"productid": "8Base-CNV-4.9:virt-handler-container-v4.9.2-7",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"productreference": "virt-launcher-container-v4.9.2-7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-CNV-4.9",
+				"fullproductname": {
+					"text": "virt-launcher-container-v4.9.2-7 as a component of CNV 4.9 for RHEL 8",
+					"productid": "8Base-CNV-4.9:virt-launcher-container-v4.9.2-7",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"productreference": "virt-operator-container-v4.9.2-7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-CNV-4.9",
+				"fullproductname": {
+					"text": "virt-operator-container-v4.9.2-7 as a component of CNV 4.9 for RHEL 8",
+					"productid": "8Base-CNV-4.9:virt-operator-container-v4.9.2-7",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"productreference": "virtio-win-container-v4.9.2-1",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-CNV-4.9",
+				"fullproductname": {
+					"text": "virtio-win-container-v4.9.2-1 as a component of CNV 4.9 for RHEL 8",
+					"productid": "8Base-CNV-4.9:virtio-win-container-v4.9.2-1",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"productreference": "vm-import-controller-container-v4.9.2-2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-CNV-4.9",
+				"fullproductname": {
+					"text": "vm-import-controller-container-v4.9.2-2 as a component of CNV 4.9 for RHEL 8",
+					"productid": "8Base-CNV-4.9:vm-import-controller-container-v4.9.2-2",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"productreference": "vm-import-operator-container-v4.9.2-2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-CNV-4.9",
+				"fullproductname": {
+					"text": "vm-import-operator-container-v4.9.2-2 as a component of CNV 4.9 for RHEL 8",
+					"productid": "8Base-CNV-4.9:vm-import-operator-container-v4.9.2-2",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			},
+			{
+				"productreference": "vm-import-virtv2v-container-v4.9.2-2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-CNV-4.9",
+				"fullproductname": {
+					"text": "vm-import-virtv2v-container-v4.9.2-2 as a component of CNV 4.9 for RHEL 8",
+					"productid": "8Base-CNV-4.9:vm-import-virtv2v-container-v4.9.2-2",
+					"cpe": "cpe:/a:redhat:container_native_virtualization:4.9::el8"
+				}
+			}
+		]
+	}
+}

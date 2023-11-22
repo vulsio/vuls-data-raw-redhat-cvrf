@@ -1,0 +1,448 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: RHUI 4.4.0 release - Security Fixes, Bug Fixes, and Enhancements Update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2023:2101"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2023-05-03T14:58:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2023-05-03T14:58:00Z",
+		"CurrentReleaseDate": "2023-05-03T14:58:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.14.1",
+			"Date": "2023-05-03T19:09:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nAn updated version of Red Hat Update Infrastructure (RHUI) is now available. RHUI 4.4 fixes several security and operational bugs, and introduces multiple new features.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nRed Hat Update Infrastructure (RHUI) offers a highly scalable, highly redundant framework that enables you to manage repositories and content. It also enables cloud providers to deliver content and updates to Red Hat Enterprise Linux (RHEL) instances.\n\nSecurity Fix(es):\n* Django: Potential denial-of-service vulnerability due to large Accept-Language header values (CVE-2023-23969)\n\n* Django: Potential denial-of-service vulnerability when uploading multiple files (CVE-2023-24580)\n\n* Future: Remote attackers can cause denial-of-service using crafted Set-Cookie header from a malicious web server (CVE-2022-40899)\n\nThis RHUI update fixes the following bugs:\n\n* Previously, when the `rhui-services-restart` command was run, it restarted only those `pulpcore-worker` services that were already running and ignored services that were not running. With this update, the `rhui-services-restart` command restarts all `pulpcore-worker` services irrespective of their status.\n\n* Previously, the `rhui-manager status` command returned an incorrect exit status when there was a problem. With this update, the issue has been fixed and the command now returns the correct exit status. (BZ#2174633)\n\n* Previously, `rhui-installer` ignored the `--rhua-mount-options` parameter and only used the read-write (`rw`) mount option to set up RHUI remote share. With this update, `rhui-installer` uses the `--rhua-mount-options` parameter. However, `rhui-installer` still uses the read-write (`rw`) option by default. (BZ#2174316)\n\n* Previously, when you ran `rhui-installer`, it rewrote the `/etc/rhui/rhui-tools.conf` file, resetting all container-related settings. With this update, the command saves the container-related settings from the `/etc/rhui/rhui-tools.conf` file and restores them after the file is rewritten.\n\nThis RHUI update introduces the following enhancements:\n\n* The `rhui-installer` command now supports the `--pulp-workers _COUNT_` argument. RHUI administrators can use this argument to set up a number of Pulp workers. (BZ#2036408)\n\n* You can now configure CDS nodes to never fetch non-exported content from the RHUA node. To configure the node, rerun the `rhui-installer` command with the `--fetch-missing-symlinks False` argument, and then apply this configuration to all CDS nodes. If you configure your CDS nodes this way, ensure that the content has been exported before RHUI clients start consuming it. (BZ#2084950)\n\n* Support for containers in RHUI is disabled by default. If you want to use containers, you must manually enable container support by rerunning `rhui-installer` with the `--container-support-enabled True` argument, and then applying this configuration to all CDS nodes.\n\n* Transport Layer Security (TLS) 1.3 and HTTP Strict Transport Security (HSTS)  is now enabled in RHUI. This update improves overall RHUI security and also removes unsafe ciphers from the `nginx` configuration on CDS nodes. (BZ#1887903)\n\n* You can now remove packages from custom repositories using the text user interface (TUI) as well as the command line. For more information, see the release notes or the product documentation.(BZ#2165444)\n\n* You can now set up the Alternate Content Source (ACS) configuration in RHUI to quickly synchronize new repositories and content by substituting remote content with matching content that is available locally or geographically closer to your instance of RHUI. For more information, see the release notes or the product documentation. (BZ#2001087)\n\n* You can now use a custom prefix, or no prefix at all, when naming your RHUI repositories. You can change the prefix by rerunning the `rhui-installer` command with the `--client-repo-prefix <prefix>` argument. To remove the prefix entirely, use two quotation marks (\"\") as the `<prefix>` parameter. For more information, see the release notes or the product documentation.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2023 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2023:2101",
+				"Description": "https://access.redhat.com/errata/RHSA-2023:2101"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "An issue discovered in Python Charmers Future 0.18.2 and earlier allows remote attackers to cause a denial of service via crafted Set-Cookie header from malicious web server.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-12-21T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-40899",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:2101"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2022-40899",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2022-40899"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2022-40899",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2022-40899"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-40899",
+						"Description": "CVE-2022-40899"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2165866",
+						"Description": "bz#2165866: remote attackers can cause denial of service via crafted Set-Cookie header from malicious web server"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2022-12-23T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-RHUI-4:python-django-0:3.2.18-1.0.1.el8ui",
+						"8Base-RHUI-4:python-future-0:0.18.3-1.0.1.el8ui",
+						"8Base-RHUI-4:rhui-installer-0:4.4.0.5-1.el8ui",
+						"8Base-RHUI-4:rhui-tools-0:4.4.0.5-1.el8ui"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in python-django. The parsed values of the Accept-Language headers are cached in order to avoid repetitive parsing. This leads to a potential denial of service vector via excessive memory usage if large header values are sent.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2023-02-01T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2023-23969",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:2101"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2023-23969",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2023-23969"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2023-23969",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2023-23969"
+					},
+					{
+						"URL": "https://github.com/django/django/commit/4452642f193533e288a52c02efb5bbc766a68f95",
+						"Description": "https://github.com/django/django/commit/4452642f193533e288a52c02efb5bbc766a68f95"
+					},
+					{
+						"URL": "https://github.com/django/django/commit/8a7b22d4a623bcd95190d2f5a958472fb41e576d",
+						"Description": "https://github.com/django/django/commit/8a7b22d4a623bcd95190d2f5a958472fb41e576d"
+					},
+					{
+						"URL": "https://github.com/django/django/commit/8c660fb59239828583f17cdede3b64f208b8752c",
+						"Description": "https://github.com/django/django/commit/8c660fb59239828583f17cdede3b64f208b8752c"
+					},
+					{
+						"URL": "https://github.com/django/django/commit/9d7bd5a56b1ce0576e8e07a8001373576d277942",
+						"Description": "https://github.com/django/django/commit/9d7bd5a56b1ce0576e8e07a8001373576d277942"
+					},
+					{
+						"URL": "https://github.com/django/django/commit/c7e0151fdf33e1b11d488b6f67b94fdf3a30614a",
+						"Description": "https://github.com/django/django/commit/c7e0151fdf33e1b11d488b6f67b94fdf3a30614a"
+					},
+					{
+						"URL": "https://www.djangoproject.com/weblog/2023/feb/01/security-releases/",
+						"Description": "https://www.djangoproject.com/weblog/2023/feb/01/security-releases/"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2023-23969",
+						"Description": "CVE-2023-23969"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2166457",
+						"Description": "bz#2166457: Potential denial-of-service via Accept-Language headers"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2023-02-01T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-RHUI-4:python-django-0:3.2.18-1.0.1.el8ui",
+						"8Base-RHUI-4:python-future-0:0.18.3-1.0.1.el8ui",
+						"8Base-RHUI-4:rhui-installer-0:4.4.0.5-1.el8ui",
+						"8Base-RHUI-4:rhui-tools-0:4.4.0.5-1.el8ui"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A memory exhaustion flaw was found in the python-django package. This issue occurs when passing certain inputs, leading to a system crash and denial of service.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2023-02-14T09:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2023-24580",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:2101"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2023-24580",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2023-24580"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2023-24580",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2023-24580"
+					},
+					{
+						"URL": "https://www.djangoproject.com/weblog/2023/feb/14/security-releases/",
+						"Description": "https://www.djangoproject.com/weblog/2023/feb/14/security-releases/"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2023-24580",
+						"Description": "CVE-2023-24580"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2169402",
+						"Description": "bz#2169402: Potential denial-of-service vulnerability in file uploads"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2023-02-07T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-RHUI-4:python-django-0:3.2.18-1.0.1.el8ui",
+						"8Base-RHUI-4:python-future-0:0.18.3-1.0.1.el8ui",
+						"8Base-RHUI-4:rhui-installer-0:4.4.0.5-1.el8ui",
+						"8Base-RHUI-4:rhui-tools-0:4.4.0.5-1.el8ui"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Update Infrastructure",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "RHUI 4 for RHEL 8",
+						"fullproductname": {
+							"text": "RHUI 4 for RHEL 8",
+							"productid": "8Base-RHUI-4",
+							"cpe": "cpe:/a:redhat:rhui:4::el8"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-django-0:3.2.18-1.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-django-3.2.18-1.0.1.el8ui.src.rpm",
+					"productid": "python-django-0:3.2.18-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-future-0:0.18.3-1.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-future-0.18.3-1.0.1.el8ui.src.rpm",
+					"productid": "python-future-0:0.18.3-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhui-installer-0:4.4.0.5-1.el8ui",
+				"fullproductname": {
+					"text": "rhui-installer-4.4.0.5-1.el8ui.src.rpm",
+					"productid": "rhui-installer-0:4.4.0.5-1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhui-tools-0:4.4.0.5-1.el8ui",
+				"fullproductname": {
+					"text": "rhui-tools-4.4.0.5-1.el8ui.src.rpm",
+					"productid": "rhui-tools-0:4.4.0.5-1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "python-django-0:3.2.18-1.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-django-0:3.2.18-1.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-django-0:3.2.18-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-future-0:0.18.3-1.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-future-0:0.18.3-1.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-future-0:0.18.3-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "rhui-installer-0:4.4.0.5-1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "rhui-installer-0:4.4.0.5-1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:rhui-installer-0:4.4.0.5-1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "rhui-tools-0:4.4.0.5-1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "rhui-tools-0:4.4.0.5-1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:rhui-tools-0:4.4.0.5-1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			}
+		]
+	}
+}

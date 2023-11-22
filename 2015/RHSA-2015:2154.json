@@ -1,0 +1,366 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: krb5 security, bug fix, and enhancement update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2015:2154"
+		},
+		"Status": "Final",
+		"Version": "7",
+		"revisionhistory": {
+			"revision": {
+				"Number": "7",
+				"Date": "2015-11-19T03:16:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2015-11-19T03:16:00Z",
+		"CurrentReleaseDate": "2015-11-19T03:16:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:37:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated krb5 packages that fix two security issues, several bugs, and add\nvarious enhancements are now available for Red Hat Enterprise Linux 7.\n\nRed Hat Product Security has rated this update as having Moderate security\nimpact. Common Vulnerability Scoring System (CVSS) base scores, which give\ndetailed severity ratings, are available for each vulnerability from the\nCVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nKerberos is a network authentication system, which can improve the security\nof your network by eliminating the insecure practice of sending passwords\nover the network in unencrypted form. It allows clients and servers to\nauthenticate to each other with the help of a trusted third party, the\nKerberos key distribution center (KDC).\n\nIt was found that the krb5_read_message() function of MIT Kerberos did not\ncorrectly sanitize input, and could create invalid krb5_data objects.\nA remote, unauthenticated attacker could use this flaw to crash a Kerberos\nchild process via a specially crafted request. (CVE-2014-5355)\n\nA flaw was found in the OTP kdcpreauth module of MIT kerberos.\nAn unauthenticated remote attacker could use this flaw to bypass the\nrequires_preauth flag on a client principal and obtain a ciphertext\nencrypted in the principal's long-term key. This ciphertext could be used\nto conduct an off-line dictionary attack against the user's password.\n(CVE-2015-2694)\n\nThe krb5 packages have been upgraded to upstream version 1.13.2, which\nprovides a number of bug fixes and enhancements over the previous version.\n(BZ#1203889)\n\nNotably, this update fixes the following bugs:\n\n* Previously, the RADIUS support (libkrad) in krb5 was sending krb5\nauthentication for Transmission Control Protocol (TCP) transports multiple\ntimes, accidentally using a code path intended to be used only for\nunreliable transport types, for example User Datagram Protocol (UDP)\ntransports. A patch that fixes the problem by disabling manual retries for\nreliable transports, such as TCP, has been applied, and the correct code\npath is now used in this situation. (BZ#1251586)\n\n* Attempts to use Kerberos single sign-on (SSO) to access SAP NetWeaver\nsystems sometimes failed. The SAP NetWeaver developer trace displayed the\nfollowing error message:\n\n    No credentials were supplied, or the credentials were\n    unavailable or inaccessible\n    Unable to establish the security context\n\nQuerying SSO credential lifetime has been modified to trigger credential\nacquisition, thus preventing the error from occurring. Now, the user can\nsuccessfully use Kerberos SSO for accessing SAP NetWeaver systems.\n(BZ#1252454)\n\nAll krb5 users are advised to upgrade to these updated packages, which\ncorrect these issues and add these enhancements.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2015:2154",
+				"Description": "https://access.redhat.com/errata/RHSA-2015:2154"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "krb5: unauthenticated denial of service in recvauth_common() and others",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-12-09T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-5355",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:2154"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-5355",
+						"Description": "CVE-2014-5355"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1193939",
+						"Description": "bz#1193939: CVE-2014-5355 krb5: unauthenticated denial of service in recvauth_common() and others"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-02-18T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-optional:krb5-0:1.13.2-10.el7",
+						"7Client:krb5-0:1.13.2-10.el7",
+						"7ComputeNode-optional:krb5-0:1.13.2-10.el7",
+						"7ComputeNode:krb5-0:1.13.2-10.el7",
+						"7Server:krb5-0:1.13.2-10.el7",
+						"7Workstation:krb5-0:1.13.2-10.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.0",
+					"Vector": "AV:N/AC:L/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "krb5: issues in OTP and PKINIT kdcpreauth modules leading to requires_preauth bypass",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-04-27T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-2694",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:2154"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-2694",
+						"Description": "CVE-2015-2694"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1216133",
+						"Description": "bz#1216133: CVE-2015-2694 krb5: issues in OTP and PKINIT kdcpreauth modules leading to requires_preauth bypass"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-04-28T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-optional:krb5-0:1.13.2-10.el7",
+						"7Client:krb5-0:1.13.2-10.el7",
+						"7ComputeNode-optional:krb5-0:1.13.2-10.el7",
+						"7ComputeNode:krb5-0:1.13.2-10.el7",
+						"7Server:krb5-0:1.13.2-10.el7",
+						"7Workstation:krb5-0:1.13.2-10.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.8",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:P/A:N"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Client (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Client (v. 7)",
+							"productid": "7Client",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Client Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Client Optional (v. 7)",
+							"productid": "7Client-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ComputeNode (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ComputeNode (v. 7)",
+							"productid": "7ComputeNode",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+							"productid": "7ComputeNode-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 7)",
+							"productid": "7Server",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 7)",
+							"productid": "7Workstation",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "krb5-0:1.13.2-10.el7",
+				"fullproductname": {
+					"text": "krb5-1.13.2-10.el7.src.rpm",
+					"productid": "krb5-0:1.13.2-10.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "krb5-0:1.13.2-10.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client",
+				"fullproductname": {
+					"text": "krb5-0:1.13.2-10.el7 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"productid": "7Client:krb5-0:1.13.2-10.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "krb5-0:1.13.2-10.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-optional",
+				"fullproductname": {
+					"text": "krb5-0:1.13.2-10.el7 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"productid": "7Client-optional:krb5-0:1.13.2-10.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "krb5-0:1.13.2-10.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode",
+				"fullproductname": {
+					"text": "krb5-0:1.13.2-10.el7 as a component of Red Hat Enterprise Linux ComputeNode (v. 7)",
+					"productid": "7ComputeNode:krb5-0:1.13.2-10.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "krb5-0:1.13.2-10.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-optional",
+				"fullproductname": {
+					"text": "krb5-0:1.13.2-10.el7 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"productid": "7ComputeNode-optional:krb5-0:1.13.2-10.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "krb5-0:1.13.2-10.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server",
+				"fullproductname": {
+					"text": "krb5-0:1.13.2-10.el7 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server:krb5-0:1.13.2-10.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "krb5-0:1.13.2-10.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation",
+				"fullproductname": {
+					"text": "krb5-0:1.13.2-10.el7 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"productid": "7Workstation:krb5-0:1.13.2-10.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			}
+		]
+	}
+}

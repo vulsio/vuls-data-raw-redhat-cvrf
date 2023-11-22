@@ -1,0 +1,192 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: openstack-nova security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2014:0940"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2014-07-24T17:21:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2014-07-24T17:21:00Z",
+		"CurrentReleaseDate": "2014-07-24T17:21:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:36:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated openstack-nova packages that fix one security issue and several\nbugs are now available for Red Hat Enterprise Linux OpenStack Platform 5.0\n(Icehouse) for Red Hat Enterprise Linux 7.\n\nThe Red Hat Security Response Team has rated this update as having Moderate\nsecurity impact. A Common Vulnerability Scoring System (CVSS) base score,\nwhich gives a detailed severity rating, is available from the CVE link in\nthe References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nOpenStack Compute (Nova) launches and schedules large networks of virtual\nmachines, creating a redundant and scalable cloud computing platform.\n\nA side-channel timing attack flaw was found in Nova. An attacker could\npossibly use this flaw to guess valid instance ID signatures, giving them\naccess to details of another instance, by analyzing the response times of\nrequests for instance metadata. This issue only affected configurations\nthat proxy metadata requests via Neutron. (CVE-2014-3517)\n\nRed Hat would like to thank the OpenStack project for reporting this issue.\nUpstream acknowledges Alex Gaynor from Rackspace as the original reporter.\n\nThis update also fixes the following bugs:\n\n* The GlusterFS driver changes the file name used to point to a volume when\na snapshot is changed, but in the past the new file name was not stored in\nCompute's block device information.\n\nAs a result, if the VM was shut down and started again, the old file name\nin the snapshot chain was used, resulting in corruption of the qcow2 chain\nand unexpected results in the instance.\n\nThis has been fixed by persisting the new file name in Compute's block\ndevice info when a snapshot is created. Now, GlusterFS volumes work as\nexpected after creating or deleting a snapshot and then rebooting the\ninstance. (BZ#1085852)\n\n* Previously, in some cases, it may not have been possible to attach a\nread-only volume to an instance. (BZ#1100358)\n\n* The sysfsutils package enables the Compute service to attach Block\nStorage volumes. This package is automatically installed by PackStack.\nHowever, sysfsutils was not a dependency of the Compute service; as such,\nwhen not using PackStack, it was possible to deploy OpenStack without\nsysfsutils installed. When this occurred, the Compute service was unable to\nattach Block Storage volumes.\n\nWith this release, the sysfsutils package is now a dependency of the\nCompute service. This ensures that sysfsutils is installed, regardless of\nwhat deployment method is used. (BZ#1114637)\n\n* An issue with Fibre Channel Cinder volumes not being removed after the\nimage has been destroyed has been fixed. (BZ#1115375)\n\n* This update fixes legacy group support, allowing you to provide a group\nby name in the scheduler hint instead of using the new server groups API.\n(BZ#1116866)\n\n* The openstack-nova package has been updated to upstream version\n2014.1.1, which fixes a number of bugs. (BZ#1117895)\n\nAll openstack-nova users are advised to upgrade to these updated packages,\nwhich correct these issues.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2014:0940",
+				"Description": "https://access.redhat.com/errata/RHSA-2014:0940"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "openstack-nova: timing attack issue allows access to other instances' configuration information",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-07-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-3517",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2014:0940"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-3517",
+						"Description": "CVE-2014-3517"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1112499",
+						"Description": "bz#1112499: CVE-2014-3517 openstack-nova: timing attack issue allows access to other instances' configuration information"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-06-24T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-RH7-RHOS-5.0:openstack-nova-0:2014.1.1-4.el7ost"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:N/A:N"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat OpenStack Platform",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux OpenStack Platform 5.0 (Icehouse) for RHEL 7",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux OpenStack Platform 5.0 (Icehouse) for RHEL 7",
+							"productid": "7Server-RH7-RHOS-5.0",
+							"cpe": "cpe:/a:redhat:openstack:5::el7"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "openstack-nova-0:2014.1.1-4.el7ost",
+				"fullproductname": {
+					"text": "openstack-nova-2014.1.1-4.el7ost.src.rpm",
+					"productid": "openstack-nova-0:2014.1.1-4.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:5::el7"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "openstack-nova-0:2014.1.1-4.el7ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOS-5.0",
+				"fullproductname": {
+					"text": "openstack-nova-0:2014.1.1-4.el7ost as a component of Red Hat Enterprise Linux OpenStack Platform 5.0 (Icehouse) for RHEL 7",
+					"productid": "7Server-RH7-RHOS-5.0:openstack-nova-0:2014.1.1-4.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:5::el7"
+				}
+			}
+		]
+	}
+}

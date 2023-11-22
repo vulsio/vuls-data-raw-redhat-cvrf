@@ -1,0 +1,374 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: curl security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2014:0561"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2014-05-27T16:25:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2014-05-27T16:25:00Z",
+		"CurrentReleaseDate": "2014-05-27T16:25:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:36:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated curl packages that fix two security issues and several bugs are now\navailable for Red Hat Enterprise Linux 6.\n\nThe Red Hat Security Response Team has rated this update as having Moderate\nsecurity impact. Common Vulnerability Scoring System (CVSS) base scores,\nwhich give detailed severity ratings, are available for each vulnerability\nfrom the CVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\ncURL provides the libcurl library and a command line tool for downloading\nfiles from servers using various protocols, including HTTP, FTP, and LDAP.\n\nIt was found that libcurl could incorrectly reuse existing connections for\nrequests that should have used different or no authentication credentials,\nwhen using one of the following protocols: HTTP(S) with NTLM\nauthentication, LDAP(S), SCP, or SFTP. If an application using the libcurl\nlibrary connected to a remote server with certain authentication\ncredentials, this flaw could cause other requests to use those same\ncredentials. (CVE-2014-0015, CVE-2014-0138)\n\nRed Hat would like to thank the cURL project for reporting these issues.\nUpstream acknowledges Paras Sethia as the original reporter of\nCVE-2014-0015 and Yehezkel Horowitz for discovering the security impact of\nthis issue, and Steve Holme as the original reporter of CVE-2014-0138.\n\nThis update also fixes the following bugs:\n\n* Previously, the libcurl library was closing a network socket without\nfirst terminating the SSL connection using the socket. This resulted in a\nwrite after close and consequent leakage of memory dynamically allocated by\nthe SSL library. An upstream patch has been applied on libcurl to fix this\nbug. As a result, the write after close no longer happens, and the SSL\nlibrary no longer leaks memory. (BZ#1092479)\n\n* Previously, the libcurl library did not implement a non-blocking SSL\nhandshake, which negatively affected performance of applications based on\nlibcurl's multi API. To fix this bug, the non-blocking SSL handshake has\nbeen implemented by libcurl. With this update, libcurl's multi API\nimmediately returns the control back to the application whenever it cannot\nread/write data from/to the underlying network socket. (BZ#1092480)\n\n* Previously, the curl package could not be rebuilt from sources due to an\nexpired cookie in the upstream test-suite, which runs during the build. An\nupstream patch has been applied to postpone the expiration date of the\ncookie, which makes it possible to rebuild the package from sources again.\n(BZ#1092486)\n\n* Previously, the libcurl library attempted to authenticate using Kerberos\nwhenever such an authentication method was offered by the server. This\ncaused problems when the server offered multiple authentication methods and\nKerberos was not the selected one. An upstream patch has been applied on\nlibcurl to fix this bug. Now libcurl no longer uses Kerberos authentication\nif another authentication method is selected. (BZ#1096797)\n\nAll curl users are advised to upgrade to these updated packages, which\ncontain backported patches to correct these issues. All running\napplications that use libcurl have to be restarted for this update to\ntake effect.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2014:0561",
+				"Description": "https://access.redhat.com/errata/RHSA-2014:0561"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "curl: re-use of wrong HTTP NTLM connection in libcurl",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-01-29T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-0015",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to use the\nRed Hat Network to apply this update are available at\nhttps://access.redhat.com/site/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2014:0561"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "http://curl.haxx.se/docs/security.html#20140129",
+						"Description": "http://curl.haxx.se/docs/security.html#20140129"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-0015",
+						"Description": "CVE-2014-0015"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1053903",
+						"Description": "bz#1053903: CVE-2014-0015 curl: re-use of wrong HTTP NTLM connection in libcurl"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-01-13T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.5.z:curl-0:7.19.7-37.el6_5.3",
+						"6Client-optional-6.5.z:curl-0:7.19.7-37.el6_5.3",
+						"6ComputeNode-6.5.z:curl-0:7.19.7-37.el6_5.3",
+						"6ComputeNode-optional-6.5.z:curl-0:7.19.7-37.el6_5.3",
+						"6Server-6.5.z:curl-0:7.19.7-37.el6_5.3",
+						"6Workstation-6.5.z:curl-0:7.19.7-37.el6_5.3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "curl: wrong re-use of connections in libcurl",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-03-26T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-0138",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to use the\nRed Hat Network to apply this update are available at\nhttps://access.redhat.com/site/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2014:0561"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "http://curl.haxx.se/docs/adv_20140326A.html",
+						"Description": "http://curl.haxx.se/docs/adv_20140326A.html"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-0138",
+						"Description": "CVE-2014-0138"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1079148",
+						"Description": "bz#1079148: CVE-2014-0138 curl: wrong re-use of connections in libcurl"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-03-17T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-6.5.z:curl-0:7.19.7-37.el6_5.3",
+						"6Client-optional-6.5.z:curl-0:7.19.7-37.el6_5.3",
+						"6ComputeNode-6.5.z:curl-0:7.19.7-37.el6_5.3",
+						"6ComputeNode-optional-6.5.z:curl-0:7.19.7-37.el6_5.3",
+						"6Server-6.5.z:curl-0:7.19.7-37.el6_5.3",
+						"6Workstation-6.5.z:curl-0:7.19.7-37.el6_5.3"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:N/A:N"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 6)",
+							"productid": "6Client-6.5.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+							"productid": "6Client-optional-6.5.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node (v. 6)",
+							"productid": "6ComputeNode-6.5.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+							"productid": "6ComputeNode-optional-6.5.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 6)",
+							"productid": "6Server-6.5.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 6)",
+							"productid": "6Workstation-6.5.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "curl-0:7.19.7-37.el6_5.3",
+				"fullproductname": {
+					"text": "curl-7.19.7-37.el6_5.3.src.rpm",
+					"productid": "curl-0:7.19.7-37.el6_5.3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "curl-0:7.19.7-37.el6_5.3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-6.5.z",
+				"fullproductname": {
+					"text": "curl-0:7.19.7-37.el6_5.3 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"productid": "6Client-6.5.z:curl-0:7.19.7-37.el6_5.3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "curl-0:7.19.7-37.el6_5.3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-optional-6.5.z",
+				"fullproductname": {
+					"text": "curl-0:7.19.7-37.el6_5.3 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"productid": "6Client-optional-6.5.z:curl-0:7.19.7-37.el6_5.3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "curl-0:7.19.7-37.el6_5.3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-6.5.z",
+				"fullproductname": {
+					"text": "curl-0:7.19.7-37.el6_5.3 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"productid": "6ComputeNode-6.5.z:curl-0:7.19.7-37.el6_5.3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "curl-0:7.19.7-37.el6_5.3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-optional-6.5.z",
+				"fullproductname": {
+					"text": "curl-0:7.19.7-37.el6_5.3 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"productid": "6ComputeNode-optional-6.5.z:curl-0:7.19.7-37.el6_5.3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "curl-0:7.19.7-37.el6_5.3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-6.5.z",
+				"fullproductname": {
+					"text": "curl-0:7.19.7-37.el6_5.3 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"productid": "6Server-6.5.z:curl-0:7.19.7-37.el6_5.3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "curl-0:7.19.7-37.el6_5.3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-6.5.z",
+				"fullproductname": {
+					"text": "curl-0:7.19.7-37.el6_5.3 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"productid": "6Workstation-6.5.z:curl-0:7.19.7-37.el6_5.3",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			}
+		]
+	}
+}

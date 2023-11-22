@@ -1,0 +1,2054 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: RHUI 4.3.0 release - Security Fixes, Bug Fixes, and Enhancements Update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2023:0742"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2023-02-13T12:03:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2023-02-13T12:03:00Z",
+		"CurrentReleaseDate": "2023-02-13T12:03:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.11.0",
+			"Date": "2023-02-13T18:46:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nAn updated version of Red Hat Update Infrastructure (RHUI) is now available. RHUI 4.3 fixes a security bug, introduces multiple new features, and upgrades underlying Pulp to a Long Term Support (LTS) version.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nRed Hat Update Infrastructure (RHUI) offers a highly scalable, highly redundant framework that enables you to manage repositories and content. It also enables cloud providers to deliver content and updates to Red Hat Enterprise Linux (RHEL) instances.\n\nSecurity Fix(es):\n* Django: Potential bypass of an upstream access control based on URL paths (CVE-2021-44420)\n\n* Django: Potential denial-of-service vulnerability in internationalized URLs (CVE-2022-41323)\n\nThis RHUI update fixes the following bugs:\n\n* Previously, `rhui-manager` failed to create an Alternate Content Source package. With this update, the problem is now fixed and you can successfully create an Alternate Content Source package.\n\n* With this update,  several parts of redundant code have been removed from RHUI. Most notably, the unused `entitlement` argument in the custom repository creation has been removed. Additionally, the Atomic and OSTree functions have been removed because these features have been deprecated in RHUI 4.\n\n* Previously, CDS and HAProxy management used a variable called `port`. However, this name is a reserved playbook keyword in Ansible. Consequently, Ansible printed warnings about the use of this variable. With this update, the variable has been renamed to `remote_port` which prevents the warnings.\n\n* Previously, when the RHUA installation playbook failed, `rhui-installer` exited with a status of 0, which normally indicates success. With this update, the problem has been fixed, and `rhui-installer` exits with a status of 1, indicating that the RHUA installation playbook has failed.\n\n* Previously, RHUI did not accept proxy server settings when adding container images. Consequently, RHUI was unable to synchronize container images if the proxy server configuration was required to access the container registries. With this update, RHUI now accepts proxy settings when they are configured with the container images. As a result, proxy-enabled RHUI environments can now synchronize container images.\n\n* With this update, the misaligned text on the repository workflow screen in the rhui-manager text interface has been fixed.\n\nThis RHUI update introduces the following enhancements:\n\n* This update introduces a newer version of Pulp, `3.21.0`. Among other upstream bug fixes and enhancements, this version changes how Pulp manages ambiguous CDN repodata that contains a duplicate package name-version-release string. Instead of failing, Pulp logs a warning and allows the affected repository to be synchronized.(BZ#2134277)\n\n* A new `rhui-manager` command is now available, `rhui-manager [--noninteractive] cds reinstall --all`. With this command, you can reinstall all of your CDS nodes using a single command. Additionally, you do not need to specify any of the CDS host names.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2023 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Low",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2023:0742",
+				"Description": "https://access.redhat.com/errata/RHSA-2023:0742"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#low",
+				"Description": "https://access.redhat.com/security/updates/classification/#low"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "In Django 2.2 before 2.2.25, 3.1 before 3.1.14, and 3.2 before 3.2.10, HTTP requests for URLs with trailing newlines could bypass upstream access control based on URL paths.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2021-12-07T08:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2021-44420",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata relevant to your system have been applied.\n \nFor detailed instructions on how to apply this update, see:\nhttps://access.redhat.com/documentation/en-us/red_hat_update_infrastructure/4/html/migrating_red_hat_update_infrastructure/assembly_upgrading-red-hat-update-infrastructure_migrating-red-hat-update-infrastructure\n \nFor other information, see the product documentation:\nhttps://access.redhat.com/documentation/en-us/red_hat_update_infrastructure/4\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:0742"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.djangoproject.com/weblog/2021/dec/07/security-releases/",
+						"Description": "https://www.djangoproject.com/weblog/2021/dec/07/security-releases/"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2021-44420",
+						"Description": "CVE-2021-44420"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2028178",
+						"Description": "bz#2028178: CVE-2021-44420 django: potential bypass of an upstream access control based on URL paths"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2021-12-01T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-RHUI-4:createrepo_c-0:0.20.1-1.0.1.el8ui",
+						"8Base-RHUI-4:libcomps-0:0.1.18-4.0.1.el8ui",
+						"8Base-RHUI-4:libsolv-0:0.7.22-4.0.1.el8ui",
+						"8Base-RHUI-4:pulpcore-selinux-0:1.3.2-1.0.1.el8ui",
+						"8Base-RHUI-4:python-aiodns-0:3.0.0-4.1.1.el8ui",
+						"8Base-RHUI-4:python-aiofiles-0:22.1.0-1.0.1.el8ui",
+						"8Base-RHUI-4:python-aiohttp-0:3.8.1-3.0.1.el8ui",
+						"8Base-RHUI-4:python-aiohttp-xmlrpc-0:1.5.0-2.0.1.el8ui",
+						"8Base-RHUI-4:python-aioredis-0:2.0.1-2.0.1.el8ui",
+						"8Base-RHUI-4:python-aiosignal-0:1.2.0-2.0.1.el8ui",
+						"8Base-RHUI-4:python-asgiref-0:3.5.2-1.0.1.el8ui",
+						"8Base-RHUI-4:python-async-timeout-0:4.0.2-2.0.1.el8ui",
+						"8Base-RHUI-4:python-asyncio-throttle-0:1.0.2-4.1.1.el8ui",
+						"8Base-RHUI-4:python-attrs-0:21.4.0-2.0.1.el8ui",
+						"8Base-RHUI-4:python-backoff-0:2.1.2-1.0.1.el8ui",
+						"8Base-RHUI-4:python-brotli-0:1.0.9-2.0.1.el8ui",
+						"8Base-RHUI-4:python-cchardet-0:2.1.7-4.0.1.el8ui",
+						"8Base-RHUI-4:python-charset-normalizer-0:2.1.1-1.0.1.el8ui",
+						"8Base-RHUI-4:python-click-0:8.1.3-1.0.1.el8ui",
+						"8Base-RHUI-4:python-defusedxml-0:0.7.1-3.0.1.el8ui",
+						"8Base-RHUI-4:python-deprecated-0:1.2.13-1.0.1.el8ui",
+						"8Base-RHUI-4:python-diff-match-patch-0:20200713-3.0.1.el8ui",
+						"8Base-RHUI-4:python-django-0:3.2.16-1.0.1.el8ui",
+						"8Base-RHUI-4:python-django-currentuser-0:0.5.3-5.0.1.el8ui",
+						"8Base-RHUI-4:python-django-filter-0:22.1-2.0.1.el8ui",
+						"8Base-RHUI-4:python-django-guid-0:3.3.0-1.0.1.el8ui",
+						"8Base-RHUI-4:python-django-import-export-0:2.8.0-1.0.1.el8ui",
+						"8Base-RHUI-4:python-django-lifecycle-0:1.0.0-1.0.1.el8ui",
+						"8Base-RHUI-4:python-django-readonly-field-0:1.1.1-3.0.1.el8ui",
+						"8Base-RHUI-4:python-djangorestframework-0:3.13.1-2.0.1.el8ui",
+						"8Base-RHUI-4:python-djangorestframework-queryfields-0:1.0.0-6.1.1.el8ui",
+						"8Base-RHUI-4:python-drf-access-policy-0:1.1.2-1.0.1.el8ui",
+						"8Base-RHUI-4:python-drf-nested-routers-0:0.93.4-3.0.1.el8ui",
+						"8Base-RHUI-4:python-drf-spectacular-0:0.23.1-1.0.1.el8ui",
+						"8Base-RHUI-4:python-dynaconf-0:3.1.9-1.0.1.el8ui",
+						"8Base-RHUI-4:python-ecdsa-0:0.14.1-2.0.1.el8ui",
+						"8Base-RHUI-4:python-et-xmlfile-0:1.1.0-2.0.3.el8ui",
+						"8Base-RHUI-4:python-frozenlist-0:1.3.0-2.0.1.el8ui",
+						"8Base-RHUI-4:python-future-0:0.18.2-5.0.1.el8ui",
+						"8Base-RHUI-4:python-gnupg-0:0.5.0-1.0.1.el8ui",
+						"8Base-RHUI-4:python-gunicorn-0:20.1.0-7.1.1.el8ui",
+						"8Base-RHUI-4:python-idna-ssl-0:1.1.0-6.1.1.el8ui",
+						"8Base-RHUI-4:python-inflection-0:0.5.1-4.1.1.el8ui",
+						"8Base-RHUI-4:python-jinja2-0:3.1.2-1.0.1.el8ui",
+						"8Base-RHUI-4:python-jsonschema-0:4.9.1-1.0.1.el8ui",
+						"8Base-RHUI-4:python-markuppy-0:1.14-3.0.1.el8ui",
+						"8Base-RHUI-4:python-markupsafe-0:2.0.1-3.0.2.el8ui",
+						"8Base-RHUI-4:python-multidict-0:6.0.2-2.0.1.el8ui",
+						"8Base-RHUI-4:python-naya-0:1.1.1-3.0.1.el8ui",
+						"8Base-RHUI-4:python-odfpy-0:1.4.1-6.0.1.el8ui",
+						"8Base-RHUI-4:python-openpyxl-0:3.0.9-2.0.1.el8ui",
+						"8Base-RHUI-4:python-packaging-0:21.3-1.0.1.el8ui",
+						"8Base-RHUI-4:python-productmd-0:1.33-4.1.1.el8ui",
+						"8Base-RHUI-4:python-protobuf-0:4.21.6-1.0.1.el8ui",
+						"8Base-RHUI-4:python-psycopg2-0:2.9.3-2.0.1.el8ui",
+						"8Base-RHUI-4:python-pulp-container-0:2.14.3-1.0.1.el8ui",
+						"8Base-RHUI-4:python-pulp-container-client-0:2.14.1-1.4.el8ui",
+						"8Base-RHUI-4:python-pulp-rpm-0:3.18.5-1.0.1.el8ui",
+						"8Base-RHUI-4:python-pulp-rpm-client-0:3.18.5-1.2.el8ui",
+						"8Base-RHUI-4:python-pulpcore-0:3.21.0-1.0.1.el8ui",
+						"8Base-RHUI-4:python-pulpcore-client-0:3.21.0-1.0.1.el8ui",
+						"8Base-RHUI-4:python-pycairo-0:1.20.1-5.1.1.el8ui",
+						"8Base-RHUI-4:python-pycares-0:4.1.2-2.0.1.el8ui",
+						"8Base-RHUI-4:python-pycryptodomex-0:3.14.1-2.0.1.el8ui",
+						"8Base-RHUI-4:python-pygobject-1:3.40.1-4.0.1.el8ui",
+						"8Base-RHUI-4:python-pygtrie-0:2.5.0-1.0.1.el8ui",
+						"8Base-RHUI-4:python-pyjwkest-0:1.4.2-6.0.1.el8ui",
+						"8Base-RHUI-4:python-pyjwt-0:2.5.0-2.0.1.el8ui",
+						"8Base-RHUI-4:python-pyparsing-0:2.4.7-4.0.1.el8ui",
+						"8Base-RHUI-4:python-pyrsistent-0:0.18.1-2.0.1.el8ui",
+						"8Base-RHUI-4:python-pytz-0:2022.2.1-1.0.1.el8ui",
+						"8Base-RHUI-4:python-redis-0:4.3.4-1.0.1.el8ui",
+						"8Base-RHUI-4:python-sqlparse-0:0.4.2-4.1.1.el8ui",
+						"8Base-RHUI-4:python-tablib-0:3.2.0-3.0.1.el8ui",
+						"8Base-RHUI-4:python-types-cryptography-0:3.3.23-1.0.1.el8ui",
+						"8Base-RHUI-4:python-typing-extensions-0:3.10.0.2-3.1.1.el8ui",
+						"8Base-RHUI-4:python-uritemplate-0:4.1.1-3.1.1.el8ui",
+						"8Base-RHUI-4:python-url-normalize-0:1.4.3-4.0.1.el8ui",
+						"8Base-RHUI-4:python-urlman-0:2.0.1-1.0.1.el8ui",
+						"8Base-RHUI-4:python-whitenoise-0:6.0.0-1.0.1.el8ui",
+						"8Base-RHUI-4:python-wrapt-0:1.14.1-1.0.1.el8ui",
+						"8Base-RHUI-4:python-xlrd-0:2.0.1-5.0.1.el8ui",
+						"8Base-RHUI-4:python-xlwt-0:1.3.0-3.0.1.el8ui",
+						"8Base-RHUI-4:python-yarl-0:1.7.2-4.1.1.el8ui",
+						"8Base-RHUI-4:rhui-installer-0:4.3.0.4-1.el8ui",
+						"8Base-RHUI-4:rhui-tools-0:4.3.0.8-1.el8ui"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": " Upstream acknowledges Sjoerd Job Postmus and TengMA(@te3t123) as the original reporters."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A denial of service flaw was discovered in Django. This issue occurs when incorrectly handling certain internationalized URLs. A malicious attacker could use this issue to cause a crash, resulting in a denial of service.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-10-04T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-41323",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata relevant to your system have been applied.\n \nFor detailed instructions on how to apply this update, see:\nhttps://access.redhat.com/documentation/en-us/red_hat_update_infrastructure/4/html/migrating_red_hat_update_infrastructure/assembly_upgrading-red-hat-update-infrastructure_migrating-red-hat-update-infrastructure\n \nFor other information, see the product documentation:\nhttps://access.redhat.com/documentation/en-us/red_hat_update_infrastructure/4\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:0742"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.djangoproject.com/weblog/2022/oct/04/security-releases/",
+						"Description": "https://www.djangoproject.com/weblog/2022/oct/04/security-releases/"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-41323",
+						"Description": "CVE-2022-41323"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2136130",
+						"Description": "bz#2136130: CVE-2022-41323 python-django: Potential denial-of-service vulnerability in internationalized URLs"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2022-10-04T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-RHUI-4:createrepo_c-0:0.20.1-1.0.1.el8ui",
+						"8Base-RHUI-4:libcomps-0:0.1.18-4.0.1.el8ui",
+						"8Base-RHUI-4:libsolv-0:0.7.22-4.0.1.el8ui",
+						"8Base-RHUI-4:pulpcore-selinux-0:1.3.2-1.0.1.el8ui",
+						"8Base-RHUI-4:python-aiodns-0:3.0.0-4.1.1.el8ui",
+						"8Base-RHUI-4:python-aiofiles-0:22.1.0-1.0.1.el8ui",
+						"8Base-RHUI-4:python-aiohttp-0:3.8.1-3.0.1.el8ui",
+						"8Base-RHUI-4:python-aiohttp-xmlrpc-0:1.5.0-2.0.1.el8ui",
+						"8Base-RHUI-4:python-aioredis-0:2.0.1-2.0.1.el8ui",
+						"8Base-RHUI-4:python-aiosignal-0:1.2.0-2.0.1.el8ui",
+						"8Base-RHUI-4:python-asgiref-0:3.5.2-1.0.1.el8ui",
+						"8Base-RHUI-4:python-async-timeout-0:4.0.2-2.0.1.el8ui",
+						"8Base-RHUI-4:python-asyncio-throttle-0:1.0.2-4.1.1.el8ui",
+						"8Base-RHUI-4:python-attrs-0:21.4.0-2.0.1.el8ui",
+						"8Base-RHUI-4:python-backoff-0:2.1.2-1.0.1.el8ui",
+						"8Base-RHUI-4:python-brotli-0:1.0.9-2.0.1.el8ui",
+						"8Base-RHUI-4:python-cchardet-0:2.1.7-4.0.1.el8ui",
+						"8Base-RHUI-4:python-charset-normalizer-0:2.1.1-1.0.1.el8ui",
+						"8Base-RHUI-4:python-click-0:8.1.3-1.0.1.el8ui",
+						"8Base-RHUI-4:python-defusedxml-0:0.7.1-3.0.1.el8ui",
+						"8Base-RHUI-4:python-deprecated-0:1.2.13-1.0.1.el8ui",
+						"8Base-RHUI-4:python-diff-match-patch-0:20200713-3.0.1.el8ui",
+						"8Base-RHUI-4:python-django-0:3.2.16-1.0.1.el8ui",
+						"8Base-RHUI-4:python-django-currentuser-0:0.5.3-5.0.1.el8ui",
+						"8Base-RHUI-4:python-django-filter-0:22.1-2.0.1.el8ui",
+						"8Base-RHUI-4:python-django-guid-0:3.3.0-1.0.1.el8ui",
+						"8Base-RHUI-4:python-django-import-export-0:2.8.0-1.0.1.el8ui",
+						"8Base-RHUI-4:python-django-lifecycle-0:1.0.0-1.0.1.el8ui",
+						"8Base-RHUI-4:python-django-readonly-field-0:1.1.1-3.0.1.el8ui",
+						"8Base-RHUI-4:python-djangorestframework-0:3.13.1-2.0.1.el8ui",
+						"8Base-RHUI-4:python-djangorestframework-queryfields-0:1.0.0-6.1.1.el8ui",
+						"8Base-RHUI-4:python-drf-access-policy-0:1.1.2-1.0.1.el8ui",
+						"8Base-RHUI-4:python-drf-nested-routers-0:0.93.4-3.0.1.el8ui",
+						"8Base-RHUI-4:python-drf-spectacular-0:0.23.1-1.0.1.el8ui",
+						"8Base-RHUI-4:python-dynaconf-0:3.1.9-1.0.1.el8ui",
+						"8Base-RHUI-4:python-ecdsa-0:0.14.1-2.0.1.el8ui",
+						"8Base-RHUI-4:python-et-xmlfile-0:1.1.0-2.0.3.el8ui",
+						"8Base-RHUI-4:python-frozenlist-0:1.3.0-2.0.1.el8ui",
+						"8Base-RHUI-4:python-future-0:0.18.2-5.0.1.el8ui",
+						"8Base-RHUI-4:python-gnupg-0:0.5.0-1.0.1.el8ui",
+						"8Base-RHUI-4:python-gunicorn-0:20.1.0-7.1.1.el8ui",
+						"8Base-RHUI-4:python-idna-ssl-0:1.1.0-6.1.1.el8ui",
+						"8Base-RHUI-4:python-inflection-0:0.5.1-4.1.1.el8ui",
+						"8Base-RHUI-4:python-jinja2-0:3.1.2-1.0.1.el8ui",
+						"8Base-RHUI-4:python-jsonschema-0:4.9.1-1.0.1.el8ui",
+						"8Base-RHUI-4:python-markuppy-0:1.14-3.0.1.el8ui",
+						"8Base-RHUI-4:python-markupsafe-0:2.0.1-3.0.2.el8ui",
+						"8Base-RHUI-4:python-multidict-0:6.0.2-2.0.1.el8ui",
+						"8Base-RHUI-4:python-naya-0:1.1.1-3.0.1.el8ui",
+						"8Base-RHUI-4:python-odfpy-0:1.4.1-6.0.1.el8ui",
+						"8Base-RHUI-4:python-openpyxl-0:3.0.9-2.0.1.el8ui",
+						"8Base-RHUI-4:python-packaging-0:21.3-1.0.1.el8ui",
+						"8Base-RHUI-4:python-productmd-0:1.33-4.1.1.el8ui",
+						"8Base-RHUI-4:python-protobuf-0:4.21.6-1.0.1.el8ui",
+						"8Base-RHUI-4:python-psycopg2-0:2.9.3-2.0.1.el8ui",
+						"8Base-RHUI-4:python-pulp-container-0:2.14.3-1.0.1.el8ui",
+						"8Base-RHUI-4:python-pulp-container-client-0:2.14.1-1.4.el8ui",
+						"8Base-RHUI-4:python-pulp-rpm-0:3.18.5-1.0.1.el8ui",
+						"8Base-RHUI-4:python-pulp-rpm-client-0:3.18.5-1.2.el8ui",
+						"8Base-RHUI-4:python-pulpcore-0:3.21.0-1.0.1.el8ui",
+						"8Base-RHUI-4:python-pulpcore-client-0:3.21.0-1.0.1.el8ui",
+						"8Base-RHUI-4:python-pycairo-0:1.20.1-5.1.1.el8ui",
+						"8Base-RHUI-4:python-pycares-0:4.1.2-2.0.1.el8ui",
+						"8Base-RHUI-4:python-pycryptodomex-0:3.14.1-2.0.1.el8ui",
+						"8Base-RHUI-4:python-pygobject-1:3.40.1-4.0.1.el8ui",
+						"8Base-RHUI-4:python-pygtrie-0:2.5.0-1.0.1.el8ui",
+						"8Base-RHUI-4:python-pyjwkest-0:1.4.2-6.0.1.el8ui",
+						"8Base-RHUI-4:python-pyjwt-0:2.5.0-2.0.1.el8ui",
+						"8Base-RHUI-4:python-pyparsing-0:2.4.7-4.0.1.el8ui",
+						"8Base-RHUI-4:python-pyrsistent-0:0.18.1-2.0.1.el8ui",
+						"8Base-RHUI-4:python-pytz-0:2022.2.1-1.0.1.el8ui",
+						"8Base-RHUI-4:python-redis-0:4.3.4-1.0.1.el8ui",
+						"8Base-RHUI-4:python-sqlparse-0:0.4.2-4.1.1.el8ui",
+						"8Base-RHUI-4:python-tablib-0:3.2.0-3.0.1.el8ui",
+						"8Base-RHUI-4:python-types-cryptography-0:3.3.23-1.0.1.el8ui",
+						"8Base-RHUI-4:python-typing-extensions-0:3.10.0.2-3.1.1.el8ui",
+						"8Base-RHUI-4:python-uritemplate-0:4.1.1-3.1.1.el8ui",
+						"8Base-RHUI-4:python-url-normalize-0:1.4.3-4.0.1.el8ui",
+						"8Base-RHUI-4:python-urlman-0:2.0.1-1.0.1.el8ui",
+						"8Base-RHUI-4:python-whitenoise-0:6.0.0-1.0.1.el8ui",
+						"8Base-RHUI-4:python-wrapt-0:1.14.1-1.0.1.el8ui",
+						"8Base-RHUI-4:python-xlrd-0:2.0.1-5.0.1.el8ui",
+						"8Base-RHUI-4:python-xlwt-0:1.3.0-3.0.1.el8ui",
+						"8Base-RHUI-4:python-yarl-0:1.7.2-4.1.1.el8ui",
+						"8Base-RHUI-4:rhui-installer-0:4.3.0.4-1.el8ui",
+						"8Base-RHUI-4:rhui-tools-0:4.3.0.8-1.el8ui"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Update Infrastructure",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "RHUI 4 for RHEL 8",
+						"fullproductname": {
+							"text": "RHUI 4 for RHEL 8",
+							"productid": "8Base-RHUI-4",
+							"cpe": "cpe:/a:redhat:rhui:4::el8"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "createrepo_c-0:0.20.1-1.0.1.el8ui",
+				"fullproductname": {
+					"text": "createrepo_c-0.20.1-1.0.1.el8ui.src.rpm",
+					"productid": "createrepo_c-0:0.20.1-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libcomps-0:0.1.18-4.0.1.el8ui",
+				"fullproductname": {
+					"text": "libcomps-0.1.18-4.0.1.el8ui.src.rpm",
+					"productid": "libcomps-0:0.1.18-4.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libsolv-0:0.7.22-4.0.1.el8ui",
+				"fullproductname": {
+					"text": "libsolv-0.7.22-4.0.1.el8ui.src.rpm",
+					"productid": "libsolv-0:0.7.22-4.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pulpcore-selinux-0:1.3.2-1.0.1.el8ui",
+				"fullproductname": {
+					"text": "pulpcore-selinux-1.3.2-1.0.1.el8ui.src.rpm",
+					"productid": "pulpcore-selinux-0:1.3.2-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-aiodns-0:3.0.0-4.1.1.el8ui",
+				"fullproductname": {
+					"text": "python-aiodns-3.0.0-4.1.1.el8ui.src.rpm",
+					"productid": "python-aiodns-0:3.0.0-4.1.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-aiofiles-0:22.1.0-1.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-aiofiles-22.1.0-1.0.1.el8ui.src.rpm",
+					"productid": "python-aiofiles-0:22.1.0-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-aiohttp-0:3.8.1-3.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-aiohttp-3.8.1-3.0.1.el8ui.src.rpm",
+					"productid": "python-aiohttp-0:3.8.1-3.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-aiohttp-xmlrpc-0:1.5.0-2.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-aiohttp-xmlrpc-1.5.0-2.0.1.el8ui.src.rpm",
+					"productid": "python-aiohttp-xmlrpc-0:1.5.0-2.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-aioredis-0:2.0.1-2.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-aioredis-2.0.1-2.0.1.el8ui.src.rpm",
+					"productid": "python-aioredis-0:2.0.1-2.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-aiosignal-0:1.2.0-2.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-aiosignal-1.2.0-2.0.1.el8ui.src.rpm",
+					"productid": "python-aiosignal-0:1.2.0-2.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-asgiref-0:3.5.2-1.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-asgiref-3.5.2-1.0.1.el8ui.src.rpm",
+					"productid": "python-asgiref-0:3.5.2-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-async-timeout-0:4.0.2-2.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-async-timeout-4.0.2-2.0.1.el8ui.src.rpm",
+					"productid": "python-async-timeout-0:4.0.2-2.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-asyncio-throttle-0:1.0.2-4.1.1.el8ui",
+				"fullproductname": {
+					"text": "python-asyncio-throttle-1.0.2-4.1.1.el8ui.src.rpm",
+					"productid": "python-asyncio-throttle-0:1.0.2-4.1.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-attrs-0:21.4.0-2.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-attrs-21.4.0-2.0.1.el8ui.src.rpm",
+					"productid": "python-attrs-0:21.4.0-2.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-backoff-0:2.1.2-1.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-backoff-2.1.2-1.0.1.el8ui.src.rpm",
+					"productid": "python-backoff-0:2.1.2-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-brotli-0:1.0.9-2.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-brotli-1.0.9-2.0.1.el8ui.src.rpm",
+					"productid": "python-brotli-0:1.0.9-2.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-cchardet-0:2.1.7-4.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-cchardet-2.1.7-4.0.1.el8ui.src.rpm",
+					"productid": "python-cchardet-0:2.1.7-4.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-charset-normalizer-0:2.1.1-1.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-charset-normalizer-2.1.1-1.0.1.el8ui.src.rpm",
+					"productid": "python-charset-normalizer-0:2.1.1-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-click-0:8.1.3-1.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-click-8.1.3-1.0.1.el8ui.src.rpm",
+					"productid": "python-click-0:8.1.3-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-defusedxml-0:0.7.1-3.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-defusedxml-0.7.1-3.0.1.el8ui.src.rpm",
+					"productid": "python-defusedxml-0:0.7.1-3.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-deprecated-0:1.2.13-1.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-deprecated-1.2.13-1.0.1.el8ui.src.rpm",
+					"productid": "python-deprecated-0:1.2.13-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-diff-match-patch-0:20200713-3.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-diff-match-patch-20200713-3.0.1.el8ui.src.rpm",
+					"productid": "python-diff-match-patch-0:20200713-3.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-django-0:3.2.16-1.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-django-3.2.16-1.0.1.el8ui.src.rpm",
+					"productid": "python-django-0:3.2.16-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-django-currentuser-0:0.5.3-5.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-django-currentuser-0.5.3-5.0.1.el8ui.src.rpm",
+					"productid": "python-django-currentuser-0:0.5.3-5.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-django-filter-0:22.1-2.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-django-filter-22.1-2.0.1.el8ui.src.rpm",
+					"productid": "python-django-filter-0:22.1-2.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-django-guid-0:3.3.0-1.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-django-guid-3.3.0-1.0.1.el8ui.src.rpm",
+					"productid": "python-django-guid-0:3.3.0-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-django-import-export-0:2.8.0-1.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-django-import-export-2.8.0-1.0.1.el8ui.src.rpm",
+					"productid": "python-django-import-export-0:2.8.0-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-django-lifecycle-0:1.0.0-1.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-django-lifecycle-1.0.0-1.0.1.el8ui.src.rpm",
+					"productid": "python-django-lifecycle-0:1.0.0-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-django-readonly-field-0:1.1.1-3.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-django-readonly-field-1.1.1-3.0.1.el8ui.src.rpm",
+					"productid": "python-django-readonly-field-0:1.1.1-3.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-djangorestframework-0:3.13.1-2.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-djangorestframework-3.13.1-2.0.1.el8ui.src.rpm",
+					"productid": "python-djangorestframework-0:3.13.1-2.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-djangorestframework-queryfields-0:1.0.0-6.1.1.el8ui",
+				"fullproductname": {
+					"text": "python-djangorestframework-queryfields-1.0.0-6.1.1.el8ui.src.rpm",
+					"productid": "python-djangorestframework-queryfields-0:1.0.0-6.1.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-drf-access-policy-0:1.1.2-1.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-drf-access-policy-1.1.2-1.0.1.el8ui.src.rpm",
+					"productid": "python-drf-access-policy-0:1.1.2-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-drf-nested-routers-0:0.93.4-3.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-drf-nested-routers-0.93.4-3.0.1.el8ui.src.rpm",
+					"productid": "python-drf-nested-routers-0:0.93.4-3.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-drf-spectacular-0:0.23.1-1.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-drf-spectacular-0.23.1-1.0.1.el8ui.src.rpm",
+					"productid": "python-drf-spectacular-0:0.23.1-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-dynaconf-0:3.1.9-1.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-dynaconf-3.1.9-1.0.1.el8ui.src.rpm",
+					"productid": "python-dynaconf-0:3.1.9-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-ecdsa-0:0.14.1-2.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-ecdsa-0.14.1-2.0.1.el8ui.src.rpm",
+					"productid": "python-ecdsa-0:0.14.1-2.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-et-xmlfile-0:1.1.0-2.0.3.el8ui",
+				"fullproductname": {
+					"text": "python-et-xmlfile-1.1.0-2.0.3.el8ui.src.rpm",
+					"productid": "python-et-xmlfile-0:1.1.0-2.0.3.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-frozenlist-0:1.3.0-2.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-frozenlist-1.3.0-2.0.1.el8ui.src.rpm",
+					"productid": "python-frozenlist-0:1.3.0-2.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-future-0:0.18.2-5.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-future-0.18.2-5.0.1.el8ui.src.rpm",
+					"productid": "python-future-0:0.18.2-5.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-gnupg-0:0.5.0-1.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-gnupg-0.5.0-1.0.1.el8ui.src.rpm",
+					"productid": "python-gnupg-0:0.5.0-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-gunicorn-0:20.1.0-7.1.1.el8ui",
+				"fullproductname": {
+					"text": "python-gunicorn-20.1.0-7.1.1.el8ui.src.rpm",
+					"productid": "python-gunicorn-0:20.1.0-7.1.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-idna-ssl-0:1.1.0-6.1.1.el8ui",
+				"fullproductname": {
+					"text": "python-idna-ssl-1.1.0-6.1.1.el8ui.src.rpm",
+					"productid": "python-idna-ssl-0:1.1.0-6.1.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-inflection-0:0.5.1-4.1.1.el8ui",
+				"fullproductname": {
+					"text": "python-inflection-0.5.1-4.1.1.el8ui.src.rpm",
+					"productid": "python-inflection-0:0.5.1-4.1.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-jinja2-0:3.1.2-1.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-jinja2-3.1.2-1.0.1.el8ui.src.rpm",
+					"productid": "python-jinja2-0:3.1.2-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-jsonschema-0:4.9.1-1.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-jsonschema-4.9.1-1.0.1.el8ui.src.rpm",
+					"productid": "python-jsonschema-0:4.9.1-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-markuppy-0:1.14-3.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-markuppy-1.14-3.0.1.el8ui.src.rpm",
+					"productid": "python-markuppy-0:1.14-3.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-markupsafe-0:2.0.1-3.0.2.el8ui",
+				"fullproductname": {
+					"text": "python-markupsafe-2.0.1-3.0.2.el8ui.src.rpm",
+					"productid": "python-markupsafe-0:2.0.1-3.0.2.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-multidict-0:6.0.2-2.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-multidict-6.0.2-2.0.1.el8ui.src.rpm",
+					"productid": "python-multidict-0:6.0.2-2.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-naya-0:1.1.1-3.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-naya-1.1.1-3.0.1.el8ui.src.rpm",
+					"productid": "python-naya-0:1.1.1-3.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-odfpy-0:1.4.1-6.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-odfpy-1.4.1-6.0.1.el8ui.src.rpm",
+					"productid": "python-odfpy-0:1.4.1-6.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-openpyxl-0:3.0.9-2.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-openpyxl-3.0.9-2.0.1.el8ui.src.rpm",
+					"productid": "python-openpyxl-0:3.0.9-2.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-packaging-0:21.3-1.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-packaging-21.3-1.0.1.el8ui.src.rpm",
+					"productid": "python-packaging-0:21.3-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-productmd-0:1.33-4.1.1.el8ui",
+				"fullproductname": {
+					"text": "python-productmd-1.33-4.1.1.el8ui.src.rpm",
+					"productid": "python-productmd-0:1.33-4.1.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-protobuf-0:4.21.6-1.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-protobuf-4.21.6-1.0.1.el8ui.src.rpm",
+					"productid": "python-protobuf-0:4.21.6-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-psycopg2-0:2.9.3-2.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-psycopg2-2.9.3-2.0.1.el8ui.src.rpm",
+					"productid": "python-psycopg2-0:2.9.3-2.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-pulp-container-0:2.14.3-1.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-pulp-container-2.14.3-1.0.1.el8ui.src.rpm",
+					"productid": "python-pulp-container-0:2.14.3-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-pulp-container-client-0:2.14.1-1.4.el8ui",
+				"fullproductname": {
+					"text": "python-pulp-container-client-2.14.1-1.4.el8ui.src.rpm",
+					"productid": "python-pulp-container-client-0:2.14.1-1.4.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-pulp-rpm-0:3.18.5-1.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-pulp-rpm-3.18.5-1.0.1.el8ui.src.rpm",
+					"productid": "python-pulp-rpm-0:3.18.5-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-pulp-rpm-client-0:3.18.5-1.2.el8ui",
+				"fullproductname": {
+					"text": "python-pulp-rpm-client-3.18.5-1.2.el8ui.src.rpm",
+					"productid": "python-pulp-rpm-client-0:3.18.5-1.2.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-pulpcore-0:3.21.0-1.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-pulpcore-3.21.0-1.0.1.el8ui.src.rpm",
+					"productid": "python-pulpcore-0:3.21.0-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-pulpcore-client-0:3.21.0-1.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-pulpcore-client-3.21.0-1.0.1.el8ui.src.rpm",
+					"productid": "python-pulpcore-client-0:3.21.0-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-pycairo-0:1.20.1-5.1.1.el8ui",
+				"fullproductname": {
+					"text": "python-pycairo-1.20.1-5.1.1.el8ui.src.rpm",
+					"productid": "python-pycairo-0:1.20.1-5.1.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-pycares-0:4.1.2-2.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-pycares-4.1.2-2.0.1.el8ui.src.rpm",
+					"productid": "python-pycares-0:4.1.2-2.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-pycryptodomex-0:3.14.1-2.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-pycryptodomex-3.14.1-2.0.1.el8ui.src.rpm",
+					"productid": "python-pycryptodomex-0:3.14.1-2.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-pygobject-1:3.40.1-4.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-pygobject-3.40.1-4.0.1.el8ui.src.rpm",
+					"productid": "python-pygobject-1:3.40.1-4.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-pygtrie-0:2.5.0-1.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-pygtrie-2.5.0-1.0.1.el8ui.src.rpm",
+					"productid": "python-pygtrie-0:2.5.0-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-pyjwkest-0:1.4.2-6.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-pyjwkest-1.4.2-6.0.1.el8ui.src.rpm",
+					"productid": "python-pyjwkest-0:1.4.2-6.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-pyjwt-0:2.5.0-2.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-pyjwt-2.5.0-2.0.1.el8ui.src.rpm",
+					"productid": "python-pyjwt-0:2.5.0-2.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-pyparsing-0:2.4.7-4.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-pyparsing-2.4.7-4.0.1.el8ui.src.rpm",
+					"productid": "python-pyparsing-0:2.4.7-4.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-pyrsistent-0:0.18.1-2.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-pyrsistent-0.18.1-2.0.1.el8ui.src.rpm",
+					"productid": "python-pyrsistent-0:0.18.1-2.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-pytz-0:2022.2.1-1.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-pytz-2022.2.1-1.0.1.el8ui.src.rpm",
+					"productid": "python-pytz-0:2022.2.1-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-redis-0:4.3.4-1.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-redis-4.3.4-1.0.1.el8ui.src.rpm",
+					"productid": "python-redis-0:4.3.4-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-sqlparse-0:0.4.2-4.1.1.el8ui",
+				"fullproductname": {
+					"text": "python-sqlparse-0.4.2-4.1.1.el8ui.src.rpm",
+					"productid": "python-sqlparse-0:0.4.2-4.1.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-tablib-0:3.2.0-3.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-tablib-3.2.0-3.0.1.el8ui.src.rpm",
+					"productid": "python-tablib-0:3.2.0-3.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-types-cryptography-0:3.3.23-1.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-types-cryptography-3.3.23-1.0.1.el8ui.src.rpm",
+					"productid": "python-types-cryptography-0:3.3.23-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-typing-extensions-0:3.10.0.2-3.1.1.el8ui",
+				"fullproductname": {
+					"text": "python-typing-extensions-3.10.0.2-3.1.1.el8ui.src.rpm",
+					"productid": "python-typing-extensions-0:3.10.0.2-3.1.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-uritemplate-0:4.1.1-3.1.1.el8ui",
+				"fullproductname": {
+					"text": "python-uritemplate-4.1.1-3.1.1.el8ui.src.rpm",
+					"productid": "python-uritemplate-0:4.1.1-3.1.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-url-normalize-0:1.4.3-4.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-url-normalize-1.4.3-4.0.1.el8ui.src.rpm",
+					"productid": "python-url-normalize-0:1.4.3-4.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-urlman-0:2.0.1-1.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-urlman-2.0.1-1.0.1.el8ui.src.rpm",
+					"productid": "python-urlman-0:2.0.1-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-whitenoise-0:6.0.0-1.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-whitenoise-6.0.0-1.0.1.el8ui.src.rpm",
+					"productid": "python-whitenoise-0:6.0.0-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-wrapt-0:1.14.1-1.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-wrapt-1.14.1-1.0.1.el8ui.src.rpm",
+					"productid": "python-wrapt-0:1.14.1-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-xlrd-0:2.0.1-5.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-xlrd-2.0.1-5.0.1.el8ui.src.rpm",
+					"productid": "python-xlrd-0:2.0.1-5.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-xlwt-0:1.3.0-3.0.1.el8ui",
+				"fullproductname": {
+					"text": "python-xlwt-1.3.0-3.0.1.el8ui.src.rpm",
+					"productid": "python-xlwt-0:1.3.0-3.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "python-yarl-0:1.7.2-4.1.1.el8ui",
+				"fullproductname": {
+					"text": "python-yarl-1.7.2-4.1.1.el8ui.src.rpm",
+					"productid": "python-yarl-0:1.7.2-4.1.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhui-installer-0:4.3.0.4-1.el8ui",
+				"fullproductname": {
+					"text": "rhui-installer-4.3.0.4-1.el8ui.src.rpm",
+					"productid": "rhui-installer-0:4.3.0.4-1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhui-tools-0:4.3.0.8-1.el8ui",
+				"fullproductname": {
+					"text": "rhui-tools-4.3.0.8-1.el8ui.src.rpm",
+					"productid": "rhui-tools-0:4.3.0.8-1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "createrepo_c-0:0.20.1-1.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "createrepo_c-0:0.20.1-1.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:createrepo_c-0:0.20.1-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "libcomps-0:0.1.18-4.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "libcomps-0:0.1.18-4.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:libcomps-0:0.1.18-4.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "libsolv-0:0.7.22-4.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "libsolv-0:0.7.22-4.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:libsolv-0:0.7.22-4.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "pulpcore-selinux-0:1.3.2-1.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "pulpcore-selinux-0:1.3.2-1.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:pulpcore-selinux-0:1.3.2-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-aiodns-0:3.0.0-4.1.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-aiodns-0:3.0.0-4.1.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-aiodns-0:3.0.0-4.1.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-aiofiles-0:22.1.0-1.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-aiofiles-0:22.1.0-1.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-aiofiles-0:22.1.0-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-aiohttp-0:3.8.1-3.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-aiohttp-0:3.8.1-3.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-aiohttp-0:3.8.1-3.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-aiohttp-xmlrpc-0:1.5.0-2.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-aiohttp-xmlrpc-0:1.5.0-2.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-aiohttp-xmlrpc-0:1.5.0-2.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-aioredis-0:2.0.1-2.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-aioredis-0:2.0.1-2.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-aioredis-0:2.0.1-2.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-aiosignal-0:1.2.0-2.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-aiosignal-0:1.2.0-2.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-aiosignal-0:1.2.0-2.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-asgiref-0:3.5.2-1.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-asgiref-0:3.5.2-1.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-asgiref-0:3.5.2-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-async-timeout-0:4.0.2-2.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-async-timeout-0:4.0.2-2.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-async-timeout-0:4.0.2-2.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-asyncio-throttle-0:1.0.2-4.1.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-asyncio-throttle-0:1.0.2-4.1.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-asyncio-throttle-0:1.0.2-4.1.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-attrs-0:21.4.0-2.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-attrs-0:21.4.0-2.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-attrs-0:21.4.0-2.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-backoff-0:2.1.2-1.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-backoff-0:2.1.2-1.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-backoff-0:2.1.2-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-brotli-0:1.0.9-2.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-brotli-0:1.0.9-2.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-brotli-0:1.0.9-2.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-cchardet-0:2.1.7-4.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-cchardet-0:2.1.7-4.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-cchardet-0:2.1.7-4.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-charset-normalizer-0:2.1.1-1.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-charset-normalizer-0:2.1.1-1.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-charset-normalizer-0:2.1.1-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-click-0:8.1.3-1.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-click-0:8.1.3-1.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-click-0:8.1.3-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-defusedxml-0:0.7.1-3.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-defusedxml-0:0.7.1-3.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-defusedxml-0:0.7.1-3.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-deprecated-0:1.2.13-1.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-deprecated-0:1.2.13-1.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-deprecated-0:1.2.13-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-diff-match-patch-0:20200713-3.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-diff-match-patch-0:20200713-3.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-diff-match-patch-0:20200713-3.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-django-0:3.2.16-1.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-django-0:3.2.16-1.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-django-0:3.2.16-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-django-currentuser-0:0.5.3-5.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-django-currentuser-0:0.5.3-5.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-django-currentuser-0:0.5.3-5.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-django-filter-0:22.1-2.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-django-filter-0:22.1-2.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-django-filter-0:22.1-2.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-django-guid-0:3.3.0-1.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-django-guid-0:3.3.0-1.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-django-guid-0:3.3.0-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-django-import-export-0:2.8.0-1.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-django-import-export-0:2.8.0-1.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-django-import-export-0:2.8.0-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-django-lifecycle-0:1.0.0-1.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-django-lifecycle-0:1.0.0-1.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-django-lifecycle-0:1.0.0-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-django-readonly-field-0:1.1.1-3.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-django-readonly-field-0:1.1.1-3.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-django-readonly-field-0:1.1.1-3.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-djangorestframework-0:3.13.1-2.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-djangorestframework-0:3.13.1-2.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-djangorestframework-0:3.13.1-2.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-djangorestframework-queryfields-0:1.0.0-6.1.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-djangorestframework-queryfields-0:1.0.0-6.1.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-djangorestframework-queryfields-0:1.0.0-6.1.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-drf-access-policy-0:1.1.2-1.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-drf-access-policy-0:1.1.2-1.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-drf-access-policy-0:1.1.2-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-drf-nested-routers-0:0.93.4-3.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-drf-nested-routers-0:0.93.4-3.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-drf-nested-routers-0:0.93.4-3.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-drf-spectacular-0:0.23.1-1.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-drf-spectacular-0:0.23.1-1.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-drf-spectacular-0:0.23.1-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-dynaconf-0:3.1.9-1.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-dynaconf-0:3.1.9-1.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-dynaconf-0:3.1.9-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-ecdsa-0:0.14.1-2.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-ecdsa-0:0.14.1-2.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-ecdsa-0:0.14.1-2.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-et-xmlfile-0:1.1.0-2.0.3.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-et-xmlfile-0:1.1.0-2.0.3.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-et-xmlfile-0:1.1.0-2.0.3.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-frozenlist-0:1.3.0-2.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-frozenlist-0:1.3.0-2.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-frozenlist-0:1.3.0-2.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-future-0:0.18.2-5.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-future-0:0.18.2-5.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-future-0:0.18.2-5.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-gnupg-0:0.5.0-1.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-gnupg-0:0.5.0-1.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-gnupg-0:0.5.0-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-gunicorn-0:20.1.0-7.1.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-gunicorn-0:20.1.0-7.1.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-gunicorn-0:20.1.0-7.1.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-idna-ssl-0:1.1.0-6.1.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-idna-ssl-0:1.1.0-6.1.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-idna-ssl-0:1.1.0-6.1.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-inflection-0:0.5.1-4.1.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-inflection-0:0.5.1-4.1.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-inflection-0:0.5.1-4.1.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-jinja2-0:3.1.2-1.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-jinja2-0:3.1.2-1.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-jinja2-0:3.1.2-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-jsonschema-0:4.9.1-1.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-jsonschema-0:4.9.1-1.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-jsonschema-0:4.9.1-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-markuppy-0:1.14-3.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-markuppy-0:1.14-3.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-markuppy-0:1.14-3.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-markupsafe-0:2.0.1-3.0.2.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-markupsafe-0:2.0.1-3.0.2.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-markupsafe-0:2.0.1-3.0.2.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-multidict-0:6.0.2-2.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-multidict-0:6.0.2-2.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-multidict-0:6.0.2-2.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-naya-0:1.1.1-3.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-naya-0:1.1.1-3.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-naya-0:1.1.1-3.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-odfpy-0:1.4.1-6.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-odfpy-0:1.4.1-6.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-odfpy-0:1.4.1-6.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-openpyxl-0:3.0.9-2.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-openpyxl-0:3.0.9-2.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-openpyxl-0:3.0.9-2.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-packaging-0:21.3-1.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-packaging-0:21.3-1.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-packaging-0:21.3-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-productmd-0:1.33-4.1.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-productmd-0:1.33-4.1.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-productmd-0:1.33-4.1.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-protobuf-0:4.21.6-1.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-protobuf-0:4.21.6-1.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-protobuf-0:4.21.6-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-psycopg2-0:2.9.3-2.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-psycopg2-0:2.9.3-2.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-psycopg2-0:2.9.3-2.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-pulp-container-0:2.14.3-1.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-pulp-container-0:2.14.3-1.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-pulp-container-0:2.14.3-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-pulp-container-client-0:2.14.1-1.4.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-pulp-container-client-0:2.14.1-1.4.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-pulp-container-client-0:2.14.1-1.4.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-pulp-rpm-0:3.18.5-1.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-pulp-rpm-0:3.18.5-1.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-pulp-rpm-0:3.18.5-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-pulp-rpm-client-0:3.18.5-1.2.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-pulp-rpm-client-0:3.18.5-1.2.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-pulp-rpm-client-0:3.18.5-1.2.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-pulpcore-0:3.21.0-1.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-pulpcore-0:3.21.0-1.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-pulpcore-0:3.21.0-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-pulpcore-client-0:3.21.0-1.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-pulpcore-client-0:3.21.0-1.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-pulpcore-client-0:3.21.0-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-pycairo-0:1.20.1-5.1.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-pycairo-0:1.20.1-5.1.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-pycairo-0:1.20.1-5.1.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-pycares-0:4.1.2-2.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-pycares-0:4.1.2-2.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-pycares-0:4.1.2-2.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-pycryptodomex-0:3.14.1-2.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-pycryptodomex-0:3.14.1-2.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-pycryptodomex-0:3.14.1-2.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-pygobject-1:3.40.1-4.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-pygobject-1:3.40.1-4.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-pygobject-1:3.40.1-4.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-pygtrie-0:2.5.0-1.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-pygtrie-0:2.5.0-1.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-pygtrie-0:2.5.0-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-pyjwkest-0:1.4.2-6.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-pyjwkest-0:1.4.2-6.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-pyjwkest-0:1.4.2-6.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-pyjwt-0:2.5.0-2.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-pyjwt-0:2.5.0-2.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-pyjwt-0:2.5.0-2.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-pyparsing-0:2.4.7-4.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-pyparsing-0:2.4.7-4.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-pyparsing-0:2.4.7-4.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-pyrsistent-0:0.18.1-2.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-pyrsistent-0:0.18.1-2.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-pyrsistent-0:0.18.1-2.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-pytz-0:2022.2.1-1.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-pytz-0:2022.2.1-1.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-pytz-0:2022.2.1-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-redis-0:4.3.4-1.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-redis-0:4.3.4-1.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-redis-0:4.3.4-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-sqlparse-0:0.4.2-4.1.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-sqlparse-0:0.4.2-4.1.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-sqlparse-0:0.4.2-4.1.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-tablib-0:3.2.0-3.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-tablib-0:3.2.0-3.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-tablib-0:3.2.0-3.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-types-cryptography-0:3.3.23-1.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-types-cryptography-0:3.3.23-1.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-types-cryptography-0:3.3.23-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-typing-extensions-0:3.10.0.2-3.1.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-typing-extensions-0:3.10.0.2-3.1.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-typing-extensions-0:3.10.0.2-3.1.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-uritemplate-0:4.1.1-3.1.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-uritemplate-0:4.1.1-3.1.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-uritemplate-0:4.1.1-3.1.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-url-normalize-0:1.4.3-4.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-url-normalize-0:1.4.3-4.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-url-normalize-0:1.4.3-4.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-urlman-0:2.0.1-1.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-urlman-0:2.0.1-1.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-urlman-0:2.0.1-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-whitenoise-0:6.0.0-1.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-whitenoise-0:6.0.0-1.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-whitenoise-0:6.0.0-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-wrapt-0:1.14.1-1.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-wrapt-0:1.14.1-1.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-wrapt-0:1.14.1-1.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-xlrd-0:2.0.1-5.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-xlrd-0:2.0.1-5.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-xlrd-0:2.0.1-5.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-xlwt-0:1.3.0-3.0.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-xlwt-0:1.3.0-3.0.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-xlwt-0:1.3.0-3.0.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "python-yarl-0:1.7.2-4.1.1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "python-yarl-0:1.7.2-4.1.1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:python-yarl-0:1.7.2-4.1.1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "rhui-installer-0:4.3.0.4-1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "rhui-installer-0:4.3.0.4-1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:rhui-installer-0:4.3.0.4-1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			},
+			{
+				"productreference": "rhui-tools-0:4.3.0.8-1.el8ui",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHUI-4",
+				"fullproductname": {
+					"text": "rhui-tools-0:4.3.0.8-1.el8ui as a component of RHUI 4 for RHEL 8",
+					"productid": "8Base-RHUI-4:rhui-tools-0:4.3.0.8-1.el8ui",
+					"cpe": "cpe:/a:redhat:rhui:4::el8"
+				}
+			}
+		]
+	}
+}

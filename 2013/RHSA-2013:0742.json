@@ -1,0 +1,292 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: 389-ds-base security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2013:0742"
+		},
+		"Status": "Final",
+		"Version": "2",
+		"revisionhistory": {
+			"revision": {
+				"Number": "2",
+				"Date": "2013-04-15T18:21:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2013-04-15T17:47:00Z",
+		"CurrentReleaseDate": "2013-04-15T18:21:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:33:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated 389-ds-base packages that fix one security issue and several bugs\nare now available for Red Hat Enterprise Linux 6.\n\nThe Red Hat Security Response Team has rated this update as having low\nsecurity impact. A Common Vulnerability Scoring System (CVSS) base score,\nwhich gives a detailed severity rating, is available from the CVE link in\nthe References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe 389 Directory Server is an LDAPv3 compliant server. The base packages\ninclude the Lightweight Directory Access Protocol (LDAP) server and\ncommand-line utilities for server administration.\n \nIt was found that the 389 Directory Server did not properly restrict access\nto entries when the \"nsslapd-allow-anonymous-access\" configuration setting\nwas set to \"rootdse\". An anonymous user could connect to the LDAP database\nand, if the search scope is set to BASE, obtain access to information\noutside of the rootDSE. (CVE-2013-1897)\n\nThis issue was discovered by Martin Kosek of Red Hat.\n\nThis update also fixes the following bugs:\n\n* Previously, the schema-reload plug-in was not thread-safe. Consequently,\nexecuting the schema-reload.pl script under heavy load could have caused\nthe ns-slapd process to terminate unexpectedly with a segmentation fault.\nCurrently, the schema-reload plug-in is re-designed so that it is\nthread-safe, and the schema-reload.pl script can be executed along with\nother LDAP operations. (BZ#929107)\n\n* An out of scope problem for a local variable, in some cases, caused the\nmodrdn operation to terminate unexpectedly with a segmentation fault. This\nupdate declares the local variable at the proper place of the function so\nit does not go out of scope, and the modrdn operation no longer crashes.\n(BZ#929111)\n\n* A task manually constructed an exact value to be removed from the\nconfiguration if the \"replica-force-cleaning\" option was used.\nConsequently, the task configuration was not cleaned up, and every time the\nserver was restarted, the task behaved in the described manner. This update\nsearches the configuration for the exact value to delete, instead of\nmanually building the value, and the task does not restart when the server\nis restarted. (BZ#929114)\n\n* Previously, a NULL pointer dereference could have occurred when\nattempting to get effective rights on an entry that did not exist, leading\nto an unexpected termination due to a segmentation fault. This update\nchecks for NULL entry pointers and returns the appropriate error. Now,\nattempts to get effective rights on an entry that does not exist no longer\ncauses crashes, and the server returns the appropriate error message.\n(BZ#929115)\n\n* A problem in the lock timing in the DNA plug-in caused a deadlock if the\nDNA operation was executed with other plug-ins. This update moves the\nrelease timing of the problematic lock, and the DNA plug-in does not cause\nthe deadlock. (BZ#929196)\n\nAll 389-ds-base users are advised to upgrade to these updated packages,\nwhich contain backported patches to correct these issues. After installing\nthis update, the 389 server service will be restarted automatically.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Low",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2013:0742",
+				"Description": "https://access.redhat.com/errata/RHSA-2013:0742"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#low",
+				"Description": "https://access.redhat.com/security/updates/classification/#low"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "389-ds: unintended information exposure when rootdse is enabled",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-03-28T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-1897",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:0742"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-1897",
+						"Description": "CVE-2013-1897"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=928105",
+						"Description": "bz#928105: CVE-2013-1897 389-ds: unintended information exposure when rootdse is enabled"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2013-03-21T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client-optional-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4",
+						"6ComputeNode-optional-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4",
+						"6Server-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4",
+						"6Server-optional-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4",
+						"6Workstation-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4",
+						"6Workstation-optional-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.6",
+					"Vector": "AV:N/AC:H/Au:N/C:P/I:N/A:N"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+							"productid": "6Client-optional-6.4.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+							"productid": "6ComputeNode-optional-6.4.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 6)",
+							"productid": "6Server-6.4.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional (v. 6)",
+							"productid": "6Server-optional-6.4.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 6)",
+							"productid": "6Workstation-6.4.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+							"productid": "6Workstation-optional-6.4.z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "389-ds-base-0:1.2.11.15-14.el6_4",
+				"fullproductname": {
+					"text": "389-ds-base-1.2.11.15-14.el6_4.src.rpm",
+					"productid": "389-ds-base-0:1.2.11.15-14.el6_4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "389-ds-base-0:1.2.11.15-14.el6_4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client-optional-6.4.z",
+				"fullproductname": {
+					"text": "389-ds-base-0:1.2.11.15-14.el6_4 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"productid": "6Client-optional-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "389-ds-base-0:1.2.11.15-14.el6_4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode-optional-6.4.z",
+				"fullproductname": {
+					"text": "389-ds-base-0:1.2.11.15-14.el6_4 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"productid": "6ComputeNode-optional-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "389-ds-base-0:1.2.11.15-14.el6_4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-6.4.z",
+				"fullproductname": {
+					"text": "389-ds-base-0:1.2.11.15-14.el6_4 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"productid": "6Server-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "389-ds-base-0:1.2.11.15-14.el6_4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-optional-6.4.z",
+				"fullproductname": {
+					"text": "389-ds-base-0:1.2.11.15-14.el6_4 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"productid": "6Server-optional-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "389-ds-base-0:1.2.11.15-14.el6_4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-6.4.z",
+				"fullproductname": {
+					"text": "389-ds-base-0:1.2.11.15-14.el6_4 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"productid": "6Workstation-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			},
+			{
+				"productreference": "389-ds-base-0:1.2.11.15-14.el6_4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation-optional-6.4.z",
+				"fullproductname": {
+					"text": "389-ds-base-0:1.2.11.15-14.el6_4 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"productid": "6Workstation-optional-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			}
+		]
+	}
+}

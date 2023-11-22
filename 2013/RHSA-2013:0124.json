@@ -1,0 +1,232 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: net-snmp security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2013:0124"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2013-01-08T04:22:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2013-01-08T04:16:00Z",
+		"CurrentReleaseDate": "2013-01-08T04:22:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:33:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated net-snmp packages that fix one security issue and multiple bugs are\nnow available for Red Hat Enterprise Linux 5.\n\nThe Red Hat Security Response Team has rated this update as having moderate\nsecurity impact. A Common Vulnerability Scoring System (CVSS) base score,\nwhich gives a detailed severity rating, is available from the CVE link in\nthe References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThese packages provide various libraries and tools for the Simple Network\nManagement Protocol (SNMP).\n\nAn out-of-bounds buffer read flaw was found in the net-snmp agent. A remote\nattacker with read privileges to a Management Information Base (MIB)\nsubtree handled by the \"extend\" directive (in \"/etc/snmp/snmpd.conf\") could\nuse this flaw to crash snmpd via a crafted SNMP GET request.\n(CVE-2012-2141)\n\nBug fixes:\n\n* Devices that used certain file systems were not reported in the\n\"HOST-RESOURCES-MIB::hrStorageTable\" table. As a result, the snmpd daemon\ndid not recognize devices using tmpfs, ReiserFS, and Oracle Cluster File\nSystem (OCFS2) file systems. This update recognizes these devices and\nreports them in the \"HOST-RESOURCES-MIB::hrStorageTable\" table.\n(BZ#754652, BZ#755958, BZ#822061)\n\n* The snmptrapd (8) man page did not correctly describe how to load\nmultiple configuration files using the \"-c\" option. This update describes\ncorrectly that multiple configuration files must be separated by a comma.\n(BZ#760001)\n\n* Integers truncated from 64 to 32-bit were not correctly evaluated. As a\nconsequence, the snmpd daemon could enter an endless loop when encoding the\ntruncated integers to network format. This update modifies the underlying\ncode so that snmpd correctly checks truncated 64-bit integers. Now, snmpd\navoids an endless loop. (BZ#783892)\n\n* snmpd did not correctly check for interrupted system calls when\nenumerating existing IPv6 network prefixes during startup. As a\nconsequence, snmpd could prematurely exit when receiving a signal during\nthis enumeration. This update checks the network prefix enumeration code\nfor interrupted system calls. Now, snmpd no longer terminates when a signal\nis received. (BZ#799699)\n\n* snmpd used the wrong length of COUNTER64 values in the AgentX protocol.\nAs a consequence, snmpd could not decode two consecutive COUNTER64 values\nin one AgentX packet. This update uses the correct COUNTER64 size and can\nprocess two or mode COUNTER64 values in AgentX communication. (BZ#803585)\n\n* snmpd ignored the \"-e\" parameter of the \"trapsess\" option in the snmpd\nconfiguration file. As a result, outgoing traps were incorrectly sent with\nthe default EngineID of snmpd when configuring \"trapsess\" with an explicit\nEngineID. This update modifies the underlying code to send outgoing traps\nusing the EngineID as specified in the \"trapsess -e\" parameter in the\nconfiguration file. (BZ#805689)\n\n* snmpd did not correctly encode negative Request-IDs in outgoing requests,\nfor example during trap operations. As a consequence, a 32-bit value could\nbe encoded in 5 bytes instead of 4, and the outgoing requests were refused\nby certain implementations of the SNMP protocol as invalid. With this\nupdate, a Request-ID can no longer become negative and is always encoded in\n4 bytes. (BZ#818259)\n\n* snmpd ignored the port number of the \"clientaddr\" option when specifying\nthe source address of outgoing SNMP requests. As a consequence, the system\nassigned a random address. This update allows to specify both the port\nnumber and the source IP address in the \"clientaddr\" option. Now,\nadministrators can increase security with firewall rules and\nSecurity-Enhanced Linux (SELinux) policies by configuring a specific source\nport of outgoing traps and other requests. (BZ#828691)\n\n* snmpd did not correctly process responses to internal queries when\ninitializing monitoring enabled by the \"monitor\" option in the\n\"/etc/snmp/snmpd.conf\" configuration file. As a consequence, snmpd was not\nfully initialized and the error message \"failed to run mteTrigger query\"\nappeared in the system log 30 seconds after the snmpd startup. This update\nexplicitly checks for responses to internal monitoring queries. (BZ#830042)\n\nUsers of net-snmp should upgrade to these updated packages, which contain\nbackported patches to correct these issues. After installing the update,\nthe snmpd and snmptrapd daemons will be restarted automatically.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2013:0124",
+				"Description": "https://access.redhat.com/errata/RHSA-2013:0124"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "net-snmp: Array index error, leading to out-of heap-based buffer read (snmpd crash)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-04-24T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-2141",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:0124"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-2141",
+						"Description": "CVE-2012-2141"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=815813",
+						"Description": "bz#815813: CVE-2012-2141 net-snmp: Array index error, leading to out-of heap-based buffer read (snmpd crash)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2012-04-26T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-Workstation:net-snmp-1:5.3.2.2-20.el5",
+						"5Client:net-snmp-1:5.3.2.2-20.el5",
+						"5Server:net-snmp-1:5.3.2.2-20.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+							"productid": "5Client",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+							"productid": "5Client-Workstation",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::client_workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux (v. 5 server)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux (v. 5 server)",
+							"productid": "5Server",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "net-snmp-1:5.3.2.2-20.el5",
+				"fullproductname": {
+					"text": "net-snmp-5.3.2.2-20.el5.src.rpm",
+					"productid": "net-snmp-1:5.3.2.2-20.el5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "net-snmp-1:5.3.2.2-20.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Client",
+				"fullproductname": {
+					"text": "net-snmp-1:5.3.2.2-20.el5 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"productid": "5Client:net-snmp-1:5.3.2.2-20.el5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+				}
+			},
+			{
+				"productreference": "net-snmp-1:5.3.2.2-20.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Client-Workstation",
+				"fullproductname": {
+					"text": "net-snmp-1:5.3.2.2-20.el5 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"productid": "5Client-Workstation:net-snmp-1:5.3.2.2-20.el5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client_workstation"
+				}
+			},
+			{
+				"productreference": "net-snmp-1:5.3.2.2-20.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server",
+				"fullproductname": {
+					"text": "net-snmp-1:5.3.2.2-20.el5 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"productid": "5Server:net-snmp-1:5.3.2.2-20.el5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+				}
+			}
+		]
+	}
+}

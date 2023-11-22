@@ -1,0 +1,1587 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: kernel-rt security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2013:0829"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2013-05-20T16:47:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2013-05-20T16:44:00Z",
+		"CurrentReleaseDate": "2013-05-20T16:47:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:32:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated kernel-rt packages that fix several security issues and multiple\nbugs are now available for Red Hat Enterprise MRG 2.3.\n\nThe Red Hat Security Response Team has rated this update as having\nimportant security impact. Common Vulnerability Scoring System (CVSS) base\nscores, which give detailed severity ratings, are available for each\nvulnerability from the CVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nSecurity fixes:\n\n* It was found that the kernel-rt update RHBA-2012:0044 introduced an\ninteger conversion issue in the Linux kernel's Performance Events\nimplementation. This led to a user-supplied index into the\nperf_swevent_enabled array not being validated properly, resulting in\nout-of-bounds kernel memory access. A local, unprivileged user could use\nthis flaw to escalate their privileges. (CVE-2013-2094, Important)\n\nA public exploit for CVE-2013-2094 that affects Red Hat Enterprise MRG 2 is\navailable. Refer to Red Hat Knowledge Solution 373743, linked to in the\nReferences, for further information and mitigation instructions for users\nwho are unable to immediately apply this update.\n\n* An integer overflow flaw, leading to a heap-based buffer overflow, was\nfound in the way the Intel i915 driver in the Linux kernel handled the\nallocation of the buffer used for relocation copies. A local user with\nconsole access could use this flaw to cause a denial of service or escalate\ntheir privileges. (CVE-2013-0913, Important)\n\n* It was found that the Linux kernel used effective user and group IDs\ninstead of real ones when passing messages with SCM_CREDENTIALS ancillary\ndata. A local, unprivileged user could leverage this flaw with a set user\nID (setuid) application, allowing them to escalate their privileges.\n(CVE-2013-1979, Important)\n\n* A race condition in install_user_keyrings(), leading to a NULL pointer\ndereference, was found in the key management facility. A local,\nunprivileged user could use this flaw to cause a denial of service.\n(CVE-2013-1792, Moderate)\n\n* A NULL pointer dereference flaw was found in the Linux kernel's XFS file\nsystem implementation. A local user who is able to mount an XFS file\nsystem could use this flaw to cause a denial of service. (CVE-2013-1819,\nModerate)\n\n* An information leak was found in the Linux kernel's POSIX signals\nimplementation. A local, unprivileged user could use this flaw to bypass\nthe Address Space Layout Randomization (ASLR) security feature.\n(CVE-2013-0914, Low)\n\n* A use-after-free flaw was found in the tmpfs implementation. A local user\nable to mount and unmount a tmpfs file system could use this flaw to cause\na denial of service or, potentially, escalate their privileges.\n(CVE-2013-1767, Low)\n\n* A NULL pointer dereference flaw was found in the Linux kernel's USB\nInside Out Edgeport Serial Driver implementation. A local user with\nphysical access to a system and with access to a USB device's tty file\ncould use this flaw to cause a denial of service. (CVE-2013-1774, Low)\n\n* A format string flaw was found in the ext3_msg() function in the Linux\nkernel's ext3 file system implementation. A local user who is able to\nmount an ext3 file system could use this flaw to cause a denial of service\nor, potentially, escalate their privileges. (CVE-2013-1848, Low)\n\n* A heap-based buffer overflow flaw was found in the Linux kernel's\ncdc-wdm driver, used for USB CDC WCM device management. An attacker with\nphysical access to a system could use this flaw to cause a denial of\nservice or, potentially, escalate their privileges. (CVE-2013-1860, Low)\n\n* A heap-based buffer overflow in the way the tg3 Ethernet driver parsed\nthe vital product data (VPD) of devices could allow an attacker with\nphysical access to a system to cause a denial of service or, potentially,\nescalate their privileges. (CVE-2013-1929, Low)\n\n* Information leaks in the Linux kernel's cryptographic API could allow a\nlocal user who has the CAP_NET_ADMIN capability to leak kernel stack memory\nto user-space. (CVE-2013-2546, CVE-2013-2547, CVE-2013-2548, Low)\n\n* Information leaks in the Linux kernel could allow a local, unprivileged\nuser to leak kernel stack memory to user-space. (CVE-2013-2634,\nCVE-2013-2635, CVE-2013-3076, CVE-2013-3222, CVE-2013-3224, CVE-2013-3225,\nCVE-2013-3231, Low)\n\nRed Hat would like to thank Andy Lutomirski for reporting CVE-2013-1979.\nCVE-2013-1792 was discovered by Mateusz Guzik of Red Hat EMEA GSS SEG Team.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2013:0829",
+				"Description": "https://access.redhat.com/errata/RHSA-2013:0829"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/site/solutions/373743",
+				"Description": "https://access.redhat.com/site/solutions/373743"
+			},
+			{
+				"type": "External",
+				"URL": "https://rhn.redhat.com/errata/RHBA-2012-0044.html",
+				"Description": "https://rhn.redhat.com/errata/RHBA-2012-0044.html"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/site/documentation/en-US/Red_Hat_Enterprise_MRG/2/html/Technical_Notes/RHSA-2013-0829.html",
+				"Description": "https://access.redhat.com/site/documentation/en-US/Red_Hat_Enterprise_MRG/2/html/Technical_Notes/RHSA-2013-0829.html"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Kernel: drm/i915: heap writing overflow",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-03-11T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-0913",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThis update also fixes multiple bugs. Documentation for these changes will\nbe available shortly from the Technical Notes document linked to in the\nReferences section.\n\nUsers should upgrade to these updated packages, which upgrade the kernel-rt\nkernel to version kernel-rt-3.6.11.2-rt33, correct these issues, and fix\nthe bugs noted in the Red Hat Enterprise MRG 2 Technical Notes. The system\nmust be rebooted for this update to take effect.\n\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:0829"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-0913",
+						"Description": "CVE-2013-0913"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=920471",
+						"Description": "bz#920471: CVE-2013-0913 Kernel: drm/i915: heap writing overflow"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2013-03-11T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-MRG-Realtime-2:kernel-rt-0:3.6.11.2-rt33.39.el6rt"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.0",
+					"Vector": "AV:L/AC:H/Au:S/C:C/I:C/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Kernel: sa_restorer information leak",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-03-11T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-0914",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThis update also fixes multiple bugs. Documentation for these changes will\nbe available shortly from the Technical Notes document linked to in the\nReferences section.\n\nUsers should upgrade to these updated packages, which upgrade the kernel-rt\nkernel to version kernel-rt-3.6.11.2-rt33, correct these issues, and fix\nthe bugs noted in the Red Hat Enterprise MRG 2 Technical Notes. The system\nmust be rebooted for this update to take effect.\n\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:0829"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-0914",
+						"Description": "CVE-2013-0914"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=920499",
+						"Description": "bz#920499: CVE-2013-0914 Kernel: sa_restorer information leak"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2013-03-11T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-MRG-Realtime-2:kernel-rt-0:3.6.11.2-rt33.39.el6rt"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.1",
+					"Vector": "AV:L/AC:L/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Kernel: tmpfs: fix use-after-free of mempolicy object",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-02-24T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-1767",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThis update also fixes multiple bugs. Documentation for these changes will\nbe available shortly from the Technical Notes document linked to in the\nReferences section.\n\nUsers should upgrade to these updated packages, which upgrade the kernel-rt\nkernel to version kernel-rt-3.6.11.2-rt33, correct these issues, and fix\nthe bugs noted in the Red Hat Enterprise MRG 2 Technical Notes. The system\nmust be rebooted for this update to take effect.\n\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:0829"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-1767",
+						"Description": "CVE-2013-1767"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=915592",
+						"Description": "bz#915592: CVE-2013-1767 Kernel: tmpfs: fix use-after-free of mempolicy object"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2013-02-25T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-MRG-Realtime-2:kernel-rt-0:3.6.11.2-rt33.39.el6rt"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.0",
+					"Vector": "AV:L/AC:H/Au:S/C:C/I:C/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Kernel: USB io_ti driver NULL pointer dereference in routine chase_port",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-01-18T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-1774",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThis update also fixes multiple bugs. Documentation for these changes will\nbe available shortly from the Technical Notes document linked to in the\nReferences section.\n\nUsers should upgrade to these updated packages, which upgrade the kernel-rt\nkernel to version kernel-rt-3.6.11.2-rt33, correct these issues, and fix\nthe bugs noted in the Red Hat Enterprise MRG 2 Technical Notes. The system\nmust be rebooted for this update to take effect.\n\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:0829"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-1774",
+						"Description": "CVE-2013-1774"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=916191",
+						"Description": "bz#916191: CVE-2013-1774 Kernel: USB io_ti driver NULL pointer dereference in routine chase_port"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2013-01-26T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-MRG-Realtime-2:kernel-rt-0:3.6.11.2-rt33.39.el6rt"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "3.8",
+					"Vector": "AV:L/AC:H/Au:S/C:N/I:N/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Kernel: keys: race condition in install_user_keyrings()",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-03-06T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-1792",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThis update also fixes multiple bugs. Documentation for these changes will\nbe available shortly from the Technical Notes document linked to in the\nReferences section.\n\nUsers should upgrade to these updated packages, which upgrade the kernel-rt\nkernel to version kernel-rt-3.6.11.2-rt33, correct these issues, and fix\nthe bugs noted in the Red Hat Enterprise MRG 2 Technical Notes. The system\nmust be rebooted for this update to take effect.\n\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:0829"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-1792",
+						"Description": "CVE-2013-1792"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=916646",
+						"Description": "bz#916646: CVE-2013-1792 Kernel: keys: race condition in install_user_keyrings()"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2013-02-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-MRG-Realtime-2:kernel-rt-0:3.6.11.2-rt33.39.el6rt"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.0",
+					"Vector": "AV:L/AC:H/Au:N/C:N/I:N/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "6",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: xfs: _xfs_buf_find oops on blocks beyond the filesystem end",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-01-21T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-1819",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThis update also fixes multiple bugs. Documentation for these changes will\nbe available shortly from the Technical Notes document linked to in the\nReferences section.\n\nUsers should upgrade to these updated packages, which upgrade the kernel-rt\nkernel to version kernel-rt-3.6.11.2-rt33, correct these issues, and fix\nthe bugs noted in the Red Hat Enterprise MRG 2 Technical Notes. The system\nmust be rebooted for this update to take effect.\n\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:0829"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-1819",
+						"Description": "CVE-2013-1819"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=918009",
+						"Description": "bz#918009: CVE-2013-1819 kernel: xfs: _xfs_buf_find oops on blocks beyond the filesystem end"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2013-01-30T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-MRG-Realtime-2:kernel-rt-0:3.6.11.2-rt33.39.el6rt"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "3.8",
+					"Vector": "AV:L/AC:H/Au:S/C:N/I:N/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "7",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: ext3: format string issues",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-03-18T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-1848",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThis update also fixes multiple bugs. Documentation for these changes will\nbe available shortly from the Technical Notes document linked to in the\nReferences section.\n\nUsers should upgrade to these updated packages, which upgrade the kernel-rt\nkernel to version kernel-rt-3.6.11.2-rt33, correct these issues, and fix\nthe bugs noted in the Red Hat Enterprise MRG 2 Technical Notes. The system\nmust be rebooted for this update to take effect.\n\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:0829"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-1848",
+						"Description": "CVE-2013-1848"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=920783",
+						"Description": "bz#920783: CVE-2013-1848 kernel: ext3: format string issues"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2013-03-11T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-MRG-Realtime-2:kernel-rt-0:3.6.11.2-rt33.39.el6rt"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.0",
+					"Vector": "AV:L/AC:H/Au:S/C:C/I:C/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "8",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: usb: cdc-wdm buffer overflow triggered by device",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-03-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-1860",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThis update also fixes multiple bugs. Documentation for these changes will\nbe available shortly from the Technical Notes document linked to in the\nReferences section.\n\nUsers should upgrade to these updated packages, which upgrade the kernel-rt\nkernel to version kernel-rt-3.6.11.2-rt33, correct these issues, and fix\nthe bugs noted in the Red Hat Enterprise MRG 2 Technical Notes. The system\nmust be rebooted for this update to take effect.\n\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:0829"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-1860",
+						"Description": "CVE-2013-1860"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=921970",
+						"Description": "bz#921970: CVE-2013-1860 kernel: usb: cdc-wdm buffer overflow triggered by device"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2013-03-14T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-MRG-Realtime-2:kernel-rt-0:3.6.11.2-rt33.39.el6rt"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.9",
+					"Vector": "AV:L/AC:M/Au:N/C:C/I:C/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "9",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Kernel: tg3: buffer overflow in VPD firmware parsing",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-03-27T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-1929",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThis update also fixes multiple bugs. Documentation for these changes will\nbe available shortly from the Technical Notes document linked to in the\nReferences section.\n\nUsers should upgrade to these updated packages, which upgrade the kernel-rt\nkernel to version kernel-rt-3.6.11.2-rt33, correct these issues, and fix\nthe bugs noted in the Red Hat Enterprise MRG 2 Technical Notes. The system\nmust be rebooted for this update to take effect.\n\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:0829"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-1929",
+						"Description": "CVE-2013-1929"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=949932",
+						"Description": "bz#949932: CVE-2013-1929 Kernel: tg3: buffer overflow in VPD firmware parsing"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2013-04-05T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-MRG-Realtime-2:kernel-rt-0:3.6.11.2-rt33.39.el6rt"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.2",
+					"Vector": "AV:L/AC:H/Au:N/C:C/I:C/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "10",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: net: incorrect SCM_CREDENTIALS passing",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-04-23T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-1979",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThis update also fixes multiple bugs. Documentation for these changes will\nbe available shortly from the Technical Notes document linked to in the\nReferences section.\n\nUsers should upgrade to these updated packages, which upgrade the kernel-rt\nkernel to version kernel-rt-3.6.11.2-rt33, correct these issues, and fix\nthe bugs noted in the Red Hat Enterprise MRG 2 Technical Notes. The system\nmust be rebooted for this update to take effect.\n\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:0829"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-1979",
+						"Description": "CVE-2013-1979"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=955629",
+						"Description": "bz#955629: CVE-2013-1979 kernel: net: incorrect SCM_CREDENTIALS passing"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2013-04-19T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-MRG-Realtime-2:kernel-rt-0:3.6.11.2-rt33.39.el6rt"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.9",
+					"Vector": "AV:L/AC:M/Au:N/C:C/I:C/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "11",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: perf_swevent_enabled array out-of-bound access",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-05-14T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-2094",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThis update also fixes multiple bugs. Documentation for these changes will\nbe available shortly from the Technical Notes document linked to in the\nReferences section.\n\nUsers should upgrade to these updated packages, which upgrade the kernel-rt\nkernel to version kernel-rt-3.6.11.2-rt33, correct these issues, and fix\nthe bugs noted in the Red Hat Enterprise MRG 2 Technical Notes. The system\nmust be rebooted for this update to take effect.\n\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:0829"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-2094",
+						"Description": "CVE-2013-2094"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=962792",
+						"Description": "bz#962792: CVE-2013-2094 kernel: perf_swevent_enabled array out-of-bound access"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2013-05-14T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-MRG-Realtime-2:kernel-rt-0:3.6.11.2-rt33.39.el6rt"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "7.2",
+					"Vector": "AV:L/AC:L/Au:N/C:C/I:C/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "12",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: crypto: info leaks in report API",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-02-05T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-2546",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThis update also fixes multiple bugs. Documentation for these changes will\nbe available shortly from the Technical Notes document linked to in the\nReferences section.\n\nUsers should upgrade to these updated packages, which upgrade the kernel-rt\nkernel to version kernel-rt-3.6.11.2-rt33, correct these issues, and fix\nthe bugs noted in the Red Hat Enterprise MRG 2 Technical Notes. The system\nmust be rebooted for this update to take effect.\n\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:0829"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-2546",
+						"Description": "CVE-2013-2546"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=918512",
+						"Description": "bz#918512: kernel: crypto: info leaks in report API"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2013-03-05T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-MRG-Realtime-2:kernel-rt-0:3.6.11.2-rt33.39.el6rt"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "1.0",
+					"Vector": "AV:L/AC:H/Au:S/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "13",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: crypto: info leaks in report API",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-02-05T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-2547",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThis update also fixes multiple bugs. Documentation for these changes will\nbe available shortly from the Technical Notes document linked to in the\nReferences section.\n\nUsers should upgrade to these updated packages, which upgrade the kernel-rt\nkernel to version kernel-rt-3.6.11.2-rt33, correct these issues, and fix\nthe bugs noted in the Red Hat Enterprise MRG 2 Technical Notes. The system\nmust be rebooted for this update to take effect.\n\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:0829"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-2547",
+						"Description": "CVE-2013-2547"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=918512",
+						"Description": "bz#918512: kernel: crypto: info leaks in report API"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2013-03-05T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-MRG-Realtime-2:kernel-rt-0:3.6.11.2-rt33.39.el6rt"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "1.0",
+					"Vector": "AV:L/AC:H/Au:S/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "14",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: crypto: info leaks in report API",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-02-05T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-2548",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThis update also fixes multiple bugs. Documentation for these changes will\nbe available shortly from the Technical Notes document linked to in the\nReferences section.\n\nUsers should upgrade to these updated packages, which upgrade the kernel-rt\nkernel to version kernel-rt-3.6.11.2-rt33, correct these issues, and fix\nthe bugs noted in the Red Hat Enterprise MRG 2 Technical Notes. The system\nmust be rebooted for this update to take effect.\n\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:0829"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-2548",
+						"Description": "CVE-2013-2548"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=918512",
+						"Description": "bz#918512: kernel: crypto: info leaks in report API"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2013-03-05T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-MRG-Realtime-2:kernel-rt-0:3.6.11.2-rt33.39.el6rt"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "1.0",
+					"Vector": "AV:L/AC:H/Au:S/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "15",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: Information leak in the Data Center Bridging (DCB) component",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-03-09T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-2634",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThis update also fixes multiple bugs. Documentation for these changes will\nbe available shortly from the Technical Notes document linked to in the\nReferences section.\n\nUsers should upgrade to these updated packages, which upgrade the kernel-rt\nkernel to version kernel-rt-3.6.11.2-rt33, correct these issues, and fix\nthe bugs noted in the Red Hat Enterprise MRG 2 Technical Notes. The system\nmust be rebooted for this update to take effect.\n\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:0829"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-2634",
+						"Description": "CVE-2013-2634"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=924689",
+						"Description": "bz#924689: CVE-2013-2634 kernel: Information leak in the Data Center Bridging (DCB) component"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2013-03-19T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-MRG-Realtime-2:kernel-rt-0:3.6.11.2-rt33.39.el6rt"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "1.9",
+					"Vector": "AV:L/AC:M/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "16",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: Information leak in the RTNETLINK component",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-03-09T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-2635",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThis update also fixes multiple bugs. Documentation for these changes will\nbe available shortly from the Technical Notes document linked to in the\nReferences section.\n\nUsers should upgrade to these updated packages, which upgrade the kernel-rt\nkernel to version kernel-rt-3.6.11.2-rt33, correct these issues, and fix\nthe bugs noted in the Red Hat Enterprise MRG 2 Technical Notes. The system\nmust be rebooted for this update to take effect.\n\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:0829"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-2635",
+						"Description": "CVE-2013-2635"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=924690",
+						"Description": "bz#924690: CVE-2013-2635 kernel: Information leak in the RTNETLINK component"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2013-03-19T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-MRG-Realtime-2:kernel-rt-0:3.6.11.2-rt33.39.el6rt"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "1.9",
+					"Vector": "AV:L/AC:M/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "17",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Kernel: crypto: algif - suppress sending source address information in recvmsg",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-04-07T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-3076",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThis update also fixes multiple bugs. Documentation for these changes will\nbe available shortly from the Technical Notes document linked to in the\nReferences section.\n\nUsers should upgrade to these updated packages, which upgrade the kernel-rt\nkernel to version kernel-rt-3.6.11.2-rt33, correct these issues, and fix\nthe bugs noted in the Red Hat Enterprise MRG 2 Technical Notes. The system\nmust be rebooted for this update to take effect.\n\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:0829"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-3076",
+						"Description": "CVE-2013-3076"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=956162",
+						"Description": "bz#956162: CVE-2013-3076 Kernel: crypto: algif - suppress sending source address information in recvmsg"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2013-04-14T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-MRG-Realtime-2:kernel-rt-0:3.6.11.2-rt33.39.el6rt"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.1",
+					"Vector": "AV:L/AC:L/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "18",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Kernel: atm: update msg_namelen in vcc_recvmsg()",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-04-07T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-3222",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThis update also fixes multiple bugs. Documentation for these changes will\nbe available shortly from the Technical Notes document linked to in the\nReferences section.\n\nUsers should upgrade to these updated packages, which upgrade the kernel-rt\nkernel to version kernel-rt-3.6.11.2-rt33, correct these issues, and fix\nthe bugs noted in the Red Hat Enterprise MRG 2 Technical Notes. The system\nmust be rebooted for this update to take effect.\n\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:0829"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-3222",
+						"Description": "CVE-2013-3222"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=955216",
+						"Description": "bz#955216: CVE-2013-3222 Kernel: atm: update msg_namelen in vcc_recvmsg()"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2013-04-14T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-MRG-Realtime-2:kernel-rt-0:3.6.11.2-rt33.39.el6rt"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.1",
+					"Vector": "AV:L/AC:L/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "19",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Kernel: Bluetooth: possible info leak in bt_sock_recvmsg()",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-04-07T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-3224",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThis update also fixes multiple bugs. Documentation for these changes will\nbe available shortly from the Technical Notes document linked to in the\nReferences section.\n\nUsers should upgrade to these updated packages, which upgrade the kernel-rt\nkernel to version kernel-rt-3.6.11.2-rt33, correct these issues, and fix\nthe bugs noted in the Red Hat Enterprise MRG 2 Technical Notes. The system\nmust be rebooted for this update to take effect.\n\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:0829"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-3224",
+						"Description": "CVE-2013-3224"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=955599",
+						"Description": "bz#955599: CVE-2013-3224 Kernel: Bluetooth: possible info leak in bt_sock_recvmsg()"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2013-04-14T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-MRG-Realtime-2:kernel-rt-0:3.6.11.2-rt33.39.el6rt"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "1.9",
+					"Vector": "AV:L/AC:M/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "20",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Kernel: Bluetooth: RFCOMM - missing msg_namelen update in rfcomm_sock_recvmsg",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-04-07T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-3225",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThis update also fixes multiple bugs. Documentation for these changes will\nbe available shortly from the Technical Notes document linked to in the\nReferences section.\n\nUsers should upgrade to these updated packages, which upgrade the kernel-rt\nkernel to version kernel-rt-3.6.11.2-rt33, correct these issues, and fix\nthe bugs noted in the Red Hat Enterprise MRG 2 Technical Notes. The system\nmust be rebooted for this update to take effect.\n\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:0829"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-3225",
+						"Description": "CVE-2013-3225"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=955649",
+						"Description": "bz#955649: CVE-2013-3225 Kernel: Bluetooth: RFCOMM - missing msg_namelen update in rfcomm_sock_recvmsg"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2013-04-14T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-MRG-Realtime-2:kernel-rt-0:3.6.11.2-rt33.39.el6rt"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "1.9",
+					"Vector": "AV:L/AC:M/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "21",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Kernel: llc: Fix missing msg_namelen update in llc_ui_recvmsg",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-04-07T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-3231",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThis update also fixes multiple bugs. Documentation for these changes will\nbe available shortly from the Technical Notes document linked to in the\nReferences section.\n\nUsers should upgrade to these updated packages, which upgrade the kernel-rt\nkernel to version kernel-rt-3.6.11.2-rt33, correct these issues, and fix\nthe bugs noted in the Red Hat Enterprise MRG 2 Technical Notes. The system\nmust be rebooted for this update to take effect.\n\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:0829"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-3231",
+						"Description": "CVE-2013-3231"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=956094",
+						"Description": "bz#956094: CVE-2013-3231 Kernel: llc: Fix missing msg_namelen update in llc_ui_recvmsg"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2013-04-14T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-MRG-Realtime-2:kernel-rt-0:3.6.11.2-rt33.39.el6rt"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.1",
+					"Vector": "AV:L/AC:L/Au:N/C:P/I:N/A:N"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise MRG for RHEL-6",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat MRG Realtime for RHEL 6 Server v.2",
+						"fullproductname": {
+							"text": "Red Hat MRG Realtime for RHEL 6 Server v.2",
+							"productid": "6Server-MRG-Realtime-2",
+							"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-rt-0:3.6.11.2-rt33.39.el6rt",
+				"fullproductname": {
+					"text": "kernel-rt-3.6.11.2-rt33.39.el6rt.src.rpm",
+					"productid": "kernel-rt-0:3.6.11.2-rt33.39.el6rt",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "kernel-rt-0:3.6.11.2-rt33.39.el6rt",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-MRG-Realtime-2",
+				"fullproductname": {
+					"text": "kernel-rt-0:3.6.11.2-rt33.39.el6rt as a component of Red Hat MRG Realtime for RHEL 6 Server v.2",
+					"productid": "6Server-MRG-Realtime-2:kernel-rt-0:3.6.11.2-rt33.39.el6rt",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			}
+		]
+	}
+}

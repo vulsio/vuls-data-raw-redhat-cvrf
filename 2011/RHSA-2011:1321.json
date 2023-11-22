@@ -1,0 +1,196 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: kernel security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2011:1321"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2011-09-20T13:50:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2011-09-20T17:45:00Z",
+		"CurrentReleaseDate": "2011-09-20T13:50:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:31:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated kernel packages that fix one security issue and several bugs are\nnow available for Red Hat Enterprise Linux 5.6 Extended Update Support.\n\nThe Red Hat Security Response Team has rated this update as having moderate\nsecurity impact. A Common Vulnerability Scoring System (CVSS) base score,\nwhich gives a detailed severity rating, is available from the CVE link in\nthe References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe kernel packages contain the Linux kernel.\n\nSecurity fix:\n\n* A flaw in skb_gro_header_slow() in the Linux kernel could lead to GRO\n(Generic Receive Offload) fields being left in an inconsistent state. An\nattacker on the local network could use this flaw to trigger a denial of\nservice. (CVE-2011-2723, Moderate)\n\nRed Hat would like to thank Brent Meshier for reporting this issue.\n\nBug fixes:\n\n* When reading a file from a subdirectory in /proc/bus/pci/ while\nhot-unplugging the device related to that file, the system will crash. Now,\nthe kernel correctly handles the simultaneous removal of a device and\naccess to the representation of that device in the proc file system.\n(BZ#713454)\n\n* RHSA-2011:0017 introduced a regression: Non-disk SCSI devices (except for\ntape drives) such as enclosure or CD-ROM devices were hidden when attached\nto a SAS based RAID controller that uses the megaraid_sas driver. With this\nupdate, such devices are accessible, as expected. (BZ#726487)\n\n* The fix for CVE-2010-3432 provided in RHSA-2011:0004 introduced a\nregression: Information in sctp_packet_config(), which was called before\nappending data chunks to a packet, was not reset, causing considerably poor\nSCTP (Stream Control Transmission Protocol) performance. With this update,\nthe packet information is reset after transmission. (BZ#727591)\n\n* Certain systems do not correctly set the ACPI FADT APIC mode bit. They\nset the bit to \"cluster\" mode instead of \"physical\" mode which caused these\nsystems to boot without the TSC (Time Stamp Counter). With this update, the\nACPI FADT check has been removed due to its unreliability. (BZ#728162)\n\n* Performance when invalidating and rereading cached data as a glock moves\naround the cluster with GFS2 is improved. (BZ#729082)\n\n* Performance issues occurred when multiple nodes attempted to call mmap()\non the same inode at the same time on a GFS2 file system, as it was using\nan exclusive glock. With this update, a shared lock is used when \"noatime\"\nis set on the mount, allowing mmap() operations to occur in parallel,\nfixing this bug. Note that this issue only refers to mmap() system calls,\nand not to subsequent page faults. (BZ#729090)\n\n* Some of the functions in the GFS2 file system were not reserving enough\nspace for the resource group header in a transaction and for resource\ngroups bit blocks that get added when a memory allocation is performed.\nThat resulted in failed write and allocation operations. With this update,\nGFS2 makes sure to reserve space in the described scenario, using the new\ngfs2_rg_blocks() inline function. (BZ#729092)\n\n* When GFS2 grew the file system, it never reread the rindex file during\nthe grow. This is necessary for large grows when the file system is almost\nfull, and GFS2 needs to use some of the space allocated earlier in the grow\nto complete it. Now, if GFS2 fails to reserve the necessary space and the\nrindex data is not up-to-date, it rereads it. (BZ#729094)\n\n* Previously, when the Xen hypervisor split a 2 MB page into 4 KB pages, it\nlinked the new page from PDE (Page Directory Entry) before it filled\nentries of the page with appropriate data. Consequently, when doing a live\nmigration with EPT (Extended Page Tables) enabled on a non-idle guest\nrunning with more than two virtual CPUs, the guest often terminated\nunexpectedly. With this update, the Xen hypervisor prepares the page table\nentry first, and then links it in. (BZ#730684)\n\n* Changes made to TSC as a clock source for IRQs caused virtual machines\nrunning under the VMware ESX or ESXi hypervisors to become unresponsive\nduring the initial kernel boot process. With this update, the\nenable_tsc_timer flag enables the do_timer_tsc_timekeeping() function to be\ncalled in the do_timer_interrupt_hook() function, preventing a deadlock in\nthe timer interrupt handler. (BZ#730688)\n\nUsers should upgrade to these updated packages, which contain backported\npatches to correct these issues. The system must be rebooted for this\nupdate to take effect.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2011:1321",
+				"Description": "https://access.redhat.com/errata/RHSA-2011:1321"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: gro: only reset frag0 when skb can be pulled",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2011-07-27T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2011-2723",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/kb/docs/DOC-11259\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2011:1321"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "http://git.kernel.org/linus/17dd759c67f21e34f2156abcf415e1f60605a188",
+						"Description": "http://git.kernel.org/linus/17dd759c67f21e34f2156abcf415e1f60605a188"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2011-2723",
+						"Description": "CVE-2011-2723"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=726552",
+						"Description": "bz#726552: CVE-2011-2723 kernel: gro: only reset frag0 when skb can be pulled"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2011-07-29T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Server-5.6.Z:kernel-0:2.6.18-238.27.1.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank Brent Meshier for reporting this issue."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.7",
+					"Vector": "AV:A/AC:M/Au:N/C:N/I:N/A:C"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux (v. 5.6.z server)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux (v. 5.6.z server)",
+							"productid": "5Server-5.6.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-0:2.6.18-238.27.1.el5",
+				"fullproductname": {
+					"text": "kernel-2.6.18-238.27.1.el5.src.rpm",
+					"productid": "kernel-0:2.6.18-238.27.1.el5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "kernel-0:2.6.18-238.27.1.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-5.6.Z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.18-238.27.1.el5 as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"productid": "5Server-5.6.Z:kernel-0:2.6.18-238.27.1.el5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+				}
+			}
+		]
+	}
+}

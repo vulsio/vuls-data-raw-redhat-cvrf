@@ -1,0 +1,667 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: glusterfs security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2018:3432"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2018-10-31T08:43:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2018-10-31T08:43:00Z",
+		"CurrentReleaseDate": "2018-10-31T08:43:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:45:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated glusterfs packages that fix multiple security issues and bugs are now available for Red Hat Gluster Storage 3.4 on Red Hat Enterprise Linux 7.\n\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nGlusterFS is a key building block of Red Hat Gluster Storage. It is based on a stackable user-space design and can deliver exceptional performance for diverse workloads. GlusterFS aggregates various storage servers over network interconnections into one large, parallel network file system.\n\nSecurity Fix(es):\n\n* glusterfs: glusterfs server exploitable via symlinks to relative paths (CVE-2018-14651)\n\n* glusterfs: Buffer overflow in \"features/locks\" translator allows for denial of service (CVE-2018-14652)\n\n* glusterfs: Heap-based buffer overflow via \"gf_getspec_req\" RPC message (CVE-2018-14653)\n\n* glusterfs: \"features/index\" translator can create arbitrary, empty files (CVE-2018-14654)\n\n* glusterfs: Unlimited file creation via \"GF_XATTR_IOSTATS_DUMP_KEY\" xattr allows for denial of service (CVE-2018-14659)\n\n* glusterfs: Repeat use of \"GF_META_LOCK_KEY\" xattr allows for memory exhaustion (CVE-2018-14660)\n\n* glusterfs: features/locks translator passes an user-controlled string to snprintf without a proper format string resulting in a denial of service (CVE-2018-14661)\n\nFor more details about the security issue(s), including the impact, a CVSS score, and other related information, refer to the CVE page(s) listed in the References section.\n\nRed Hat would like to thank Michael Hanselmann (hansmi.ch) for reporting these issues.\n\nBug Fix(es):\n\n* MD5 instances are replaced with FIPS-compliant SHA256 checksums and glusterd no longer crashes when run on a FIPS enabled machine. (BZ#1459709)\n\n* The flock is unlocked specifically and the status file is updated so that the reference is not leaked to any worker or agent process. As a result of this fix, all workers come up without fail. (BZ#1623749)\n\n* All HTIME index files are checked for the specified start and end times, and the History API does not fail when multiple HTIME files exist. (BZ#1627639)\n\n* After upgrading to Red Hat Gluster Storage 3.4 from earlier versions of Red Hat Gluster Storage, the volume size displayed by the df command was smaller than the actual volume size. This has been fixed and the df command now shows the correct size for all volumes. (BZ#1630997)\n\n* The algorithm to disable the eager-lock is modified and it disables only when multiple write operations are trying to modify a file at the same time. This led to performance improvement while a write operation is performed on a file irrespective of the number of times it is opened at the same time for a read operation. (BZ#1630688)\n\n* heal-info does not consider the presence of dirty markers as an indication of split-brain and does not display these entries to be in a split-brain state. (BZ#1610743)\n\nAll users of Red Hat Gluster Storage are advised to upgrade to these updated packages, which provide numerous bug fixes and enhancements.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2018:3432",
+				"Description": "https://access.redhat.com/errata/RHSA-2018:3432"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "glusterfs: glusterfs server exploitable via symlinks to relative paths",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2018-10-31T08:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2018-14651",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2018:3432"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2018-14651",
+						"Description": "CVE-2018-14651"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1632557",
+						"Description": "bz#1632557: CVE-2018-14651 glusterfs: glusterfs server exploitable via symlinks to relative paths"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2018-09-21T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-RH-Gluster-3.4-Server:glusterfs-0:3.12.2-25.el7rhgs",
+						"7Server-RH-Gluster-3.4-Server:redhat-storage-server-0:3.4.1.0-1.el7rhgs",
+						"7Server-RHSClient:glusterfs-0:3.12.2-25.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank Michael Hanselmann (hansmi.ch) for reporting this issue."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "glusterfs: Buffer overflow in \"features/locks\" translator allows for denial of service",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2018-10-31T08:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2018-14652",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2018:3432"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2018-14652",
+						"Description": "CVE-2018-14652"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1632974",
+						"Description": "bz#1632974: CVE-2018-14652 glusterfs: Buffer overflow in \"features/locks\" translator allows for denial of service"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2018-09-26T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-RH-Gluster-3.4-Server:glusterfs-0:3.12.2-25.el7rhgs",
+						"7Server-RH-Gluster-3.4-Server:redhat-storage-server-0:3.4.1.0-1.el7rhgs",
+						"7Server-RHSClient:glusterfs-0:3.12.2-25.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank Michael Hanselmann (hansmi.ch) for reporting this issue."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "glusterfs: Heap-based buffer overflow via \"gf_getspec_req\" RPC message",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2018-10-31T08:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2018-14653",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2018:3432"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2018-14653",
+						"Description": "CVE-2018-14653"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1633431",
+						"Description": "bz#1633431: CVE-2018-14653 glusterfs: Heap-based buffer overflow via \"gf_getspec_req\" RPC message"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2018-09-27T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-RH-Gluster-3.4-Server:glusterfs-0:3.12.2-25.el7rhgs",
+						"7Server-RH-Gluster-3.4-Server:redhat-storage-server-0:3.4.1.0-1.el7rhgs",
+						"7Server-RHSClient:glusterfs-0:3.12.2-25.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank Michael Hanselmann (hansmi.ch) for reporting this issue."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "glusterfs: \"features/index\" translator can create arbitrary, empty files",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2018-10-31T08:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2018-14654",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2018:3432"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2018-14654",
+						"Description": "CVE-2018-14654"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1631576",
+						"Description": "bz#1631576: CVE-2018-14654 glusterfs: \"features/index\" translator can create arbitrary, empty files"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2018-09-21T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-RH-Gluster-3.4-Server:glusterfs-0:3.12.2-25.el7rhgs",
+						"7Server-RH-Gluster-3.4-Server:redhat-storage-server-0:3.4.1.0-1.el7rhgs",
+						"7Server-RHSClient:glusterfs-0:3.12.2-25.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank Michael Hanselmann (hansmi.ch) for reporting this issue."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "glusterfs: Unlimited file creation via \"GF_XATTR_IOSTATS_DUMP_KEY\" xattr allows for denial of service",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2018-10-31T08:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2018-14659",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2018:3432"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2018-14659",
+						"Description": "CVE-2018-14659"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1635929",
+						"Description": "bz#1635929: CVE-2018-14659 glusterfs: Unlimited file creation via \"GF_XATTR_IOSTATS_DUMP_KEY\" xattr allows for denial of service"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2018-10-04T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-RH-Gluster-3.4-Server:glusterfs-0:3.12.2-25.el7rhgs",
+						"7Server-RH-Gluster-3.4-Server:redhat-storage-server-0:3.4.1.0-1.el7rhgs",
+						"7Server-RHSClient:glusterfs-0:3.12.2-25.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank Michael Hanselmann (hansmi.ch) for reporting this issue."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "6",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "glusterfs: Repeat use of \"GF_META_LOCK_KEY\" xattr allows for memory exhaustion",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2018-10-31T08:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2018-14660",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2018:3432"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2018-14660",
+						"Description": "CVE-2018-14660"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1635926",
+						"Description": "bz#1635926: CVE-2018-14660 glusterfs: Repeat use of \"GF_META_LOCK_KEY\" xattr allows for memory exhaustion"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2018-10-04T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-RH-Gluster-3.4-Server:glusterfs-0:3.12.2-25.el7rhgs",
+						"7Server-RH-Gluster-3.4-Server:redhat-storage-server-0:3.4.1.0-1.el7rhgs",
+						"7Server-RHSClient:glusterfs-0:3.12.2-25.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank Michael Hanselmann (hansmi.ch) for reporting this issue."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "7",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "glusterfs: features/locks translator passes an user-controlled string to snprintf without a proper format string resulting in a denial of service",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2018-10-31T08:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2018-14661",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2018:3432"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2018-14661",
+						"Description": "CVE-2018-14661"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1636880",
+						"Description": "bz#1636880: CVE-2018-14661 glusterfs: features/locks translator passes an user-controlled string to snprintf without a proper format string resulting in a denial of service"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2018-10-06T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-RH-Gluster-3.4-Server:glusterfs-0:3.12.2-25.el7rhgs",
+						"7Server-RH-Gluster-3.4-Server:redhat-storage-server-0:3.4.1.0-1.el7rhgs",
+						"7Server-RHSClient:glusterfs-0:3.12.2-25.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank Michael Hanselmann (hansmi.ch) for reporting this issue."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Gluster Storage",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Gluster Storage Server 3.4 on RHEL-7",
+						"fullproductname": {
+							"text": "Red Hat Gluster Storage Server 3.4 on RHEL-7",
+							"productid": "7Server-RH-Gluster-3.4-Server",
+							"cpe": "cpe:/a:redhat:storage:3.4:server:el7"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Storage Native Client for Red Hat Enterprise Linux 7",
+						"fullproductname": {
+							"text": "Red Hat Storage Native Client for Red Hat Enterprise Linux 7",
+							"productid": "7Server-RHSClient",
+							"cpe": "cpe:/a:redhat:storage:3:client:el7"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "glusterfs-0:3.12.2-25.el7",
+				"fullproductname": {
+					"text": "glusterfs-3.12.2-25.el7.src.rpm",
+					"productid": "glusterfs-0:3.12.2-25.el7",
+					"cpe": "cpe:/a:redhat:storage:3:client:el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "glusterfs-0:3.12.2-25.el7rhgs",
+				"fullproductname": {
+					"text": "glusterfs-3.12.2-25.el7rhgs.src.rpm",
+					"productid": "glusterfs-0:3.12.2-25.el7rhgs",
+					"cpe": "cpe:/a:redhat:storage:3.4:server:el7"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "redhat-storage-server-0:3.4.1.0-1.el7rhgs",
+				"fullproductname": {
+					"text": "redhat-storage-server-3.4.1.0-1.el7rhgs.src.rpm",
+					"productid": "redhat-storage-server-0:3.4.1.0-1.el7rhgs",
+					"cpe": "cpe:/a:redhat:storage:3.4:server:el7"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "glusterfs-0:3.12.2-25.el7rhgs",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH-Gluster-3.4-Server",
+				"fullproductname": {
+					"text": "glusterfs-0:3.12.2-25.el7rhgs as a component of Red Hat Gluster Storage Server 3.4 on RHEL-7",
+					"productid": "7Server-RH-Gluster-3.4-Server:glusterfs-0:3.12.2-25.el7rhgs",
+					"cpe": "cpe:/a:redhat:storage:3.4:server:el7"
+				}
+			},
+			{
+				"productreference": "redhat-storage-server-0:3.4.1.0-1.el7rhgs",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH-Gluster-3.4-Server",
+				"fullproductname": {
+					"text": "redhat-storage-server-0:3.4.1.0-1.el7rhgs as a component of Red Hat Gluster Storage Server 3.4 on RHEL-7",
+					"productid": "7Server-RH-Gluster-3.4-Server:redhat-storage-server-0:3.4.1.0-1.el7rhgs",
+					"cpe": "cpe:/a:redhat:storage:3.4:server:el7"
+				}
+			},
+			{
+				"productreference": "glusterfs-0:3.12.2-25.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RHSClient",
+				"fullproductname": {
+					"text": "glusterfs-0:3.12.2-25.el7 as a component of Red Hat Storage Native Client for Red Hat Enterprise Linux 7",
+					"productid": "7Server-RHSClient:glusterfs-0:3.12.2-25.el7",
+					"cpe": "cpe:/a:redhat:storage:3:client:el7"
+				}
+			}
+		]
+	}
+}

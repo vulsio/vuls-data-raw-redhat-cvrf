@@ -1,0 +1,482 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: Red Hat Directory Server 7.1 Service Pack 7 security update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2008:0596"
+		},
+		"Status": "Final",
+		"Version": "2",
+		"revisionhistory": {
+			"revision": {
+				"Number": "2",
+				"Date": "2008-08-27T16:41:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2008-08-27T20:41:00Z",
+		"CurrentReleaseDate": "2008-08-27T16:41:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:46:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nAn updated redhat-ds package that fixes various security issues is now\navailable as Red Hat Directory Server 7.1, Service Pack 7.\n\nThis update has been rated as having critical security impact by the Red\nHat Security Response Team.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nRed Hat Directory Server is an LDAPv3-compliant directory server.\n\nMultiple CGI applications distributed with Red Hat Directory Server were\naffected by a buffer overflow flaw in the routine used to parse\nAccept-Language HTTP headers. A remote attacker with access to the\nAdministration Server web interface could use this flaw to crash these CGI\napplications or, potentially, execute arbitrary code with the privileges of\nthe Administration Server. Note: Red Hat Directory Server 7.1 runs the\nAdministration Server as the root user. (CVE-2008-2928)\n\nMultiple cross-site scripting flaws were discovered in the Directory Server\nAdministration Express and Directory Server Gateway (DSGW) web interface,\ncaused by an incorrect parsing of \"%\" character-escaped user-provided\nvalues. A remote attacker could use these flaws to conduct cross-site\nscripting attacks against Directory Server users or administrators using\nthese web services. (CVE-2008-2929)\n\nMultiple memory leaks were identified in the Directory Server. An\nunauthenticated remote attacker could use these flaws to trigger high\nmemory consumption in the Directory Server, possibly causing it to crash or\nterminate unexpectedly when running out of available memory. (CVE-2008-3283)\n\n[Updated 5th October 2008]\nUlf Weltman of Hewlett Packard discovered a flaw in the way Directory\nServer handled LDAP search requests with patterns. A remote attacker with\naccess to the LDAP service could create a search request that, when the\nsearch pattern was matched against specially crafted data records, caused\nDirectory Server to use a large amount of CPU time because the Directory\nServer did not impose time limits on such search requests. In this updated\npackage, Directory Server imposes the nsslapd-timelimit attribute on the\npattern-search query run times. This attribute has the default limit of\n3600 seconds; to shorten this limit, use ldapmodify to change the\nnsslapd-timelimit value in the cn=config entry. (CVE-2008-2930)\n\n\nIn addition to these security fixes, the following bugs have been fixed in\nRed Hat Directory Server 7.1, Service Pack 7:\n\n* A modified accountUnlockTime attribute caused by multiple single-user\nlogin failures caused replication to fail, requiring administrator\nintervention. Red Hat Directory Server 7.1 Service Pack 7 solves the\nreplication failure issue in these situations.\n\n* The change sequence numbers in multi-master replication had a built-in\ntime skew to accommodate differences in the clocks on master servers. Under\ncertain circumstances, this skew exceeded the maximum allowable skew,\ncausing replication to stop entirely. In Service Pack 7, this has been fixed.\n\n* In replication scenarios, if an attribute value was scheduled to be\ndeleted and also was indexed or had an attribute subtype which was indexed,\nthe Directory Server would crash during the index operation.\n\n* The stack memory size limit used on 64-bit systems was limited to 256KB.\nDirectory Server could use all the stack memory while performing regular\noperations, resulting in slapd daemon crash. \n\nFor more information about Service Pack 7, including upgrade and\ninstallation instructions for users running Red Hat Directory Server 7.1 on\nSolaris, refer to the Red Hat Directory Server 7.1 SP7 release notes, which\nare linked to in the \"References\" section of this erratum.\n\nAll users of Red Hat Directory Server 7.1 should upgrade to Service Pack 7,\nwhich resolves these issues. \n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Critical",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2008:0596",
+				"Description": "https://access.redhat.com/errata/RHSA-2008:0596"
+			},
+			{
+				"type": "External",
+				"URL": "http://www.redhat.com/security/updates/classification/#critical",
+				"Description": "http://www.redhat.com/security/updates/classification/#critical"
+			},
+			{
+				"type": "External",
+				"URL": "http://www.redhat.com/docs/manuals/dir-server/release-notes/7.1SP7/index.html",
+				"Description": "http://www.redhat.com/docs/manuals/dir-server/release-notes/7.1SP7/index.html"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Directory Server: CGI accept language buffer overflow",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2007-12-06T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2008-2928",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThis update is available via Red Hat Network.\n\nUsers running Red Hat Directory Server 7.1 on Red Hat Enterprise Linux\nshould consult the following Knowledge Base article for instruction on how\nto install updated RPM packages: \n\nhttp://kbase.redhat.com/faq/FAQ_58_10188\n\nUsers running Red Hat Directory Server 7.1 on Solaris should consult the\nService Pack 7 release notes for installation and upgrade instructions.\nThese release notes are linked to in the \"References\" section of this erratum.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2008:0596"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2008-2928",
+						"Description": "CVE-2008-2928"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=453916",
+						"Description": "bz#453916: CVE-2008-2928 Directory Server: CGI accept language buffer overflow"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Critical"
+				}
+			},
+			"DiscoveryDate": "2007-12-06T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"3AS-DirServ:redhat-ds-0:7.1SP7-14.RHEL3",
+						"3ES-DirServ:redhat-ds-0:7.1SP7-14.RHEL3",
+						"4AS-DirServ:redhat-ds-0:7.1SP7-14.RHEL4",
+						"4ES-DirServ:redhat-ds-0:7.1SP7-14.RHEL4"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "8.3",
+					"Vector": "AV:A/AC:L/Au:N/C:C/I:C/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Directory Server: multiple XSS issues",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2008-08-27T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2008-2929",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThis update is available via Red Hat Network.\n\nUsers running Red Hat Directory Server 7.1 on Red Hat Enterprise Linux\nshould consult the following Knowledge Base article for instruction on how\nto install updated RPM packages: \n\nhttp://kbase.redhat.com/faq/FAQ_58_10188\n\nUsers running Red Hat Directory Server 7.1 on Solaris should consult the\nService Pack 7 release notes for installation and upgrade instructions.\nThese release notes are linked to in the \"References\" section of this erratum.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2008:0596"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2008-2929",
+						"Description": "CVE-2008-2929"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=454621",
+						"Description": "bz#454621: CVE-2008-2929 Directory Server: multiple XSS issues"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2007-06-21T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"3AS-DirServ:redhat-ds-0:7.1SP7-14.RHEL3",
+						"3ES-DirServ:redhat-ds-0:7.1SP7-14.RHEL3",
+						"4AS-DirServ:redhat-ds-0:7.1SP7-14.RHEL4",
+						"4ES-DirServ:redhat-ds-0:7.1SP7-14.RHEL4"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Directory Server: temporary DoS via crafted pattern searches",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2008-08-27T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2008-2930",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThis update is available via Red Hat Network.\n\nUsers running Red Hat Directory Server 7.1 on Red Hat Enterprise Linux\nshould consult the following Knowledge Base article for instruction on how\nto install updated RPM packages: \n\nhttp://kbase.redhat.com/faq/FAQ_58_10188\n\nUsers running Red Hat Directory Server 7.1 on Solaris should consult the\nService Pack 7 release notes for installation and upgrade instructions.\nThese release notes are linked to in the \"References\" section of this erratum.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2008:0596"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2008-2930",
+						"Description": "CVE-2008-2930"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=454065",
+						"Description": "bz#454065: CVE-2008-2930 Directory Server: temporary DoS via crafted pattern searches"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2008-05-28T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"3AS-DirServ:redhat-ds-0:7.1SP7-14.RHEL3",
+						"3ES-DirServ:redhat-ds-0:7.1SP7-14.RHEL3",
+						"4AS-DirServ:redhat-ds-0:7.1SP7-14.RHEL4",
+						"4ES-DirServ:redhat-ds-0:7.1SP7-14.RHEL4"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.0",
+					"Vector": "AV:N/AC:L/Au:S/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Directory Server: multiple memory leaks",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2008-08-27T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2008-3283",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nThis update is available via Red Hat Network.\n\nUsers running Red Hat Directory Server 7.1 on Red Hat Enterprise Linux\nshould consult the following Knowledge Base article for instruction on how\nto install updated RPM packages: \n\nhttp://kbase.redhat.com/faq/FAQ_58_10188\n\nUsers running Red Hat Directory Server 7.1 on Solaris should consult the\nService Pack 7 release notes for installation and upgrade instructions.\nThese release notes are linked to in the \"References\" section of this erratum.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2008:0596"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2008-3283",
+						"Description": "CVE-2008-3283"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=458977",
+						"Description": "bz#458977: CVE-2008-3283 Directory Server: multiple memory leaks"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2008-08-11T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"3AS-DirServ:redhat-ds-0:7.1SP7-14.RHEL3",
+						"3ES-DirServ:redhat-ds-0:7.1SP7-14.RHEL3",
+						"4AS-DirServ:redhat-ds-0:7.1SP7-14.RHEL4",
+						"4ES-DirServ:redhat-ds-0:7.1SP7-14.RHEL4"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Directory Server",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Directory Server 7.1 (for AS v. 3)",
+						"fullproductname": {
+							"text": "Red Hat Directory Server 7.1 (for AS v. 3)",
+							"productid": "3AS-DirServ",
+							"cpe": "cpe:/a:redhat:directory_server:7.1"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Directory Server 7.1 (for ES v. 3)",
+						"fullproductname": {
+							"text": "Red Hat Directory Server 7.1 (for ES v. 3)",
+							"productid": "3ES-DirServ",
+							"cpe": "cpe:/a:redhat:directory_server:7.1"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "RHEL 4 Directory Server AS",
+						"fullproductname": {
+							"text": "RHEL 4 Directory Server AS",
+							"productid": "4AS-DirServ",
+							"cpe": "cpe:/a:redhat:directory_server:7.1"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "RHEL 4 Directory Server ES",
+						"fullproductname": {
+							"text": "RHEL 4 Directory Server ES",
+							"productid": "4ES-DirServ",
+							"cpe": "cpe:/a:redhat:directory_server:7.1"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "redhat-ds-0:7.1SP7-14.RHEL3",
+				"fullproductname": {
+					"text": "redhat-ds-7.1SP7-14.RHEL3.src.rpm",
+					"productid": "redhat-ds-0:7.1SP7-14.RHEL3",
+					"cpe": "cpe:/a:redhat:directory_server:7.1"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "redhat-ds-0:7.1SP7-14.RHEL4",
+				"fullproductname": {
+					"text": "redhat-ds-7.1SP7-14.RHEL4.src.rpm",
+					"productid": "redhat-ds-0:7.1SP7-14.RHEL4",
+					"cpe": "cpe:/a:redhat:directory_server:7.1"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "redhat-ds-0:7.1SP7-14.RHEL3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "3AS-DirServ",
+				"fullproductname": {
+					"text": "redhat-ds-0:7.1SP7-14.RHEL3 as a component of Red Hat Directory Server 7.1 (for AS v. 3)",
+					"productid": "3AS-DirServ:redhat-ds-0:7.1SP7-14.RHEL3",
+					"cpe": "cpe:/a:redhat:directory_server:7.1"
+				}
+			},
+			{
+				"productreference": "redhat-ds-0:7.1SP7-14.RHEL3",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "3ES-DirServ",
+				"fullproductname": {
+					"text": "redhat-ds-0:7.1SP7-14.RHEL3 as a component of Red Hat Directory Server 7.1 (for ES v. 3)",
+					"productid": "3ES-DirServ:redhat-ds-0:7.1SP7-14.RHEL3",
+					"cpe": "cpe:/a:redhat:directory_server:7.1"
+				}
+			},
+			{
+				"productreference": "redhat-ds-0:7.1SP7-14.RHEL4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "4AS-DirServ",
+				"fullproductname": {
+					"text": "redhat-ds-0:7.1SP7-14.RHEL4 as a component of RHEL 4 Directory Server AS",
+					"productid": "4AS-DirServ:redhat-ds-0:7.1SP7-14.RHEL4",
+					"cpe": "cpe:/a:redhat:directory_server:7.1"
+				}
+			},
+			{
+				"productreference": "redhat-ds-0:7.1SP7-14.RHEL4",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "4ES-DirServ",
+				"fullproductname": {
+					"text": "redhat-ds-0:7.1SP7-14.RHEL4 as a component of RHEL 4 Directory Server ES",
+					"productid": "4ES-DirServ:redhat-ds-0:7.1SP7-14.RHEL4",
+					"cpe": "cpe:/a:redhat:directory_server:7.1"
+				}
+			}
+		]
+	}
+}

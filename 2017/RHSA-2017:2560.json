@@ -1,0 +1,312 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: Red Hat Certificate System 8 security, bug fix, and enhancement update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2017:2560"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2017-08-30T15:04:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2017-08-30T15:04:00Z",
+		"CurrentReleaseDate": "2017-08-30T15:04:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:37:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nAn update is now available for Red Hat Certificate System 8 with Advanced Access.\n\nRed Hat Product Security has rated this update as having a security impact of Moderate. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nRed Hat Certificate System is a complete implementation of an enterprise software system designed to manage enterprise public key infrastructure (PKI) deployments.\n\nSecurity Fix(es):\n\n* An input validation error was found in Red Hat Certificate System's handling of client provided certificates. If the certreq field is not present in a certificate an assertion error is triggered causing a denial of service. (CVE-2017-7509)\n\nBug Fix(es):\n\n* Previously, the Token Management System (TMS) required that certificates that were on hold must first become valid before they can be revoked. This update removes that limitation, and it is now possible to directly revoke currently on hold certificates. (BZ#1262000)\n\n* With this update, Red Hat Certificate System instances can be installed using existing CA signing certificate/keys. This existing CA can be a functional CA from a different vendor, or keys or CSR generated to be signed by an external CA for the purpose of chaining it to a publicly recognized CA. \n\nNote that this feature is only supported when installing with the \"pkisilent\" tool, not when using the graphical user interface. Additionally, since the CSR is generated externally prior to configuration of the CA instance and is not stored in the NSS security databases, it should be understood that the CSR value attached to the \"ca.signing.certreq\" variable stored inside the \"/var/lib/pki-ca/conf/CS.cfg\" file is a reconstruction of the CSR created during configuration, and not the original CSR utilized to obtain the existing CA certificate. (BZ#1280391)\n\n* Previously, a bug in CRLDistributionPointsExtension caused some certificate profiles to encounter problems when being viewed in the Certificate Manager graphical interface. This bug is now fixed, and aforementioned profile can now be viewed normally. (BZ#1282589)\n\n* Previously, if access to a component such as an HSM or an LDAP server was lost during Certificate Revocation List (CRL) generation, the CA could become stuck in a loop that generated large amounts of log entries until the problem was resolved. To avoid these scenarios, two new configuration parameters are being introduced in this patch to allow the CA to slow down. (BZ#1290650)\n\n* A patch has been applied to the Token Processing System (TPS) to ensure that the \"symmetricKeys.requiredVersion\" option is being handled correctly in all cases. (BZ#1302103)\n\n* A patch has been applied to the Certificate System Token Processing System (TPS) to fix a bug where existing objects were not always cleared when enrolling over an active token. (BZ#1302116)\n\n* This update fixes a bug where the Token Processing System (TPS) could not correctly execute re-enrollment operations (taking a currently enrolled token and enrolling it again with new certificates) on some G&D smart cards. (BZ#1320283)\n\n* The Token Processing System (TPS) could previously leave old data in a token's Coolkey applet when re-enrolling the token with new certificates and keys. This bug is now fixed, and only data associated with certificates which are actually on the token is preserved after a successful re-enrollment. (BZ#1327653)\n\n* Previously, a problem when setting the final life cycle state of a token at the end of a re-enrollment operation could cause it to fail to report that it is properly enrolled. This bug is now fixed, and re-enrolled token now report their \"enrolled\" status accurately. (BZ#1382376)\n\n* Prior to this update, ECDSA certificates were issued with a NULL value in the \"parameter\" field. These certificates were not compliant with the RFC 5758 specification which mandates this field to be omitted completely. This bug has been fixed, and ECDSA certificates are now issued without the \"parameter\" field. (BZ#1454414)\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2017:2560",
+				"Description": "https://access.redhat.com/errata/RHSA-2017:2560"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "certificate system 8: Enrolling certificate without certreq field causes CA to crash",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2017-05-11T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2017-7509",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2017:2560"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2017-7509",
+						"Description": "CVE-2017-7509"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1456030",
+						"Description": "bz#1456030: CVE-2017-7509 certificate system 8: Enrolling certificate without certreq field causes CA to crash"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2017-05-11T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Server-RHCertSystem-Advanced:pki-ca-0:8.1.9-2.el5pki",
+						"5Server-RHCertSystem-Advanced:pki-common-0:8.1.20-1.el5pki",
+						"5Server-RHCertSystem-Advanced:pki-kra-0:8.1.7-2.el5pki",
+						"5Server-RHCertSystem-Advanced:pki-silent-0:8.1.2-3.el5pki",
+						"5Server-RHCertSystem-Advanced:pki-tps-0:8.1.30-1.el5pki",
+						"5Server-RHCertSystem-Advanced:pki-util-0:8.1.3-2.el5pki",
+						"5Server-RHCertSystem-Advanced:redhat-pki-ca-ui-0:8.1.1-2.el5pki"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Certificate System",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Certificate System 8 Advanced Access",
+						"fullproductname": {
+							"text": "Red Hat Certificate System 8 Advanced Access",
+							"productid": "5Server-RHCertSystem-Advanced",
+							"cpe": "cpe:/a:redhat:certificate_system:8::el5"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "pki-ca-0:8.1.9-2.el5pki",
+				"fullproductname": {
+					"text": "pki-ca-8.1.9-2.el5pki.src.rpm",
+					"productid": "pki-ca-0:8.1.9-2.el5pki",
+					"cpe": "cpe:/a:redhat:certificate_system:8::el5"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pki-common-0:8.1.20-1.el5pki",
+				"fullproductname": {
+					"text": "pki-common-8.1.20-1.el5pki.src.rpm",
+					"productid": "pki-common-0:8.1.20-1.el5pki",
+					"cpe": "cpe:/a:redhat:certificate_system:8::el5"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pki-kra-0:8.1.7-2.el5pki",
+				"fullproductname": {
+					"text": "pki-kra-8.1.7-2.el5pki.src.rpm",
+					"productid": "pki-kra-0:8.1.7-2.el5pki",
+					"cpe": "cpe:/a:redhat:certificate_system:8::el5"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pki-silent-0:8.1.2-3.el5pki",
+				"fullproductname": {
+					"text": "pki-silent-8.1.2-3.el5pki.src.rpm",
+					"productid": "pki-silent-0:8.1.2-3.el5pki",
+					"cpe": "cpe:/a:redhat:certificate_system:8::el5"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pki-tps-0:8.1.30-1.el5pki",
+				"fullproductname": {
+					"text": "pki-tps-8.1.30-1.el5pki.src.rpm",
+					"productid": "pki-tps-0:8.1.30-1.el5pki",
+					"cpe": "cpe:/a:redhat:certificate_system:8::el5"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "pki-util-0:8.1.3-2.el5pki",
+				"fullproductname": {
+					"text": "pki-util-8.1.3-2.el5pki.src.rpm",
+					"productid": "pki-util-0:8.1.3-2.el5pki",
+					"cpe": "cpe:/a:redhat:certificate_system:8::el5"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "redhat-pki-ca-ui-0:8.1.1-2.el5pki",
+				"fullproductname": {
+					"text": "redhat-pki-ca-ui-8.1.1-2.el5pki.src.rpm",
+					"productid": "redhat-pki-ca-ui-0:8.1.1-2.el5pki",
+					"cpe": "cpe:/a:redhat:certificate_system:8::el5"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "pki-ca-0:8.1.9-2.el5pki",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-RHCertSystem-Advanced",
+				"fullproductname": {
+					"text": "pki-ca-0:8.1.9-2.el5pki as a component of Red Hat Certificate System 8 Advanced Access",
+					"productid": "5Server-RHCertSystem-Advanced:pki-ca-0:8.1.9-2.el5pki",
+					"cpe": "cpe:/a:redhat:certificate_system:8::el5"
+				}
+			},
+			{
+				"productreference": "pki-common-0:8.1.20-1.el5pki",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-RHCertSystem-Advanced",
+				"fullproductname": {
+					"text": "pki-common-0:8.1.20-1.el5pki as a component of Red Hat Certificate System 8 Advanced Access",
+					"productid": "5Server-RHCertSystem-Advanced:pki-common-0:8.1.20-1.el5pki",
+					"cpe": "cpe:/a:redhat:certificate_system:8::el5"
+				}
+			},
+			{
+				"productreference": "pki-kra-0:8.1.7-2.el5pki",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-RHCertSystem-Advanced",
+				"fullproductname": {
+					"text": "pki-kra-0:8.1.7-2.el5pki as a component of Red Hat Certificate System 8 Advanced Access",
+					"productid": "5Server-RHCertSystem-Advanced:pki-kra-0:8.1.7-2.el5pki",
+					"cpe": "cpe:/a:redhat:certificate_system:8::el5"
+				}
+			},
+			{
+				"productreference": "pki-silent-0:8.1.2-3.el5pki",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-RHCertSystem-Advanced",
+				"fullproductname": {
+					"text": "pki-silent-0:8.1.2-3.el5pki as a component of Red Hat Certificate System 8 Advanced Access",
+					"productid": "5Server-RHCertSystem-Advanced:pki-silent-0:8.1.2-3.el5pki",
+					"cpe": "cpe:/a:redhat:certificate_system:8::el5"
+				}
+			},
+			{
+				"productreference": "pki-tps-0:8.1.30-1.el5pki",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-RHCertSystem-Advanced",
+				"fullproductname": {
+					"text": "pki-tps-0:8.1.30-1.el5pki as a component of Red Hat Certificate System 8 Advanced Access",
+					"productid": "5Server-RHCertSystem-Advanced:pki-tps-0:8.1.30-1.el5pki",
+					"cpe": "cpe:/a:redhat:certificate_system:8::el5"
+				}
+			},
+			{
+				"productreference": "pki-util-0:8.1.3-2.el5pki",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-RHCertSystem-Advanced",
+				"fullproductname": {
+					"text": "pki-util-0:8.1.3-2.el5pki as a component of Red Hat Certificate System 8 Advanced Access",
+					"productid": "5Server-RHCertSystem-Advanced:pki-util-0:8.1.3-2.el5pki",
+					"cpe": "cpe:/a:redhat:certificate_system:8::el5"
+				}
+			},
+			{
+				"productreference": "redhat-pki-ca-ui-0:8.1.1-2.el5pki",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-RHCertSystem-Advanced",
+				"fullproductname": {
+					"text": "redhat-pki-ca-ui-0:8.1.1-2.el5pki as a component of Red Hat Certificate System 8 Advanced Access",
+					"productid": "5Server-RHCertSystem-Advanced:redhat-pki-ca-ui-0:8.1.1-2.el5pki",
+					"cpe": "cpe:/a:redhat:certificate_system:8::el5"
+				}
+			}
+		]
+	}
+}

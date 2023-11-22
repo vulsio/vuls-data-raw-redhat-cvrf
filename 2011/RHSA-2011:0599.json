@@ -1,0 +1,252 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: sudo security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2011:0599"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2011-05-19T07:46:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2011-05-19T11:11:00Z",
+		"CurrentReleaseDate": "2011-05-19T07:46:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:30:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nAn updated sudo package that fixes one security issue and several bugs is\nnow available for Red Hat Enterprise Linux 6.\n\nThe Red Hat Security Response Team has rated this update as having low\nsecurity impact. A Common Vulnerability Scoring System (CVSS) base score,\nwhich gives a detailed severity rating, is available from the CVE link in\nthe References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe sudo (superuser do) utility allows system administrators to give\ncertain users the ability to run commands as root.\n\nA flaw was found in the sudo password checking logic. In configurations\nwhere the sudoers settings allowed a user to run a command using sudo with\nonly the group ID changed, sudo failed to prompt for the user's password\nbefore running the specified command with the elevated group privileges.\n(CVE-2011-0010)\n\nThis update also fixes the following bugs:\n\n* When the \"/etc/sudoers\" file contained entries with multiple hosts,\nrunning the \"sudo -l\" command incorrectly reported that a certain user does\nnot have permissions to use sudo on the system. With this update, running\nthe \"sudo -l\" command now produces the correct output. (BZ#603823)\n\n* Prior to this update, the manual page for sudoers.ldap was not installed,\neven though it contains important information on how to set up an LDAP\n(Lightweight Directory Access Protocol) sudoers source, and other documents\nrefer to it. With this update, the manual page is now properly included in\nthe package. Additionally, various POD files have been removed from the\npackage, as they are required for build purposes only. (BZ#634159)\n\n* The previous version of sudo did not use the same location for the LDAP\nconfiguration files as the nss_ldap package. This has been fixed and sudo\nnow looks for these files in the same location as the nss_ldap package.\n(BZ#652726)\n\n* When a file was edited using the \"sudo -e file\" or the \"sudoedit file\"\ncommand, the editor being executed for this task was logged only as\n\"sudoedit\". With this update, the full path to the executable being used as\nan editor is now logged (instead of \"sudoedit\"). (BZ#665131)\n\n* A comment regarding the \"visiblepw\" option of the \"Defaults\" directive\nhas been added to the default \"/etc/sudoers\" file to clarify its usage.\n(BZ#688640)\n\n* This erratum upgrades sudo to upstream version 1.7.4p5, which provides a\nnumber of bug fixes and enhancements over the previous version. (BZ#615087)\n\nAll users of sudo are advised to upgrade to this updated package, which\nresolves these issues.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Low",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2011:0599",
+				"Description": "https://access.redhat.com/errata/RHSA-2011:0599"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#low",
+				"Description": "https://access.redhat.com/security/updates/classification/#low"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "sudo: does not ask for password on GID changes",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2011-01-11T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2011-0010",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/kb/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2011:0599"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2011-0010",
+						"Description": "CVE-2011-0010"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=668879",
+						"Description": "bz#668879: CVE-2011-0010 sudo: does not ask for password on GID changes"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2011-01-11T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Client:sudo-0:1.7.4p5-5.el6",
+						"6ComputeNode:sudo-0:1.7.4p5-5.el6",
+						"6Server:sudo-0:1.7.4p5-5.el6",
+						"6Workstation:sudo-0:1.7.4p5-5.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "1.2",
+					"Vector": "AV:L/AC:H/Au:N/C:N/I:P/A:N"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 6)",
+							"productid": "6Client",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux HPC Node (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux HPC Node (v. 6)",
+							"productid": "6ComputeNode",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 6)",
+							"productid": "6Server",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 6)",
+							"productid": "6Workstation",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "sudo-0:1.7.4p5-5.el6",
+				"fullproductname": {
+					"text": "sudo-1.7.4p5-5.el6.src.rpm",
+					"productid": "sudo-0:1.7.4p5-5.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "sudo-0:1.7.4p5-5.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Client",
+				"fullproductname": {
+					"text": "sudo-0:1.7.4p5-5.el6 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"productid": "6Client:sudo-0:1.7.4p5-5.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+				}
+			},
+			{
+				"productreference": "sudo-0:1.7.4p5-5.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6ComputeNode",
+				"fullproductname": {
+					"text": "sudo-0:1.7.4p5-5.el6 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"productid": "6ComputeNode:sudo-0:1.7.4p5-5.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+				}
+			},
+			{
+				"productreference": "sudo-0:1.7.4p5-5.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server",
+				"fullproductname": {
+					"text": "sudo-0:1.7.4p5-5.el6 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"productid": "6Server:sudo-0:1.7.4p5-5.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "sudo-0:1.7.4p5-5.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation",
+				"fullproductname": {
+					"text": "sudo-0:1.7.4p5-5.el6 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"productid": "6Workstation:sudo-0:1.7.4p5-5.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			}
+		]
+	}
+}

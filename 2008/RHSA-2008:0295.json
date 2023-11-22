@@ -1,0 +1,212 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: vsftpd security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2008:0295"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2008-05-21T10:16:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2008-05-21T14:16:00Z",
+		"CurrentReleaseDate": "2008-05-21T10:16:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:29:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nAn updated vsftpd package that fixes a security issue and several bugs is\nnow available for Red Hat Enterprise Linux 5.\n\nThis update has been rated as having low security impact by the Red Hat\nSecurity Response Team.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe vsftpd package includes a Very Secure File Transfer Protocol (FTP)\ndaemon.\n\nA memory leak was discovered in the vsftpd daemon. An attacker who is able\nto connect to an FTP service, either as an authenticated or anonymous user,\ncould cause vsftpd to allocate all available memory if the \"deny_file\"\noption was enabled in vsftpd.conf. (CVE-2007-5962)\n\nAs well, this updated package fixes following bugs:\n\n* a race condition could occur even when the \"lock_upload_files\" option is\nset. When uploading two files simultaneously, the result was a combination\nof the two files. This resulted in uploaded files becoming corrupted. In\nthese updated packages, uploading two files simultaneously will result in a\nfile that is identical to the last uploaded file.\n\n* when the \"userlist_enable\" option is used, failed log in attempts as a\nresult of the user not being in the list of allowed users, or being in the\nlist of denied users, will not be logged. In these updated packages, a new\n\"userlist_log=YES\" option can be configured in vsftpd.conf, which will log\nfailed log in attempts in these situations.\n\n* vsftpd did not support usernames that started with an underscore or a\nperiod character. Usernames starting with an underscore or a period are\nsupported in these updated packages.\n\n* using wildcards in conjunction with the \"ls\" command did not return all\nthe file names it should. For example, if you FTPed into a directory\ncontaining three files -- A1, A21 and A11 -- and ran the \"ls *1\" command,\nonly the file names A1 and A21 were returned. These updated packages use\ngreedier code that continues to speculatively scan for items even after\nmatches have been found.\n\n* when the \"user_config_dir\" option is enabled in vsftpd.conf, and the\nuser-specific configuration file did not exist, the following error\noccurred after a user entered their password during the log in process:\n\n500 OOPS: reading non-root config file\n\nThis has been resolved in this updated package.\n\nAll vsftpd users are advised to upgrade to this updated package, which\nresolves these issues.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Low",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2008:0295",
+				"Description": "https://access.redhat.com/errata/RHSA-2008:0295"
+			},
+			{
+				"type": "External",
+				"URL": "http://www.redhat.com/security/updates/classification/#low",
+				"Description": "http://www.redhat.com/security/updates/classification/#low"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "vsftpd: memory leak when deny_file option is set",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2008-05-21T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2007-5962",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.  \n\nThis update is available via Red Hat Network.  Details on how to use \nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/FAQ_58_10188\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2008:0295"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2007-5962",
+						"Description": "CVE-2007-5962"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=397011",
+						"Description": "bz#397011: CVE-2007-5962 vsftpd: memory leak when deny_file option is set"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2007-11-23T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-Workstation:vsftpd-0:2.0.5-12.el5",
+						"5Server:vsftpd-0:2.0.5-12.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+							"productid": "5Client-Workstation",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::client_workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux (v. 5 server)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux (v. 5 server)",
+							"productid": "5Server",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "vsftpd-0:2.0.5-12.el5",
+				"fullproductname": {
+					"text": "vsftpd-2.0.5-12.el5.src.rpm",
+					"productid": "vsftpd-0:2.0.5-12.el5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client_workstation"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "vsftpd-0:2.0.5-12.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Client-Workstation",
+				"fullproductname": {
+					"text": "vsftpd-0:2.0.5-12.el5 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"productid": "5Client-Workstation:vsftpd-0:2.0.5-12.el5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client_workstation"
+				}
+			},
+			{
+				"productreference": "vsftpd-0:2.0.5-12.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server",
+				"fullproductname": {
+					"text": "vsftpd-0:2.0.5-12.el5 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"productid": "5Server:vsftpd-0:2.0.5-12.el5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+				}
+			}
+		]
+	}
+}

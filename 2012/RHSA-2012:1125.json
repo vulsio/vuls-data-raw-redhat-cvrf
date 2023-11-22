@@ -1,0 +1,709 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: JBoss Enterprise SOA Platform 5.3.0 update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2012:1125"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2012-07-31T14:32:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2012-07-31T14:24:00Z",
+		"CurrentReleaseDate": "2012-07-31T14:32:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:49:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nJBoss Enterprise SOA Platform 5.3.0, which fixes multiple security issues,\nvarious bugs, and adds enhancements, is now available from the Red Hat\nCustomer Portal.\n\nThe Red Hat Security Response Team has rated this update as having\nimportant security impact. Common Vulnerability Scoring System (CVSS) base\nscores, which give detailed severity ratings, are available for each\nvulnerability from the CVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nJBoss Enterprise SOA Platform is the next-generation ESB and business\nprocess automation infrastructure.\n\nThis release of JBoss Enterprise SOA Platform 5.3.0 serves as a replacement\nfor JBoss Enterprise SOA Platform 5.2.0. It includes various bug fixes and\nenhancements which are detailed in the JBoss Enterprise SOA Platform 5.3.0\nRelease Notes. The Release Notes will be available shortly from\nhttps://access.redhat.com/knowledge/docs/\n\nThe following security issues are also fixed with this release:\n\nIt was found that the JBoss JNDI service allowed unauthenticated, remote\nwrite access by default. The JNDI and HA-JNDI services, and the\nHAJNDIFactory invoker servlet were all affected. A remote attacker able to\naccess the JNDI service (port 1099), HA-JNDI service (port 1100), or the\nHAJNDIFactory invoker servlet on a JBoss server could use this flaw to add,\ndelete, and modify items in the JNDI tree. This could have various,\napplication-specific impacts. (CVE-2011-4605)\n\nA denial of service flaw was found in the implementation of associative\narrays (hashes) in JRuby. An attacker able to supply a large number of\ninputs to a JRuby application (such as HTTP POST request parameters sent to\na web application) that are used as keys when inserting data into an array\ncould trigger multiple hash function collisions, making array operations\ntake an excessive amount of CPU time. To mitigate this issue, randomization\nhas been added to the hash function to reduce the chance of an attacker\nsuccessfully causing intentional collisions. (CVE-2011-4838)\n\nNote: JBoss Enterprise SOA Platform only provides JRuby as a dependency of\nthe scripting_chain quickstart example application. The CVE-2011-4838 flaw\nis not exposed unless the version of JRuby shipped with that quickstart is\nused by a deployed, custom application.\n\nIt was found that RESTEasy was vulnerable to XML External Entity (XXE)\nattacks. If a remote attacker submitted a request containing an external\nXML entity to a RESTEasy endpoint, the entity would be resolved, allowing\nthe attacker to read files accessible to the user running the application\nserver. This flaw affected DOM (Document Object Model) Document and JAXB\n(Java Architecture for XML Binding) input. The fix for this issue is not\nenabled by default. Refer to the Solution section for details.\n(CVE-2012-0818)\n\nMultiple flaws were found in the Oracle OpenSSO authentication and\nadministration components. A remote attacker could use these flaws to\naffect the integrity and availability of a service that uses Oracle\nOpenSSO. (CVE-2011-3506, CVE-2011-3517, CVE-2012-0079)\n\nNote: JBoss Enterprise SOA Platform only provides Oracle OpenSSO as part of\nthe opensso quickstart example application. The CVE-2011-3506,\nCVE-2011-3517, and CVE-2012-0079 flaws are not exposed unless the opensso\nquickstart example application is deployed, or you have created and\ndeployed a custom application that is packaged with a copy of Oracle\nOpenSSO as provided by the opensso quickstart.\n\nThe opensso quickstart has been removed in this release to address these\nflaws. Users interested in continuing to receive updates for their custom\napplications using Oracle OpenSSO are advised to contact Oracle as Red Hat\nis no longer supporting OpenSSO.\n\nWhen a JGroups channel is started, the JGroups diagnostics service would be\nenabled by default with no authentication. This service is exposed via IP\nmulticast. An attacker on an adjacent network could exploit this flaw to\nread diagnostics information. (CVE-2012-2377)\n\nRed Hat would like to thank Christian Schlüter (VIADA) for reporting\nCVE-2011-4605, and oCERT for reporting CVE-2011-4838. oCERT\nacknowledges Julian Wälde and Alexander Klink as the original reporters of\nCVE-2011-4838.\n\nWarning: Before installing version 5.3.0, back up your existing JBoss\nEnterprise SOA Platform installation (including its databases,\napplications, configuration files, and so on).\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2012:1125",
+				"Description": "https://access.redhat.com/errata/RHSA-2012:1125"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/jbossnetwork/restricted/listSoftware.html?product=soaplatform&downloadType=distributions",
+				"Description": "https://access.redhat.com/jbossnetwork/restricted/listSoftware.html?product=soaplatform&downloadType=distributions"
+			},
+			{
+				"type": "External",
+				"URL": "http://www.oracle.com/technetwork/topics/security/cpuoct2011-330135.html",
+				"Description": "http://www.oracle.com/technetwork/topics/security/cpuoct2011-330135.html"
+			},
+			{
+				"type": "External",
+				"URL": "http://www.oracle.com/technetwork/topics/security/cpujan2012-366304.html",
+				"Description": "http://www.oracle.com/technetwork/topics/security/cpujan2012-366304.html"
+			},
+			{
+				"type": "External",
+				"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=785631",
+				"Description": "https://bugzilla.redhat.com/show_bug.cgi?id=785631"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/knowledge/docs/",
+				"Description": "https://access.redhat.com/knowledge/docs/"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Oracle OpenSSO: unspecified vulnerability in the authentication component",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2011-10-18T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2011-3506",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll users of JBoss Enterprise SOA Platform 5.2.0 as provided from the Red\nHat Customer Portal are advised to upgrade to JBoss Enterprise SOA Platform\n5.3.0.\n\nThe References section of this erratum contains a download link (you must\nlog in to download the new version). Before installing version 5.3.0, back\nup your existing JBoss Enterprise SOA Platform installation (including its\ndatabases, applications, configuration files, and so on).\n\nThe fix for CVE-2012-0818 is not enabled by default. This update adds a new\nconfiguration option to disable entity expansion in RESTEasy. If\napplications on your server expose RESTEasy XML endpoints, a\nresteasy.document.expand.entity.references configuration snippet must be\nadded to their web.xml file to disable entity expansion in RESTEasy. Refer\nto Red Hat Bugzilla bug 785631 for details.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:1125"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "http://www.oracle.com/technetwork/topics/security/cpuoct2011-330135.html",
+						"Description": "http://www.oracle.com/technetwork/topics/security/cpuoct2011-330135.html"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2011-3506",
+						"Description": "CVE-2011-3506"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=749078",
+						"Description": "bz#749078: CVE-2011-3506 Oracle OpenSSO: unspecified vulnerability in the authentication component"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2011-10-18T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.6",
+					"Vector": "AV:N/AC:H/Au:N/C:N/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Oracle OpenSSO: unspecified vulnerability in the authentication component",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2011-10-18T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2011-3517",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll users of JBoss Enterprise SOA Platform 5.2.0 as provided from the Red\nHat Customer Portal are advised to upgrade to JBoss Enterprise SOA Platform\n5.3.0.\n\nThe References section of this erratum contains a download link (you must\nlog in to download the new version). Before installing version 5.3.0, back\nup your existing JBoss Enterprise SOA Platform installation (including its\ndatabases, applications, configuration files, and so on).\n\nThe fix for CVE-2012-0818 is not enabled by default. This update adds a new\nconfiguration option to disable entity expansion in RESTEasy. If\napplications on your server expose RESTEasy XML endpoints, a\nresteasy.document.expand.entity.references configuration snippet must be\nadded to their web.xml file to disable entity expansion in RESTEasy. Refer\nto Red Hat Bugzilla bug 785631 for details.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:1125"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "http://www.oracle.com/technetwork/topics/security/cpuoct2011-330135.html",
+						"Description": "http://www.oracle.com/technetwork/topics/security/cpuoct2011-330135.html"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2011-3517",
+						"Description": "CVE-2011-3517"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=749079",
+						"Description": "bz#749079: CVE-2011-3517 Oracle OpenSSO: unspecified vulnerability in the authentication component"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2011-10-18T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "JNDI: unauthenticated remote write access is permitted by default",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-06-20T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2011-4605",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll users of JBoss Enterprise SOA Platform 5.2.0 as provided from the Red\nHat Customer Portal are advised to upgrade to JBoss Enterprise SOA Platform\n5.3.0.\n\nThe References section of this erratum contains a download link (you must\nlog in to download the new version). Before installing version 5.3.0, back\nup your existing JBoss Enterprise SOA Platform installation (including its\ndatabases, applications, configuration files, and so on).\n\nThe fix for CVE-2012-0818 is not enabled by default. This update adds a new\nconfiguration option to disable entity expansion in RESTEasy. If\napplications on your server expose RESTEasy XML endpoints, a\nresteasy.document.expand.entity.references configuration snippet must be\nadded to their web.xml file to disable entity expansion in RESTEasy. Refer\nto Red Hat Bugzilla bug 785631 for details.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:1125"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2011-4605",
+						"Description": "CVE-2011-4605"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=766469",
+						"Description": "bz#766469: CVE-2011-4605 JNDI: unauthenticated remote write access is permitted by default"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2011-12-07T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "7.5",
+					"Vector": "AV:N/AC:L/Au:N/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "jruby: hash table collisions DoS (oCERT-2011-003)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2011-12-28T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2011-4838",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll users of JBoss Enterprise SOA Platform 5.2.0 as provided from the Red\nHat Customer Portal are advised to upgrade to JBoss Enterprise SOA Platform\n5.3.0.\n\nThe References section of this erratum contains a download link (you must\nlog in to download the new version). Before installing version 5.3.0, back\nup your existing JBoss Enterprise SOA Platform installation (including its\ndatabases, applications, configuration files, and so on).\n\nThe fix for CVE-2012-0818 is not enabled by default. This update adds a new\nconfiguration option to disable entity expansion in RESTEasy. If\napplications on your server expose RESTEasy XML endpoints, a\nresteasy.document.expand.entity.references configuration snippet must be\nadded to their web.xml file to disable entity expansion in RESTEasy. Refer\nto Red Hat Bugzilla bug 785631 for details.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:1125"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2011-4838",
+						"Description": "CVE-2011-4838"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=770820",
+						"Description": "bz#770820: CVE-2011-4838 jruby: hash table collisions DoS (oCERT-2011-003)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2011-11-01T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.0",
+					"Vector": "AV:N/AC:L/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "RESTEasy: XML eXternal Entity (XXE) flaw",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2011-12-30T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2011-5245",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll users of JBoss Enterprise SOA Platform 5.2.0 as provided from the Red\nHat Customer Portal are advised to upgrade to JBoss Enterprise SOA Platform\n5.3.0.\n\nThe References section of this erratum contains a download link (you must\nlog in to download the new version). Before installing version 5.3.0, back\nup your existing JBoss Enterprise SOA Platform installation (including its\ndatabases, applications, configuration files, and so on).\n\nThe fix for CVE-2012-0818 is not enabled by default. This update adds a new\nconfiguration option to disable entity expansion in RESTEasy. If\napplications on your server expose RESTEasy XML endpoints, a\nresteasy.document.expand.entity.references configuration snippet must be\nadded to their web.xml file to disable entity expansion in RESTEasy. Refer\nto Red Hat Bugzilla bug 785631 for details.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:1125"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2011-5245",
+						"Description": "CVE-2011-5245"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=785631",
+						"Description": "bz#785631: CVE-2011-5245 CVE-2012-0818 RESTEasy: XML eXternal Entity (XXE) flaw"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2012-01-24T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.0",
+					"Vector": "AV:N/AC:L/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "6",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "OpenSSO: Unspecified vulnerability allows remote attackers to affect integrity via unknown vectors",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-01-18T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-0079",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll users of JBoss Enterprise SOA Platform 5.2.0 as provided from the Red\nHat Customer Portal are advised to upgrade to JBoss Enterprise SOA Platform\n5.3.0.\n\nThe References section of this erratum contains a download link (you must\nlog in to download the new version). Before installing version 5.3.0, back\nup your existing JBoss Enterprise SOA Platform installation (including its\ndatabases, applications, configuration files, and so on).\n\nThe fix for CVE-2012-0818 is not enabled by default. This update adds a new\nconfiguration option to disable entity expansion in RESTEasy. If\napplications on your server expose RESTEasy XML endpoints, a\nresteasy.document.expand.entity.references configuration snippet must be\nadded to their web.xml file to disable entity expansion in RESTEasy. Refer\nto Red Hat Bugzilla bug 785631 for details.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:1125"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-0079",
+						"Description": "CVE-2012-0079"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=783898",
+						"Description": "bz#783898: CVE-2012-0079 OpenSSO: Unspecified vulnerability allows remote attackers to affect integrity via unknown vectors"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2012-01-18T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.6",
+					"Vector": "AV:N/AC:H/Au:N/C:N/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "7",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "RESTEasy: XML eXternal Entity (XXE) flaw",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2011-12-30T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-0818",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll users of JBoss Enterprise SOA Platform 5.2.0 as provided from the Red\nHat Customer Portal are advised to upgrade to JBoss Enterprise SOA Platform\n5.3.0.\n\nThe References section of this erratum contains a download link (you must\nlog in to download the new version). Before installing version 5.3.0, back\nup your existing JBoss Enterprise SOA Platform installation (including its\ndatabases, applications, configuration files, and so on).\n\nThe fix for CVE-2012-0818 is not enabled by default. This update adds a new\nconfiguration option to disable entity expansion in RESTEasy. If\napplications on your server expose RESTEasy XML endpoints, a\nresteasy.document.expand.entity.references configuration snippet must be\nadded to their web.xml file to disable entity expansion in RESTEasy. Refer\nto Red Hat Bugzilla bug 785631 for details.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:1125"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-0818",
+						"Description": "CVE-2012-0818"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=785631",
+						"Description": "bz#785631: CVE-2011-5245 CVE-2012-0818 RESTEasy: XML eXternal Entity (XXE) flaw"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2012-01-24T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.0",
+					"Vector": "AV:N/AC:L/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "8",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "JBoss: authentication bypass when running under JACC with ignoreBaseDecision on JBossWebRealm",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-06-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-1167",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll users of JBoss Enterprise SOA Platform 5.2.0 as provided from the Red\nHat Customer Portal are advised to upgrade to JBoss Enterprise SOA Platform\n5.3.0.\n\nThe References section of this erratum contains a download link (you must\nlog in to download the new version). Before installing version 5.3.0, back\nup your existing JBoss Enterprise SOA Platform installation (including its\ndatabases, applications, configuration files, and so on).\n\nThe fix for CVE-2012-0818 is not enabled by default. This update adds a new\nconfiguration option to disable entity expansion in RESTEasy. If\napplications on your server expose RESTEasy XML endpoints, a\nresteasy.document.expand.entity.references configuration snippet must be\nadded to their web.xml file to disable entity expansion in RESTEasy. Refer\nto Red Hat Bugzilla bug 785631 for details.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:1125"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-1167",
+						"Description": "CVE-2012-1167"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=802622",
+						"Description": "bz#802622: CVE-2012-1167 JBoss: authentication bypass when running under JACC with ignoreBaseDecision on JBossWebRealm"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2012-03-13T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.6",
+					"Vector": "AV:N/AC:H/Au:S/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "9",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "JGroups diagnostics service enabled by default with no authentication when a JGroups channel is started",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-06-12T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-2377",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll users of JBoss Enterprise SOA Platform 5.2.0 as provided from the Red\nHat Customer Portal are advised to upgrade to JBoss Enterprise SOA Platform\n5.3.0.\n\nThe References section of this erratum contains a download link (you must\nlog in to download the new version). Before installing version 5.3.0, back\nup your existing JBoss Enterprise SOA Platform installation (including its\ndatabases, applications, configuration files, and so on).\n\nThe fix for CVE-2012-0818 is not enabled by default. This update adds a new\nconfiguration option to disable entity expansion in RESTEasy. If\napplications on your server expose RESTEasy XML endpoints, a\nresteasy.document.expand.entity.references configuration snippet must be\nadded to their web.xml file to disable entity expansion in RESTEasy. Refer\nto Red Hat Bugzilla bug 785631 for details.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:1125"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-2377",
+						"Description": "CVE-2012-2377"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=823392",
+						"Description": "bz#823392: CVE-2012-2377 JGroups diagnostics service enabled by default with no authentication when a JGroups channel is started"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2012-05-17T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "3.3",
+					"Vector": "AV:A/AC:L/Au:N/C:P/I:N/A:N"
+				}
+			}
+		}
+	],
+	"producttree": {}
+}

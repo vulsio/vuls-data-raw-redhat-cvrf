@@ -1,0 +1,212 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: libvirt security, bug fix, and enhancement update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2011:1019"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2011-07-21T06:31:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2011-07-21T09:23:00Z",
+		"CurrentReleaseDate": "2011-07-21T06:31:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:31:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated libvirt packages that fix one security issue, several bugs and add\nvarious enhancements are now available for Red Hat Enterprise Linux 5.\n\nThe Red Hat Security Response Team has rated this update as having moderate\nsecurity impact. A Common Vulnerability Scoring System (CVSS) base score,\nwhich gives a detailed severity rating, is available from the CVE link in\nthe References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe libvirt library is a C API for managing and interacting with the\nvirtualization capabilities of Linux and other operating systems.\n\nAn integer overflow flaw was found in libvirtd's RPC call handling. An\nattacker able to establish read-only connections to libvirtd could trigger\nthis flaw by calling virDomainGetVcpus() with specially-crafted parameters,\ncausing libvirtd to crash. (CVE-2011-2511)\n\nThis update fixes the following bugs:\n\n* libvirt was rebased from version 0.6.3 to version 0.8.2 in Red Hat\nEnterprise Linux 5.6. A code audit found a minor API change that effected\nerror messages seen by libvirt 0.8.2 clients talking to libvirt 0.7.1 –\n0.7.7 (0.7.x) servers. A libvirt 0.7.x server could send\nVIR_ERR_BUILD_FIREWALL errors where a libvirt 0.8.2 client expected\nVIR_ERR_CONFIG_UNSUPPORTED errors. In other circumstances, a libvirt 0.8.2\nclient saw a \"Timed out during operation\" message where it should see an\n\"Invalid network filter\" error. This update adds a backported patch that\nallows libvirt 0.8.2 clients to interoperate with the API as used by\nlibvirt 0.7.x servers, ensuring correct error messages are sent.\n(BZ#665075)\n\n* libvirt could crash if the maximum number of open file descriptors\n(_SC_OPEN_MAX) grew larger than the FD_SETSIZE value because it accessed\nfile descriptors outside the bounds of the set. With this update the\nmaximum number of open file descriptors can no longer grow larger than the\nFD_SETSIZE value. (BZ#665549)\n\n* A libvirt race condition was found. An array in the libvirt event\nhandlers was accessed with a lock temporarily released. In rare cases, if\none thread attempted to access this array but a second thread reallocated\nthe array before the first thread reacquired a lock, it could lead to the\nfirst thread attempting to access freed memory, potentially causing libvirt\nto crash. With this update libvirt no longer refers to the old array and,\nconsequently, behaves as expected. (BZ#671569)\n\n* Guests connected to a passthrough NIC would kernel panic if a\nsystem_reset signal was sent through the QEMU monitor. With this update you\ncan reset such guests as expected. (BZ#689880)\n\n* When using the Xen kernel, the rpmbuild command failed on the xencapstest\ntest. With this update you can run rpmbuild successfully when using the Xen\nkernel. (BZ#690459)\n\n* When a disk was hot unplugged, \"ret >= 0\" was passed to the qemuAuditDisk\ncalls in disk hotunplug operations before ret was, in fact, set to 0. As\nwell, the error path jumped to the \"cleanup\" label prematurely. As a\nconsequence, hotunplug failures were not audited and hotunplug successes\nwere audited as failures. This was corrected and hot unplugging checks now\nbehave as expected. (BZ#710151)\n\n* A conflict existed between filter update locking sequences and virtual\nmachine startup locking sequences. When a filter update occurred on one or\nmore virtual machines, a deadlock could consequently occur if a virtual\nmachine referencing a filter was started. This update changes and makes\nmore flexible several qemu locking sequences ensuring this deadlock no\nlonger occurs. (BZ#697749)\n\n* qemudDomainSaveImageStartVM closed some incoming file descriptor (fd)\narguments without informing the caller. The consequent double-closes could\ncause Domain restoration failure. This update alters the\nqemudDomainSaveImageStartVM signature to prevent the double-closes.\n(BZ#681623)\n\nThis update also adds the following enhancements:\n\n* The libvirt Xen driver now supports more than one serial port.\n(BZ#670789)\n\n* Enabling and disabling the High Precision Event Timer (HPET) in Xen\ndomains is now possible. (BZ#703193)\n\nAll libvirt users should install this update which addresses this\nvulnerability, fixes these bugs and adds these enhancements. After\ninstalling the updated packages, libvirtd must be restarted (\"service\nlibvirtd restart\") for this update to take effect.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2011:1019",
+				"Description": "https://access.redhat.com/errata/RHSA-2011:1019"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "libvirt: integer overflow in VirDomainGetVcpus",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2011-06-24T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2011-2511",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/kb/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2011:1019"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2011-2511",
+						"Description": "CVE-2011-2511"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=717199",
+						"Description": "bz#717199: CVE-2011-2511 libvirt: integer overflow in VirDomainGetVcpus"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2011-06-24T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-VT:libvirt-0:0.8.2-22.el5",
+						"5Server-VT:libvirt-0:0.8.2-22.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "3.3",
+					"Vector": "AV:A/AC:L/Au:N/C:N/I:N/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop Multi OS (v. 5 client)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop Multi OS (v. 5 client)",
+							"productid": "5Client-VT",
+							"cpe": "cpe:/a:redhat:rhel_virtualization:5::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Virtualization (v. 5 server)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Virtualization (v. 5 server)",
+							"productid": "5Server-VT",
+							"cpe": "cpe:/a:redhat:rhel_virtualization:5::server"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "libvirt-0:0.8.2-22.el5",
+				"fullproductname": {
+					"text": "libvirt-0.8.2-22.el5.src.rpm",
+					"productid": "libvirt-0:0.8.2-22.el5",
+					"cpe": "cpe:/a:redhat:rhel_virtualization:5::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "libvirt-0:0.8.2-22.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Client-VT",
+				"fullproductname": {
+					"text": "libvirt-0:0.8.2-22.el5 as a component of Red Hat Enterprise Linux Desktop Multi OS (v. 5 client)",
+					"productid": "5Client-VT:libvirt-0:0.8.2-22.el5",
+					"cpe": "cpe:/a:redhat:rhel_virtualization:5::client"
+				}
+			},
+			{
+				"productreference": "libvirt-0:0.8.2-22.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-VT",
+				"fullproductname": {
+					"text": "libvirt-0:0.8.2-22.el5 as a component of Red Hat Enterprise Linux Virtualization (v. 5 server)",
+					"productid": "5Server-VT:libvirt-0:0.8.2-22.el5",
+					"cpe": "cpe:/a:redhat:rhel_virtualization:5::server"
+				}
+			}
+		]
+	}
+}

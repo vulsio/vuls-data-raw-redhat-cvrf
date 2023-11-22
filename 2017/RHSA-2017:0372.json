@@ -1,0 +1,352 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: kernel-aarch64 security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2017:0372"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2017-10-10T14:57:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2017-03-02T17:04:00Z",
+		"CurrentReleaseDate": "2017-10-10T14:57:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:45:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nAn update for kernel-aarch64 is now available for Red Hat Enterprise Linux 7.\n\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe kernel-aarch64 package contain the Linux kernel, the core of any Linux operating system.\n\nSecurity Fix(es):\n\n* A race condition was found in the way the Linux kernel's memory subsystem handled the copy-on-write (COW) breakage of private read-only memory mappings. An unprivileged, local user could use this flaw to gain write access to otherwise read-only memory mappings and thus increase their privileges on the system. (CVE-2016-5195, Important)\n\n* Linux kernel built with the 802.1Q/802.1ad VLAN(CONFIG_VLAN_8021Q) OR Virtual eXtensible Local Area Network(CONFIG_VXLAN) with Transparent Ethernet Bridging(TEB) GRO support, is vulnerable to a stack overflow issue. It could occur while receiving large packets via GRO path, as an unlimited recursion could unfold in both VLAN and TEB modules, leading to a stack corruption in the kernel. (CVE-2016-7039, Important)\n\nRed Hat would like to thank Phil Oester for reporting CVE-2016-5195.\n\nBug Fix(es):\n\n* Previously, the operating system did not support the Mellanox ConnectX-4 PCIe Network Interface Controllers (NIC) in Ethernet mode. This update enables Ethernet support in the mlx5 driver. As a result, the Mellanox ConnectX-4 PCIe NICs now work in Ethernet mode as expected. (BZ#1413108)\n\n* On the Qualcomm Datacenter Technologies server platform with Qualcomm Datacenter Technologies Centriq 2400 CPU (QDF2400v1) memory accesses sometimes allocated Translation Lookaside Buffer (TLB) entries using an incorrect Address Space ID (ASID). This could consequently result in memory corruption and crashes under certain conditions. The underlying source code has been modified to handle the TTBRx_EL1[ASID] and TTBRx_EL1[BADDR] fields separately using a reserved ASID, and the described problem no longer occurs. (BZ#1421765)\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2017:0372",
+				"Description": "https://access.redhat.com/errata/RHSA-2017:0372"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: mm: privilege escalation via MAP_PRIVATE COW breakage",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-10-19T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2016-5195",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2017:0372"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2016-5195",
+						"Description": "CVE-2016-5195"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1384344",
+						"Description": "bz#1384344: CVE-2016-5195 kernel: mm: privilege escalation via MAP_PRIVATE COW breakage"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2016-10-13T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-7.3.Z:kernel-aarch64-0:4.5.0-15.2.1.el7",
+						"7Server-optional-7.3.Z:kernel-aarch64-0:4.5.0-15.2.1.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank Phil Oester for reporting this issue."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.9",
+					"Vector": "AV:L/AC:M/Au:N/C:C/I:C/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: remotely triggerable unbounded recursion in the vlan gro code leading to a kernel crash",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-10-10T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2016-7039",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2017:0372"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2016-7039",
+						"Description": "CVE-2016-7039"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1375944",
+						"Description": "bz#1375944: CVE-2016-7039 kernel: remotely triggerable unbounded recursion in the vlan gro code leading to a kernel crash"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2016-09-08T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-7.3.Z:kernel-aarch64-0:4.5.0-15.2.1.el7",
+						"7Server-optional-7.3.Z:kernel-aarch64-0:4.5.0-15.2.1.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "7.1",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: Remotely triggerable recursion in GRE code leading to kernel crash",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-10-13T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2016-8666",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nThe system must be rebooted for this update to take effect.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2017:0372"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2016-8666",
+						"Description": "CVE-2016-8666"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1384991",
+						"Description": "bz#1384991: CVE-2016-8666 kernel: Remotely triggerable recursion in GRE code leading to kernel crash"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2016-10-13T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-7.3.Z:kernel-aarch64-0:4.5.0-15.2.1.el7",
+						"7Server-optional-7.3.Z:kernel-aarch64-0:4.5.0-15.2.1.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "7.1",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:C"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 7)",
+							"productid": "7Server-7.3.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Optional (v. 7)",
+							"productid": "7Server-optional-7.3.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-aarch64-0:4.5.0-15.2.1.el7",
+				"fullproductname": {
+					"text": "kernel-aarch64-4.5.0-15.2.1.el7.src.rpm",
+					"productid": "kernel-aarch64-0:4.5.0-15.2.1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "kernel-aarch64-0:4.5.0-15.2.1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-7.3.Z",
+				"fullproductname": {
+					"text": "kernel-aarch64-0:4.5.0-15.2.1.el7 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server-7.3.Z:kernel-aarch64-0:4.5.0-15.2.1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "kernel-aarch64-0:4.5.0-15.2.1.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-optional-7.3.Z",
+				"fullproductname": {
+					"text": "kernel-aarch64-0:4.5.0-15.2.1.el7 as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"productid": "7Server-optional-7.3.Z:kernel-aarch64-0:4.5.0-15.2.1.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			}
+		]
+	}
+}

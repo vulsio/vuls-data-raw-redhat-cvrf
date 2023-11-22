@@ -1,0 +1,217 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: squid security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2013:0505"
+		},
+		"Status": "Final",
+		"Version": "2",
+		"revisionhistory": {
+			"revision": {
+				"Number": "2",
+				"Date": "2013-02-20T16:30:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2013-02-20T16:19:00Z",
+		"CurrentReleaseDate": "2013-02-20T16:30:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:39:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated squid packages that fix one security issue and several bugs are now\navailable for Red Hat Enterprise Linux 6.\n\nThe Red Hat Security Response Team has rated this update as having moderate\nsecurity impact. A Common Vulnerability Scoring System (CVSS) base score,\nwhich gives a detailed severity rating, is available from the CVE link in\nthe References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nSquid is a high-performance proxy caching server for web clients that\nsupports FTP, Gopher, and HTTP data objects.\n\nA denial of service flaw was found in the way the Squid Cache Manager\nprocessed certain requests. A remote attacker who is able to access the\nCache Manager CGI could use this flaw to cause Squid to consume an\nexcessive amount of memory. (CVE-2012-5643)\n\nThis update also fixes the following bugs:\n\n* Due to a bug in the ConnStateData::noteMoreBodySpaceAvailable() function,\nchild processes of Squid terminated upon encountering a failed assertion.\nAn upstream patch has been provided and Squid child processes no longer\nterminate. (BZ#805879)\n\n* Due to an upstream patch, which renamed the HTTP header controlling\npersistent connections from \"Proxy-Connection\" to \"Connection\", the NTLM\npass-through authentication does not work, thus preventing login. This\nupdate adds the new \"http10\" option to the squid.conf file, which can be\nused to enable the change in the patch. This option is set to \"off\" by\ndefault. When set to \"on\", the NTLM pass-through authentication works\nproperly, thus allowing login attempts to succeed. (BZ#844723)\n\n* When the IPv6 protocol was disabled and Squid tried to handle an HTTP GET\nrequest containing an IPv6 address, the Squid child process terminated due\nto signal 6. This bug has been fixed and such requests are now handled as\nexpected. (BZ#832484)\n\n* The old \"stale if hit\" logic did not account for cases where the stored\nstale response became fresh due to a successful re-validation with the\norigin server. Consequently, incorrect warning messages were returned. Now,\nSquid no longer marks elements as stale in the described scenario.\n(BZ#847056)\n\n* When squid packages were installed before samba-winbind, the wbpriv group\ndid not include Squid. Consequently, NTLM authentication calls failed. Now,\nSquid correctly adds itself into the wbpriv group if samba-winbind is\ninstalled before Squid, thus fixing this bug. (BZ#797571)\n\n* In FIPS mode, Squid was using private MD5 hash functions for user\nauthentication and network access. As MD5 is incompatible with FIPS mode,\nSquid could fail to start. This update limits the use of the private MD5\nfunctions to local disk file hash identifiers, thus allowing Squid to work\nin FIPS mode. (BZ#833086)\n\n* Under high system load, the squid process could terminate unexpectedly\nwith a segmentation fault during reboot. This update provides better memory\nhandling during reboot, thus fixing this bug. (BZ#782732)\n\n* Squid incorrectly set the timeout limit for client HTTP connections with\nthe value for server-side connections, which is much higher, thus creating\nunnecessary delays. With this update, Squid uses a proper value for the\nclient timeout limit. (BZ#798090)\n\n* Squid did not properly release allocated memory when generating error\npage contents, which caused memory leaks. Consequently, the Squid proxy\nserver consumed a lot of memory within a short time period. This update\nfixes this memory leak. (BZ#758861)\n\n* Squid did not pass the ident value to a URL rewriter that was configured\nusing the \"url_rewrite_program\" directive. Consequently, the URL rewriter\nreceived the dash character (\"–\") as the user value instead of the correct\nuser name. Now, the URL rewriter receives the correct user name in the\ndescribed scenario. (BZ#797884)\n\n* Squid, used as a transparent proxy, can only handle the HTTP protocol.\nPreviously, it was possible to define a URL in which the access protocol\ncontained the asterisk character (*) or an unknown protocol namespace URI.\nConsequently, an \"Invalid URL\" error message was logged to access.log\nduring reload. This update ensures that \"http://\" is always used in\ntransparent proxy URLs, and the error message is no longer logged in this\nscenario. (BZ#720504)\n\nAll users of squid are advised to upgrade to these updated packages, which\nfix these issues. After installing this update, the squid service will be\nrestarted automatically.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2013:0505",
+				"Description": "https://access.redhat.com/errata/RHSA-2013:0505"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/knowledge/docs/en-US/Red_Hat_Enterprise_Linux/6/html/6.4_Technical_Notes/squid.html",
+				"Description": "https://access.redhat.com/knowledge/docs/en-US/Red_Hat_Enterprise_Linux/6/html/6.4_Technical_Notes/squid.html"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "squid: cachemgr.cgi memory usage DoS and memory leaks",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-12-17T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-5643",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:0505"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-5643",
+						"Description": "CVE-2012-5643"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=887962",
+						"Description": "bz#887962: CVE-2012-5643 squid: cachemgr.cgi memory usage DoS and memory leaks"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2012-12-17T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server:squid-7:3.1.10-16.el6",
+						"6Workstation:squid-7:3.1.10-16.el6"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.0",
+					"Vector": "AV:N/AC:L/Au:N/C:N/I:N/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 6)",
+							"productid": "6Server",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 6)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 6)",
+							"productid": "6Workstation",
+							"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "squid-7:3.1.10-16.el6",
+				"fullproductname": {
+					"text": "squid-3.1.10-16.el6.src.rpm",
+					"productid": "squid-7:3.1.10-16.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "squid-7:3.1.10-16.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server",
+				"fullproductname": {
+					"text": "squid-7:3.1.10-16.el6 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"productid": "6Server:squid-7:3.1.10-16.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+				}
+			},
+			{
+				"productreference": "squid-7:3.1.10-16.el6",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Workstation",
+				"fullproductname": {
+					"text": "squid-7:3.1.10-16.el6 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"productid": "6Workstation:squid-7:3.1.10-16.el6",
+					"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+				}
+			}
+		]
+	}
+}

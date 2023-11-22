@@ -1,0 +1,1404 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: kernel security update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2006:0101"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2006-01-17T00:00:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2006-01-17T08:36:00Z",
+		"CurrentReleaseDate": "2006-01-17T00:00:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:27:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated kernel packages that fix several security issues in the Red Hat\nEnterprise Linux 4 kernel are now available. \n\nThis security advisory has been rated as having important security impact\nby the Red Hat Security Response Team.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe Linux kernel handles the basic functions of the operating system.\n\nThese new kernel packages contain fixes for the security issues\ndescribed below:\n\n- a flaw in network IGMP processing that a allowed a remote user on the\nlocal network to cause a denial of service (disabling of multicast reports)\nif the system is running multicast applications (CVE-2002-2185, moderate)\n\n- a flaw which allowed a local user to write to firmware on read-only\nopened /dev/cdrom devices (CVE-2004-1190, moderate) \n\n- a flaw in gzip/zlib handling internal to the kernel that may allow a\nlocal user to cause a denial of service (crash) (CVE-2005-2458, low) \n\n- a flaw in procfs handling during unloading of modules that allowed a\nlocal user to cause a denial of service or potentially gain privileges\n(CVE-2005-2709, moderate)\n\n- a flaw in the SCSI procfs interface that allowed a local user to cause a\ndenial of service (crash) (CVE-2005-2800, moderate)\n\n- a flaw in 32-bit-compat handling of the TIOCGDEV ioctl that allowed\na local user to cause a denial of service (crash) (CVE-2005-3044, important)\n\n- a race condition when threads share memory mapping that allowed local\nusers to cause a denial of service (deadlock) (CVE-2005-3106, important)\n\n- a flaw when trying to mount a non-hfsplus filesystem using hfsplus that\nallowed local users to cause a denial of service (crash) (CVE-2005-3109,\nmoderate)\n\n- a minor info leak with the get_thread_area() syscall that allowed\na local user to view uninitialized kernel stack data (CVE-2005-3276, low) \n\n- a flaw in mq_open system call that allowed a local user to cause a denial\nof service (crash) (CVE-2005-3356, important)\n\n- a flaw in set_mempolicy that allowed a local user on some 64-bit\narchitectures to cause a denial of service (crash) (CVE-2005-3358, important)\n\n- a flaw in the auto-reap of child processes that allowed a local user to\ncause a denial of service (crash) (CVE-2005-3784, important)\n\n- a flaw in the IPv6 flowlabel code that allowed a local user to cause a\ndenial of service (crash) (CVE-2005-3806, important)\n\n- a flaw in network ICMP processing that allowed a local user to cause\na denial of service (memory exhaustion) (CVE-2005-3848, important)\n\n- a flaw in file lease time-out handling that allowed a local user to cause\na denial of service (log file overflow) (CVE-2005-3857, moderate) \n\n- a flaw in network IPv6 xfrm handling that allowed a local user to\ncause a denial of service (memory exhaustion) (CVE-2005-3858, important) \n\n- a flaw in procfs handling that allowed a local user to read kernel memory\n(CVE-2005-4605, important)\n\nAll Red Hat Enterprise Linux 4 users are advised to upgrade their kernels\nto the packages associated with their machine architectures and\nconfigurations as listed in this erratum.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2006:0101",
+				"Description": "https://access.redhat.com/errata/RHSA-2006:0101"
+			},
+			{
+				"type": "External",
+				"URL": "",
+				"Description": ""
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "security flaw",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2002-06-25T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2002-2185",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.  Use Red Hat\nNetwork to download and update your packages.  To launch the Red Hat\nUpdate Agent, use the following command:\n\n    up2date\n\nFor information on how to install packages manually, refer to the\nfollowing Web page for the System Administration or Customization\nguide specific to your system:\n\n    http://www.redhat.com/docs/manuals/enterprise/\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2006:0101"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2002-2185",
+						"Description": "CVE-2002-2185"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1616930",
+						"Description": "bz#1616930: CVE-2002-2185 security flaw"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2005-12-02T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"4AS:kernel-0:2.6.9-22.0.2.EL",
+						"4Desktop:kernel-0:2.6.9-22.0.2.EL",
+						"4ES:kernel-0:2.6.9-22.0.2.EL",
+						"4WS:kernel-0:2.6.9-22.0.2.EL"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "security flaw",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2004-07-30T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2004-1190",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.  Use Red Hat\nNetwork to download and update your packages.  To launch the Red Hat\nUpdate Agent, use the following command:\n\n    up2date\n\nFor information on how to install packages manually, refer to the\nfollowing Web page for the System Administration or Customization\nguide specific to your system:\n\n    http://www.redhat.com/docs/manuals/enterprise/\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2006:0101"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2004-1190",
+						"Description": "CVE-2004-1190"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1617395",
+						"Description": "bz#1617395: CVE-2004-1190 security flaw"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2004-08-12T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"4AS:kernel-0:2.6.9-22.0.2.EL",
+						"4Desktop:kernel-0:2.6.9-22.0.2.EL",
+						"4ES:kernel-0:2.6.9-22.0.2.EL",
+						"4WS:kernel-0:2.6.9-22.0.2.EL"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "security flaw",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "1999-06-25T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2005-2458",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.  Use Red Hat\nNetwork to download and update your packages.  To launch the Red Hat\nUpdate Agent, use the following command:\n\n    up2date\n\nFor information on how to install packages manually, refer to the\nfollowing Web page for the System Administration or Customization\nguide specific to your system:\n\n    http://www.redhat.com/docs/manuals/enterprise/\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2006:0101"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2005-2458",
+						"Description": "CVE-2005-2458"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1617720",
+						"Description": "bz#1617720: CVE-2005-2458 security flaw"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2005-08-03T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"4AS:kernel-0:2.6.9-22.0.2.EL",
+						"4Desktop:kernel-0:2.6.9-22.0.2.EL",
+						"4ES:kernel-0:2.6.9-22.0.2.EL",
+						"4WS:kernel-0:2.6.9-22.0.2.EL"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "security flaw",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2005-11-08T14:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2005-2709",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.  Use Red Hat\nNetwork to download and update your packages.  To launch the Red Hat\nUpdate Agent, use the following command:\n\n    up2date\n\nFor information on how to install packages manually, refer to the\nfollowing Web page for the System Administration or Customization\nguide specific to your system:\n\n    http://www.redhat.com/docs/manuals/enterprise/\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2006:0101"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2005-2709",
+						"Description": "CVE-2005-2709"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1617751",
+						"Description": "bz#1617751: CVE-2005-2709 security flaw"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2005-09-19T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"4AS:kernel-0:2.6.9-22.0.2.EL",
+						"4Desktop:kernel-0:2.6.9-22.0.2.EL",
+						"4ES:kernel-0:2.6.9-22.0.2.EL",
+						"4WS:kernel-0:2.6.9-22.0.2.EL"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "security flaw",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2005-08-27T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2005-2800",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.  Use Red Hat\nNetwork to download and update your packages.  To launch the Red Hat\nUpdate Agent, use the following command:\n\n    up2date\n\nFor information on how to install packages manually, refer to the\nfollowing Web page for the System Administration or Customization\nguide specific to your system:\n\n    http://www.redhat.com/docs/manuals/enterprise/\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2006:0101"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2005-2800",
+						"Description": "CVE-2005-2800"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1617758",
+						"Description": "bz#1617758: CVE-2005-2800 security flaw"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2005-08-27T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"4AS:kernel-0:2.6.9-22.0.2.EL",
+						"4Desktop:kernel-0:2.6.9-22.0.2.EL",
+						"4ES:kernel-0:2.6.9-22.0.2.EL",
+						"4WS:kernel-0:2.6.9-22.0.2.EL"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "6",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "security flaw",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2005-09-09T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2005-3044",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.  Use Red Hat\nNetwork to download and update your packages.  To launch the Red Hat\nUpdate Agent, use the following command:\n\n    up2date\n\nFor information on how to install packages manually, refer to the\nfollowing Web page for the System Administration or Customization\nguide specific to your system:\n\n    http://www.redhat.com/docs/manuals/enterprise/\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2006:0101"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2005-3044",
+						"Description": "CVE-2005-3044"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1617776",
+						"Description": "bz#1617776: CVE-2005-3044 security flaw"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2005-09-14T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"4AS:kernel-0:2.6.9-22.0.2.EL",
+						"4Desktop:kernel-0:2.6.9-22.0.2.EL",
+						"4ES:kernel-0:2.6.9-22.0.2.EL",
+						"4WS:kernel-0:2.6.9-22.0.2.EL"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "7",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "security flaw",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2005-01-15T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2005-3106",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.  Use Red Hat\nNetwork to download and update your packages.  To launch the Red Hat\nUpdate Agent, use the following command:\n\n    up2date\n\nFor information on how to install packages manually, refer to the\nfollowing Web page for the System Administration or Customization\nguide specific to your system:\n\n    http://www.redhat.com/docs/manuals/enterprise/\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2006:0101"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2005-3106",
+						"Description": "CVE-2005-3106"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1617782",
+						"Description": "bz#1617782: CVE-2005-3106 security flaw"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2005-01-15T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"4AS:kernel-0:2.6.9-22.0.2.EL",
+						"4Desktop:kernel-0:2.6.9-22.0.2.EL",
+						"4ES:kernel-0:2.6.9-22.0.2.EL",
+						"4WS:kernel-0:2.6.9-22.0.2.EL"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "8",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "security flaw",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2005-05-01T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2005-3109",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.  Use Red Hat\nNetwork to download and update your packages.  To launch the Red Hat\nUpdate Agent, use the following command:\n\n    up2date\n\nFor information on how to install packages manually, refer to the\nfollowing Web page for the System Administration or Customization\nguide specific to your system:\n\n    http://www.redhat.com/docs/manuals/enterprise/\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2006:0101"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2005-3109",
+						"Description": "CVE-2005-3109"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1617786",
+						"Description": "bz#1617786: CVE-2005-3109 security flaw"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2005-05-01T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"4AS:kernel-0:2.6.9-22.0.2.EL",
+						"4Desktop:kernel-0:2.6.9-22.0.2.EL",
+						"4ES:kernel-0:2.6.9-22.0.2.EL",
+						"4WS:kernel-0:2.6.9-22.0.2.EL"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "9",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "security flaw",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2005-07-27T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2005-3276",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.  Use Red Hat\nNetwork to download and update your packages.  To launch the Red Hat\nUpdate Agent, use the following command:\n\n    up2date\n\nFor information on how to install packages manually, refer to the\nfollowing Web page for the System Administration or Customization\nguide specific to your system:\n\n    http://www.redhat.com/docs/manuals/enterprise/\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2006:0101"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2005-3276",
+						"Description": "CVE-2005-3276"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1617813",
+						"Description": "bz#1617813: CVE-2005-3276 security flaw"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2005-07-27T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"4AS:kernel-0:2.6.9-22.0.2.EL",
+						"4Desktop:kernel-0:2.6.9-22.0.2.EL",
+						"4ES:kernel-0:2.6.9-22.0.2.EL",
+						"4WS:kernel-0:2.6.9-22.0.2.EL"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "10",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "security flaw",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2006-01-14T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2005-3356",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.  Use Red Hat\nNetwork to download and update your packages.  To launch the Red Hat\nUpdate Agent, use the following command:\n\n    up2date\n\nFor information on how to install packages manually, refer to the\nfollowing Web page for the System Administration or Customization\nguide specific to your system:\n\n    http://www.redhat.com/docs/manuals/enterprise/\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2006:0101"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2005-3356",
+						"Description": "CVE-2005-3356"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1617817",
+						"Description": "bz#1617817: CVE-2005-3356 security flaw"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2005-09-23T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"4AS:kernel-0:2.6.9-22.0.2.EL",
+						"4Desktop:kernel-0:2.6.9-22.0.2.EL",
+						"4ES:kernel-0:2.6.9-22.0.2.EL",
+						"4WS:kernel-0:2.6.9-22.0.2.EL"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "11",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "security flaw",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2005-12-13T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2005-3358",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.  Use Red Hat\nNetwork to download and update your packages.  To launch the Red Hat\nUpdate Agent, use the following command:\n\n    up2date\n\nFor information on how to install packages manually, refer to the\nfollowing Web page for the System Administration or Customization\nguide specific to your system:\n\n    http://www.redhat.com/docs/manuals/enterprise/\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2006:0101"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2005-3358",
+						"Description": "CVE-2005-3358"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1617819",
+						"Description": "bz#1617819: CVE-2005-3358 security flaw"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2005-12-13T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"4AS:kernel-0:2.6.9-22.0.2.EL",
+						"4Desktop:kernel-0:2.6.9-22.0.2.EL",
+						"4ES:kernel-0:2.6.9-22.0.2.EL",
+						"4WS:kernel-0:2.6.9-22.0.2.EL"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "12",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "security flaw",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2005-11-10T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2005-3784",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.  Use Red Hat\nNetwork to download and update your packages.  To launch the Red Hat\nUpdate Agent, use the following command:\n\n    up2date\n\nFor information on how to install packages manually, refer to the\nfollowing Web page for the System Administration or Customization\nguide specific to your system:\n\n    http://www.redhat.com/docs/manuals/enterprise/\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2006:0101"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2005-3784",
+						"Description": "CVE-2005-3784"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1617839",
+						"Description": "bz#1617839: CVE-2005-3784 security flaw"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2005-11-23T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"4AS:kernel-0:2.6.9-22.0.2.EL",
+						"4Desktop:kernel-0:2.6.9-22.0.2.EL",
+						"4ES:kernel-0:2.6.9-22.0.2.EL",
+						"4WS:kernel-0:2.6.9-22.0.2.EL"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "13",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "security flaw",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2005-10-25T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2005-3806",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.  Use Red Hat\nNetwork to download and update your packages.  To launch the Red Hat\nUpdate Agent, use the following command:\n\n    up2date\n\nFor information on how to install packages manually, refer to the\nfollowing Web page for the System Administration or Customization\nguide specific to your system:\n\n    http://www.redhat.com/docs/manuals/enterprise/\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2006:0101"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2005-3806",
+						"Description": "CVE-2005-3806"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1617840",
+						"Description": "bz#1617840: CVE-2005-3806 security flaw"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2005-11-24T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"4AS:kernel-0:2.6.9-22.0.2.EL",
+						"4Desktop:kernel-0:2.6.9-22.0.2.EL",
+						"4ES:kernel-0:2.6.9-22.0.2.EL",
+						"4WS:kernel-0:2.6.9-22.0.2.EL"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "14",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "security flaw",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2005-08-18T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2005-3848",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.  Use Red Hat\nNetwork to download and update your packages.  To launch the Red Hat\nUpdate Agent, use the following command:\n\n    up2date\n\nFor information on how to install packages manually, refer to the\nfollowing Web page for the System Administration or Customization\nguide specific to your system:\n\n    http://www.redhat.com/docs/manuals/enterprise/\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2006:0101"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2005-3848",
+						"Description": "CVE-2005-3848"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1617841",
+						"Description": "bz#1617841: CVE-2005-3848 security flaw"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2005-11-28T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"4AS:kernel-0:2.6.9-22.0.2.EL",
+						"4Desktop:kernel-0:2.6.9-22.0.2.EL",
+						"4ES:kernel-0:2.6.9-22.0.2.EL",
+						"4WS:kernel-0:2.6.9-22.0.2.EL"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "15",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "security flaw",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2005-11-13T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2005-3857",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.  Use Red Hat\nNetwork to download and update your packages.  To launch the Red Hat\nUpdate Agent, use the following command:\n\n    up2date\n\nFor information on how to install packages manually, refer to the\nfollowing Web page for the System Administration or Customization\nguide specific to your system:\n\n    http://www.redhat.com/docs/manuals/enterprise/\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2006:0101"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2005-3857",
+						"Description": "CVE-2005-3857"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1617842",
+						"Description": "bz#1617842: CVE-2005-3857 security flaw"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2005-11-28T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"4AS:kernel-0:2.6.9-22.0.2.EL",
+						"4Desktop:kernel-0:2.6.9-22.0.2.EL",
+						"4ES:kernel-0:2.6.9-22.0.2.EL",
+						"4WS:kernel-0:2.6.9-22.0.2.EL"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "16",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "security flaw",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2005-08-26T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2005-3858",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.  Use Red Hat\nNetwork to download and update your packages.  To launch the Red Hat\nUpdate Agent, use the following command:\n\n    up2date\n\nFor information on how to install packages manually, refer to the\nfollowing Web page for the System Administration or Customization\nguide specific to your system:\n\n    http://www.redhat.com/docs/manuals/enterprise/\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2006:0101"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2005-3858",
+						"Description": "CVE-2005-3858"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1617843",
+						"Description": "bz#1617843: CVE-2005-3858 security flaw"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2005-11-28T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"4AS:kernel-0:2.6.9-22.0.2.EL",
+						"4Desktop:kernel-0:2.6.9-22.0.2.EL",
+						"4ES:kernel-0:2.6.9-22.0.2.EL",
+						"4WS:kernel-0:2.6.9-22.0.2.EL"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "17",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "security flaw",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2005-12-23T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2005-4605",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.  Use Red Hat\nNetwork to download and update your packages.  To launch the Red Hat\nUpdate Agent, use the following command:\n\n    up2date\n\nFor information on how to install packages manually, refer to the\nfollowing Web page for the System Administration or Customization\nguide specific to your system:\n\n    http://www.redhat.com/docs/manuals/enterprise/\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2006:0101"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2005-4605",
+						"Description": "CVE-2005-4605"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1617860",
+						"Description": "bz#1617860: CVE-2005-4605 security flaw"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2005-12-30T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"4AS:kernel-0:2.6.9-22.0.2.EL",
+						"4Desktop:kernel-0:2.6.9-22.0.2.EL",
+						"4ES:kernel-0:2.6.9-22.0.2.EL",
+						"4WS:kernel-0:2.6.9-22.0.2.EL"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux AS version 4",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux AS version 4",
+							"productid": "4AS",
+							"cpe": "cpe:/o:redhat:enterprise_linux:4::as"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop version 4",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop version 4",
+							"productid": "4Desktop",
+							"cpe": "cpe:/o:redhat:enterprise_linux:4::desktop"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ES version 4",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ES version 4",
+							"productid": "4ES",
+							"cpe": "cpe:/o:redhat:enterprise_linux:4::es"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux WS version 4",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux WS version 4",
+							"productid": "4WS",
+							"cpe": "cpe:/o:redhat:enterprise_linux:4::ws"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-0:2.6.9-22.0.2.EL",
+				"fullproductname": {
+					"text": "kernel-2.6.9-22.0.2.EL.src.rpm",
+					"productid": "kernel-0:2.6.9-22.0.2.EL",
+					"cpe": "cpe:/o:redhat:enterprise_linux:4::as"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "kernel-0:2.6.9-22.0.2.EL",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "4AS",
+				"fullproductname": {
+					"text": "kernel-0:2.6.9-22.0.2.EL as a component of Red Hat Enterprise Linux AS version 4",
+					"productid": "4AS:kernel-0:2.6.9-22.0.2.EL",
+					"cpe": "cpe:/o:redhat:enterprise_linux:4::as"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.9-22.0.2.EL",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "4Desktop",
+				"fullproductname": {
+					"text": "kernel-0:2.6.9-22.0.2.EL as a component of Red Hat Enterprise Linux Desktop version 4",
+					"productid": "4Desktop:kernel-0:2.6.9-22.0.2.EL",
+					"cpe": "cpe:/o:redhat:enterprise_linux:4::desktop"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.9-22.0.2.EL",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "4ES",
+				"fullproductname": {
+					"text": "kernel-0:2.6.9-22.0.2.EL as a component of Red Hat Enterprise Linux ES version 4",
+					"productid": "4ES:kernel-0:2.6.9-22.0.2.EL",
+					"cpe": "cpe:/o:redhat:enterprise_linux:4::es"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.9-22.0.2.EL",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "4WS",
+				"fullproductname": {
+					"text": "kernel-0:2.6.9-22.0.2.EL as a component of Red Hat Enterprise Linux WS version 4",
+					"productid": "4WS:kernel-0:2.6.9-22.0.2.EL",
+					"cpe": "cpe:/o:redhat:enterprise_linux:4::ws"
+				}
+			}
+		]
+	}
+}

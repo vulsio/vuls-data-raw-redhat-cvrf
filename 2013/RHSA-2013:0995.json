@@ -1,0 +1,392 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: Foreman security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2013:0995"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2013-06-27T16:43:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2013-06-27T16:38:00Z",
+		"CurrentReleaseDate": "2013-06-27T16:43:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:38:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated Foreman packages that fix two security issues and multiple bugs\nare now available for Red Hat OpenStack 3.0 (Grizzly) Preview.\n\nThe Red Hat Security Response Team has rated this update as having\nimportant security impact. Common Vulnerability Scoring System (CVSS) base\nscores, which give detailed severity ratings, are available for each\nvulnerability from the CVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe Foreman packages provide facilities for rapidly deploying Red Hat\nOpenStack 3.0 (\"Grizzly\") Preview. These packages are provided as a\nTechnology Preview. For more information on the scope and nature of support\nfor items marked as Technology Preview, refer to\nhttps://access.redhat.com/support/offerings/techpreview/\n\nA flaw was found in the create method of the Foreman Bookmarks controller.\nA user with privileges to create a bookmark could use this flaw to execute\narbitrary code with the privileges of the user running Foreman, giving them\ncontrol of the system running Foreman (such as installing new packages) and\nall systems managed by Foreman. (CVE-2013-2121)\n\nA flaw was found in the way the Foreman UsersController controller handled\nuser creation. A non-admin user with privileges to create non-admin\naccounts could use this flaw to create admin accounts, giving them control\nof the system running Foreman (such as installing new packages) and all\nsystems managed by Foreman. (CVE-2013-2113)\n\nThese issues were discovered by Ramon de C Valle of the Red Hat Product\nSecurity Team.\n\nThis update also fixes the following bugs:\n\n* The cron job for Puppet had an incorrect path when installed via the\nForeman installer. (BZ#969531)\n\n* This update removes provisioning templates and installation media for\nunsupported client operating systems. (BZ#971545)\n\n* Previously, the init script for Foreman was installed in the /opt/\ndirectory, resulting in errors when attempting to use the \"service\"\ncommand to control Foreman, and errors when installing or upgrading the\nForeman packages. As the Foreman service is not needed for Red Hat\nOpenStack, this update removes the init script. (BZ#972755)\n\n* Previously, after using Foreman to install controller and compute nodes,\nit was not possible to launch compute instances. (BZ#972780)\n\n* Previously, Foreman compiled assets for an incorrect path. The assets\nwere configured for \"[fully qualified domain name]/foreman\", which is not\nwhere Foreman is served from in Red Hat OpenStack. (BZ#975068)\n\n* Previously, the Foreman installer used a reference to an OpenStack\nhost's network interface instead of its own secondary interface when\ncreating a subnet, which could cause subnet creation to fail and a \"rake\naborted!\" message to be displayed. (BZ#976907)\n\nUsers of Foreman are advised to upgrade to these updated packages, which\ncorrect these issues. In Red Hat OpenStack, Foreman runs on the Apache HTTP\nServer using mod_passenger. As such, after installing the updated packages,\nthe httpd service must be restarted (\"service httpd restart\") for this\nupdate to take effect.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2013:0995",
+				"Description": "https://access.redhat.com/errata/RHSA-2013:0995"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/support/offerings/techpreview/",
+				"Description": "https://access.redhat.com/support/offerings/techpreview/"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Foreman: app/controllers/users_controller.rb arbitrary admin user creation due to mass assignment",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-06-07T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-2113",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:0995"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-2113",
+						"Description": "CVE-2013-2113"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=966804",
+						"Description": "bz#966804: CVE-2013-2113 Foreman: app/controllers/users_controller.rb arbitrary admin user creation due to mass assignment"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2013-05-23T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-Grizzly:ruby193-foreman-0:1.1.10009-3.el6ost",
+						"6Server-Grizzly:ruby193-foreman-proxy-0:1.1.10001-4.el6ost",
+						"6Server-Grizzly:ruby193-openstack-foreman-installer-0:0.0.18-1.el6ost",
+						"6Server-Grizzly:ruby193-rubygem-ancestry-0:1.3.0-5.el6ost",
+						"6Server-Grizzly:ruby193-rubygem-fog-0:1.10.1-11.el6ost",
+						"6Server-Grizzly:ruby193-rubygem-mysql-0:2.8.1-4.el6ost",
+						"6Server-Grizzly:ruby193-rubygem-safemode-0:1.2.0-9.el6ost"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "3.5",
+					"Vector": "AV:N/AC:M/Au:S/C:N/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Foreman: app/controllers/bookmarks_controller.rb remote code execution",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-06-07T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-2121",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:0995"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-2121",
+						"Description": "CVE-2013-2121"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=968166",
+						"Description": "bz#968166: CVE-2013-2121 Foreman: app/controllers/bookmarks_controller.rb remote code execution"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2013-05-28T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-Grizzly:ruby193-foreman-0:1.1.10009-3.el6ost",
+						"6Server-Grizzly:ruby193-foreman-proxy-0:1.1.10001-4.el6ost",
+						"6Server-Grizzly:ruby193-openstack-foreman-installer-0:0.0.18-1.el6ost",
+						"6Server-Grizzly:ruby193-rubygem-ancestry-0:1.3.0-5.el6ost",
+						"6Server-Grizzly:ruby193-rubygem-fog-0:1.10.1-11.el6ost",
+						"6Server-Grizzly:ruby193-rubygem-mysql-0:2.8.1-4.el6ost",
+						"6Server-Grizzly:ruby193-rubygem-safemode-0:1.2.0-9.el6ost"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.0",
+					"Vector": "AV:N/AC:M/Au:S/C:P/I:P/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat OpenStack Platform",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux OpenStack Platform 3.0",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux OpenStack Platform 3.0",
+							"productid": "6Server-Grizzly",
+							"cpe": "cpe:/a:redhat:openstack:3::el6"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "ruby193-foreman-0:1.1.10009-3.el6ost",
+				"fullproductname": {
+					"text": "ruby193-foreman-1.1.10009-3.el6ost.src.rpm",
+					"productid": "ruby193-foreman-0:1.1.10009-3.el6ost",
+					"cpe": "cpe:/a:redhat:openstack:3::el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ruby193-foreman-proxy-0:1.1.10001-4.el6ost",
+				"fullproductname": {
+					"text": "ruby193-foreman-proxy-1.1.10001-4.el6ost.src.rpm",
+					"productid": "ruby193-foreman-proxy-0:1.1.10001-4.el6ost",
+					"cpe": "cpe:/a:redhat:openstack:3::el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ruby193-openstack-foreman-installer-0:0.0.18-1.el6ost",
+				"fullproductname": {
+					"text": "ruby193-openstack-foreman-installer-0.0.18-1.el6ost.src.rpm",
+					"productid": "ruby193-openstack-foreman-installer-0:0.0.18-1.el6ost",
+					"cpe": "cpe:/a:redhat:openstack:3::el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ruby193-rubygem-ancestry-0:1.3.0-5.el6ost",
+				"fullproductname": {
+					"text": "ruby193-rubygem-ancestry-1.3.0-5.el6ost.src.rpm",
+					"productid": "ruby193-rubygem-ancestry-0:1.3.0-5.el6ost",
+					"cpe": "cpe:/a:redhat:openstack:3::el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ruby193-rubygem-fog-0:1.10.1-11.el6ost",
+				"fullproductname": {
+					"text": "ruby193-rubygem-fog-1.10.1-11.el6ost.src.rpm",
+					"productid": "ruby193-rubygem-fog-0:1.10.1-11.el6ost",
+					"cpe": "cpe:/a:redhat:openstack:3::el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ruby193-rubygem-mysql-0:2.8.1-4.el6ost",
+				"fullproductname": {
+					"text": "ruby193-rubygem-mysql-2.8.1-4.el6ost.src.rpm",
+					"productid": "ruby193-rubygem-mysql-0:2.8.1-4.el6ost",
+					"cpe": "cpe:/a:redhat:openstack:3::el6"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ruby193-rubygem-safemode-0:1.2.0-9.el6ost",
+				"fullproductname": {
+					"text": "ruby193-rubygem-safemode-1.2.0-9.el6ost.src.rpm",
+					"productid": "ruby193-rubygem-safemode-0:1.2.0-9.el6ost",
+					"cpe": "cpe:/a:redhat:openstack:3::el6"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "ruby193-foreman-0:1.1.10009-3.el6ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-Grizzly",
+				"fullproductname": {
+					"text": "ruby193-foreman-0:1.1.10009-3.el6ost as a component of Red Hat Enterprise Linux OpenStack Platform 3.0",
+					"productid": "6Server-Grizzly:ruby193-foreman-0:1.1.10009-3.el6ost",
+					"cpe": "cpe:/a:redhat:openstack:3::el6"
+				}
+			},
+			{
+				"productreference": "ruby193-foreman-proxy-0:1.1.10001-4.el6ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-Grizzly",
+				"fullproductname": {
+					"text": "ruby193-foreman-proxy-0:1.1.10001-4.el6ost as a component of Red Hat Enterprise Linux OpenStack Platform 3.0",
+					"productid": "6Server-Grizzly:ruby193-foreman-proxy-0:1.1.10001-4.el6ost",
+					"cpe": "cpe:/a:redhat:openstack:3::el6"
+				}
+			},
+			{
+				"productreference": "ruby193-openstack-foreman-installer-0:0.0.18-1.el6ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-Grizzly",
+				"fullproductname": {
+					"text": "ruby193-openstack-foreman-installer-0:0.0.18-1.el6ost as a component of Red Hat Enterprise Linux OpenStack Platform 3.0",
+					"productid": "6Server-Grizzly:ruby193-openstack-foreman-installer-0:0.0.18-1.el6ost",
+					"cpe": "cpe:/a:redhat:openstack:3::el6"
+				}
+			},
+			{
+				"productreference": "ruby193-rubygem-ancestry-0:1.3.0-5.el6ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-Grizzly",
+				"fullproductname": {
+					"text": "ruby193-rubygem-ancestry-0:1.3.0-5.el6ost as a component of Red Hat Enterprise Linux OpenStack Platform 3.0",
+					"productid": "6Server-Grizzly:ruby193-rubygem-ancestry-0:1.3.0-5.el6ost",
+					"cpe": "cpe:/a:redhat:openstack:3::el6"
+				}
+			},
+			{
+				"productreference": "ruby193-rubygem-fog-0:1.10.1-11.el6ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-Grizzly",
+				"fullproductname": {
+					"text": "ruby193-rubygem-fog-0:1.10.1-11.el6ost as a component of Red Hat Enterprise Linux OpenStack Platform 3.0",
+					"productid": "6Server-Grizzly:ruby193-rubygem-fog-0:1.10.1-11.el6ost",
+					"cpe": "cpe:/a:redhat:openstack:3::el6"
+				}
+			},
+			{
+				"productreference": "ruby193-rubygem-mysql-0:2.8.1-4.el6ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-Grizzly",
+				"fullproductname": {
+					"text": "ruby193-rubygem-mysql-0:2.8.1-4.el6ost as a component of Red Hat Enterprise Linux OpenStack Platform 3.0",
+					"productid": "6Server-Grizzly:ruby193-rubygem-mysql-0:2.8.1-4.el6ost",
+					"cpe": "cpe:/a:redhat:openstack:3::el6"
+				}
+			},
+			{
+				"productreference": "ruby193-rubygem-safemode-0:1.2.0-9.el6ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-Grizzly",
+				"fullproductname": {
+					"text": "ruby193-rubygem-safemode-0:1.2.0-9.el6ost as a component of Red Hat Enterprise Linux OpenStack Platform 3.0",
+					"productid": "6Server-Grizzly:ruby193-rubygem-safemode-0:1.2.0-9.el6ost",
+					"cpe": "cpe:/a:redhat:openstack:3::el6"
+				}
+			}
+		]
+	}
+}

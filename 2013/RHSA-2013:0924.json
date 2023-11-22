@@ -1,0 +1,148 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: spice-vdagent-win security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2013:0924"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2013-07-02T14:52:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2013-06-10T20:20:00Z",
+		"CurrentReleaseDate": "2013-07-02T14:52:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:50:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nAn update for spice-vdagent-win that fixes one security issue and several\nbugs is now available.\n\nThe Red Hat Security Response Team has rated this update as having\nimportant security impact. A Common Vulnerability Scoring System (CVSS)\nbase score, which gives a detailed severity rating, is available from the\nCVE link in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nspice-vdagent-win provides a service and an agent that can be installed and\nrun on Windows guests.\n\nAn unquoted search path flaw was found in the way the SPICE service was\ninstalled on Windows. Depending on the permissions of the directories in\nthe unquoted search path, a local, unprivileged user could use this flaw to\nhave a binary of their choosing executed with SYSTEM privileges.\n(CVE-2013-2152)\n\nThis update also fixes the following bugs:\n\n* Previously, due to issues with some Windows guest applications, RHEV\nSPICE agent stopped getting clipboard changes. Now, the agent uses a new\nAPI that keeps track of clipboard changes, without the need to \"trust\" the\nbehavior of other applications registered to the clipboard. (BZ#919451)\n\n* Previously, copying a .jpg or .png image file from specific applications,\nsuch as Mozilla Firefox, on a Windows guest, then pasting into a Linux\nclient, resulted in an empty or black and white image due to incorrect\npallete encoding in the guest vdagent. Now, the encoding has been fixed and\ncopying and pasting works as expected. (BZ#919150)\n\n* Previously, when using a Windows virtual machine, enabling extra monitors\nwith arbitrary configuration could fail. Now the agent enables the monitors\nbefore updating it to an arbitrary resolution to solve this issue.\n(BZ#922394)\n\n* Previously, if SPICE was disconnected in the middle of copying and\npasting data from the client to the guest, copy and paste would stop\nworking after SPICE was reconnected. Now, the clipboard timeout has been\nadjusted so that if SPICE is unexpectedly disconnected, the immediate copy\nand paste action will fail, but subsequent attempts will be successful.\n(BZ#833835)\n\n* Previously, when attempting to connect multiple displays using a Windows\n7 guest, remote-viewer would only show one display available, even when all\nsettings in the manager and on the SPICE client itself were correctly\nconfigured. This was caused by a regression issue relating to changes to\ncustom resolution commands. Now, connecting and displaying multiple\nmonitors functions correctly. (BZ#922283)\n\n* Previously, due to a regression caused by another patch, copying a .png\nimage from specific applications, such as Firefox, on a Linux client,\nfailed pasting into a Windows guest application, such as Paint, due to\nincorrect pallete encoding in the guest vdagent. Now, the encoding has been\nfixed and copying and pasting works as expected. (BZ#921980)\n\n* Previously, when a second user logged into a Windows guest, the RHEV\nSPICE Agent service terminated the previous vdagent instance, but\nmistakenly also the newly created vdagent on the current active session.\nNow, the vdagent termination event is reset after previous agent\ntermination, so each new agent is no longer terminated. (BZ#868254)\n\n* Previously, if \"RHEV SPICE agent\" was stopped after copying data from a\nWindows guest, the client was not correctly notified, and assumed it could\nstill paste the data. Now, agent termination has been fixed so that the\nclient is notified to release the clipboard. (BZ#903379)\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2013:0924",
+				"Description": "https://access.redhat.com/errata/RHSA-2013:0924"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "rhevm: spice service unquoted search path",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-06-10T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-2152",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nRed Hat Enterprise Virtualization users that are using SPICE to connect to\ntheir virtual machines are advised to install this update.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:0924"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-2152",
+						"Description": "CVE-2013-2152"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=971172",
+						"Description": "bz#971172: CVE-2013-2152 rhevm: spice service unquoted search path"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2013-04-09T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "7.2",
+					"Vector": "AV:L/AC:L/Au:N/C:C/I:C/A:C"
+				}
+			}
+		}
+	],
+	"producttree": {}
+}

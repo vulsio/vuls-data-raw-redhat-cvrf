@@ -1,0 +1,192 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: RHV-M (ovirt-engine) 4.4.z security, bug fix, enhancement upd[ovirt-4.4.4] 0-day",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2021:0383"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2021-02-02T13:58:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2021-02-02T13:58:00Z",
+		"CurrentReleaseDate": "2021-02-02T13:58:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:50:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated ovirt-engine packages that fix several bugs and add various enhancements are now available.\n\nRed Hat Product Security has rated this update as having a security impact of Moderate. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe ovirt-engine package provides the Red Hat Virtualization Manager, a centralized management platform that allows system administrators to view and manage virtual machines. The Manager provides a comprehensive range of features including search capabilities, resource management, live migrations, and virtual infrastructure provisioning.\n\nThe Manager is a JBoss Application Server application that provides several interfaces through which the virtual environment can be accessed and interacted with, including an Administration Portal, a VM Portal, and a Representational State Transfer (REST) Application Programming Interface (API).\n\nSecurity Fix(es):\n\n* ovirt-engine: non-admin user is able to access other users public SSH key (CVE-2020-35497)\n\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\n\nBug Fix(es):\n\n* Previously, you could not migrate the master role to a newer domain without migrating the virtual machines from the old domain and putting it into maintenance mode. Additionally, you could not put a hosted_storage domain into maintenance mode.\n\nWith this release, you can use the REST API to move the master role to another storage domain without putting the domain into maintenance mode.\n\nFor example, to set a storage domain with ID `456` as a master on a data center with ID `123`, send the following request:\n\n----\nPOST /ovirt-engine/api/datacenters/123/setmaster\n\nWith a request body like this:\n\n<action>\n  <storage_domain id=\"456\"/>\n</action>\n----\n\nAlternatively, this example uses the name of the storage domain:\n\n----\n<action>\n  <storage_domain>\n    <name>my-nfs</name>\n  </storage_domain>\n</action>\n---- \n(BZ#1576923)\n\n* Previously when a virtual machine moved from one cluster to another, resulting in the virtual machine's chipset changing, then the virtual machine did not run successfully.\n\nWith this release, when a virtual machine moves from one cluster to another, it's devices and chipset are automatically updated, and the virtual machine runs successfully. (BZ#1894454)\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2021:0383",
+				"Description": "https://access.redhat.com/errata/RHSA-2021:0383"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "ovirt-engine: non-admin user is able to access other users public SSH key",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2020-12-18T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2020-35497",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/2974891\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2021:0383"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2020-35497",
+						"Description": "CVE-2020-35497"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1908755",
+						"Description": "bz#1908755: CVE-2020-35497 ovirt-engine: non-admin user is able to access other users public SSH key"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2020-12-17T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-RHV-S-4.4:org.ovirt.engine-root-0:4.4.4.7-2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank Martin Perina for reporting this issue."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Virtualization",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "RHEL-8-RHEV-S-4.4 - Red Hat Virtualization Engine 4.4",
+						"fullproductname": {
+							"text": "RHEL-8-RHEV-S-4.4 - Red Hat Virtualization Engine 4.4",
+							"productid": "8Base-RHV-S-4.4",
+							"cpe": "cpe:/a:redhat:rhev_manager:4.4:el8"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "org.ovirt.engine-root-0:4.4.4.7-2",
+				"fullproductname": {
+					"text": "org.ovirt.engine-root-4.4.4.7-2.src.rpm",
+					"productid": "org.ovirt.engine-root-0:4.4.4.7-2",
+					"cpe": "cpe:/a:redhat:rhev_manager:4.4:el8"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "org.ovirt.engine-root-0:4.4.4.7-2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHV-S-4.4",
+				"fullproductname": {
+					"text": "org.ovirt.engine-root-0:4.4.4.7-2 as a component of RHEL-8-RHEV-S-4.4 - Red Hat Virtualization Engine 4.4",
+					"productid": "8Base-RHV-S-4.4:org.ovirt.engine-root-0:4.4.4.7-2",
+					"cpe": "cpe:/a:redhat:rhev_manager:4.4:el8"
+				}
+			}
+		]
+	}
+}

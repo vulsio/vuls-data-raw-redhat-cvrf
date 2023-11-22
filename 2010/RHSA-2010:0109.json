@@ -1,0 +1,379 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: mysql security update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2010:0109"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2010-02-16T11:05:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2010-02-16T16:05:00Z",
+		"CurrentReleaseDate": "2010-02-16T11:05:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:30:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated mysql packages that fix multiple security issues are now available\nfor Red Hat Enterprise Linux 5.\n\nThis update has been rated as having moderate security impact by the Red\nHat Security Response Team.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nMySQL is a multi-user, multi-threaded SQL database server. It consists of\nthe MySQL server daemon (mysqld) and many client programs and libraries.\n\nIt was discovered that the MySQL client ignored certain SSL certificate\nverification errors when connecting to servers. A man-in-the-middle\nattacker could use this flaw to trick MySQL clients into connecting to a\nspoofed MySQL server. (CVE-2009-4028)\n\nNote: This fix may uncover previously hidden SSL configuration issues, such\nas incorrect CA certificates being used by clients or expired server\ncertificates. This update should be carefully tested in deployments where\nSSL connections are used.\n\nA flaw was found in the way MySQL handled SELECT statements with subqueries\nin the WHERE clause, that assigned results to a user variable. A remote,\nauthenticated attacker could use this flaw to crash the MySQL server daemon\n(mysqld). This issue only caused a temporary denial of service, as the\nMySQL daemon was automatically restarted after the crash. (CVE-2009-4019)\n\nWhen the \"datadir\" option was configured with a relative path, MySQL did\nnot properly check paths used as arguments for the DATA DIRECTORY and INDEX\nDIRECTORY directives. An authenticated attacker could use this flaw to\nbypass the restriction preventing the use of subdirectories of the MySQL\ndata directory being used as DATA DIRECTORY and INDEX DIRECTORY paths.\n(CVE-2009-4030)\n\nNote: Due to the security risks and previous security issues related to the\nuse of the DATA DIRECTORY and INDEX DIRECTORY directives, users not\ndepending on this feature should consider disabling it by adding\n\"symbolic-links=0\" to the \"[mysqld]\" section of the \"my.cnf\" configuration\nfile. In this update, an example of such a configuration was added to the\ndefault \"my.cnf\" file.\n\nAll MySQL users are advised to upgrade to these updated packages, which\ncontain backported patches to resolve these issues. After installing this\nupdate, the MySQL server daemon (mysqld) will be restarted automatically.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2010:0109",
+				"Description": "https://access.redhat.com/errata/RHSA-2010:0109"
+			},
+			{
+				"type": "External",
+				"URL": "http://www.redhat.com/security/updates/classification/#moderate",
+				"Description": "http://www.redhat.com/security/updates/classification/#moderate"
+			},
+			{
+				"type": "External",
+				"URL": "http://dev.mysql.com/doc/refman/5.0/en/symbolic-links-to-tables.html",
+				"Description": "http://dev.mysql.com/doc/refman/5.0/en/symbolic-links-to-tables.html"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "mysql: DoS (crash) when comparing GIS items from subquery and when handling subqueires in WHERE  and assigning a SELECT result to a @variable",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2009-11-04T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2009-4019",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2010:0109"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2009-4019",
+						"Description": "CVE-2009-4019"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=540906",
+						"Description": "bz#540906: CVE-2009-4019 mysql: DoS (crash) when comparing GIS items from subquery and when handling subqueires in WHERE  and assigning a SELECT result to a @variable"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2009-11-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-Workstation:mysql-0:5.0.77-4.el5_4.2",
+						"5Client:mysql-0:5.0.77-4.el5_4.2",
+						"5Server:mysql-0:5.0.77-4.el5_4.2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.7",
+					"Vector": "AV:A/AC:L/Au:S/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "mysql: client SSL certificate verification flaw",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2009-11-04T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2009-4028",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2010:0109"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2009-4028",
+						"Description": "CVE-2009-4028"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=541233",
+						"Description": "bz#541233: CVE-2009-4028 mysql: client SSL certificate verification flaw"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2009-11-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-Workstation:mysql-0:5.0.77-4.el5_4.2",
+						"5Client:mysql-0:5.0.77-4.el5_4.2",
+						"5Server:mysql-0:5.0.77-4.el5_4.2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.9",
+					"Vector": "AV:A/AC:M/Au:N/C:N/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "mysql: Incomplete fix for CVE-2008-2079 / CVE-2008-4098",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2009-11-04T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2009-4030",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2010:0109"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2009-4030",
+						"Description": "CVE-2009-4030"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=543653",
+						"Description": "bz#543653: CVE-2009-4030 mysql: Incomplete fix for CVE-2008-2079 / CVE-2008-4098"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2009-11-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-Workstation:mysql-0:5.0.77-4.el5_4.2",
+						"5Client:mysql-0:5.0.77-4.el5_4.2",
+						"5Server:mysql-0:5.0.77-4.el5_4.2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.4",
+					"Vector": "AV:L/AC:H/Au:S/C:N/I:P/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+							"productid": "5Client",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+							"productid": "5Client-Workstation",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::client_workstation"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux (v. 5 server)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux (v. 5 server)",
+							"productid": "5Server",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "mysql-0:5.0.77-4.el5_4.2",
+				"fullproductname": {
+					"text": "mysql-5.0.77-4.el5_4.2.src.rpm",
+					"productid": "mysql-0:5.0.77-4.el5_4.2",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "mysql-0:5.0.77-4.el5_4.2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Client",
+				"fullproductname": {
+					"text": "mysql-0:5.0.77-4.el5_4.2 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"productid": "5Client:mysql-0:5.0.77-4.el5_4.2",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+				}
+			},
+			{
+				"productreference": "mysql-0:5.0.77-4.el5_4.2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Client-Workstation",
+				"fullproductname": {
+					"text": "mysql-0:5.0.77-4.el5_4.2 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"productid": "5Client-Workstation:mysql-0:5.0.77-4.el5_4.2",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client_workstation"
+				}
+			},
+			{
+				"productreference": "mysql-0:5.0.77-4.el5_4.2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server",
+				"fullproductname": {
+					"text": "mysql-0:5.0.77-4.el5_4.2 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"productid": "5Server:mysql-0:5.0.77-4.el5_4.2",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+				}
+			}
+		]
+	}
+}

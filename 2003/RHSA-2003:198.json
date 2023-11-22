@@ -1,0 +1,676 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: kernel security update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2003:198"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2003-08-21T00:00:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2003-08-21T17:40:00Z",
+		"CurrentReleaseDate": "2003-08-21T00:00:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:27:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated kernel packages that address several security vulnerabilites are\nnow available for the IA64 architecture.\n\n[Updated 28 August 2003]\nChanged the CVE name listed in description from the incorrect CAN-2002-0247\nto CAN-2003-0247\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe Linux kernel handles the basic functions of the operating system.\n\nAl Viro found a security issue in the tty layer in which any user could\ncause a kernel oops. The Common Vulnerabilities and Exposures project\n(cve.mitre.org) has assigned the name CAN-2003-0247 to this issue.\n \nA vulnerability in the kernel's TCP/IP fragment reassembly handling allows\nremote attackers to cause a denial of service (CPU consumption) via packets\nthat cause a large number of hash table collisions. The Common\nVulnerabilities and Exposures project (cve.mitre.org) has assigned the name\nCAN-2003-0364 to this issue.\n\nPaul Starzetz discovered a file read race condition in the execve() system\ncall, which could cause a local crash. The Common Vulnerabilities and\nExposures project (cve.mitre.org) has assigned the name CAN-2003-0462 to\nthis issue.\n\nThe /proc file system under Linux allows local users to obtain sensitive\ninformation by opening various entries in /proc/self before executing a\nsetuid program. This causes the program to fail to change the ownership and\npermissions of already-opened entries. The Common Vulnerabilities and\nExposures project (cve.mitre.org) has assigned the name CAN-2003-0501 to\nthis issue.\n\nThe STP protocol is known to have no security, which could allow attackers\nto alter the bridge topology. STP is now turned off by default. The Common\nVulnerabilities and Exposures project (cve.mitre.org) has assigned the name\nCAN-2003-0550 to this issue.\n\nThe STP input processing is lax in its length checking, which could lead to\na denial of service (DoS). The kernel contained in this erratum improves\nSTP input processing. The Common Vulnerabilities and Exposures project\n(cve.mitre.org) has assigned the name CAN-2003-0551 to this issue.\n\nJerry Kreuscher discovered that the Forwarding table could be spoofed by\nsending forged packets with bogus source addresses that are the same as the\nlocal host. The Common Vulnerabilities and Exposures project cve.mitre.org)\nhas assigned the name CAN-2003-0552 to this issue.\n\nAn integer signedness error in the decode_fh function of nfs3xdr.c allows\nremote attackers to cause a denial of service (kernel panic) via a negative\nsize value within XDR data of an NFSv3 procedure call.  The Common\nVulnerabilities and Exposures project (cve.mitre.org) has assigned the name\nCAN-2003-0619 to this issue.\n\nThe C-Media PCI sound driver in unpatched kernel versions prior to 2.4.21\naccesses userspace without using the get_user function, which is a\npotential security hole.  The Common Vulnerabilities and Exposures project\n(cve.mitre.org) has assigned the name CAN-2003-0699 to this issue.\n\nIn addition, a number of bugfixes and updates have been applied to the IA32\nemulation layer.\n\nAll users should upgrade to these errata packages, which contain patches to\nthe 2.4.18 kernel that address these issues.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2003:198",
+				"Description": "https://access.redhat.com/errata/RHSA-2003:198"
+			},
+			{
+				"type": "External",
+				"URL": "",
+				"Description": ""
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "security flaw",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2003-06-03T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2003-0247",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nRelease notes, driver notes, and driver disks for this update are available\nat the following URL:\n\nhttp://www.redhat.com/support/errata/rhel/\n\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied, especially the additional\npackages from RHSA-2002:205 and RHSA-2002:206 respectively.\n\nThe procedure for upgrading the kernel manually is documented at:\n\nhttp://www.redhat.com/support/docs/howto/kernel-upgrade/\n\nPlease read the directions for your architecture carefully before\nproceeding with the kernel upgrade.\n\nPlease note that this update is also available via Red Hat Network. Many\npeople find this to be an easier way to apply updates. To use Red Hat\nNetwork, launch the Red Hat Update Agent with the following command:\n\nup2date\n\nThis will start an interactive process that will result in the appropriate\nRPMs being upgraded on your system. Note that you need to select the kernel\nexplicitly on default configurations of up2date.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2003:198"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2003-0247",
+						"Description": "CVE-2003-0247"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1617008",
+						"Description": "bz#1617008: CVE-2003-0247 security flaw"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "security flaw",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2003-06-03T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2003-0364",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nRelease notes, driver notes, and driver disks for this update are available\nat the following URL:\n\nhttp://www.redhat.com/support/errata/rhel/\n\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied, especially the additional\npackages from RHSA-2002:205 and RHSA-2002:206 respectively.\n\nThe procedure for upgrading the kernel manually is documented at:\n\nhttp://www.redhat.com/support/docs/howto/kernel-upgrade/\n\nPlease read the directions for your architecture carefully before\nproceeding with the kernel upgrade.\n\nPlease note that this update is also available via Red Hat Network. Many\npeople find this to be an easier way to apply updates. To use Red Hat\nNetwork, launch the Red Hat Update Agent with the following command:\n\nup2date\n\nThis will start an interactive process that will result in the appropriate\nRPMs being upgraded on your system. Note that you need to select the kernel\nexplicitly on default configurations of up2date.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2003:198"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2003-0364",
+						"Description": "CVE-2003-0364"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1617022",
+						"Description": "bz#1617022: CVE-2003-0364 security flaw"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "security flaw",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2003-08-21T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2003-0462",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nRelease notes, driver notes, and driver disks for this update are available\nat the following URL:\n\nhttp://www.redhat.com/support/errata/rhel/\n\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied, especially the additional\npackages from RHSA-2002:205 and RHSA-2002:206 respectively.\n\nThe procedure for upgrading the kernel manually is documented at:\n\nhttp://www.redhat.com/support/docs/howto/kernel-upgrade/\n\nPlease read the directions for your architecture carefully before\nproceeding with the kernel upgrade.\n\nPlease note that this update is also available via Red Hat Network. Many\npeople find this to be an easier way to apply updates. To use Red Hat\nNetwork, launch the Red Hat Update Agent with the following command:\n\nup2date\n\nThis will start an interactive process that will result in the appropriate\nRPMs being upgraded on your system. Note that you need to select the kernel\nexplicitly on default configurations of up2date.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2003:198"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2003-0462",
+						"Description": "CVE-2003-0462"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1617038",
+						"Description": "bz#1617038: CVE-2003-0462 security flaw"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "security flaw",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2003-06-20T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2003-0501",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nRelease notes, driver notes, and driver disks for this update are available\nat the following URL:\n\nhttp://www.redhat.com/support/errata/rhel/\n\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied, especially the additional\npackages from RHSA-2002:205 and RHSA-2002:206 respectively.\n\nThe procedure for upgrading the kernel manually is documented at:\n\nhttp://www.redhat.com/support/docs/howto/kernel-upgrade/\n\nPlease read the directions for your architecture carefully before\nproceeding with the kernel upgrade.\n\nPlease note that this update is also available via Red Hat Network. Many\npeople find this to be an easier way to apply updates. To use Red Hat\nNetwork, launch the Red Hat Update Agent with the following command:\n\nup2date\n\nThis will start an interactive process that will result in the appropriate\nRPMs being upgraded on your system. Note that you need to select the kernel\nexplicitly on default configurations of up2date.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2003:198"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2003-0501",
+						"Description": "CVE-2003-0501"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1617044",
+						"Description": "bz#1617044: CVE-2003-0501 security flaw"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "security flaw",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2003-06-30T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2003-0550",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nRelease notes, driver notes, and driver disks for this update are available\nat the following URL:\n\nhttp://www.redhat.com/support/errata/rhel/\n\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied, especially the additional\npackages from RHSA-2002:205 and RHSA-2002:206 respectively.\n\nThe procedure for upgrading the kernel manually is documented at:\n\nhttp://www.redhat.com/support/docs/howto/kernel-upgrade/\n\nPlease read the directions for your architecture carefully before\nproceeding with the kernel upgrade.\n\nPlease note that this update is also available via Red Hat Network. Many\npeople find this to be an easier way to apply updates. To use Red Hat\nNetwork, launch the Red Hat Update Agent with the following command:\n\nup2date\n\nThis will start an interactive process that will result in the appropriate\nRPMs being upgraded on your system. Note that you need to select the kernel\nexplicitly on default configurations of up2date.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2003:198"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2003-0550",
+						"Description": "CVE-2003-0550"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1617053",
+						"Description": "bz#1617053: CVE-2003-0550 security flaw"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "6",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "security flaw",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2003-06-30T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2003-0551",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nRelease notes, driver notes, and driver disks for this update are available\nat the following URL:\n\nhttp://www.redhat.com/support/errata/rhel/\n\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied, especially the additional\npackages from RHSA-2002:205 and RHSA-2002:206 respectively.\n\nThe procedure for upgrading the kernel manually is documented at:\n\nhttp://www.redhat.com/support/docs/howto/kernel-upgrade/\n\nPlease read the directions for your architecture carefully before\nproceeding with the kernel upgrade.\n\nPlease note that this update is also available via Red Hat Network. Many\npeople find this to be an easier way to apply updates. To use Red Hat\nNetwork, launch the Red Hat Update Agent with the following command:\n\nup2date\n\nThis will start an interactive process that will result in the appropriate\nRPMs being upgraded on your system. Note that you need to select the kernel\nexplicitly on default configurations of up2date.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2003:198"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2003-0551",
+						"Description": "CVE-2003-0551"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1617054",
+						"Description": "bz#1617054: CVE-2003-0551 security flaw"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "7",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "security flaw",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2003-06-30T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2003-0552",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nRelease notes, driver notes, and driver disks for this update are available\nat the following URL:\n\nhttp://www.redhat.com/support/errata/rhel/\n\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied, especially the additional\npackages from RHSA-2002:205 and RHSA-2002:206 respectively.\n\nThe procedure for upgrading the kernel manually is documented at:\n\nhttp://www.redhat.com/support/docs/howto/kernel-upgrade/\n\nPlease read the directions for your architecture carefully before\nproceeding with the kernel upgrade.\n\nPlease note that this update is also available via Red Hat Network. Many\npeople find this to be an easier way to apply updates. To use Red Hat\nNetwork, launch the Red Hat Update Agent with the following command:\n\nup2date\n\nThis will start an interactive process that will result in the appropriate\nRPMs being upgraded on your system. Note that you need to select the kernel\nexplicitly on default configurations of up2date.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2003:198"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2003-0552",
+						"Description": "CVE-2003-0552"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1617055",
+						"Description": "bz#1617055: CVE-2003-0552 security flaw"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "8",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "security flaw",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2003-07-29T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2003-0619",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nRelease notes, driver notes, and driver disks for this update are available\nat the following URL:\n\nhttp://www.redhat.com/support/errata/rhel/\n\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied, especially the additional\npackages from RHSA-2002:205 and RHSA-2002:206 respectively.\n\nThe procedure for upgrading the kernel manually is documented at:\n\nhttp://www.redhat.com/support/docs/howto/kernel-upgrade/\n\nPlease read the directions for your architecture carefully before\nproceeding with the kernel upgrade.\n\nPlease note that this update is also available via Red Hat Network. Many\npeople find this to be an easier way to apply updates. To use Red Hat\nNetwork, launch the Red Hat Update Agent with the following command:\n\nup2date\n\nThis will start an interactive process that will result in the appropriate\nRPMs being upgraded on your system. Note that you need to select the kernel\nexplicitly on default configurations of up2date.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2003:198"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2003-0619",
+						"Description": "CVE-2003-0619"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1617060",
+						"Description": "bz#1617060: CVE-2003-0619 security flaw"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "9",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "security flaw",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2003-08-21T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2003-0699",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nRelease notes, driver notes, and driver disks for this update are available\nat the following URL:\n\nhttp://www.redhat.com/support/errata/rhel/\n\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied, especially the additional\npackages from RHSA-2002:205 and RHSA-2002:206 respectively.\n\nThe procedure for upgrading the kernel manually is documented at:\n\nhttp://www.redhat.com/support/docs/howto/kernel-upgrade/\n\nPlease read the directions for your architecture carefully before\nproceeding with the kernel upgrade.\n\nPlease note that this update is also available via Red Hat Network. Many\npeople find this to be an easier way to apply updates. To use Red Hat\nNetwork, launch the Red Hat Update Agent with the following command:\n\nup2date\n\nThis will start an interactive process that will result in the appropriate\nRPMs being upgraded on your system. Note that you need to select the kernel\nexplicitly on default configurations of up2date.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2003:198"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2003-0699",
+						"Description": "CVE-2003-0699"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1617072",
+						"Description": "bz#1617072: CVE-2003-0699 security flaw"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		}
+	],
+	"producttree": {}
+}

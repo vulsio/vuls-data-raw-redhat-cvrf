@@ -1,0 +1,384 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: security update for Red Hat Network Satellite",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2011:0434"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2011-04-11T16:24:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2011-04-11T20:24:00Z",
+		"CurrentReleaseDate": "2011-04-11T16:24:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:31:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated packages that fix two security issues are now available for Red Hat\nNetwork Satellite 5.3 and 5.4.\n\nThe Red Hat Security Response Team has rated this update as having moderate\nsecurity impact. Common Vulnerability Scoring System (CVSS) base scores,\nwhich give detailed severity ratings, are available for each vulnerability\nfrom the CVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nRed Hat Network Satellite (RHN Satellite) is a system management tool for\nLinux-based infrastructures. It allows for the provisioning, remote\nmanagement and monitoring of multiple Linux deployments with a single,\ncentralized tool.\n\nRHN Satellite incorrectly exposed an obsolete XML-RPC API for configuring\npackage group (comps.xml) files for channels. An authenticated user could\nuse this flaw to gain access to arbitrary files accessible to the RHN\nSatellite server process, and prevent clients from performing certain yum\noperations. (CVE-2010-1171)\n\nA flaw was found in the way RHN Satellite rewrote certain URLs. An\nunauthenticated user could use a specially-crafted HTTP request to obtain\nsensitive information about the host system RHN Satellite was running on.\nThey could also use RHN Satellite as a distributed denial of service tool,\nforcing it to connect to an arbitrary service at an arbitrary IP address\nvia a specially-crafted HTTP request. (CVE-2009-0788)\n\nNote: Refer to the Solution section below for manual steps that may be\nrequired to fully address the CVE-2009-0788 issue.\n\nUsers of RHN Satellite 5.3 and 5.4 are advised to upgrade to these updated\npackages, which contain backported patches to correct these issues. The RHN\nSatellite server must be restarted (\"rhn-satellite restart\") for this\nupdate to take effect.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2011:0434",
+				"Description": "https://access.redhat.com/errata/RHSA-2011:0434"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "rhn_satellite: Incorrect mod_rewrite rules (information disclosure, abuse as distributed DoS tool)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2011-04-11T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2009-0788",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/kb/docs/DOC-11259\n\nThe patch for CVE-2009-0788 includes changes to\n\"/etc/httpd/conf.d/zz-spacewalk-www.conf\". If you have manually edited\nthis file, this erratum will not overwrite or replace your existing\nversion, but will create a new file containing the fixes,\n\"/etc/httpd/conf.d/zz-spacewalk-www.conf.rpmnew\". If this .rpmnew file\nexists after installing the update, the following steps must be\nperformed to fully fix CVE-2009-0788:\n\n1) Create a backup copy of your\n\"/etc/httpd/conf.d/zz-spacewalk-www.conf\" file.\n\n2) Carefully review your manual zz-spacewalk-www.conf changes, and\nmerge those changes into the zz-spacewalk-www.conf.rpmnew file.\n\n3) Once you have merged all your manual changes into\nzz-spacewalk-www.conf.rpmnew, save this new version as\n\"/etc/httpd/conf.d/zz-spacewalk-www.conf\", and then restart the RHN\nSatellite server (\"rhn-satellite restart\").\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2011:0434"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2009-0788",
+						"Description": "CVE-2009-0788"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=491365",
+						"Description": "bz#491365: CVE-2009-0788 rhn_satellite: Incorrect mod_rewrite rules (information disclosure, abuse as distributed DoS tool)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2009-03-16T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"4AS-RHNSAT5.3:spacewalk-backend-0:0.5.28-59.2.el4sat",
+						"4AS-RHNSAT5.3:spacewalk-config-0:0.5.9-16.el4sat",
+						"5Server-Satellite53:spacewalk-backend-0:0.5.28-59.2.el5sat",
+						"5Server-Satellite53:spacewalk-config-0:0.5.9-16.el5sat",
+						"5Server-Satellite54:spacewalk-backend-0:1.2.13-37.el5sat",
+						"5Server-Satellite54:spacewalk-config-0:1.2.2-2.el5sat"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "3.3",
+					"Vector": "AV:A/AC:L/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "rhn_satellite: Improper channel comps information management",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2011-04-11T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2010-1171",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/kb/docs/DOC-11259\n\nThe patch for CVE-2009-0788 includes changes to\n\"/etc/httpd/conf.d/zz-spacewalk-www.conf\". If you have manually edited\nthis file, this erratum will not overwrite or replace your existing\nversion, but will create a new file containing the fixes,\n\"/etc/httpd/conf.d/zz-spacewalk-www.conf.rpmnew\". If this .rpmnew file\nexists after installing the update, the following steps must be\nperformed to fully fix CVE-2009-0788:\n\n1) Create a backup copy of your\n\"/etc/httpd/conf.d/zz-spacewalk-www.conf\" file.\n\n2) Carefully review your manual zz-spacewalk-www.conf changes, and\nmerge those changes into the zz-spacewalk-www.conf.rpmnew file.\n\n3) Once you have merged all your manual changes into\nzz-spacewalk-www.conf.rpmnew, save this new version as\n\"/etc/httpd/conf.d/zz-spacewalk-www.conf\", and then restart the RHN\nSatellite server (\"rhn-satellite restart\").\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2011:0434"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2010-1171",
+						"Description": "CVE-2010-1171"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=584118",
+						"Description": "bz#584118: CVE-2010-1171 rhn_satellite: Improper channel comps information management"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2010-04-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"4AS-RHNSAT5.3:spacewalk-backend-0:0.5.28-59.2.el4sat",
+						"4AS-RHNSAT5.3:spacewalk-config-0:0.5.9-16.el4sat",
+						"5Server-Satellite53:spacewalk-backend-0:0.5.28-59.2.el5sat",
+						"5Server-Satellite53:spacewalk-config-0:0.5.9-16.el5sat",
+						"5Server-Satellite54:spacewalk-backend-0:1.2.13-37.el5sat",
+						"5Server-Satellite54:spacewalk-config-0:1.2.2-2.el5sat"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.5",
+					"Vector": "AV:N/AC:L/Au:S/C:P/I:N/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Satellite",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Satellite 5.3 (RHEL v.4)",
+						"fullproductname": {
+							"text": "Red Hat Satellite 5.3 (RHEL v.4)",
+							"productid": "4AS-RHNSAT5.3",
+							"cpe": "cpe:/a:redhat:network_satellite:5.3::el4"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Satellite 5.3 (RHEL v.5)",
+						"fullproductname": {
+							"text": "Red Hat Satellite 5.3 (RHEL v.5)",
+							"productid": "5Server-Satellite53",
+							"cpe": "cpe:/a:redhat:network_satellite:5.3::el5"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Satellite 5.4 (RHEL v.5)",
+						"fullproductname": {
+							"text": "Red Hat Satellite 5.4 (RHEL v.5)",
+							"productid": "5Server-Satellite54",
+							"cpe": "cpe:/a:redhat:network_satellite:5.4::el5"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-backend-0:0.5.28-59.2.el4sat",
+				"fullproductname": {
+					"text": "spacewalk-backend-0.5.28-59.2.el4sat.src.rpm",
+					"productid": "spacewalk-backend-0:0.5.28-59.2.el4sat",
+					"cpe": "cpe:/a:redhat:network_satellite:5.3::el4"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-backend-0:0.5.28-59.2.el5sat",
+				"fullproductname": {
+					"text": "spacewalk-backend-0.5.28-59.2.el5sat.src.rpm",
+					"productid": "spacewalk-backend-0:0.5.28-59.2.el5sat",
+					"cpe": "cpe:/a:redhat:network_satellite:5.3::el5"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-backend-0:1.2.13-37.el5sat",
+				"fullproductname": {
+					"text": "spacewalk-backend-1.2.13-37.el5sat.src.rpm",
+					"productid": "spacewalk-backend-0:1.2.13-37.el5sat",
+					"cpe": "cpe:/a:redhat:network_satellite:5.4::el5"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-config-0:0.5.9-16.el4sat",
+				"fullproductname": {
+					"text": "spacewalk-config-0.5.9-16.el4sat.src.rpm",
+					"productid": "spacewalk-config-0:0.5.9-16.el4sat",
+					"cpe": "cpe:/a:redhat:network_satellite:5.3::el4"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-config-0:0.5.9-16.el5sat",
+				"fullproductname": {
+					"text": "spacewalk-config-0.5.9-16.el5sat.src.rpm",
+					"productid": "spacewalk-config-0:0.5.9-16.el5sat",
+					"cpe": "cpe:/a:redhat:network_satellite:5.3::el5"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "spacewalk-config-0:1.2.2-2.el5sat",
+				"fullproductname": {
+					"text": "spacewalk-config-1.2.2-2.el5sat.src.rpm",
+					"productid": "spacewalk-config-0:1.2.2-2.el5sat",
+					"cpe": "cpe:/a:redhat:network_satellite:5.4::el5"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "spacewalk-backend-0:0.5.28-59.2.el4sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "4AS-RHNSAT5.3",
+				"fullproductname": {
+					"text": "spacewalk-backend-0:0.5.28-59.2.el4sat as a component of Red Hat Satellite 5.3 (RHEL v.4)",
+					"productid": "4AS-RHNSAT5.3:spacewalk-backend-0:0.5.28-59.2.el4sat",
+					"cpe": "cpe:/a:redhat:network_satellite:5.3::el4"
+				}
+			},
+			{
+				"productreference": "spacewalk-config-0:0.5.9-16.el4sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "4AS-RHNSAT5.3",
+				"fullproductname": {
+					"text": "spacewalk-config-0:0.5.9-16.el4sat as a component of Red Hat Satellite 5.3 (RHEL v.4)",
+					"productid": "4AS-RHNSAT5.3:spacewalk-config-0:0.5.9-16.el4sat",
+					"cpe": "cpe:/a:redhat:network_satellite:5.3::el4"
+				}
+			},
+			{
+				"productreference": "spacewalk-backend-0:0.5.28-59.2.el5sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-Satellite53",
+				"fullproductname": {
+					"text": "spacewalk-backend-0:0.5.28-59.2.el5sat as a component of Red Hat Satellite 5.3 (RHEL v.5)",
+					"productid": "5Server-Satellite53:spacewalk-backend-0:0.5.28-59.2.el5sat",
+					"cpe": "cpe:/a:redhat:network_satellite:5.3::el5"
+				}
+			},
+			{
+				"productreference": "spacewalk-config-0:0.5.9-16.el5sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-Satellite53",
+				"fullproductname": {
+					"text": "spacewalk-config-0:0.5.9-16.el5sat as a component of Red Hat Satellite 5.3 (RHEL v.5)",
+					"productid": "5Server-Satellite53:spacewalk-config-0:0.5.9-16.el5sat",
+					"cpe": "cpe:/a:redhat:network_satellite:5.3::el5"
+				}
+			},
+			{
+				"productreference": "spacewalk-backend-0:1.2.13-37.el5sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-Satellite54",
+				"fullproductname": {
+					"text": "spacewalk-backend-0:1.2.13-37.el5sat as a component of Red Hat Satellite 5.4 (RHEL v.5)",
+					"productid": "5Server-Satellite54:spacewalk-backend-0:1.2.13-37.el5sat",
+					"cpe": "cpe:/a:redhat:network_satellite:5.4::el5"
+				}
+			},
+			{
+				"productreference": "spacewalk-config-0:1.2.2-2.el5sat",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-Satellite54",
+				"fullproductname": {
+					"text": "spacewalk-config-0:1.2.2-2.el5sat as a component of Red Hat Satellite 5.4 (RHEL v.5)",
+					"productid": "5Server-Satellite54:spacewalk-config-0:1.2.2-2.el5sat",
+					"cpe": "cpe:/a:redhat:network_satellite:5.4::el5"
+				}
+			}
+		]
+	}
+}

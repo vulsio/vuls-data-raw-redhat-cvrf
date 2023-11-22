@@ -1,0 +1,227 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: OpenShift Container Platform 4.2.5 machine-os-content-container security update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2019:3916"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2019-11-19T15:56:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2019-11-19T15:56:00Z",
+		"CurrentReleaseDate": "2019-11-19T15:56:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:43:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nAn update for machine-os-content-container is now available for Red Hat OpenShift Container Platform 4.2.\n\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nRed Hat OpenShift Container Platform is Red Hat's cloud computing Kubernetes application platform solution designed for on-premise or private cloud deployments.\n\nThis is a text-only advisory for the machine-os-content container image, which includes RPM packages for Red Hat Enterprise Linux CoreOS.\n\nSecurity Fix(es):\n\n* A flaw was found in the way Intel CPUs handled inconsistency between virtual to physical memory address translations in the CPU's local cache and the system software's Paging structure entries. A privileged guest user can exploit this flaw to induce a hardware Machine Check Error (MCE) on the host processor, resulting in a severe DoS scenario by halting the processor. System software like the OS OR Virtual Machine Monitor (VMM) use the virtual memory system for storing program instructions and data in memory. The virtual memory system uses Paging structures like Page Tables and Page Directories to manage system memory. The processor's Memory Management Unit (MMU) uses Paging structure entries to translate a program's virtual memory addresses to physical memory addresses. The processor stores these address translations into its local cache buffer, called the Translation Lookaside Buffer (TLB). TLB has two parts, one for instructions and the other for data addresses. System software can modify its Paging structure entries to change address mappings or certain attributes like page size, etc. Upon such Paging structure alterations in memory, system software must invalidate the corresponding address translations in the processor's TLB cache. Before this TLB invalidation takes place, however, a privileged guest user could trigger an instruction fetch operation, which could use an already cached, but now invalid, virtual to physical address translation from Instruction TLB (ITLB). This would access an invalid physical memory address, resulting in halting the processor due to the MCE on Page Size Change. (CVE-2018-12207)\n\n* A flaw was found in the way sudo implemented running commands with an arbitrary user ID. If a sudoers entry is written to allow users to run a command as any user except root, this flaw can be used by an attacker to bypass that restriction. (CVE-2019-14287)\n\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2019:3916",
+				"Description": "https://access.redhat.com/errata/RHSA-2019:3916"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/vulnerabilities/ifu-page-mce",
+				"Description": "https://access.redhat.com/security/vulnerabilities/ifu-page-mce"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "hw: Machine Check Error on Page Size Change (IFU)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2019-11-12T18:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2018-12207",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nSee the following documentation, which will be updated shortly for release 4.2.5, for important instructions on how to upgrade your cluster and fully apply this asynchronous errata update:\n\nhttps://docs.openshift.com/container-platform/4.2/release_notes/ocp-4-2-release-notes.html\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2019:3916"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.intel.com/content/www/us/en/security-center/advisory/intel-sa-00210.html",
+						"Description": "https://www.intel.com/content/www/us/en/security-center/advisory/intel-sa-00210.html"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2018-12207",
+						"Description": "CVE-2018-12207"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1646768",
+						"Description": "bz#1646768: CVE-2018-12207 hw: Machine Check Error on Page Size Change (IFU)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2018-11-06T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank Intel for reporting this issue. Upstream acknowledges Deepak Gupta as the original reporter."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "sudo: Privilege escalation via 'Runas' specification with 'ALL' keyword",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2019-10-14T15:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2019-14287",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nSee the following documentation, which will be updated shortly for release 4.2.5, for important instructions on how to upgrade your cluster and fully apply this asynchronous errata update:\n\nhttps://docs.openshift.com/container-platform/4.2/release_notes/ocp-4-2-release-notes.html\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2019:3916"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.sudo.ws/alerts/minus_1_uid.html",
+						"Description": "https://www.sudo.ws/alerts/minus_1_uid.html"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2019-14287",
+						"Description": "CVE-2019-14287"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1760531",
+						"Description": "bz#1760531: CVE-2019-14287 sudo: Privilege escalation via 'Runas' specification with 'ALL' keyword"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2019-10-10T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank the Sudo project for reporting this issue. Upstream acknowledges Joe Vennix (Apple Information Security) as the original reporter."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		}
+	],
+	"producttree": {}
+}

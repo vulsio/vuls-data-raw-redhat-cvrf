@@ -1,0 +1,760 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: JBoss Enterprise Application Platform 6.0.1 update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2012:1594"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2012-12-18T22:52:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2012-12-18T22:43:00Z",
+		"CurrentReleaseDate": "2012-12-18T22:52:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:39:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nJBoss Enterprise Application Platform 6.0.1, which fixes multiple security\nissues, various bugs, and adds enhancements, is now available from the Red\nHat Customer Portal.\n\nThe Red Hat Security Response Team has rated this update as having\nimportant security impact. Common Vulnerability Scoring System (CVSS) base\nscores, which give detailed severity ratings, are available for each\nvulnerability from the CVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nJBoss Enterprise Application Platform 6 is a platform for Java applications\nbased on JBoss Application Server 7.\n\nThis release serves as a replacement for JBoss Enterprise Application\nPlatform 6.0.0, and includes bug fixes and enhancements. Refer to the 6.0.1\nRelease Notes for information on the most significant of these changes,\navailable shortly from https://access.redhat.com/knowledge/docs/\n\nSecurity fixes:\n\nApache CXF checked to ensure XML elements were signed or encrypted by a\nSupporting Token, but not whether the correct token was used. A remote\nattacker could transmit confidential information without the appropriate\nsecurity, and potentially circumvent access controls on web services\nexposed via Apache CXF. (CVE-2012-2379)\n\nWhen using role-based authorization to configure EJB access, JACC\npermissions should be used to determine access; however, due to a flaw the\nconfigured authorization modules (JACC, XACML, etc.) were not called, and\nthe JACC permissions were not used to determine access to an EJB.\n(CVE-2012-4550)\n\nA flaw in the way Apache CXF enforced child policies of WS-SecurityPolicy\n1.1 on the client side could, in certain cases, lead to a client failing to\nsign or encrypt certain elements as directed by the security policy,\nleading to information disclosure and insecure information transmission.\n(CVE-2012-2378)\n\nA flaw was found in the way IronJacamar authenticated credentials and\nreturned a valid datasource connection when configured to\n\"allow-multiple-users\". A remote attacker, provided the correct subject,\ncould obtain a datasource connection that might belong to a privileged\nuser. (CVE-2012-3428)\n\nIt was found that Apache CXF was vulnerable to SOAPAction spoofing attacks\nunder certain conditions. Note that WS-Policy validation is performed\nagainst the operation being invoked, and an attack must pass validation to\nbe successful. (CVE-2012-3451)\n\nWhen there are no allowed roles for an EJB method invocation, the\ninvocation should be denied for all users. It was found that the\nprocessInvocation() method in\norg.jboss.as.ejb3.security.AuthorizationInterceptor incorrectly authorizes\nall method invocations to proceed when the list of allowed roles is empty.\n(CVE-2012-4549)\n\nThe apachectl script set an insecure library search path. Running apachectl\nin an attacker-controlled directory containing a malicious library file\ncould cause arbitrary code execution with the privileges of the user\nrunning the apachectl script (typically the root user). This issue only\naffected JBoss Enterprise Application Platform on Solaris. (CVE-2012-0883)\n\nIt was found that in Mojarra, the FacesContext that is made available\nduring application startup is held in a ThreadLocal. The reference is not\nproperly cleaned up in all cases. As a result, if a JavaServer Faces (JSF)\nWAR calls FacesContext.getCurrentInstance() during application startup,\nanother WAR can get access to the leftover context and thus get access to\nthe other WAR's resources. A local attacker could use this flaw to access\nanother WAR's resources using a crafted, deployed application.\n(CVE-2012-2672)\n\nAn input sanitization flaw was found in the mod_negotiation Apache HTTP\nServer module. A remote attacker able to upload or create files with\narbitrary names in a directory that has the MultiViews options enabled,\ncould use this flaw to conduct cross-site scripting attacks against users\nvisiting the site. (CVE-2008-0455, CVE-2012-2687)\n\nRed Hat would like to thank the Apache CXF project for reporting\nCVE-2012-2379, CVE-2012-2378, and CVE-2012-3451. The CVE-2012-4550 issue\nwas discovered by Josef Cacek of the Red Hat JBoss EAP Quality Engineering\nteam; CVE-2012-3428 and CVE-2012-4549 were discovered by Arun Neelicattu of\nthe Red Hat Security Response Team; and CVE-2012-2672 was discovered by\nMarek Schmidt and Stan Silvert of Red Hat.\n\nWarning: Before applying this update, back up your existing JBoss\nEnterprise Application Platform installation and deployed applications.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2012:1594",
+				"Description": "https://access.redhat.com/errata/RHSA-2012:1594"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/knowledge/docs/",
+				"Description": "https://access.redhat.com/knowledge/docs/"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/jbossnetwork/restricted/listSoftware.html?product=appplatform&downloadType=distributions",
+				"Description": "https://access.redhat.com/jbossnetwork/restricted/listSoftware.html?product=appplatform&downloadType=distributions"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "httpd: mod_negotiation XSS via untrusted file names in directories with MultiViews enabled",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-06-13T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2008-0455",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nUsers of JBoss Enterprise Application Platform 6.0.0 as provided from the\nRed Hat Customer Portal are advised to upgrade to JBoss Enterprise\nApplication Platform 6.0.1.\n\nThe References section of this erratum contains a download link (you must\nlog in to download the update). Before applying this update, back up your\nexisting JBoss Enterprise Application Platform installation and deployed\napplications.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:1594"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2008-0455",
+						"Description": "CVE-2008-0455"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=850794",
+						"Description": "bz#850794: CVE-2012-2687 CVE-2008-0455 httpd: mod_negotiation XSS via untrusted file names in directories with MultiViews enabled"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2012-08-21T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.6",
+					"Vector": "AV:N/AC:H/Au:N/C:N/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "httpd: insecure handling of LD_LIBRARY_PATH in envvars",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-03-02T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-0883",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nUsers of JBoss Enterprise Application Platform 6.0.0 as provided from the\nRed Hat Customer Portal are advised to upgrade to JBoss Enterprise\nApplication Platform 6.0.1.\n\nThe References section of this erratum contains a download link (you must\nlog in to download the update). Before applying this update, back up your\nexisting JBoss Enterprise Application Platform installation and deployed\napplications.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:1594"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-0883",
+						"Description": "CVE-2012-0883"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=813559",
+						"Description": "bz#813559: CVE-2012-0883 httpd: insecure handling of LD_LIBRARY_PATH in envvars"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2012-04-17T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "3.7",
+					"Vector": "AV:L/AC:H/Au:N/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "jbossws-cxf, apache-cxf: Certain child policies of WS-SecurityPolicy 1.1 SupportingToken policy not applied on the client side",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-06-07T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-2378",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nUsers of JBoss Enterprise Application Platform 6.0.0 as provided from the\nRed Hat Customer Portal are advised to upgrade to JBoss Enterprise\nApplication Platform 6.0.1.\n\nThe References section of this erratum contains a download link (you must\nlog in to download the update). Before applying this update, back up your\nexisting JBoss Enterprise Application Platform installation and deployed\napplications.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:1594"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "http://cxf.apache.org/cve-2012-2378.html",
+						"Description": "http://cxf.apache.org/cve-2012-2378.html"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-2378",
+						"Description": "CVE-2012-2378"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=826533",
+						"Description": "bz#826533: CVE-2012-2378 jbossws-cxf, apache-cxf: Certain child policies of WS-SecurityPolicy 1.1 SupportingToken policy not applied on the client side"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2012-05-28T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "jbossws-cxf, apache-cxf: Apache CXF does not verify that elements were signed / encrypted by a particular Supporting Token",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-06-07T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-2379",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nUsers of JBoss Enterprise Application Platform 6.0.0 as provided from the\nRed Hat Customer Portal are advised to upgrade to JBoss Enterprise\nApplication Platform 6.0.1.\n\nThe References section of this erratum contains a download link (you must\nlog in to download the update). Before applying this update, back up your\nexisting JBoss Enterprise Application Platform installation and deployed\napplications.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:1594"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "http://cxf.apache.org/cve-2012-2379.html",
+						"Description": "http://cxf.apache.org/cve-2012-2379.html"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-2379",
+						"Description": "CVE-2012-2379"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=826534",
+						"Description": "bz#826534: CVE-2012-2379 jbossws-cxf, apache-cxf: Apache CXF does not verify that elements were signed / encrypted by a particular Supporting Token"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2012-05-28T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.8",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Mojarra: deployed web applications can read FacesContext from other applications under certain conditions",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-06-01T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-2672",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nUsers of JBoss Enterprise Application Platform 6.0.0 as provided from the\nRed Hat Customer Portal are advised to upgrade to JBoss Enterprise\nApplication Platform 6.0.1.\n\nThe References section of this erratum contains a download link (you must\nlog in to download the update). Before applying this update, back up your\nexisting JBoss Enterprise Application Platform installation and deployed\napplications.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:1594"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-2672",
+						"Description": "CVE-2012-2672"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=829560",
+						"Description": "bz#829560: CVE-2012-2672 Mojarra: deployed web applications can read FacesContext from other applications under certain conditions"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2012-06-01T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "1.9",
+					"Vector": "AV:L/AC:M/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "6",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "httpd: mod_negotiation XSS via untrusted file names in directories with MultiViews enabled",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-06-13T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-2687",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nUsers of JBoss Enterprise Application Platform 6.0.0 as provided from the\nRed Hat Customer Portal are advised to upgrade to JBoss Enterprise\nApplication Platform 6.0.1.\n\nThe References section of this erratum contains a download link (you must\nlog in to download the update). Before applying this update, back up your\nexisting JBoss Enterprise Application Platform installation and deployed\napplications.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:1594"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-2687",
+						"Description": "CVE-2012-2687"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=850794",
+						"Description": "bz#850794: CVE-2012-2687 CVE-2008-0455 httpd: mod_negotiation XSS via untrusted file names in directories with MultiViews enabled"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2012-08-21T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.6",
+					"Vector": "AV:N/AC:H/Au:N/C:N/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "7",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "JBoss: Datasource connection manager returns valid connection for wrong credentials when using security-domains",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-12-18T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-3428",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nUsers of JBoss Enterprise Application Platform 6.0.0 as provided from the\nRed Hat Customer Portal are advised to upgrade to JBoss Enterprise\nApplication Platform 6.0.1.\n\nThe References section of this erratum contains a download link (you must\nlog in to download the update). Before applying this update, back up your\nexisting JBoss Enterprise Application Platform installation and deployed\napplications.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:1594"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-3428",
+						"Description": "CVE-2012-3428"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=843358",
+						"Description": "bz#843358: CVE-2012-3428 JBoss: Datasource connection manager returns valid connection for wrong credentials when using security-domains"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2012-07-25T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "8",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "jbossws-cxf, apache-cxf: SOAPAction spoofing on document literal web services",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-09-19T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-3451",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nUsers of JBoss Enterprise Application Platform 6.0.0 as provided from the\nRed Hat Customer Portal are advised to upgrade to JBoss Enterprise\nApplication Platform 6.0.1.\n\nThe References section of this erratum contains a download link (you must\nlog in to download the update). Before applying this update, back up your\nexisting JBoss Enterprise Application Platform installation and deployed\napplications.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:1594"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-3451",
+						"Description": "CVE-2012-3451"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=851896",
+						"Description": "bz#851896: CVE-2012-3451 jbossws-cxf, apache-cxf: SOAPAction spoofing on document literal web services"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2012-08-25T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "9",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "JBoss AS: EJB authorization succeeds for any role when allowed roles list is empty",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-12-18T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-4549",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nUsers of JBoss Enterprise Application Platform 6.0.0 as provided from the\nRed Hat Customer Portal are advised to upgrade to JBoss Enterprise\nApplication Platform 6.0.1.\n\nThe References section of this erratum contains a download link (you must\nlog in to download the update). Before applying this update, back up your\nexisting JBoss Enterprise Application Platform installation and deployed\napplications.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:1594"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-4549",
+						"Description": "CVE-2012-4549"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=870868",
+						"Description": "bz#870868: CVE-2012-4549 JBoss AS: EJB authorization succeeds for any role when allowed roles list is empty"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2012-10-29T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.8",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "10",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "JBoss JACC: Security constraints configured for EJBs are incorrectly interpreted and not applied",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-04-19T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-4550",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nUsers of JBoss Enterprise Application Platform 6.0.0 as provided from the\nRed Hat Customer Portal are advised to upgrade to JBoss Enterprise\nApplication Platform 6.0.1.\n\nThe References section of this erratum contains a download link (you must\nlog in to download the update). Before applying this update, back up your\nexisting JBoss Enterprise Application Platform installation and deployed\napplications.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:1594"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-4550",
+						"Description": "CVE-2012-4550"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=870871",
+						"Description": "bz#870871: CVE-2012-4550 JBoss JACC: Security constraints configured for EJBs are incorrectly interpreted and not applied"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2012-10-24T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.4",
+					"Vector": "AV:N/AC:L/Au:N/C:P/I:P/A:N"
+				}
+			}
+		}
+	],
+	"producttree": {}
+}

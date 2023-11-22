@@ -1,0 +1,266 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: rhev-hypervisor security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2009:1692"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2009-12-23T09:05:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2009-12-23T14:05:00Z",
+		"CurrentReleaseDate": "2009-12-23T09:05:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:36:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nAn updated rhev-hypervisor package that fixes security issues and several\nbugs is now available.\n\nThis update has been rated as having important security impact by the Red\nHat Security Response Team.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe rhev-hypervisor package provides a Red Hat Enterprise Virtualization\n(RHEV) Hypervisor ISO disk image. The RHEV Hypervisor is a dedicated\nKernel-based Virtual Machine (KVM) hypervisor. It includes everything\nnecessary to run and manage virtual machines: A subset of the Red Hat\nEnterprise Linux operating environment and the Red Hat Enterprise\nVirtualization Agent.\n\nNote: RHEV Hypervisor is only available for the Intel 64 and AMD64\narchitectures with virtualization extensions.\n\nA flaw was found in the Realtek r8169 Ethernet driver in the Linux kernel.\npci_unmap_single() presented a memory leak that could lead to IOMMU space\nexhaustion and a system crash. An attacker on the local network could\ntrigger this flaw by using jumbo frames for large amounts of network\ntraffic. (CVE-2009-3613)\n\nOn x86 platforms, the do_insn_fetch() function did not limit the amount of\ninstruction bytes fetched per instruction. Users in guest operating systems\ncould leverage this flaw to cause large latencies on SMP hosts that could\nlead to a local denial of service on the host operating system. This update\nfixes this issue by imposing the architecturally-defined 15 byte length\nlimit for instructions. (CVE-2009-4031)\n\nThis updated package provides updated components that include fixes for\nsecurity issues; however, these issues have no security impact for RHEV\nHypervisor. These fixes are for kernel issues CVE-2009-2695, CVE-2009-2908,\nCVE-2009-3228, CVE-2009-3286, CVE-2009-3547, CVE-2009-3612, CVE-2009-3620,\nCVE-2009-3621, and CVE-2009-3726; acpid issue CVE-2009-4033; expat issues\nCVE-2009-3560 and CVE-2009-3720; and wget issue CVE-2009-3490.\n\nThis update also fixes the following bugs:\n\n* the scsi_dh_rdac driver was updated to recognize the Sun StorageTek\nFlexline 380. This driver is now also loaded into initrd to handle passive\npaths correctly. Without this initrd change, lots of errors could occur\nduring boot, increasing boot time. (BZ#545909)\n\n* during the firstboot network configuration of the RHEV Hypervisor, it was\nonly possible to specify NTP servers by their IP addresses if the RHEV\nHypervisor system was configured with a static IP address. With this\nupdate, hostnames can also be used to specify NTP servers. (BZ#545923)\n\n* with the default settings, performance problems occurred when using the\nqcow2 image format. This could cause guest operating system installations\nto take hours. With this update, performance patches have been backported\nto resolve this issue. (BZ#520693)\n\n* when using the virtual vm8086 mode, bugs in the emulated hardware task\nswitching implementation may have, in some situations, caused older guest\noperating systems to malfunction. (BZ#532031)\n\n* Windows Server 2003 guests (32-bit) with more than 4GB of memory may have\ncrashed during reboot when using the default RHEV Hypervisor settings.\n(BZ#532043)\n\n* guests continued to run after encountering disk read errors. This could\nhave led to their file systems becoming corrupted (but not the host's),\nnotably in environments that use networked storage. With this update,\nguests will now pause on disk read and write errors. (BZ#537334, BZ#540406)\n\n* the para-virtualized block driver (virtio-blk) silently ignored read\nerrors when accessing disk images. With this update, the driver correctly\nsignals the read error to the guest. (BZ#537334)\n\nUsers of the Red Hat Enterprise Virtualization Hypervisor are advised to\nupgrade to this updated package, which corrects these issues.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2009:1692",
+				"Description": "https://access.redhat.com/errata/RHSA-2009:1692"
+			},
+			{
+				"type": "External",
+				"URL": "http://www.redhat.com/security/updates/classification/#important",
+				"Description": "http://www.redhat.com/security/updates/classification/#important"
+			},
+			{
+				"type": "External",
+				"URL": "http://redhat.com/docs/en-US/Red_Hat_Enterprise_Virtualization/Red_Hat_Enterprise_Virtualization_Hypervisor/5.4-2.1/html/RHEV-Hypervisor_Deployment_Guide/",
+				"Description": "http://redhat.com/docs/en-US/Red_Hat_Enterprise_Virtualization/Red_Hat_Enterprise_Virtualization_Hypervisor/5.4-2.1/html/RHEV-Hypervisor_Deployment_Guide/"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: flood ping cause out-of-iommu error and panic when mtu larger than 1500",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2007-11-28T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2009-3613",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2009:1692"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2009-3613",
+						"Description": "CVE-2009-3613"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=529137",
+						"Description": "bz#529137: CVE-2009-3613 kernel: flood ping cause out-of-iommu error and panic when mtu larger than 1500"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2009-10-15T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.3.el5_4rhev2_1"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.1",
+					"Vector": "AV:A/AC:L/Au:N/C:N/I:N/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: KVM: x86 emulator: limit instructions to 15 bytes",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2009-11-24T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2009-4031",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2009:1692"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2009-4031",
+						"Description": "CVE-2009-4031"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=541160",
+						"Description": "bz#541160: CVE-2009-4031 kernel: KVM: x86 emulator: limit instructions to 15 bytes"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2009-11-25T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.3.el5_4rhev2_1"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.1",
+					"Vector": "AV:L/AC:L/Au:N/C:N/I:N/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Virtualization",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Virtualization Hypervisor 5",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Virtualization Hypervisor 5",
+							"productid": "5Server-RHEV-Hypervisor-2",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::hypervisor"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhev-hypervisor-0:5.4-2.1.3.el5_4rhev2_1",
+				"fullproductname": {
+					"text": "rhev-hypervisor-5.4-2.1.3.el5_4rhev2_1.src.rpm",
+					"productid": "rhev-hypervisor-0:5.4-2.1.3.el5_4rhev2_1",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::hypervisor"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "rhev-hypervisor-0:5.4-2.1.3.el5_4rhev2_1",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-RHEV-Hypervisor-2",
+				"fullproductname": {
+					"text": "rhev-hypervisor-0:5.4-2.1.3.el5_4rhev2_1 as a component of Red Hat Enterprise Virtualization Hypervisor 5",
+					"productid": "5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.3.el5_4rhev2_1",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::hypervisor"
+				}
+			}
+		]
+	}
+}

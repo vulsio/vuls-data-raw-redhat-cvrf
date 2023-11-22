@@ -1,0 +1,714 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: openssl security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2023:0946"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2023-02-28T08:22:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2023-02-28T08:22:00Z",
+		"CurrentReleaseDate": "2023-02-28T08:22:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.11.0",
+			"Date": "2023-02-28T12:46:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nAn update for openssl is now available for Red Hat Enterprise Linux 9.\n\nRed Hat Product Security has rated this update as having a security impact of Moderate. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nOpenSSL is a toolkit that implements the Secure Sockets Layer (SSL) and Transport Layer Security (TLS) protocols, as well as a full-strength general-purpose cryptography library.\n\nSecurity Fix(es):\n\n* openssl: read buffer overflow in X.509 certificate verification (CVE-2022-4203)\n\n* openssl: timing attack in RSA Decryption implementation (CVE-2022-4304)\n\n* openssl: double free after calling PEM_read_bio_ex (CVE-2022-4450)\n\n* openssl: use-after-free following BIO_new_NDEF (CVE-2023-0215)\n\n* openssl: invalid pointer dereference in d2i_PKCS7 functions (CVE-2023-0216)\n\n* openssl: NULL dereference validating DSA public key (CVE-2023-0217)\n\n* openssl: X.400 address type confusion in X.509 GeneralName (CVE-2023-0286)\n\n* openssl: NULL dereference during PKCS7 data verification (CVE-2023-0401)\n\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\n\nBug Fix(es):\n\n* HMAC generation should reject key lengths < 112 bits or provide an indicator in FIPS mode (BZ#2144000)\n\n* In FIPS mode, openssl should set a minimum length for passwords in PBKDF2 (BZ#2144003)\n\n* stunnel consumes high amount of memory when pestered with TCP connections without a TLS handshake (BZ#2144008)\n\n* In FIPS mode, openssl should reject SHAKE as digest for RSA-OAEP or provide an indicator (BZ#2144010)\n\n* In FIPS mode, openssl should reject RSASSA-PSS salt lengths larger than the output size of the hash function used, or provide an indicator (BZ#2144012)\n\n* In FIPS mode, openssl should reject RSA signatures with X9.31 padding, or provide an indicator (BZ#2144015)\n\n* In FIPS mode, openssl should reject SHA-224, SHA-384, SHA-512-224, and SHA-512-256 as hashes for hash-based DRBGs, or provide an indicator after 2023-05-16 (BZ#2144017)\n\n* In FIPS mode, openssl should reject KDF input and output key lengths < 112 bits or provide an indicator (BZ#2144019)\n\n* In FIPS mode, openssl should reject RSA keys < 2048 bits when using EVP_PKEY_decapsulate, or provide an indicator (BZ#2145170)\n\n* RHEL9.1 Nightly[0912] - error:03000093:digital envelope routines::command not supported when git clone is run with configured ibmca engine backed by libica.so.4 (OpenSSL 3.0) (BZ#2149010)\n\n* OpenSSL FIPS checksum code needs update (BZ#2158412)\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2023 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2023:0946",
+				"Description": "https://access.redhat.com/errata/RHSA-2023:0946"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in Open SSL. A read buffer overrun can be triggered in X.509 certificate verification, specifically in name constraint checking. Note that this occurs after certificate chain signature verification, and requires either a CA to have signed the malicious certificate or for the application to continue certificate verification despite failure to construct a path to a trusted issuer.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2023-02-07T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-4203",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nFor the update to take effect, all services linked to the OpenSSL library must be restarted, or the system rebooted.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:0946"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.openssl.org/news/secadv/20230207.txt",
+						"Description": "https://www.openssl.org/news/secadv/20230207.txt"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-4203",
+						"Description": "CVE-2022-4203"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2164488",
+						"Description": "bz#2164488: CVE-2022-4203 openssl: read buffer overflow in X.509 certificate verification"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2023-01-25T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"AppStream-9.1.0.Z.MAIN:openssl-1:3.0.1-47.el9_1",
+						"BaseOS-9.1.0.Z.MAIN:openssl-1:3.0.1-47.el9_1"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A timing-based side channel exists in the OpenSSL RSA Decryption implementation, which could be sufficient to recover a ciphertext across a network in a Bleichenbacher style attack. To achieve a successful decryption, an attacker would have to be able to send a very large number of trial messages for decryption. This issue affects all RSA padding modes: PKCS#1 v1.5, RSA-OEAP, and RSASVE.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2023-02-07T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-4304",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nFor the update to take effect, all services linked to the OpenSSL library must be restarted, or the system rebooted.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:0946"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.openssl.org/news/secadv/20230207.txt",
+						"Description": "https://www.openssl.org/news/secadv/20230207.txt"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-4304",
+						"Description": "CVE-2022-4304"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2164487",
+						"Description": "bz#2164487: CVE-2022-4304 openssl: timing attack in RSA Decryption implementation"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2023-01-25T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"AppStream-9.1.0.Z.MAIN:openssl-1:3.0.1-47.el9_1",
+						"BaseOS-9.1.0.Z.MAIN:openssl-1:3.0.1-47.el9_1"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A double-free vulnerability was found in OpenSSL's PEM_read_bio_ex function. The function PEM_read_bio_ex() reads a PEM file from a BIO and parses and decodes the \"name\" (for example, \"CERTIFICATE\"), any header data, and the payload data. If the function succeeds, then the \"name_out,\" \"header,\" and \"data\" arguments are populated with pointers to buffers containing the relevant decoded data. The caller is responsible for freeing those buffers. Constructing a PEM file that results in 0 bytes of payload data is possible. In this case, PEM_read_bio_ex() will return a failure code but will populate the header argument with a pointer to a freed buffer. A double-free will occur if the caller also frees this buffer. This will most likely lead to a crash. This could be exploited by an attacker who can supply malicious PEM files for parsing to achieve a denial of service attack.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2023-02-07T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-4450",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nFor the update to take effect, all services linked to the OpenSSL library must be restarted, or the system rebooted.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:0946"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-4450",
+						"Description": "CVE-2022-4450"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2164494",
+						"Description": "bz#2164494: CVE-2022-4450 openssl: double free after calling PEM_read_bio_ex"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2023-01-25T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"AppStream-9.1.0.Z.MAIN:openssl-1:3.0.1-47.el9_1",
+						"BaseOS-9.1.0.Z.MAIN:openssl-1:3.0.1-47.el9_1"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A use-after-free vulnerability was found in OpenSSL's BIO_new_NDEF function. The public API function BIO_new_NDEF is a helper function used for streaming ASN.1 data via a BIO. It is primarily used internally by OpenSSL to support the SMIME, CMS, and PKCS7 streaming capabilities, but it may also be called directly by end-user applications. The function receives a BIO from the caller, prepends a new BIO_f_asn1 filter BIO onto the front of it to form a BIO chain, and then returns the new head of the BIO chain to the caller. Under certain conditions. For example, if a CMS recipient public key is invalid, the new filter BIO is freed, and the function returns a NULL result indicating a failure. However, in this case, the BIO chain is not properly cleaned up, and the BIO passed by the caller still retains internal pointers to the previously freed filter BIO. If the caller then calls BIO_pop() on the BIO, a use-after-free will occur, possibly resulting in a crash.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2023-02-07T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2023-0215",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nFor the update to take effect, all services linked to the OpenSSL library must be restarted, or the system rebooted.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:0946"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2023-0215",
+						"Description": "CVE-2023-0215"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2164492",
+						"Description": "bz#2164492: CVE-2023-0215 openssl: use-after-free following BIO_new_NDEF"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2023-01-25T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"AppStream-9.1.0.Z.MAIN:openssl-1:3.0.1-47.el9_1",
+						"BaseOS-9.1.0.Z.MAIN:openssl-1:3.0.1-47.el9_1"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in OpenSSL. An invalid pointer dereference on read can be triggered when an application tries to load malformed PKCS7 data with the d2i_PKCS7(), d2i_PKCS7_bio() or d2i_PKCS7_fp() functions. This may result in an application crash which could lead to a denial of service. The TLS implementation in OpenSSL does not call this function, however, third party applications might call these functions on untrusted data.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2023-02-07T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2023-0216",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nFor the update to take effect, all services linked to the OpenSSL library must be restarted, or the system rebooted.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:0946"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2023-0216",
+						"Description": "CVE-2023-0216"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2164497",
+						"Description": "bz#2164497: CVE-2023-0216 openssl: invalid pointer dereference in d2i_PKCS7 functions"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2023-01-25T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"AppStream-9.1.0.Z.MAIN:openssl-1:3.0.1-47.el9_1",
+						"BaseOS-9.1.0.Z.MAIN:openssl-1:3.0.1-47.el9_1"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "6",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A flaw was found in OpenSSL. An invalid pointer dereference on read can be triggered when an application tries to check a malformed DSA public key by the EVP_PKEY_public_check() function, most likely leading to an application crash. This function can be called on public keys supplied from untrusted sources, which could allow an attacker to cause a denial of service.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2023-02-07T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2023-0217",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nFor the update to take effect, all services linked to the OpenSSL library must be restarted, or the system rebooted.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:0946"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2023-0217",
+						"Description": "CVE-2023-0217"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2164499",
+						"Description": "bz#2164499: CVE-2023-0217 openssl: NULL dereference validating DSA public key"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2023-01-25T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"AppStream-9.1.0.Z.MAIN:openssl-1:3.0.1-47.el9_1",
+						"BaseOS-9.1.0.Z.MAIN:openssl-1:3.0.1-47.el9_1"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "7",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A type confusion vulnerability was found in OpenSSL when OpenSSL X.400 addresses processing inside an X.509 GeneralName. When CRL checking is enabled (for example, the application sets the X509_V_FLAG_CRL_CHECK flag), this vulnerability may allow an attacker to pass arbitrary pointers to a memcmp call, enabling them to read memory contents or cause a denial of service. In most cases, the attack requires the attacker to provide both the certificate chain and CRL, of which neither needs a valid signature. If the attacker only controls one of these inputs, the other input must already contain an X.400 address as a CRL distribution point, which is uncommon. In this case, this vulnerability is likely only to affect applications that have implemented their own functionality for retrieving CRLs over a network.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2023-02-07T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2023-0286",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nFor the update to take effect, all services linked to the OpenSSL library must be restarted, or the system rebooted.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:0946"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.openssl.org/news/secadv/20230207.txt",
+						"Description": "https://www.openssl.org/news/secadv/20230207.txt"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2023-0286",
+						"Description": "CVE-2023-0286"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2164440",
+						"Description": "bz#2164440: CVE-2023-0286 openssl: X.400 address type confusion in X.509 GeneralName"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2023-01-25T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"AppStream-9.1.0.Z.MAIN:openssl-1:3.0.1-47.el9_1",
+						"BaseOS-9.1.0.Z.MAIN:openssl-1:3.0.1-47.el9_1"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "8",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "A NULL pointer vulnerability was found in OpenSSL, which can be dereferenced when signatures are being verified on PKCS7 signed or signedAndEnveloped data. In case the hash algorithm used for the signature is known to the OpenSSL library but the implementation of the hash algorithm is not available, the digest initialization will fail. There is a missing check for the return value from the initialization function which later leads to invalid usage of the digest API, most likely leading to a crash.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2023-02-07T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2023-0401",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n\nFor the update to take effect, all services linked to the OpenSSL library must be restarted, or the system rebooted.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2023:0946"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2023-0401",
+						"Description": "CVE-2023-0401"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2164500",
+						"Description": "bz#2164500: CVE-2023-0401 openssl: NULL dereference during PKCS7 data verification"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2023-01-25T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"AppStream-9.1.0.Z.MAIN:openssl-1:3.0.1-47.el9_1",
+						"BaseOS-9.1.0.Z.MAIN:openssl-1:3.0.1-47.el9_1"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux AppStream (v. 9)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux AppStream (v. 9)",
+							"productid": "AppStream-9.1.0.Z.MAIN",
+							"cpe": "cpe:/a:redhat:enterprise_linux:9::appstream"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux BaseOS (v. 9)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux BaseOS (v. 9)",
+							"productid": "BaseOS-9.1.0.Z.MAIN",
+							"cpe": "cpe:/o:redhat:enterprise_linux:9::baseos"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "openssl-1:3.0.1-47.el9_1",
+				"fullproductname": {
+					"text": "openssl-3.0.1-47.el9_1.src.rpm",
+					"productid": "openssl-1:3.0.1-47.el9_1",
+					"cpe": "cpe:/a:redhat:enterprise_linux:9::appstream"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "openssl-1:3.0.1-47.el9_1",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "AppStream-9.1.0.Z.MAIN",
+				"fullproductname": {
+					"text": "openssl-1:3.0.1-47.el9_1 as a component of Red Hat Enterprise Linux AppStream (v. 9)",
+					"productid": "AppStream-9.1.0.Z.MAIN:openssl-1:3.0.1-47.el9_1",
+					"cpe": "cpe:/a:redhat:enterprise_linux:9::appstream"
+				}
+			},
+			{
+				"productreference": "openssl-1:3.0.1-47.el9_1",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "BaseOS-9.1.0.Z.MAIN",
+				"fullproductname": {
+					"text": "openssl-1:3.0.1-47.el9_1 as a component of Red Hat Enterprise Linux BaseOS (v. 9)",
+					"productid": "BaseOS-9.1.0.Z.MAIN:openssl-1:3.0.1-47.el9_1",
+					"cpe": "cpe:/o:redhat:enterprise_linux:9::baseos"
+				}
+			}
+		]
+	}
+}

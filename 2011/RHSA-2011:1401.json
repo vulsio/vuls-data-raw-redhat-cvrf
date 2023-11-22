@@ -1,0 +1,257 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: xen security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2011:1401"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2011-10-24T13:13:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2011-10-24T17:13:00Z",
+		"CurrentReleaseDate": "2011-10-24T13:13:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:36:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated xen packages that fix one security issue and three bugs are now\navailable for Red Hat Enterprise Linux 5.\n\nThe Red Hat Security Response Team has rated this update as having moderate\nsecurity impact. A Common Vulnerability Scoring System (CVSS) base score,\nwhich gives a detailed severity rating, is available from the CVE link in\nthe References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe xen packages contain administration tools and the xend service for\nmanaging the kernel-xen kernel for virtualization on Red Hat Enterprise\nLinux.\n\nA buffer overflow flaw was found in the Xen hypervisor SCSI subsystem\nemulation. An unprivileged, local guest user could provide a large number\nof bytes that are used to zero out a fixed-sized buffer via a SAI READ\nCAPACITY SCSI command, overwriting memory and causing the guest to crash.\n(CVE-2011-3346)\n\nThis update also fixes the following bugs:\n\n* Prior to this update, the vif-bridge script used a maximum transmission\nunit (MTU) of 1500 for a new Virtual Interface (VIF). As a result, the MTU\nof the VIF could differ from that of the target bridge. This update fixes\nthe VIF hot-plug script so that the default MTU for new VIFs will match\nthat of the target Xen hypervisor bridge. In combination with a new enough\nkernel (RHSA-2011:1386), this enables the use of jumbo frames in Xen\nhypervisor guests. (BZ#738608)\n\n* Prior to this update, the network-bridge script set the MTU of the bridge\nto 1500. As a result, the MTU of the Xen hypervisor bridge could differ\nfrom that of the physical interface. This update fixes the network script\nso the MTU of the bridge can be set higher than 1500, thus also providing\nsupport for jumbo frames. Now, the MTU of the Xen hypervisor bridge will\nmatch that of the physical interface. (BZ#738610)\n\n* Red Hat Enterprise Linux 5.6 introduced an optimized migration handling\nthat speeds up the migration of guests with large memory. However, the new\nmigration procedure can theoretically cause data corruption. While no cases\nwere observed in practice, with this update, the xend daemon properly waits\nfor correct device release before the guest is started on a destination\nmachine, thus fixing this bug. (BZ#743850)\n\nNote: Before a guest is using a new enough kernel (RHSA-2011:1386), the MTU\nof the VIF will drop back to 1500 (if it was set higher) after migration.\n\nAll xen users are advised to upgrade to these updated packages, which\ncontain backported patches to correct these issues. After installing the\nupdated packages, the xend service must be restarted for this update to\ntake effect.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2011:1401",
+				"Description": "https://access.redhat.com/errata/RHSA-2011:1401"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			},
+			{
+				"type": "External",
+				"URL": "https://rhn.redhat.com/errata/RHSA-2011-1386.html",
+				"Description": "https://rhn.redhat.com/errata/RHSA-2011-1386.html"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "qemu: local DoS with SCSI CD-ROM",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2011-09-07T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2011-3346",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/kb/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2011:1401"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2011-3346",
+						"Description": "CVE-2011-3346"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=736038",
+						"Description": "bz#736038: CVE-2011-3346 qemu: local DoS with SCSI CD-ROM"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2011-09-06T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-5.7.Z:xen-0:3.0.3-132.el5_7.2",
+						"5Client-VT-5.7.Z:xen-0:3.0.3-132.el5_7.2",
+						"5Server-5.7.Z:xen-0:3.0.3-132.el5_7.2",
+						"5Server-VT-5.7.Z:xen-0:3.0.3-132.el5_7.2"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.0",
+					"Vector": "AV:L/AC:H/Au:N/C:N/I:N/A:C"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+							"productid": "5Client-5.7.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "RHEL Desktop Multi OS (v. 5 client)",
+						"fullproductname": {
+							"text": "RHEL Desktop Multi OS (v. 5 client)",
+							"productid": "5Client-VT-5.7.Z",
+							"cpe": "cpe:/a:redhat:rhel_virtualization:5::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux (v. 5 server)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux (v. 5 server)",
+							"productid": "5Server-5.7.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "RHEL Virtualization (v. 5 server)",
+						"fullproductname": {
+							"text": "RHEL Virtualization (v. 5 server)",
+							"productid": "5Server-VT-5.7.Z",
+							"cpe": "cpe:/a:redhat:rhel_virtualization:5::server"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "xen-0:3.0.3-132.el5_7.2",
+				"fullproductname": {
+					"text": "xen-3.0.3-132.el5_7.2.src.rpm",
+					"productid": "xen-0:3.0.3-132.el5_7.2",
+					"cpe": "cpe:/a:redhat:rhel_virtualization:5::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "xen-0:3.0.3-132.el5_7.2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Client-5.7.Z",
+				"fullproductname": {
+					"text": "xen-0:3.0.3-132.el5_7.2 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"productid": "5Client-5.7.Z:xen-0:3.0.3-132.el5_7.2",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+				}
+			},
+			{
+				"productreference": "xen-0:3.0.3-132.el5_7.2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Client-VT-5.7.Z",
+				"fullproductname": {
+					"text": "xen-0:3.0.3-132.el5_7.2 as a component of RHEL Desktop Multi OS (v. 5 client)",
+					"productid": "5Client-VT-5.7.Z:xen-0:3.0.3-132.el5_7.2",
+					"cpe": "cpe:/a:redhat:rhel_virtualization:5::client"
+				}
+			},
+			{
+				"productreference": "xen-0:3.0.3-132.el5_7.2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-5.7.Z",
+				"fullproductname": {
+					"text": "xen-0:3.0.3-132.el5_7.2 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"productid": "5Server-5.7.Z:xen-0:3.0.3-132.el5_7.2",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+				}
+			},
+			{
+				"productreference": "xen-0:3.0.3-132.el5_7.2",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-VT-5.7.Z",
+				"fullproductname": {
+					"text": "xen-0:3.0.3-132.el5_7.2 as a component of RHEL Virtualization (v. 5 server)",
+					"productid": "5Server-VT-5.7.Z:xen-0:3.0.3-132.el5_7.2",
+					"cpe": "cpe:/a:redhat:rhel_virtualization:5::server"
+				}
+			}
+		]
+	}
+}

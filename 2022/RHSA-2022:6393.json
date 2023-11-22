@@ -1,0 +1,749 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: RHV Manager (ovirt-engine) [ovirt-4.5.2] bug fix and security update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2022:6393"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2022-09-08T11:31:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2022-09-08T11:31:00Z",
+		"CurrentReleaseDate": "2022-09-08T11:31:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.9.1",
+			"Date": "2022-09-08T13:28:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated ovirt-engine packages that fix several bugs and add various enhancements are now available.\n\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe ovirt-engine package provides the Red Hat Virtualization Manager, a centralized management platform that allows system administrators to view and manage virtual machines. The Manager provides a comprehensive range of features including search capabilities, resource management, live migrations, and virtual infrastructure provisioning.\n\nSecurity Fix(es):\n\n* nodejs-underscore: Arbitrary code execution via the template function (CVE-2021-23358)\n\n* moment: inefficient parsing algorithm resulting in DoS (CVE-2022-31129)\n\n* jquery: Cross-site scripting due to improper injQuery.htmlPrefilter method (CVE-2020-11022)\n\n* jquery: Untrusted code execution via <option> tag in HTML passed to DOM manipulation methods (CVE-2020-11023)\n\n* ovirt-log-collector: RHVM admin password is logged unfiltered (CVE-2022-2806)\n\n* springframework: malicious input leads to insertion of additional log entries (CVE-2021-22096)\n\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\n\nBug Fix(es):\n\n* Previously, running engine-setup did not always renew OVN certificates close to expiration or expired. With this release, OVN certificates are always renewed by engine-setup when needed. (BZ#2097558)\n\n* Previously, the Manager issued warnings of approaching certificate expiration before engine-setup could update certificates. In this release expiration warnings and certificate update periods are aligned, and certificates are updated as soon as expiration warnings occur. (BZ#2097725)\n\n* With this release, OVA export or import work on hosts with a non-standard SSH port. (BZ#2104939)\n\n* With this release, the certificate validity test is compatible with RHEL 8 and RHEL 7 based hypervisors. (BZ#2107250)\n\n* RHV 4.4 SP1 and later are only supported on RHEL 8.6, customers cannot use RHEL 8.7 or later, and must stay with RHEL 8.6 EUS. (BZ#2108985)\n\n* Previously, importing templates from the Administration Portal did not work. With this release, importing templates from the Administration Portal is possible. (BZ#2109923)\n\n* ovirt-provider-ovn certificate expiration is checked along with other RHV certificates. If ovirt-provider-ovn is about to expire or already expired, a warning or alert is raised in the audit log. To renew the ovirt-provider-ovn certificate, administators must run engine-setup. If your ovirt-provider-ovn certificate expires on a previous RHV version, upgrade to RHV 4.4 SP1 batch 2 or later, and ovirt-provider-ovn certificate will be renewed automatically in the engine-setup. (BZ#2097560)\n\n* Previously, when importing a virtual machine with manual CPU pinning, the manual pinning string was cleared, but the CPU pinning policy was not set to NONE. As a result, importing failed. In this release, the CPU pinning policy is set to NONE if the CPU pinning string is cleared, and importing succeeds. (BZ#2104115)\n\n* Previously, the Manager could start a virtual machine with a Resize and Pin NUMA policy on a host without an equal number of physical sockets to NUMA nodes. As a result, wrong pinning was assigned to the policy. With this release, the Manager does not allow the virtual machine to be scheduled on such a virtual machine, and the pinning is correct based on the algorithm. (BZ#1955388)\n\n* Rebase package(s) to version: 4.4.7.\nHighlights, important fixes, or notable enhancements: fixed BZ#2081676 (BZ#2104831)\n\n* In this release, rhv-log-collector-analyzer provides detailed output for each problematic image, including disk names, associated virtual machine, the host running the virtual machine, snapshots, and current SPM. The detailed view is now the default. The compact option can be set by using the --compact switch in the command line. (BZ#2097536)\n\n* UnboundID LDAP SDK has been rebased on upstream version 6.0.4. See https://github.com/pingidentity/ldapsdk/releases for changes since version 4.0.14 (BZ#2092478)\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2022 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2022:6393",
+				"Description": "https://access.redhat.com/errata/RHSA-2022:6393"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "jquery: Cross-site scripting due to improper injQuery.htmlPrefilter method",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2020-04-23T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2020-11022",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/2974891\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2022:6393"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://github.com/advisories/GHSA-gxr4-xjj5-5px2",
+						"Description": "https://github.com/advisories/GHSA-gxr4-xjj5-5px2"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2020-11022",
+						"Description": "CVE-2020-11022"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1828406",
+						"Description": "bz#1828406: CVE-2020-11022 jquery: Cross-site scripting due to improper injQuery.htmlPrefilter method"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2020-04-23T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-RHV-S-4.4:org.ovirt.engine-root-0:4.5.2.4-1",
+						"8Base-RHV-S-4.4:ovirt-engine-dwh-0:4.5.4-1.el8ev",
+						"8Base-RHV-S-4.4:ovirt-engine-extension-aaa-ldap-0:1.4.6-1.el8ev",
+						"8Base-RHV-S-4.4:ovirt-engine-ui-extensions-0:1.3.5-1.el8ev",
+						"8Base-RHV-S-4.4:ovirt-log-collector-0:4.4.7-2.el8ev",
+						"8Base-RHV-S-4.4:ovirt-web-ui-0:1.9.1-1.el8ev",
+						"8Base-RHV-S-4.4:rhv-log-collector-analyzer-0:1.0.15-1.el8ev",
+						"8Base-RHV-S-4.4:unboundid-ldapsdk-0:6.0.4-1.el8ev",
+						"8Base-RHV-S-4.4:vdsm-jsonrpc-java-0:1.7.2-1.el8ev"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "jquery: Untrusted code execution via <option> tag in HTML passed to DOM manipulation methods",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2020-04-29T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2020-11023",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/2974891\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2022:6393"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://blog.jquery.com/2020/04/10/jquery-3-5-0-released/",
+						"Description": "https://blog.jquery.com/2020/04/10/jquery-3-5-0-released/"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2020-11023",
+						"Description": "CVE-2020-11023"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1850004",
+						"Description": "bz#1850004: CVE-2020-11023 jquery: Untrusted code execution via <option> tag in HTML passed to DOM manipulation methods"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2020-06-23T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-RHV-S-4.4:org.ovirt.engine-root-0:4.5.2.4-1",
+						"8Base-RHV-S-4.4:ovirt-engine-dwh-0:4.5.4-1.el8ev",
+						"8Base-RHV-S-4.4:ovirt-engine-extension-aaa-ldap-0:1.4.6-1.el8ev",
+						"8Base-RHV-S-4.4:ovirt-engine-ui-extensions-0:1.3.5-1.el8ev",
+						"8Base-RHV-S-4.4:ovirt-log-collector-0:4.4.7-2.el8ev",
+						"8Base-RHV-S-4.4:ovirt-web-ui-0:1.9.1-1.el8ev",
+						"8Base-RHV-S-4.4:rhv-log-collector-analyzer-0:1.0.15-1.el8ev",
+						"8Base-RHV-S-4.4:unboundid-ldapsdk-0:6.0.4-1.el8ev",
+						"8Base-RHV-S-4.4:vdsm-jsonrpc-java-0:1.7.2-1.el8ev"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "springframework: malicious input leads to insertion of additional log entries",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2021-10-28T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2021-22096",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/2974891\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2022:6393"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2021-22096",
+						"Description": "CVE-2021-22096"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2034584",
+						"Description": "bz#2034584: CVE-2021-22096 springframework: malicious input leads to insertion of additional log entries"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2021-12-21T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-RHV-S-4.4:org.ovirt.engine-root-0:4.5.2.4-1",
+						"8Base-RHV-S-4.4:ovirt-engine-dwh-0:4.5.4-1.el8ev",
+						"8Base-RHV-S-4.4:ovirt-engine-extension-aaa-ldap-0:1.4.6-1.el8ev",
+						"8Base-RHV-S-4.4:ovirt-engine-ui-extensions-0:1.3.5-1.el8ev",
+						"8Base-RHV-S-4.4:ovirt-log-collector-0:4.4.7-2.el8ev",
+						"8Base-RHV-S-4.4:ovirt-web-ui-0:1.9.1-1.el8ev",
+						"8Base-RHV-S-4.4:rhv-log-collector-analyzer-0:1.0.15-1.el8ev",
+						"8Base-RHV-S-4.4:unboundid-ldapsdk-0:6.0.4-1.el8ev",
+						"8Base-RHV-S-4.4:vdsm-jsonrpc-java-0:1.7.2-1.el8ev"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "nodejs-underscore: Arbitrary code execution via the template function",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2021-03-29T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2021-23358",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/2974891\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2022:6393"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2021-23358",
+						"Description": "CVE-2021-23358"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1944286",
+						"Description": "bz#1944286: CVE-2021-23358 nodejs-underscore: Arbitrary code execution via the template function"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2021-03-29T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-RHV-S-4.4:org.ovirt.engine-root-0:4.5.2.4-1",
+						"8Base-RHV-S-4.4:ovirt-engine-dwh-0:4.5.4-1.el8ev",
+						"8Base-RHV-S-4.4:ovirt-engine-extension-aaa-ldap-0:1.4.6-1.el8ev",
+						"8Base-RHV-S-4.4:ovirt-engine-ui-extensions-0:1.3.5-1.el8ev",
+						"8Base-RHV-S-4.4:ovirt-log-collector-0:4.4.7-2.el8ev",
+						"8Base-RHV-S-4.4:ovirt-web-ui-0:1.9.1-1.el8ev",
+						"8Base-RHV-S-4.4:rhv-log-collector-analyzer-0:1.0.15-1.el8ev",
+						"8Base-RHV-S-4.4:unboundid-ldapsdk-0:6.0.4-1.el8ev",
+						"8Base-RHV-S-4.4:vdsm-jsonrpc-java-0:1.7.2-1.el8ev"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "ovirt-log-collector: RHVM admin password is logged unfiltered",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-05-27T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-2806",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/2974891\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2022:6393"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-2806",
+						"Description": "CVE-2022-2806"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2080005",
+						"Description": "bz#2080005: CVE-2022-2806 ovirt-log-collector: RHVM admin password is logged unfiltered"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2022-04-28T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-RHV-S-4.4:org.ovirt.engine-root-0:4.5.2.4-1",
+						"8Base-RHV-S-4.4:ovirt-engine-dwh-0:4.5.4-1.el8ev",
+						"8Base-RHV-S-4.4:ovirt-engine-extension-aaa-ldap-0:1.4.6-1.el8ev",
+						"8Base-RHV-S-4.4:ovirt-engine-ui-extensions-0:1.3.5-1.el8ev",
+						"8Base-RHV-S-4.4:ovirt-log-collector-0:4.4.7-2.el8ev",
+						"8Base-RHV-S-4.4:ovirt-web-ui-0:1.9.1-1.el8ev",
+						"8Base-RHV-S-4.4:rhv-log-collector-analyzer-0:1.0.15-1.el8ev",
+						"8Base-RHV-S-4.4:unboundid-ldapsdk-0:6.0.4-1.el8ev",
+						"8Base-RHV-S-4.4:vdsm-jsonrpc-java-0:1.7.2-1.el8ev"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "6",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "moment: inefficient parsing algorithm resulting in DoS",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2022-07-06T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2022-31129",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/2974891\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2022:6393"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://github.com/moment/moment/security/advisories/GHSA-wc69-rhjr-hc9g",
+						"Description": "https://github.com/moment/moment/security/advisories/GHSA-wc69-rhjr-hc9g"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2022-31129",
+						"Description": "CVE-2022-31129"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=2105075",
+						"Description": "bz#2105075: CVE-2022-31129 moment: inefficient parsing algorithm resulting in DoS"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2022-07-07T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"8Base-RHV-S-4.4:org.ovirt.engine-root-0:4.5.2.4-1",
+						"8Base-RHV-S-4.4:ovirt-engine-dwh-0:4.5.4-1.el8ev",
+						"8Base-RHV-S-4.4:ovirt-engine-extension-aaa-ldap-0:1.4.6-1.el8ev",
+						"8Base-RHV-S-4.4:ovirt-engine-ui-extensions-0:1.3.5-1.el8ev",
+						"8Base-RHV-S-4.4:ovirt-log-collector-0:4.4.7-2.el8ev",
+						"8Base-RHV-S-4.4:ovirt-web-ui-0:1.9.1-1.el8ev",
+						"8Base-RHV-S-4.4:rhv-log-collector-analyzer-0:1.0.15-1.el8ev",
+						"8Base-RHV-S-4.4:unboundid-ldapsdk-0:6.0.4-1.el8ev",
+						"8Base-RHV-S-4.4:vdsm-jsonrpc-java-0:1.7.2-1.el8ev"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Virtualization",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "RHEL-8-RHEV-S-4.4 - Red Hat Virtualization Engine 4.4",
+						"fullproductname": {
+							"text": "RHEL-8-RHEV-S-4.4 - Red Hat Virtualization Engine 4.4",
+							"productid": "8Base-RHV-S-4.4",
+							"cpe": "cpe:/a:redhat:rhev_manager:4.4:el8"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "org.ovirt.engine-root-0:4.5.2.4-1",
+				"fullproductname": {
+					"text": "org.ovirt.engine-root-4.5.2.4-1.src.rpm",
+					"productid": "org.ovirt.engine-root-0:4.5.2.4-1",
+					"cpe": "cpe:/a:redhat:rhev_manager:4.4:el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ovirt-engine-dwh-0:4.5.4-1.el8ev",
+				"fullproductname": {
+					"text": "ovirt-engine-dwh-4.5.4-1.el8ev.src.rpm",
+					"productid": "ovirt-engine-dwh-0:4.5.4-1.el8ev",
+					"cpe": "cpe:/a:redhat:rhev_manager:4.4:el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ovirt-engine-extension-aaa-ldap-0:1.4.6-1.el8ev",
+				"fullproductname": {
+					"text": "ovirt-engine-extension-aaa-ldap-1.4.6-1.el8ev.src.rpm",
+					"productid": "ovirt-engine-extension-aaa-ldap-0:1.4.6-1.el8ev",
+					"cpe": "cpe:/a:redhat:rhev_manager:4.4:el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ovirt-engine-ui-extensions-0:1.3.5-1.el8ev",
+				"fullproductname": {
+					"text": "ovirt-engine-ui-extensions-1.3.5-1.el8ev.src.rpm",
+					"productid": "ovirt-engine-ui-extensions-0:1.3.5-1.el8ev",
+					"cpe": "cpe:/a:redhat:rhev_manager:4.4:el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ovirt-log-collector-0:4.4.7-2.el8ev",
+				"fullproductname": {
+					"text": "ovirt-log-collector-4.4.7-2.el8ev.src.rpm",
+					"productid": "ovirt-log-collector-0:4.4.7-2.el8ev",
+					"cpe": "cpe:/a:redhat:rhev_manager:4.4:el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "ovirt-web-ui-0:1.9.1-1.el8ev",
+				"fullproductname": {
+					"text": "ovirt-web-ui-1.9.1-1.el8ev.src.rpm",
+					"productid": "ovirt-web-ui-0:1.9.1-1.el8ev",
+					"cpe": "cpe:/a:redhat:rhev_manager:4.4:el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "rhv-log-collector-analyzer-0:1.0.15-1.el8ev",
+				"fullproductname": {
+					"text": "rhv-log-collector-analyzer-1.0.15-1.el8ev.src.rpm",
+					"productid": "rhv-log-collector-analyzer-0:1.0.15-1.el8ev",
+					"cpe": "cpe:/a:redhat:rhev_manager:4.4:el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "unboundid-ldapsdk-0:6.0.4-1.el8ev",
+				"fullproductname": {
+					"text": "unboundid-ldapsdk-6.0.4-1.el8ev.src.rpm",
+					"productid": "unboundid-ldapsdk-0:6.0.4-1.el8ev",
+					"cpe": "cpe:/a:redhat:rhev_manager:4.4:el8"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "vdsm-jsonrpc-java-0:1.7.2-1.el8ev",
+				"fullproductname": {
+					"text": "vdsm-jsonrpc-java-1.7.2-1.el8ev.src.rpm",
+					"productid": "vdsm-jsonrpc-java-0:1.7.2-1.el8ev",
+					"cpe": "cpe:/a:redhat:rhev_manager:4.4:el8"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "org.ovirt.engine-root-0:4.5.2.4-1",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHV-S-4.4",
+				"fullproductname": {
+					"text": "org.ovirt.engine-root-0:4.5.2.4-1 as a component of RHEL-8-RHEV-S-4.4 - Red Hat Virtualization Engine 4.4",
+					"productid": "8Base-RHV-S-4.4:org.ovirt.engine-root-0:4.5.2.4-1",
+					"cpe": "cpe:/a:redhat:rhev_manager:4.4:el8"
+				}
+			},
+			{
+				"productreference": "ovirt-engine-dwh-0:4.5.4-1.el8ev",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHV-S-4.4",
+				"fullproductname": {
+					"text": "ovirt-engine-dwh-0:4.5.4-1.el8ev as a component of RHEL-8-RHEV-S-4.4 - Red Hat Virtualization Engine 4.4",
+					"productid": "8Base-RHV-S-4.4:ovirt-engine-dwh-0:4.5.4-1.el8ev",
+					"cpe": "cpe:/a:redhat:rhev_manager:4.4:el8"
+				}
+			},
+			{
+				"productreference": "ovirt-engine-extension-aaa-ldap-0:1.4.6-1.el8ev",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHV-S-4.4",
+				"fullproductname": {
+					"text": "ovirt-engine-extension-aaa-ldap-0:1.4.6-1.el8ev as a component of RHEL-8-RHEV-S-4.4 - Red Hat Virtualization Engine 4.4",
+					"productid": "8Base-RHV-S-4.4:ovirt-engine-extension-aaa-ldap-0:1.4.6-1.el8ev",
+					"cpe": "cpe:/a:redhat:rhev_manager:4.4:el8"
+				}
+			},
+			{
+				"productreference": "ovirt-engine-ui-extensions-0:1.3.5-1.el8ev",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHV-S-4.4",
+				"fullproductname": {
+					"text": "ovirt-engine-ui-extensions-0:1.3.5-1.el8ev as a component of RHEL-8-RHEV-S-4.4 - Red Hat Virtualization Engine 4.4",
+					"productid": "8Base-RHV-S-4.4:ovirt-engine-ui-extensions-0:1.3.5-1.el8ev",
+					"cpe": "cpe:/a:redhat:rhev_manager:4.4:el8"
+				}
+			},
+			{
+				"productreference": "ovirt-log-collector-0:4.4.7-2.el8ev",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHV-S-4.4",
+				"fullproductname": {
+					"text": "ovirt-log-collector-0:4.4.7-2.el8ev as a component of RHEL-8-RHEV-S-4.4 - Red Hat Virtualization Engine 4.4",
+					"productid": "8Base-RHV-S-4.4:ovirt-log-collector-0:4.4.7-2.el8ev",
+					"cpe": "cpe:/a:redhat:rhev_manager:4.4:el8"
+				}
+			},
+			{
+				"productreference": "ovirt-web-ui-0:1.9.1-1.el8ev",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHV-S-4.4",
+				"fullproductname": {
+					"text": "ovirt-web-ui-0:1.9.1-1.el8ev as a component of RHEL-8-RHEV-S-4.4 - Red Hat Virtualization Engine 4.4",
+					"productid": "8Base-RHV-S-4.4:ovirt-web-ui-0:1.9.1-1.el8ev",
+					"cpe": "cpe:/a:redhat:rhev_manager:4.4:el8"
+				}
+			},
+			{
+				"productreference": "rhv-log-collector-analyzer-0:1.0.15-1.el8ev",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHV-S-4.4",
+				"fullproductname": {
+					"text": "rhv-log-collector-analyzer-0:1.0.15-1.el8ev as a component of RHEL-8-RHEV-S-4.4 - Red Hat Virtualization Engine 4.4",
+					"productid": "8Base-RHV-S-4.4:rhv-log-collector-analyzer-0:1.0.15-1.el8ev",
+					"cpe": "cpe:/a:redhat:rhev_manager:4.4:el8"
+				}
+			},
+			{
+				"productreference": "unboundid-ldapsdk-0:6.0.4-1.el8ev",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHV-S-4.4",
+				"fullproductname": {
+					"text": "unboundid-ldapsdk-0:6.0.4-1.el8ev as a component of RHEL-8-RHEV-S-4.4 - Red Hat Virtualization Engine 4.4",
+					"productid": "8Base-RHV-S-4.4:unboundid-ldapsdk-0:6.0.4-1.el8ev",
+					"cpe": "cpe:/a:redhat:rhev_manager:4.4:el8"
+				}
+			},
+			{
+				"productreference": "vdsm-jsonrpc-java-0:1.7.2-1.el8ev",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "8Base-RHV-S-4.4",
+				"fullproductname": {
+					"text": "vdsm-jsonrpc-java-0:1.7.2-1.el8ev as a component of RHEL-8-RHEV-S-4.4 - Red Hat Virtualization Engine 4.4",
+					"productid": "8Base-RHV-S-4.4:vdsm-jsonrpc-java-0:1.7.2-1.el8ev",
+					"cpe": "cpe:/a:redhat:rhev_manager:4.4:el8"
+				}
+			}
+		]
+	}
+}

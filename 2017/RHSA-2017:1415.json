@@ -1,0 +1,586 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: Red Hat JBoss Core Services Apache HTTP Server 2.4.23 Service Pack 1",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2017:1415"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2017-06-07T17:43:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2017-06-07T17:43:00Z",
+		"CurrentReleaseDate": "2017-06-07T17:43:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:42:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nAn update is now available for Red Hat JBoss Core Services.\n\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nRed Hat JBoss Core Services is a set of supplementary software for Red Hat JBoss middleware products. This software, such as Apache HTTP Server, is common to multiple JBoss middleware products, and is packaged under Red Hat JBoss Core Services to allow for faster distribution of updates, and for a more consistent update experience.\n\nThis release of Red Hat JBoss Core Services Apache HTTP Server 2.4.23 Service Pack 1 serves as a replacement for Red Hat JBoss Core Services Apache HTTP Server 2.4.23, and includes bug fixes, which are documented in the Release Notes document linked to in the References.\n\nSecurity Fix(es):\n\n* A memory leak flaw was found in the way OpenSSL handled TLS status request extension data during session renegotiation. A remote attacker could cause a TLS server using OpenSSL to consume an excessive amount of memory and, possibly, exit unexpectedly after exhausting all available memory, if it enabled OCSP stapling support. (CVE-2016-6304)\n\n* It was discovered that the mod_session_crypto module of httpd did not use any mechanisms to verify integrity of the encrypted session data stored in the user's browser. A remote attacker could use this flaw to decrypt and modify session data using a padding oracle attack. (CVE-2016-0736)\n\n* It was discovered that the mod_auth_digest module of httpd did not properly check for memory allocation failures. A remote attacker could use this flaw to cause httpd child processes to repeatedly crash if the server used HTTP digest authentication. (CVE-2016-2161)\n\n* A timing attack flaw was found in OpenSSL that could allow a malicious user with local access to recover ECDSA P-256 private keys. (CVE-2016-7056)\n\n* A denial of service flaw was found in the way the TLS/SSL protocol defined processing of ALERT packets during a connection handshake. A remote attacker could use this flaw to make a TLS/SSL server consume an excessive amount of CPU and fail to accept connections from other clients. (CVE-2016-8610)\n\n* It was discovered that the HTTP parser in httpd incorrectly allowed certain characters not permitted by the HTTP protocol specification to appear unencoded in HTTP request headers. If httpd was used in conjunction with a proxy or backend server that interpreted those characters differently, a remote attacker could possibly use this flaw to inject data into HTTP responses, resulting in proxy cache poisoning. (CVE-2016-8743)\n\n* A vulnerability was found in httpd's handling of the LimitRequestFields directive in mod_http2, affecting servers with HTTP/2 enabled. An attacker could send crafted requests with headers larger than the server's available memory, causing httpd to crash. (CVE-2016-8740)\n\nRed Hat would like to thank the OpenSSL project for reporting CVE-2016-6304 and Shi Lei (Gear Team of Qihoo 360 Inc.) for reporting CVE-2016-8610. Upstream acknowledges Shi Lei (Gear Team of Qihoo 360 Inc.) as the original reporter of CVE-2016-6304.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2017:1415",
+				"Description": "https://access.redhat.com/errata/RHSA-2017:1415"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/jbossnetwork/restricted/listSoftware.html?product=core.service.apachehttp&downloadType=securityPatches&version=2.4.23",
+				"Description": "https://access.redhat.com/jbossnetwork/restricted/listSoftware.html?product=core.service.apachehttp&downloadType=securityPatches&version=2.4.23"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/documentation/en/red-hat-jboss-core-services/",
+				"Description": "https://access.redhat.com/documentation/en/red-hat-jboss-core-services/"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "httpd: Padding Oracle in Apache mod_session_crypto",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-12-20T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2016-0736",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2017:1415"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://httpd.apache.org/security/vulnerabilities_24.html#2.4.25",
+						"Description": "https://httpd.apache.org/security/vulnerabilities_24.html#2.4.25"
+					},
+					{
+						"URL": "https://www.redteam-pentesting.de/advisories/rt-sa-2016-001.txt",
+						"Description": "https://www.redteam-pentesting.de/advisories/rt-sa-2016-001.txt"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2016-0736",
+						"Description": "CVE-2016-0736"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1406744",
+						"Description": "bz#1406744: CVE-2016-0736 httpd: Padding Oracle in Apache mod_session_crypto"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2016-12-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.0",
+					"Vector": "AV:N/AC:H/Au:N/C:P/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "httpd: DoS vulnerability in mod_auth_digest",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-12-20T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2016-2161",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2017:1415"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://httpd.apache.org/security/vulnerabilities_24.html#2.4.25",
+						"Description": "https://httpd.apache.org/security/vulnerabilities_24.html#2.4.25"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2016-2161",
+						"Description": "CVE-2016-2161"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1406753",
+						"Description": "bz#1406753: CVE-2016-2161 httpd: DoS vulnerability in mod_auth_digest"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2016-12-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "openssl: OCSP Status Request extension unbounded memory growth",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-09-22T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2016-6304",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2017:1415"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.openssl.org/news/secadv/20160922.txt",
+						"Description": "https://www.openssl.org/news/secadv/20160922.txt"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2016-6304",
+						"Description": "CVE-2016-6304"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1377600",
+						"Description": "bz#1377600: CVE-2016-6304 openssl: OCSP Status Request extension unbounded memory growth"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2016-09-19T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank the OpenSSL project for reporting this issue. Upstream acknowledges Shi Lei (Gear Team of Qihoo 360 Inc.) as the original reporter."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.0",
+					"Vector": "AV:N/AC:L/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "openssl: ECDSA P-256 timing attack key recovery",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2017-01-10T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2016-7056",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2017:1415"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2016-7056",
+						"Description": "CVE-2016-7056"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1412120",
+						"Description": "bz#1412120: CVE-2016-7056 openssl: ECDSA P-256 timing attack key recovery"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2017-01-10T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "SSL/TLS: Malformed plain-text ALERT packets could cause remote DoS",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-10-24T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2016-8610",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2017:1415"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "http://security.360.cn/cve/CVE-2016-8610",
+						"Description": "http://security.360.cn/cve/CVE-2016-8610"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2016-8610",
+						"Description": "CVE-2016-8610"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1384743",
+						"Description": "bz#1384743: CVE-2016-8610 SSL/TLS: Malformed plain-text ALERT packets could cause remote DoS"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2016-10-14T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank Shi Lei (Gear Team of Qihoo 360 Inc.) for reporting this issue."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "6",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "httpd: Incomplete handling of LimitRequestFields directive in mod_http2",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-12-04T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2016-8740",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2017:1415"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "http://seclists.org/bugtraq/2016/Dec/3",
+						"Description": "http://seclists.org/bugtraq/2016/Dec/3"
+					},
+					{
+						"URL": "https://httpd.apache.org/security/vulnerabilities_24.html",
+						"Description": "https://httpd.apache.org/security/vulnerabilities_24.html"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2016-8740",
+						"Description": "CVE-2016-8740"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1401528",
+						"Description": "bz#1401528: CVE-2016-8740 httpd: Incomplete handling of LimitRequestFields directive in mod_http2"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2016-12-05T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "7",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "httpd: Apache HTTP Request Parsing Whitespace Defects",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-12-20T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2016-8743",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2017:1415"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://httpd.apache.org/security/vulnerabilities_24.html#2.4.25",
+						"Description": "https://httpd.apache.org/security/vulnerabilities_24.html#2.4.25"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2016-8743",
+						"Description": "CVE-2016-8743"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1406822",
+						"Description": "bz#1406822: CVE-2016-8743 httpd: Apache HTTP Request Parsing Whitespace Defects"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2016-12-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:P/A:N"
+				}
+			}
+		}
+	],
+	"producttree": {}
+}

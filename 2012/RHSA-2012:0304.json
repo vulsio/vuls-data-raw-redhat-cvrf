@@ -1,0 +1,212 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: vixie-cron security, bug fix, and enhancement update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2012:0304"
+		},
+		"Status": "Final",
+		"Version": "3",
+		"revisionhistory": {
+			"revision": {
+				"Number": "3",
+				"Date": "2012-02-21T02:24:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2012-02-21T02:21:00Z",
+		"CurrentReleaseDate": "2012-02-21T02:24:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:32:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nAn updated vixie-cron package that fixes one security issue, several bugs,\nand adds one enhancement is now available for Red Hat Enterprise Linux 5.\n\nThe Red Hat Security Response Team has rated this update as having low\nsecurity impact. A Common Vulnerability Scoring System (CVSS) base score,\nwhich gives a detailed severity rating, is available from the CVE link in\nthe References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe vixie-cron package contains the Vixie version of cron. Cron is a\nstandard UNIX daemon that runs specified programs at scheduled times. The\nvixie-cron package adds improved security and more powerful configuration\noptions to the standard version of cron.\n\nA race condition was found in the way the crontab program performed file\ntime stamp updates on a temporary file created when editing a user crontab\nfile. A local attacker could use this flaw to change the modification time\nof arbitrary system files via a symbolic link attack. (CVE-2010-0424)\n\nRed Hat would like to thank Dan Rosenberg for reporting this issue.\n\nThis update also fixes the following bugs:\n\n* Cron jobs of users with home directories mounted on a Lightweight\nDirectory Access Protocol (LDAP) server or Network File System (NFS) were\noften refused because jobs were marked as orphaned (typically due to a\ntemporary NSS lookup failure, when NIS and LDAP servers were unreachable).\nWith this update, a database of orphans is created, and cron jobs are\nperformed as expected. (BZ#455664)\n\n* Previously, cron did not log any errors if a cron job file located in the\n/etc/cron.d/ directory contained invalid entries. An upstream patch has\nbeen applied to address this problem and invalid entries in the cron job\nfiles now produce warning messages. (BZ#460070)\n\n* Previously, the \"@reboot\" crontab macro incorrectly ran jobs when the\ncrond daemon was restarted. If the user used the macro on multiple\nmachines, all entries with the \"@reboot\" option were executed every time\nthe crond daemon was restarted. With this update, jobs are executed only\nwhen the machine is rebooted. (BZ#476972)\n\n* The crontab utility is now compiled as a position-independent executable\n(PIE), which enhances the security of the system. (BZ#480930)\n\n* When the parent crond daemon was stopped, but a child crond daemon was\nrunning (executing a program), the \"service crond status\" command\nincorrectly reported that crond was running. The source code has been\nmodified, and the \"service crond status\" command now correctly reports that\ncrond is stopped. (BZ#529632)\n\n* According to the pam(8) manual page, the cron daemon, crond, supports\naccess control with PAM (Pluggable Authentication Module). However, the PAM\nconfiguration file for crond did not export environment variables correctly\nand, consequently, setting PAM variables via cron did not work. This update\nincludes a corrected /etc/pam.d/crond file that exports environment\nvariables correctly. Setting pam variables via cron now works as documented\nin the pam(8) manual page. (BZ#541189)\n\n* Previously, the mcstransd daemon modified labels for the crond daemon.\nWhen the crond daemon attempted to use the modified label and mcstransd was\nnot running, crond used an incorrect label. Consequently, Security-Enhanced\nLinux (SELinux) denials filled up the cron log, no jobs were executed, and\ncrond had to be restarted. With this update, both mcstransd and crond use\nraw SELinux labels, which prevents the problem. (BZ#625016)\n\n* Previously, the crontab(1) and cron(8) manual pages contained multiple\ntypographical errors. This update fixes those errors. (BZ#699620,\nBZ#699621)\n\nIn addition, this update adds the following enhancement:\n\n* Previously, the crontab utility did not use the Pluggable Authentication\nModule (PAM) for verification of users. As a consequence, a user could\naccess crontab even if access had been restricted (usually by being denied\nin the access.conf file). With this update, crontab returns an error\nmessage that the user is not allowed to access crontab because of PAM\nconfiguration. (BZ#249512)\n\nAll vixie-cron users should upgrade to this updated package, which resolves\nthese issues and adds this enhancement.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Low",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2012:0304",
+				"Description": "https://access.redhat.com/errata/RHSA-2012:0304"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#low",
+				"Description": "https://access.redhat.com/security/updates/classification/#low"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "vixie-cron, cronie: Race condition by setting timestamp of user's crontab file, when editing the file",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2010-02-18T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2010-0424",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/kb/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2012:0304"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2010-0424",
+						"Description": "CVE-2010-0424"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=565809",
+						"Description": "bz#565809: CVE-2010-0424 vixie-cron, cronie: Race condition by setting timestamp of user's crontab file, when editing the file"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2010-02-09T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client:vixie-cron-4:4.1-81.el5",
+						"5Server:vixie-cron-4:4.1-81.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "3.6",
+					"Vector": "AV:L/AC:L/Au:N/C:N/I:P/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+							"productid": "5Client",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux (v. 5 server)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux (v. 5 server)",
+							"productid": "5Server",
+							"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "vixie-cron-4:4.1-81.el5",
+				"fullproductname": {
+					"text": "vixie-cron-4.1-81.el5.src.rpm",
+					"productid": "vixie-cron-4:4.1-81.el5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "vixie-cron-4:4.1-81.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Client",
+				"fullproductname": {
+					"text": "vixie-cron-4:4.1-81.el5 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"productid": "5Client:vixie-cron-4:4.1-81.el5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+				}
+			},
+			{
+				"productreference": "vixie-cron-4:4.1-81.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server",
+				"fullproductname": {
+					"text": "vixie-cron-4:4.1-81.el5 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"productid": "5Server:vixie-cron-4:4.1-81.el5",
+					"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+				}
+			}
+		]
+	}
+}

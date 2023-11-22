@@ -1,0 +1,265 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: libreswan security and enhancement update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2015:1979"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2015-11-04T08:37:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2015-11-04T08:37:00Z",
+		"CurrentReleaseDate": "2015-11-04T08:37:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:38:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated libreswan packages that fix one security issue, several bugs, and\nadd several enhancements are now available for Red Hat Enterprise Linux 7.\n\nRed Hat Product Security has rated this update as having Moderate security\nimpact. A Common Vulnerability Scoring System (CVSS) base score, which\ngives a detailed severity rating, is available from the CVE link in the\nReferences section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nLibreswan is an implementation of IPsec & IKE for Linux. IPsec is the\nInternet Protocol Security and uses strong cryptography to provide both\nauthentication and encryption services. These services allow you to build\nsecure tunnels through untrusted networks such as virtual private network\n(VPN).\n\nA flaw was discovered in the way Libreswan's IKE daemon processed IKE KE\npayloads. A remote attacker could send specially crafted IKE payload with a\nKE payload of g^x=0 that, when processed, would lead to a denial of service\n(daemon crash). (CVE-2015-3240)\n\nThis issue was discovered by Paul Wouters of Red Hat.\n\nNote: Please note that when upgrading from an earlier version of Libreswan,\nthe existing CA certificates in the /etc/ipsec.d/cacerts/ directory and the\nexisting certificate revocation list (CRL) files from the\n/etc/ipsec.d/crls/ directory are automatically imported into the NSS\ndatabase. Once completed, these directories are no longer used by\nLibreswan. To install new CA certificates or new CRLS, the certutil and\ncrlutil commands must be used to import these directly into the Network\nSecurity Services (NSS) database.\n\nThis update also adds the following enhancements:\n\n* This update adds support for RFC 7383 IKEv2 Fragmentation, RFC 7619 Auth\nNull and ID Null, INVALID_KE renegotiation, CRL and OCSP support via NSS,\nAES_CTR and AES_GCM support for IKEv2, CAVS testing for FIPS compliance.\n\nIn addition, this update enforces FIPS algorithms restrictions in FIPS\nmode, and runs Composite Application Validation System (CAVS) testing for\nFIPS compliance during package build. A new Cryptographic Algorithm\nValidation Program (CAVP) binary can be used to re-run the CAVS tests at\nany time. Regardless of FIPS mode, the pluto daemon runs RFC test vectors\nfor various algorithms.\n\nFurthermore, compiling on all architectures now enables the \"-Werror\" GCC\noption, which enhances the security by making all warnings into errors.\n(BZ#1263346)\n\n* This update also fixes several memory leaks and introduces a sub-second\npacket retransmit option. (BZ#1268773)\n\n* This update improves migration support from Openswan to Libreswan.\nSpecifically, all Openswan options that can take a time value without a\nsuffix are now supported, and several new keywords for use in the\n/etc/ipsec.conf file have been introduced. See the relevant man pages for\ndetails. (BZ#1268775)\n\n* With this update, loopback support via the \"loopback=\" option has been\ndeprecated. (BZ#1270673)\n\nAll Libreswan users are advised to upgrade to these updated packages, which\ncontain backported patches to correct these issues and add these\nenhancements.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2015:1979",
+				"Description": "https://access.redhat.com/errata/RHSA-2015:1979"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "libreswan / openswan: denial of service via IKE daemon restart when receiving a bad DH gx value",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-08-25T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-3240",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1979"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://libreswan.org/security/CVE-2015-3240/",
+						"Description": "https://libreswan.org/security/CVE-2015-3240/"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-3240",
+						"Description": "CVE-2015-3240"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1232320",
+						"Description": "bz#1232320: CVE-2015-3240 libreswan / openswan: denial of service via IKE daemon restart when receiving a bad DH gx value"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-06-12T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-7.1.Z:libreswan-0:3.15-5.el7_1",
+						"7Server-7.1.Z:libreswan-0:3.15-5.el7_1",
+						"7Server-LE-7.1.Z:libreswan-0:3.15-5.ael7b_1",
+						"7Workstation-7.1.Z:libreswan-0:3.15-5.el7_1"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.0",
+					"Vector": "AV:N/AC:L/Au:N/C:N/I:N/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Client (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Client (v. 7)",
+							"productid": "7Client-7.1.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 7)",
+							"productid": "7Server-7.1.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 7)",
+							"productid": "7Server-LE-7.1.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::ppc64le:server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 7)",
+							"productid": "7Workstation-7.1.Z",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "libreswan-0:3.15-5.ael7b_1",
+				"fullproductname": {
+					"text": "libreswan-3.15-5.ael7b_1.src.rpm",
+					"productid": "libreswan-0:3.15-5.ael7b_1",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::ppc64le:server"
+				}
+			},
+			{
+				"type": "Product Version",
+				"name": "libreswan-0:3.15-5.el7_1",
+				"fullproductname": {
+					"text": "libreswan-3.15-5.el7_1.src.rpm",
+					"productid": "libreswan-0:3.15-5.el7_1",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "libreswan-0:3.15-5.el7_1",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-7.1.Z",
+				"fullproductname": {
+					"text": "libreswan-0:3.15-5.el7_1 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"productid": "7Client-7.1.Z:libreswan-0:3.15-5.el7_1",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "libreswan-0:3.15-5.el7_1",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-7.1.Z",
+				"fullproductname": {
+					"text": "libreswan-0:3.15-5.el7_1 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server-7.1.Z:libreswan-0:3.15-5.el7_1",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "libreswan-0:3.15-5.ael7b_1",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-LE-7.1.Z",
+				"fullproductname": {
+					"text": "libreswan-0:3.15-5.ael7b_1 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server-LE-7.1.Z:libreswan-0:3.15-5.ael7b_1",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::ppc64le:server"
+				}
+			},
+			{
+				"productreference": "libreswan-0:3.15-5.el7_1",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation-7.1.Z",
+				"fullproductname": {
+					"text": "libreswan-0:3.15-5.el7_1 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"productid": "7Workstation-7.1.Z:libreswan-0:3.15-5.el7_1",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			}
+		]
+	}
+}

@@ -1,0 +1,537 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: kernel-rt security, bug fix, and enhancement update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2015:1787"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2015-09-15T09:22:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2015-09-15T09:22:00Z",
+		"CurrentReleaseDate": "2015-09-15T09:22:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:40:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated kernel-rt packages that fix multiple security issues, several bugs,\nand add various enhancements are now available for Red Hat Enterprise\nLinux 7.\n\nRed Hat Product Security has rated this update as having Important security\nimpact. Common Vulnerability Scoring System (CVSS) base scores, which give\ndetailed severity ratings, are available for each vulnerability from the\nCVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe kernel-rt packages contain the Linux kernel, the core of any Linux\noperating system.\n\n* Two flaws were found in the way the Linux kernel's networking\nimplementation handled UDP packets with incorrect checksum values. A remote\nattacker could potentially use these flaws to trigger an infinite loop in\nthe kernel, resulting in a denial of service on the system, or cause a\ndenial of service in applications using the edge triggered epoll\nfunctionality. (CVE-2015-5364, CVE-2015-5366, Important)\n\n* A flaw was found in the way the Linux kernel's ext4 file system handled\nthe \"page size > block size\" condition when the fallocate zero range\nfunctionality was used. A local attacker could use this flaw to crash the\nsystem. (CVE-2015-0275, Moderate)\n\n* It was found that the Linux kernel's keyring implementation would leak\nmemory when adding a key to a keyring via the add_key() function. A local\nattacker could use this flaw to exhaust all available memory on the system.\n(CVE-2015-1333, Moderate)\n\n* A race condition flaw was found in the way the Linux kernel's SCTP\nimplementation handled Address Configuration lists when performing Address\nConfiguration Change (ASCONF). A local attacker could use this flaw to\ncrash the system via a race condition triggered by setting certain ASCONF\noptions on a socket. (CVE-2015-3212, Moderate)\n\n* An information leak flaw was found in the way the Linux kernel's Virtual\nDynamic Shared Object (vDSO) implementation performed address\nrandomization. A local, unprivileged user could use this flaw to leak\nkernel memory addresses to user-space. (CVE-2014-9585, Low)\n\nRed Hat would like to thank Canonical for reporting the CVE-2015-1333\nissue. The CVE-2015-0275 issue was discovered by Xiong Zhou of Red Hat, and\nthe CVE-2015-3212 issue was discovered by Ji Jianwen of Red Hat\nEngineering.\n\nThis update provides a build of the kernel-rt package for Red Hat\nEnterprise MRG 2.5 that is layered on Red Hat Enterprise Linux 6, and fixes\nthe following issues:\n\n* Fix regression in scsi_send_eh_cmnd()\n\n* boot hangs at \"Console: switching to colour dummy device 80x25\"\n\n* Update tcp stack to 3.17 kernel\n\n* ksoftirqd high CPU usage due to stray tasklet from ioatdma driver\n\n(BZ#1245345)\n\nThis update also fixes the following bugs:\n\n* The configuration option CONFIG_RTC_HCTOSYS was disabled on the realtime\nkernel causing the RTC clock to be adjusted with the UTC time even if the\nsystem is configured to set the RTC to the local time. By enabling the\nCONFIG_RTC_HCTOSYS configuration option, when the system is configured to\nuse local time, RTC will correctly update with the local time and not try\nto use another timezone. (BZ#1248047)\n\n* In the realtime kernel, if a rt_mutex was taken while in interrupt\ncontext the normal priority inheritance protocol would falsely identify a\ndeadlock and trigger a kernel crash. The patch that added the rt_mutex in\nthis interrupt context was reverted. (BZ#1250649)\n\nAll kernel-rt users are advised to upgrade to these updated packages, which\ncorrect these issues and add these enhancements. The system must be\nrebooted for this update to take effect.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2015:1787",
+				"Description": "https://access.redhat.com/errata/RHSA-2015:1787"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: ASLR bruteforce possible for vdso library",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-12-11T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-9585",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1787"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-9585",
+						"Description": "CVE-2014-9585"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1181054",
+						"Description": "bz#1181054: CVE-2014-9585 kernel: ASLR bruteforce possible for vdso library"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2015-01-12T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-MRG-Realtime-2:kernel-rt-1:3.10.0-229.rt56.161.el6rt"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "1.9",
+					"Vector": "AV:L/AC:M/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: fs: ext4: fallocate zero range page size > block size BUG()",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-02-18T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-0275",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1787"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-0275",
+						"Description": "CVE-2015-0275"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1193907",
+						"Description": "bz#1193907: CVE-2015-0275 kernel: fs: ext4: fallocate zero range page size > block size BUG()"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-02-17T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-MRG-Realtime-2:kernel-rt-1:3.10.0-229.rt56.161.el6rt"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.7",
+					"Vector": "AV:L/AC:M/Au:N/C:N/I:N/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: denial of service due to memory leak in add_key()",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-07-27T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-1333",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1787"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-1333",
+						"Description": "CVE-2015-1333"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1245658",
+						"Description": "bz#1245658: CVE-2015-1333 kernel: denial of service due to memory leak in add_key()"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-07-17T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-MRG-Realtime-2:kernel-rt-1:3.10.0-229.rt56.161.el6rt"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.9",
+					"Vector": "AV:L/AC:L/Au:N/C:N/I:N/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: SCTP race condition allows list corruption and panic from userlevel",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-06-30T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-3212",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1787"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-3212",
+						"Description": "CVE-2015-3212"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1226442",
+						"Description": "bz#1226442: CVE-2015-3212 kernel: SCTP race condition allows list corruption and panic from userlevel"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-06-17T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-MRG-Realtime-2:kernel-rt-1:3.10.0-229.rt56.161.el6rt"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.6",
+					"Vector": "AV:L/AC:L/Au:N/C:N/I:P/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: net: incorrect processing of checksums in UDP implementation",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-07-01T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-5364",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1787"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-5364",
+						"Description": "CVE-2015-5364"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1239029",
+						"Description": "bz#1239029: CVE-2015-5366 CVE-2015-5364 kernel: net: incorrect processing of checksums in UDP implementation"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2015-07-01T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-MRG-Realtime-2:kernel-rt-1:3.10.0-229.rt56.161.el6rt"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "7.1",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "6",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: net: incorrect processing of checksums in UDP implementation",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-07-01T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-5366",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:1787"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-5366",
+						"Description": "CVE-2015-5366"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1239029",
+						"Description": "bz#1239029: CVE-2015-5366 CVE-2015-5364 kernel: net: incorrect processing of checksums in UDP implementation"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2015-07-01T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"6Server-MRG-Realtime-2:kernel-rt-1:3.10.0-229.rt56.161.el6rt"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "7.1",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:C"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise MRG for RHEL-6",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat MRG Realtime for RHEL 6 Server v.2",
+						"fullproductname": {
+							"text": "Red Hat MRG Realtime for RHEL 6 Server v.2",
+							"productid": "6Server-MRG-Realtime-2",
+							"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-rt-1:3.10.0-229.rt56.161.el6rt",
+				"fullproductname": {
+					"text": "kernel-rt-3.10.0-229.rt56.161.el6rt.src.rpm",
+					"productid": "kernel-rt-1:3.10.0-229.rt56.161.el6rt",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "kernel-rt-1:3.10.0-229.rt56.161.el6rt",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "6Server-MRG-Realtime-2",
+				"fullproductname": {
+					"text": "kernel-rt-1:3.10.0-229.rt56.161.el6rt as a component of Red Hat MRG Realtime for RHEL 6 Server v.2",
+					"productid": "6Server-MRG-Realtime-2:kernel-rt-1:3.10.0-229.rt56.161.el6rt",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+				}
+			}
+		]
+	}
+}

@@ -1,0 +1,978 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: krb5 security, bug fix and enhancement update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2015:0439"
+		},
+		"Status": "Final",
+		"Version": "2",
+		"revisionhistory": {
+			"revision": {
+				"Number": "2",
+				"Date": "2015-03-05T09:38:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2015-03-05T09:38:00Z",
+		"CurrentReleaseDate": "2015-03-05T09:38:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:39:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated krb5 packages that fix multiple security issues, several bugs, and add various enhancements are now available for Red Hat Enterprise Linux 7.\n\nRed Hat Product Security has rated this update as having Moderate security impact. Common Vulnerability Scoring System (CVSS) base scores, which give detailed severity ratings, are available for each vulnerability from the CVE links in the References section.\n\nKerberos is a networked authentication system which allows clients and servers to authenticate to each other with the help of a trusted third party, the Kerberos KDC.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nA NULL pointer dereference flaw was found in the MIT Kerberos SPNEGO acceptor for continuation tokens. A remote, unauthenticated attacker could use this flaw to crash a GSSAPI-enabled server application. (CVE-2014-4344)\n\nA buffer overflow was found in the KADM5 administration server (kadmind) when it was used with an LDAP back end for the KDC database. A remote, authenticated attacker could potentially use this flaw to execute arbitrary code on the system running kadmind. (CVE-2014-4345)\n\nA use-after-free flaw was found in the way the MIT Kerberos libgssapi_krb5 library processed valid context deletion tokens. An attacker able to make an application using the GSS-API library (libgssapi) call the gss_process_context_token() function could use this flaw to crash that application. (CVE-2014-5352)\n\nIf kadmind were used with an LDAP back end for the KDC database, a remote, authenticated attacker with the permissions to set the password policy could crash kadmind by attempting to use a named ticket policy object as a password policy for a principal. (CVE-2014-5353)\n\nA double-free flaw was found in the way MIT Kerberos handled invalid External Data Representation (XDR) data. An authenticated user could use this flaw to crash the MIT Kerberos administration server (kadmind), or other applications using Kerberos libraries, using specially crafted XDR packets. (CVE-2014-9421)\n\nIt was found that the MIT Kerberos administration server (kadmind) incorrectly accepted certain authentication requests for two-component server principal names. A remote attacker able to acquire a key with a particularly named principal (such as \"kad/x\") could use this flaw to impersonate any user to kadmind, and perform administrative actions as that user. (CVE-2014-9422)\n\nAn information disclosure flaw was found in the way MIT Kerberos RPCSEC_GSS implementation (libgssrpc) handled certain requests. An attacker could send a specially crafted request to an application using libgssrpc to disclose a limited portion of uninitialized memory used by that application. (CVE-2014-9423)\n\nTwo buffer over-read flaws were found in the way MIT Kerberos handled certain requests. A remote, unauthenticated attacker able to inject packets into a client or server application's GSSAPI session could use either of these flaws to crash the application. (CVE-2014-4341, CVE-2014-4342)\n\nA double-free flaw was found in the MIT Kerberos SPNEGO initiators. An attacker able to spoof packets to appear as though they are from an GSSAPI acceptor could use this flaw to crash a client application that uses MIT Kerberos. (CVE-2014-4343)\n\nRed Hat would like to thank the MIT Kerberos project for reporting the CVE-2014-5352, CVE-2014-9421, CVE-2014-9422, and CVE-2014-9423 issues. MIT Kerberos project acknowledges Nico Williams for helping with the analysis of CVE-2014-5352.\n\nThe krb5 packages have been upgraded to upstream version 1.12, which provides a number of bug fixes and enhancements, including:\n\n* Added plug-in interfaces for principal-to-username mapping and verifying authorization to user accounts.\n\n* When communicating with a KDC over a connected TCP or HTTPS socket, the client gives the KDC more time to reply before it transmits the request to another server. (BZ#1049709, BZ#1127995)\n\nThis update also fixes multiple bugs, for example:\n\n* The Kerberos client library did not recognize certain exit statuses that the resolver libraries could return when looking up the addresses of servers configured in the /etc/krb5.conf file or locating Kerberos servers using DNS service location. The library could treat non-fatal return codes as fatal errors. Now, the library interprets the specific return codes correctly. (BZ#1084068, BZ#1109102)\n\nIn addition, this update adds various enhancements. Among others:\n\n* Added support for contacting KDCs and kpasswd servers through HTTPS proxies implementing the Kerberos KDC Proxy (KKDCP) protocol. (BZ#1109919)\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2015:0439",
+				"Description": "https://access.redhat.com/errata/RHSA-2015:0439"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "krb5: denial of service flaws when handling padding length longer than the plaintext",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-06-26T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-4341",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll krb5 users are advised to upgrade to these updated packages, which correct these issues and add these enhancements.\n\nBefore applying this update, make sure all previously released errata relevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:0439"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-4341",
+						"Description": "CVE-2014-4341"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1116180",
+						"Description": "bz#1116180: CVE-2014-4341 krb5: denial of service flaws when handling padding length longer than the plaintext"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2014-07-03T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-optional:krb5-0:1.12.2-14.el7",
+						"7Client:krb5-0:1.12.2-14.el7",
+						"7ComputeNode-optional:krb5-0:1.12.2-14.el7",
+						"7ComputeNode:krb5-0:1.12.2-14.el7",
+						"7Server:krb5-0:1.12.2-14.el7",
+						"7Workstation:krb5-0:1.12.2-14.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "krb5: denial of service flaws when handling RFC 1964 tokens",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-06-26T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-4342",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll krb5 users are advised to upgrade to these updated packages, which correct these issues and add these enhancements.\n\nBefore applying this update, make sure all previously released errata relevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:0439"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-4342",
+						"Description": "CVE-2014-4342"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1120581",
+						"Description": "bz#1120581: CVE-2014-4342 krb5: denial of service flaws when handling RFC 1964 tokens"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2014-07-03T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-optional:krb5-0:1.12.2-14.el7",
+						"7Client:krb5-0:1.12.2-14.el7",
+						"7ComputeNode-optional:krb5-0:1.12.2-14.el7",
+						"7ComputeNode:krb5-0:1.12.2-14.el7",
+						"7Server:krb5-0:1.12.2-14.el7",
+						"7Workstation:krb5-0:1.12.2-14.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "krb5: double-free flaw in SPNEGO initiators",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-07-15T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-4343",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll krb5 users are advised to upgrade to these updated packages, which correct these issues and add these enhancements.\n\nBefore applying this update, make sure all previously released errata relevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:0439"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-4343",
+						"Description": "CVE-2014-4343"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1121876",
+						"Description": "bz#1121876: CVE-2014-4343 krb5: double-free flaw in SPNEGO initiators"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2014-07-21T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-optional:krb5-0:1.12.2-14.el7",
+						"7Client:krb5-0:1.12.2-14.el7",
+						"7ComputeNode-optional:krb5-0:1.12.2-14.el7",
+						"7ComputeNode:krb5-0:1.12.2-14.el7",
+						"7Server:krb5-0:1.12.2-14.el7",
+						"7Workstation:krb5-0:1.12.2-14.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "krb5: NULL pointer dereference flaw in SPNEGO acceptor for continuation tokens",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-07-15T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-4344",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll krb5 users are advised to upgrade to these updated packages, which correct these issues and add these enhancements.\n\nBefore applying this update, make sure all previously released errata relevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:0439"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-4344",
+						"Description": "CVE-2014-4344"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1121877",
+						"Description": "bz#1121877: CVE-2014-4344 krb5: NULL pointer dereference flaw in SPNEGO acceptor for continuation tokens"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-07-21T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-optional:krb5-0:1.12.2-14.el7",
+						"7Client:krb5-0:1.12.2-14.el7",
+						"7ComputeNode-optional:krb5-0:1.12.2-14.el7",
+						"7ComputeNode:krb5-0:1.12.2-14.el7",
+						"7Server:krb5-0:1.12.2-14.el7",
+						"7Workstation:krb5-0:1.12.2-14.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "krb5: buffer overrun in kadmind with LDAP backend (MITKRB5-SA-2014-001)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-08-07T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-4345",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll krb5 users are advised to upgrade to these updated packages, which correct these issues and add these enhancements.\n\nBefore applying this update, make sure all previously released errata relevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:0439"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "http://web.mit.edu/Kerberos/advisories/MITKRB5-SA-2014-001.txt",
+						"Description": "http://web.mit.edu/Kerberos/advisories/MITKRB5-SA-2014-001.txt"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-4345",
+						"Description": "CVE-2014-4345"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1128157",
+						"Description": "bz#1128157: CVE-2014-4345 krb5: buffer overrun in kadmind with LDAP backend (MITKRB5-SA-2014-001)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-08-08T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-optional:krb5-0:1.12.2-14.el7",
+						"7Client:krb5-0:1.12.2-14.el7",
+						"7ComputeNode-optional:krb5-0:1.12.2-14.el7",
+						"7ComputeNode:krb5-0:1.12.2-14.el7",
+						"7Server:krb5-0:1.12.2-14.el7",
+						"7Workstation:krb5-0:1.12.2-14.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.0",
+					"Vector": "AV:N/AC:M/Au:S/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "6",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "krb5: gss_process_context_token() incorrectly frees context (MITKRB5-SA-2015-001)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-02-03T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-5352",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll krb5 users are advised to upgrade to these updated packages, which correct these issues and add these enhancements.\n\nBefore applying this update, make sure all previously released errata relevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:0439"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "http://web.mit.edu/Kerberos/advisories/MITKRB5-SA-2015-001.txt",
+						"Description": "http://web.mit.edu/Kerberos/advisories/MITKRB5-SA-2015-001.txt"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-5352",
+						"Description": "CVE-2014-5352"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1179856",
+						"Description": "bz#1179856: CVE-2014-5352 krb5: gss_process_context_token() incorrectly frees context (MITKRB5-SA-2015-001)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-01-07T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-optional:krb5-0:1.12.2-14.el7",
+						"7Client:krb5-0:1.12.2-14.el7",
+						"7ComputeNode-optional:krb5-0:1.12.2-14.el7",
+						"7ComputeNode:krb5-0:1.12.2-14.el7",
+						"7Server:krb5-0:1.12.2-14.el7",
+						"7Workstation:krb5-0:1.12.2-14.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.5",
+					"Vector": "AV:N/AC:L/Au:S/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "7",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "krb5: NULL pointer dereference when using a ticket policy name as a password policy name",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-12-06T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-5353",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll krb5 users are advised to upgrade to these updated packages, which correct these issues and add these enhancements.\n\nBefore applying this update, make sure all previously released errata relevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:0439"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-5353",
+						"Description": "CVE-2014-5353"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1174543",
+						"Description": "bz#1174543: CVE-2014-5353 krb5: NULL pointer dereference when using a ticket policy name as a password policy name"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-12-15T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-optional:krb5-0:1.12.2-14.el7",
+						"7Client:krb5-0:1.12.2-14.el7",
+						"7ComputeNode-optional:krb5-0:1.12.2-14.el7",
+						"7ComputeNode:krb5-0:1.12.2-14.el7",
+						"7Server:krb5-0:1.12.2-14.el7",
+						"7Workstation:krb5-0:1.12.2-14.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "3.5",
+					"Vector": "AV:N/AC:M/Au:S/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "8",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "krb5: kadmind doubly frees partial deserialization results (MITKRB5-SA-2015-001)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-02-03T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-9421",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll krb5 users are advised to upgrade to these updated packages, which correct these issues and add these enhancements.\n\nBefore applying this update, make sure all previously released errata relevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:0439"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "http://web.mit.edu/Kerberos/advisories/MITKRB5-SA-2015-001.txt",
+						"Description": "http://web.mit.edu/Kerberos/advisories/MITKRB5-SA-2015-001.txt"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-9421",
+						"Description": "CVE-2014-9421"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1179857",
+						"Description": "bz#1179857: CVE-2014-9421 krb5: kadmind doubly frees partial deserialization results (MITKRB5-SA-2015-001)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-01-07T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-optional:krb5-0:1.12.2-14.el7",
+						"7Client:krb5-0:1.12.2-14.el7",
+						"7ComputeNode-optional:krb5-0:1.12.2-14.el7",
+						"7ComputeNode:krb5-0:1.12.2-14.el7",
+						"7Server:krb5-0:1.12.2-14.el7",
+						"7Workstation:krb5-0:1.12.2-14.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.5",
+					"Vector": "AV:N/AC:L/Au:S/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "9",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "krb5: kadmind incorrectly validates server principal name (MITKRB5-SA-2015-001)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-02-03T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-9422",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll krb5 users are advised to upgrade to these updated packages, which correct these issues and add these enhancements.\n\nBefore applying this update, make sure all previously released errata relevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:0439"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "http://web.mit.edu/Kerberos/advisories/MITKRB5-SA-2015-001.txt",
+						"Description": "http://web.mit.edu/Kerberos/advisories/MITKRB5-SA-2015-001.txt"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-9422",
+						"Description": "CVE-2014-9422"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1179861",
+						"Description": "bz#1179861: CVE-2014-9422 krb5: kadmind incorrectly validates server principal name (MITKRB5-SA-2015-001)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-01-07T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-optional:krb5-0:1.12.2-14.el7",
+						"7Client:krb5-0:1.12.2-14.el7",
+						"7ComputeNode-optional:krb5-0:1.12.2-14.el7",
+						"7ComputeNode:krb5-0:1.12.2-14.el7",
+						"7Server:krb5-0:1.12.2-14.el7",
+						"7Workstation:krb5-0:1.12.2-14.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.6",
+					"Vector": "AV:N/AC:H/Au:S/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "10",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "krb5: libgssrpc server applications leak uninitialized bytes (MITKRB5-SA-2015-001)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-02-03T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2014-9423",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nAll krb5 users are advised to upgrade to these updated packages, which correct these issues and add these enhancements.\n\nBefore applying this update, make sure all previously released errata relevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2015:0439"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "http://web.mit.edu/Kerberos/advisories/MITKRB5-SA-2015-001.txt",
+						"Description": "http://web.mit.edu/Kerberos/advisories/MITKRB5-SA-2015-001.txt"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2014-9423",
+						"Description": "CVE-2014-9423"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1179863",
+						"Description": "bz#1179863: CVE-2014-9423 krb5: libgssrpc server applications leak uninitialized bytes (MITKRB5-SA-2015-001)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-01-07T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Client-optional:krb5-0:1.12.2-14.el7",
+						"7Client:krb5-0:1.12.2-14.el7",
+						"7ComputeNode-optional:krb5-0:1.12.2-14.el7",
+						"7ComputeNode:krb5-0:1.12.2-14.el7",
+						"7Server:krb5-0:1.12.2-14.el7",
+						"7Workstation:krb5-0:1.12.2-14.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.0",
+					"Vector": "AV:N/AC:L/Au:N/C:P/I:N/A:N"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Client (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Client (v. 7)",
+							"productid": "7Client",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Client Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Client Optional (v. 7)",
+							"productid": "7Client-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ComputeNode (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ComputeNode (v. 7)",
+							"productid": "7ComputeNode",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+							"productid": "7ComputeNode-optional",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server (v. 7)",
+							"productid": "7Server",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Workstation (v. 7)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Workstation (v. 7)",
+							"productid": "7Workstation",
+							"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "krb5-0:1.12.2-14.el7",
+				"fullproductname": {
+					"text": "krb5-1.12.2-14.el7.src.rpm",
+					"productid": "krb5-0:1.12.2-14.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "krb5-0:1.12.2-14.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client",
+				"fullproductname": {
+					"text": "krb5-0:1.12.2-14.el7 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"productid": "7Client:krb5-0:1.12.2-14.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "krb5-0:1.12.2-14.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Client-optional",
+				"fullproductname": {
+					"text": "krb5-0:1.12.2-14.el7 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"productid": "7Client-optional:krb5-0:1.12.2-14.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+				}
+			},
+			{
+				"productreference": "krb5-0:1.12.2-14.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode",
+				"fullproductname": {
+					"text": "krb5-0:1.12.2-14.el7 as a component of Red Hat Enterprise Linux ComputeNode (v. 7)",
+					"productid": "7ComputeNode:krb5-0:1.12.2-14.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "krb5-0:1.12.2-14.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7ComputeNode-optional",
+				"fullproductname": {
+					"text": "krb5-0:1.12.2-14.el7 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"productid": "7ComputeNode-optional:krb5-0:1.12.2-14.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+				}
+			},
+			{
+				"productreference": "krb5-0:1.12.2-14.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server",
+				"fullproductname": {
+					"text": "krb5-0:1.12.2-14.el7 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"productid": "7Server:krb5-0:1.12.2-14.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+				}
+			},
+			{
+				"productreference": "krb5-0:1.12.2-14.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Workstation",
+				"fullproductname": {
+					"text": "krb5-0:1.12.2-14.el7 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"productid": "7Workstation:krb5-0:1.12.2-14.el7",
+					"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+				}
+			}
+		]
+	}
+}

@@ -1,0 +1,813 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: kernel security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2008:0857"
+		},
+		"Status": "Final",
+		"Version": "2",
+		"revisionhistory": {
+			"revision": {
+				"Number": "2",
+				"Date": "2008-10-07T15:18:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2008-10-07T19:16:00Z",
+		"CurrentReleaseDate": "2008-10-07T15:18:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:29:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated kernel packages that fix several security issues and several bugs\nare now available for Red Hat Enterprise MRG 1.0.\n\nThis update has been rated as having important security impact by the Red\nHat Security Response Team.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe kernel packages contain the Linux kernel, the core of any Linux\noperating system.\n\nA possible integer overflow was found in the Linux kernel Stream Control\nTransmission Protocol (SCTP) implementation. This could allow an attacker\nto cause a denial of service. (CVE-2008-3526, Important)\n\nA deficiency was found in the Linux kernel Stream Control Transmission\nProtocol (SCTP) Authentication Extension implementation. All the SCTP-AUTH\nsocket options could cause a kernel panic if the API was used when the\nextension is disabled. (CVE-2008-3792, Important)\n\nMissing boundary checks were reported in the Linux kernel SCTP\nimplementation. This could, potentially, cause information disclosure via a\nspecially crafted SCTP_HMAC_IDENT IOCTL request. (CVE-2008-4113,\nCVE-2008-4445, Important)\n\nTobias Klein reported a missing check in the Linux kernel's Open Sound\nSystem (OSS) implementation. This deficiency could lead to a possible\ninformation leak. (CVE-2008-3272, Moderate)\n\nA deficiency was found in the Linux kernel virtual filesystem (VFS)\nimplementation. This could allow a local unprivileged user to make a series\nof file creations within deleted directories, possibly causing a denial of\nservice. (CVE-2008-3275, Moderate)\n\nA flaw was found in the Linux kernel Network File System daemon (nfsd) when\nNFSv4 was enabled. Remote attackers could use this to cause a denial of\nservice via a buffer overflow. (CVE-2008-3915, Moderate)\n\nA possible integer overflow was discovered in the Linux kernel Datagram\nCongestion Control Protocol (DCCP) implementation. This could allow a\nremote attacker to cause a denial of service on a victim's machine.\n(CVE-2008-3276, Low)\n\nA deficiency was found in the Linux kernel tmpfs implementation. This could\nallow a local unprivileged user to make a certain sequence of file\noperations, possibly causing a denial of service. (CVE-2008-3534, Low)\n\nAn off-by-one error was found in the iov_iter_advance function. This could\nallow a local unprivileged user to cause a denial of service as\ndemonstrated by a testcase from the Linux Test Project. (CVE-2008-3535,\nLow)\n\nThese updated packages also fix the following bugs:\n\n* fixed a warning in the openib code.\n\n* increased MAX_STACK_TRACE_ENTRIES on the debug kernel variant.\n\n* enqueue deprioritized RT tasks to head of prio array.\n\n* use timer_pending() to test ipv6 FIB timers.\n\n* added a lower-bound check for the length field in PPPOE headers.\n\n* pppoe: unshare skb to avoid possible data loss.\n\n* using growisofs could cause oops due to the lack of proper sanity checks.\n\n* random seed improvement.\n\n* enabled the \"Panic on Oops\" feature.\n\n* fixed a portability issue in parse_pmtmr() due to variable type.\n\n* fixed sanity check in cifs/asn1.c.\n\n* fixed a bug introduced by a previous fix, related to the inode code.\n\n* added better sanity checks to dlm code.\n\n* dynamic ftrace enhancements. The daemon is no longer used.\n\n* fixed a format string bug in cpufreq.\n\n* avoid a potential kernel stack overflow in binfmt_misc.c\n\n* fixed the long boot-up time when CONFIG_PROVE_LOCKING is enabled.\n\n* use a better random seed for NAT port randomization.\n\n* a compat_semaphore was being handled as a regular semaphore due to\ncasting (qla2xxx driver).\n\nAll users of Red Hat Enterprise MRG should upgrade to these new packages,\nwhich address these vulnerabilities and fix these bugs.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2008:0857",
+				"Description": "https://access.redhat.com/errata/RHSA-2008:0857"
+			},
+			{
+				"type": "External",
+				"URL": "http://www.redhat.com/security/updates/classification/#important",
+				"Description": "http://www.redhat.com/security/updates/classification/#important"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel snd_seq_oss_synth_make_info leak",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2008-08-02T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2008-3272",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/FAQ_58_10188\n\n\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2008:0857"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2008-3272",
+						"Description": "CVE-2008-3272"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=457995",
+						"Description": "bz#457995: CVE-2008-3272 kernel snd_seq_oss_synth_make_info leak"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2008-08-06T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-81.el5rt"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Linux kernel local filesystem DoS",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2008-07-02T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2008-3275",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/FAQ_58_10188\n\n\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2008:0857"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2008-3275",
+						"Description": "CVE-2008-3275"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=457858",
+						"Description": "bz#457858: CVE-2008-3275 Linux kernel local filesystem DoS"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2008-08-05T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-81.el5rt"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Linux kernel dccp_setsockopt_change() integer overflow",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2008-08-13T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2008-3276",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/FAQ_58_10188\n\n\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2008:0857"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2008-3276",
+						"Description": "CVE-2008-3276"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=459226",
+						"Description": "bz#459226: CVE-2008-3276 Linux kernel dccp_setsockopt_change() integer overflow"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2008-08-06T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-81.el5rt"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Linux kernel sctp_setsockopt_auth_key() integer overflow",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2008-08-26T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2008-3526",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/FAQ_58_10188\n\n\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2008:0857"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2008-3526",
+						"Description": "CVE-2008-3526"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=460093",
+						"Description": "bz#460093: CVE-2008-3526 Linux kernel sctp_setsockopt_auth_key() integer overflow"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2008-08-26T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-81.el5rt"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: tmpfs: fix kernel BUG in shmem_delete_inode",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2008-07-26T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2008-3534",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/FAQ_58_10188\n\n\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2008:0857"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2008-3534",
+						"Description": "CVE-2008-3534"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=457507",
+						"Description": "bz#457507: CVE-2008-3534 kernel: tmpfs: fix kernel BUG in shmem_delete_inode"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2008-07-26T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-81.el5rt"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "6",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: fix off-by-one error in iov_iter_advance()",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2008-07-31T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2008-3535",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/FAQ_58_10188\n\n\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2008:0857"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2008-3535",
+						"Description": "CVE-2008-3535"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=457703",
+						"Description": "bz#457703: CVE-2008-3535 kernel: fix off-by-one error in iov_iter_advance()"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2008-07-31T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-81.el5rt"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "7",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: sctp: fix potential panics in the SCTP-AUTH API",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2008-08-21T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2008-3792",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/FAQ_58_10188\n\n\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2008:0857"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2008-3792",
+						"Description": "CVE-2008-3792"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=459955",
+						"Description": "bz#459955: CVE-2008-3792 kernel: sctp: fix potential panics in the SCTP-AUTH API"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2008-08-25T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-81.el5rt"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "8",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: nfsd: fix buffer overrun decoding NFSv4 acl",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2008-09-01T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2008-3915",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/FAQ_58_10188\n\n\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2008:0857"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2008-3915",
+						"Description": "CVE-2008-3915"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=461101",
+						"Description": "bz#461101: CVE-2008-3915 kernel: nfsd: fix buffer overrun decoding NFSv4 acl"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2008-09-04T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-81.el5rt"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "9",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: sctp_getsockopt_hmac_ident information disclosure",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2008-08-21T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2008-4113",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/FAQ_58_10188\n\n\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2008:0857"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2008-4113",
+						"Description": "CVE-2008-4113"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=464514",
+						"Description": "bz#464514: CVE-2008-4113 kernel: sctp_getsockopt_hmac_ident information disclosure"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2008-08-25T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-81.el5rt"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		},
+		{
+			"ordinal": "10",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: sctp: fix random memory dereference with SCTP_HMAC_IDENT option",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2008-08-27T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2008-4445",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/FAQ_58_10188\n\n\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2008:0857"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2008-4445",
+						"Description": "CVE-2008-4445"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=462599",
+						"Description": "bz#462599: CVE-2008-4445 kernel: sctp: fix random memory dereference with SCTP_HMAC_IDENT option"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2008-08-26T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-81.el5rt"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise MRG for RHEL-5",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "MRG Realtime for RHEL 5 Server",
+						"fullproductname": {
+							"text": "MRG Realtime for RHEL 5 Server",
+							"productid": "5Server-MRG-Realtime-1.0",
+							"cpe": "cpe:/a:redhat:enterprise_mrg:1::el5"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-rt-0:2.6.24.7-81.el5rt",
+				"fullproductname": {
+					"text": "kernel-rt-2.6.24.7-81.el5rt.src.rpm",
+					"productid": "kernel-rt-0:2.6.24.7-81.el5rt",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:1::el5"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "kernel-rt-0:2.6.24.7-81.el5rt",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-MRG-Realtime-1.0",
+				"fullproductname": {
+					"text": "kernel-rt-0:2.6.24.7-81.el5rt as a component of MRG Realtime for RHEL 5 Server",
+					"productid": "5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-81.el5rt",
+					"cpe": "cpe:/a:redhat:enterprise_mrg:1::el5"
+				}
+			}
+		]
+	}
+}

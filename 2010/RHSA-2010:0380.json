@@ -1,0 +1,399 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: kernel security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2010:0380"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2010-04-27T08:46:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2010-04-27T12:46:00Z",
+		"CurrentReleaseDate": "2010-04-27T08:46:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:30:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated kernel packages that fix multiple security issues and several bugs\nare now available for Red Hat Enterprise Linux 5.4 Extended Update Support.\n\nThe Red Hat Security Response Team has rated this update as having\nimportant security impact. Common Vulnerability Scoring System (CVSS) base\nscores, which give detailed severity ratings, are available for each\nvulnerability from the CVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe kernel packages contain the Linux kernel, the core of any Linux\noperating system.\n\nSecurity fixes:\n\n* a race condition was found in the mac80211 implementation, a framework\nused for writing drivers for wireless devices. An attacker could trigger\nthis flaw by sending a Delete Block ACK (DELBA) packet to a target system,\nresulting in a remote denial of service. Note: This issue only affected\nusers on 802.11n networks, and that also use the iwlagn driver with Intel\nwireless hardware. (CVE-2009-4027, Important)\n\n* a use-after-free flaw was found in the tcp_rcv_state_process() function\nin the Linux kernel TCP/IP protocol suite implementation. If a system using\nIPv6 had the IPV6_RECVPKTINFO option set on a listening socket, a remote\nattacker could send an IPv6 packet to that system, causing a kernel panic\n(denial of service). (CVE-2010-1188, Important)\n\n* a flaw was found in the gfs2_lock() implementation. The GFS2 locking code\ncould skip the lock operation for files that have the S_ISGID bit\n(set-group-ID on execution) in their mode set. A local, unprivileged user\non a system that has a GFS2 file system mounted could use this flaw to\ncause a kernel panic (denial of service). (CVE-2010-0727, Moderate)\n\n* a divide-by-zero flaw was found in the ext4 file system code. A local\nattacker could use this flaw to cause a denial of service by mounting a\nspecially-crafted ext4 file system. (CVE-2009-4307, Low)\n\nBug fixes:\n\n* if a program that calls posix_fadvise() were compiled on x86, and then\nrun on a 64-bit system, that program could experience various problems,\nincluding performance issues and the call to posix_fadvise() failing,\ncausing the program to not run as expected or even abort. With this update,\nwhen such programs attempt to call posix_fadvise() on 64-bit systems,\nsys32_fadvise64() is called instead, which resolves this issue. This update\nalso fixes other 32-bit system calls that were mistakenly called on 64-bit\nsystems (including systems running the kernel-xen kernel). (BZ#569597)\n\n* on some systems able to set a P-State limit via the BIOS, it was not\npossible to set the limit to a higher frequency if the system was rebooted\nwhile a low limit was set:\n\"/sys/devices/system/cpu/cpu[x]/cpufreq/scaling_max_freq\" would retain the\nlow limit in these situations. With this update, limits are correctly set,\neven after being changed after a system reboot. (BZ#569727)\n\n* certain Intel ICH hardware (using the e1000e driver) has an NFS filtering\ncapability that did not work as expected, causing memory corruption, which\ncould lead to kernel panics, or other unexpected behavior. In a reported\ncase, a panic occurred when running NFS connection tests. This update\nresolves this issue by disabling the filtering capability. (BZ#569797)\n\n* if \"open(/proc/[PID]/[xxxx])\" was called at the same time the process was\nexiting, the call would fail with an EINVAL error (an incorrect error for\nthis situation). With this update, the correct error, ENOENT, is returned\nin this situation. (BZ#571362)\n\n* multiqueue is used for transmitting data, but a single queue transmit\nON/OFF scheme was used. This led to a race condition on systems with the\nbnx2x driver in situations where one queue became full, but not stopped,\nand the other queue enabled transmission. With this update, only a single\nqueue is used. (BZ#576951)\n\n* the \"/proc/sys/vm/mmap_min_addr\" tunable helps prevent unprivileged\nusers from creating new memory mappings below the minimum address. The\nsysctl value for mmap_min_addr could be changed by a process or user that\nhas an effective user ID (euid) of 0, even if the process or user does not\nhave the CAP_SYS_RAWIO capability. This update adds a capability check for\nthe CAP_SYS_RAWIO capability before allowing the mmap_min_addr value to be\nchanged. (BZ#577206)\n\nUsers should upgrade to these updated packages, which contain backported\npatches to correct these issues. The system must be rebooted for this\nupdate to take effect.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2010:0380",
+				"Description": "https://access.redhat.com/errata/RHSA-2010:0380"
+			},
+			{
+				"type": "External",
+				"URL": "http://www.redhat.com/security/updates/classification/#important",
+				"Description": "http://www.redhat.com/security/updates/classification/#important"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: mac80211: fix spurious delBA handling",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2009-11-30T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2009-4027",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2010:0380"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2009-4027",
+						"Description": "CVE-2009-4027"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=541149",
+						"Description": "bz#541149: CVE-2009-4026 CVE-2009-4027 kernel: mac80211: fix spurious delBA handling"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2009-11-25T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "7.8",
+					"Vector": "AV:N/AC:L/Au:N/C:N/I:N/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: ext4: avoid divide by zero when trying to mount a corrupted file system",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2009-11-23T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2009-4307",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2010:0380"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2009-4307",
+						"Description": "CVE-2009-4307"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=547251",
+						"Description": "bz#547251: CVE-2009-4307 kernel: ext4: avoid divide by zero when trying to mount a corrupted file system"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2009-12-14T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.9",
+					"Vector": "AV:L/AC:L/Au:N/C:N/I:N/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: bug in GFS/GFS2 locking code leads to dos",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2010-03-11T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2010-0727",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2010:0380"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2010-0727",
+						"Description": "CVE-2010-0727"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=570863",
+						"Description": "bz#570863: CVE-2010-0727 kernel: bug in GFS/GFS2 locking code leads to dos"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2010-03-08T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.9",
+					"Vector": "AV:L/AC:L/Au:N/C:N/I:N/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: ipv6: skb is unexpectedly freed",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2007-01-23T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2010-1188",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2010:0380"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2010-1188",
+						"Description": "CVE-2010-1188"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=577711",
+						"Description": "bz#577711: CVE-2010-1188 kernel: ipv6: skb is unexpectedly freed"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2010-03-29T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "7.8",
+					"Vector": "AV:N/AC:L/Au:N/C:N/I:N/A:C"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux EUS (v. 5.4 server)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux EUS (v. 5.4 server)",
+							"productid": "5Server-5.4.Z",
+							"cpe": "cpe:/o:redhat:rhel_eus:5.4"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-0:2.6.18-164.17.1.el5",
+				"fullproductname": {
+					"text": "kernel-2.6.18-164.17.1.el5.src.rpm",
+					"productid": "kernel-0:2.6.18-164.17.1.el5",
+					"cpe": "cpe:/o:redhat:rhel_eus:5.4"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "kernel-0:2.6.18-164.17.1.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-5.4.Z",
+				"fullproductname": {
+					"text": "kernel-0:2.6.18-164.17.1.el5 as a component of Red Hat Enterprise Linux EUS (v. 5.4 server)",
+					"productid": "5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5",
+					"cpe": "cpe:/o:redhat:rhel_eus:5.4"
+				}
+			}
+		]
+	}
+}

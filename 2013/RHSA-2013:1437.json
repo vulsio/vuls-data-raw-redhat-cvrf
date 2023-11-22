@@ -1,0 +1,969 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: Red Hat JBoss Portal 6.1.0 update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2013:1437"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2013-10-16T16:53:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2013-10-16T16:45:00Z",
+		"CurrentReleaseDate": "2013-10-16T16:53:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:39:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nRed Hat JBoss Portal 6.1.0, which fixes multiple security\nissues and various bugs, is now available from the Red Hat Customer Portal.\n\nThe Red Hat Security Response Team has rated this update as having\nimportant security impact. Common Vulnerability Scoring System (CVSS) base\nscores, which give detailed severity ratings, are available for each\nvulnerability from the CVE links in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThis Red Hat JBoss Portal 6.1.0 release serves as a replacement for\n6.0.0. Refer to the 6.1.0 Release Notes for further information, available\nshortly from https://access.redhat.com/knowledge/docs/\n\nIt was found that sending a request without a session identifier to a\nprotected resource could bypass the CSRF prevention filter in JBoss Web. A\nremote attacker could use this flaw to perform CSRF attacks against\napplications that rely on the CSRF prevention filter. (CVE-2012-4431)\n\nWhen applications used the COOKIE session tracking method, the jsessionid\nwould be appended as a query string parameter when processing the first\nrequest of a session. This could possibly lead to users' sessions being\nhijacked via man-in-the-middle attacks. (CVE-2012-4529)\n\nIf multiple applications used the same custom authorization module class\nname, and provided their own implementations of it, the first application\nto be loaded will have its implementation used for all other applications\nusing the same custom authorization module class name. A local attacker\ncould deploy a malicious application that provides implementations of\ncustom authorization modules that apply authorization rules supplied by the\nattacker. (CVE-2012-4572)\n\nXML encryption backwards compatibility attacks were found against various\nframeworks, including Apache CXF. An attacker could force a server to use\ninsecure, legacy cryptosystems, even when secure cryptosystems were enabled\non endpoints. By forcing the use of legacy cryptosystems, flaws such as\nCVE-2011-1096 and CVE-2011-2487 would be exposed, allowing plain text to be\nrecovered from cryptograms and symmetric keys. (CVE-2012-5575)\n\nNote: Automatic checks to prevent CVE-2012-5575 are only run when\nWS-SecurityPolicy is used to enforce security requirements, which is best\npractice.\n\nThe data file used by PicketBox Vault to store encrypted passwords contains\na copy of its own admin key. The file is encrypted using only this admin\nkey, not the corresponding JKS key. A local attacker with permission to\nread the vault data file could read the admin key from the file.\n(CVE-2013-1921)\n\nA session fixation flaw was found in the Tomcat FormAuthenticator module.\n(CVE-2013-2067)\n\nWhen a JGroups channel was started, the JGroups diagnostics service was\nenabled by default with no authentication via IP multicast. An attacker on\nan adjacent network could exploit this flaw to read diagnostics\ninformation. (CVE-2013-2102)\n\nMultiple denial of service flaws were found in the way the Apache CXF StAX\nparser implementation processed certain XML files. A remote attacker could\nprovide a specially crafted XML file that, when processed, would lead to\nexcessive CPU and memory consumption. (CVE-2013-2160)\n\nA flaw was found in the way Apache Santuario XML Security for Java\nvalidated XML signatures. Santuario allowed a signature to specify an\narbitrary canonicalization algorithm, which would be applied to the\nSignedInfo XML fragment. A remote attacker could exploit this to spoof an\nXML signature, via a specially-crafted XML signature block. (CVE-2013-2172)\n\nA flaw was found in JGroup's DiagnosticsHandler that allowed an attacker on\nan adjacent network to reuse the credentials from a previous successful\nauthentication. This could be exploited to read diagnostic information and\nattain limited remote code execution. (CVE-2013-4112)\n\nA flaw was discovered in the way authenticated connections were cached on\nthe server by remote-naming. After a user has successfully logged in, a\nremote attacker could use a remoting client to log in as that user without\nknowing their password, allowing them to access data and perform actions\nwith the privileges of that user. (CVE-2013-4128)\n\nA flaw was discovered in the way connections for remote EJB invocations via\nthe EJB client API were cached on the server. After a user has successfully\nlogged in, a remote attacker could use an EJB client to log in as that user\nwithout knowing their password. (CVE-2013-4213)\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2013:1437",
+				"Description": "https://access.redhat.com/errata/RHSA-2013:1437"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#important",
+				"Description": "https://access.redhat.com/security/updates/classification/#important"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/jbossnetwork/restricted/listSoftware.html?product=jbportal&downloadType=distributions",
+				"Description": "https://access.redhat.com/jbossnetwork/restricted/listSoftware.html?product=jbportal&downloadType=distributions"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Tomcat/JBoss Web - Bypass of CSRF prevention filter",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-12-04T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-4431",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nRed Hat would like to thank Tibor Jager, Kenneth G. Paterson and Juraj\nSomorovsky of Ruhr-University Bochum for reporting CVE-2012-5575; and\nAndreas Falkenberg of SEC Consult Deutschland GmbH, and Christian Mainka,\nJuraj Somorovsky, and Joerg Schwenk of Ruhr-University Bochum for reporting\nCVE-2013-2160. CVE-2012-4572 was discovered by Josef Cacek of the Red Hat\nJBoss EAP Quality Engineering team; CVE-2013-4128 and CVE-2013-4213 were\ndiscovered by Wolf-Dieter Fink of the Red Hat GSS Team; and CVE-2013-2102\nwas discovered by Red Hat.\n\nAll users of Red Hat JBoss Portal 6.0.0 as provided from the Red Hat\nCustomer Portal are advised to upgrade to Red Hat JBoss Portal 6.1.0.\n\nThe References section of this erratum contains a download link (you must\nlog in to download the update). Before applying the update, back up all\napplications deployed on JBoss Enterprise Portal Platform, along with all\ncustomized configuration files, and any databases and database settings.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:1437"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "http://tomcat.apache.org/security-6.html#Fixed_in_Apache_Tomcat_6.0.36",
+						"Description": "http://tomcat.apache.org/security-6.html#Fixed_in_Apache_Tomcat_6.0.36"
+					},
+					{
+						"URL": "http://tomcat.apache.org/security-7.html#Fixed_in_Apache_Tomcat_7.0.32",
+						"Description": "http://tomcat.apache.org/security-7.html#Fixed_in_Apache_Tomcat_7.0.32"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-4431",
+						"Description": "CVE-2012-4431"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=883636",
+						"Description": "bz#883636: CVE-2012-4431 Tomcat/JBoss Web - Bypass of CSRF prevention filter"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2012-12-05T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "JBoss Web: jsessionid exposed via encoded url when using cookie based session tracking",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2012-10-10T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-4529",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nRed Hat would like to thank Tibor Jager, Kenneth G. Paterson and Juraj\nSomorovsky of Ruhr-University Bochum for reporting CVE-2012-5575; and\nAndreas Falkenberg of SEC Consult Deutschland GmbH, and Christian Mainka,\nJuraj Somorovsky, and Joerg Schwenk of Ruhr-University Bochum for reporting\nCVE-2013-2160. CVE-2012-4572 was discovered by Josef Cacek of the Red Hat\nJBoss EAP Quality Engineering team; CVE-2013-4128 and CVE-2013-4213 were\ndiscovered by Wolf-Dieter Fink of the Red Hat GSS Team; and CVE-2013-2102\nwas discovered by Red Hat.\n\nAll users of Red Hat JBoss Portal 6.0.0 as provided from the Red Hat\nCustomer Portal are advised to upgrade to Red Hat JBoss Portal 6.1.0.\n\nThe References section of this erratum contains a download link (you must\nlog in to download the update). Before applying the update, back up all\napplications deployed on JBoss Enterprise Portal Platform, along with all\ncustomized configuration files, and any databases and database settings.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:1437"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-4529",
+						"Description": "CVE-2012-4529"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=868202",
+						"Description": "bz#868202: CVE-2012-4529 JBoss Web: jsessionid exposed via encoded url when using cookie based session tracking"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2012-10-19T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "JBoss: custom authorization module implementations shared between applications",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-05-20T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-4572",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nRed Hat would like to thank Tibor Jager, Kenneth G. Paterson and Juraj\nSomorovsky of Ruhr-University Bochum for reporting CVE-2012-5575; and\nAndreas Falkenberg of SEC Consult Deutschland GmbH, and Christian Mainka,\nJuraj Somorovsky, and Joerg Schwenk of Ruhr-University Bochum for reporting\nCVE-2013-2160. CVE-2012-4572 was discovered by Josef Cacek of the Red Hat\nJBoss EAP Quality Engineering team; CVE-2013-4128 and CVE-2013-4213 were\ndiscovered by Wolf-Dieter Fink of the Red Hat GSS Team; and CVE-2013-2102\nwas discovered by Red Hat.\n\nAll users of Red Hat JBoss Portal 6.0.0 as provided from the Red Hat\nCustomer Portal are advised to upgrade to Red Hat JBoss Portal 6.1.0.\n\nThe References section of this erratum contains a download link (you must\nlog in to download the update). Before applying the update, back up all\napplications deployed on JBoss Enterprise Portal Platform, along with all\ncustomized configuration files, and any databases and database settings.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:1437"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-4572",
+						"Description": "CVE-2012-4572"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=872059",
+						"Description": "bz#872059: CVE-2012-4572 JBoss: custom authorization module implementations shared between applications"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2012-10-31T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "3.7",
+					"Vector": "AV:L/AC:H/Au:N/C:P/I:P/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "jbossws-native, jbossws-cxf, apache-cxf: XML encryption backwards compatibility attacks",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-03-08T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2012-5575",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nRed Hat would like to thank Tibor Jager, Kenneth G. Paterson and Juraj\nSomorovsky of Ruhr-University Bochum for reporting CVE-2012-5575; and\nAndreas Falkenberg of SEC Consult Deutschland GmbH, and Christian Mainka,\nJuraj Somorovsky, and Joerg Schwenk of Ruhr-University Bochum for reporting\nCVE-2013-2160. CVE-2012-4572 was discovered by Josef Cacek of the Red Hat\nJBoss EAP Quality Engineering team; CVE-2013-4128 and CVE-2013-4213 were\ndiscovered by Wolf-Dieter Fink of the Red Hat GSS Team; and CVE-2013-2102\nwas discovered by Red Hat.\n\nAll users of Red Hat JBoss Portal 6.0.0 as provided from the Red Hat\nCustomer Portal are advised to upgrade to Red Hat JBoss Portal 6.1.0.\n\nThe References section of this erratum contains a download link (you must\nlog in to download the update). Before applying the update, back up all\napplications deployed on JBoss Enterprise Portal Platform, along with all\ncustomized configuration files, and any databases and database settings.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:1437"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "http://cxf.apache.org/cve-2012-5575.html",
+						"Description": "http://cxf.apache.org/cve-2012-5575.html"
+					},
+					{
+						"URL": "http://www.nds.ruhr-uni-bochum.de/research/publications/backwards-compatibility/",
+						"Description": "http://www.nds.ruhr-uni-bochum.de/research/publications/backwards-compatibility/"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2012-5575",
+						"Description": "CVE-2012-5575"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=880443",
+						"Description": "bz#880443: CVE-2012-5575 jbossws-native, jbossws-cxf, apache-cxf: XML encryption backwards compatibility attacks"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2012-11-15T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank Juraj Somorovsky (Ruhr-University Bochum), Kenneth G. Paterson (Ruhr-University Bochum), and Tibor Jager (Ruhr-University Bochum) for reporting this issue."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "7.8",
+					"Vector": "AV:N/AC:L/Au:N/C:C/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "5",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "JBoss PicketBox: Insecure storage of masked passwords",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-09-04T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-1921",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nRed Hat would like to thank Tibor Jager, Kenneth G. Paterson and Juraj\nSomorovsky of Ruhr-University Bochum for reporting CVE-2012-5575; and\nAndreas Falkenberg of SEC Consult Deutschland GmbH, and Christian Mainka,\nJuraj Somorovsky, and Joerg Schwenk of Ruhr-University Bochum for reporting\nCVE-2013-2160. CVE-2012-4572 was discovered by Josef Cacek of the Red Hat\nJBoss EAP Quality Engineering team; CVE-2013-4128 and CVE-2013-4213 were\ndiscovered by Wolf-Dieter Fink of the Red Hat GSS Team; and CVE-2013-2102\nwas discovered by Red Hat.\n\nAll users of Red Hat JBoss Portal 6.0.0 as provided from the Red Hat\nCustomer Portal are advised to upgrade to Red Hat JBoss Portal 6.1.0.\n\nThe References section of this erratum contains a download link (you must\nlog in to download the update). Before applying the update, back up all\napplications deployed on JBoss Enterprise Portal Platform, along with all\ncustomized configuration files, and any databases and database settings.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:1437"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-1921",
+						"Description": "CVE-2013-1921"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=948106",
+						"Description": "bz#948106: CVE-2013-1921 JBoss PicketBox: Insecure storage of masked passwords"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2013-04-03T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "1.7",
+					"Vector": "AV:L/AC:L/Au:S/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "6",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "tomcat: Session fixation in form authenticator",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-05-10T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-2067",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nRed Hat would like to thank Tibor Jager, Kenneth G. Paterson and Juraj\nSomorovsky of Ruhr-University Bochum for reporting CVE-2012-5575; and\nAndreas Falkenberg of SEC Consult Deutschland GmbH, and Christian Mainka,\nJuraj Somorovsky, and Joerg Schwenk of Ruhr-University Bochum for reporting\nCVE-2013-2160. CVE-2012-4572 was discovered by Josef Cacek of the Red Hat\nJBoss EAP Quality Engineering team; CVE-2013-4128 and CVE-2013-4213 were\ndiscovered by Wolf-Dieter Fink of the Red Hat GSS Team; and CVE-2013-2102\nwas discovered by Red Hat.\n\nAll users of Red Hat JBoss Portal 6.0.0 as provided from the Red Hat\nCustomer Portal are advised to upgrade to Red Hat JBoss Portal 6.1.0.\n\nThe References section of this erratum contains a download link (you must\nlog in to download the update). Before applying the update, back up all\napplications deployed on JBoss Enterprise Portal Platform, along with all\ncustomized configuration files, and any databases and database settings.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:1437"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-2067",
+						"Description": "CVE-2013-2067"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=961779",
+						"Description": "bz#961779: CVE-2013-2067 tomcat: Session fixation in form authenticator"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2013-05-10T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.6",
+					"Vector": "AV:N/AC:H/Au:N/C:N/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "7",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Gatein: JGroups configurations enable diagnostics without authentication",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-10-16T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-2102",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nRed Hat would like to thank Tibor Jager, Kenneth G. Paterson and Juraj\nSomorovsky of Ruhr-University Bochum for reporting CVE-2012-5575; and\nAndreas Falkenberg of SEC Consult Deutschland GmbH, and Christian Mainka,\nJuraj Somorovsky, and Joerg Schwenk of Ruhr-University Bochum for reporting\nCVE-2013-2160. CVE-2012-4572 was discovered by Josef Cacek of the Red Hat\nJBoss EAP Quality Engineering team; CVE-2013-4128 and CVE-2013-4213 were\ndiscovered by Wolf-Dieter Fink of the Red Hat GSS Team; and CVE-2013-2102\nwas discovered by Red Hat.\n\nAll users of Red Hat JBoss Portal 6.0.0 as provided from the Red Hat\nCustomer Portal are advised to upgrade to Red Hat JBoss Portal 6.1.0.\n\nThe References section of this erratum contains a download link (you must\nlog in to download the update). Before applying the update, back up all\napplications deployed on JBoss Enterprise Portal Platform, along with all\ncustomized configuration files, and any databases and database settings.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:1437"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-2102",
+						"Description": "CVE-2013-2102"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=963984",
+						"Description": "bz#963984: CVE-2013-2102 Gatein: JGroups configurations enable diagnostics without authentication"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2013-05-16T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "3.3",
+					"Vector": "AV:A/AC:L/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "8",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "cxf, jbossws-cxf, apache-cxf: Multiple denial of service flaws in the StAX parser",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-06-26T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-2160",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nRed Hat would like to thank Tibor Jager, Kenneth G. Paterson and Juraj\nSomorovsky of Ruhr-University Bochum for reporting CVE-2012-5575; and\nAndreas Falkenberg of SEC Consult Deutschland GmbH, and Christian Mainka,\nJuraj Somorovsky, and Joerg Schwenk of Ruhr-University Bochum for reporting\nCVE-2013-2160. CVE-2012-4572 was discovered by Josef Cacek of the Red Hat\nJBoss EAP Quality Engineering team; CVE-2013-4128 and CVE-2013-4213 were\ndiscovered by Wolf-Dieter Fink of the Red Hat GSS Team; and CVE-2013-2102\nwas discovered by Red Hat.\n\nAll users of Red Hat JBoss Portal 6.0.0 as provided from the Red Hat\nCustomer Portal are advised to upgrade to Red Hat JBoss Portal 6.1.0.\n\nThe References section of this erratum contains a download link (you must\nlog in to download the update). Before applying the update, back up all\napplications deployed on JBoss Enterprise Portal Platform, along with all\ncustomized configuration files, and any databases and database settings.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:1437"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "http://cxf.apache.org/security-advisories.data/CVE-2013-2160.txt.asc",
+						"Description": "http://cxf.apache.org/security-advisories.data/CVE-2013-2160.txt.asc"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-2160",
+						"Description": "CVE-2013-2160"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=929197",
+						"Description": "bz#929197: CVE-2013-2160 cxf, jbossws-cxf, apache-cxf: Multiple denial of service flaws in the StAX parser"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2013-03-29T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank Andreas Falkenberg (SEC Consult Deutschland GmbH), Christian Mainka (Ruhr-University Bochum), Joerg Schwenk (Ruhr-University Bochum), and Juraj Somorovsky (Ruhr-University Bochum) for reporting this issue."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.0",
+					"Vector": "AV:N/AC:L/Au:N/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "9",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Apache Santuario XML Security for Java: XML signature spoofing",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-06-25T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-2172",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nRed Hat would like to thank Tibor Jager, Kenneth G. Paterson and Juraj\nSomorovsky of Ruhr-University Bochum for reporting CVE-2012-5575; and\nAndreas Falkenberg of SEC Consult Deutschland GmbH, and Christian Mainka,\nJuraj Somorovsky, and Joerg Schwenk of Ruhr-University Bochum for reporting\nCVE-2013-2160. CVE-2012-4572 was discovered by Josef Cacek of the Red Hat\nJBoss EAP Quality Engineering team; CVE-2013-4128 and CVE-2013-4213 were\ndiscovered by Wolf-Dieter Fink of the Red Hat GSS Team; and CVE-2013-2102\nwas discovered by Red Hat.\n\nAll users of Red Hat JBoss Portal 6.0.0 as provided from the Red Hat\nCustomer Portal are advised to upgrade to Red Hat JBoss Portal 6.1.0.\n\nThe References section of this erratum contains a download link (you must\nlog in to download the update). Before applying the update, back up all\napplications deployed on JBoss Enterprise Portal Platform, along with all\ncustomized configuration files, and any databases and database settings.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:1437"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "http://santuario.apache.org/secadv.data/CVE-2013-2172.txt.asc",
+						"Description": "http://santuario.apache.org/secadv.data/CVE-2013-2172.txt.asc"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-2172",
+						"Description": "CVE-2013-2172"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=999263",
+						"Description": "bz#999263: CVE-2013-2172 Apache Santuario XML Security for Java: XML signature spoofing"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2013-08-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.8",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "10",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "JGroups: Authentication via cached credentials",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-07-11T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-4112",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nRed Hat would like to thank Tibor Jager, Kenneth G. Paterson and Juraj\nSomorovsky of Ruhr-University Bochum for reporting CVE-2012-5575; and\nAndreas Falkenberg of SEC Consult Deutschland GmbH, and Christian Mainka,\nJuraj Somorovsky, and Joerg Schwenk of Ruhr-University Bochum for reporting\nCVE-2013-2160. CVE-2012-4572 was discovered by Josef Cacek of the Red Hat\nJBoss EAP Quality Engineering team; CVE-2013-4128 and CVE-2013-4213 were\ndiscovered by Wolf-Dieter Fink of the Red Hat GSS Team; and CVE-2013-2102\nwas discovered by Red Hat.\n\nAll users of Red Hat JBoss Portal 6.0.0 as provided from the Red Hat\nCustomer Portal are advised to upgrade to Red Hat JBoss Portal 6.1.0.\n\nThe References section of this erratum contains a download link (you must\nlog in to download the update). Before applying the update, back up all\napplications deployed on JBoss Enterprise Portal Platform, along with all\ncustomized configuration files, and any databases and database settings.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:1437"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-4112",
+						"Description": "CVE-2013-4112"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=983489",
+						"Description": "bz#983489: CVE-2013-4112 JGroups: Authentication via cached credentials"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2013-07-11T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "3.3",
+					"Vector": "AV:A/AC:L/Au:N/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "11",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "JBoss remote-naming: Session fixation due improper connection caching",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-07-11T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-4128",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nRed Hat would like to thank Tibor Jager, Kenneth G. Paterson and Juraj\nSomorovsky of Ruhr-University Bochum for reporting CVE-2012-5575; and\nAndreas Falkenberg of SEC Consult Deutschland GmbH, and Christian Mainka,\nJuraj Somorovsky, and Joerg Schwenk of Ruhr-University Bochum for reporting\nCVE-2013-2160. CVE-2012-4572 was discovered by Josef Cacek of the Red Hat\nJBoss EAP Quality Engineering team; CVE-2013-4128 and CVE-2013-4213 were\ndiscovered by Wolf-Dieter Fink of the Red Hat GSS Team; and CVE-2013-2102\nwas discovered by Red Hat.\n\nAll users of Red Hat JBoss Portal 6.0.0 as provided from the Red Hat\nCustomer Portal are advised to upgrade to Red Hat JBoss Portal 6.1.0.\n\nThe References section of this erratum contains a download link (you must\nlog in to download the update). Before applying the update, back up all\napplications deployed on JBoss Enterprise Portal Platform, along with all\ncustomized configuration files, and any databases and database settings.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:1437"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-4128",
+						"Description": "CVE-2013-4128"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=984795",
+						"Description": "bz#984795: CVE-2013-4128 JBoss remote-naming: Session fixation due improper connection caching"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2013-07-12T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.4",
+					"Vector": "AV:N/AC:L/Au:N/C:P/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "12",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "JBoss ejb-client: Session fixation due improper connection caching",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2013-06-27T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-4213",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nRed Hat would like to thank Tibor Jager, Kenneth G. Paterson and Juraj\nSomorovsky of Ruhr-University Bochum for reporting CVE-2012-5575; and\nAndreas Falkenberg of SEC Consult Deutschland GmbH, and Christian Mainka,\nJuraj Somorovsky, and Joerg Schwenk of Ruhr-University Bochum for reporting\nCVE-2013-2160. CVE-2012-4572 was discovered by Josef Cacek of the Red Hat\nJBoss EAP Quality Engineering team; CVE-2013-4128 and CVE-2013-4213 were\ndiscovered by Wolf-Dieter Fink of the Red Hat GSS Team; and CVE-2013-2102\nwas discovered by Red Hat.\n\nAll users of Red Hat JBoss Portal 6.0.0 as provided from the Red Hat\nCustomer Portal are advised to upgrade to Red Hat JBoss Portal 6.1.0.\n\nThe References section of this erratum contains a download link (you must\nlog in to download the update). Before applying the update, back up all\napplications deployed on JBoss Enterprise Portal Platform, along with all\ncustomized configuration files, and any databases and database settings.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:1437"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-4213",
+						"Description": "CVE-2013-4213"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=985359",
+						"Description": "bz#985359: CVE-2013-4213 JBoss ejb-client: Session fixation due improper connection caching"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2013-07-12T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.4",
+					"Vector": "AV:N/AC:L/Au:N/C:P/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "13",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "JBossWeb Bayeux: Reflected Cross-Site Scripting (XSS)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2014-07-10T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2013-6495",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nRed Hat would like to thank Tibor Jager, Kenneth G. Paterson and Juraj\nSomorovsky of Ruhr-University Bochum for reporting CVE-2012-5575; and\nAndreas Falkenberg of SEC Consult Deutschland GmbH, and Christian Mainka,\nJuraj Somorovsky, and Joerg Schwenk of Ruhr-University Bochum for reporting\nCVE-2013-2160. CVE-2012-4572 was discovered by Josef Cacek of the Red Hat\nJBoss EAP Quality Engineering team; CVE-2013-4128 and CVE-2013-4213 were\ndiscovered by Wolf-Dieter Fink of the Red Hat GSS Team; and CVE-2013-2102\nwas discovered by Red Hat.\n\nAll users of Red Hat JBoss Portal 6.0.0 as provided from the Red Hat\nCustomer Portal are advised to upgrade to Red Hat JBoss Portal 6.1.0.\n\nThe References section of this erratum contains a download link (you must\nlog in to download the update). Before applying the update, back up all\napplications deployed on JBoss Enterprise Portal Platform, along with all\ncustomized configuration files, and any databases and database settings.\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2013:1437"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2013-6495",
+						"Description": "CVE-2013-6495"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1066794",
+						"Description": "bz#1066794: CVE-2013-6495 JBossWeb Bayeux: Reflected Cross-Site Scripting (XSS)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2014-02-19T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"ProductID": null
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:P/A:N"
+				}
+			}
+		}
+	],
+	"producttree": {}
+}

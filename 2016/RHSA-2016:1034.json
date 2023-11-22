@@ -1,0 +1,192 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: docker security, bug fix, and enhancement update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2016:1034"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2016-05-12T15:15:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2016-05-12T15:15:00Z",
+		"CurrentReleaseDate": "2016-05-12T15:15:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:40:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nAn update for docker is now available for Red Hat Enterprise Linux 7 Extras.\n\nRed Hat Product Security has rated this update as having a security impact of Moderate. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nDocker is an open-source engine that automates the deployment of any application as a lightweight, portable, self-sufficient container that will run virtually anywhere.\n\nSecurity Fix(es):\n\n* It was found that Docker would launch containers under the specified UID instead of a username. An attacker able to launch a container could use this flaw to escalate their privileges to root within the launched container. (CVE-2016-3697)\n\nThis issue was discovered by Mrunal Patel (Red Hat).\n\nBug Fix(es):\n\n* The process of pulling an image spawns a new \"goroutine\" for each layer in the image manifest. If any of these downloads, everything stops and an error is returned, even though other goroutines would still be running and writing output through a progress reader which is attached to an http response writer. Since the request handler had already returned from the first error, the http server panics when one of these download goroutines makes a write to the response writer buffer. This bug has been fixed, and docker no longer panics when pulling an image. (BZ#1264562)\n\n* Previously, in certain situations, a container rootfs remained busy during container removal. This typically happened if a container mount point leaked into another mount namespace. As a consequence, container removal failed. To fix this bug, a new docker daemon option \"dm.use_deferred_deletion\" has been provided. If set to true, this option will defer the container rootfs deletion. The user will see success on container removal but the actual thin device backing the rootfs will be deleted later when it is not busy anymore. (BZ#1190492)\n \t\n* Previously, the Docker unit file had the \"Restart\" option set to \"on-failure\". Consequently, the docker daemon was forced to restart even in cases where it couldn't be started because of configuration or other issues and this situation forced unnecessary restarts of the docker-storage-setup service in a loop. This also caused real error messages to be lost due to so many restarts. To fix this bug, \"Restart=on-failure\" has been replaced with \"Restart=on-abnormal\" in the docker unit file. As a result, the docker daemon will not automatically restart if it fails with an unclean exit code. (BZ#1319783)\n\n* Previously, the request body was incorrectly read twice by the docker daemon and consequently, an EOF error was returned. To fix this bug, the code which incorrectly read the request body the first time has been removed. As a result, the EOF error is no longer returned and the body is correctly read when really needed. (BZ#1329743)\n\nEnhancement(s):\n\n* The /usr/bin/docker script now calls /usr/bin/docker-current or /usr/bin/docker-latest based on the value of the sysconfig variable DOCKERBINARY present in /etc/sysconfig/docker. /usr/bin/docker and /etc/sysconfig/docker provided by the docker-common package allow the admin to configure which docker client binary gets called. /usr/bin/docker will call /usr/bin/docker-latest by default when docker is not installed. If docker is installed, /usr/bin/docker will call /usr/bin/docker-current by default, unless DOCKERBINARY is set to /usr/bin/docker-latest in /etc/sysconfig/docker. This way, you can use docker-latest or docker without the need to check which version of the daemon is currently running. (BZ#1328219)\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2016:1034",
+				"Description": "https://access.redhat.com/errata/RHSA-2016:1034"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "docker: privilege escalation via confusion of usernames and UIDs",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2016-04-22T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2016-3697",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2016:1034"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2016-3697",
+						"Description": "CVE-2016-3697"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1329450",
+						"Description": "bz#1329450: CVE-2016-3697 docker: privilege escalation via confusion of usernames and UIDs"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2016-04-19T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-EXTRAS:docker-0:1.9.1-40.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "This issue was discovered by Mrunal Patel (Red Hat)."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.0",
+					"Vector": "AV:N/AC:M/Au:S/C:P/I:P/A:P"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux Extras",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux 7 Extras",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux 7 Extras",
+							"productid": "7Server-EXTRAS",
+							"cpe": "cpe:/a:redhat:rhel_extras_other:7"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "docker-0:1.9.1-40.el7",
+				"fullproductname": {
+					"text": "docker-1.9.1-40.el7.src.rpm",
+					"productid": "docker-0:1.9.1-40.el7",
+					"cpe": "cpe:/a:redhat:rhel_extras_other:7"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "docker-0:1.9.1-40.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-EXTRAS",
+				"fullproductname": {
+					"text": "docker-0:1.9.1-40.el7 as a component of Red Hat Enterprise Linux 7 Extras",
+					"productid": "7Server-EXTRAS:docker-0:1.9.1-40.el7",
+					"cpe": "cpe:/a:redhat:rhel_extras_other:7"
+				}
+			}
+		]
+	}
+}

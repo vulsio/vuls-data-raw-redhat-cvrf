@@ -1,0 +1,432 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: samba3x security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2009:1585"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2009-11-16T10:39:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2009-11-16T15:39:00Z",
+		"CurrentReleaseDate": "2009-11-16T10:39:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:29:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated samba3x packages that fix multiple security issues and various bugs\nare now available for Red Hat Enterprise Linux 5 Supplementary.\n\nThis update has been rated as having moderate security impact by the Red\nHat Security Response Team.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nSamba is a suite of programs used by machines to share files, printers, and\nother information. These samba3x packages provide Samba 3.3, which is a\nTechnology Preview for Red Hat Enterprise Linux 5. These packages cannot be\ninstalled in parallel with the samba packages. Note: Technology Previews\nare not intended for production use.\n\nA denial of service flaw was found in the Samba smbd daemon. An\nauthenticated, remote user could send a specially-crafted response that\nwould cause an smbd child process to enter an infinite loop. An\nauthenticated, remote user could use this flaw to exhaust system resources\nby opening multiple CIFS sessions. (CVE-2009-2906)\n\nAn uninitialized data access flaw was discovered in the smbd daemon when\nusing the non-default \"dos filemode\" configuration option in \"smb.conf\". An\nauthenticated, remote user with write access to a file could possibly use\nthis flaw to change an access control list for that file, even when such\naccess should have been denied. (CVE-2009-1888)\n\nA flaw was discovered in the way Samba handled users without a home\ndirectory set in the back-end password database (e.g. \"/etc/passwd\"). If a\nshare for the home directory of such a user was created (e.g. using the\nautomated \"[homes]\" share), any user able to access that share could see\nthe whole file system, possibly bypassing intended access restrictions.\n(CVE-2009-2813)\n\nThe mount.cifs program printed CIFS passwords as part of its debug output\nwhen running in verbose mode. When mount.cifs had the setuid bit set, a\nlocal, unprivileged user could use this flaw to disclose passwords from a\nfile that would otherwise be inaccessible to that user. Note: mount.cifs\nfrom the samba3x packages distributed by Red Hat does not have the setuid\nbit set. This flaw only affected systems where the setuid bit was manually\nset by an administrator. (CVE-2009-2948)\n\nThis update also fixes the following bugs:\n\n* the samba3x packages contained missing and conflicting license\ninformation. License information was missing for the libtalloc, libtdb, and\ntdb-tools packages. The samba3x-common package provided a COPYING file;\nhowever, it stated the license was GPLv2, while RPM metadata stated the\nlicenses were either GPLv3 or LGPLv3. This update adds the correct\nlicensing information to the samba3x-common, libsmbclient, libtalloc,\nlibtdb, and tdb-tools packages. (BZ#528633)\n\n* the upstream Samba version in the samba3x packages distributed with the\nRHEA-2009:1399 update contained broken implementations of the Netlogon\ncredential chain and SAMR access checks security subsystems. This prevented\nSamba from acting as a domain controller: Client systems could not join the\ndomain; users could not authenticate; and systems could not access the user\nand group list. (BZ#524551)\n\n* this update resolves interoperability issues with Windows 7 and Windows\nServer 2008 R2. (BZ#529022)\n\nThese packages upgrade Samba from version 3.3.5 to version 3.3.8. Refer to\nthe Samba Release Notes for a list of changes between versions:\nhttp://samba.org/samba/history/\n\nUsers of samba3x should upgrade to these updated packages, which resolve\nthese issues. After installing this update, the smb service will be\nrestarted automatically.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2009:1585",
+				"Description": "https://access.redhat.com/errata/RHSA-2009:1585"
+			},
+			{
+				"type": "External",
+				"URL": "http://www.redhat.com/security/updates/classification/#moderate",
+				"Description": "http://www.redhat.com/security/updates/classification/#moderate"
+			},
+			{
+				"type": "External",
+				"URL": "http://www.redhat.com/support/policy/soc/production/preview_scope/",
+				"Description": "http://www.redhat.com/support/policy/soc/production/preview_scope/"
+			},
+			{
+				"type": "External",
+				"URL": "http://samba.org/samba/history/",
+				"Description": "http://samba.org/samba/history/"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Samba improper file access",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2009-06-23T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2009-1888",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2009:1585"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2009-1888",
+						"Description": "CVE-2009-1888"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=506996",
+						"Description": "bz#506996: CVE-2009-1888 Samba improper file access"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2009-06-19T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-Supplementary:samba3x-0:3.3.8-0.46.el5",
+						"5Server-Supplementary:samba3x-0:3.3.8-0.46.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "1.4",
+					"Vector": "AV:A/AC:H/Au:S/C:P/I:N/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Samba: Share restriction bypass via home-less directory user account(s)",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2009-09-10T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2009-2813",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2009:1585"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2009-2813",
+						"Description": "CVE-2009-2813"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=523752",
+						"Description": "bz#523752: CVE-2009-2813 Samba: Share restriction bypass via home-less directory user account(s)"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2009-09-14T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-Supplementary:samba3x-0:3.3.8-0.46.el5",
+						"5Server-Supplementary:samba3x-0:3.3.8-0.46.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.9",
+					"Vector": "AV:A/AC:H/Au:S/C:P/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "samba: infinite loop flaw in smbd on unexpected oplock break notification reply",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2009-10-01T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2009-2906",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2009:1585"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2009-2906",
+						"Description": "CVE-2009-2906"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=526645",
+						"Description": "bz#526645: CVE-2009-2906 samba: infinite loop flaw in smbd on unexpected oplock break notification reply"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2009-09-28T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-Supplementary:samba3x-0:3.3.8-0.46.el5",
+						"5Server-Supplementary:samba3x-0:3.3.8-0.46.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "2.3",
+					"Vector": "AV:A/AC:M/Au:S/C:N/I:N/A:P"
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "samba: information disclosure in suid mount.cifs",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2009-10-01T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2009-2948",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2009:1585"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2009-2948",
+						"Description": "CVE-2009-2948"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=526074",
+						"Description": "bz#526074: CVE-2009-2948 samba: information disclosure in suid mount.cifs"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Low"
+				}
+			},
+			"DiscoveryDate": "2009-09-28T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"5Client-Supplementary:samba3x-0:3.3.8-0.46.el5",
+						"5Server-Supplementary:samba3x-0:3.3.8-0.46.el5"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "1.2",
+					"Vector": "AV:L/AC:H/Au:N/C:P/I:N/A:N"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux Supplementary",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop Supplementary (v. 5)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop Supplementary (v. 5)",
+							"productid": "5Client-Supplementary",
+							"cpe": "cpe:/a:redhat:rhel_extras:5::client"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Server Supplementary (v. 5)",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Server Supplementary (v. 5)",
+							"productid": "5Server-Supplementary",
+							"cpe": "cpe:/a:redhat:rhel_extras:5::server"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "samba3x-0:3.3.8-0.46.el5",
+				"fullproductname": {
+					"text": "samba3x-3.3.8-0.46.el5.src.rpm",
+					"productid": "samba3x-0:3.3.8-0.46.el5",
+					"cpe": "cpe:/a:redhat:rhel_extras:5::client"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "samba3x-0:3.3.8-0.46.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Client-Supplementary",
+				"fullproductname": {
+					"text": "samba3x-0:3.3.8-0.46.el5 as a component of Red Hat Enterprise Linux Desktop Supplementary (v. 5)",
+					"productid": "5Client-Supplementary:samba3x-0:3.3.8-0.46.el5",
+					"cpe": "cpe:/a:redhat:rhel_extras:5::client"
+				}
+			},
+			{
+				"productreference": "samba3x-0:3.3.8-0.46.el5",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "5Server-Supplementary",
+				"fullproductname": {
+					"text": "samba3x-0:3.3.8-0.46.el5 as a component of Red Hat Enterprise Linux Server Supplementary (v. 5)",
+					"productid": "5Server-Supplementary:samba3x-0:3.3.8-0.46.el5",
+					"cpe": "cpe:/a:redhat:rhel_extras:5::server"
+				}
+			}
+		]
+	}
+}

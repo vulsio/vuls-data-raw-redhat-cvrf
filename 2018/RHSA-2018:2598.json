@@ -1,0 +1,200 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: opendaylight security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2018:2598"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2018-08-29T16:20:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2018-08-29T16:20:00Z",
+		"CurrentReleaseDate": "2018-08-29T16:20:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T05:02:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nAn update for OpenDaylight is now available for Red Hat OpenStack Platform\n13.0 (Queens).\n\nRed Hat Product Security has rated this update as having a security impact\nof Moderate. A Common Vulnerability Scoring System (CVSS) base score, which\ngives a detailed severity rating, is available for each vulnerability from\nthe CVE link(s) in the References section.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nOpenDaylight (ODL) is a modular open platform for customizing and automating networks of any size and scale. The OpenDaylight Project arose out of the SDN movement, with a clear focus on network programmability.\n\nSecurity Fix(es):\n\n* guava: Unbounded memory allocation in AtomicDoubleArray and CompoundOrdering classes allow remote attackers to cause a denial of service (CVE-2018-10237)\n\nFor more details about the security issue(s), including the impact, a CVSS score, and other related information, refer to the CVE page(s) listed in the References section.\n\nBug Fix(es):\n\n* Previously, when there are no DPNs associated with the controller, an Invalid dpnId, for example, zero, was selected as the NAPT Switch. Since the dpnId was zero, necessary flows for supporting external connectivity for VMs were missing in the pipeline. So VMs were unable to connect to internet.\nNow, the Invalid dpnId is not chosen as an NAPT Switch and as soon as a new DPN is associated with the OpenDaylight controller, it will schedule the NAPT Switches for all the routers, that did not have the NAPT switch scheduled.\nAs a result, VMs are now able to reach internet. (BZ#1597304)\n\n* Some flows were missing from the ARP table and the flow programming generated an error due to a missing group. As a result, L2 failed and affected most of the traffic.\nThe flow programming now waits for the group to be added. The group is always present and L2 traffic succeeds. (BZ#1598399)\n\n* In OVS2.9, conntrack adds extra headers that the OpenFlow plugin cannot parse. As a result, traffic from the VM to a PNF on external network failed.\nThe extra headers are now explicit cleared. Traffic to PNF on external network does not fail. (BZ#1600608)\n\n* Some flows were missing from the SNAT table and the flow programming generated an error due to a missing group. As a result, SNAT traffic from compute, where the flow is missing,  failed and affected most of the traffic.\nAs a result, the flow programming now waits for the group to be added.  The group is always present and SNAT works. (BZ#1602404)\n\n* Previously, the transaction did not close in netvirt.vpnmanager.VpnOpStatusListener. This resulted in memory leaks at scale and/or in longevity. This issue has been resolved and now OpenDaylight requires less memory to run. (BZ#1607965)\n\n* Previously, the transaction did not close in netvirt.fibmanager.VrfEntryListener. This resulted in memory leaks at scale and/or in longevity. This issue has been resolved and OpenDaylight now requires less memory to run. (BZ#1585227)\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2018:2598",
+				"Description": "https://access.redhat.com/errata/RHSA-2018:2598"
+			},
+			{
+				"type": "External",
+				"URL": "https://access.redhat.com/security/updates/classification/#moderate",
+				"Description": "https://access.redhat.com/security/updates/classification/#moderate"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "guava: Unbounded memory allocation in AtomicDoubleArray and CompoundOrdering classes allow remote attackers to cause a denial of service",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2018-04-25T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2018-10237",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nFor details on how to apply this update, which includes the changes\ndescribed in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2018:2598"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://github.com/google/guava/wiki/CVE-2018-10237",
+						"Description": "https://github.com/google/guava/wiki/CVE-2018-10237"
+					},
+					{
+						"URL": "https://groups.google.com/forum/#!topic/guava-announce/xqWALw4W1vs/discussion",
+						"Description": "https://groups.google.com/forum/#!topic/guava-announce/xqWALw4W1vs/discussion"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2018-10237",
+						"Description": "CVE-2018-10237"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1573391",
+						"Description": "bz#1573391: CVE-2018-10237 guava: Unbounded memory allocation in AtomicDoubleArray and CompoundOrdering classes allow remote attackers to cause a denial of service"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2018-05-01T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-RH7-RHOS-13.0:opendaylight-0:8.3.0-3.el7ost"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "",
+					"Vector": ""
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat OpenStack Platform",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat OpenStack Platform 13.0",
+						"fullproductname": {
+							"text": "Red Hat OpenStack Platform 13.0",
+							"productid": "7Server-RH7-RHOS-13.0",
+							"cpe": "cpe:/a:redhat:openstack:13::el7"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "opendaylight-0:8.3.0-3.el7ost",
+				"fullproductname": {
+					"text": "opendaylight-8.3.0-3.el7ost.src.rpm",
+					"productid": "opendaylight-0:8.3.0-3.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:13::el7"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "opendaylight-0:8.3.0-3.el7ost",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-RH7-RHOS-13.0",
+				"fullproductname": {
+					"text": "opendaylight-0:8.3.0-3.el7ost as a component of Red Hat OpenStack Platform 13.0",
+					"productid": "7Server-RH7-RHOS-13.0:opendaylight-0:8.3.0-3.el7ost",
+					"cpe": "cpe:/a:redhat:openstack:13::el7"
+				}
+			}
+		]
+	}
+}

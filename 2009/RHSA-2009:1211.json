@@ -1,0 +1,396 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Security Advisory: kernel security and bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHSA-2009:1211"
+		},
+		"Status": "Final",
+		"Version": "1",
+		"revisionhistory": {
+			"revision": {
+				"Number": "1",
+				"Date": "2009-08-13T11:34:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2009-08-13T15:30:00Z",
+		"CurrentReleaseDate": "2009-08-13T11:34:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.0.0",
+			"Date": "2021-08-23T04:36:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated kernel packages that fix several security issues and several bugs\nare now available for Red Hat Enterprise Linux 4.\n\nThis update has been rated as having important security impact by the Red\nHat Security Response Team.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nThe kernel packages contain the Linux kernel, the core of any Linux\noperating system.\n\nThese updated packages fix the following security issues:\n\n* Michael Tokarev reported a flaw in the Realtek r8169 Ethernet driver in\nthe Linux kernel. This driver allowed interfaces using this driver to\nreceive frames larger than what could be handled. This could lead to a\nremote denial of service or code execution. (CVE-2009-1389, Important)\n\n* a buffer overflow flaw was found in the CIFSTCon() function of the Linux\nkernel Common Internet File System (CIFS) implementation. When mounting a\nCIFS share, a malicious server could send an overly-long string to the\nclient, possibly leading to a denial of service or privilege escalation on\nthe client mounting the CIFS share. (CVE-2009-1439, Important)\n\n* several flaws were found in the way the Linux kernel CIFS implementation\nhandles Unicode strings. CIFS clients convert Unicode strings sent by a\nserver to their local character sets, and then write those strings into\nmemory. If a malicious server sent a long enough string, it could write\npast the end of the target memory region and corrupt other memory areas,\npossibly leading to a denial of service or privilege escalation on the\nclient mounting the CIFS share. (CVE-2009-1633, Important)\n\nThese updated packages also fix the following bugs:\n\n* when using network bonding in the \"balance-tlb\" or \"balance-alb\" mode,\nthe primary setting for the primary slave device was lost when said\ndevice was brought down (ifdown). Bringing the slave interface back up\n(ifup) did not restore the primary setting (the device was not made the\nactive slave). (BZ#507563)\n\n* a bug in timer_interrupt() may have caused the system time to move up to\ntwo days or more into the future, or to be delayed for several minutes.\nThis bug only affected Intel 64 and AMD64 systems that have the High\nPrecision Event Timer (HPET) enabled in the BIOS, and could have caused\nproblems for applications that require timing to be accurate. (BZ#508835)\n\n* a race condition was resolved in the Linux kernel block layer between\nshow_partition() and rescan_partitions(). This could have caused a NULL\npointer dereference in show_partition(), leading to a system crash (kernel\npanic). This issue was most likely to occur on systems running monitoring\nsoftware that regularly scanned hard disk partitions, or from repeatedly\nrunning commands that probe for partition information. (BZ#512310)\n\n* previously, the Stratus memory tracker missed certain modified pages.\nWith this update, information about the type of page (small page or\nhuge page) is passed to the Stratus memory tracker, which resolves this\nissue. The fix for this issue does not affect systems that do not use\nmemory tracking. (BZ#513182)\n\n* a bug may have caused a system crash when using the cciss driver, due to\nan uninitialized kernel structure. A reported case of this issue occurred\nafter issuing consecutive SCSI TUR commands (sg_turs sends SCSI\ntest-unit-ready commands in a loop). (BZ#513189)\n\n* a bug in the SCSI implementation caused \"Aborted Command - internal\ntarget failure\" errors to be sent to Device-Mapper Multipath, without\nretries, resulting in Device-Mapper Multipath marking the path as failed\nand making a path group switch. With this update, all errors that return a\nsense key in the SCSI mid layer (including \"Aborted Command - internal\ntarget failure\") are retried. (BZ#514007)\n\nUsers should upgrade to these updated packages, which contain backported\npatches to correct these issues. The system must be rebooted for this\nupdate to take effect.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2021 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Important",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHSA-2009:1211",
+				"Description": "https://access.redhat.com/errata/RHSA-2009:1211"
+			},
+			{
+				"type": "External",
+				"URL": "http://www.redhat.com/security/updates/classification/#important",
+				"Description": "http://www.redhat.com/security/updates/classification/#important"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: r8169: fix crash when large packets are received",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2009-02-14T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2009-1389",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2009:1211"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2009-1389",
+						"Description": "CVE-2009-1389"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=504726",
+						"Description": "bz#504726: CVE-2009-1389 kernel: r8169: fix crash when large packets are received"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2009-06-09T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"4AS:kernel-0:2.6.9-89.0.7.EL",
+						"4Desktop:kernel-0:2.6.9-89.0.7.EL",
+						"4ES:kernel-0:2.6.9-89.0.7.EL",
+						"4WS:kernel-0:2.6.9-89.0.7.EL"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "6.1",
+					"Vector": "AV:A/AC:L/Au:N/C:N/I:N/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: cifs: memory overwrite when saving nativeFileSystem field during mount",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2009-03-26T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2009-1439",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2009:1211"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2009-1439",
+						"Description": "CVE-2009-1439"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=494275",
+						"Description": "bz#494275: CVE-2009-1439 kernel: cifs: memory overwrite when saving nativeFileSystem field during mount"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2009-04-06T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"4AS:kernel-0:2.6.9-89.0.7.EL",
+						"4Desktop:kernel-0:2.6.9-89.0.7.EL",
+						"4ES:kernel-0:2.6.9-89.0.7.EL",
+						"4WS:kernel-0:2.6.9-89.0.7.EL"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "7.1",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:C"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "kernel: cifs: fix potential buffer overruns when converting unicode strings sent by server",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2009-04-14T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2009-1633",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHSA-2009:1211"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2009-1633",
+						"Description": "CVE-2009-1633"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=496572",
+						"Description": "bz#496572: CVE-2009-1633 kernel: cifs: fix potential buffer overruns when converting unicode strings sent by server"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Important"
+				}
+			},
+			"DiscoveryDate": "2009-04-20T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"4AS:kernel-0:2.6.9-89.0.7.EL",
+						"4Desktop:kernel-0:2.6.9-89.0.7.EL",
+						"4ES:kernel-0:2.6.9-89.0.7.EL",
+						"4WS:kernel-0:2.6.9-89.0.7.EL"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": ""
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "7.1",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:C"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux AS version 4",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux AS version 4",
+							"productid": "4AS",
+							"cpe": "cpe:/o:redhat:enterprise_linux:4::as"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux Desktop version 4",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux Desktop version 4",
+							"productid": "4Desktop",
+							"cpe": "cpe:/o:redhat:enterprise_linux:4::desktop"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux ES version 4",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux ES version 4",
+							"productid": "4ES",
+							"cpe": "cpe:/o:redhat:enterprise_linux:4::es"
+						}
+					},
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux WS version 4",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux WS version 4",
+							"productid": "4WS",
+							"cpe": "cpe:/o:redhat:enterprise_linux:4::ws"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "kernel-0:2.6.9-89.0.7.EL",
+				"fullproductname": {
+					"text": "kernel-2.6.9-89.0.7.EL.src.rpm",
+					"productid": "kernel-0:2.6.9-89.0.7.EL",
+					"cpe": "cpe:/o:redhat:enterprise_linux:4::as"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "kernel-0:2.6.9-89.0.7.EL",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "4AS",
+				"fullproductname": {
+					"text": "kernel-0:2.6.9-89.0.7.EL as a component of Red Hat Enterprise Linux AS version 4",
+					"productid": "4AS:kernel-0:2.6.9-89.0.7.EL",
+					"cpe": "cpe:/o:redhat:enterprise_linux:4::as"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.9-89.0.7.EL",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "4Desktop",
+				"fullproductname": {
+					"text": "kernel-0:2.6.9-89.0.7.EL as a component of Red Hat Enterprise Linux Desktop version 4",
+					"productid": "4Desktop:kernel-0:2.6.9-89.0.7.EL",
+					"cpe": "cpe:/o:redhat:enterprise_linux:4::desktop"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.9-89.0.7.EL",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "4ES",
+				"fullproductname": {
+					"text": "kernel-0:2.6.9-89.0.7.EL as a component of Red Hat Enterprise Linux ES version 4",
+					"productid": "4ES:kernel-0:2.6.9-89.0.7.EL",
+					"cpe": "cpe:/o:redhat:enterprise_linux:4::es"
+				}
+			},
+			{
+				"productreference": "kernel-0:2.6.9-89.0.7.EL",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "4WS",
+				"fullproductname": {
+					"text": "kernel-0:2.6.9-89.0.7.EL as a component of Red Hat Enterprise Linux WS version 4",
+					"productid": "4WS:kernel-0:2.6.9-89.0.7.EL",
+					"cpe": "cpe:/o:redhat:enterprise_linux:4::ws"
+				}
+			}
+		]
+	}
+}

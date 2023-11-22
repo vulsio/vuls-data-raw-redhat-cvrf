@@ -1,0 +1,426 @@
+{
+	"documenttitle": {
+		"text": "Red Hat Bug Fix Advisory: docker bug fix update",
+		"lang": "en"
+	},
+	"DocumentType": "Security Advisory",
+	"documentpublisher": {
+		"type": "Vendor",
+		"ContactDetails": "secalert@redhat.com",
+		"IssuingAuthority": "Red Hat Product Security"
+	},
+	"documenttracking": {
+		"identification": {
+			"ID": "RHBA-2015:1167"
+		},
+		"Status": "Final",
+		"Version": "2",
+		"revisionhistory": {
+			"revision": {
+				"Number": "2",
+				"Date": "2019-09-24T14:43:00Z",
+				"Description": "Current version"
+			}
+		},
+		"InitialReleaseDate": "2015-06-23T09:29:00Z",
+		"CurrentReleaseDate": "2019-09-24T14:43:00Z",
+		"generator": {
+			"Engine": "Red Hat SDEngine 3.14.1",
+			"Date": "2023-05-12T09:21:00Z"
+		}
+	},
+	"documentnotes": {
+		"note": [
+			{
+				"text": "\nUpdated docker packages that fix several bugs are now available for Red Hat Enterprise Linux 7 Extras.\n    ",
+				"title": "Topic",
+				"type": "Summary",
+				"ordinal": "1",
+				"lang": "en"
+			},
+			{
+				"text": "\nDocker is an open-source engine that automates the deployment of any application as a lightweight, portable, self-sufficient container that will run virtually anywhere.\n\nThis update fixes the following bugs:\n\n* Previously, if you had one image tagged in at least two repositories, running the \"docker rmi ID\" command untagged the image from just one repository and the other persisted. This bug has been fixed and \"docker rmi ID\" now untags all associated images. (BZ#1222784)\n\n* Previously, the docker service did not try to match short names against local fully qualified images names while doing a push. As a consequence, the push command reported that the image name could not be found and the user had to fully qualify the argument and execute the push again. This bug has been fixed and the docker service now tries to match short names against local images fully qualified with the default registry (those added with the \"--add-registry flag\"). Now, the user does not have to fully qualify the image name in order to push it to one of the default registries. (BZ#1218639)\n\n* During initialization of both the Docker client and daemon, the public Docker registry was resolved, in order to check whether it was secured or not. This happened regardless of the docker.io registry being blocked. Consequently, docker was attempting to resolve docker.io to an IP address any time a Docker client was run. This prolonged commands execution in environments without external DNS lookups. After this update, docker no longer checks whether the public Docker index is secure. As a result, no DNS lookups for docker.io are done unless a public Docker registry is enabled and a pull, push, or search operation is performed on it. (BZ#1224387)\n\n* The default handling of SELinux labeling did not work correctly and the docker service was unable to mount certain directories into containers. This bug has been fixed and mounting a directory into a container now executes successfully. (BZ#1209625)\n\n* Previously, the docker service was labeling shared volumes as private by default. As a consequence, other containers could not execute the content from them. With this update, the underlying source code has been fixed to label shared volumes correctly. As a result, shared volumes now work correctly with SELinux in enforcing mode. (BZ#1226320, BZ#1225549)\n\n* If a volume was specified with more than one object, the docker service did not perform relabeling. As a consequence, you could not, for example, mount a volume that is both read-only and needs relabeling at the same time. The labeling check has been fixed, and docker now relabels correctly in the described scenario. (BZ#1225556)\n\n* Previously, the docker service and SELinux were blocking relabels of the /usr directory, even if the user did not request relabeling. As a consequence, certain volume mounts of content in /usr were blocked and a container could not run. The check on relabeling has been fixed and volumes in /usr can now be mounted into a container successfully. (BZ#1230192)\n\nUsers of docker are advised to upgrade to these updated packages, which fix these bugs.\n    ",
+				"title": "Details",
+				"type": "General",
+				"ordinal": "2",
+				"lang": "en"
+			},
+			{
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use",
+				"type": "Legal Disclaimer",
+				"ordinal": "3",
+				"lang": "en"
+			}
+		]
+	},
+	"documentdistribution": {
+		"text": "Copyright © 2023 Red Hat, Inc. All rights reserved.",
+		"lang": "en"
+	},
+	"aggregateseverity": {
+		"text": "Moderate",
+		"namespace": "https://access.redhat.com/security/updates/classification/"
+	},
+	"documentreferences": {
+		"reference": [
+			{
+				"type": "Self",
+				"URL": "https://access.redhat.com/errata/RHBA-2015:1167",
+				"Description": "https://access.redhat.com/errata/RHBA-2015:1167"
+			}
+		]
+	},
+	"vulnerability": [
+		{
+			"ordinal": "1",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Libcontainer and Docker Engine before 1.6.1 opens the file-descriptor passed to the pid-1 process before performing the chroot, which allows local users to gain privileges via a symlink attack in an image.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-05-07T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-3627",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHBA-2015:1167"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2015-3627",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2015-3627"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2015-3627",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2015-3627"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-3627",
+						"Description": "CVE-2015-3627"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1219061",
+						"Description": "bz#1219061: insecure opening of file-descriptor 1 leading to privilege escalation"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-05-01T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-EXTRAS:docker-0:1.6.2-14.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank Eric Windisch (Docker project) for reporting this issue."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "2",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Libcontainer 1.6.0, as used in Docker Engine, allows local users to escape containerization (\"mount namespace breakout\") and write to arbitrary file on the host system via a symlink attack in an image when respawning a container.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-05-07T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-3629",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHBA-2015:1167"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2015-3629",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2015-3629"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2015-3629",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2015-3629"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-3629",
+						"Description": "CVE-2015-3629"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1219058",
+						"Description": "bz#1219058: symlink traversal on container respawn allows local privilege escalation"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-05-01T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-EXTRAS:docker-0:1.6.2-14.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank Eric Windisch (Docker project) for reporting this issue."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "3",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Docker Engine before 1.6.1 uses weak permissions for (1) /proc/asound, (2) /proc/timer_stats, (3) /proc/latency_stats, and (4) /proc/fs, which allows local users to modify the host, obtain sensitive information, and perform protocol downgrade attacks via a crafted image.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-05-07T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-3630",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHBA-2015:1167"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2015-3630",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2015-3630"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2015-3630",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2015-3630"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-3630",
+						"Description": "CVE-2015-3630"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1219063",
+						"Description": "bz#1219063: Read/write proc paths allow host modification & information disclosure"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-05-01T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-EXTRAS:docker-0:1.6.2-14.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank Eric Windisch (Docker project) for reporting this issue."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "5.8",
+					"Vector": "AV:N/AC:M/Au:N/C:P/I:P/A:N"
+				}
+			}
+		},
+		{
+			"ordinal": "4",
+			"xmlns": "http://www.icasi.org/CVRF/schema/vuln/1.1",
+			"notes": {
+				"note": {
+					"text": "Docker Engine before 1.6.1 allows local users to set arbitrary Linux Security Modules (LSM) and docker_t policies via an image that allows volumes to override files in /proc.",
+					"title": "Vulnerability Description",
+					"type": "General",
+					"ordinal": "1",
+					"lang": "en"
+				}
+			},
+			"ReleaseDate": "2015-05-07T00:00:00Z",
+			"involvements": {
+				"involvement": {
+					"party": "Vendor",
+					"status": "Completed"
+				}
+			},
+			"CVE": "CVE-2015-3631",
+			"remediations": {
+				"remediation": {
+					"type": "Vendor Fix",
+					"description": {
+						"text": "\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258\n    ",
+						"lang": "en"
+					},
+					"URL": "https://access.redhat.com/errata/RHBA-2015:1167"
+				}
+			},
+			"references": {
+				"reference": [
+					{
+						"URL": "https://www.cve.org/CVERecord?id=CVE-2015-3631",
+						"Description": "https://www.cve.org/CVERecord?id=CVE-2015-3631"
+					},
+					{
+						"URL": "https://nvd.nist.gov/vuln/detail/CVE-2015-3631",
+						"Description": "https://nvd.nist.gov/vuln/detail/CVE-2015-3631"
+					},
+					{
+						"URL": "https://access.redhat.com/security/cve/CVE-2015-3631",
+						"Description": "CVE-2015-3631"
+					},
+					{
+						"URL": "https://bugzilla.redhat.com/show_bug.cgi?id=1219065",
+						"Description": "bz#1219065: volume mounts allow LSM profile escalation"
+					}
+				]
+			},
+			"threats": {
+				"threat": {
+					"type": "Impact",
+					"Description": "Moderate"
+				}
+			},
+			"DiscoveryDate": "2015-05-01T00:00:00Z",
+			"productstatuses": {
+				"status": {
+					"type": "Fixed",
+					"ProductID": [
+						"7Server-EXTRAS:docker-0:1.6.2-14.el7"
+					]
+				}
+			},
+			"acknowledgments": {
+				"acknowledgment": {
+					"Description": "Red Hat would like to thank Eric Windisch (Docker project) for reporting this issue."
+				}
+			},
+			"cvssscoresets": {
+				"scoreset": {
+					"BaseScore": "4.3",
+					"Vector": "AV:N/AC:M/Au:N/C:N/I:P/A:N"
+				}
+			}
+		}
+	],
+	"producttree": {
+		"xmlns": "http://www.icasi.org/CVRF/schema/prod/1.1",
+		"branch": [
+			{
+				"type": "Product Family",
+				"name": "Red Hat Enterprise Linux Extras",
+				"branch": [
+					{
+						"type": "Product Name",
+						"name": "Red Hat Enterprise Linux 7 Extras",
+						"fullproductname": {
+							"text": "Red Hat Enterprise Linux 7 Extras",
+							"productid": "7Server-EXTRAS",
+							"cpe": "cpe:/a:redhat:rhel_extras_other:7"
+						}
+					}
+				],
+				"fullproductname": {}
+			},
+			{
+				"type": "Product Version",
+				"name": "docker-0:1.6.2-14.el7",
+				"fullproductname": {
+					"text": "docker-1.6.2-14.el7.src.rpm",
+					"productid": "docker-0:1.6.2-14.el7",
+					"cpe": "cpe:/a:redhat:rhel_extras_other:7"
+				}
+			}
+		],
+		"relationship": [
+			{
+				"productreference": "docker-0:1.6.2-14.el7",
+				"relationtype": "Default Component Of",
+				"relatestoproductreference": "7Server-EXTRAS",
+				"fullproductname": {
+					"text": "docker-0:1.6.2-14.el7 as a component of Red Hat Enterprise Linux 7 Extras",
+					"productid": "7Server-EXTRAS:docker-0:1.6.2-14.el7",
+					"cpe": "cpe:/a:redhat:rhel_extras_other:7"
+				}
+			}
+		]
+	}
+}
